@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/jfixby-cmns-api"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/jfixby-cmns-red"/>
+	<classpathentry kind="src" path="jfixby-math-desktop"/>
+	<classpathentry kind="src" path="jfixby-sys-desktop"/>
+	<classpathentry kind="src" path="jfixby-net-http-desktop"/>
+	<classpathentry kind="src" path="jfixby-log-desktop"/>
+	<classpathentry kind="src" path="jfixby-jutils-desktop"/>
+	<classpathentry kind="src" path="jfixby-filesystem-unix"/>
+	<classpathentry kind="src" path="jfixby-filesystem-win"/>
+	<classpathentry kind="src" path="jfixby-image-processing"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
