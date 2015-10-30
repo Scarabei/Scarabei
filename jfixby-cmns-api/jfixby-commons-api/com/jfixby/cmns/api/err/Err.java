@@ -2,7 +2,7 @@ package com.jfixby.cmns.api.err;
 
 import com.jfixby.cmns.api.components.ComponentInstaller;
 
-public class Error {
+public class Err {
 
 	static private ComponentInstaller<ErrorComponent> componentInstaller = new ComponentInstaller<ErrorComponent>(
 			"Error");
@@ -22,6 +22,10 @@ public class Error {
 
 	public static void reportWarning(String message) {
 		invoke().reportWarning(message);
+	}
+
+	public static void reportError(String message) {
+		invoke().reportError(message);
 	}
 
 }
