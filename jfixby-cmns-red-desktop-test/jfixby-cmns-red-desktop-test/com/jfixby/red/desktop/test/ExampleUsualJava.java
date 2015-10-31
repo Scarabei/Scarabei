@@ -1,6 +1,7 @@
 package com.jfixby.red.desktop.test;
 
 import com.jfixby.cmns.api.log.L;
+import com.jfixby.cmns.desktop.DesktopAssembler;
 
 public class ExampleUsualJava {
 
@@ -13,7 +14,7 @@ public class ExampleUsualJava {
 	static FunctionalInterface<Long, Long> factorial = null;
 
 	public static void main(String[] args) {
-		Setup.setup();
+		DesktopAssembler.setup();
 
 		factorial = new FunctionalInterface<Long, Long>() {
 			@Override

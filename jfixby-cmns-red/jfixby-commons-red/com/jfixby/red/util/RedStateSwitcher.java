@@ -2,6 +2,7 @@ package com.jfixby.red.util;
 
 import com.jfixby.cmns.api.collections.EvaluationResult;
 import com.jfixby.cmns.api.collections.StateSwitcher;
+import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.log.L;
 
 public class RedStateSwitcher<T> implements StateSwitcher<T> {
@@ -36,7 +37,7 @@ public class RedStateSwitcher<T> implements StateSwitcher<T> {
 	@Override
 	public void switchState(T next_state) {
 		if (next_state == null) {
-			throw new Error("Null state detected");
+			Err.reportError("Null state detected");
 		}
 		if (debug) {
 			L.d(this.debug_name + ": " + this.state + " -", next_state);
@@ -78,7 +79,7 @@ public class RedStateSwitcher<T> implements StateSwitcher<T> {
 		if (this.state.equals(unexpected_state)) {
 			String message = "Unexpected state=" + this.state;
 			if (throw_error) {
-				throw new Error(message);
+				Err.reportError(message);
 			} else {
 				result.setErrorFlag(true);
 				result.setErrorMessage(message);

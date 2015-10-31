@@ -1,4 +1,4 @@
-package com.jfixby.red.desktop.test;
+package com.jfixby.cmns.desktop;
 
 import com.jfixby.cmns.api.collections.JUtils;
 import com.jfixby.cmns.api.filesystem.LocalFileSystem;
@@ -19,9 +19,9 @@ import com.jfixby.red.desktop.sys.DesktopSystem;
 import com.jfixby.red.io.RedIO;
 import com.jfixby.red.util.md5.AlpaeroMD5;
 
-public class Setup {
+public class DesktopAssembler {
 
-	public static void setup() {
+	public static final void setup() {
 		L.installComponent(new DesktopLogger());
 		JUtils.installComponent(new DesktopUtils());
 		IO.installComponent(new RedIO());
@@ -32,7 +32,5 @@ public class Setup {
 		Http.installComponent(new HttpDesktopComponent());
 		FloatMath.installComponent(new DesktopFloatMath());
 	}
-
-	
 
 }
