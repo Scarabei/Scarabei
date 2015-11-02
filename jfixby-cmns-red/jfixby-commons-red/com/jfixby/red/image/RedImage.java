@@ -2,10 +2,10 @@ package com.jfixby.red.image;
 
 import com.jfixby.cmns.api.collections.JUtils;
 import com.jfixby.cmns.api.color.Color;
-import com.jfixby.cmns.api.image.ColorMap;
-import com.jfixby.cmns.api.image.ColorMapSpecs;
+import com.jfixby.cmns.api.image.EditableColorMap;
+import com.jfixby.cmns.api.image.ArrayColorMapSpecs;
 
-public abstract class RedImage implements ColorMap {
+public abstract class RedImage implements EditableColorMap {
 	private int width;
 	private int height;
 	private Color default_color;
@@ -14,13 +14,13 @@ public abstract class RedImage implements ColorMap {
 	public RedImage(int width, int height, Color default_color, ImageSupply supply) {
 		this.width = width;
 		this.height = height;
-		setDefaultColor(default_color);
+		this.default_color = JUtils.checkNull("default_color", default_color);
 		this.supply = JUtils.checkNull("supply", supply);
 	}
 
 	@Override
 	public String toString() {
-		return "ColorFunction[" + width + "x" + height + "] ";
+		return "EditableColorMap[" + width + "x" + height + "] ";
 	}
 
 	@Override
@@ -67,11 +67,6 @@ public abstract class RedImage implements ColorMap {
 	@Override
 	public int getHeight() {
 		return height;
-	}
-
-	@Override
-	public void setDefaultColor(Color default_color) {
-		this.default_color = JUtils.checkNull("default_color", default_color);
 	}
 
 }

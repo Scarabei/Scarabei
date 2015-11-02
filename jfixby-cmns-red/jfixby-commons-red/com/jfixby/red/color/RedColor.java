@@ -217,11 +217,6 @@ public class RedColor implements Color, CustomColor, ColorConstant {
 	}
 
 	@Override
-	public float getGrayscaleValue() {
-		return (R + G + B) * A / 3f;
-	}
-
-	@Override
 	public int toInteger() {
 		int a = (((int) (255f * A) << (8 * 3)) & 0xff000000);
 		int r = (((int) (255f * R) << (8 * 2)) & 0x00ff0000);
@@ -279,6 +274,16 @@ public class RedColor implements Color, CustomColor, ColorConstant {
 	@Override
 	public CustomColor mix(Color other) {
 		return this.mix(other, 0.5f);
+	}
+
+	@Override
+	public float getGrayscaleValue(float grayscale_alpha, float grayscale_betta, float grayscale_gamma) {
+		return A * ((R * grayscale_alpha + G * grayscale_betta + B * grayscale_gamma) / (grayscale_alpha + grayscale_betta + grayscale_gamma));
+	}
+
+	@Override
+	public float getGrayscaleValue() {
+		return getGrayscaleValue(grayscale_alpha, grayscale_betta, grayscale_gamma);
 	}
 
 }

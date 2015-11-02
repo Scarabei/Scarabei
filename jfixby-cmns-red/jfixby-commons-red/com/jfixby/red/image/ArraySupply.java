@@ -1,7 +1,7 @@
 package com.jfixby.red.image;
 
 import com.jfixby.cmns.api.color.Color;
-import com.jfixby.cmns.api.image.ColorMapSpecs;
+import com.jfixby.cmns.api.image.ArrayColorMapSpecs;
 
 public class ArraySupply implements ImageSupply {
 
@@ -10,7 +10,7 @@ public class ArraySupply implements ImageSupply {
 
 	Color[][] surface;
 
-	public ArraySupply(ColorMapSpecs specs) {
+	public ArraySupply(ArrayColorMapSpecs specs) {
 		h = specs.getHeight();
 		w = specs.getWidth();
 		surface = new Color[w][h];

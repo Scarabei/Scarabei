@@ -18,12 +18,20 @@ public class ImageProcessing {
 		return componentInstaller.getComponent();
 	}
 
-	public static ArrayColorMap newArrayColorMap(ColorMapSpecs color_function_specs) {
+	public static ArrayColorMap newArrayColorMap(ArrayColorMapSpecs color_function_specs) {
 		return invoke().newArrayColorMap(color_function_specs);
 	}
 
-	public static ColorMapSpecs newColorMapSpecs() {
+	public static ArrayColorMapSpecs newArrayColorMapSpecs() {
 		return invoke().newColorMapSpecs();
+	}
+
+	public static LambdaColorMapSpecs newLambdaColorMapSpecs() {
+		return invoke().newLambdaColorMapSpecs();
+	}
+
+	public static LambdaColorMap newLambdaColorMap(LambdaColorMapSpecs lambda_specs) {
+		return invoke().newLambdaColorMap(lambda_specs);
 	}
 
 }

@@ -1,12 +1,10 @@
-package com.jfixby.red.desktop.img.processing;
-
-import java.awt.image.BufferedImage;
+package com.jfixby.red.image;
 
 import com.jfixby.cmns.api.color.Color;
 import com.jfixby.cmns.api.color.Colors;
-import com.jfixby.cmns.api.image.ColorMapSpecs;
+import com.jfixby.cmns.api.image.ArrayColorMapSpecs;
 
-public class DesktopColorFunctionSpecs implements ColorMapSpecs {
+public class RedColorMapSpecs implements ArrayColorMapSpecs {
 
 	public int getWidth() {
 		return width;
@@ -32,16 +30,8 @@ public class DesktopColorFunctionSpecs implements ColorMapSpecs {
 		this.defaultColor = defaultColor;
 	}
 
-	public BufferedImage getJavaImage() {
-		return javaImage;
-	}
-
-	public void setJavaImage(BufferedImage javaImage) {
-		this.javaImage = javaImage;
-	}
-
 	int width;
 	int height;
 	Color defaultColor = Colors.BLACK();
-	BufferedImage javaImage;
+
 }

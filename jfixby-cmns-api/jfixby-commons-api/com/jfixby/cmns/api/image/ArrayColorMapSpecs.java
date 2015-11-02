@@ -2,7 +2,7 @@ package com.jfixby.cmns.api.image;
 
 import com.jfixby.cmns.api.color.Color;
 
-public interface ColorMapSpecs {
+public interface ArrayColorMapSpecs {
 
 	int getHeight();
 
