@@ -17,7 +17,7 @@ public class DesktopLambdaColorMap extends RedLambdaColorMap implements LambdaCo
 
 	public DesktopLambdaColorMap(LambdaColorMapSpecs lambda_specs) {
 		super(lambda_specs);
-		lambda_area = this.getArea();
+		lambda_area = this.getLambdaArea();
 		pixels_area = Geometry.newRectangle(getWidth(), getHeight());
 	}
 
@@ -27,13 +27,10 @@ public class DesktopLambdaColorMap extends RedLambdaColorMap implements LambdaCo
 		this.pixels_area.toRelative(tmp);
 		this.lambda_area.toAbsolute(tmp);
 
-		float lambda_x = (float) tmp.getX();
-		float lambda_y = (float) tmp.getY();
-
-		float a = this.getAlphaChannel().value(lambda_x, lambda_y);
-		float r = this.getRedChannel().value(lambda_x, lambda_y);
-		float g = this.getGreenChannel().value(lambda_x, lambda_y);
-		float b = this.getBlueChannel().value(lambda_x, lambda_y);
+		float a = this.getAlphaChannel().value(tmp);
+		float r = this.getRedChannel().value(tmp);
+		float g = this.getGreenChannel().value(tmp);
+		float b = this.getBlueChannel().value(tmp);
 
 		Color result = Colors.newColor(a, r, g, b);
 		return result;
@@ -41,7 +38,7 @@ public class DesktopLambdaColorMap extends RedLambdaColorMap implements LambdaCo
 
 	@Override
 	public LambdaImage getGrayscale(float grayscale_alpha, float grayscale_betta, float grayscale_gamma) {
-		return (x, y) -> this.getValue(DesktopColorFunction.toInt(x), DesktopColorFunction.toInt(y)).getGrayscaleValue(grayscale_alpha, grayscale_betta, grayscale_gamma);
+		return (xy) -> this.getValue(DesktopColorFunction.toInt(xy.getX()), DesktopColorFunction.toInt(xy.getY())).getGrayscaleValue(grayscale_alpha, grayscale_betta, grayscale_gamma);
 	}
 
 	@Override
@@ -49,6 +46,6 @@ public class DesktopLambdaColorMap extends RedLambdaColorMap implements LambdaCo
 		return defaultLambda;
 	}
 
-	static LambdaImage defaultLambda = (x, y) -> 1f;
+	static LambdaImage defaultLambda = xy -> 1f;
 
 }

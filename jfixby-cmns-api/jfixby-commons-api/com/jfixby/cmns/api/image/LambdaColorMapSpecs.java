@@ -12,9 +12,9 @@ public interface LambdaColorMapSpecs {
 
 	void setBlueChannel(LambdaImage blue);
 
-	void setArea(Rectangle rectangle);
+	void setLambdaArea(Rectangle rectangle);
 
-	public Rectangle getArea();
+	public Rectangle getLambdaArea();
 
 	LambdaImage getAlphaChannel();
 
@@ -23,5 +23,13 @@ public interface LambdaColorMapSpecs {
 	LambdaImage getGreenChannel();
 
 	LambdaImage getBlueChannel();
+
+	void setColorMapWidth(int w);
+
+	void setColorMapHeight(int h);
+
+	public int getColorMapWidth();
+
+	public int getColorMapHeight();
 
 }

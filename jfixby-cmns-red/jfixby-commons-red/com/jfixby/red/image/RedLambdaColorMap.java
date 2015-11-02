@@ -22,8 +22,8 @@ public abstract class RedLambdaColorMap implements LambdaColorMap {
 	}
 
 	public RedLambdaColorMap(LambdaColorMapSpecs lambda_specs) {
-		this(getWidth(lambda_specs), getHeight(lambda_specs));
-		area = Geometry.newRectangle(lambda_specs.getArea());
+		this(lambda_specs.getColorMapWidth(), lambda_specs.getColorMapHeight());
+		area = Geometry.newRectangle(lambda_specs.getLambdaArea());
 		red = lambda_specs.getRedChannel();
 		green = lambda_specs.getGreenChannel();
 		blue = lambda_specs.getBlueChannel();
@@ -34,14 +34,6 @@ public abstract class RedLambdaColorMap implements LambdaColorMap {
 	}
 
 	public abstract LambdaImage defaultLambda();
-
-	private static int getHeight(LambdaColorMapSpecs lambda_specs) {
-		return (int) FloatMath.round(lambda_specs.getArea().getHeight());
-	}
-
-	private static int getWidth(LambdaColorMapSpecs lambda_specs) {
-		return (int) FloatMath.round(lambda_specs.getArea().getWidth());
-	}
 
 	private int width;
 	private int height;
@@ -82,7 +74,7 @@ public abstract class RedLambdaColorMap implements LambdaColorMap {
 	}
 
 	@Override
-	public Rectangle getArea() {
+	public Rectangle getLambdaArea() {
 		return area;
 	}
 

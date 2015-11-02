@@ -11,6 +11,8 @@ public class RedLambdaColorMapSpecs implements LambdaColorMapSpecs {
 	private LambdaImage green;
 	private LambdaImage blue;
 	private Rectangle rectangle;
+	private int w;
+	private int h;
 
 	@Override
 	public void setAlphaChannel(LambdaImage aplha) {
@@ -33,12 +35,12 @@ public class RedLambdaColorMapSpecs implements LambdaColorMapSpecs {
 	}
 
 	@Override
-	public void setArea(Rectangle rectangle) {
+	public void setLambdaArea(Rectangle rectangle) {
 		this.rectangle = rectangle;
 	}
 
 	@Override
-	public Rectangle getArea() {
+	public Rectangle getLambdaArea() {
 		return rectangle;
 	}
 
@@ -60,6 +62,26 @@ public class RedLambdaColorMapSpecs implements LambdaColorMapSpecs {
 	@Override
 	public LambdaImage getBlueChannel() {
 		return blue;
+	}
+
+	@Override
+	public void setColorMapWidth(int w) {
+		this.w = w;
+	}
+
+	@Override
+	public void setColorMapHeight(int h) {
+		this.h = h;
+	}
+
+	@Override
+	public int getColorMapWidth() {
+		return w;
+	}
+
+	@Override
+	public int getColorMapHeight() {
+		return h;
 	}
 
 }
