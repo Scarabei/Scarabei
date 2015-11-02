@@ -4,11 +4,9 @@ import com.jfixby.cmns.api.components.ComponentInstaller;
 
 public class Colors {
 
-	static private ComponentInstaller<ColorsComponent> componentInstaller = new ComponentInstaller<ColorsComponent>(
-			"Colors");
+	static private ComponentInstaller<ColorsComponent> componentInstaller = new ComponentInstaller<ColorsComponent>("Colors");
 
-	public static final void installComponent(
-			ColorsComponent component_to_install) {
+	public static final void installComponent(ColorsComponent component_to_install) {
 		componentInstaller.installComponent(component_to_install);
 	}
 
@@ -102,6 +100,10 @@ public class Colors {
 
 	public static <T> ColorMapping<T> newColorMapping() {
 		return invoke().newColorMapping();
+	}
+
+	public static CustomColor newGray(float gray) {
+		return invoke().newGray(gray);
 	}
 
 }

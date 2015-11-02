@@ -48,4 +48,6 @@ public interface ColorsComponent {
 
 	<T> ColorMapping<T> newColorMapping();
 
+	CustomColor newGray(float gray);
+
 }

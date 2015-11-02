@@ -16,22 +16,17 @@ public class RedColors implements ColorsComponent {
 	private static final RedColor WHITE = new RedColor("WHITE", 0xffffffff);
 	private static final RedColor BROWN = new RedColor("BROWN", 0xFFb97a57);
 	private static final RedColor GREEN = new RedColor("GREEN", 0xFF8DC73F);
-	private static final RedColor ORANGE = new RedColor("ORANGE", 1f,
-			252 / 252f, 156 / 255f, 0f);
+	private static final RedColor ORANGE = new RedColor("ORANGE", 1f, 252 / 252f, 156 / 255f, 0f);
 
 	private static final RedColor YELLOW = new RedColor("YELLOW", 0xFFFFFF00);
 
-	private static final RedColor GRAY = new RedColor("GRAY", 1f, 0.5f, 0.5f,
-			0.5f);
+	private static final RedColor GRAY = new RedColor("GRAY", 1f, 0.5f, 0.5f, 0.5f);
 
-	private static final RedColor DARK_GRAY = new RedColor("DARK GRAY", 1f,
-			0.25f, 0.25f, 0.25f);
+	private static final RedColor DARK_GRAY = new RedColor("DARK GRAY", 1f, 0.25f, 0.25f, 0.25f);
 
-	private static final RedColor LIGHT_GRAY = new RedColor("LIGHT GRAY", 1f,
-			0.75f, 0.75f, 0.75f);
+	private static final RedColor LIGHT_GRAY = new RedColor("LIGHT GRAY", 1f, 0.75f, 0.75f, 0.75f);
 
-	private static final RedColor PURPLE = new RedColor("PURPLE", 1f, 0.5f, 0f,
-			1f);
+	private static final RedColor PURPLE = new RedColor("PURPLE", 1f, 0.5f, 0f, 1f);
 	private static final RedColor NO = new RedColor("NO", 0f, 0f, 0f, 0f);
 
 	@Override
@@ -157,6 +152,11 @@ public class RedColors implements ColorsComponent {
 	@Override
 	public <T> ColorMapping<T> newColorMapping() {
 		throw new Error();
+	}
+
+	@Override
+	public CustomColor newGray(float gray) {
+		return this.newColor(gray, gray, gray);
 	}
 
 }

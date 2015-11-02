@@ -26,7 +26,7 @@ public class DesktopColorFunction implements ColorFunction {
 	CustomColor[][] surface;
 
 	public DesktopColorFunction(ColorFunctionSpecs color_function_specs) {
-		BufferedImage image = color_function_specs.getJavaImage();
+		BufferedImage image = null;
 		this.default_color = color_function_specs.getDefaultColor();
 		if (this.default_color == null) {
 			this.default_color = Colors.WHITE();
@@ -154,8 +154,7 @@ public class DesktopColorFunction implements ColorFunction {
 	}
 
 	public static String toString(ColorFunction argb) {
-		String result = "[" + argb.getWidth() + ";" + argb.getHeight() + "]"
-				+ next_line_L;
+		String result = "[" + argb.getWidth() + ";" + argb.getHeight() + "]" + next_line_L;
 
 		// Log.d("delta", delta);
 
@@ -188,11 +187,11 @@ public class DesktopColorFunction implements ColorFunction {
 	@Override
 	public BufferedImage toJavaImage() {
 		BufferedImage im = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
-//		Graphics g = im.getGraphics();
-//		java.awt.Color c = new java.awt.Color(0, 1, 0, 0.5f);
-//		g.setColor(c);
-//		g.fillRect(0, 0, w, h);
-//		g.dispose();
+		// Graphics g = im.getGraphics();
+		// java.awt.Color c = new java.awt.Color(0, 1, 0, 0.5f);
+		// g.setColor(c);
+		// g.fillRect(0, 0, w, h);
+		// g.dispose();
 		int[] data = ((DataBufferInt) im.getRaster().getDataBuffer()).getData();
 
 		for (int j = 0; j < h; j++) {
@@ -201,7 +200,7 @@ public class DesktopColorFunction implements ColorFunction {
 				int K = i + j * w;
 				CustomColor color_c = surface[i][j];
 				data[K] = color_c.toInteger();
-//				data[K] = 0x00ff0000;
+				// data[K] = 0x00ff0000;
 			}
 		}
 		return im;
