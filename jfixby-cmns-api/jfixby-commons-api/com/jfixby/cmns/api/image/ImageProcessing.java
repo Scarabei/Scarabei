@@ -18,7 +18,7 @@ public class ImageProcessing {
 		return componentInstaller.getComponent();
 	}
 
-	public static ColorMap newArrayColorMap(ColorMapSpecs color_function_specs) {
+	public static ArrayColorMap newArrayColorMap(ColorMapSpecs color_function_specs) {
 		return invoke().newArrayColorMap(color_function_specs);
 	}
 

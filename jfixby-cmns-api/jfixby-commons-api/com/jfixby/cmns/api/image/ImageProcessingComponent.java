@@ -4,6 +4,6 @@ public interface ImageProcessingComponent {
 
 	ColorMapSpecs newColorMapSpecs();
 
-	ColorMap newArrayColorMap(ColorMapSpecs color_function_specs);
+	ArrayColorMap newArrayColorMap(ColorMapSpecs color_function_specs);
 
 }

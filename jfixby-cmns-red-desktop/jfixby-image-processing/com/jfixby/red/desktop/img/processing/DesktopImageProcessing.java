@@ -1,5 +1,6 @@
 package com.jfixby.red.desktop.img.processing;
 
+import com.jfixby.cmns.api.image.ArrayColorMap;
 import com.jfixby.cmns.api.image.ColorMap;
 import com.jfixby.cmns.api.image.ColorMapSpecs;
 import com.jfixby.cmns.api.image.ImageProcessingComponent;
@@ -12,7 +13,7 @@ public class DesktopImageProcessing implements ImageProcessingComponent {
 	}
 
 	@Override
-	public ColorMap newArrayColorMap(ColorMapSpecs color_function_specs) {
+	public ArrayColorMap newArrayColorMap(ColorMapSpecs color_function_specs) {
 		return new DesktopColorFunction(color_function_specs);
 	}
 
