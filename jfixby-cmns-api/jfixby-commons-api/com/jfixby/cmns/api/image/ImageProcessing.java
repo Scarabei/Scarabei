@@ -18,12 +18,12 @@ public class ImageProcessing {
 		return componentInstaller.getComponent();
 	}
 
-	public static ColorFunction newColorFunction(ColorFunctionSpecs color_function_specs) {
-		return invoke().newColorFunction(color_function_specs);
+	public static ColorMap newArrayColorMap(ColorMapSpecs color_function_specs) {
+		return invoke().newArrayColorMap(color_function_specs);
 	}
 
-	public static ColorFunctionSpecs newColorFunctionSpecs() {
-		return invoke().newColorFunctionSpecs();
+	public static ColorMapSpecs newColorMapSpecs() {
+		return invoke().newColorMapSpecs();
 	}
 
 }

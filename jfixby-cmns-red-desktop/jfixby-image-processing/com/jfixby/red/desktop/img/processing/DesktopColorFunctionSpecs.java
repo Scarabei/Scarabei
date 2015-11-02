@@ -3,9 +3,10 @@ package com.jfixby.red.desktop.img.processing;
 import java.awt.image.BufferedImage;
 
 import com.jfixby.cmns.api.color.Color;
-import com.jfixby.cmns.api.image.ColorFunctionSpecs;
+import com.jfixby.cmns.api.color.Colors;
+import com.jfixby.cmns.api.image.ColorMapSpecs;
 
-public class DesktopColorFunctionSpecs implements ColorFunctionSpecs {
+public class DesktopColorFunctionSpecs implements ColorMapSpecs {
 
 	public int getWidth() {
 		return width;
@@ -41,6 +42,6 @@ public class DesktopColorFunctionSpecs implements ColorFunctionSpecs {
 
 	int width;
 	int height;
-	Color defaultColor;
+	Color defaultColor = Colors.BLACK();
 	BufferedImage javaImage;
 }

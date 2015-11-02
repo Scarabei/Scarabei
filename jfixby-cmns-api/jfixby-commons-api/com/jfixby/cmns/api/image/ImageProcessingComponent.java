@@ -2,8 +2,8 @@ package com.jfixby.cmns.api.image;
 
 public interface ImageProcessingComponent {
 
-	ColorFunctionSpecs newColorFunctionSpecs();
+	ColorMapSpecs newColorMapSpecs();
 
-	ColorFunction newColorFunction(ColorFunctionSpecs color_function_specs);
+	ColorMap newArrayColorMap(ColorMapSpecs color_function_specs);
 
 }

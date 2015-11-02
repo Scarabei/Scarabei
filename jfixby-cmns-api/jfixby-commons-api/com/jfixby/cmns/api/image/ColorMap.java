@@ -1,11 +1,8 @@
 package com.jfixby.cmns.api.image;
 
-import java.awt.image.BufferedImage;
-
 import com.jfixby.cmns.api.color.Color;
-import com.jfixby.cmns.api.color.ColorConstant;
 
-public interface ColorFunction {
+public interface ColorMap {
 
 	int getWidth();
 
@@ -15,8 +12,6 @@ public interface ColorFunction {
 
 	void setValue(int x, int y, Color color_value);
 
-	void setDefaultColor(ColorConstant color);
-
-	BufferedImage toJavaImage();
+	void setDefaultColor(Color color);
 
 }

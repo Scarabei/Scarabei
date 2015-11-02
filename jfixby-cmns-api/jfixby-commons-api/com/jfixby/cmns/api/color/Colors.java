@@ -106,4 +106,8 @@ public class Colors {
 		return invoke().newGray(gray);
 	}
 
+	public static Color newColor(int argb) {
+		return invoke().newColor(argb);
+	}
+
 }
