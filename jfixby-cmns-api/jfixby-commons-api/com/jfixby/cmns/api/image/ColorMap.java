@@ -21,4 +21,6 @@ public interface ColorMap {
 	LambdaImage getGrayscale(float grayscale_alpha, float grayscale_betta, float grayscale_gamma);
 
 	LambdaImage getGrayscale(); // 0.21 R + 0.72 G + 0.07 B.
+	
+	LambdaColoredImage getLambdaColoredImage();
 }

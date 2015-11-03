@@ -7,6 +7,7 @@ import com.jfixby.cmns.api.geometry.Geometry;
 import com.jfixby.cmns.api.geometry.Rectangle;
 import com.jfixby.cmns.api.image.LambdaColorMap;
 import com.jfixby.cmns.api.image.LambdaColorMapSpecs;
+import com.jfixby.cmns.api.image.LambdaColoredImage;
 import com.jfixby.cmns.api.image.LambdaImage;
 import com.jfixby.red.image.RedLambdaColorMap;
 
@@ -27,12 +28,12 @@ public class DesktopLambdaColorMap extends RedLambdaColorMap implements LambdaCo
 		this.pixels_area.toRelative(tmp);
 		this.lambda_area.toAbsolute(tmp);
 
-		float a = this.getAlphaChannel().value(tmp);
-		float r = this.getRedChannel().value(tmp);
-		float g = this.getGreenChannel().value(tmp);
-		float b = this.getBlueChannel().value(tmp);
+		final float a = this.getAlphaChannel().value(tmp);
+		final float r = this.getRedChannel().value(tmp);
+		final float g = this.getGreenChannel().value(tmp);
+		final float b = this.getBlueChannel().value(tmp);
 
-		Color result = Colors.newColor(a, r, g, b);
+		final Color result = Colors.newColor(a, r, g, b);
 		return result;
 	}
 
@@ -47,5 +48,10 @@ public class DesktopLambdaColorMap extends RedLambdaColorMap implements LambdaCo
 	}
 
 	static LambdaImage defaultLambda = xy -> 1f;
+
+	@Override
+	public LambdaColoredImage getLambdaColoredImage() {
+		return (xy) -> this.getValue(DesktopColorFunction.toInt(xy.getX()), DesktopColorFunction.toInt(xy.getY()));
+	}
 
 }
