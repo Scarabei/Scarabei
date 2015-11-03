@@ -6,7 +6,6 @@ import com.jfixby.cmns.api.geometry.Rectangle;
 import com.jfixby.cmns.api.image.LambdaColorMap;
 import com.jfixby.cmns.api.image.LambdaColorMapSpecs;
 import com.jfixby.cmns.api.image.LambdaImage;
-import com.jfixby.cmns.api.math.FloatMath;
 
 public abstract class RedLambdaColorMap implements LambdaColorMap {
 

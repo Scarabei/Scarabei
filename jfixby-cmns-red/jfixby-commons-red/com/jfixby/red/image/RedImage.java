@@ -3,7 +3,6 @@ package com.jfixby.red.image;
 import com.jfixby.cmns.api.collections.JUtils;
 import com.jfixby.cmns.api.color.Color;
 import com.jfixby.cmns.api.image.EditableColorMap;
-import com.jfixby.cmns.api.image.ArrayColorMapSpecs;
 
 public abstract class RedImage implements EditableColorMap {
 	private int width;

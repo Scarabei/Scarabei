@@ -7,7 +7,6 @@ import com.jfixby.cmns.api.image.LambdaColorMap;
 import com.jfixby.cmns.api.image.LambdaColorMapSpecs;
 import com.jfixby.red.image.RedColorMapSpecs;
 import com.jfixby.red.image.RedImageProcessing;
-import com.jfixby.red.image.RedLambdaColorMap;
 
 public class DesktopImageProcessing extends RedImageProcessing implements ImageProcessingComponent {
 

@@ -1,7 +1,6 @@
 package com.jfixby.red.localization;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 import com.jfixby.cmns.api.filesystem.File;
 import com.jfixby.cmns.api.json.Json;
