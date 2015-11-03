@@ -2,39 +2,14 @@ package com.jfixby.red.image;
 
 import com.jfixby.cmns.api.geometry.Rectangle;
 import com.jfixby.cmns.api.image.LambdaColorMapSpecs;
-import com.jfixby.cmns.api.image.LambdaColoredImage;
 import com.jfixby.cmns.api.image.LambdaImage;
 
 public class RedLambdaColorMapSpecs implements LambdaColorMapSpecs {
 
-	private LambdaImage aplha;
-	private LambdaImage red;
-	private LambdaImage green;
-	private LambdaImage blue;
 	private Rectangle rectangle;
 	private int w;
 	private int h;
-	private LambdaColoredImage base;
-
-	@Override
-	public void setAlphaChannel(LambdaImage aplha) {
-		this.aplha = aplha;
-	}
-
-	@Override
-	public void setRedChannel(LambdaImage red) {
-		this.red = red;
-	}
-
-	@Override
-	public void setGreenChannel(LambdaImage green) {
-		this.green = green;
-	}
-
-	@Override
-	public void setBlueChannel(LambdaImage blue) {
-		this.blue = blue;
-	}
+	private LambdaImage base;
 
 	@Override
 	public void setLambdaArea(Rectangle rectangle) {
@@ -44,26 +19,6 @@ public class RedLambdaColorMapSpecs implements LambdaColorMapSpecs {
 	@Override
 	public Rectangle getLambdaArea() {
 		return rectangle;
-	}
-
-	@Override
-	public LambdaImage getAlphaChannel() {
-		return aplha;
-	}
-
-	@Override
-	public LambdaImage getRedChannel() {
-		return red;
-	}
-
-	@Override
-	public LambdaImage getGreenChannel() {
-		return green;
-	}
-
-	@Override
-	public LambdaImage getBlueChannel() {
-		return blue;
 	}
 
 	@Override
@@ -87,12 +42,12 @@ public class RedLambdaColorMapSpecs implements LambdaColorMapSpecs {
 	}
 
 	@Override
-	public void setLambdaColoredImage(LambdaColoredImage base) {
+	public void setLambdaColoredImage(LambdaImage base) {
 		this.base = base;
 	}
 
 	@Override
-	public LambdaColoredImage getLambdaColoredImage() {
+	public LambdaImage getLambdaColoredImage() {
 		return base;
 	}
 
