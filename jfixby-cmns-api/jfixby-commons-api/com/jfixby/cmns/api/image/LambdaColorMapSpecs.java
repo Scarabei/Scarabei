@@ -4,25 +4,9 @@ import com.jfixby.cmns.api.geometry.Rectangle;
 
 public interface LambdaColorMapSpecs {
 
-	void setAlphaChannel(LambdaImage aplha);
-
-	void setRedChannel(LambdaImage red);
-
-	void setGreenChannel(LambdaImage green);
-
-	void setBlueChannel(LambdaImage blue);
-
 	void setLambdaArea(Rectangle rectangle);
 
 	public Rectangle getLambdaArea();
-
-	LambdaImage getAlphaChannel();
-
-	LambdaImage getRedChannel();
-
-	LambdaImage getGreenChannel();
-
-	LambdaImage getBlueChannel();
 
 	void setColorMapWidth(int w);
 
@@ -32,8 +16,8 @@ public interface LambdaColorMapSpecs {
 
 	public int getColorMapHeight();
 
-	void setLambdaColoredImage(LambdaColoredImage base);
+	void setLambdaColoredImage(LambdaImage base);
 
-	LambdaColoredImage getLambdaColoredImage();
+	LambdaImage getLambdaColoredImage();
 
 }
