@@ -16,8 +16,6 @@ public interface CustomColor extends Color {
 
 	Color mutliply(float f);
 
-	CustomColor mix(Color other, float proportion);
 
-	CustomColor mix(Color other);
 
 }
