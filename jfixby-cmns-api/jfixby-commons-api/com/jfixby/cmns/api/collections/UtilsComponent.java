@@ -30,8 +30,7 @@ public interface UtilsComponent {
 
 	RelativePath newRelativePath(String path_string);
 
-	<T extends MountPoint> AbsolutePath<T> newAbsolutePath(T mount_point,
-			RelativePath relative);
+	<T extends MountPoint> AbsolutePath<T> newAbsolutePath(T mount_point, RelativePath relative);
 
 	<T extends MountPoint> AbsolutePath<T> newAbsolutePath(T mount_point);
 
@@ -45,8 +44,7 @@ public interface UtilsComponent {
 
 	public <T> Pool<T> newPool(PoolElementsSpawner<T> spawner);
 
-	public <T> void scanCollection(Collection<? extends T> collection,
-			CollectionScanner<T> scanner);
+	public <T> void scanCollection(Collection<? extends T> collection, CollectionScanner<T> scanner);
 
 	boolean equalLists(List<?> a, List<?> b);
 
@@ -69,14 +67,14 @@ public interface UtilsComponent {
 
 	public <A, B, X, Y> Map<A, B> castMap(Mapping<X, Y> input);
 
-	public <A, B, X, Y, Mp extends Map<A, B>> Mp castMap(Mapping<X, Y> input,
-			Mp output);
+	public <A, B, X, Y, Mp extends Map<A, B>> Mp castMap(Mapping<X, Y> input, Mp output);
 
 	boolean beginsWith(Collection<?> list, Collection<?> with);
 
-	public <Q, P, Cp extends EditableCollection<P>> Cp castCollection(
-			Collection<Q> input, Cp output);
+	public <Q, P, Cp extends EditableCollection<P>> Cp castCollection(Collection<Q> input, Cp output);
 
 	public <Q, P> List<P> castCollection(Collection<Q> input);
+
+	void checkTrue(boolean flag);
 
 }

@@ -62,8 +62,7 @@ public class DesktopUtils implements UtilsComponent {
 	}
 
 	@Override
-	public <T extends MountPoint> AbsolutePath<T> newAbsolutePath(
-			T mount_point, RelativePath relative) {
+	public <T extends MountPoint> AbsolutePath<T> newAbsolutePath(T mount_point, RelativePath relative) {
 		return new DesktopAbsolutePath<T>(mount_point, relative);
 	}
 
@@ -74,8 +73,7 @@ public class DesktopUtils implements UtilsComponent {
 
 	@Override
 	public <T extends MountPoint> AbsolutePath<T> newAbsolutePath(T mount_point) {
-		return new DesktopAbsolutePath<T>(mount_point, new DesktopRelativePath(
-				DesktopRelativePath.E));
+		return new DesktopAbsolutePath<T>(mount_point, new DesktopRelativePath(DesktopRelativePath.E));
 	}
 
 	@Override
@@ -84,8 +82,7 @@ public class DesktopUtils implements UtilsComponent {
 	}
 
 	@Override
-	public <T> List<T> newList(
-			com.jfixby.cmns.api.collections.Collection<? extends T> array) {
+	public <T> List<T> newList(com.jfixby.cmns.api.collections.Collection<? extends T> array) {
 		List<T> list = this.newList();
 		list.addAll(array);
 		return list;
@@ -128,8 +125,7 @@ public class DesktopUtils implements UtilsComponent {
 	}
 
 	@Override
-	public <K, V> Map<K, V> newMap(
-			java.util.Map<? extends K, ? extends V> java_map) {
+	public <K, V> Map<K, V> newMap(java.util.Map<? extends K, ? extends V> java_map) {
 		DesktopMap<K, V> red_map = new DesktopMap<K, V>();
 		red_map.putJavaMap(java_map);
 		return red_map;
@@ -146,8 +142,7 @@ public class DesktopUtils implements UtilsComponent {
 	}
 
 	@Override
-	public <T> void scanCollection(Collection<? extends T> collection,
-			CollectionScanner<T> scanner) {
+	public <T> void scanCollection(Collection<? extends T> collection, CollectionScanner<T> scanner) {
 		for (int i = 0; i < collection.size(); i++) {
 			T element = collection.getElementAt(i);
 			scanner.scanElement(element, i, collection);
@@ -188,6 +183,13 @@ public class DesktopUtils implements UtilsComponent {
 			throw new Error("<" + parameter_name + "> is null.");
 		}
 		return value;
+	}
+
+	@Override
+	public void checkTrue(boolean flag) {
+		if (flag == false) {
+			throw new Error();
+		}
 	}
 
 	@Override
@@ -250,8 +252,7 @@ public class DesktopUtils implements UtilsComponent {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public <Q, P, Cp extends EditableCollection<P>> Cp castCollection(
-			Collection<Q> input, Cp output) {
+	public <Q, P, Cp extends EditableCollection<P>> Cp castCollection(Collection<Q> input, Cp output) {
 		for (Q i : input) {
 			P p = (P) i;
 			output.add(p);
@@ -266,8 +267,7 @@ public class DesktopUtils implements UtilsComponent {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public <A, B, X, Y, Mp extends Map<A, B>> Mp castMap(Mapping<X, Y> input,
-			Mp output) {
+	public <A, B, X, Y, Mp extends Map<A, B>> Mp castMap(Mapping<X, Y> input, Mp output) {
 		for (X iK : input.keys()) {
 			A oK = (A) iK;
 			B oV = (B) input.get(iK);

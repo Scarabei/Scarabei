@@ -7,11 +7,9 @@ import com.jfixby.cmns.api.path.RelativePath;
 
 public class JUtils {
 
-	static private ComponentInstaller<UtilsComponent> componentInstaller = new ComponentInstaller<UtilsComponent>(
-			"JUtils");
+	static private ComponentInstaller<UtilsComponent> componentInstaller = new ComponentInstaller<UtilsComponent>("JUtils");
 
-	public static final void installComponent(
-			UtilsComponent component_to_install) {
+	public static final void installComponent(UtilsComponent component_to_install) {
 		componentInstaller.installComponent(component_to_install);
 	}
 
@@ -24,7 +22,7 @@ public class JUtils {
 	}
 
 	public static final <T> List<T> newList() {
-		return invoke().newList();	
+		return invoke().newList();
 	}
 
 	public static final <T> List<T> newList(T... array) {
@@ -35,8 +33,7 @@ public class JUtils {
 		return invoke().newList(collection);
 	}
 
-	public static final <T> List<T> newList(
-			java.util.Collection<? extends T> java_colletion) {
+	public static final <T> List<T> newList(java.util.Collection<? extends T> java_colletion) {
 		return invoke().newList(java_colletion);
 	}
 
@@ -48,8 +45,7 @@ public class JUtils {
 		return invoke().newMap(java_map);
 	}
 
-	public static final <K, V> Map<K, V> newMap(
-			Mapping<? extends K, ? extends V> other_map) {
+	public static final <K, V> Map<K, V> newMap(Mapping<? extends K, ? extends V> other_map) {
 		return invoke().newMap(other_map);
 	}
 
@@ -73,13 +69,11 @@ public class JUtils {
 		return invoke().newRelativePath(path_string);
 	}
 
-	public static final <T extends MountPoint> AbsolutePath<T> newAbsolutePath(
-			T mount_point, RelativePath relative) {
+	public static final <T extends MountPoint> AbsolutePath<T> newAbsolutePath(T mount_point, RelativePath relative) {
 		return invoke().newAbsolutePath(mount_point, relative);
 	}
 
-	public static final <T extends MountPoint> AbsolutePath<T> newAbsolutePath(
-			T mount_point) {
+	public static final <T extends MountPoint> AbsolutePath<T> newAbsolutePath(T mount_point) {
 		return invoke().newAbsolutePath(mount_point);
 	}
 
@@ -103,8 +97,7 @@ public class JUtils {
 		return invoke().newPool(spawner);
 	}
 
-	public static <T> void scanCollection(Collection<? extends T> collection,
-			CollectionScanner<T> scanner) {
+	public static <T> void scanCollection(Collection<? extends T> collection, CollectionScanner<T> scanner) {
 		invoke().scanCollection(collection, scanner);
 	}
 
@@ -140,8 +133,7 @@ public class JUtils {
 		return invoke().beginsWith(list, with);
 	}
 
-	static public <Q, P, Cp extends EditableCollection<P>> Cp castCollection(
-			Collection<Q> input, Cp output) {
+	static public <Q, P, Cp extends EditableCollection<P>> Cp castCollection(Collection<Q> input, Cp output) {
 		return invoke().castCollection(input, output);
 	}
 
@@ -149,13 +141,16 @@ public class JUtils {
 		return invoke().castCollection(input);
 	}
 
-	public static <A, B, X, Y, Mp extends Map<A, B>> Mp castMap(
-			Mapping<X, Y> input, Mp output) {
+	public static <A, B, X, Y, Mp extends Map<A, B>> Mp castMap(Mapping<X, Y> input, Mp output) {
 		return invoke().castMap(input, output);
 	}
 
 	public static <A, B, X, Y> Map<A, B> castMap(Mapping<X, Y> input) {
 		return invoke().castMap(input);
+	}
+
+	public static void checkTrue(boolean flag) {
+		invoke().checkTrue(flag);
 	}
 
 }
