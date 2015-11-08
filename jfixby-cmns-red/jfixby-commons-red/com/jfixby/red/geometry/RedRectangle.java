@@ -284,8 +284,15 @@ public class RedRectangle extends VertexMaster implements Rectangle {
 		this.setRotation(position.getRotation());
 	}
 
+	/*
+	 * (non-Javadoc) Tthis is very slow! Should fix!
+	 * https://github.com/JFixby/RedTriplane/issues/5
+	 * 
+	 * @see com.jfixby.cmns.api.geometry.Rectangle#containsPoint(double, double)
+	 */
 	@Override
 	public boolean containsPoint(double canvas_x, double canvas_y) {
+
 		this.triangle_a.A().relative().set(this.top_left.transformed());
 		this.triangle_a.B().relative().set(this.top_right.transformed());
 		this.triangle_a.C().relative().set(this.bottom_right.transformed());
