@@ -5,12 +5,12 @@ import com.jfixby.cmns.api.color.Color;
 import com.jfixby.cmns.api.image.EditableColorMap;
 
 public abstract class RedImage implements EditableColorMap {
-	private int width;
-	private int height;
-	private Color default_color;
-	private ImageSupply supply;
+	final private int width;
+	final private int height;
+	final private Color default_color;
+	private final ArraySupply supply;
 
-	public RedImage(int width, int height, Color default_color, ImageSupply supply) {
+	public RedImage(int width, int height, Color default_color, ArraySupply supply) {
 		this.width = width;
 		this.height = height;
 		this.default_color = JUtils.checkNull("default_color", default_color);
@@ -23,8 +23,8 @@ public abstract class RedImage implements EditableColorMap {
 	}
 
 	@Override
-	public Color getValue(int x, int y) {
-		if (out_of_the_scope(x, y)) {
+	final public Color getValue(int x, int y) {
+		if (this.out_of_the_scope(x, y)) {
 			return default_color;
 		}
 		final Color value = supply.get(x, y);
@@ -35,24 +35,24 @@ public abstract class RedImage implements EditableColorMap {
 	}
 
 	@Override
-	public void setValue(int x, int y, Color color_value) {
-		if (out_of_the_scope(x, y)) {
+	final public void setValue(int x, int y, Color color_value) {
+		if (this.out_of_the_scope(x, y)) {
 			return;
 		}
-		supply.set(x, y, color_value);
+		this.supply.set(x, y, color_value);
 	}
 
-	private boolean out_of_the_scope(int x, int y) {
+	final private boolean out_of_the_scope(final int x, final int y) {
 		if (x < 0) {
 			return true;
 		}
 		if (y < 0) {
 			return true;
 		}
-		if (x >= width) {
+		if (x >= this.width) {
 			return true;
 		}
-		if (y >= height) {
+		if (y >= this.height) {
 			return true;
 		}
 		return false;
@@ -60,12 +60,12 @@ public abstract class RedImage implements EditableColorMap {
 
 	@Override
 	public int getWidth() {
-		return width;
+		return this.width;
 	}
 
 	@Override
 	public int getHeight() {
-		return height;
+		return this.height;
 	}
 
 }

@@ -3,12 +3,12 @@ package com.jfixby.red.image;
 import com.jfixby.cmns.api.color.Color;
 import com.jfixby.cmns.api.image.ArrayColorMapSpecs;
 
-public class ArraySupply implements ImageSupply {
+public class ArraySupply {
 
-	private int h;
-	private int w;
+	final private int h;
+	final private int w;
 
-	Color[][] surface;
+	final Color[][] surface;
 
 	public ArraySupply(ArrayColorMapSpecs specs) {
 		h = specs.getHeight();
@@ -17,13 +17,11 @@ public class ArraySupply implements ImageSupply {
 
 	}
 
-	@Override
-	public Color get(int x, int y) {
+	final public Color get(int x, int y) {
 		return this.surface[x][y];
 	}
 
-	@Override
-	public void set(int x, int y, Color color_value) {
+	final public void set(int x, int y, Color color_value) {
 		this.surface[x][y] = color_value;
 	}
 
