@@ -28,6 +28,8 @@ public interface File {
 
 	boolean makeFolder();
 
+	public boolean extensionIs(String postfix);
+
 	boolean rename(String new_name);
 
 	String getName();

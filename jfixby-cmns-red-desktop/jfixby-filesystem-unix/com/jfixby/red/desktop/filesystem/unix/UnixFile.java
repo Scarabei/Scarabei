@@ -318,4 +318,9 @@ public class UnixFile implements File {
 				.proceed(relativePath);
 		return this.getFileSystem().newFile(file_path);
 	}
+	
+	@Override
+	public boolean extensionIs(final String postfix) {
+		return this.getName().toLowerCase().endsWith(postfix.toLowerCase());
+	}
 }

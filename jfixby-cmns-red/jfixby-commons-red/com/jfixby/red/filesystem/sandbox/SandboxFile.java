@@ -42,18 +42,15 @@ public class SandboxFile implements File {
 	private RelativePath relativePath;
 	private AbsolutePath<FileSystem> unprotected_path;
 
-	public SandboxFile(RedSandboxFileSystem sandbox,
-			AbsolutePath<FileSystem> file_path) {
+	public SandboxFile(RedSandboxFileSystem sandbox, AbsolutePath<FileSystem> file_path) {
 		this.sandbox = sandbox;
 		this.absolute_path = file_path;
 		this.relativePath = file_path.getRelativePath();
-		this.unprotected_path = sandbox.getRootFolder().getAbsoluteFilePath()
-				.proceed(relativePath);
+		this.unprotected_path = sandbox.getRootFolder().getAbsoluteFilePath().proceed(relativePath);
 	}
 
 	private File getUnprotectedFile() {
-		File unprotected_file = unprotected_path.getMountPoint().newFile(
-				unprotected_path);
+		File unprotected_file = unprotected_path.getMountPoint().newFile(unprotected_path);
 		return unprotected_file;
 	}
 
@@ -119,10 +116,8 @@ public class SandboxFile implements File {
 			FilesList listFiles = new FilesList();
 			for (int i = 0; i < unprotected_children.size(); i++) {
 				String file_i = unprotected_children.getElementAt(i).getName();
-				AbsolutePath<FileSystem> absolute_file = absolute_path
-						.child(file_i);
-				listFiles.add(absolute_file.getMountPoint().newFile(
-						absolute_file));
+				AbsolutePath<FileSystem> absolute_file = absolute_path.child(file_i);
+				listFiles.add(absolute_file.getMountPoint().newFile(absolute_file));
 			}
 			// L.d("listFiles", listFiles);
 
@@ -135,8 +130,7 @@ public class SandboxFile implements File {
 
 	@Override
 	public File child(String child_name) {
-		return new SandboxFile(this.getFileSystem(), this.getAbsoluteFilePath()
-				.child(child_name));
+		return new SandboxFile(this.getFileSystem(), this.getAbsoluteFilePath().child(child_name));
 	}
 
 	@Override
@@ -238,8 +232,7 @@ public class SandboxFile implements File {
 
 	@Override
 	public File parent() {
-		return new SandboxFile(this.getFileSystem(),
-				this.absolute_path.parent());
+		return new SandboxFile(this.getFileSystem(), this.absolute_path.parent());
 	}
 
 	@Override
@@ -255,9 +248,13 @@ public class SandboxFile implements File {
 
 	@Override
 	public File proceed(RelativePath relative) {
-		AbsolutePath<FileSystem> file_path = this.getAbsoluteFilePath()
-				.proceed(relativePath);
+		AbsolutePath<FileSystem> file_path = this.getAbsoluteFilePath().proceed(relativePath);
 		return this.getFileSystem().newFile(file_path);
+	}
+
+	@Override
+	public boolean extensionIs(final String postfix) {
+		return this.getName().toLowerCase().endsWith(postfix.toLowerCase());
 	}
 
 }

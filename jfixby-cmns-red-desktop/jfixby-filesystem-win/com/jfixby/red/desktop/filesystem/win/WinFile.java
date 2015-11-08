@@ -39,12 +39,12 @@ public class WinFile implements File {
 			throw new Error(this + " does not exist.");
 		}
 	}
+
 	final private AbsolutePath<FileSystem> absolute_path;
 	private WinFileSystem fs;
 	private String absolute_path_string;
 
-	public WinFile(AbsolutePath<FileSystem> output_file_path,
-			WinFileSystem windowsFileSystem) {
+	public WinFile(AbsolutePath<FileSystem> output_file_path, WinFileSystem windowsFileSystem) {
 		this.absolute_path = output_file_path;
 		this.fs = windowsFileSystem;
 		absolute_path_string = this.getAbsoluteWindowsPathString();
@@ -82,8 +82,7 @@ public class WinFile implements File {
 	@Override
 	public boolean rename(String new_name) {
 		java.io.File f = new java.io.File(this.getAbsoluteWindowsPathString());
-		WinFile new_file = new WinFile(this.absolute_path.parent().child(
-				new_name), this.fs);
+		WinFile new_file = new WinFile(this.absolute_path.parent().child(new_name), this.fs);
 		return f.renameTo(new java.io.File(new_file.getAbsoluteWindowsPathString()));
 	}
 
@@ -107,8 +106,7 @@ public class WinFile implements File {
 
 	public String getAbsoluteWindowsPathString() {
 		String mount_point_path_string = "";
-		String relative = toNativePathString(absolute_path.getRelativePath()
-				.getPathString());
+		String relative = toNativePathString(absolute_path.getRelativePath().getPathString());
 		if (relative.length() > 0) {
 			relative = WinFileSystem.OS_SEPARATOR + relative;
 		}
@@ -116,8 +114,7 @@ public class WinFile implements File {
 	}
 
 	public static String toNativePathString(String string) {
-		return string.replaceAll(RelativePath.SEPARATOR,
-				WinFileSystem.OS_SEPARATOR + WinFileSystem.OS_SEPARATOR);
+		return string.replaceAll(RelativePath.SEPARATOR, WinFileSystem.OS_SEPARATOR + WinFileSystem.OS_SEPARATOR);
 	}
 
 	@Override
@@ -141,10 +138,8 @@ public class WinFile implements File {
 				// AbsolutePath absolute_file = new WinAbsolutePath(
 				// (WinMountPoint) absolute_path.getMountPoint(), relative);
 
-				AbsolutePath<FileSystem> absolute_file = absolute_path
-						.child(file_i);
-				listFiles.add(absolute_file.getMountPoint().newFile(
-						absolute_file));
+				AbsolutePath<FileSystem> absolute_file = absolute_path.child(file_i);
+				listFiles.add(absolute_file.getMountPoint().newFile(absolute_file));
 			}
 			// L.d("listFiles", listFiles);
 
@@ -178,8 +173,7 @@ public class WinFile implements File {
 
 	@Override
 	public File child(String child_name) {
-		return new WinFile(this.getAbsoluteFilePath().child(child_name),
-				this.getFileSystem());
+		return new WinFile(this.getAbsoluteFilePath().child(child_name), this.getFileSystem());
 	}
 
 	@Override
@@ -195,8 +189,7 @@ public class WinFile implements File {
 
 	@Override
 	public String nameWithoutExtension() {
-		java.io.File file = new java.io.File(
-				this.getAbsoluteWindowsPathString());
+		java.io.File file = new java.io.File(this.getAbsoluteWindowsPathString());
 		String name = file.getName();
 		int dotIndex = name.lastIndexOf('.');
 		if (dotIndex == -1)
@@ -247,15 +240,13 @@ public class WinFile implements File {
 	}
 
 	public java.io.File getJavaFile() {
-		java.io.File file = new java.io.File(
-				this.getAbsoluteWindowsPathString());
+		java.io.File file = new java.io.File(this.getAbsoluteWindowsPathString());
 		return file;
 	}
 
 	@Override
 	public long getSize() {
-		java.io.File file = new java.io.File(
-				this.getAbsoluteWindowsPathString());
+		java.io.File file = new java.io.File(this.getAbsoluteWindowsPathString());
 		if (file.isFile()) {
 			return file.length();
 		} else {
@@ -274,8 +265,7 @@ public class WinFile implements File {
 		if (!this.absolute_path.isRoot()) {
 			return new WinFile(this.absolute_path.parent(), this.fs);
 		}
-		throw new Error("This is already a root file. No parent available: "
-				+ this);
+		throw new Error("This is already a root file. No parent available: " + this);
 	}
 
 	@Override
@@ -287,10 +277,7 @@ public class WinFile implements File {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime
-				* result
-				+ ((absolute_path_string == null) ? 0 : absolute_path_string
-						.hashCode());
+		result = prime * result + ((absolute_path_string == null) ? 0 : absolute_path_string.hashCode());
 		return result;
 	}
 
@@ -310,11 +297,15 @@ public class WinFile implements File {
 			return false;
 		return true;
 	}
-	
+
 	@Override
 	public File proceed(RelativePath relativePath) {
-		AbsolutePath<FileSystem> file_path = this.getAbsoluteFilePath()
-				.proceed(relativePath);
+		AbsolutePath<FileSystem> file_path = this.getAbsoluteFilePath().proceed(relativePath);
 		return this.getFileSystem().newFile(file_path);
+	}
+
+	@Override
+	public boolean extensionIs(final String postfix) {
+		return this.getName().toLowerCase().endsWith(postfix.toLowerCase());
 	}
 }
