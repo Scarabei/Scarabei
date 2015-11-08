@@ -20,4 +20,6 @@ public interface LambdaColorMapSpecs {
 
 	LambdaImage getLambdaColoredImage();
 
+	void setColorMapDimentions(int w, int h);
+
 }

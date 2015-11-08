@@ -51,4 +51,10 @@ public class RedLambdaColorMapSpecs implements LambdaColorMapSpecs {
 		return base;
 	}
 
+	@Override
+	public void setColorMapDimentions(int w, int h) {
+		this.setColorMapWidth(w);
+		this.setColorMapHeight(h);
+	}
+
 }
