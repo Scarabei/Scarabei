@@ -28,6 +28,9 @@ public interface File {
 
 	boolean makeFolder();
 
+	/*
+	 * Example: .extensionIs(".java");
+	 */
 	public boolean extensionIs(String postfix);
 
 	boolean rename(String new_name);
