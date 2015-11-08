@@ -44,7 +44,7 @@ public class RedTriangle extends VertexMaster implements Triangle {
 	}
 
 	/*
-	 * (non-Javadoc) Tthis is very slow! Should fix!
+	 * (non-Javadoc) This is very slow! Should fix!
 	 * https://github.com/JFixby/RedTriplane/issues/5
 	 * 
 	 * @see com.jfixby.cmns.api.geometry.Rectangle#containsPoint(double, double)
