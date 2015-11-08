@@ -43,6 +43,12 @@ public class RedTriangle extends VertexMaster implements Triangle {
 		return this.containsPoint(tmp);
 	}
 
+	/*
+	 * (non-Javadoc) Tthis is very slow! Should fix!
+	 * https://github.com/JFixby/RedTriplane/issues/5
+	 * 
+	 * @see com.jfixby.cmns.api.geometry.Rectangle#containsPoint(double, double)
+	 */
 	@Override
 	public boolean containsPoint(FixedFloat2 point) {
 		if (this.A.transformed().isInEpsilonDistance(point)) {
@@ -55,9 +61,6 @@ public class RedTriangle extends VertexMaster implements Triangle {
 			return true;
 		}
 
-		return (MathTools.pointLiesInsideTriangle(tmp.getX(), tmp.getY(), A
-				.transformed().getX(), A.transformed().getY(),
-				B.transformed().getX(), B.transformed().getY(),
-				C.transformed().getX(), C.transformed().getY()));
+		return (MathTools.pointLiesInsideTriangle(tmp.getX(), tmp.getY(), A.transformed().getX(), A.transformed().getY(), B.transformed().getX(), B.transformed().getY(), C.transformed().getX(), C.transformed().getY()));
 	}
 }
