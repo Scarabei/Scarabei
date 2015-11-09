@@ -5,7 +5,7 @@ import com.jfixby.cmns.api.input.UserInput;
 
 public final class GdxMouseButtons {
 
-	public static MouseButton resolve(int gdx_button_code) {
+	public static MouseButton resolveGdxMouseButtonCode(int gdx_button_code) {
 		if (com.badlogic.gdx.Input.Buttons.LEFT == gdx_button_code) {
 			return UserInput.MouseButtons().LEFT();
 		}

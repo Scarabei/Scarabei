@@ -5,7 +5,7 @@ import com.jfixby.cmns.api.input.UserInput;
 
 public final class GdxKeys {
 
-	public static Key resolve(int gdx_key_code) {
+	public static Key resolveGdxKeyCode(int gdx_key_code) {
 		if (gdx_key_code == com.badlogic.gdx.Input.Keys.ANY_KEY) {
 			return UserInput.Keyboard().ANY_KEY();
 		}
