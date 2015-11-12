@@ -2,12 +2,12 @@ package com.jfixby.red.input;
 
 import com.jfixby.cmns.api.input.Key;
 
-public final class RedKeyCode implements Key {
+public final class KeyCode implements Key {
 	final String name;
 
-	RedKeyCode(String name, RedKeyboard keys) {
+	KeyCode(String name, RedKeyboard keyboard) {
 		this.name = name;
-		final RedKeysList list = (RedKeysList) keys.KEYS_LIST;
+		final RedKeysList list = (RedKeysList) keyboard.KEYS_LIST;
 		list.add(this);
 	}
 
