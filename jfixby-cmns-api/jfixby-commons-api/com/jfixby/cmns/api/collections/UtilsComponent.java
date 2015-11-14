@@ -77,4 +77,6 @@ public interface UtilsComponent {
 
 	void checkTrue(boolean flag);
 
+	void checkTrue(String flag_name, boolean flag);
+
 }

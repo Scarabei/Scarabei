@@ -153,4 +153,7 @@ public class JUtils {
 		invoke().checkTrue(flag);
 	}
 
+	public static void checkTrue(String flag_name, boolean flag) {
+		invoke().checkTrue(flag_name, flag);
+	}
 }

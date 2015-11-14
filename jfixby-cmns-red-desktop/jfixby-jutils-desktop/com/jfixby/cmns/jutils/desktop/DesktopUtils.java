@@ -186,13 +186,6 @@ public class DesktopUtils implements UtilsComponent {
 	}
 
 	@Override
-	public void checkTrue(boolean flag) {
-		if (flag == false) {
-			throw new Error();
-		}
-	}
-
-	@Override
 	public <T> T checkNull(T value) {
 		if (value == null) {
 			throw new Error("Paremeter is null.");
@@ -280,6 +273,20 @@ public class DesktopUtils implements UtilsComponent {
 	@Override
 	public <A, B, X, Y> Map<A, B> castMap(Mapping<X, Y> input) {
 		return this.castMap(input, JUtils.newMap());
+	}
+
+	@Override
+	public void checkTrue(String flag_name, boolean flag) {
+		if (flag == false) {
+			throw new Error(flag_name + "");
+		}
+	}
+
+	@Override
+	public void checkTrue(boolean flag) {
+		if (flag == false) {
+			throw new Error();
+		}
 	}
 
 }
