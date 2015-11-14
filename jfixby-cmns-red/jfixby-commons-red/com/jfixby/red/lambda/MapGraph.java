@@ -1,28 +1,25 @@
 package com.jfixby.red.lambda;
 
-import com.jfixby.cmns.api.collections.Map;
+import java.util.HashMap;
+
 import com.jfixby.cmns.api.lambda.λFunctionCache;
 
-public class MapGraph<X, Y> implements λFunctionCache<X, Y> {
+public class MapGraph<X, Y> implements λFunctionCache<X,Y> {
 
-	final private Map<X, Y> map;
-
-	public MapGraph(Map<X, Y> map) {
-		this.map = map;
-	}
-
-	@Override
-	public Y get(X input) {
-		return this.map.get(input);
-	}
-
-	@Override
-	public void put(X input, Y value) {
-		this.map.put(input, value);
-	}
+	final HashMap<X, Y> mapping = new HashMap<X, Y>();
 
 	@Override
 	public void print(String tag) {
-		this.map.print(tag);
+
+	}
+
+	@Override
+	public Y get(X value_number) {
+		return this.mapping.get(value_number);
+	}
+
+	@Override
+	public void put(X value_number, Y value) {
+		this.mapping.put(value_number, value);
 	}
 }

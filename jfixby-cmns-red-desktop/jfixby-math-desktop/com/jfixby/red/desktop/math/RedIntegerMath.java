@@ -38,9 +38,9 @@ public class RedIntegerMath implements IntegerMathComponent {
 		}
 	}
 
-	private void checkIfItIsNatural(long n_number) {
+	private static final void checkIfItIsNatural(final long n_number) {
 		if (n_number < 0) {
-			throw new Error("This is not natural number:" + n_number);
+			throw new Error("This is not a natural number:" + n_number);
 		}
 	}
 
@@ -171,8 +171,7 @@ public class RedIntegerMath implements IntegerMathComponent {
 	}
 
 	@Override
-	public long composeInteger(byte byte1, byte byte2, byte byte3, byte byte4,
-			byte byte5, byte byte6, byte byte7, byte byte8) {
+	public long composeInteger(byte byte1, byte byte2, byte byte3, byte byte4, byte byte5, byte byte6, byte byte7, byte byte8) {
 		final long B1 = setByteToLong(byte1, 7);
 		final long B2 = setByteToLong(byte1, 6);
 		final long B3 = setByteToLong(byte1, 5);
@@ -222,8 +221,7 @@ public class RedIntegerMath implements IntegerMathComponent {
 
 	@Override
 	public Int2 newInt2(Int2 original, long offset_x, long offset_y) {
-		return new RedInt2(original.getX() + offset_x, original.getY()
-				+ offset_y);
+		return new RedInt2(original.getX() + offset_x, original.getY() + offset_y);
 	}
 
 	@Override

@@ -5,22 +5,17 @@ import com.jfixby.cmns.api.log.L;
 
 public class EmptyGraph<X, Y> implements λFunctionCache<X, Y> {
 
-	public EmptyGraph() {
-
+	@Override
+	final public void print(String tag) {
+		L.d("EmptyGraph");
 	}
 
 	@Override
-	final public Y get(X input) {
+	public Y get(X value_number) {
 		return null;
 	}
 
 	@Override
-	final public void put(X input, Y value) {
-
-	}
-
-	@Override
-	final public void print(String tag) {
-		L.d("EmptyGraph");
+	public void put(X value_number, Y value) {
 	}
 }
