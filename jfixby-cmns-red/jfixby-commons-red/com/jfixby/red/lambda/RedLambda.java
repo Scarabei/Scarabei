@@ -18,4 +18,9 @@ public class RedLambda implements LambdaComponent {
 		}
 		return new RedFunction<X, Y>(exe, graph);
 	}
+
+	@Override
+	final public <X, Y, Z> λFunction<X, Z> compose(final λFunction<Y, Z> g, final λFunction<X, Y> f) {
+		return x -> g.val(f.val(x));
+	}
 }

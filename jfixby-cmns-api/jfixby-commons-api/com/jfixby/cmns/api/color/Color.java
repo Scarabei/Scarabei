@@ -27,9 +27,11 @@ public interface Color {
 	// public CustomColor multiply(float multiplier);
 
 	public CustomColor customize();
-	
+
 	CustomColor mix(Color other, float proportion);
 
 	CustomColor mix(Color other);
+
+	public CustomColor invert();
 
 }

@@ -42,7 +42,7 @@ public class DesktopLambdaColorMap implements LambdaColorMap {
 	}
 
 	@Override
-	public λFunction<FixedInt2, Color> getLambdaColoredImage() {
+	public λFunction<FixedInt2, Color> getLambdaImage() {
 		return lambda;
 	}
 

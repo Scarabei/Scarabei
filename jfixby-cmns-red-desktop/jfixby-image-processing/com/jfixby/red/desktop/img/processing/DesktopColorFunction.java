@@ -22,7 +22,7 @@ public class DesktopColorFunction extends RedImage implements ArrayColorMap {
 	final private λFunction<FixedInt2, Color> COLORED = xy -> this.getValue((int) xy.getX(), (int) xy.getY());
 
 	@Override
-	public λFunction<FixedInt2, Color> getLambdaColoredImage() {
+	public λFunction<FixedInt2, Color> getLambdaImage() {
 		return COLORED;
 	}
 

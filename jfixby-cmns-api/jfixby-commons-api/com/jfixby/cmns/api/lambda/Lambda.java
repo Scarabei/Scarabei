@@ -17,12 +17,16 @@ public class Lambda {
 		return componentInstaller.getComponent();
 	}
 
-	public static <X, Y> λFunction<X, Y> newFunction(λFunction<X, Y> exe) {
+	public static <X, Y> λFunction<X, Y> cache(λFunction<X, Y> exe) {
 		return invoke().newFunction(exe);
 	}
 
-	public static <X, Y> λFunction<X, Y> newFunction(λFunction<X, Y> exe, λFunctionCache<X, Y> graph) {
+	public static <X, Y> λFunction<X, Y> cache(λFunction<X, Y> exe, λFunctionCache<X, Y> graph) {
 		return invoke().newFunction(exe, graph);
+	}
+
+	public static <X, Y, Z> λFunction<X, Z> compose(λFunction<Y, Z> g, λFunction<X, Y> f) {
+		return invoke().compose(g, f);
 	}
 
 }

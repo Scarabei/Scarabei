@@ -13,5 +13,5 @@ public interface ColorMap {
 
 	Color getValue(int x, int y);
 
-	λFunction<FixedInt2, Color> getLambdaColoredImage();
+	λFunction<FixedInt2, Color> getLambdaImage();
 }

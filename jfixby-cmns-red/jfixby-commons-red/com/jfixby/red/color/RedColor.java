@@ -286,4 +286,8 @@ public class RedColor implements Color, CustomColor, ColorConstant {
 		return getGrayscaleValue(grayscale_alpha, grayscale_betta, grayscale_gamma);
 	}
 
+	@Override
+	public CustomColor invert() {
+		return this.customize().setRed(1f - this.red()).setGreen(1f - this.green()).setBlue(1f - this.blue());
+	}
 }
