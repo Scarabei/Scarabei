@@ -1,9 +1,9 @@
 package com.jfixby.red.lambda;
 
-import com.jfixby.cmns.api.lambda.λGraph;
+import com.jfixby.cmns.api.lambda.λFunctionCache;
 import com.jfixby.cmns.api.log.L;
 
-public class EmptyGraph<X, Y> implements λGraph<X, Y> {
+public class EmptyGraph<X, Y> implements λFunctionCache<X, Y> {
 
 	public EmptyGraph() {
 

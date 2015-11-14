@@ -1,9 +1,9 @@
 package com.jfixby.red.lambda;
 
 import com.jfixby.cmns.api.collections.Map;
-import com.jfixby.cmns.api.lambda.λGraph;
+import com.jfixby.cmns.api.lambda.λFunctionCache;
 
-public class MapGraph<X, Y> implements λGraph<X, Y> {
+public class MapGraph<X, Y> implements λFunctionCache<X, Y> {
 
 	final private Map<X, Y> map;
 

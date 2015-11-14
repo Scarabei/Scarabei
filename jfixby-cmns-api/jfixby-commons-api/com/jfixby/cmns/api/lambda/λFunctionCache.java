@@ -1,6 +1,6 @@
 package com.jfixby.cmns.api.lambda;
 
-public interface λGraph<A, B> {
+public interface λFunctionCache<A, B> {
 
 	B get(A input);
 
