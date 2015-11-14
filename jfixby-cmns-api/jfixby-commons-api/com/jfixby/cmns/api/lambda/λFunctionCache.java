@@ -1,10 +1,10 @@
 package com.jfixby.cmns.api.lambda;
 
-public interface λFunctionCache<A, B> {
+public interface λFunctionCache<X, Y> {
 
-	B get(A key);
+	Y get(X key);
 
-	void put(A key, B value);
+	void put(X key, Y value);
 
 	void print(String tag);
 
