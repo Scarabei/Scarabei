@@ -11,7 +11,7 @@ import com.jfixby.cmns.api.collections.Mapping;
 import com.jfixby.cmns.api.collections.Set;
 import com.jfixby.cmns.api.log.L;
 
-public class DesktopMap<K, V> implements Map<K, V> {
+public class DesktopHashMap<K, V> implements Map<K, V> {
 	final HashMap<K, V> hash_map = new HashMap<K, V>();
 	final DesktopSet<K> keys_list = new DesktopSet<K>();
 
@@ -49,8 +49,7 @@ public class DesktopMap<K, V> implements Map<K, V> {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((hash_map == null) ? 0 : hash_map.hashCode());
+		result = prime * result + ((hash_map == null) ? 0 : hash_map.hashCode());
 		return result;
 	}
 
@@ -62,7 +61,7 @@ public class DesktopMap<K, V> implements Map<K, V> {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		DesktopMap<?, ?> other = (DesktopMap<?, ?>) obj;
+		DesktopHashMap<?, ?> other = (DesktopHashMap<?, ?>) obj;
 		if (hash_map == null) {
 			if (other.hash_map != null)
 				return false;

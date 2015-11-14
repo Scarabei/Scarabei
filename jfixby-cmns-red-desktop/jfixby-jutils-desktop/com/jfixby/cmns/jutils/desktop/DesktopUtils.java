@@ -38,7 +38,7 @@ public class DesktopUtils implements UtilsComponent {
 
 	@Override
 	public <K, V> Map<K, V> newMap() {
-		return new DesktopMap<K, V>();
+		return new DesktopHashMap<K, V>();
 	}
 
 	@Override
@@ -119,14 +119,14 @@ public class DesktopUtils implements UtilsComponent {
 
 	@Override
 	public <K, V> Map<K, V> newMap(Mapping<? extends K, ? extends V> map) {
-		DesktopMap<K, V> red_map = new DesktopMap<K, V>();
+		Map<K, V> red_map = newMap();
 		red_map.putAll(map);
 		return red_map;
 	}
 
 	@Override
 	public <K, V> Map<K, V> newMap(java.util.Map<? extends K, ? extends V> java_map) {
-		DesktopMap<K, V> red_map = new DesktopMap<K, V>();
+		Map<K, V> red_map = newMap();
 		red_map.putJavaMap(java_map);
 		return red_map;
 	}

@@ -243,7 +243,7 @@ public class RedColor implements Color, CustomColor, ColorConstant {
 
 	@Override
 	public String toString() {
-		return "Color [" + color_name + "]";
+		return "Color [" + this.getName() + "]";
 	}
 
 	@Override

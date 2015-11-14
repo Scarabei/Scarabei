@@ -1,25 +1,15 @@
 package com.jfixby.red.image;
 
-import com.jfixby.cmns.api.geometry.Rectangle;
+import com.jfixby.cmns.api.color.Color;
 import com.jfixby.cmns.api.image.LambdaColorMapSpecs;
-import com.jfixby.cmns.api.image.λImage;
+import com.jfixby.cmns.api.lambda.λFunction;
+import com.jfixby.cmns.api.math.FixedInt2;
 
 public class RedLambdaColorMapSpecs implements LambdaColorMapSpecs {
 
-	private Rectangle rectangle;
 	private int w;
 	private int h;
-	private λImage base;
-
-	@Override
-	public void setLambdaArea(Rectangle rectangle) {
-		this.rectangle = rectangle;
-	}
-
-	@Override
-	public Rectangle getLambdaArea() {
-		return rectangle;
-	}
+	private λFunction<FixedInt2, Color> base;
 
 	@Override
 	public void setColorMapWidth(int w) {
@@ -42,12 +32,12 @@ public class RedLambdaColorMapSpecs implements LambdaColorMapSpecs {
 	}
 
 	@Override
-	public void setLambdaColoredImage(λImage base) {
+	public void setLambdaColoredImage(λFunction<FixedInt2, Color> base) {
 		this.base = base;
 	}
 
 	@Override
-	public λImage getLambdaColoredImage() {
+	public λFunction<FixedInt2, Color> getLambdaColoredImage() {
 		return base;
 	}
 

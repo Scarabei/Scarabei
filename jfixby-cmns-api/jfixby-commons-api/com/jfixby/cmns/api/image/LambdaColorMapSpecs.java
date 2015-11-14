@@ -1,25 +1,25 @@
 package com.jfixby.cmns.api.image;
 
-import com.jfixby.cmns.api.geometry.Rectangle;
+import com.jfixby.cmns.api.color.Color;
+import com.jfixby.cmns.api.lambda.λFunction;
+import com.jfixby.cmns.api.math.FixedInt2;
 
 public interface LambdaColorMapSpecs {
 
-	void setLambdaArea(Rectangle rectangle);
-
-	public Rectangle getLambdaArea();
+	void setLambdaColoredImage(λFunction<FixedInt2, Color> base);
 
 	void setColorMapWidth(int w);
 
 	void setColorMapHeight(int h);
 
+	void setColorMapDimentions(int w, int h);
+
+	// ------------
+
 	public int getColorMapWidth();
 
 	public int getColorMapHeight();
 
-	void setLambdaColoredImage(λImage base);
-
-	λImage getLambdaColoredImage();
-
-	void setColorMapDimentions(int w, int h);
+	λFunction<FixedInt2, Color> getLambdaColoredImage();
 
 }
