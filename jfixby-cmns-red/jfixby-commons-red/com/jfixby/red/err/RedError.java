@@ -3,7 +3,7 @@ package com.jfixby.red.err;
 import com.jfixby.cmns.api.err.ErrorComponent;
 import com.jfixby.cmns.api.log.L;
 
-public class RedErrorComponent implements ErrorComponent {
+public class RedError implements ErrorComponent {
 
 	@Override
 	public void reportWarning(String message) {

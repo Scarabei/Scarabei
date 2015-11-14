@@ -16,9 +16,9 @@ public interface LambdaColorMapSpecs {
 
 	public int getColorMapHeight();
 
-	void setLambdaColoredImage(LambdaImage base);
+	void setLambdaColoredImage(λImage base);
 
-	LambdaImage getLambdaColoredImage();
+	λImage getLambdaColoredImage();
 
 	void setColorMapDimentions(int w, int h);
 

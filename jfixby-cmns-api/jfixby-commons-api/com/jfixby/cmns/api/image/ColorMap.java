@@ -10,5 +10,5 @@ public interface ColorMap {
 
 	Color getValue(int x, int y);
 
-	LambdaImage getLambdaColoredImage();
+	λImage getLambdaColoredImage();
 }

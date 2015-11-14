@@ -4,6 +4,7 @@ import com.jfixby.cmns.api.angles.Angles;
 import com.jfixby.cmns.api.assets.Names;
 import com.jfixby.cmns.api.collections.JUtils;
 import com.jfixby.cmns.api.color.Colors;
+import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.filesystem.LocalFileSystem;
 import com.jfixby.cmns.api.geometry.Geometry;
 import com.jfixby.cmns.api.graphs.Graphs;
@@ -24,6 +25,7 @@ import com.jfixby.red.desktop.math.RedAngles;
 import com.jfixby.red.desktop.math.RedIntegerMath;
 import com.jfixby.red.desktop.math.RedMathTools;
 import com.jfixby.red.desktop.sys.DesktopSystem;
+import com.jfixby.red.err.RedError;
 import com.jfixby.red.geometry.RedGeometry;
 import com.jfixby.red.graphs.RedGraphs;
 import com.jfixby.red.io.RedIO;
@@ -44,6 +46,7 @@ public class DesktopAssembler {
 		Geometry.installComponent(new RedGeometry());
 		Colors.installComponent(new RedColors());
 		MathTools.installComponent(new RedMathTools());
+		Err.installComponent(new RedError());
 		// --
 
 		LocalFileSystem.installComponent(new WinFileSystem());
