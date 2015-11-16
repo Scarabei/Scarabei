@@ -13,16 +13,16 @@ import com.jfixby.cmns.api.math.IntegerMath;
 
 public class DesktopSet<T> implements Set<T> {
 	final DesktopList<T> content_list = new DesktopList<T>();
-//	final HashSet<T> content_set = new HashSet<T>();
+	final HashSet<T> content_set = new HashSet<T>();
 
 	@Override
 	public boolean contains(Object element) {
-		return content_list.contains(element);
+		return content_set.contains(element);
 	}
 
 	@Override
 	public boolean remove(Object element) {
-//		content_set.remove(element);
+		content_set.remove(element);
 		return content_list.remove(element);
 	}
 
@@ -48,7 +48,7 @@ public class DesktopSet<T> implements Set<T> {
 
 	@Override
 	public int size() {
-		return content_list.size();
+		return content_set.size();
 	}
 
 	@Override
@@ -72,9 +72,9 @@ public class DesktopSet<T> implements Set<T> {
 	@Override
 	public boolean add(T element) {
 		boolean first_occurence = false;
-		if (!content_list.contains(element)) {
+		if (!content_set.contains(element)) {
 			content_list.add(element);
-//			content_set.add(element);
+			content_set.add(element);
 			first_occurence = true;
 		} else {
 
@@ -115,7 +115,7 @@ public class DesktopSet<T> implements Set<T> {
 	@Override
 	public void clear() {
 		this.content_list.clear();
-//		this.content_set.clear();
+		this.content_set.clear();
 	}
 
 	@Override
@@ -140,7 +140,7 @@ public class DesktopSet<T> implements Set<T> {
 
 	@Override
 	public void removeAll(Collection<? extends Object> list) {
-//		this.content_set.removeAll(list.toJavaList());
+		this.content_set.removeAll(list.toJavaList());
 		this.content_list.removeAll(list);
 	}
 
@@ -154,14 +154,14 @@ public class DesktopSet<T> implements Set<T> {
 	@Override
 	public T removeElementAt(final long i) {
 		final T element = this.content_list.removeElementAt(i);
-//		this.content_list.remove(element);
+		this.content_set.remove(element);
 		return element;
 	}
 
 	@Override
 	public T removeLast() {
 		final T element = this.content_list.removeLast();
-//		this.content_list.remove(element);
+		this.content_set.remove(element);
 		return element;
 	}
 
@@ -177,7 +177,7 @@ public class DesktopSet<T> implements Set<T> {
 	public void addAllArrayElements(T[] array) {
 		for (int i = 0; i < array.length; i++) {
 			this.content_list.add(array[i]);
-//			this.content_set.add(array[i]);
+			this.content_set.add(array[i]);
 		}
 
 	}

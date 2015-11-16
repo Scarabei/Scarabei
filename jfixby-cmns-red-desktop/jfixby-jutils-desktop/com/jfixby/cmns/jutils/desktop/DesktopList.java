@@ -1,9 +1,9 @@
 package com.jfixby.cmns.jutils.desktop;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.LinkedList;
 
 import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.JUtils;
@@ -12,7 +12,7 @@ import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.math.IntegerMath;
 
 public class DesktopList<T> implements List<T> {
-	private final ArrayList<T> legacy = new ArrayList<T>();
+	private final LinkedList<T> legacy = new LinkedList<T>();
 
 	@Override
 	public void addAllArrayElements(T[] array) {
@@ -170,8 +170,7 @@ public class DesktopList<T> implements List<T> {
 	}
 
 	@Override
-	public void addJavaCollection(
-			java.util.Collection<? extends T> java_collection) {
+	public void addJavaCollection(java.util.Collection<? extends T> java_collection) {
 		this.legacy.addAll(java_collection);
 	}
 
