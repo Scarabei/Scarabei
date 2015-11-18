@@ -27,9 +27,9 @@ public class DesktopSystem extends RedSystem {
 		}
 	}
 
-	Map<String, Boolean> flags = JUtils.newMap();
-	Map<String, String> strings = JUtils.newMap();
-	Map<String, AssetID> assets = JUtils.newMap();
+	final Map<String, Boolean> flags = JUtils.newMap();
+	final Map<String, String> strings = JUtils.newMap();
+	final Map<String, AssetID> assets = JUtils.newMap();
 
 	private ExecutionMode execution_mode;
 
