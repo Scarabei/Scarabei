@@ -50,6 +50,7 @@ public class DesktopAssembler {
 		MathTools.installComponent(new RedMathTools());
 		Err.installComponent(new RedError());
 		Lambda.installComponent(new RedLambda());
+		
 		// --
 
 		LocalFileSystem.installComponent(new WinFileSystem());
