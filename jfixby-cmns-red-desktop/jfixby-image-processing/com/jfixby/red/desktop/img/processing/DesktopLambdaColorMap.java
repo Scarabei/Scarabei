@@ -1,12 +1,12 @@
 package com.jfixby.red.desktop.img.processing;
 
-import com.jfixby.cmns.api.collections.JUtils;
 import com.jfixby.cmns.api.color.Color;
 import com.jfixby.cmns.api.image.LambdaColorMap;
 import com.jfixby.cmns.api.image.LambdaColorMapSpecs;
 import com.jfixby.cmns.api.lambda.λFunction;
 import com.jfixby.cmns.api.math.FixedInt2;
 import com.jfixby.cmns.api.math.IntegerMath;
+import com.jfixby.cmns.api.util.JUtils;
 
 public class DesktopLambdaColorMap implements LambdaColorMap {
 

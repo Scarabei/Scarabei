@@ -1,10 +1,10 @@
 package com.jfixby.red.color;
 
-import com.jfixby.cmns.api.collections.JUtils;
 import com.jfixby.cmns.api.collections.Set;
 import com.jfixby.cmns.api.color.Color;
 import com.jfixby.cmns.api.color.Colors;
 import com.jfixby.cmns.api.color.ColorsSet;
+import com.jfixby.cmns.api.util.JUtils;
 
 public class RedColorsSet implements ColorsSet {
 

@@ -4,12 +4,12 @@ import com.badlogic.gdx.math.EarClippingTriangulator;
 import com.badlogic.gdx.utils.FloatArray;
 import com.badlogic.gdx.utils.ShortArray;
 import com.jfixby.cmns.api.collections.EditableCollection;
-import com.jfixby.cmns.api.collections.JUtils;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.floatn.Float2;
 import com.jfixby.cmns.api.geometry.Geometry;
 import com.jfixby.cmns.api.geometry.Triangle;
 import com.jfixby.cmns.api.math.SimpleTriangulatorComponent;
+import com.jfixby.cmns.api.util.JUtils;
 
 public class GdxSimpleTriangulator implements SimpleTriangulatorComponent {
 

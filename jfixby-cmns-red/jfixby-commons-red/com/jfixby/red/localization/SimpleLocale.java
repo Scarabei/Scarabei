@@ -1,9 +1,9 @@
 package com.jfixby.red.localization;
 
-import com.jfixby.cmns.api.collections.JUtils;
 import com.jfixby.cmns.api.collections.Map;
 import com.jfixby.cmns.api.localize.Locale;
 import com.jfixby.cmns.api.localize.StringValueID;
+import com.jfixby.cmns.api.util.JUtils;
 
 public class SimpleLocale implements Locale {
 

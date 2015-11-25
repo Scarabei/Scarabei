@@ -2,7 +2,6 @@ package com.jfixby.cmns.desktop;
 
 import com.jfixby.cmns.api.angles.Angles;
 import com.jfixby.cmns.api.assets.Names;
-import com.jfixby.cmns.api.collections.JUtils;
 import com.jfixby.cmns.api.color.Colors;
 import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.filesystem.LocalFileSystem;
@@ -16,6 +15,7 @@ import com.jfixby.cmns.api.math.FloatMath;
 import com.jfixby.cmns.api.math.IntegerMath;
 import com.jfixby.cmns.api.math.MathTools;
 import com.jfixby.cmns.api.sys.Sys;
+import com.jfixby.cmns.api.util.JUtils;
 import com.jfixby.cmns.jutils.desktop.DesktopUtils;
 import com.jfixby.red.color.RedColors;
 import com.jfixby.red.desktop.filesystem.win.WinFileSystem;

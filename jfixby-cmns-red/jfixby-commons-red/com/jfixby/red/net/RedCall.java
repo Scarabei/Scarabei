@@ -1,11 +1,11 @@
 package com.jfixby.red.net;
 
-import com.jfixby.cmns.api.collections.JUtils;
 import com.jfixby.cmns.api.collections.Map;
 import com.jfixby.cmns.api.net.http.HttpCall;
 import com.jfixby.cmns.api.net.http.HttpCallSpecs;
 import com.jfixby.cmns.api.net.http.HttpURL;
 import com.jfixby.cmns.api.net.http.METHOD;
+import com.jfixby.cmns.api.util.JUtils;
 
 public class RedCall implements HttpCall {
 

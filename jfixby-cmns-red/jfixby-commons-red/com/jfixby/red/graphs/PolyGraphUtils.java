@@ -2,7 +2,6 @@ package com.jfixby.red.graphs;
 
 import com.jfixby.cmns.api.angles.Angles;
 import com.jfixby.cmns.api.collections.EditableCollection;
-import com.jfixby.cmns.api.collections.JUtils;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.collections.Set;
 import com.jfixby.cmns.api.floatn.FixedFloat2;
@@ -13,6 +12,7 @@ import com.jfixby.cmns.api.math.CustomAngle;
 import com.jfixby.cmns.api.math.FloatMath;
 import com.jfixby.cmns.api.math.MathTools;
 import com.jfixby.cmns.api.math.VectorTool;
+import com.jfixby.cmns.api.util.JUtils;
 
 public class PolyGraphUtils {
 	static private <EdgeType> void removeLoopEdges(Ploy2DGraph<EdgeType> multy_graph) {

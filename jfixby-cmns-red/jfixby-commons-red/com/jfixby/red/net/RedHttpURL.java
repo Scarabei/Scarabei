@@ -1,7 +1,7 @@
 package com.jfixby.red.net;
 
-import com.jfixby.cmns.api.collections.JUtils;
 import com.jfixby.cmns.api.net.http.HttpURL;
+import com.jfixby.cmns.api.util.JUtils;
 
 public class RedHttpURL implements HttpURL {
 

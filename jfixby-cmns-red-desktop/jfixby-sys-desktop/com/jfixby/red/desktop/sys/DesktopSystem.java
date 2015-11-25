@@ -2,10 +2,10 @@ package com.jfixby.red.desktop.sys;
 
 import com.jfixby.cmns.api.assets.AssetID;
 import com.jfixby.cmns.api.assets.Names;
-import com.jfixby.cmns.api.collections.JUtils;
 import com.jfixby.cmns.api.collections.Map;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.sys.ExecutionMode;
+import com.jfixby.cmns.api.util.JUtils;
 import com.jfixby.red.sys.RedSystem;
 
 public class DesktopSystem extends RedSystem {

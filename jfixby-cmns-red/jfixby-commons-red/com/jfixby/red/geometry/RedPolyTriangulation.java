@@ -1,7 +1,6 @@
 package com.jfixby.red.geometry;
 
 import com.jfixby.cmns.api.collections.EditableCollection;
-import com.jfixby.cmns.api.collections.JUtils;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.floatn.FixedFloat2;
 import com.jfixby.cmns.api.floatn.Float2;
@@ -14,6 +13,7 @@ import com.jfixby.cmns.api.graphs.PathInGraph;
 import com.jfixby.cmns.api.graphs.PolyGraph;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.math.SimpleTriangulator;
+import com.jfixby.cmns.api.util.JUtils;
 
 public class RedPolyTriangulation implements PolyTriangulation {
 	final List<RedPoint> triangulated_vertices = JUtils.newList();

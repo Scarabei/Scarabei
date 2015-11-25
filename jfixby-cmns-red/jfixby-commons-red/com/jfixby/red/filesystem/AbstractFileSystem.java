@@ -3,7 +3,6 @@ package com.jfixby.red.filesystem;
 import java.io.IOException;
 
 import com.jfixby.cmns.api.collections.Collection;
-import com.jfixby.cmns.api.collections.JUtils;
 import com.jfixby.cmns.api.filesystem.File;
 import com.jfixby.cmns.api.filesystem.FileInputStream;
 import com.jfixby.cmns.api.filesystem.FileOutputStream;
@@ -13,6 +12,7 @@ import com.jfixby.cmns.api.io.StreamPipe;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.path.AbsolutePath;
 import com.jfixby.cmns.api.path.ChildrenList;
+import com.jfixby.cmns.api.util.JUtils;
 
 public abstract class AbstractFileSystem implements FileSystem {
 

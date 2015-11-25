@@ -6,7 +6,6 @@ import java.util.Objects;
 import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.CollectionScanner;
 import com.jfixby.cmns.api.collections.EditableCollection;
-import com.jfixby.cmns.api.collections.JUtils;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.collections.Map;
 import com.jfixby.cmns.api.collections.Mapping;
@@ -20,6 +19,7 @@ import com.jfixby.cmns.api.collections.ZxZ_Functuion;
 import com.jfixby.cmns.api.path.AbsolutePath;
 import com.jfixby.cmns.api.path.MountPoint;
 import com.jfixby.cmns.api.path.RelativePath;
+import com.jfixby.cmns.api.util.JUtils;
 import com.jfixby.red.util.RedStateSwitcher;
 
 public class DesktopUtils implements UtilsComponent {

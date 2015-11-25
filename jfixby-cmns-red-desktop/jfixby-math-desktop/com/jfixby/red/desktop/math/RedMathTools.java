@@ -1,11 +1,11 @@
 package com.jfixby.red.desktop.math;
 
-import com.jfixby.cmns.api.collections.JUtils;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.math.FloatMath;
 import com.jfixby.cmns.api.math.MathToolsComponent;
 import com.jfixby.cmns.api.math.Matrix;
 import com.jfixby.cmns.api.math.VectorTool;
+import com.jfixby.cmns.api.util.JUtils;
 
 public class RedMathTools implements MathToolsComponent {
 

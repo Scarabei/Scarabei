@@ -1,8 +1,8 @@
 package com.jfixby.red.name;
 
 import com.jfixby.cmns.api.assets.AssetID;
-import com.jfixby.cmns.api.collections.JUtils;
 import com.jfixby.cmns.api.path.RelativePath;
+import com.jfixby.cmns.api.util.JUtils;
 
 public final class RedAssetID implements AssetID {
 

@@ -5,11 +5,11 @@ import java.util.HashSet;
 import java.util.Iterator;
 
 import com.jfixby.cmns.api.collections.Collection;
-import com.jfixby.cmns.api.collections.JUtils;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.collections.Set;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.math.IntegerMath;
+import com.jfixby.cmns.api.util.JUtils;
 
 public class DesktopSet<T> implements Set<T> {
 	final DesktopList<T> content_list = new DesktopList<T>();

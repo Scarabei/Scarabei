@@ -3,7 +3,6 @@ package com.jfixby.red.desktop.filesystem.win;
 import java.io.IOException;
 import java.io.InputStream;
 
-import com.jfixby.cmns.api.collections.JUtils;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.filesystem.File;
 import com.jfixby.cmns.api.filesystem.FileInputStream;
@@ -14,6 +13,7 @@ import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.md5.MD5;
 import com.jfixby.cmns.api.path.AbsolutePath;
 import com.jfixby.cmns.api.path.RelativePath;
+import com.jfixby.cmns.api.util.JUtils;
 import com.jfixby.red.filesystem.AbstractFileSystem;
 
 public class WinFileSystem extends AbstractFileSystem implements

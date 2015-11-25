@@ -2,12 +2,12 @@ package com.jfixby.red.color;
 
 import java.util.Random;
 
-import com.jfixby.cmns.api.collections.JUtils;
 import com.jfixby.cmns.api.color.Color;
 import com.jfixby.cmns.api.color.ColorConstant;
 import com.jfixby.cmns.api.color.Colors;
 import com.jfixby.cmns.api.color.CustomColor;
 import com.jfixby.cmns.api.log.L;
+import com.jfixby.cmns.api.util.JUtils;
 import com.jfixby.red.util.md5.AlpaeroMD5;
 
 public class RedColor implements Color, CustomColor, ColorConstant {

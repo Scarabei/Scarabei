@@ -1,10 +1,10 @@
 package com.jfixby.cmns.jutils.desktop;
 
-import com.jfixby.cmns.api.collections.JUtils;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.path.AbsolutePath;
 import com.jfixby.cmns.api.path.MountPoint;
 import com.jfixby.cmns.api.path.RelativePath;
+import com.jfixby.cmns.api.util.JUtils;
 
 public class DesktopAbsolutePath<T extends MountPoint> implements
 		AbsolutePath<T> {

@@ -4,9 +4,9 @@ import java.io.IOException;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
-import com.jfixby.cmns.api.collections.JUtils;
 import com.jfixby.cmns.api.io.InputStream;
 import com.jfixby.cmns.api.md5.MD5Component;
+import com.jfixby.cmns.api.util.JUtils;
 import com.jfixby.red.util.md5.RedMD5;
 
 public class ApacheMD5 extends RedMD5 implements MD5Component {

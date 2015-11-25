@@ -1,9 +1,9 @@
 package com.jfixby.cmns.jutils.desktop;
 
 import com.jfixby.cmns.api.collections.Collection;
-import com.jfixby.cmns.api.collections.JUtils;
 import com.jfixby.cmns.api.collections.Map;
 import com.jfixby.cmns.api.collections.ZxZ_Functuion;
+import com.jfixby.cmns.api.util.JUtils;
 
 public class Desktop_ZxZ_Map_Functuion<T> implements ZxZ_Functuion<T> {
 

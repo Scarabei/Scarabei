@@ -40,10 +40,10 @@ documentation and/or software.
 
 import java.io.IOException;
 
-import com.jfixby.cmns.api.collections.JUtils;
 import com.jfixby.cmns.api.io.IO;
 import com.jfixby.cmns.api.io.InputStream;
 import com.jfixby.cmns.api.md5.MD5Component;
+import com.jfixby.cmns.api.util.JUtils;
 
 public final class AlpaeroMD5 extends RedMD5 implements MD5Component {
 
