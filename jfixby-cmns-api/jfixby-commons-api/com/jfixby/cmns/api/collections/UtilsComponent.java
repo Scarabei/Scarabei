@@ -1,5 +1,6 @@
 package com.jfixby.cmns.api.collections;
 
+import com.jfixby.cmns.api.lambda.λFunction;
 import com.jfixby.cmns.api.path.AbsolutePath;
 import com.jfixby.cmns.api.path.MountPoint;
 import com.jfixby.cmns.api.path.RelativePath;
@@ -80,5 +81,7 @@ public interface UtilsComponent {
 	void checkTrue(String flag_name, boolean flag);
 
 	public <T> void arrayCopy(Collection<? extends T> source, int source_index, EditableCollection<? super T> destination, int number_of_elements);
+
+	 <A extends Comparable<A>> λFunction<Collection<A>, Collection<A>> MERGE_SORT();
 
 }

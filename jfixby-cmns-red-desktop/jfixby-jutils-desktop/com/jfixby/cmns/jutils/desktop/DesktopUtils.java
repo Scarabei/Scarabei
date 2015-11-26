@@ -16,6 +16,7 @@ import com.jfixby.cmns.api.collections.Set;
 import com.jfixby.cmns.api.collections.StateSwitcher;
 import com.jfixby.cmns.api.collections.UtilsComponent;
 import com.jfixby.cmns.api.collections.ZxZ_Functuion;
+import com.jfixby.cmns.api.lambda.λFunction;
 import com.jfixby.cmns.api.path.AbsolutePath;
 import com.jfixby.cmns.api.path.MountPoint;
 import com.jfixby.cmns.api.path.RelativePath;
@@ -295,4 +296,10 @@ public class DesktopUtils implements UtilsComponent {
 			destination.add(source.getElementAt(i));
 		}
 	}
+
+	@Override
+	public <A extends Comparable<A>> λFunction<Collection<A>, Collection<A>> MERGE_SORT() {
+		return new RedMergeSort<A>();
+	}
+
 }

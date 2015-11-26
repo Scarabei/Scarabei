@@ -14,6 +14,7 @@ import com.jfixby.cmns.api.collections.StateSwitcher;
 import com.jfixby.cmns.api.collections.UtilsComponent;
 import com.jfixby.cmns.api.collections.ZxZ_Functuion;
 import com.jfixby.cmns.api.components.ComponentInstaller;
+import com.jfixby.cmns.api.lambda.λFunction;
 import com.jfixby.cmns.api.path.AbsolutePath;
 import com.jfixby.cmns.api.path.MountPoint;
 import com.jfixby.cmns.api.path.RelativePath;
@@ -176,5 +177,9 @@ public class JUtils {
 
 	public static <T> void arrayCopy(Collection<? extends T> source, int source_index, EditableCollection<? super T> destination, int number_of_elements) {
 		invoke().arrayCopy(source, source_index, destination, number_of_elements);
+	}
+
+	public static <A extends Comparable<A>> λFunction<Collection<A>, Collection<A>> MERGE_SORT() {
+		return invoke().MERGE_SORT();
 	}
 }
