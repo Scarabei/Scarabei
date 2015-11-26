@@ -1,5 +1,6 @@
 package com.jfixby.cmns.jutils.desktop;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Objects;
 
@@ -298,8 +299,12 @@ public class DesktopUtils implements UtilsComponent {
 	}
 
 	@Override
-	public <A extends Comparable<A>> λFunction<Collection<A>, Collection<A>> MERGE_SORT() {
-		return new DesktopMergeSort<A>();
+	public <T> λFunction<Collection<T>, Collection<T>> MERGE_SORT(Comparator<? super T> comparator) {
+		return new DesktopMergeSort<T>(comparator);
 	}
 
+	@Override
+	public <T> λFunction<Collection<T>, Collection<T>> MERGE_SORT() {
+		return new DesktopMergeSort<T>();
+	}
 }

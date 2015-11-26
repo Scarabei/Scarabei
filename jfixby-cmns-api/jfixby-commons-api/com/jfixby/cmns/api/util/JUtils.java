@@ -1,5 +1,7 @@
 package com.jfixby.cmns.api.util;
 
+import java.util.Comparator;
+
 import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.CollectionScanner;
 import com.jfixby.cmns.api.collections.EditableCollection;
@@ -179,7 +181,11 @@ public class JUtils {
 		invoke().arrayCopy(source, source_index, destination, number_of_elements);
 	}
 
-	public static <A extends Comparable<A>> λFunction<Collection<A>, Collection<A>> MERGE_SORT() {
+	public static <T> λFunction<Collection<T>, Collection<T>> MERGE_SORT(Comparator<? super T> comparator) {
+		return invoke().MERGE_SORT(comparator);
+	}
+
+	public static <T> λFunction<Collection<T>, Collection<T>> MERGE_SORT() {
 		return invoke().MERGE_SORT();
 	}
 }

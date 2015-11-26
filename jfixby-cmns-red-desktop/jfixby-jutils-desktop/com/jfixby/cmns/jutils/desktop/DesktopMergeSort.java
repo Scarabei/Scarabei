@@ -1,5 +1,7 @@
 package com.jfixby.cmns.jutils.desktop;
 
+import java.util.Comparator;
+
 import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.lambda.Lambda;
@@ -7,9 +9,20 @@ import com.jfixby.cmns.api.lambda.λFunction;
 import com.jfixby.cmns.api.lambda.λFunctionCache;
 import com.jfixby.cmns.api.util.JUtils;
 
-public class DesktopMergeSort<T extends Comparable<T>> implements λFunction<Collection<T>, Collection<T>> {
-	final λFunctionCache<Collection<T>, Collection<T>> cache = Lambda.newArrayCache();
-	final λFunction<Collection<T>, Collection<T>> MERGE_SORT = Lambda.cache(this, cache);
+public class DesktopMergeSort<T> implements λFunction<Collection<T>, Collection<T>> {
+
+	final private Comparator<? super T> comparator;
+
+	public DesktopMergeSort(Comparator<? super T> comparator) {
+		super();
+		this.comparator = comparator;
+	}
+
+	public DesktopMergeSort() {
+		this(null);
+	}
+
+	final λFunction<Collection<T>, Collection<T>> MERGE_SORT = this;
 
 	@Override
 	public Collection<T> val(Collection<T> input_list) {
@@ -21,7 +34,7 @@ public class DesktopMergeSort<T extends Comparable<T>> implements λFunction<Col
 			T e0 = input_list.getElementAt(0);
 			T e1 = input_list.getElementAt(1);
 
-			if (e0.compareTo(e1) > 0) {
+			if (compare(e0, e1) > 0) {
 				List<T> result = JUtils.newList();// (2);
 				result.add(input_list.getElementAt(1));
 				result.add(input_list.getElementAt(0));
@@ -50,7 +63,7 @@ public class DesktopMergeSort<T extends Comparable<T>> implements λFunction<Col
 		while (head_pointer < sorted_head.size() && tail_pointer < sorted_tail.size()) {
 			T h0 = sorted_head.getElementAt(head_pointer);
 			T t0 = sorted_tail.getElementAt(tail_pointer);
-			if (h0.compareTo((T) t0) > 0) {
+			if (compare(h0, t0) > 0) {
 				result.add(t0);
 				tail_pointer++;
 			} else {
@@ -68,8 +81,12 @@ public class DesktopMergeSort<T extends Comparable<T>> implements λFunction<Col
 		return result;
 	}
 
-	public void printCache() {
-		this.cache.print("cache");
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	private int compare(T a, T b) {
+		if (this.comparator != null) {
+			return this.comparator.compare(a, b);
+		}
+		return ((Comparable) a).compareTo(b);
 	}
 
 }
