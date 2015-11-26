@@ -5,8 +5,10 @@ import java.util.HashSet;
 import java.util.Iterator;
 
 import com.jfixby.cmns.api.collections.Collection;
+import com.jfixby.cmns.api.collections.EditableCollection;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.collections.Set;
+import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.math.IntegerMath;
 import com.jfixby.cmns.api.util.JUtils;
@@ -200,6 +202,25 @@ public class DesktopSet<T> implements Set<T> {
 	@Override
 	public boolean beginsWith(Collection<T> steps) {
 		return JUtils.listBeginsWith(this, steps);
+	}
+
+	@Override
+	public EditableCollection<T> splitAt(int index) {
+		if (index < 0) {
+			Err.reportError("index(" + index + ") < 0");
+		}
+		final int size = this.size();
+		if (index >= size) {
+			return this;
+		}
+
+		final List<T> tail = JUtils.newList();
+		for (int i = index; i < size; i++) {
+			T e = this.removeElementAt(index);
+			tail.add(e);
+		}
+
+		return tail;
 	}
 
 }

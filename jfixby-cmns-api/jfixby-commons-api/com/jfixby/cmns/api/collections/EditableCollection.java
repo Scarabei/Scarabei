@@ -20,8 +20,7 @@ public interface EditableCollection<T> extends Collection<T> {
 
 	public T removeLast();
 
-	public void addJavaCollection(
-			java.util.Collection<? extends T> java_collection);
+	public void addJavaCollection(java.util.Collection<? extends T> java_collection);
 
 	public void addAllArrayElements(T[] array);
 
@@ -30,5 +29,7 @@ public interface EditableCollection<T> extends Collection<T> {
 	public void removeAll(Collection<? extends Object> list);
 
 	public void sort(Comparator<T> comparator);
+
+	public EditableCollection<T> splitAt(int index);
 
 }
