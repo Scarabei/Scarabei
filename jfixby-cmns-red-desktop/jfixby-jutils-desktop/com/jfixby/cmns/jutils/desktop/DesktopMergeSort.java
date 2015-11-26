@@ -7,7 +7,7 @@ import com.jfixby.cmns.api.lambda.λFunction;
 import com.jfixby.cmns.api.lambda.λFunctionCache;
 import com.jfixby.cmns.api.util.JUtils;
 
-public class RedMergeSort<T extends Comparable<T>> implements λFunction<Collection<T>, Collection<T>> {
+public class DesktopMergeSort<T extends Comparable<T>> implements λFunction<Collection<T>, Collection<T>> {
 	final λFunctionCache<Collection<T>, Collection<T>> cache = Lambda.newArrayCache();
 	final λFunction<Collection<T>, Collection<T>> MERGE_SORT = Lambda.cache(this, cache);
 

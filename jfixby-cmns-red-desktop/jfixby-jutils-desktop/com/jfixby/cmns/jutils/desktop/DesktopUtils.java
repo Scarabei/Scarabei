@@ -299,7 +299,7 @@ public class DesktopUtils implements UtilsComponent {
 
 	@Override
 	public <A extends Comparable<A>> λFunction<Collection<A>, Collection<A>> MERGE_SORT() {
-		return new RedMergeSort<A>();
+		return new DesktopMergeSort<A>();
 	}
 
 }
