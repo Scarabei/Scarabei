@@ -11,20 +11,6 @@ import com.jfixby.cmns.api.util.JUtils;
 
 public class DesktopMergeSort<T> implements λFunction<Collection<T>, Collection<T>> {
 
-	final private Comparator<? super T> comparator;
-	final private λFunctionCache<Collection<T>, Collection<T>> cache;
-
-	public DesktopMergeSort(Comparator<? super T> comparator, λFunctionCache<Collection<T>, Collection<T>> cache) {
-		super();
-		this.comparator = comparator;
-		this.cache = cache;
-		if (cache != null) {
-			MERGE_SORT = Lambda.cache(this, cache);
-		} else {
-			MERGE_SORT = this;
-		}
-	}
-
 	public DesktopMergeSort() {
 		this(null, null);
 	}
@@ -37,7 +23,20 @@ public class DesktopMergeSort<T> implements λFunction<Collection<T>, Collection
 		this(comparator, null);
 	}
 
-	final λFunction<Collection<T>, Collection<T>> MERGE_SORT;
+	public DesktopMergeSort(Comparator<? super T> comparator, λFunctionCache<Collection<T>, Collection<T>> cache) {
+		super();
+		this.comparator = comparator;
+		this.cache = cache;
+		if (cache != null) {
+			MERGE_SORT = Lambda.cache(this, cache);
+		} else {
+			MERGE_SORT = this;
+		}
+	}
+
+	final private Comparator<? super T> comparator;
+	final private λFunctionCache<Collection<T>, Collection<T>> cache;
+	final private λFunction<Collection<T>, Collection<T>> MERGE_SORT;
 
 	@Override
 	public Collection<T> val(Collection<T> input_list) {
