@@ -42,6 +42,10 @@ public class JUtils {
 		return invoke().newList(array);
 	}
 
+	public static final <T> List<T> newListFromArray(T[] array) {
+		return invoke().newList(array);
+	}
+
 	public static final <T> List<T> newList(Collection<? extends T> collection) {
 		return invoke().newList(collection);
 	}

@@ -23,4 +23,9 @@ public class RedLambda implements LambdaComponent {
 	final public <X, Y, Z> λFunction<X, Z> compose(final λFunction<Y, Z> g, final λFunction<X, Y> f) {
 		return x -> g.val(f.val(x));
 	}
+
+	@Override
+	public <X, Y> λFunctionCache<X, Y> newDebugCache() {
+		return new DebugGraph<X, Y>();
+	}
 }

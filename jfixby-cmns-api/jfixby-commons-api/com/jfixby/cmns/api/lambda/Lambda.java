@@ -1,5 +1,6 @@
 package com.jfixby.cmns.api.lambda;
 
+import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.components.ComponentInstaller;
 
 public class Lambda {
@@ -28,5 +29,11 @@ public class Lambda {
 	public static <X, Y, Z> λFunction<X, Z> compose(λFunction<Y, Z> g, λFunction<X, Y> f) {
 		return invoke().compose(g, f);
 	}
+
+	public static <X, Y> λFunctionCache<X, Y> newDebugCache() {
+		return invoke().newDebugCache();
+	}
+
+	
 
 }
