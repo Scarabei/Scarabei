@@ -79,4 +79,6 @@ public interface UtilsComponent {
 
 	void checkTrue(String flag_name, boolean flag);
 
+	public <T> void arrayCopy(Collection<? extends T> source, int source_index, EditableCollection<? super T> destination, int number_of_elements);
+
 }

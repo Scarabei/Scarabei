@@ -34,6 +34,8 @@ public class Lambda {
 		return invoke().newDebugCache();
 	}
 
-	
+	public static <Q, T> λFunctionCache<Collection<Q>, Collection<T>> newArrayCache() {
+		return invoke().newArrayCache();
+	}
 
 }

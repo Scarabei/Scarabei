@@ -173,4 +173,8 @@ public class JUtils {
 	public static void checkTrue(String flag_name, boolean flag) {
 		invoke().checkTrue(flag_name, flag);
 	}
+
+	public static <T> void arrayCopy(Collection<? extends T> source, int source_index, EditableCollection<? super T> destination, int number_of_elements) {
+		invoke().arrayCopy(source, source_index, destination, number_of_elements);
+	}
 }

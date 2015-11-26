@@ -160,8 +160,8 @@ public class DesktopList<T> implements List<T> {
 	}
 
 	@Override
-	public void setElementAt(T element, int iindex) {
-		this.legacy.set(iindex, element);
+	public T setElementAt(T element, int iindex) {
+		return this.legacy.set(iindex, element);
 	}
 
 	@Override
@@ -174,13 +174,6 @@ public class DesktopList<T> implements List<T> {
 	@Override
 	public void addJavaCollection(java.util.Collection<? extends T> java_collection) {
 		this.legacy.addAll(java_collection);
-	}
-
-	@Override
-	public T replaceElementAt(int position, T replacement) {
-		final T old = this.legacy.get(position);
-		this.legacy.set(position, replacement);
-		return old;
 	}
 
 	@Override

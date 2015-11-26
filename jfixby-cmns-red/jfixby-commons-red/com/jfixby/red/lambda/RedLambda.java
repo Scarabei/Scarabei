@@ -1,5 +1,6 @@
 package com.jfixby.red.lambda;
 
+import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.lambda.LambdaComponent;
 import com.jfixby.cmns.api.lambda.λFunction;
 import com.jfixby.cmns.api.lambda.λFunctionCache;
@@ -28,4 +29,10 @@ public class RedLambda implements LambdaComponent {
 	public <X, Y> λFunctionCache<X, Y> newDebugCache() {
 		return new DebugGraph<X, Y>();
 	}
+
+	@Override
+	public <Q, T> λFunctionCache<Collection<Q>, T> newArrayCache() {
+		return new ArrayCache<Q, T>();
+	}
+
 }

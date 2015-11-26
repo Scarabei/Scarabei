@@ -289,4 +289,10 @@ public class DesktopUtils implements UtilsComponent {
 		}
 	}
 
+	@Override
+	public <T> void arrayCopy(final Collection<? extends T> source, final int source_index, EditableCollection<? super T> destination, final int number_of_elements) {
+		for (int i = source_index; i < source_index + number_of_elements; i++) {
+			destination.add(source.getElementAt(i));
+		}
+	}
 }

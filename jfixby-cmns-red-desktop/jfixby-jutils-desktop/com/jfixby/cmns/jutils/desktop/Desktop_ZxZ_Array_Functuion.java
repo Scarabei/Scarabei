@@ -42,7 +42,7 @@ public class Desktop_ZxZ_Array_Functuion<T> implements ZxZ_Functuion<T> {
 		if (position >= base.size()) {
 			return null;
 		}
-		return this.base.replaceElementAt(position, null);
+		return this.base.setElementAt(null, position);
 	}
 
 	@Override
