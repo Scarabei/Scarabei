@@ -3,6 +3,7 @@ package com.jfixby.cmns.desktop;
 import com.jfixby.cmns.api.angles.Angles;
 import com.jfixby.cmns.api.assets.Names;
 import com.jfixby.cmns.api.color.Colors;
+import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.filesystem.LocalFileSystem;
 import com.jfixby.cmns.api.geometry.Geometry;
@@ -18,6 +19,7 @@ import com.jfixby.cmns.api.sys.Sys;
 import com.jfixby.cmns.api.util.JUtils;
 import com.jfixby.cmns.jutils.desktop.DesktopUtils;
 import com.jfixby.red.color.RedColors;
+import com.jfixby.red.debug.RedDebug;
 import com.jfixby.red.desktop.filesystem.win.WinFileSystem;
 import com.jfixby.red.desktop.img.processing.DesktopImageProcessing;
 import com.jfixby.red.desktop.log.DesktopLogger;
@@ -49,8 +51,9 @@ public class DesktopAssembler {
 		Colors.installComponent(new RedColors());
 		MathTools.installComponent(new RedMathTools());
 		Err.installComponent(new RedError());
+		Debug.installComponent(new RedDebug());
 		Lambda.installComponent(new RedLambda());
-		
+
 		// --
 
 		LocalFileSystem.installComponent(new WinFileSystem());
