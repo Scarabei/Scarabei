@@ -3,6 +3,7 @@ package com.jfixby.red.sys;
 import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.collections.StateSwitcher;
+import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.sys.Job;
 import com.jfixby.cmns.api.sys.TASK_STATE;
 import com.jfixby.cmns.api.sys.Task;
@@ -75,7 +76,7 @@ public class RedTask implements Task {
 		try {
 			this.current_job.doDo();
 		} catch (Throwable e) {
-			e.printStackTrace();
+			Err.reportError(e);
 			switcher.switchState(TASK_STATE.FAILED);
 			return;
 		}
