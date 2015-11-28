@@ -4,6 +4,7 @@ import com.jfixby.cmns.api.angles.Angles;
 import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.EditableCollection;
 import com.jfixby.cmns.api.collections.List;
+import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.floatn.FixedFloat2;
 import com.jfixby.cmns.api.floatn.Float2;
 import com.jfixby.cmns.api.floatn.Float3;
@@ -293,14 +294,14 @@ public class RedGeometry implements GeometryComponent {
 	// // throw new Error("Asset<" + spriteAssetID + "> not found");
 	// // }
 	// // this.gdx_sprite = asset_info.asset().getGdxSprite();
-	// // JUtils.checkNull("asset(" + spriteAssetID + ")", gdx_sprite);
+	// // Debug.checkNull("asset(" + spriteAssetID + ")", gdx_sprite);
 	// //
 	// return null;
 	// }
 
 	@Override
 	public <T extends EditableCollection<Float3>> T newFloat3(T target_list, int how_many_to_add) {
-		JUtils.checkNull("target_list", target_list);
+		Debug.checkNull("target_list", target_list);
 		for (int i = 0; i < how_many_to_add; i++) {
 			target_list.add(this.newFloat3());
 		}
@@ -309,7 +310,7 @@ public class RedGeometry implements GeometryComponent {
 
 	@Override
 	public <T extends EditableCollection<Float2>> T newFloat2(T target_list, int how_many_to_add) {
-		JUtils.checkNull("target_list", target_list);
+		Debug.checkNull("target_list", target_list);
 		for (int i = 0; i < how_many_to_add; i++) {
 			target_list.add(this.newFloat2());
 		}

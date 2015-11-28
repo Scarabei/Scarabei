@@ -3,14 +3,14 @@ package com.jfixby.red.util.md5;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
+import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.md5.MD5Component;
-import com.jfixby.cmns.api.util.JUtils;
 
 public abstract class RedMD5 implements MD5Component {
 
 	@Override
 	public String md5String(String password) {
-		JUtils.checkNull("input", password);
+		Debug.checkNull("input", password);
 		try {
 			ByteArrayInputStream buff = new ByteArrayInputStream(
 					password.getBytes());

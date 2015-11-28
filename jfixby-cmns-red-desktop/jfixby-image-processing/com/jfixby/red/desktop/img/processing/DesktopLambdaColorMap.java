@@ -1,12 +1,12 @@
 package com.jfixby.red.desktop.img.processing;
 
 import com.jfixby.cmns.api.color.Color;
+import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.image.LambdaColorMap;
 import com.jfixby.cmns.api.image.LambdaColorMapSpecs;
 import com.jfixby.cmns.api.lambda.λFunction;
 import com.jfixby.cmns.api.math.FixedInt2;
 import com.jfixby.cmns.api.math.IntegerMath;
-import com.jfixby.cmns.api.util.JUtils;
 
 public class DesktopLambdaColorMap implements LambdaColorMap {
 
@@ -18,7 +18,7 @@ public class DesktopLambdaColorMap implements LambdaColorMap {
 	public DesktopLambdaColorMap(LambdaColorMapSpecs lambda_specs) {
 		this.width = lambda_specs.getColorMapWidth();
 		this.height = lambda_specs.getColorMapHeight();
-		lambda = JUtils.checkNull("lambda", lambda_specs.getLambdaColoredImage());
+		lambda = Debug.checkNull("lambda", lambda_specs.getLambdaColoredImage());
 	}
 
 	@Override

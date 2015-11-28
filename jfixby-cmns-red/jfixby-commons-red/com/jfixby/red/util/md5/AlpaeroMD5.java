@@ -1,49 +1,50 @@
 package com.jfixby.red.util.md5;
+
 /* see RFC 1321, R. Rivest for further discussion.
 
-The MD5 Message-Digest Algorithm
+ The MD5 Message-Digest Algorithm
 
-transcribed to Java by Burton Rosenberg, 
-Copyright (C) 1996 Burton Rosenberg, ALl rights reserced.
+ transcribed to Java by Burton Rosenberg, 
+ Copyright (C) 1996 Burton Rosenberg, ALl rights reserced.
 
-License to copy and use this software is granted provided
-that this copyright appears intact in the software.
-Software is proved "as is" without express or implied warranty
-of any kind. 
+ License to copy and use this software is granted provided
+ that this copyright appears intact in the software.
+ Software is proved "as is" without express or implied warranty
+ of any kind. 
 
-October 26, 1996 1:16 PM.
-October 27, 1996 8:18 PM. (1321 test suite correct)
-October 28, 1996 10:07 AM.       
-*/
+ October 26, 1996 1:16 PM.
+ October 27, 1996 8:18 PM. (1321 test suite correct)
+ October 28, 1996 10:07 AM.       
+ */
 
 /*
-Copyright (C) 1991-2, RSA Data Security, Inc. Created 1991. All
-rights reserved.
+ Copyright (C) 1991-2, RSA Data Security, Inc. Created 1991. All
+ rights reserved.
 
-License to copy and use this software is granted provided that it
-is identified as the "RSA Data Security, Inc. MD5 Message-Digest
-Algorithm" in all material mentioning or referencing this software
-or this function.
+ License to copy and use this software is granted provided that it
+ is identified as the "RSA Data Security, Inc. MD5 Message-Digest
+ Algorithm" in all material mentioning or referencing this software
+ or this function.
 
-License is also granted to make and use derivative works provided
-that such works are identified as "derived from the RSA Data
-Security, Inc. MD5 Message-Digest Algorithm" in all material
-mentioning or referencing the derived work.
+ License is also granted to make and use derivative works provided
+ that such works are identified as "derived from the RSA Data
+ Security, Inc. MD5 Message-Digest Algorithm" in all material
+ mentioning or referencing the derived work.
 
-RSA Data Security, Inc. makes no representations concerning either
-the merchantability of this software or the suitability of this
-software for any particular purpose. It is provided "as is"
-without express or implied warranty of any kind.
-These notices must be retained in any copies of any part of this
-documentation and/or software.
-*/
+ RSA Data Security, Inc. makes no representations concerning either
+ the merchantability of this software or the suitability of this
+ software for any particular purpose. It is provided "as is"
+ without express or implied warranty of any kind.
+ These notices must be retained in any copies of any part of this
+ documentation and/or software.
+ */
 
 import java.io.IOException;
 
+import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.io.IO;
 import com.jfixby.cmns.api.io.InputStream;
 import com.jfixby.cmns.api.md5.MD5Component;
-import com.jfixby.cmns.api.util.JUtils;
 
 public final class AlpaeroMD5 extends RedMD5 implements MD5Component {
 
@@ -52,10 +53,8 @@ public final class AlpaeroMD5 extends RedMD5 implements MD5Component {
 	private final byte[] block = new byte[64];
 	private final int x[] = new int[16];
 
-	private static final byte[] padding = new byte[] { (byte) 128, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+	private static final byte[] padding = new byte[] { (byte) 128, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0 };
 
 	public AlpaeroMD5() {
 		reset();
@@ -95,9 +94,7 @@ public final class AlpaeroMD5 extends RedMD5 implements MD5Component {
 		int d = state3;
 
 		for (int i = 0; i < 16; i++, pos += 4) {
-			x[i] = (src[pos] & 0xff) | ((src[pos + 1] & 0xff) << 8)
-					| ((src[pos + 2] & 0xff) << 16)
-					| ((src[pos + 3] & 0xff) << 24);
+			x[i] = (src[pos] & 0xff) | ((src[pos + 1] & 0xff) << 8) | ((src[pos + 2] & 0xff) << 16) | ((src[pos + 3] & 0xff) << 24);
 		}
 
 		/* Round 1 */
@@ -275,14 +272,12 @@ public final class AlpaeroMD5 extends RedMD5 implements MD5Component {
 	/**
 	 * Used to build output as Hex
 	 */
-	private static final char[] DIGITS_LOWER = { '0', '1', '2', '3', '4', '5',
-			'6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
+	private static final char[] DIGITS_LOWER = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
 
 	/**
 	 * Used to build output as Hex
 	 */
-	private static final char[] DIGITS_UPPER = { '0', '1', '2', '3', '4', '5',
-			'6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
+	private static final char[] DIGITS_UPPER = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
 
 	protected static char[] encodeHex(final byte[] data, final char[] toDigits) {
 		final int l = data.length;
@@ -297,7 +292,7 @@ public final class AlpaeroMD5 extends RedMD5 implements MD5Component {
 
 	@Override
 	public String md5Stream(InputStream input_stream) throws IOException {
-		JUtils.checkNull("input_stream", input_stream);
+		Debug.checkNull("input_stream", input_stream);
 		byte[] data = input_stream.readAll();
 		reset();
 		update(data);
@@ -309,9 +304,8 @@ public final class AlpaeroMD5 extends RedMD5 implements MD5Component {
 	}
 
 	@Override
-	public String md5Stream(java.io.InputStream java_input_stream)
-			throws IOException {
-		JUtils.checkNull("java_input_stream", java_input_stream);
+	public String md5Stream(java.io.InputStream java_input_stream) throws IOException {
+		Debug.checkNull("java_input_stream", java_input_stream);
 		com.jfixby.cmns.api.io.InputStream is = IO.toInputStream(java_input_stream);
 		String result = this.md5Stream(is);
 		is.close();

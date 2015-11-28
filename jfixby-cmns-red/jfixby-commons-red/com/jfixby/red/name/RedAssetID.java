@@ -1,6 +1,7 @@
 package com.jfixby.red.name;
 
 import com.jfixby.cmns.api.assets.AssetID;
+import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.path.RelativePath;
 import com.jfixby.cmns.api.util.JUtils;
 
@@ -8,11 +9,10 @@ public final class RedAssetID implements AssetID {
 
 	public RedAssetID(final String value) {
 		super();
-		JUtils.checkNull("AssetID String", value);
-		JUtils.checkEmpty("AssetID String", value);
-		// JUtils.checkEmpty("value", value.replaceAll("\\\\.", ""));
-		this.value = JUtils.newRelativePath(value.replaceAll("\\"
-				+ AssetID.SEPARATOR, RelativePath.SEPARATOR));
+		Debug.checkNull("AssetID String", value);
+		Debug.checkEmpty("AssetID String", value);
+		// Debug.checkEmpty("value", value.replaceAll("\\\\.", ""));
+		this.value = JUtils.newRelativePath(value.replaceAll("\\" + AssetID.SEPARATOR, RelativePath.SEPARATOR));
 		// L.d();
 		// L.d("string value", value);
 		// L.d("       value", this.value);
@@ -26,7 +26,7 @@ public final class RedAssetID implements AssetID {
 
 	public RedAssetID(final RelativePath value) {
 		super();
-		JUtils.checkNull("value", value);
+		Debug.checkNull("value", value);
 		this.value = value;
 	}
 
@@ -34,8 +34,7 @@ public final class RedAssetID implements AssetID {
 
 	@Override
 	public String toString() {
-		return (value.toString()).replaceAll(RelativePath.SEPARATOR,
-				AssetID.SEPARATOR);
+		return (value.toString()).replaceAll(RelativePath.SEPARATOR, AssetID.SEPARATOR);
 	}
 
 	@Override
@@ -80,7 +79,7 @@ public final class RedAssetID implements AssetID {
 
 	@Override
 	public boolean includes(AssetID other) {
-		JUtils.checkNull("other", other);
+		Debug.checkNull("other", other);
 		if (this.equals(other)) {
 			return true;
 		}

@@ -17,6 +17,7 @@ import com.jfixby.cmns.api.collections.Set;
 import com.jfixby.cmns.api.collections.StateSwitcher;
 import com.jfixby.cmns.api.collections.UtilsComponent;
 import com.jfixby.cmns.api.collections.ZxZ_Functuion;
+import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.lambda.λFunction;
 import com.jfixby.cmns.api.path.AbsolutePath;
 import com.jfixby.cmns.api.path.MountPoint;
@@ -180,29 +181,6 @@ public class DesktopUtils implements UtilsComponent {
 	}
 
 	@Override
-	public <T> T checkNull(String parameter_name, T value) {
-		if (value == null) {
-			throw new Error("<" + parameter_name + "> is null.");
-		}
-		return value;
-	}
-
-	@Override
-	public <T> T checkNull(T value) {
-		if (value == null) {
-			throw new Error("Paremeter is null.");
-		}
-		return value;
-	}
-
-	@Override
-	public void checkEmpty(String parameter_name, String value) {
-		if ("".equals(value)) {
-			throw new Error("<" + parameter_name + "> is empty.");
-		}
-	}
-
-	@Override
 	public List<Float> newList(float[] floats) {
 		List<Float> result = this.newList();
 		for (int i = 0; i < floats.length; i++) {
@@ -214,15 +192,15 @@ public class DesktopUtils implements UtilsComponent {
 
 	@Override
 	public List<String> split(String input_string, String splitter) {
-		JUtils.checkNull("input_string", input_string);
-		JUtils.checkNull("splitter", splitter);
+		Debug.checkNull("input_string", input_string);
+		Debug.checkNull("splitter", splitter);
 		return JUtils.newList(input_string.split(splitter));
 	}
 
 	@Override
 	public boolean beginsWith(Collection<?> list, Collection<?> with) {
-		JUtils.checkNull("list", list);
-		JUtils.checkNull("with", with);
+		Debug.checkNull("list", list);
+		Debug.checkNull("with", with);
 		if (list.size() < with.size()) {
 			return false;
 		}

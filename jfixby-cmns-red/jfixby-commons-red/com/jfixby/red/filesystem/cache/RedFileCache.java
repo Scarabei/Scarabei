@@ -1,9 +1,9 @@
 package com.jfixby.red.filesystem.cache;
 
+import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.filesystem.File;
 import com.jfixby.cmns.api.filesystem.cache.FileCacheComponent;
 import com.jfixby.cmns.api.filesystem.cache.TempFolder;
-import com.jfixby.cmns.api.util.JUtils;
 
 public class RedFileCache implements FileCacheComponent {
 
@@ -12,7 +12,7 @@ public class RedFileCache implements FileCacheComponent {
 
 	@Override
 	public TempFolder createTempFolder(File where) {
-		JUtils.checkNull("where", where);
+		Debug.checkNull("where", where);
 		where.checkExists();
 		where.checkIsFolder();
 		String tmp = newTempFolderName(where);

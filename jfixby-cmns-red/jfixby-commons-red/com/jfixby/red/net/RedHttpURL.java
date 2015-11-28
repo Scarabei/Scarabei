@@ -1,15 +1,15 @@
 package com.jfixby.red.net;
 
+import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.net.http.HttpURL;
-import com.jfixby.cmns.api.util.JUtils;
 
 public class RedHttpURL implements HttpURL {
 
 	private String url_string;
 
 	public RedHttpURL(String url_string) {
-		JUtils.checkEmpty("url_string", url_string);
-		JUtils.checkNull("url_string", url_string);
+		Debug.checkEmpty("url_string", url_string);
+		Debug.checkNull("url_string", url_string);
 		this.url_string = url_string;
 	}
 

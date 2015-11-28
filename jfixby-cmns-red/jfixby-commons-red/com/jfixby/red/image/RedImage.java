@@ -1,8 +1,8 @@
 package com.jfixby.red.image;
 
 import com.jfixby.cmns.api.color.Color;
+import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.image.EditableColorMap;
-import com.jfixby.cmns.api.util.JUtils;
 
 public abstract class RedImage implements EditableColorMap {
 	final private int width;
@@ -13,8 +13,8 @@ public abstract class RedImage implements EditableColorMap {
 	public RedImage(int width, int height, Color default_color, ArraySupply supply) {
 		this.width = width;
 		this.height = height;
-		this.default_color = JUtils.checkNull("default_color", default_color);
-		this.supply = JUtils.checkNull("supply", supply);
+		this.default_color = Debug.checkNull("default_color", default_color);
+		this.supply = Debug.checkNull("supply", supply);
 	}
 
 	@Override

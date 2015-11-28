@@ -6,8 +6,8 @@ import com.jfixby.cmns.api.color.Color;
 import com.jfixby.cmns.api.color.ColorConstant;
 import com.jfixby.cmns.api.color.Colors;
 import com.jfixby.cmns.api.color.CustomColor;
+import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.log.L;
-import com.jfixby.cmns.api.util.JUtils;
 import com.jfixby.red.util.md5.AlpaeroMD5;
 
 public class RedColor implements Color, CustomColor, ColorConstant {
@@ -167,7 +167,7 @@ public class RedColor implements Color, CustomColor, ColorConstant {
 
 	@Override
 	public CustomColor setValue(Color other) {
-		JUtils.checkNull("Color", other);
+		Debug.checkNull("Color", other);
 		RedColor color = (RedColor) other;
 		return this.set(color.A, color.R, color.G, color.B);
 	}

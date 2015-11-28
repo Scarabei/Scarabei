@@ -1,8 +1,8 @@
 package com.jfixby.red.net;
 
+import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.net.http.HttpConnectionSpecs;
 import com.jfixby.cmns.api.net.http.HttpURL;
-import com.jfixby.cmns.api.util.JUtils;
 
 public class RedConnectionSpecs implements HttpConnectionSpecs {
 
@@ -11,7 +11,7 @@ public class RedConnectionSpecs implements HttpConnectionSpecs {
 
 	@Override
 	public void setURL(HttpURL url) {
-		JUtils.checkNull("url", url);
+		Debug.checkNull("url", url);
 		this.url = url;
 
 	}

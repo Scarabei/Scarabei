@@ -1,6 +1,7 @@
 package com.jfixby.cmns.jutils.desktop;
 
 import com.jfixby.cmns.api.collections.List;
+import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.path.RelativePath;
 import com.jfixby.cmns.api.util.JUtils;
 
@@ -9,7 +10,7 @@ public class DesktopRelativePath implements RelativePath {
 	final private List<String> path_steps = JUtils.newList();
 
 	public DesktopRelativePath(String relative_path_string) {
-		JUtils.checkNull("relative_path_string", relative_path_string);
+		Debug.checkNull("relative_path_string", relative_path_string);
 		String[] parts_array = relative_path_string
 				.split(RelativePath.SEPARATOR);
 		List<String> parts_list = JUtils.newList(parts_array);
@@ -121,7 +122,7 @@ public class DesktopRelativePath implements RelativePath {
 
 	@Override
 	public boolean beginsWith(RelativePath other) {
-		JUtils.checkNull("other", other);
+		Debug.checkNull("other", other);
 		if (this.equals(other)) {
 			return true;
 		}
@@ -130,7 +131,7 @@ public class DesktopRelativePath implements RelativePath {
 
 	@Override
 	public RelativePath proceed(RelativePath value) {
-		JUtils.checkNull(value);
+		Debug.checkNull(value);
 		List<String> steps = this.steps();
 		steps.addAll(value.steps());
 		RelativePath incremented = JUtils.newRelativePath(steps);

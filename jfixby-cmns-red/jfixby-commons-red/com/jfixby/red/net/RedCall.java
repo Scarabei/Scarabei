@@ -1,6 +1,7 @@
 package com.jfixby.red.net;
 
 import com.jfixby.cmns.api.collections.Map;
+import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.net.http.HttpCall;
 import com.jfixby.cmns.api.net.http.HttpCallSpecs;
 import com.jfixby.cmns.api.net.http.HttpURL;
@@ -20,12 +21,12 @@ public class RedCall implements HttpCall {
 	}
 
 	public void setMethod(METHOD method) {
-		this.method = JUtils.checkNull("method", method);
+		this.method = Debug.checkNull("method", method);
 	}
 
 	public RedCall(HttpCallSpecs call_scecs) {
 		url = call_scecs.getURL();
-		method = JUtils.checkNull("method", call_scecs.getMethod());
+		method = Debug.checkNull("method", call_scecs.getMethod());
 		agent = call_scecs.getUseAgent();
 		ssl = call_scecs.getUseSSL();
 	}

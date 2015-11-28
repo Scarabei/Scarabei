@@ -31,4 +31,16 @@ public class Debug {
 		invoke().printCallStack();
 	}
 
+	public static <T> T checkNull(String parameter_name, T value) {
+		return invoke().checkNull(parameter_name, value);
+	}
+
+	public static <T> T checkNull(T value) {
+		return invoke().checkNull(value);
+	}
+
+	public static void checkEmpty(String parameter_name, String value) {
+		invoke().checkEmpty(parameter_name, value);
+	}
+	
 }

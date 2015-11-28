@@ -53,11 +53,7 @@ public interface UtilsComponent {
 
 	<T> StateSwitcher<T> newStateSwitcher(T default_state);
 
-	<T> T checkNull(String parameter_name, T value);
 
-	<T> T checkNull(T value);
-
-	void checkEmpty(String parameter_name, String value);
 
 	List<Float> newList(float[] floats);
 

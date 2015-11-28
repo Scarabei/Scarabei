@@ -2,7 +2,6 @@ package com.jfixby.red.math;
 
 import com.jfixby.cmns.api.math.FixedInt2;
 import com.jfixby.cmns.api.math.Int2;
-import com.jfixby.cmns.api.math.IntegerMath;
 
 public class RedInt2 implements Int2 {
 	long x;

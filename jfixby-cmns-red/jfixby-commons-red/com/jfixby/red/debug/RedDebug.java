@@ -26,6 +26,29 @@ public class RedDebug implements DebugComponent {
 	}
 
 	@Override
+	public <T> T checkNull(String parameter_name, T value) {
+		if (value == null) {
+			throw new Error("<" + parameter_name + "> is null.");
+		}
+		return value;
+	}
+
+	@Override
+	public <T> T checkNull(T value) {
+		if (value == null) {
+			throw new Error("Paremeter is null.");
+		}
+		return value;
+	}
+
+	@Override
+	public void checkEmpty(String parameter_name, String value) {
+		if ("".equals(value)) {
+			throw new Error("<" + parameter_name + "> is empty.");
+		}
+	}
+
+	@Override
 	public void exit(boolean condition) {
 		if (condition) {
 			Sys.exit();

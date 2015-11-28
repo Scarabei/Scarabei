@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import com.jfixby.cmns.api.collections.List;
+import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.filesystem.File;
 import com.jfixby.cmns.api.filesystem.FileInputStream;
 import com.jfixby.cmns.api.filesystem.FileOutputStream;
@@ -16,8 +17,7 @@ import com.jfixby.cmns.api.path.RelativePath;
 import com.jfixby.cmns.api.util.JUtils;
 import com.jfixby.red.filesystem.AbstractFileSystem;
 
-public class WinFileSystem extends AbstractFileSystem implements
-		LocalFileSystemComponent {
+public class WinFileSystem extends AbstractFileSystem implements LocalFileSystemComponent {
 
 	String application_home_path_string = System.getProperty("user.dir");
 
@@ -34,7 +34,7 @@ public class WinFileSystem extends AbstractFileSystem implements
 
 	private AbsolutePath<FileSystem> resolve(java.io.File file) {
 		// L.d();
-		JUtils.checkNull("file", file);
+		Debug.checkNull("file", file);
 		file = file.getAbsoluteFile();
 
 		String path_string = file.getAbsolutePath();
@@ -46,12 +46,11 @@ public class WinFileSystem extends AbstractFileSystem implements
 		// throw new Error();
 		// }
 
-		List<String> steps = JUtils.newList(path_string.split(OS_SEPARATOR
-				+ OS_SEPARATOR));
+		List<String> steps = JUtils.newList(path_string.split(OS_SEPARATOR + OS_SEPARATOR));
 		// steps.print("steps");
 
 		RelativePath relative = JUtils.newRelativePath(steps);
-		AbsolutePath<FileSystem> path = JUtils.newAbsolutePath((FileSystem)this, relative);
+		AbsolutePath<FileSystem> path = JUtils.newAbsolutePath((FileSystem) this, relative);
 		// L.d("path", path);
 		// throw new Error();
 		return path;
@@ -60,8 +59,7 @@ public class WinFileSystem extends AbstractFileSystem implements
 	//
 	@Override
 	public WinFile newFile(String java_file_path) {
-		java.io.File f = new java.io.File(JUtils.checkNull("java_file_path",
-				java_file_path));
+		java.io.File f = new java.io.File(Debug.checkNull("java_file_path", java_file_path));
 		return newFile(f);
 	}
 
@@ -79,27 +77,23 @@ public class WinFileSystem extends AbstractFileSystem implements
 	}
 
 	@Override
-	public FileOutputStream newFileOutputStream(File output_file)
-			throws IOException {
+	public FileOutputStream newFileOutputStream(File output_file) throws IOException {
 		if (output_file == null) {
 			throw new Error("Output file is null.");
 		}
 		if (output_file.getFileSystem() != this) {
-			throw new Error("Output file does not belong to this filesystem: "
-					+ output_file);
+			throw new Error("Output file does not belong to this filesystem: " + output_file);
 		}
 		return new WinFileOutputStream((WinFile) output_file);
 	}
 
 	@Override
-	public FileInputStream newFileInputStream(File input_file)
-			throws IOException {
+	public FileInputStream newFileInputStream(File input_file) throws IOException {
 		if (input_file == null) {
 			throw new Error("Input file is null.");
 		}
 		if (input_file.getFileSystem() != this) {
-			throw new Error("Input file does not belong to this filesystem: "
-					+ input_file);
+			throw new Error("Input file does not belong to this filesystem: " + input_file);
 		}
 
 		return new WinFileInputStream((WinFile) input_file);
@@ -118,8 +112,7 @@ public class WinFileSystem extends AbstractFileSystem implements
 	@Override
 	public String md5Hex(File file) throws IOException {
 
-		InputStream java_input_stream = this.newFileInputStream(file)
-				.toJavaInputStream();
+		InputStream java_input_stream = this.newFileInputStream(file).toJavaInputStream();
 		String checksum = MD5.md5Stream(java_input_stream);
 		java_input_stream.close();
 		return checksum.toUpperCase();
@@ -132,7 +125,7 @@ public class WinFileSystem extends AbstractFileSystem implements
 
 	@Override
 	public java.io.File toJavaFile(File file) {
-		JUtils.checkNull("file", file);
+		Debug.checkNull("file", file);
 		AbsolutePath<FileSystem> file_path = file.getAbsoluteFilePath();
 		if (file_path.getMountPoint() != this) {
 			L.e("file_path", file_path);
@@ -153,15 +146,13 @@ public class WinFileSystem extends AbstractFileSystem implements
 			L.e("FileSystem", file_path.getMountPoint());
 			throw new Error("Path does not belong to this filesystem: " + this);
 		}
-		return new WinFile(file_path, (WinFileSystem) this)
-				.getAbsoluteWindowsPathString();
+		return new WinFile(file_path, (WinFileSystem) this).getAbsoluteWindowsPathString();
 	}
 
 	@Override
 	public File WorkspaceFolder() {
 		String application_home_path_string = System.getProperty("user.dir");
-		java.io.File workspace_mount_point = (new java.io.File(
-				application_home_path_string)).getParentFile();
+		java.io.File workspace_mount_point = (new java.io.File(application_home_path_string)).getParentFile();
 		return this.newFile(workspace_mount_point);
 	}
 

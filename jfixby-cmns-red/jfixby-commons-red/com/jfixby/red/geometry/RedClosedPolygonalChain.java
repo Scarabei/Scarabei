@@ -2,6 +2,7 @@ package com.jfixby.red.geometry;
 
 import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.List;
+import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.floatn.FixedFloat2;
 import com.jfixby.cmns.api.floatn.Float2;
 import com.jfixby.cmns.api.geometry.ClosedPolygonalChain;
@@ -10,8 +11,7 @@ import com.jfixby.cmns.api.geometry.Triangle;
 import com.jfixby.cmns.api.geometry.Vertex;
 import com.jfixby.cmns.api.util.JUtils;
 
-public class RedClosedPolygonalChain extends VertexMaster implements
-		ClosedPolygonalChain {
+public class RedClosedPolygonalChain extends VertexMaster implements ClosedPolygonalChain {
 	// final List<RedPoint> vertices = JUtils.newList();
 	final List<Vertex> public_vertices = JUtils.newList();
 	final RedPolyTriangulation triangulation = new RedPolyTriangulation();
@@ -93,8 +93,7 @@ public class RedClosedPolygonalChain extends VertexMaster implements
 		}
 
 		RedVertex first = (RedVertex) this.public_vertices.getElementAt(0);
-		RedVertex last = (RedVertex) this.public_vertices
-				.getElementAt(current_size - 1);
+		RedVertex last = (RedVertex) this.public_vertices.getElementAt(current_size - 1);
 
 		RedVertex new_vertex = newVertex();
 		final RedEdge new_edge = new RedEdge();
@@ -116,12 +115,10 @@ public class RedClosedPolygonalChain extends VertexMaster implements
 	}
 
 	private int removeVertex(final int current_size) {// current_size>1;
-		RedVertex removed = (RedVertex) this.public_vertices
-				.removeElementAt(current_size - 1);
+		RedVertex removed = (RedVertex) this.public_vertices.removeElementAt(current_size - 1);
 
 		RedVertex first = (RedVertex) this.public_vertices.getElementAt(0);
-		RedVertex last = (RedVertex) this.public_vertices
-				.getElementAt(current_size - 2);
+		RedVertex last = (RedVertex) this.public_vertices.getElementAt(current_size - 2);
 
 		RedEdge edge = first.getLeftEdge();
 		edge.setLeftVertex(last);
@@ -169,7 +166,7 @@ public class RedClosedPolygonalChain extends VertexMaster implements
 
 	@Override
 	public void setupVertices(Collection<Float2> input) {
-		JUtils.checkNull("input", input);
+		Debug.checkNull("input", input);
 		this.setSize(input.size());
 		for (int i = 0; i < input.size(); i++) {
 			this.getVertex(i).relative().set(input.getElementAt(i));
