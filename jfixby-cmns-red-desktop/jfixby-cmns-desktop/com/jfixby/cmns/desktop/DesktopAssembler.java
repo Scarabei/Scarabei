@@ -10,6 +10,7 @@ import com.jfixby.cmns.api.geometry.Geometry;
 import com.jfixby.cmns.api.graphs.Graphs;
 import com.jfixby.cmns.api.image.ImageProcessing;
 import com.jfixby.cmns.api.io.IO;
+import com.jfixby.cmns.api.json.Json;
 import com.jfixby.cmns.api.lambda.Lambda;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.math.FloatMath;
@@ -53,7 +54,7 @@ public class DesktopAssembler {
 		Err.installComponent(new RedError());
 		Debug.installComponent(new RedDebug());
 		Lambda.installComponent(new RedLambda());
-
+		
 		// --
 
 		LocalFileSystem.installComponent(new WinFileSystem());
