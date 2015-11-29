@@ -1,5 +1,7 @@
 package com.jfixby.cmns.api.components;
 
+import com.jfixby.cmns.api.err.Err;
+
 public class ComponentInstaller<T> {
 
 	private T component;
@@ -11,19 +13,17 @@ public class ComponentInstaller<T> {
 
 	public void installComponent(T component) {
 		if (this.component != null) {
-			throw new Error("Component " + name + " is already installed: "
-					+ this.component);
+			Err.reportError("Component " + name + " is already installed: " + this.component);
 		}
 		this.component = component;
 		if (this.component == null) {
-			throw new Error("Component " + name
-					+ " is not installed. Argument is null.");
+			Err.reportError("Component " + name + " is not installed. Argument is null.");
 		}
 	}
 
 	public T invokeComponent() {
 		if (component == null) {
-			throw new Error("Component " + name + " is not installed.");
+			Err.reportError("Component " + name + " is not installed.");
 		}
 		return component;
 	}
@@ -34,7 +34,7 @@ public class ComponentInstaller<T> {
 
 	public void deInstallCurrentComponent() {
 		if (component == null) {
-			throw new Error("Component " + name + " is not installed.");
+			Err.reportError("Component " + name + " is not installed.");
 		}
 		component = null;
 	}

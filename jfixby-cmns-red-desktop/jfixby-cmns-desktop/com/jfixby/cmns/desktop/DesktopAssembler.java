@@ -6,11 +6,11 @@ import com.jfixby.cmns.api.color.Colors;
 import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.filesystem.LocalFileSystem;
+import com.jfixby.cmns.api.filesystem.cache.FileCache;
 import com.jfixby.cmns.api.geometry.Geometry;
 import com.jfixby.cmns.api.graphs.Graphs;
 import com.jfixby.cmns.api.image.ImageProcessing;
 import com.jfixby.cmns.api.io.IO;
-import com.jfixby.cmns.api.json.Json;
 import com.jfixby.cmns.api.lambda.Lambda;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.math.FloatMath;
@@ -30,6 +30,7 @@ import com.jfixby.red.desktop.math.RedIntegerMath;
 import com.jfixby.red.desktop.math.RedMathTools;
 import com.jfixby.red.desktop.sys.DesktopSystem;
 import com.jfixby.red.err.RedError;
+import com.jfixby.red.filesystem.cache.RedFileCache;
 import com.jfixby.red.geometry.RedGeometry;
 import com.jfixby.red.graphs.RedGraphs;
 import com.jfixby.red.io.RedIO;
@@ -54,12 +55,14 @@ public class DesktopAssembler {
 		Err.installComponent(new RedError());
 		Debug.installComponent(new RedDebug());
 		Lambda.installComponent(new RedLambda());
-		
+
 		// --
 
 		LocalFileSystem.installComponent(new WinFileSystem());
 
 		ImageProcessing.installComponent(new DesktopImageProcessing());
+		FileCache.installComponent(new RedFileCache());
+		
 	}
 
 }

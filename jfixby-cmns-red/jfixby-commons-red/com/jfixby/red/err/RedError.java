@@ -14,7 +14,6 @@ public class RedError implements ErrorComponent {
 	@Override
 	public void reportError(String message) {
 		throw new Error(message);
-
 	}
 
 	@Override
