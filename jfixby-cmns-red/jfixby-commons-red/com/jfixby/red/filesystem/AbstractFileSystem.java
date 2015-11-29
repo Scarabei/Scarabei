@@ -99,7 +99,7 @@ public abstract class AbstractFileSystem implements FileSystem {
 		FileInputStream is = this.newFileInputStream(file);
 		byte[] data = is.readAll();
 		is.close();
-		return new String(data);
+		return new String(data,"UTF-8");
 	}
 
 	@Override

@@ -214,7 +214,7 @@ public class VirtualFile implements File {
 		FileInputStream is = this.newInputStream();
 		byte[] data = is.readAll();
 		is.close();
-		return new String(data);
+		return new String(data,"UTF-8");
 	}
 
 	@Override

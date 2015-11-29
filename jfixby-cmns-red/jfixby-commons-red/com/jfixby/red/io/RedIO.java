@@ -32,7 +32,7 @@ public class RedIO implements IOComponent {
 	@Override
 	public <T> T deserialize(Class<T> type, InputStream input_stream) throws IOException {
 		byte[] bytes = input_stream.readAll();
-		String data_string = new String(bytes);
+		String data_string = new String(bytes,"UTF-8");
 		T object = Json.deserializeFromString(type, data_string);
 		return object;
 	}
