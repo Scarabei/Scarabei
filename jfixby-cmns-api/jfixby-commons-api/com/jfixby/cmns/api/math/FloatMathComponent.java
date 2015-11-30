@@ -16,7 +16,7 @@ public interface FloatMathComponent {
 
 	public boolean isFloatInteger(double d);
 
-	public double pow(double x, double pow);
+	public double power(double x, double pow);
 
 	public long integerPartOf(double d);
 
@@ -83,5 +83,7 @@ public interface FloatMathComponent {
 	public double DOUBLE_EPSILON(int number_of_safe_operations);
 
 	public long round(double float_value);
+
+	public double log(double base, double exp_value);
 
 }

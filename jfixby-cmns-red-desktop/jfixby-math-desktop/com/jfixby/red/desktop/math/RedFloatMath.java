@@ -10,8 +10,8 @@ public abstract class RedFloatMath implements FloatMathComponent {
 
 	public final int POSSIBLE_NUMBER_OF_SAFE_FLOAT_OPERATIONS = 10000;
 
-	public final double JAVA_FLOAT_PRECISION = pow(2, -25);
-	public final double JAVA_DOUBLE_PRECISION = pow(2, -53);
+	public final double JAVA_FLOAT_PRECISION = power(2, -25);
+	public final double JAVA_DOUBLE_PRECISION = power(2, -53);
 
 	// f1==f2 <=> |f1-f2|<FLOAT_EPSILON
 	public final double FLOAT_EPSILON//
@@ -88,7 +88,7 @@ public abstract class RedFloatMath implements FloatMathComponent {
 		return native_sqrt(f);
 	}
 
-	public final double pow(final double f, final double d) {
+	public final double power(final double f, final double d) {
 		return native_pow(f, d);
 	}
 
@@ -186,7 +186,7 @@ public abstract class RedFloatMath implements FloatMathComponent {
 
 	public double distance(double x1, double y1, double x2, double y2) {
 		// TODO Auto-generated method stub
-		return sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
+		return sqrt(power(x2 - x1, 2) + power(y2 - y1, 2));
 	}
 
 	public final double max(final double x, final double y, double... values) {

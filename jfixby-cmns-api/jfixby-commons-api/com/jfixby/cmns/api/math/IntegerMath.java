@@ -68,7 +68,7 @@ public class IntegerMath {
 		return invoke().index(b);
 	}
 
-	public static long power(long a, long n) {
+	public static long power(long a, int n) {
 		return invoke().power(a, n);
 	}
 

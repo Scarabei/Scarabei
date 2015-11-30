@@ -41,8 +41,9 @@ public class DesktopFloatMath extends RedFloatMath {
 
 	}
 
-	
-
-	
+	@Override
+	public double log(double base, double exp_value) {
+		return StrictMath.log(exp_value) / StrictMath.log(base);
+	}
 
 }

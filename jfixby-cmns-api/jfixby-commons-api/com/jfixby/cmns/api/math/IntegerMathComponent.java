@@ -35,7 +35,7 @@ public interface IntegerMathComponent {
 
 	public int index(boolean b);
 
-	public long power(long a, long n);
+	public long power(long a, int n);
 
 	public Int2 newInt2();
 

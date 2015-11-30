@@ -205,8 +205,8 @@ public class RedIntegerMath implements IntegerMathComponent {
 	}
 
 	@Override
-	public long power(long a, long n) {
-		return a ^ n;
+	public long power(long a, int n) {
+		return FloatMath.round(StrictMath.pow(a, n));
 	}
 
 	@Override

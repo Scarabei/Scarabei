@@ -4,11 +4,9 @@ import com.jfixby.cmns.api.components.ComponentInstaller;
 
 public class FloatMath {
 
-	static private ComponentInstaller<FloatMathComponent> componentInstaller = new ComponentInstaller<FloatMathComponent>(
-			"FloatMath");
+	static private ComponentInstaller<FloatMathComponent> componentInstaller = new ComponentInstaller<FloatMathComponent>("FloatMath");
 
-	public static final void installComponent(
-			FloatMathComponent component_to_install) {
+	public static final void installComponent(FloatMathComponent component_to_install) {
 		componentInstaller.installComponent(component_to_install);
 	}
 
@@ -48,8 +46,8 @@ public class FloatMath {
 		return invoke().isFloatInteger(d);
 	}
 
-	public static double pow(double x, double pow) {
-		return invoke().pow(x, pow);
+	public static double power(double x, double pow) {
+		return invoke().power(x, pow);
 	}
 
 	public static long integerPartOf(double d) {
@@ -172,8 +170,7 @@ public class FloatMath {
 		return invoke().isEpsilonEqualDouble(double1, double2);
 	}
 
-	public static double limit(double left_border, double value,
-			double right_border) {
+	public static double limit(double left_border, double value, double right_border) {
 		return invoke().limit(left_border, value, right_border);
 	}
 
@@ -183,5 +180,9 @@ public class FloatMath {
 
 	public static long round(double float_value) {
 		return invoke().round(float_value);
+	}
+
+	public static double log(double base, double exp_value) {
+		return invoke().log(base, exp_value);
 	}
 }
