@@ -1,8 +1,8 @@
 package com.jfixby.cmns.api.lang;
 
-public class Int implements Comparable<Int> {
+public final class Int implements Comparable<Int> {
 
-	public long value;
+	public final long value;
 
 	public Int(long value) {
 		this.value = value;
