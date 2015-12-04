@@ -2,7 +2,6 @@ package com.jfixby.cmns.desktop;
 
 import com.jfixby.cmns.api.angles.Angles;
 import com.jfixby.cmns.api.assets.Names;
-import com.jfixby.cmns.api.base64.Base64;
 import com.jfixby.cmns.api.color.Colors;
 import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.err.Err;
