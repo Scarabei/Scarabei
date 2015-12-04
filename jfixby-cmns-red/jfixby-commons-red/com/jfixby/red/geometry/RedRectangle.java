@@ -28,7 +28,7 @@ public class RedRectangle extends VertexMaster implements Rectangle {
 
 	@Override
 	public String toString() {
-		return "Rectangle[" + width + " x " + height + "] position=" + this.getPosition() + " origin_relative=" + origin_relative;
+		return "Rectangle[" + width + " x " + height + "] position=" + this.getPosition() + " origin_relative=" + origin_relative + " rotation=" + this.getRotation();
 	}
 
 	private Triangle triangle_a;
