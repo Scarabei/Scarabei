@@ -4,6 +4,7 @@ import com.jfixby.cmns.api.components.ComponentInstaller;
 
 public class Err {
 
+	private static final ErrorComponent DEFAULT = new DefaultErrorComponent();
 	static private ComponentInstaller<ErrorComponent> componentInstaller = new ComponentInstaller<ErrorComponent>("Error");
 
 	public static final void installComponent(ErrorComponent component_to_install) {
@@ -11,6 +12,9 @@ public class Err {
 	}
 
 	public static final ErrorComponent invoke() {
+		if (componentInstaller.getComponent() == null) {
+			return DEFAULT;
+		}
 		return componentInstaller.invokeComponent();
 	}
 

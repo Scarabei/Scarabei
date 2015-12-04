@@ -141,8 +141,8 @@ public abstract class RedFloatMath implements FloatMathComponent {
 		return r * VAL_180_d_PI;
 	}
 
-	public final double toRadians(final double g) {
-		return g * VAL_PI_d_180;
+	public final double toRadians(final double degrees) {
+		return degrees * VAL_PI_d_180;
 	}
 
 	public final double norm(final double x, final double y) {

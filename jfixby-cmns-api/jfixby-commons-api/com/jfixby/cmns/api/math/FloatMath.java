@@ -102,8 +102,8 @@ public class FloatMath {
 		return invoke().toDegrees(radian);
 	}
 
-	public static double toRadians(double d) {
-		return invoke().toRadians(d);
+	public static double toRadians(double degrees) {
+		return invoke().toRadians(degrees);
 	}
 
 	public static double sin(double angle) {

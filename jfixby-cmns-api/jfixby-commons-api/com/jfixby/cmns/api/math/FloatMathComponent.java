@@ -38,7 +38,7 @@ public interface FloatMathComponent {
 
 	public double max(double a, double b);
 
-	public double toRadians(double d);
+	public double toRadians(double degrees);
 
 	public double toDegrees(double radian);
 
