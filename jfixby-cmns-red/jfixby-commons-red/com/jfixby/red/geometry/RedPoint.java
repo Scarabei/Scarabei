@@ -135,19 +135,20 @@ public class RedPoint implements Float2, FixedFloat2 {
 	}
 
 	@Override
-	public void scaleXY(double factor) {
-		this.setXY(this.getX() * factor, factor * this.getY());
+	public Float2 scaleXY(double factor) {
+		return this.setXY(this.getX() * factor, factor * this.getY());
 	}
 
 	@Override
-	public void scaleXY(double x, double y) {
+	public Float2 scaleXY(double x, double y) {
 		this.x = this.x * x;
 		this.y = this.y * y;
+		return this;
 	}
 
 	@Override
-	public void scaleXY(Float2 other) {
-		this.scaleXY(other.getX(), other.getY());
+	public Float2 scaleXY(Float2 other) {
+		return this.scaleXY(other.getX(), other.getY());
 	}
 
 	@Override
