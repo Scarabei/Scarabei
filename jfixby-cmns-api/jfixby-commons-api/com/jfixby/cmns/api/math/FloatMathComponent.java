@@ -86,4 +86,6 @@ public interface FloatMathComponent {
 
 	public double log(double base, double exp_value);
 
+	public double roundToPoint(double raw_value,int index_after_point);
+
 }

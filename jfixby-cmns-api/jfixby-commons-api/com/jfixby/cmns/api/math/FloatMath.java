@@ -185,4 +185,8 @@ public class FloatMath {
 	public static double log(double base, double exp_value) {
 		return invoke().log(base, exp_value);
 	}
+
+	public static double roundToPoint(double raw_value, int index_after_point) {
+		return invoke().roundToPoint(raw_value, index_after_point);
+	}
 }

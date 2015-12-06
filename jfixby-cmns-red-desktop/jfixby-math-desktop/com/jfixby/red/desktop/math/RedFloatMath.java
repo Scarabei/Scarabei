@@ -295,8 +295,7 @@ public abstract class RedFloatMath implements FloatMathComponent {
 		return abs(small_value) < EPSILON;
 	}
 
-	public boolean isWithinEpsilon(final double small_value,
-			final double EPSILON) {
+	public boolean isWithinEpsilon(final double small_value, final double EPSILON) {
 		return abs(small_value) < EPSILON;
 	}
 
@@ -370,6 +369,11 @@ public abstract class RedFloatMath implements FloatMathComponent {
 	@Override
 	public double VAL_2PI() {
 		return VAL_2PI;
+	}
+
+	@Override
+	public double roundToPoint(double raw_value, int index_after_point) {
+		return round(raw_value * power(10, index_after_point)) / power(10, index_after_point);
 	}
 
 }
