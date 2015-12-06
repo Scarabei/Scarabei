@@ -145,4 +145,9 @@ public class FilesList implements ChildrenList {
 		return this.internal_list.beginsWith(steps);
 	}
 
+	@Override
+	public ChildrenList filterByExtension(String extention) {
+		return this.filter(file -> file.getName().toLowerCase().endsWith(extention.toLowerCase()));
+	}
+
 }

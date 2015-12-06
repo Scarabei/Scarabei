@@ -13,4 +13,6 @@ public interface ChildrenList extends Collection<File> {
 
 	ChildrenList filter(FileFilter filter);
 
+	ChildrenList filterByExtension(String extension);
+
 }
