@@ -46,5 +46,4 @@ public class DesktopFloatMath extends RedFloatMath {
 		return StrictMath.log(exp_value) / StrictMath.log(base);
 	}
 
-	
 }
