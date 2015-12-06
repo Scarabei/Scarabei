@@ -29,6 +29,8 @@ public interface EditableCollection<T> extends Collection<T> {
 	public void removeAll(Collection<? extends Object> list);
 
 	public void sort(Comparator<T> comparator);
+	
+	public void sort();
 
 	public EditableCollection<T> splitAt(int index);
 

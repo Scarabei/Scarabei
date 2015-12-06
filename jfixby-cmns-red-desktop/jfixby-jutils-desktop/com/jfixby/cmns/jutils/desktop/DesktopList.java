@@ -219,4 +219,9 @@ public class DesktopList<T> implements List<T> {
 
 		return tail;
 	}
+
+	@Override
+	public void sort() {
+		this.sort(null);
+	}
 }

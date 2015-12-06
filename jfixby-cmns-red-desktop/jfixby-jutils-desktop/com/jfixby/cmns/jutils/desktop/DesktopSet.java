@@ -193,6 +193,11 @@ public class DesktopSet<T> implements Set<T> {
 	public void sort(Comparator<T> comparator) {
 		this.content_list.sort(comparator);
 	}
+	
+	@Override
+	public void sort() {
+		this.sort(null);
+	}
 
 	@Override
 	public void reverse() {
