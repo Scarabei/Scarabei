@@ -4,13 +4,12 @@ import com.jfixby.cmns.api.color.Color;
 import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.image.LambdaColorMap;
 import com.jfixby.cmns.api.image.LambdaColorMapSpecs;
-import com.jfixby.cmns.api.lambda.λFunction;
-import com.jfixby.cmns.api.math.FixedInt2;
+import com.jfixby.cmns.api.lambda.λImage;
 import com.jfixby.cmns.api.math.IntegerMath;
 
 public class DesktopLambdaColorMap implements LambdaColorMap {
 
-	private λFunction<FixedInt2, Color> lambda;
+	private λImage lambda;
 
 	private int width;
 	private int height;
@@ -38,11 +37,11 @@ public class DesktopLambdaColorMap implements LambdaColorMap {
 
 	@Override
 	public Color getValue(int x, int y) {
-		return lambda.val(IntegerMath.newInt2(x, y));
+		return lambda.val(x, y);
 	}
 
 	@Override
-	public λFunction<FixedInt2, Color> getLambdaImage() {
+	public λImage getLambdaImage() {
 		return lambda;
 	}
 

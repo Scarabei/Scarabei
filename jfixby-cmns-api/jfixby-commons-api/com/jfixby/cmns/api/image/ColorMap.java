@@ -1,8 +1,7 @@
 package com.jfixby.cmns.api.image;
 
 import com.jfixby.cmns.api.color.Color;
-import com.jfixby.cmns.api.lambda.λFunction;
-import com.jfixby.cmns.api.math.FixedInt2;
+import com.jfixby.cmns.api.lambda.λImage;
 
 public interface ColorMap {
 
@@ -12,5 +11,5 @@ public interface ColorMap {
 
 	Color getValue(int x, int y);
 
-	λFunction<FixedInt2, Color> getLambdaImage();
+	λImage getLambdaImage();
 }

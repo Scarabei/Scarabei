@@ -1,10 +1,8 @@
 package com.jfixby.red.desktop.img.processing;
 
-import com.jfixby.cmns.api.color.Color;
 import com.jfixby.cmns.api.image.ArrayColorMap;
 import com.jfixby.cmns.api.image.ArrayColorMapSpecs;
-import com.jfixby.cmns.api.lambda.λFunction;
-import com.jfixby.cmns.api.math.FixedInt2;
+import com.jfixby.cmns.api.lambda.λImage;
 import com.jfixby.cmns.api.math.FloatMath;
 import com.jfixby.red.image.ArraySupply;
 import com.jfixby.red.image.RedImage;
@@ -19,10 +17,10 @@ public class DesktopColorFunction extends RedImage implements ArrayColorMap {
 		return (int) FloatMath.round(x);
 	}
 
-	final private λFunction<FixedInt2, Color> COLORED = xy -> this.getValue((int) xy.getX(), (int) xy.getY());
+	final private λImage COLORED = (x, y) -> this.getValue((int) x, (int) y);
 
 	@Override
-	public λFunction<FixedInt2, Color> getLambdaImage() {
+	public λImage getLambdaImage() {
 		return COLORED;
 	}
 

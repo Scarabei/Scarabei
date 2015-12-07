@@ -1,12 +1,10 @@
 package com.jfixby.cmns.api.image;
 
-import com.jfixby.cmns.api.color.Color;
-import com.jfixby.cmns.api.lambda.λFunction;
-import com.jfixby.cmns.api.math.FixedInt2;
+import com.jfixby.cmns.api.lambda.λImage;
 
 public interface LambdaColorMapSpecs {
 
-	void setLambdaColoredImage(λFunction<FixedInt2, Color> base);
+	void setLambdaColoredImage(λImage base);
 
 	void setColorMapWidth(int w);
 
@@ -20,6 +18,6 @@ public interface LambdaColorMapSpecs {
 
 	public int getColorMapHeight();
 
-	λFunction<FixedInt2, Color> getLambdaColoredImage();
+	λImage getLambdaColoredImage();
 
 }
