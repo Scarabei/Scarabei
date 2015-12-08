@@ -186,7 +186,11 @@ public class FloatMath {
 		return invoke().log(base, exp_value);
 	}
 
-	public static double roundToPoint(double raw_value, int index_after_point) {
-		return invoke().roundToPoint(raw_value, index_after_point);
+	public static double roundToDigit(double raw_value, int index_after_point) {
+		return invoke().roundToDigit(raw_value, index_after_point);
+	}
+
+	public static boolean isIntegerInEpsilonNeighbourhood(double value, double epsilon) {
+		return invoke().isIntegerInEpsilonNeighbourhood(value, epsilon);
 	}
 }

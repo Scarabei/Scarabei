@@ -86,6 +86,8 @@ public interface FloatMathComponent {
 
 	public double log(double base, double exp_value);
 
-	public double roundToPoint(double raw_value,int index_after_point);
+	public double roundToDigit(double raw_value, int index_after_point);
+
+	public boolean isIntegerInEpsilonNeighbourhood(double value, double epsilon);
 
 }

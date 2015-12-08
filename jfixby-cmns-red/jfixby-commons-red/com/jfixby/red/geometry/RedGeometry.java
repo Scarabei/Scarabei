@@ -261,7 +261,7 @@ public class RedGeometry implements GeometryComponent {
 	}
 
 	@Override
-	public void setupWrapingFrame(Collection<? extends FixedFloat2> points_to_wrap, Rectangle wrapping_frame) {
+	public Rectangle setupWrapingFrame(Collection<? extends FixedFloat2> points_to_wrap, Rectangle wrapping_frame) {
 		if (points_to_wrap.size() == 0) {
 			throw new Error("Empty collection!");
 		}
@@ -276,28 +276,14 @@ public class RedGeometry implements GeometryComponent {
 		}
 		double width = bottom_right.getX() - top_left.getX();
 		double height = bottom_right.getY() - top_left.getY();
+		wrapping_frame.setRotation(0);
 		wrapping_frame.setSize(width, height);
 		wrapping_frame.setOriginRelativeX(-top_left.getX() / width);
 		wrapping_frame.setOriginRelativeY(-top_left.getY() / height);
 		wrapping_frame.setPosition(0, 0);
-		// L.d("wrapping_frame", wrapping_frame);
-		// points_to_wrap.print("points_to_wrap");
-	}
 
-	// @Override
-	// public ClosedPolygonalChain newPoly(AssetID asset_id) {
-	//
-	// // final AssetHandler<FokkerShapeData> asset_info = AssetsManager
-	// // .obtainAsset(spriteAssetID, this);
-	// // if (asset_info == null) {
-	// // AssetsManager.printAllLoadedAssets();
-	// // throw new Error("Asset<" + spriteAssetID + "> not found");
-	// // }
-	// // this.gdx_sprite = asset_info.asset().getGdxSprite();
-	// // Debug.checkNull("asset(" + spriteAssetID + ")", gdx_sprite);
-	// //
-	// return null;
-	// }
+		return wrapping_frame;
+	}
 
 	@Override
 	public <T extends EditableCollection<Float3>> T newFloat3(T target_list, int how_many_to_add) {

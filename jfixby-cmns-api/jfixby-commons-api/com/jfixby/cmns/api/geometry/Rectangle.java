@@ -23,15 +23,13 @@ public interface Rectangle extends GeometryFigure {
 
 	void setOriginAbsoluteY(double origin_y);
 
-	void setOriginRelative(ORIGIN_RELATIVE_HORIZONTAL orX,
-			ORIGIN_RELATIVE_VERTICAL orY);
+	void setOriginRelative(ORIGIN_RELATIVE_HORIZONTAL orX, ORIGIN_RELATIVE_VERTICAL orY);
 
 	void setOriginRelativeX(ORIGIN_RELATIVE_HORIZONTAL orX);
 
 	void setOriginRelativeY(ORIGIN_RELATIVE_VERTICAL orY);
 
-	void setOriginRelative(double ORIGIN_POSITION_HORIZONTAL,
-			double ORIGIN_POSITION_VERTICAL);
+	void setOriginRelative(double ORIGIN_POSITION_HORIZONTAL, double ORIGIN_POSITION_VERTICAL);
 
 	void setOriginRelativeX(double ORIGIN_POSITION_HORIZONTAL);
 
@@ -84,5 +82,7 @@ public interface Rectangle extends GeometryFigure {
 	void setOriginAbsolute(FixedFloat2 tmp);
 
 	Collection<FixedFloat2> listVertices();
+
+	void reScale(double scaleX, double scaleY);
 
 }

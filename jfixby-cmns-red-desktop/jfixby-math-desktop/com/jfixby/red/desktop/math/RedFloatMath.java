@@ -249,9 +249,11 @@ public abstract class RedFloatMath implements FloatMathComponent {
 
 	public double fractionalPartOf(double d) {
 		double t = abs(d) - abs(integerPartOf(d));
+
 		if (d < 0d) {
-			return -t;
+			t = -t;
 		}
+		// double missing = abs(d) - abs(integerPartOf(d)) - abs(t);
 		return t;
 	}
 
@@ -259,32 +261,27 @@ public abstract class RedFloatMath implements FloatMathComponent {
 		return integerPartOf(value) == value;
 	}
 
-	public boolean isIntegerInDoubleEpsilonNeighbourhood(final double value) {
+	@Override
+	public boolean isIntegerInEpsilonNeighbourhood(double value, double epsilon) {
 		if (isInteger(value)) {
 			return true;
 		}
-		if (abs(fractionalPartOf(value)) < DOUBLE_EPSILON) {
+		if (abs(fractionalPartOf(value)) < epsilon) {
 			return true;
 		}
 		final double abs = abs(value);
-		if (abs(ONE - fractionalPartOf(abs)) < DOUBLE_EPSILON) {
+		if (abs(ONE - fractionalPartOf(abs)) < epsilon) {
 			return true;
 		}
 		return false;
 	}
 
+	public boolean isIntegerInDoubleEpsilonNeighbourhood(final double value) {
+		return isIntegerInEpsilonNeighbourhood(value, DOUBLE_EPSILON);
+	}
+
 	public boolean isIntegerInFloatEpsilonNeighbourhood(final double value) {
-		if (isIntegerInDoubleEpsilonNeighbourhood(value)) {
-			return true;
-		}
-		if (abs(fractionalPartOf(value)) < FLOAT_EPSILON) {
-			return true;
-		}
-		final double abs = abs(value);
-		if (abs(ONE - fractionalPartOf(abs)) < FLOAT_EPSILON) {
-			return true;
-		}
-		return false;
+		return isIntegerInEpsilonNeighbourhood(value, FLOAT_EPSILON);
 	}
 
 	public boolean isFloatInteger(double d) {
@@ -372,7 +369,7 @@ public abstract class RedFloatMath implements FloatMathComponent {
 	}
 
 	@Override
-	public double roundToPoint(double raw_value, int index_after_point) {
+	public double roundToDigit(double raw_value, int index_after_point) {
 		return round(raw_value * power(10, index_after_point)) / power(10, index_after_point);
 	}
 

@@ -136,10 +136,10 @@ public class Geometry {
 		return invoke().newCircle();
 	}
 
-	public static void setupWrapingFrame(
+	public static Rectangle setupWrapingFrame(
 			Collection<? extends FixedFloat2> points_to_wrap,
 			Rectangle wrapping_frame) {
-		invoke().setupWrapingFrame(points_to_wrap, wrapping_frame);
+		return invoke().setupWrapingFrame(points_to_wrap, wrapping_frame);
 	}
 
 	public static <T extends EditableCollection<Float3>> T newFloat3(

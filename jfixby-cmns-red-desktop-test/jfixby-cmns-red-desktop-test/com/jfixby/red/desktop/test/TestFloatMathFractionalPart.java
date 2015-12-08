@@ -4,17 +4,15 @@ import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.math.FloatMath;
 import com.jfixby.cmns.desktop.DesktopAssembler;
 
-public class TestFloatMathRoundToPoint {
+public class TestFloatMathFractionalPart {
 
 	public static void main(String[] args) {
 		DesktopAssembler.setup();
 		{
-			double value = FloatMath.PI();
+			double value = 1.93;
 			L.d("double", value);
-			for (int index = -1; index < 10; index++) {
-				L.d("FloatMath.roundToPoint(" + index + ")", FloatMath.roundToDigit(value, index));
-			}
-
+			L.d("FloatMath.fractionalPartOf", FloatMath.fractionalPartOf(value));
+			L.d();
 		}
 
 	}

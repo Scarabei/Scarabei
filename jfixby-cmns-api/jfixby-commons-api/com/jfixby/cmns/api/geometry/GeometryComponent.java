@@ -67,7 +67,7 @@ public interface GeometryComponent {
 
 	public ClosedPolygonalChain newClosedPolygonalChain();
 
-	public void setupWrapingFrame(
+	public Rectangle setupWrapingFrame(
 			Collection<? extends FixedFloat2> points_to_wrap,
 			Rectangle wrapping_frame);
 

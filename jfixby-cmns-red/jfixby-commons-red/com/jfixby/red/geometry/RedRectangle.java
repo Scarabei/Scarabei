@@ -341,4 +341,10 @@ public class RedRectangle extends VertexMaster implements Rectangle {
 		return vertices;
 	}
 
+	@Override
+	public void reScale(double scaleX, double scaleY) {
+		this.setWidth(this.getWidth() * scaleX);
+		this.setHeight(this.getHeight() * scaleY);
+	}
+
 }
