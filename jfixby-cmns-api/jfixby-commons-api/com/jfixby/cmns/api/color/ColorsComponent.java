@@ -50,4 +50,6 @@ public interface ColorsComponent {
 
 	CustomColor newGray(float gray);
 
+	ColorRandomiser newColorRandomiser(long seed);
+
 }
