@@ -33,5 +33,7 @@ public interface Color {
 	CustomColor mix(Color other);
 
 	public CustomColor invert();
+	
+	public CustomColor toGrayscale();
 
 }
