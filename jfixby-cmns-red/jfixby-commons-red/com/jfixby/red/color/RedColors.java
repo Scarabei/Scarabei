@@ -161,8 +161,8 @@ public class RedColors implements ColorsComponent {
 	}
 
 	@Override
-	public ColorRandomiser newColorRandomiser(long seed) {
-		return new RedColorRandomiser(this, seed);
+	public ColorRandomiser newColorRandomizer(long seed) {
+		return new RedColorRandomizer(this, seed);
 	}
 
 }

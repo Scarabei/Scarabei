@@ -110,8 +110,8 @@ public class Colors {
 		return invoke().newColor(argb);
 	}
 
-	public static ColorRandomiser newColorRandomiser(long seed) {
-		return invoke().newColorRandomiser(seed);
+	public static ColorRandomiser newColorRandomizer(long seed) {
+		return invoke().newColorRandomizer(seed);
 	}
 
 }

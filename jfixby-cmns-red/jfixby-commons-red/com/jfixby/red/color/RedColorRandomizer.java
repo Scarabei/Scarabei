@@ -5,13 +5,13 @@ import java.util.Random;
 import com.jfixby.cmns.api.color.Color;
 import com.jfixby.cmns.api.color.ColorRandomiser;
 
-public class RedColorRandomiser implements ColorRandomiser {
+public class RedColorRandomizer implements ColorRandomiser {
 
 	private RedColors master;
 	private long seed;
 	private Random random;
 
-	public RedColorRandomiser(RedColors redColors, long seed) {
+	public RedColorRandomizer(RedColors redColors, long seed) {
 		this.master = redColors;
 		this.seed = seed;
 		random = new Random(seed);
