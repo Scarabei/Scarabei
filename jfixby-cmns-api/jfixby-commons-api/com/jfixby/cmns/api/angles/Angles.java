@@ -1,6 +1,6 @@
 package com.jfixby.cmns.api.angles;
 
-import com.jfixby.cmns.api.components.ComponentInstaller;
+import com.jfixby.cmns.api.ComponentInstaller;
 import com.jfixby.cmns.api.math.Angle;
 import com.jfixby.cmns.api.math.CustomAngle;
 

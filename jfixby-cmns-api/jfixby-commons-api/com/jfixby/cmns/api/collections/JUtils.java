@@ -1,7 +1,8 @@
-package com.jfixby.cmns.api.util;
+package com.jfixby.cmns.api.collections;
 
 import java.util.Comparator;
 
+import com.jfixby.cmns.api.ComponentInstaller;
 import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.CollectionScanner;
 import com.jfixby.cmns.api.collections.EditableCollection;
@@ -15,7 +16,6 @@ import com.jfixby.cmns.api.collections.Set;
 import com.jfixby.cmns.api.collections.StateSwitcher;
 import com.jfixby.cmns.api.collections.UtilsComponent;
 import com.jfixby.cmns.api.collections.ZxZ_Functuion;
-import com.jfixby.cmns.api.components.ComponentInstaller;
 import com.jfixby.cmns.api.lambda.λFunction;
 import com.jfixby.cmns.api.path.AbsolutePath;
 import com.jfixby.cmns.api.path.MountPoint;

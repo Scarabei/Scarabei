@@ -5,12 +5,12 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 import com.jfixby.cmns.api.collections.Collection;
+import com.jfixby.cmns.api.collections.JUtils;
 import com.jfixby.cmns.api.collections.Map;
 import com.jfixby.cmns.api.collections.Mapping;
 import com.jfixby.cmns.api.collections.Set;
 import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.log.L;
-import com.jfixby.cmns.api.util.JUtils;
 
 public class DesktopBadMap<K, V> implements Map<K, V> {
 

@@ -1,11 +1,11 @@
 package com.jfixby.red.graphs;
 
+import com.jfixby.cmns.api.collections.JUtils;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.graphs.PathInGraph;
 import com.jfixby.cmns.api.graphs.PathState;
 import com.jfixby.cmns.api.graphs.PathStep;
 import com.jfixby.cmns.api.log.L;
-import com.jfixby.cmns.api.util.JUtils;
 
 public class PathImpl<VertexType, EdgeType> implements PathInGraph<VertexType, EdgeType> {
 

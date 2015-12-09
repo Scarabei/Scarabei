@@ -4,7 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
-import com.jfixby.cmns.api.filesystem.FileInputStream;
+import com.jfixby.cmns.api.file.FileInputStream;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.red.io.AbstractRedInputStream;
 

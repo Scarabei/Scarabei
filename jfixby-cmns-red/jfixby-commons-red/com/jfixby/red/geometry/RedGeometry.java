@@ -3,6 +3,7 @@ package com.jfixby.red.geometry;
 import com.jfixby.cmns.api.angles.Angles;
 import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.EditableCollection;
+import com.jfixby.cmns.api.collections.JUtils;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.floatn.FixedFloat2;
@@ -20,7 +21,6 @@ import com.jfixby.cmns.api.geometry.Triangle;
 import com.jfixby.cmns.api.math.FloatMath;
 import com.jfixby.cmns.api.math.MathTools;
 import com.jfixby.cmns.api.math.Matrix;
-import com.jfixby.cmns.api.util.JUtils;
 
 public class RedGeometry implements GeometryComponent {
 

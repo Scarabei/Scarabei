@@ -1,6 +1,6 @@
 package com.jfixby.cmns.api.collisions;
 
-import com.jfixby.cmns.api.components.ComponentInstaller;
+import com.jfixby.cmns.api.ComponentInstaller;
 
 public class Collisions {
 

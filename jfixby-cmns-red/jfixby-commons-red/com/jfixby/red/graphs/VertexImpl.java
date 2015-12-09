@@ -1,8 +1,8 @@
 package com.jfixby.red.graphs;
 
+import com.jfixby.cmns.api.collections.JUtils;
 import com.jfixby.cmns.api.collections.Set;
 import com.jfixby.cmns.api.graphs.Vertex;
-import com.jfixby.cmns.api.util.JUtils;
 
 public class VertexImpl<VertexType, EdgeType> implements Vertex<VertexType> {
 

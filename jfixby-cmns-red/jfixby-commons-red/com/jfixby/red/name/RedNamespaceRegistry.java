@@ -5,11 +5,11 @@ import java.util.Iterator;
 import com.jfixby.cmns.api.assets.AssetID;
 import com.jfixby.cmns.api.assets.NamespaceRegistry;
 import com.jfixby.cmns.api.collections.Collection;
+import com.jfixby.cmns.api.collections.JUtils;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.collections.Map;
 import com.jfixby.cmns.api.collections.Mapping;
 import com.jfixby.cmns.api.collections.Set;
-import com.jfixby.cmns.api.util.JUtils;
 
 public class RedNamespaceRegistry<T> implements NamespaceRegistry<T> {
 

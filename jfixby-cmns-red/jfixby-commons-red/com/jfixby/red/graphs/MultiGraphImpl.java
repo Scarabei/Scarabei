@@ -1,5 +1,6 @@
 package com.jfixby.red.graphs;
 
+import com.jfixby.cmns.api.collections.JUtils;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.collections.Set;
 import com.jfixby.cmns.api.graphs.Edge;
@@ -7,7 +8,6 @@ import com.jfixby.cmns.api.graphs.MultiGraph;
 import com.jfixby.cmns.api.graphs.PathInGraph;
 import com.jfixby.cmns.api.graphs.Vertex;
 import com.jfixby.cmns.api.log.L;
-import com.jfixby.cmns.api.util.JUtils;
 
 public class MultiGraphImpl<VertexType, EdgeType> implements MultiGraph<VertexType, EdgeType> {
 

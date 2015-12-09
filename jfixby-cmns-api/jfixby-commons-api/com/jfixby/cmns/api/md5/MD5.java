@@ -3,7 +3,7 @@ package com.jfixby.cmns.api.md5;
 import java.io.IOException;
 import java.io.InputStream;
 
-import com.jfixby.cmns.api.components.ComponentInstaller;
+import com.jfixby.cmns.api.ComponentInstaller;
 
 public class MD5 {
 	static private ComponentInstaller<MD5Component> componentInstaller = new ComponentInstaller<MD5Component>("MD5");

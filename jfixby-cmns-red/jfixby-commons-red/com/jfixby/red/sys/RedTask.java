@@ -1,13 +1,13 @@
 package com.jfixby.red.sys;
 
 import com.jfixby.cmns.api.collections.Collection;
+import com.jfixby.cmns.api.collections.JUtils;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.collections.StateSwitcher;
 import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.sys.Job;
 import com.jfixby.cmns.api.sys.TASK_STATE;
 import com.jfixby.cmns.api.sys.Task;
-import com.jfixby.cmns.api.util.JUtils;
 
 public class RedTask implements Task {
 

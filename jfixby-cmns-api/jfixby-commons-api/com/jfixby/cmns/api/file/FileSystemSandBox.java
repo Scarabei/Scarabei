@@ -1,6 +1,6 @@
-package com.jfixby.cmns.api.filesystem;
+package com.jfixby.cmns.api.file;
 
-import com.jfixby.cmns.api.components.ComponentInstaller;
+import com.jfixby.cmns.api.ComponentInstaller;
 
 public class FileSystemSandBox {
 

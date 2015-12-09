@@ -2,7 +2,7 @@ package com.jfixby.red.io;
 
 import java.io.IOException;
 
-import com.jfixby.cmns.api.filesystem.FileOutputStream;
+import com.jfixby.cmns.api.file.FileOutputStream;
 import com.jfixby.cmns.api.io.Buffer;
 import com.jfixby.cmns.api.io.BufferInputStream;
 import com.jfixby.cmns.api.io.BufferOutputStream;

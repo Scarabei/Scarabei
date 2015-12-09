@@ -1,6 +1,6 @@
-package com.jfixby.cmns.api.filesystem.packing;
+package com.jfixby.cmns.api.file.packing;
 
-import com.jfixby.cmns.api.filesystem.File;
+import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.io.InputStream;
 
 public interface FileSystemUnpackingSpecs {

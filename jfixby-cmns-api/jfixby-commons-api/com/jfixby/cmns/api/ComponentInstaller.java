@@ -1,4 +1,4 @@
-package com.jfixby.cmns.api.components;
+package com.jfixby.cmns.api;
 
 import com.jfixby.cmns.api.err.Err;
 

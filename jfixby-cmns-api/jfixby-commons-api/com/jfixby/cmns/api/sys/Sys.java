@@ -1,8 +1,8 @@
 package com.jfixby.cmns.api.sys;
 
+import com.jfixby.cmns.api.ComponentInstaller;
 import com.jfixby.cmns.api.assets.AssetID;
 import com.jfixby.cmns.api.collections.Collection;
-import com.jfixby.cmns.api.components.ComponentInstaller;
 import com.jfixby.cmns.api.time.TimeStream;
 
 public class Sys {

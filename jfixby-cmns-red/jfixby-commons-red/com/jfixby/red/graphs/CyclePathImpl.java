@@ -1,9 +1,9 @@
 package com.jfixby.red.graphs;
 
+import com.jfixby.cmns.api.collections.JUtils;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.graphs.PathInGraph;
 import com.jfixby.cmns.api.log.L;
-import com.jfixby.cmns.api.util.JUtils;
 
 public class CyclePathImpl<VertexType, EdgeType> implements PathInGraph<VertexType, EdgeType> {
 

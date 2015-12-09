@@ -1,6 +1,6 @@
 package com.jfixby.cmns.api.net;
 
-import com.jfixby.cmns.api.components.ComponentInstaller;
+import com.jfixby.cmns.api.ComponentInstaller;
 import com.jfixby.cmns.api.net.message.MQMessageFactory;
 import com.jfixby.cmns.api.net.message.MQMessageFactorySpecs;
 

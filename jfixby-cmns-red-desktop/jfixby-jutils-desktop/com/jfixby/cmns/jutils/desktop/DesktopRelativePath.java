@@ -1,9 +1,9 @@
 package com.jfixby.cmns.jutils.desktop;
 
+import com.jfixby.cmns.api.collections.JUtils;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.path.RelativePath;
-import com.jfixby.cmns.api.util.JUtils;
 
 public class DesktopRelativePath implements RelativePath {
 

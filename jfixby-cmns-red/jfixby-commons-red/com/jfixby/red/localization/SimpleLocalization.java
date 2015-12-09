@@ -2,7 +2,7 @@ package com.jfixby.red.localization;
 
 import java.io.IOException;
 
-import com.jfixby.cmns.api.filesystem.File;
+import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.json.Json;
 import com.jfixby.cmns.api.localize.Locale;
 import com.jfixby.cmns.api.localize.LocalizationComponent;

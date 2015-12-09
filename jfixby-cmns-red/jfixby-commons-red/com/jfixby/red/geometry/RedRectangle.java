@@ -1,6 +1,7 @@
 package com.jfixby.red.geometry;
 
 import com.jfixby.cmns.api.collections.Collection;
+import com.jfixby.cmns.api.collections.JUtils;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.floatn.FixedFloat2;
 import com.jfixby.cmns.api.floatn.Float2;
@@ -12,7 +13,6 @@ import com.jfixby.cmns.api.geometry.Rectangle;
 import com.jfixby.cmns.api.geometry.RectangleCorner;
 import com.jfixby.cmns.api.geometry.Triangle;
 import com.jfixby.cmns.api.math.Angle;
-import com.jfixby.cmns.api.util.JUtils;
 
 public class RedRectangle extends VertexMaster implements Rectangle {
 	double width = 0;

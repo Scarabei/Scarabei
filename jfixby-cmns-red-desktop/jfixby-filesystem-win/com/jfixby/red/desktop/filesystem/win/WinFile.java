@@ -2,17 +2,17 @@ package com.jfixby.red.desktop.filesystem.win;
 
 import java.io.IOException;
 
+import com.jfixby.cmns.api.collections.JUtils;
 import com.jfixby.cmns.api.collections.List;
-import com.jfixby.cmns.api.filesystem.File;
-import com.jfixby.cmns.api.filesystem.FileHash;
-import com.jfixby.cmns.api.filesystem.FileInputStream;
-import com.jfixby.cmns.api.filesystem.FileOutputStream;
-import com.jfixby.cmns.api.filesystem.FileSystem;
+import com.jfixby.cmns.api.file.File;
+import com.jfixby.cmns.api.file.FileHash;
+import com.jfixby.cmns.api.file.FileInputStream;
+import com.jfixby.cmns.api.file.FileOutputStream;
+import com.jfixby.cmns.api.file.FileSystem;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.path.AbsolutePath;
 import com.jfixby.cmns.api.path.ChildrenList;
 import com.jfixby.cmns.api.path.RelativePath;
-import com.jfixby.cmns.api.util.JUtils;
 import com.jfixby.red.filesystem.FilesList;
 import com.jfixby.red.filesystem.RedFileHash;
 

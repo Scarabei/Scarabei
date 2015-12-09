@@ -1,4 +1,4 @@
-package com.jfixby.cmns.api.filesystem.packing;
+package com.jfixby.cmns.api.file.packing;
 
 import java.io.IOException;
 

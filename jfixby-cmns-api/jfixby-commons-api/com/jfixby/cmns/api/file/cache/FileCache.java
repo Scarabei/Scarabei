@@ -1,7 +1,7 @@
-package com.jfixby.cmns.api.filesystem.cache;
+package com.jfixby.cmns.api.file.cache;
 
-import com.jfixby.cmns.api.components.ComponentInstaller;
-import com.jfixby.cmns.api.filesystem.File;
+import com.jfixby.cmns.api.ComponentInstaller;
+import com.jfixby.cmns.api.file.File;
 
 public class FileCache {
 

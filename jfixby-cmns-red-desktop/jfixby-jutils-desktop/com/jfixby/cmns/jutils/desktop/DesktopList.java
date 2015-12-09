@@ -7,11 +7,11 @@ import java.util.LinkedList;
 
 import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.EditableCollection;
+import com.jfixby.cmns.api.collections.JUtils;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.math.IntegerMath;
-import com.jfixby.cmns.api.util.JUtils;
 
 public class DesktopList<T> implements List<T> {
 	private final LinkedList<T> legacy = new LinkedList<T>();

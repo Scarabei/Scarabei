@@ -2,7 +2,7 @@ package com.jfixby.cmns.api.base64;
 
 import java.io.IOException;
 
-import com.jfixby.cmns.api.components.ComponentInstaller;
+import com.jfixby.cmns.api.ComponentInstaller;
 import com.jfixby.cmns.api.io.InputStream;
 
 public class Base64 {

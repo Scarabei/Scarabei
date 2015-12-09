@@ -3,10 +3,10 @@ package com.jfixby.cmns.jutils.desktop;
 import java.util.Iterator;
 
 import com.jfixby.cmns.api.collections.Collection;
+import com.jfixby.cmns.api.collections.JUtils;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.collections.Pool;
 import com.jfixby.cmns.api.collections.PoolElementsSpawner;
-import com.jfixby.cmns.api.util.JUtils;
 
 public class DesktopPool<T> implements Pool<T> {
 

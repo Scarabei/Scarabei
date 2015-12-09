@@ -1,7 +1,7 @@
 package com.jfixby.cmns.api.graphs;
 
+import com.jfixby.cmns.api.ComponentInstaller;
 import com.jfixby.cmns.api.collections.EditableCollection;
-import com.jfixby.cmns.api.components.ComponentInstaller;
 import com.jfixby.cmns.api.floatn.FixedFloat2;
 
 public class Graphs {

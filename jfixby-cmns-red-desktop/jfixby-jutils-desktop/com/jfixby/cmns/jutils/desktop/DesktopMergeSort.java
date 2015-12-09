@@ -3,11 +3,11 @@ package com.jfixby.cmns.jutils.desktop;
 import java.util.Comparator;
 
 import com.jfixby.cmns.api.collections.Collection;
+import com.jfixby.cmns.api.collections.JUtils;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.lambda.Lambda;
 import com.jfixby.cmns.api.lambda.λFunction;
 import com.jfixby.cmns.api.lambda.λFunctionCache;
-import com.jfixby.cmns.api.util.JUtils;
 
 public class DesktopMergeSort<T> implements λFunction<Collection<T>, Collection<T>> {
 

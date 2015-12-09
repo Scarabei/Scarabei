@@ -16,9 +16,9 @@ import com.badlogic.gdx.Files.FileType;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.StreamUtils;
-import com.jfixby.cmns.api.filesystem.File;
-import com.jfixby.cmns.api.filesystem.FileInputStream;
-import com.jfixby.cmns.api.filesystem.FileSystem;
+import com.jfixby.cmns.api.file.File;
+import com.jfixby.cmns.api.file.FileInputStream;
+import com.jfixby.cmns.api.file.FileSystem;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.path.AbsolutePath;
 

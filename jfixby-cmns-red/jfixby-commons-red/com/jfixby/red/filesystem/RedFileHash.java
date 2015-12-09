@@ -1,6 +1,6 @@
 package com.jfixby.red.filesystem;
 
-import com.jfixby.cmns.api.filesystem.FileHash;
+import com.jfixby.cmns.api.file.FileHash;
 
 public class RedFileHash implements FileHash {
 

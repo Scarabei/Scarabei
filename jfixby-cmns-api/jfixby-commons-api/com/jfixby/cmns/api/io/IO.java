@@ -2,8 +2,8 @@ package com.jfixby.cmns.api.io;
 
 import java.io.IOException;
 
-import com.jfixby.cmns.api.components.ComponentInstaller;
-import com.jfixby.cmns.api.filesystem.FileInputStream;
+import com.jfixby.cmns.api.ComponentInstaller;
+import com.jfixby.cmns.api.file.FileInputStream;
 
 public class IO {
 

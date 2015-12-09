@@ -2,7 +2,7 @@ package com.jfixby.cmns.api.io;
 
 import java.io.IOException;
 
-import com.jfixby.cmns.api.filesystem.FileOutputStream;
+import com.jfixby.cmns.api.file.FileOutputStream;
 
 public interface IOComponent  {
 

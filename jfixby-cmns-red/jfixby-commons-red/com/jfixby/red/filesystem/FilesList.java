@@ -3,12 +3,12 @@ package com.jfixby.red.filesystem;
 import java.util.Iterator;
 
 import com.jfixby.cmns.api.collections.Collection;
+import com.jfixby.cmns.api.collections.JUtils;
 import com.jfixby.cmns.api.collections.List;
-import com.jfixby.cmns.api.filesystem.File;
+import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.math.IntegerMath;
 import com.jfixby.cmns.api.path.ChildrenList;
 import com.jfixby.cmns.api.path.FileFilter;
-import com.jfixby.cmns.api.util.JUtils;
 
 public class FilesList implements ChildrenList {
 	final List<File> internal_list = JUtils.newList();

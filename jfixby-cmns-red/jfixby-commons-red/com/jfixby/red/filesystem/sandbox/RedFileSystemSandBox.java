@@ -1,8 +1,8 @@
 package com.jfixby.red.filesystem.sandbox;
 
-import com.jfixby.cmns.api.filesystem.File;
-import com.jfixby.cmns.api.filesystem.FileSystem;
-import com.jfixby.cmns.api.filesystem.FileSystemSandBoxComponent;
+import com.jfixby.cmns.api.file.File;
+import com.jfixby.cmns.api.file.FileSystem;
+import com.jfixby.cmns.api.file.FileSystemSandBoxComponent;
 
 public class RedFileSystemSandBox implements FileSystemSandBoxComponent {
 

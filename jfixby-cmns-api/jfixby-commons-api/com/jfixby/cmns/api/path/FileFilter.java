@@ -1,6 +1,6 @@
 package com.jfixby.cmns.api.path;
 
-import com.jfixby.cmns.api.filesystem.File;
+import com.jfixby.cmns.api.file.File;
 
 
 public interface FileFilter {

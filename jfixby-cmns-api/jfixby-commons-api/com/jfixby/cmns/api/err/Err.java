@@ -1,6 +1,6 @@
 package com.jfixby.cmns.api.err;
 
-import com.jfixby.cmns.api.components.ComponentInstaller;
+import com.jfixby.cmns.api.ComponentInstaller;
 
 public class Err {
 

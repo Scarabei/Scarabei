@@ -1,4 +1,4 @@
-package com.jfixby.cmns.api.filesystem;
+package com.jfixby.cmns.api.file;
 
 public interface FileSystemSandBoxComponent {
 
