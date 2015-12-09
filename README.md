@@ -7,4 +7,7 @@
  some general classes required by the jfixby-cmns-red-desktop and other Red implementations
 - `jfixby-cmns-red-log-mq` — Apache ActiveMQ based logger implementation
 - `apache-jfixby-cmns` — tools adopted from the Apache Commons
-- `gdx-jfixby-cmns` — tools adopted from the libGDX Tools
+- `gdx-jfixby-cmns` — tools adopted from the libGDX Tools- 
+
+#### Wiki
+https://github.com/JFixby/jfixby-commons/wiki
