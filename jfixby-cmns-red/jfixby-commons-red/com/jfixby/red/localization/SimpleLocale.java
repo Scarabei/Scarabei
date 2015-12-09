@@ -1,6 +1,6 @@
 package com.jfixby.red.localization;
 
-import com.jfixby.cmns.api.collections.JUtils;
+import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.Map;
 import com.jfixby.cmns.api.localize.Locale;
 import com.jfixby.cmns.api.localize.StringValueID;
@@ -19,7 +19,7 @@ public class SimpleLocale implements Locale {
 	}
 
 	private String language;
-	private Map<String, String> mapping = JUtils.newMap();
+	private Map<String, String> mapping = Collections.newMap();
 
 	public SimpleLocale(SimpleLocalizationSpecs loc_specs) {
 		language = loc_specs.getLanguageName();

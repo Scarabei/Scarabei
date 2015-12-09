@@ -3,11 +3,9 @@ package com.jfixby.cmns.api.collections;
 import java.util.Comparator;
 
 import com.jfixby.cmns.api.lambda.λFunction;
-import com.jfixby.cmns.api.path.AbsolutePath;
-import com.jfixby.cmns.api.path.MountPoint;
-import com.jfixby.cmns.api.path.RelativePath;
+import com.jfixby.cmns.api.util.StateSwitcher;
 
-public interface UtilsComponent {
+public interface CollectionsComponent {
 
 	<T> List<T> newList();
 
@@ -31,16 +29,6 @@ public interface UtilsComponent {
 
 	<K, V> Map<K, V> newMap(java.util.Map<? extends K, ? extends V> java_map);
 
-	RelativePath newRelativePath(String path_string);
-
-	<T extends MountPoint> AbsolutePath<T> newAbsolutePath(T mount_point, RelativePath relative);
-
-	<T extends MountPoint> AbsolutePath<T> newAbsolutePath(T mount_point);
-
-	RelativePath newRelativePath(List<String> steps_list);
-
-	RelativePath newRelativePath();
-
 	public <T> ZxZ_Functuion<T> newZxZ_Function();
 
 	public <T> Queue<T> newQueue();
@@ -51,18 +39,7 @@ public interface UtilsComponent {
 
 	boolean equalLists(List<?> a, List<?> b);
 
-	<T> StateSwitcher<T> newStateSwitcher(T default_state);
-
-
-
 	List<Float> newList(float[] floats);
-
-	List<String> split(String input_string, String splitter);
-
-	// public <A extends Collection<A>, B extends A> B castCollection(A input);
-	//
-	// public <K, V, A extends Map<K, V>, B extends A> B castCollection(A
-	// input);
 
 	public <A, B, X, Y> Map<A, B> castMap(Mapping<X, Y> input);
 
@@ -73,10 +50,6 @@ public interface UtilsComponent {
 	public <Q, P, Cp extends EditableCollection<P>> Cp castCollection(Collection<Q> input, Cp output);
 
 	public <Q, P> List<P> castCollection(Collection<Q> input);
-
-	void checkTrue(boolean flag);
-
-	void checkTrue(String flag_name, boolean flag);
 
 	public <T> void arrayCopy(Collection<? extends T> source, int source_index, EditableCollection<? super T> destination, int number_of_elements);
 

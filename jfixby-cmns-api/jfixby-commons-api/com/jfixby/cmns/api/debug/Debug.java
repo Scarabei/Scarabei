@@ -42,4 +42,14 @@ public class Debug {
 		invoke().checkEmpty(parameter_name, value);
 	}
 	
+	public static void checkTrue(boolean flag) {
+		invoke().checkTrue(flag);
+	}
+
+	public static void checkTrue(String flag_name, boolean flag) {
+		invoke().checkTrue(flag_name, flag);
+	}
+	
+	
+	
 }

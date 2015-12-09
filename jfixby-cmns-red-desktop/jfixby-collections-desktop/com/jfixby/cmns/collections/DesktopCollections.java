@@ -1,4 +1,4 @@
-package com.jfixby.cmns.jutils.desktop;
+package com.jfixby.cmns.collections;
 
 import java.util.Comparator;
 import java.util.Iterator;
@@ -6,8 +6,9 @@ import java.util.Objects;
 
 import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.CollectionScanner;
+import com.jfixby.cmns.api.collections.Collections;
+import com.jfixby.cmns.api.collections.CollectionsComponent;
 import com.jfixby.cmns.api.collections.EditableCollection;
-import com.jfixby.cmns.api.collections.JUtils;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.collections.Map;
 import com.jfixby.cmns.api.collections.Mapping;
@@ -15,17 +16,11 @@ import com.jfixby.cmns.api.collections.Pool;
 import com.jfixby.cmns.api.collections.PoolElementsSpawner;
 import com.jfixby.cmns.api.collections.Queue;
 import com.jfixby.cmns.api.collections.Set;
-import com.jfixby.cmns.api.collections.StateSwitcher;
-import com.jfixby.cmns.api.collections.UtilsComponent;
 import com.jfixby.cmns.api.collections.ZxZ_Functuion;
 import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.lambda.λFunction;
-import com.jfixby.cmns.api.path.AbsolutePath;
-import com.jfixby.cmns.api.path.MountPoint;
-import com.jfixby.cmns.api.path.RelativePath;
-import com.jfixby.red.util.RedStateSwitcher;
 
-public class DesktopUtils implements UtilsComponent {
+public class DesktopCollections implements CollectionsComponent {
 
 	@Override
 	public <T> List<T> newList() {
@@ -57,31 +52,6 @@ public class DesktopUtils implements UtilsComponent {
 		Set<T> result = new DesktopSet<T>();
 		result.addAll(tmp);
 		return result;
-	}
-
-	@Override
-	public RelativePath newRelativePath(String path_string) {
-		return new DesktopRelativePath(path_string);
-	}
-
-	@Override
-	public <T extends MountPoint> AbsolutePath<T> newAbsolutePath(T mount_point, RelativePath relative) {
-		return new DesktopAbsolutePath<T>(mount_point, relative);
-	}
-
-	@Override
-	public RelativePath newRelativePath(List<String> steps_list) {
-		return new DesktopRelativePath(steps_list);
-	}
-
-	@Override
-	public <T extends MountPoint> AbsolutePath<T> newAbsolutePath(T mount_point) {
-		return new DesktopAbsolutePath<T>(mount_point, new DesktopRelativePath(DesktopRelativePath.E));
-	}
-
-	@Override
-	public RelativePath newRelativePath() {
-		return new DesktopRelativePath(DesktopRelativePath.E);
 	}
 
 	@Override
@@ -176,11 +146,6 @@ public class DesktopUtils implements UtilsComponent {
 	}
 
 	@Override
-	public <T> StateSwitcher<T> newStateSwitcher(T default_state) {
-		return new RedStateSwitcher<T>(default_state);
-	}
-
-	@Override
 	public List<Float> newList(float[] floats) {
 		List<Float> result = this.newList();
 		for (int i = 0; i < floats.length; i++) {
@@ -188,13 +153,6 @@ public class DesktopUtils implements UtilsComponent {
 			result.add(float_val);
 		}
 		return result;
-	}
-
-	@Override
-	public List<String> split(String input_string, String splitter) {
-		Debug.checkNull("input_string", input_string);
-		Debug.checkNull("splitter", splitter);
-		return JUtils.newList(input_string.split(splitter));
 	}
 
 	@Override
@@ -235,7 +193,7 @@ public class DesktopUtils implements UtilsComponent {
 
 	@Override
 	public <Q, P> List<P> castCollection(Collection<Q> input) {
-		return this.castCollection(input, JUtils.newList());
+		return this.castCollection(input, Collections.newList());
 	}
 
 	@SuppressWarnings("unchecked")
@@ -252,21 +210,7 @@ public class DesktopUtils implements UtilsComponent {
 
 	@Override
 	public <A, B, X, Y> Map<A, B> castMap(Mapping<X, Y> input) {
-		return this.castMap(input, JUtils.newMap());
-	}
-
-	@Override
-	public void checkTrue(String flag_name, boolean flag) {
-		if (flag == false) {
-			throw new Error(flag_name + "");
-		}
-	}
-
-	@Override
-	public void checkTrue(boolean flag) {
-		if (flag == false) {
-			throw new Error();
-		}
+		return this.castMap(input, Collections.newMap());
 	}
 
 	@Override

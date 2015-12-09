@@ -1,7 +1,7 @@
 package com.jfixby.red.geometry;
 
 import com.jfixby.cmns.api.collections.Collection;
-import com.jfixby.cmns.api.collections.JUtils;
+import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.floatn.FixedFloat2;
 import com.jfixby.cmns.api.floatn.Float2;
@@ -22,7 +22,7 @@ public class RedRectangle extends VertexMaster implements Rectangle {
 	final RedVertex top_right = new RedVertex(this);
 	final RedVertex bottom_left = new RedVertex(this);
 	final RedVertex bottom_right = new RedVertex(this);
-	final List<FixedFloat2> vertices = JUtils.newList(top_left, top_right, bottom_right, bottom_left);
+	final List<FixedFloat2> vertices = Collections.newList(top_left, top_right, bottom_right, bottom_left);
 
 	final RedPoint origin_relative = new RedPoint();
 

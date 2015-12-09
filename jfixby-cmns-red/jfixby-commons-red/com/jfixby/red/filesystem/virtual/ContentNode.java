@@ -1,14 +1,14 @@
 package com.jfixby.red.filesystem.virtual;
 
-import com.jfixby.cmns.api.collections.JUtils;
+import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.collections.Map;
 import com.jfixby.cmns.api.log.L;
 
 public class ContentNode {
 
-	final Map<String, ContentNode> nodes = JUtils.newMap();
-	final Map<String, ContentLeaf> leafs = JUtils.newMap();
+	final Map<String, ContentNode> nodes = Collections.newMap();
+	final Map<String, ContentLeaf> leafs = Collections.newMap();
 
 	public void clearAll() {
 		leafs.clear();
@@ -42,7 +42,7 @@ public class ContentNode {
 	}
 
 	public List<String> listAllChildren() {
-		final List<String> result = JUtils.newList();
+		final List<String> result = Collections.newList();
 		result.addAll(this.leafs.keys());
 		result.addAll(this.nodes.keys());
 		return result;

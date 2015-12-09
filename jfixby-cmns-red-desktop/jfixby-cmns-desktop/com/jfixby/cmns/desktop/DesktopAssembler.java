@@ -2,7 +2,7 @@ package com.jfixby.cmns.desktop;
 
 import com.jfixby.cmns.api.angles.Angles;
 import com.jfixby.cmns.api.assets.Names;
-import com.jfixby.cmns.api.collections.JUtils;
+import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.color.Colors;
 import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.err.Err;
@@ -18,7 +18,7 @@ import com.jfixby.cmns.api.math.FloatMath;
 import com.jfixby.cmns.api.math.IntegerMath;
 import com.jfixby.cmns.api.math.MathTools;
 import com.jfixby.cmns.api.sys.Sys;
-import com.jfixby.cmns.jutils.desktop.DesktopUtils;
+import com.jfixby.cmns.collections.DesktopCollections;
 import com.jfixby.red.color.RedColors;
 import com.jfixby.red.debug.RedDebug;
 import com.jfixby.red.desktop.filesystem.win.WinFileSystem;
@@ -41,7 +41,7 @@ public class DesktopAssembler {
 
 	public static final void setup() {
 		L.installComponent(new DesktopLogger());
-		JUtils.installComponent(new DesktopUtils());
+		Collections.installComponent(new DesktopCollections());
 		FloatMath.installComponent(new DesktopFloatMath());
 		Sys.installComponent(new DesktopSystem());
 		IntegerMath.installComponent(new RedIntegerMath());

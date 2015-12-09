@@ -1,9 +1,9 @@
-package com.jfixby.cmns.jutils.desktop;
+package com.jfixby.cmns.collections;
 
 import java.util.Comparator;
 
 import com.jfixby.cmns.api.collections.Collection;
-import com.jfixby.cmns.api.collections.JUtils;
+import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.lambda.Lambda;
 import com.jfixby.cmns.api.lambda.λFunction;
@@ -49,7 +49,7 @@ public class DesktopMergeSort<T> implements λFunction<Collection<T>, Collection
 			T e1 = input_list.getElementAt(1);
 
 			if (compare(e0, e1) > 0) {
-				List<T> result = JUtils.newList();// (2);
+				List<T> result = Collections.newList();// (2);
 				result.add(input_list.getElementAt(1));
 				result.add(input_list.getElementAt(0));
 				return result;
@@ -59,11 +59,11 @@ public class DesktopMergeSort<T> implements λFunction<Collection<T>, Collection
 		Collection<T> sorted_tail;
 		Collection<T> sorted_head;
 		{
-			List<T> head = JUtils.newList();// N / 2
-			List<T> tail = JUtils.newList();// N - N / 2
+			List<T> head = Collections.newList();// N / 2
+			List<T> tail = Collections.newList();// N - N / 2
 
-			JUtils.arrayCopy(input_list, 0, head, N / 2);
-			JUtils.arrayCopy(input_list, N / 2, tail, N - N / 2);
+			Collections.arrayCopy(input_list, 0, head, N / 2);
+			Collections.arrayCopy(input_list, N / 2, tail, N - N / 2);
 
 			// System.out.print("x");// weight indicator
 			sorted_tail = MERGE_SORT.val(tail);
@@ -72,7 +72,7 @@ public class DesktopMergeSort<T> implements λFunction<Collection<T>, Collection
 		int head_pointer = 0;
 		int tail_pointer = 0;
 
-		List<T> result = JUtils.newList();// N
+		List<T> result = Collections.newList();// N
 
 		while (head_pointer < sorted_head.size() && tail_pointer < sorted_tail.size()) {
 			T h0 = sorted_head.getElementAt(head_pointer);
@@ -88,9 +88,9 @@ public class DesktopMergeSort<T> implements λFunction<Collection<T>, Collection
 		}
 
 		if (head_pointer == sorted_head.size()) {
-			JUtils.arrayCopy(sorted_tail, tail_pointer, result, sorted_tail.size() - tail_pointer);
+			Collections.arrayCopy(sorted_tail, tail_pointer, result, sorted_tail.size() - tail_pointer);
 		} else {
-			JUtils.arrayCopy(sorted_head, head_pointer, result, sorted_head.size() - head_pointer);
+			Collections.arrayCopy(sorted_head, head_pointer, result, sorted_head.size() - head_pointer);
 		}
 		return result;
 	}

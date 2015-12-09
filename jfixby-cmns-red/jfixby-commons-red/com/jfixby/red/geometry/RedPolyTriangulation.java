@@ -1,7 +1,7 @@
 package com.jfixby.red.geometry;
 
 import com.jfixby.cmns.api.collections.EditableCollection;
-import com.jfixby.cmns.api.collections.JUtils;
+import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.floatn.FixedFloat2;
 import com.jfixby.cmns.api.floatn.Float2;
@@ -16,9 +16,9 @@ import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.math.SimpleTriangulator;
 
 public class RedPolyTriangulation implements PolyTriangulation {
-	final List<RedPoint> triangulated_vertices = JUtils.newList();
-	final List<Triangle> triangles = JUtils.newList();
-	final List<FixedFloat2> dots = JUtils.newList();
+	final List<RedPoint> triangulated_vertices = Collections.newList();
+	final List<Triangle> triangles = Collections.newList();
+	final List<FixedFloat2> dots = Collections.newList();
 
 	public PolyTriangulation check(List<Vertex> vertices) {
 		final boolean already_triangulated = Geometry.equalFloat2Collections(

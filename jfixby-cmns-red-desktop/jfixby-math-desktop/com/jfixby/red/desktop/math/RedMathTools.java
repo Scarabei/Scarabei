@@ -1,6 +1,6 @@
 package com.jfixby.red.desktop.math;
 
-import com.jfixby.cmns.api.collections.JUtils;
+import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.math.FloatMath;
 import com.jfixby.cmns.api.math.MathToolsComponent;
@@ -114,7 +114,7 @@ public class RedMathTools implements MathToolsComponent {
 		}
 		if (matrix.getHeight() != 1 + offset.length) {
 
-			List<Double> doubles = JUtils.newList();
+			List<Double> doubles = Collections.newList();
 			for (int i = 0; i < offset.length; i++) {
 				doubles.add(offset[i]);
 			}

@@ -1,6 +1,6 @@
 package com.jfixby.red.net;
 
-import com.jfixby.cmns.api.collections.JUtils;
+import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.Map;
 import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.net.http.HttpCall;
@@ -10,7 +10,7 @@ import com.jfixby.cmns.api.net.http.METHOD;
 
 public class RedCall implements HttpCall {
 
-	final Map<String, Object> map = JUtils.newMap();
+	final Map<String, Object> map = Collections.newMap();
 	private HttpURL url;
 	private METHOD method;
 	private boolean agent;

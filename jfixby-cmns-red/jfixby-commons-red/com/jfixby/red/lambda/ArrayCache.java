@@ -1,7 +1,7 @@
 package com.jfixby.red.lambda;
 
 import com.jfixby.cmns.api.collections.Collection;
-import com.jfixby.cmns.api.collections.JUtils;
+import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.collections.Map;
 import com.jfixby.cmns.api.lambda.λFunctionCache;
@@ -17,7 +17,7 @@ public class ArrayCache<Q, T> implements λFunctionCache<Collection<Q>, T> {
 		this(Float.MAX_VALUE);
 	}
 
-	final Map<List<Q>, T> mapping = JUtils.newMap();
+	final Map<List<Q>, T> mapping = Collections.newMap();
 
 	@Override
 	public T get(Collection<Q> key) {
@@ -33,7 +33,7 @@ public class ArrayCache<Q, T> implements λFunctionCache<Collection<Q>, T> {
 	}
 
 	private List<Q> toKey(Collection<Q> key) {
-		return JUtils.newList(key);
+		return Collections.newList(key);
 	}
 
 	@Override

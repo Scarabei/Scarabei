@@ -1,11 +1,11 @@
-package com.jfixby.cmns.jutils.desktop;
+package com.jfixby.cmns.collections;
 
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 
 import com.jfixby.cmns.api.collections.Collection;
-import com.jfixby.cmns.api.collections.JUtils;
+import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.Map;
 import com.jfixby.cmns.api.collections.Mapping;
 import com.jfixby.cmns.api.collections.Set;
@@ -160,12 +160,12 @@ public class DesktopBadMap<K, V> implements Map<K, V> {
 	@Override
 	public Collection<V> values() {
 		Err.reportWarning("Memory leak");
-		return JUtils.newList(this.toJavaMap().values());
+		return Collections.newList(this.toJavaMap().values());
 	}
 
 	@Override
 	public Set<K> keys() {
-		return JUtils.newSet(this.keys_list);
+		return Collections.newSet(this.keys_list);
 	}
 
 	@Override

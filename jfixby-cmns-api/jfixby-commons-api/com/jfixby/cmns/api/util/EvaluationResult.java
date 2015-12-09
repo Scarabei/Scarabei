@@ -1,4 +1,4 @@
-package com.jfixby.cmns.api.collections;
+package com.jfixby.cmns.api.util;
 
 public interface EvaluationResult {
 

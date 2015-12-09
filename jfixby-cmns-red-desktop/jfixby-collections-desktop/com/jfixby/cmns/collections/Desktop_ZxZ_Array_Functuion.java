@@ -1,6 +1,6 @@
-package com.jfixby.cmns.jutils.desktop;
+package com.jfixby.cmns.collections;
 
-import com.jfixby.cmns.api.collections.JUtils;
+import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.collections.Set;
 import com.jfixby.cmns.api.collections.ZxZ_Functuion;
@@ -8,7 +8,7 @@ import com.jfixby.cmns.api.math.IntegerMath;
 
 public class Desktop_ZxZ_Array_Functuion<T> implements ZxZ_Functuion<T> {
 
-	final private List<T> base = JUtils.newList();
+	final private List<T> base = Collections.newList();
 
 	@Override
 	public T getValueAt(long x, long y) {
@@ -47,7 +47,7 @@ public class Desktop_ZxZ_Array_Functuion<T> implements ZxZ_Functuion<T> {
 
 	@Override
 	public List<T> getAllValues() {
-		Set<T> tmp = JUtils.newSet();
+		Set<T> tmp = Collections.newSet();
 		tmp.addAll(base);
 		tmp.remove(null);
 		return tmp.toList();

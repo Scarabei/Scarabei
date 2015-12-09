@@ -1,7 +1,7 @@
 package com.jfixby.red.geometry;
 
 import com.jfixby.cmns.api.collections.Collection;
-import com.jfixby.cmns.api.collections.JUtils;
+import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.floatn.FixedFloat2;
@@ -13,7 +13,7 @@ import com.jfixby.cmns.api.geometry.Vertex;
 
 public class RedClosedPolygonalChain extends VertexMaster implements ClosedPolygonalChain {
 	// final List<RedPoint> vertices = JUtils.newList();
-	final List<Vertex> public_vertices = JUtils.newList();
+	final List<Vertex> public_vertices = Collections.newList();
 	final RedPolyTriangulation triangulation = new RedPolyTriangulation();
 
 	@Override

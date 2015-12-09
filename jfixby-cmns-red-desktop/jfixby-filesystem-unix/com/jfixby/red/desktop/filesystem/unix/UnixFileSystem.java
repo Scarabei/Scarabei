@@ -3,7 +3,7 @@ package com.jfixby.red.desktop.filesystem.unix;
 import java.io.IOException;
 import java.io.InputStream;
 
-import com.jfixby.cmns.api.collections.JUtils;
+import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.file.File;
@@ -15,6 +15,7 @@ import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.md5.MD5;
 import com.jfixby.cmns.api.path.AbsolutePath;
 import com.jfixby.cmns.api.path.RelativePath;
+import com.jfixby.cmns.api.util.JUtils;
 import com.jfixby.red.filesystem.AbstractFileSystem;
 
 public class UnixFileSystem extends AbstractFileSystem implements LocalFileSystemComponent {
@@ -46,7 +47,7 @@ public class UnixFileSystem extends AbstractFileSystem implements LocalFileSyste
 		// throw new Error();
 		// }
 
-		List<String> steps = JUtils.newList(path_string.split(OS_SEPARATOR + OS_SEPARATOR));
+		List<String> steps = Collections.newList(path_string.split(OS_SEPARATOR + OS_SEPARATOR));
 		// steps.print("steps");
 
 		RelativePath relative = JUtils.newRelativePath(steps);

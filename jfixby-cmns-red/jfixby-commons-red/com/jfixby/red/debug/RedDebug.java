@@ -1,6 +1,6 @@
 package com.jfixby.red.debug;
 
-import com.jfixby.cmns.api.collections.JUtils;
+import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.debug.DebugComponent;
 import com.jfixby.cmns.api.sys.Sys;
@@ -17,7 +17,7 @@ public class RedDebug implements DebugComponent {
 
 	final static private void printStack() {
 		CallStack stack = new CallStack();
-		List<StackTraceElement> list = JUtils.newList(stack.getStackTrace());
+		List<StackTraceElement> list = Collections.newList(stack.getStackTrace());
 		list.reverse();
 		list.removeLast();
 		list.removeLast();
@@ -58,6 +58,20 @@ public class RedDebug implements DebugComponent {
 	@Override
 	public void printCallStack() {
 		printStack();
+	}
+	
+	@Override
+	public void checkTrue(String flag_name, boolean flag) {
+		if (flag == false) {
+			throw new Error(flag_name + "");
+		}
+	}
+
+	@Override
+	public void checkTrue(boolean flag) {
+		if (flag == false) {
+			throw new Error();
+		}
 	}
 
 }

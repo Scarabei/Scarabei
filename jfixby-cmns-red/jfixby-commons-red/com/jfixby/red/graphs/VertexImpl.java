@@ -1,6 +1,6 @@
 package com.jfixby.red.graphs;
 
-import com.jfixby.cmns.api.collections.JUtils;
+import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.Set;
 import com.jfixby.cmns.api.graphs.Vertex;
 
@@ -13,7 +13,7 @@ public class VertexImpl<VertexType, EdgeType> implements Vertex<VertexType> {
 
 	VertexType v_type;
 
-	final private Set<EdgeImpl<VertexType, EdgeType>> edges = JUtils.newSet();
+	final private Set<EdgeImpl<VertexType, EdgeType>> edges = Collections.newSet();
 
 	public VertexImpl(VertexType t) {
 		this.putVertexObject(t);

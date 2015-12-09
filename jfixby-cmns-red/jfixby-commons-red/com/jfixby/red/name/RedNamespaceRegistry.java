@@ -5,7 +5,7 @@ import java.util.Iterator;
 import com.jfixby.cmns.api.assets.AssetID;
 import com.jfixby.cmns.api.assets.NamespaceRegistry;
 import com.jfixby.cmns.api.collections.Collection;
-import com.jfixby.cmns.api.collections.JUtils;
+import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.collections.Map;
 import com.jfixby.cmns.api.collections.Mapping;
@@ -13,7 +13,7 @@ import com.jfixby.cmns.api.collections.Set;
 
 public class RedNamespaceRegistry<T> implements NamespaceRegistry<T> {
 
-	final Map<AssetID, Set<T>> map = JUtils.newMap();
+	final Map<AssetID, Set<T>> map = Collections.newMap();
 
 	@Override
 	public void put(AssetID object_name, Collection<T> value) {
@@ -80,7 +80,7 @@ public class RedNamespaceRegistry<T> implements NamespaceRegistry<T> {
 	}
 
 	private Collection<T> wildcardGet(AssetID id) {
-		List<T> result = JUtils.newList();
+		List<T> result = Collections.newList();
 		for (AssetID k : this.map.keys()) {
 			if (id.includes(k)) {
 				Collection<T> vals = this.map.get(k);
@@ -118,7 +118,7 @@ public class RedNamespaceRegistry<T> implements NamespaceRegistry<T> {
 
 	@Override
 	public Collection<Collection<T>> values() {
-		return JUtils.castCollection(map.values());
+		return Collections.castCollection(map.values());
 	}
 
 	@Override
@@ -128,7 +128,7 @@ public class RedNamespaceRegistry<T> implements NamespaceRegistry<T> {
 
 	@Override
 	public java.util.Map<AssetID, Collection<T>> toJavaMap() {
-		Map<AssetID, Collection<T>> map_t = JUtils.castMap(map);
+		Map<AssetID, Collection<T>> map_t = Collections.castMap(map);
 		return map_t.toJavaMap();
 	}
 
@@ -142,7 +142,7 @@ public class RedNamespaceRegistry<T> implements NamespaceRegistry<T> {
 	private Set<T> find(AssetID object_name) {
 		Set<T> collection = map.get(object_name);
 		if (collection == null) {
-			collection = JUtils.newSet();
+			collection = Collections.newSet();
 			map.put(object_name, collection);
 		}
 		return collection;
@@ -150,7 +150,7 @@ public class RedNamespaceRegistry<T> implements NamespaceRegistry<T> {
 
 	@Override
 	public Collection<T> allValues() {
-		List<T> result = JUtils.newList();
+		List<T> result = Collections.newList();
 		for (int i = 0; i < this.map.size(); i++) {
 			Set<T> values = this.map.getValueAt(i);
 			result.addAll(values);

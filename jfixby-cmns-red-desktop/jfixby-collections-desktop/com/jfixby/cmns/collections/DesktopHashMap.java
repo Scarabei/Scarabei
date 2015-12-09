@@ -1,10 +1,10 @@
-package com.jfixby.cmns.jutils.desktop;
+package com.jfixby.cmns.collections;
 
 import java.util.HashMap;
 import java.util.Iterator;
 
 import com.jfixby.cmns.api.collections.Collection;
-import com.jfixby.cmns.api.collections.JUtils;
+import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.collections.Map;
 import com.jfixby.cmns.api.collections.Mapping;
@@ -113,7 +113,7 @@ public class DesktopHashMap<K, V> implements Map<K, V> {
 
 	@Override
 	public List<V> values() {
-		return JUtils.newList(this.hash_map.values());
+		return Collections.newList(this.hash_map.values());
 	}
 
 	@Override

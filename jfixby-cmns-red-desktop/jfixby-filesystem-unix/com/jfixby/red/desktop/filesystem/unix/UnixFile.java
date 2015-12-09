@@ -2,7 +2,7 @@ package com.jfixby.red.desktop.filesystem.unix;
 
 import java.io.IOException;
 
-import com.jfixby.cmns.api.collections.JUtils;
+import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.FileHash;
@@ -130,7 +130,7 @@ public class UnixFile implements File {
 		if (file.isDirectory()) {
 			String[] list = file.list();
 
-			List<String> files = JUtils.newList(list);
+			List<String> files = Collections.newList(list);
 			FilesList listFiles = new FilesList();
 			for (int i = 0; i < files.size(); i++) {
 				String file_i = files.getElementAt(i);

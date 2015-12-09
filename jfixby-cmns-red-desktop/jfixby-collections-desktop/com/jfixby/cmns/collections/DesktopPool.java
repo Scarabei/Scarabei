@@ -1,16 +1,16 @@
-package com.jfixby.cmns.jutils.desktop;
+package com.jfixby.cmns.collections;
 
 import java.util.Iterator;
 
 import com.jfixby.cmns.api.collections.Collection;
-import com.jfixby.cmns.api.collections.JUtils;
+import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.collections.Pool;
 import com.jfixby.cmns.api.collections.PoolElementsSpawner;
 
 public class DesktopPool<T> implements Pool<T> {
 
-	final private List<T> legacy = JUtils.newList();
+	final private List<T> legacy = Collections.newList();
 
 	private PoolElementsSpawner<T> spawner;
 

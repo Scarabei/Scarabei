@@ -1,22 +1,19 @@
-package com.jfixby.cmns.jutils.desktop;
+package com.jfixby.red.util;
 
-import com.jfixby.cmns.api.collections.JUtils;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.path.AbsolutePath;
 import com.jfixby.cmns.api.path.MountPoint;
 import com.jfixby.cmns.api.path.RelativePath;
+import com.jfixby.cmns.api.util.JUtils;
 
-public class DesktopAbsolutePath<T extends MountPoint> implements
-		AbsolutePath<T> {
+ class RedAbsolutePath<T extends MountPoint> implements AbsolutePath<T> {
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((mount_point == null) ? 0 : mount_point.hashCode());
-		result = prime * result
-				+ ((relative == null) ? 0 : relative.hashCode());
+		result = prime * result + ((mount_point == null) ? 0 : mount_point.hashCode());
+		result = prime * result + ((relative == null) ? 0 : relative.hashCode());
 		return result;
 	}
 
@@ -28,7 +25,7 @@ public class DesktopAbsolutePath<T extends MountPoint> implements
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		DesktopAbsolutePath<?> other = (DesktopAbsolutePath<?>) obj;
+		RedAbsolutePath<?> other = (RedAbsolutePath<?>) obj;
 		if (mount_point == null) {
 			if (other.mount_point != null)
 				return false;
@@ -43,11 +40,11 @@ public class DesktopAbsolutePath<T extends MountPoint> implements
 	}
 
 	private T mount_point;
-	private DesktopRelativePath relative;
+	private RedRelativePath relative;
 
-	public DesktopAbsolutePath(T mount_point, RelativePath relative) {
+	public RedAbsolutePath(T mount_point, RelativePath relative) {
 		this.mount_point = mount_point;
-		this.relative = (DesktopRelativePath) relative;
+		this.relative = (RedRelativePath) relative;
 		if (mount_point == null) {
 			throw new Error("MountPoint == null");
 		}
@@ -77,17 +74,14 @@ public class DesktopAbsolutePath<T extends MountPoint> implements
 
 	@Override
 	public AbsolutePath<T> child(String child_name) {
-		RelativePath child_relative = JUtils.newRelativePath(relative
-				.getPathString() + RelativePath.SEPARATOR + child_name);
-		AbsolutePath<T> result = JUtils.newAbsolutePath(mount_point,
-				child_relative);
+		RelativePath child_relative = JUtils.newRelativePath(relative.getPathString() + RelativePath.SEPARATOR + child_name);
+		AbsolutePath<T> result = JUtils.newAbsolutePath(mount_point, child_relative);
 		return result;
 	}
 
 	@Override
 	public String toString() {
-		return "@[" + this.mount_point.toString() + "] "
-				+ this.relative.getPathString();
+		return "@[" + this.mount_point.toString() + "] " + this.relative.getPathString();
 	}
 
 	@Override

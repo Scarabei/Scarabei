@@ -1,6 +1,6 @@
 package com.jfixby.red.graphs;
 
-import com.jfixby.cmns.api.collections.JUtils;
+import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.graphs.PathInGraph;
 import com.jfixby.cmns.api.log.L;
@@ -12,8 +12,8 @@ public class CyclePathImpl<VertexType, EdgeType> implements PathInGraph<VertexTy
 		return "GraphCycle" + states + "";
 	}
 
-	private final List<StateImpl<VertexType, EdgeType>> states = JUtils.newList();
-	private final List<StepImpl<VertexType, EdgeType>> steps = JUtils.newList();
+	private final List<StateImpl<VertexType, EdgeType>> states = Collections.newList();
+	private final List<StepImpl<VertexType, EdgeType>> steps = Collections.newList();
 
 	public int numberOfSteps() {
 		return this.states.size();
@@ -131,7 +131,7 @@ public class CyclePathImpl<VertexType, EdgeType> implements PathInGraph<VertexTy
 
 	@Override
 	public List<VertexType> toVerticesList() {
-		List<VertexType> vertices = JUtils.newList();
+		List<VertexType> vertices = Collections.newList();
 		for (int i = 0; i < this.numberOfSteps(); i++) {
 			VertexType object = this.getState(i).getVertex().getVertexObject();
 			vertices.add(object);

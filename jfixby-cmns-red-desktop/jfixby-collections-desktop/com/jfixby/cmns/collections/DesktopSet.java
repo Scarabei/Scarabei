@@ -1,12 +1,12 @@
-package com.jfixby.cmns.jutils.desktop;
+package com.jfixby.cmns.collections;
 
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
 
 import com.jfixby.cmns.api.collections.Collection;
+import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.EditableCollection;
-import com.jfixby.cmns.api.collections.JUtils;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.collections.Set;
 import com.jfixby.cmns.api.err.Err;
@@ -30,7 +30,7 @@ public class DesktopSet<T> implements Set<T> {
 
 	@Override
 	public void print(String tag, int from_index, int to_index) {
-		Set<T> l = JUtils.newSet();
+		Set<T> l = Collections.newSet();
 		int N = this.size();
 		int a = 0;
 		int b = N;
@@ -148,7 +148,7 @@ public class DesktopSet<T> implements Set<T> {
 
 	@Override
 	public List<T> toList() {
-		final List<T> tmp = JUtils.newList();
+		final List<T> tmp = Collections.newList();
 		tmp.addAll(this.content_list);
 		return tmp;
 	}
@@ -206,7 +206,7 @@ public class DesktopSet<T> implements Set<T> {
 
 	@Override
 	public boolean beginsWith(Collection<T> steps) {
-		return JUtils.listBeginsWith(this, steps);
+		return Collections.listBeginsWith(this, steps);
 	}
 
 	@Override
@@ -219,7 +219,7 @@ public class DesktopSet<T> implements Set<T> {
 			return this;
 		}
 
-		final List<T> tail = JUtils.newList();
+		final List<T> tail = Collections.newList();
 		for (int i = index; i < size; i++) {
 			T e = this.removeElementAt(index);
 			tail.add(e);

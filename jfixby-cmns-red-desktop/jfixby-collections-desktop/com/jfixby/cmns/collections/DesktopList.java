@@ -1,13 +1,12 @@
-package com.jfixby.cmns.jutils.desktop;
+package com.jfixby.cmns.collections;
 
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedList;
 
 import com.jfixby.cmns.api.collections.Collection;
+import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.EditableCollection;
-import com.jfixby.cmns.api.collections.JUtils;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.log.L;
@@ -113,7 +112,7 @@ public class DesktopList<T> implements List<T> {
 
 	@Override
 	public void print(String tag, int from_index, int to_index) {
-		List<T> l = JUtils.newList();
+		List<T> l = Collections.newList();
 		int N = this.size();
 		int a = 0;
 		int b = N;
@@ -193,12 +192,12 @@ public class DesktopList<T> implements List<T> {
 
 	@Override
 	public void reverse() {
-		Collections.reverse(legacy);
+		java.util.Collections.reverse(legacy);
 	}
 
 	@Override
 	public boolean beginsWith(Collection<T> steps) {
-		return JUtils.listBeginsWith(this, steps);
+		return Collections.listBeginsWith(this, steps);
 	}
 
 	@Override
@@ -211,7 +210,7 @@ public class DesktopList<T> implements List<T> {
 			return this;
 		}
 
-		final List<T> tail = JUtils.newList();
+		final List<T> tail = Collections.newList();
 		for (int i = index; i < size; i++) {
 			T e = this.removeElementAt(index);
 			tail.add(e);

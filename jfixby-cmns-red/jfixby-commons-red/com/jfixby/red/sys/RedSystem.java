@@ -1,7 +1,7 @@
 package com.jfixby.red.sys;
 
 import com.jfixby.cmns.api.collections.Collection;
-import com.jfixby.cmns.api.collections.JUtils;
+import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.sys.Job;
 import com.jfixby.cmns.api.sys.SysExecutor;
@@ -18,9 +18,9 @@ public abstract class RedSystem implements SystemComponent {
 
 	public RedSystem() {
 		executor = new RedSystemExecutor(this);
-		active_tasks = JUtils.newList();
-		new_tasks = JUtils.newList();
-		delete_candidates = JUtils.newList();
+		active_tasks = Collections.newList();
+		new_tasks = Collections.newList();
+		delete_candidates = Collections.newList();
 		SysExecutor.installComponent(executor);
 	}
 
@@ -55,7 +55,7 @@ public abstract class RedSystem implements SystemComponent {
 
 	@Override
 	public Task newTask(String name, Job... jobs) {
-		RedTask task = new RedTask(name, JUtils.newList(jobs));
+		RedTask task = new RedTask(name, Collections.newList(jobs));
 		new_tasks.add(task);
 		return task;
 	}

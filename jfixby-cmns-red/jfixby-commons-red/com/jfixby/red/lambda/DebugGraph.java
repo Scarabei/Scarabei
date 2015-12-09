@@ -1,13 +1,13 @@
 package com.jfixby.red.lambda;
 
-import com.jfixby.cmns.api.collections.JUtils;
+import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.Map;
 import com.jfixby.cmns.api.lambda.λFunctionCache;
 import com.jfixby.cmns.api.log.L;
 
 public class DebugGraph<X, Y> implements λFunctionCache<X, Y> {
 
-	final Map<X, Y> mapping = JUtils.newMap();
+	final Map<X, Y> mapping = Collections.newMap();
 
 	@Override
 	public void print(String tag) {

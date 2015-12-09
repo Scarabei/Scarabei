@@ -1,13 +1,13 @@
-package com.jfixby.cmns.jutils.desktop;
+package com.jfixby.cmns.collections;
 
 import com.jfixby.cmns.api.collections.Collection;
-import com.jfixby.cmns.api.collections.JUtils;
+import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.Map;
 import com.jfixby.cmns.api.collections.ZxZ_Functuion;
 
 public class Desktop_ZxZ_Map_Functuion<T> implements ZxZ_Functuion<T> {
 
-	final Map<Desktop_ZxZ, T> mapping = JUtils.newMap();
+	final Map<Desktop_ZxZ, T> mapping = Collections.newMap();
 
 	@Override
 	public T getValueAt(long x, long y) {

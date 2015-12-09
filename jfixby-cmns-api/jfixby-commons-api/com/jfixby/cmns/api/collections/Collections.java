@@ -13,27 +13,27 @@ import com.jfixby.cmns.api.collections.Pool;
 import com.jfixby.cmns.api.collections.PoolElementsSpawner;
 import com.jfixby.cmns.api.collections.Queue;
 import com.jfixby.cmns.api.collections.Set;
-import com.jfixby.cmns.api.collections.StateSwitcher;
-import com.jfixby.cmns.api.collections.UtilsComponent;
+import com.jfixby.cmns.api.collections.CollectionsComponent;
 import com.jfixby.cmns.api.collections.ZxZ_Functuion;
 import com.jfixby.cmns.api.lambda.λFunction;
 import com.jfixby.cmns.api.path.AbsolutePath;
 import com.jfixby.cmns.api.path.MountPoint;
 import com.jfixby.cmns.api.path.RelativePath;
+import com.jfixby.cmns.api.util.StateSwitcher;
 
-public class JUtils {
+public class Collections {
 
-	static private ComponentInstaller<UtilsComponent> componentInstaller = new ComponentInstaller<UtilsComponent>("JUtils");
+	static private ComponentInstaller<CollectionsComponent> componentInstaller = new ComponentInstaller<CollectionsComponent>("JUtils");
 
-	public static final void installComponent(UtilsComponent component_to_install) {
+	public static final void installComponent(CollectionsComponent component_to_install) {
 		componentInstaller.installComponent(component_to_install);
 	}
 
-	public static final UtilsComponent invoke() {
+	public static final CollectionsComponent invoke() {
 		return componentInstaller.invokeComponent();
 	}
 
-	public static final UtilsComponent component() {
+	public static final CollectionsComponent component() {
 		return componentInstaller.getComponent();
 	}
 
@@ -85,26 +85,6 @@ public class JUtils {
 		return invoke().newSet(array);
 	}
 
-	public static final RelativePath newRelativePath(String path_string) {
-		return invoke().newRelativePath(path_string);
-	}
-
-	public static final <T extends MountPoint> AbsolutePath<T> newAbsolutePath(T mount_point, RelativePath relative) {
-		return invoke().newAbsolutePath(mount_point, relative);
-	}
-
-	public static final <T extends MountPoint> AbsolutePath<T> newAbsolutePath(T mount_point) {
-		return invoke().newAbsolutePath(mount_point);
-	}
-
-	public static final RelativePath newRelativePath(List<String> steps_list) {
-		return invoke().newRelativePath(steps_list);
-	}
-
-	public static final RelativePath newRelativePath() {
-		return invoke().newRelativePath();
-	}
-
 	public static final <T> ZxZ_Functuion<T> newZxZ_Function() {
 		return invoke().newZxZ_Function();
 	}
@@ -125,18 +105,9 @@ public class JUtils {
 		return invoke().equalLists(A, B);
 	}
 
-	public static <T> StateSwitcher<T> newStateSwitcher(T default_state) {
-		return invoke().newStateSwitcher(default_state);
-	}
-
-
-
+	
 	public static List<Float> newList(float[] floats) {
 		return invoke().newList(floats);
-	}
-
-	public static List<String> split(String input_string, String splitter) {
-		return invoke().split(input_string, splitter);
 	}
 
 	public static boolean listBeginsWith(Collection<?> list, Collection<?> with) {
@@ -159,13 +130,7 @@ public class JUtils {
 		return invoke().castMap(input);
 	}
 
-	public static void checkTrue(boolean flag) {
-		invoke().checkTrue(flag);
-	}
-
-	public static void checkTrue(String flag_name, boolean flag) {
-		invoke().checkTrue(flag_name, flag);
-	}
+	
 
 	public static <T> void arrayCopy(Collection<? extends T> source, int source_index, EditableCollection<? super T> destination, int number_of_elements) {
 		invoke().arrayCopy(source, source_index, destination, number_of_elements);

@@ -1,19 +1,19 @@
-package com.jfixby.cmns.jutils.desktop;
+package com.jfixby.red.util;
 
-import com.jfixby.cmns.api.collections.JUtils;
+import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.path.RelativePath;
+import com.jfixby.cmns.api.util.JUtils;
 
-public class DesktopRelativePath implements RelativePath {
+ class RedRelativePath implements RelativePath {
 
-	final private List<String> path_steps = JUtils.newList();
+	final private List<String> path_steps = Collections.newList();
 
-	public DesktopRelativePath(String relative_path_string) {
+	public RedRelativePath(String relative_path_string) {
 		Debug.checkNull("relative_path_string", relative_path_string);
-		String[] parts_array = relative_path_string
-				.split(RelativePath.SEPARATOR);
-		List<String> parts_list = JUtils.newList(parts_array);
+		String[] parts_array = relative_path_string.split(RelativePath.SEPARATOR);
+		List<String> parts_list = Collections.newList(parts_array);
 		while (parts_list.contains(E)) {
 			parts_list.remove(E);
 		}
@@ -21,7 +21,7 @@ public class DesktopRelativePath implements RelativePath {
 
 	}
 
-	public DesktopRelativePath(List<String> path_steps) {
+	public RedRelativePath(List<String> path_steps) {
 		this.path_steps.addAll(path_steps);
 	}
 
@@ -39,8 +39,7 @@ public class DesktopRelativePath implements RelativePath {
 			if (i == 0) {
 				builder.append(path_steps.getElementAt(i));
 			} else {
-				builder.append(RelativePath.SEPARATOR).append(
-						path_steps.getElementAt(i));
+				builder.append(RelativePath.SEPARATOR).append(path_steps.getElementAt(i));
 			}
 		}
 		return builder.toString();
@@ -48,13 +47,13 @@ public class DesktopRelativePath implements RelativePath {
 
 	@Override
 	public RelativePath parent() {
-		List<String> path_steps = JUtils.newList();
+		List<String> path_steps = Collections.newList();
 		path_steps.addAll(this.path_steps);
 		if (this.isRoot()) {
 			throw new Error("This is already a root path. No parent available.");
 		}
 		path_steps.removeLast();
-		return new DesktopRelativePath(path_steps);
+		return new RedRelativePath(path_steps);
 
 	}
 
@@ -69,10 +68,10 @@ public class DesktopRelativePath implements RelativePath {
 
 	@Override
 	public RelativePath child(String name) {
-		List<String> path_steps = JUtils.newList();
+		List<String> path_steps = Collections.newList();
 		path_steps.addAll(this.path_steps);
 		path_steps.add(name);
-		return new DesktopRelativePath(path_steps);
+		return new RedRelativePath(path_steps);
 	}
 
 	@Override
@@ -82,7 +81,7 @@ public class DesktopRelativePath implements RelativePath {
 
 	@Override
 	public List<String> steps() {
-		return JUtils.newList(this.path_steps);
+		return Collections.newList(this.path_steps);
 	}
 
 	@Override
@@ -94,8 +93,7 @@ public class DesktopRelativePath implements RelativePath {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((path_steps == null) ? 0 : path_steps.hashCode());
+		result = prime * result + ((path_steps == null) ? 0 : path_steps.hashCode());
 		return result;
 	}
 
@@ -107,12 +105,12 @@ public class DesktopRelativePath implements RelativePath {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		DesktopRelativePath other = (DesktopRelativePath) obj;
+		RedRelativePath other = (RedRelativePath) obj;
 		if (path_steps == null) {
 			if (other.path_steps != null)
 				return false;
 		} else {
-			if (!JUtils.equalLists(this.path_steps, other.path_steps)) {
+			if (!Collections.equalLists(this.path_steps, other.path_steps)) {
 				return false;
 			}
 		}

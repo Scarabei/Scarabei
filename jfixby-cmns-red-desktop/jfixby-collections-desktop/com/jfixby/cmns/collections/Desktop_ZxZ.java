@@ -1,4 +1,4 @@
-package com.jfixby.cmns.jutils.desktop;
+package com.jfixby.cmns.collections;
 
 public class Desktop_ZxZ {
 

@@ -1,6 +1,6 @@
 package com.jfixby.red.color;
 
-import com.jfixby.cmns.api.collections.JUtils;
+import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.Set;
 import com.jfixby.cmns.api.color.Color;
 import com.jfixby.cmns.api.color.Colors;
@@ -8,7 +8,7 @@ import com.jfixby.cmns.api.color.ColorsSet;
 
 public class RedColorsSet implements ColorsSet {
 
-	final Set<Color> colors = JUtils.newSet();
+	final Set<Color> colors = Collections.newSet();
 
 	@Override
 	public void add(Color color) {

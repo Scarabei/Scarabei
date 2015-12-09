@@ -3,7 +3,7 @@ package com.jfixby.red.filesystem;
 import java.util.Iterator;
 
 import com.jfixby.cmns.api.collections.Collection;
-import com.jfixby.cmns.api.collections.JUtils;
+import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.math.IntegerMath;
@@ -11,7 +11,7 @@ import com.jfixby.cmns.api.path.ChildrenList;
 import com.jfixby.cmns.api.path.FileFilter;
 
 public class FilesList implements ChildrenList {
-	final List<File> internal_list = JUtils.newList();
+	final List<File> internal_list = Collections.newList();
 
 	public void add(File absolute_file) {
 		internal_list.add(absolute_file);
@@ -122,7 +122,7 @@ public class FilesList implements ChildrenList {
 
 	@Override
 	public void print(String tag, int from_index, int to_index) {
-		List<File> l = JUtils.newList();
+		List<File> l = Collections.newList();
 		int N = this.size();
 		int a = 0;
 		int b = N;

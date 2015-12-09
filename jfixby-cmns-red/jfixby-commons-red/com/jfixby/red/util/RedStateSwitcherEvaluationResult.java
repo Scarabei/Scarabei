@@ -1,8 +1,8 @@
 package com.jfixby.red.util;
 
-import com.jfixby.cmns.api.collections.EvaluationResult;
+import com.jfixby.cmns.api.util.EvaluationResult;
 
-public class RedStateSwitcherEvaluationResult implements EvaluationResult {
+class RedStateSwitcherEvaluationResult implements EvaluationResult {
 
 	private boolean error_flag;
 	private String error_message;

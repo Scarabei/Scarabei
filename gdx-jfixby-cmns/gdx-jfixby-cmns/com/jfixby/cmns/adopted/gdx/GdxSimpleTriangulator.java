@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.EarClippingTriangulator;
 import com.badlogic.gdx.utils.FloatArray;
 import com.badlogic.gdx.utils.ShortArray;
 import com.jfixby.cmns.api.collections.EditableCollection;
-import com.jfixby.cmns.api.collections.JUtils;
+import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.floatn.Float2;
 import com.jfixby.cmns.api.geometry.Geometry;
@@ -24,12 +24,12 @@ public class GdxSimpleTriangulator implements SimpleTriangulatorComponent {
 
 		EarClippingTriangulator triangulator = new EarClippingTriangulator();
 		ShortArray result_numeration = triangulator.computeTriangles(vertices);
-		List<Short> indexes = JUtils.newList();
+		List<Short> indexes = Collections.newList();
 		for (int i = 0; i < result_numeration.size; i++) {
 			Short element = result_numeration.get(i);
 			indexes.add(element);
 		}
-		List<Triangle> result = JUtils.newList();
+		List<Triangle> result = Collections.newList();
 		for (int i = 0; i < indexes.size(); i = i + 3) {
 			int index_0 = indexes.getElementAt(i);
 			int index_1 = indexes.getElementAt(i + 1);

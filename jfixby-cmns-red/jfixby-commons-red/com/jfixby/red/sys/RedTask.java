@@ -1,17 +1,18 @@
 package com.jfixby.red.sys;
 
 import com.jfixby.cmns.api.collections.Collection;
-import com.jfixby.cmns.api.collections.JUtils;
+import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
-import com.jfixby.cmns.api.collections.StateSwitcher;
 import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.sys.Job;
 import com.jfixby.cmns.api.sys.TASK_STATE;
 import com.jfixby.cmns.api.sys.Task;
+import com.jfixby.cmns.api.util.JUtils;
+import com.jfixby.cmns.api.util.StateSwitcher;
 
 public class RedTask implements Task {
 
-	private List<Job> jobs = JUtils.newList();
+	private List<Job> jobs = Collections.newList();
 	// private List<String> names = JUtils.newList();
 
 	// private void listNames() {

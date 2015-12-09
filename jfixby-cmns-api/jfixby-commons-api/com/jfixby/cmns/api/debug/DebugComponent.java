@@ -14,4 +14,8 @@ public interface DebugComponent {
 
 	void checkEmpty(String parameter_name, String value);
 
+	void checkTrue(boolean flag);
+
+	void checkTrue(String flag_name, boolean flag);
+
 }

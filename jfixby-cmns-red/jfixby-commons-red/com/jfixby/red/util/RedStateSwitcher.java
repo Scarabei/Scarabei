@@ -1,9 +1,9 @@
 package com.jfixby.red.util;
 
-import com.jfixby.cmns.api.collections.EvaluationResult;
-import com.jfixby.cmns.api.collections.StateSwitcher;
 import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.log.L;
+import com.jfixby.cmns.api.util.EvaluationResult;
+import com.jfixby.cmns.api.util.StateSwitcher;
 
 public class RedStateSwitcher<T> implements StateSwitcher<T> {
 	T state;
@@ -19,8 +19,7 @@ public class RedStateSwitcher<T> implements StateSwitcher<T> {
 	@Override
 	public EvaluationResult expectsState(T expected_state) {
 		if (!this.state.equals(expected_state)) {
-			String message = "Wrong state=" + this.state + ", expected: "
-					+ expected_state;
+			String message = "Wrong state=" + this.state + ", expected: " + expected_state;
 			if (throw_error) {
 				throw new Error(message);
 			} else {

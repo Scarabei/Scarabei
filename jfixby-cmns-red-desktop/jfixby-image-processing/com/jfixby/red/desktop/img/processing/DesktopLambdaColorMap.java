@@ -5,7 +5,6 @@ import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.image.LambdaColorMap;
 import com.jfixby.cmns.api.image.LambdaColorMapSpecs;
 import com.jfixby.cmns.api.lambda.λImage;
-import com.jfixby.cmns.api.math.IntegerMath;
 
 public class DesktopLambdaColorMap implements LambdaColorMap {
 

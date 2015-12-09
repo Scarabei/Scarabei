@@ -2,7 +2,7 @@ package com.jfixby.red.desktop.sys;
 
 import com.jfixby.cmns.api.assets.AssetID;
 import com.jfixby.cmns.api.assets.Names;
-import com.jfixby.cmns.api.collections.JUtils;
+import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.Map;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.sys.ExecutionMode;
@@ -27,9 +27,9 @@ public class DesktopSystem extends RedSystem {
 		}
 	}
 
-	final Map<String, Boolean> flags = JUtils.newMap();
-	final Map<String, String> strings = JUtils.newMap();
-	final Map<String, AssetID> assets = JUtils.newMap();
+	final Map<String, Boolean> flags = Collections.newMap();
+	final Map<String, String> strings = Collections.newMap();
+	final Map<String, AssetID> assets = Collections.newMap();
 
 	private ExecutionMode execution_mode;
 

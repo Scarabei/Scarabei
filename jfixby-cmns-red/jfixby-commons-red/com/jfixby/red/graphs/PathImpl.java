@@ -1,6 +1,6 @@
 package com.jfixby.red.graphs;
 
-import com.jfixby.cmns.api.collections.JUtils;
+import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.graphs.PathInGraph;
 import com.jfixby.cmns.api.graphs.PathState;
@@ -9,8 +9,8 @@ import com.jfixby.cmns.api.log.L;
 
 public class PathImpl<VertexType, EdgeType> implements PathInGraph<VertexType, EdgeType> {
 
-	final List<StateImpl<VertexType, EdgeType>> states = JUtils.newList();
-	final List<StepImpl<VertexType, EdgeType>> steps = JUtils.newList();
+	final List<StateImpl<VertexType, EdgeType>> states = Collections.newList();
+	final List<StepImpl<VertexType, EdgeType>> steps = Collections.newList();
 
 	@Override
 	public int numberOfStates() {
@@ -72,7 +72,7 @@ public class PathImpl<VertexType, EdgeType> implements PathInGraph<VertexType, E
 
 	@Override
 	public List<VertexType> toVerticesList() {
-		List<VertexType> vertices = JUtils.newList();
+		List<VertexType> vertices = Collections.newList();
 		for (int i = 0; i < this.numberOfSteps(); i++) {
 			VertexType object = this.getState(i).getVertex().getVertexObject();
 			vertices.add(object);

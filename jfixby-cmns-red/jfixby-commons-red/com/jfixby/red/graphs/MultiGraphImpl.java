@@ -1,6 +1,6 @@
 package com.jfixby.red.graphs;
 
-import com.jfixby.cmns.api.collections.JUtils;
+import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.collections.Set;
 import com.jfixby.cmns.api.graphs.Edge;
@@ -62,8 +62,8 @@ public class MultiGraphImpl<VertexType, EdgeType> implements MultiGraph<VertexTy
 		return this.vertices.getElementAt(i);
 	}
 
-	final List<VertexImpl<VertexType, EdgeType>> vertices = JUtils.newList();
-	final List<EdgeImpl<VertexType, EdgeType>> edges = JUtils.newList();
+	final List<VertexImpl<VertexType, EdgeType>> vertices = Collections.newList();
+	final List<EdgeImpl<VertexType, EdgeType>> edges = Collections.newList();
 
 	public int size() {
 		return this.vertices.size();
@@ -156,9 +156,9 @@ public class MultiGraphImpl<VertexType, EdgeType> implements MultiGraph<VertexTy
 
 	@Override
 	public PathInGraph<VertexType, EdgeType> findPath(Vertex<VertexType> from_vertex, Vertex<VertexType> to_vertex) {
-		List<VertexImpl<VertexType, EdgeType>> visited = JUtils.newList();
-		List<VertexImpl<VertexType, EdgeType>> states = JUtils.newList();
-		List<EdgeImpl<VertexType, EdgeType>> steps = JUtils.newList();
+		List<VertexImpl<VertexType, EdgeType>> visited = Collections.newList();
+		List<VertexImpl<VertexType, EdgeType>> states = Collections.newList();
+		List<EdgeImpl<VertexType, EdgeType>> steps = Collections.newList();
 
 		visited.add((VertexImpl<VertexType, EdgeType>) from_vertex);
 		states.add((VertexImpl<VertexType, EdgeType>) from_vertex);
