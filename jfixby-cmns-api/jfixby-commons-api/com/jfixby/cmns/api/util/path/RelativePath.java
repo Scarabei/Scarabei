@@ -1,4 +1,4 @@
-package com.jfixby.cmns.api.path;
+package com.jfixby.cmns.api.util.path;
 
 import com.jfixby.cmns.api.collections.List;
 

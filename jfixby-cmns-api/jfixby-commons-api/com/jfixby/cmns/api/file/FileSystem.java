@@ -3,8 +3,8 @@ package com.jfixby.cmns.api.file;
 import java.io.IOException;
 
 import com.jfixby.cmns.api.collections.Collection;
-import com.jfixby.cmns.api.path.AbsolutePath;
-import com.jfixby.cmns.api.path.MountPoint;
+import com.jfixby.cmns.api.util.path.AbsolutePath;
+import com.jfixby.cmns.api.util.path.MountPoint;
 
 public interface FileSystem extends MountPoint {
 

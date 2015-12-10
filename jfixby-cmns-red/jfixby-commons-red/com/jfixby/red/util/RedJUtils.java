@@ -3,11 +3,11 @@ package com.jfixby.red.util;
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.debug.Debug;
-import com.jfixby.cmns.api.path.AbsolutePath;
-import com.jfixby.cmns.api.path.MountPoint;
-import com.jfixby.cmns.api.path.RelativePath;
 import com.jfixby.cmns.api.util.StateSwitcher;
 import com.jfixby.cmns.api.util.UtilsComponent;
+import com.jfixby.cmns.api.util.path.AbsolutePath;
+import com.jfixby.cmns.api.util.path.MountPoint;
+import com.jfixby.cmns.api.util.path.RelativePath;
 
 public class RedJUtils implements UtilsComponent {
 	@Override

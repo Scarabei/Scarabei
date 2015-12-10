@@ -1,7 +1,6 @@
-package com.jfixby.cmns.api.path;
+package com.jfixby.cmns.api.file;
 
 import com.jfixby.cmns.api.collections.Collection;
-import com.jfixby.cmns.api.file.File;
 
 public interface ChildrenList extends Collection<File> {
 

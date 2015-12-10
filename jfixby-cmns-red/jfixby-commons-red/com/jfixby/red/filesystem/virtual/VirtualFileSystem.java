@@ -9,7 +9,7 @@ import com.jfixby.cmns.api.file.FileOutputStream;
 import com.jfixby.cmns.api.file.FileSystem;
 import com.jfixby.cmns.api.io.IO;
 import com.jfixby.cmns.api.md5.MD5;
-import com.jfixby.cmns.api.path.AbsolutePath;
+import com.jfixby.cmns.api.util.path.AbsolutePath;
 import com.jfixby.red.filesystem.AbstractFileSystem;
 
 public class VirtualFileSystem extends AbstractFileSystem implements

@@ -5,10 +5,10 @@ import java.util.Iterator;
 import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
+import com.jfixby.cmns.api.file.ChildrenList;
 import com.jfixby.cmns.api.file.File;
+import com.jfixby.cmns.api.file.FileFilter;
 import com.jfixby.cmns.api.math.IntegerMath;
-import com.jfixby.cmns.api.path.ChildrenList;
-import com.jfixby.cmns.api.path.FileFilter;
 
 public class FilesList implements ChildrenList {
 	final List<File> internal_list = Collections.newList();

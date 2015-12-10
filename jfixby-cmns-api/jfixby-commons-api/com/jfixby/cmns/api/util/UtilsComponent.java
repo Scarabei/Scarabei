@@ -1,9 +1,9 @@
 package com.jfixby.cmns.api.util;
 
 import com.jfixby.cmns.api.collections.List;
-import com.jfixby.cmns.api.path.AbsolutePath;
-import com.jfixby.cmns.api.path.MountPoint;
-import com.jfixby.cmns.api.path.RelativePath;
+import com.jfixby.cmns.api.util.path.AbsolutePath;
+import com.jfixby.cmns.api.util.path.MountPoint;
+import com.jfixby.cmns.api.util.path.RelativePath;
 
 public interface UtilsComponent {
 

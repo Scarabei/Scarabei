@@ -1,6 +1,6 @@
 package com.jfixby.cmns.api.file;
 
-import com.jfixby.cmns.api.path.AbsolutePath;
+import com.jfixby.cmns.api.util.path.AbsolutePath;
 
 public interface LocalFileSystemComponent extends FileSystem {
 

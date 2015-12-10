@@ -13,9 +13,9 @@ import com.jfixby.cmns.api.file.FileSystem;
 import com.jfixby.cmns.api.file.LocalFileSystemComponent;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.md5.MD5;
-import com.jfixby.cmns.api.path.AbsolutePath;
-import com.jfixby.cmns.api.path.RelativePath;
 import com.jfixby.cmns.api.util.JUtils;
+import com.jfixby.cmns.api.util.path.AbsolutePath;
+import com.jfixby.cmns.api.util.path.RelativePath;
 import com.jfixby.red.filesystem.AbstractFileSystem;
 
 public class UnixFileSystem extends AbstractFileSystem implements LocalFileSystemComponent {

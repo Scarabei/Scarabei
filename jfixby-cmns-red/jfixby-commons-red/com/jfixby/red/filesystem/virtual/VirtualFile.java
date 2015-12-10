@@ -3,15 +3,15 @@ package com.jfixby.red.filesystem.virtual;
 import java.io.IOException;
 
 import com.jfixby.cmns.api.collections.List;
+import com.jfixby.cmns.api.file.ChildrenList;
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.FileHash;
 import com.jfixby.cmns.api.file.FileInputStream;
 import com.jfixby.cmns.api.file.FileOutputStream;
 import com.jfixby.cmns.api.file.FileSystem;
 import com.jfixby.cmns.api.log.L;
-import com.jfixby.cmns.api.path.AbsolutePath;
-import com.jfixby.cmns.api.path.ChildrenList;
-import com.jfixby.cmns.api.path.RelativePath;
+import com.jfixby.cmns.api.util.path.AbsolutePath;
+import com.jfixby.cmns.api.util.path.RelativePath;
 import com.jfixby.red.filesystem.FilesList;
 import com.jfixby.red.filesystem.RedFileHash;
 

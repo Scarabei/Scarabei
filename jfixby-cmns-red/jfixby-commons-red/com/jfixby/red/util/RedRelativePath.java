@@ -3,8 +3,8 @@ package com.jfixby.red.util;
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.debug.Debug;
-import com.jfixby.cmns.api.path.RelativePath;
 import com.jfixby.cmns.api.util.JUtils;
+import com.jfixby.cmns.api.util.path.RelativePath;
 
  class RedRelativePath implements RelativePath {
 

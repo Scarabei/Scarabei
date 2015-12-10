@@ -3,7 +3,7 @@ package com.jfixby.red.filesystem.cache;
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.FileSystem;
 import com.jfixby.cmns.api.file.cache.TempFolder;
-import com.jfixby.cmns.api.path.AbsolutePath;
+import com.jfixby.cmns.api.util.path.AbsolutePath;
 
 public class RedTempFolder implements TempFolder {
 

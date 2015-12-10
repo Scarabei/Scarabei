@@ -20,7 +20,7 @@ import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.FileInputStream;
 import com.jfixby.cmns.api.file.FileSystem;
 import com.jfixby.cmns.api.log.L;
-import com.jfixby.cmns.api.path.AbsolutePath;
+import com.jfixby.cmns.api.util.path.AbsolutePath;
 
 public class ToGdxFileAdaptor extends FileHandle {
 

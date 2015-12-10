@@ -16,14 +16,14 @@ import com.jfixby.cmns.api.collections.Set;
 import com.jfixby.cmns.api.collections.CollectionsComponent;
 import com.jfixby.cmns.api.collections.ZxZ_Functuion;
 import com.jfixby.cmns.api.lambda.λFunction;
-import com.jfixby.cmns.api.path.AbsolutePath;
-import com.jfixby.cmns.api.path.MountPoint;
-import com.jfixby.cmns.api.path.RelativePath;
 import com.jfixby.cmns.api.util.StateSwitcher;
+import com.jfixby.cmns.api.util.path.AbsolutePath;
+import com.jfixby.cmns.api.util.path.MountPoint;
+import com.jfixby.cmns.api.util.path.RelativePath;
 
 public class Collections {
 
-	static private ComponentInstaller<CollectionsComponent> componentInstaller = new ComponentInstaller<CollectionsComponent>("JUtils");
+	static private ComponentInstaller<CollectionsComponent> componentInstaller = new ComponentInstaller<CollectionsComponent>("Collections");
 
 	public static final void installComponent(CollectionsComponent component_to_install) {
 		componentInstaller.installComponent(component_to_install);

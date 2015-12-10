@@ -1,7 +1,7 @@
 package com.jfixby.red.filesystem.virtual;
 
 import com.jfixby.cmns.api.collections.List;
-import com.jfixby.cmns.api.path.RelativePath;
+import com.jfixby.cmns.api.util.path.RelativePath;
 
 public class VirtualFileSystemContent {
 
