@@ -145,15 +145,7 @@ public class DesktopCollections implements CollectionsComponent {
 		return true;
 	}
 
-	@Override
-	public List<Float> newList(float[] floats) {
-		List<Float> result = this.newList();
-		for (int i = 0; i < floats.length; i++) {
-			Float float_val = floats[i];
-			result.add(float_val);
-		}
-		return result;
-	}
+	
 
 	@Override
 	public boolean beginsWith(Collection<?> list, Collection<?> with) {

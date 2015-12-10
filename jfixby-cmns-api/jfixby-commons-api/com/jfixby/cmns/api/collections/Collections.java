@@ -3,23 +3,7 @@ package com.jfixby.cmns.api.collections;
 import java.util.Comparator;
 
 import com.jfixby.cmns.api.ComponentInstaller;
-import com.jfixby.cmns.api.collections.Collection;
-import com.jfixby.cmns.api.collections.CollectionScanner;
-import com.jfixby.cmns.api.collections.EditableCollection;
-import com.jfixby.cmns.api.collections.List;
-import com.jfixby.cmns.api.collections.Map;
-import com.jfixby.cmns.api.collections.Mapping;
-import com.jfixby.cmns.api.collections.Pool;
-import com.jfixby.cmns.api.collections.PoolElementsSpawner;
-import com.jfixby.cmns.api.collections.Queue;
-import com.jfixby.cmns.api.collections.Set;
-import com.jfixby.cmns.api.collections.CollectionsComponent;
-import com.jfixby.cmns.api.collections.ZxZ_Functuion;
 import com.jfixby.cmns.api.lambda.λFunction;
-import com.jfixby.cmns.api.util.StateSwitcher;
-import com.jfixby.cmns.api.util.path.AbsolutePath;
-import com.jfixby.cmns.api.util.path.MountPoint;
-import com.jfixby.cmns.api.util.path.RelativePath;
 
 public class Collections {
 
@@ -45,10 +29,6 @@ public class Collections {
 		return invoke().newList(array);
 	}
 
-	public static final <T> List<T> newListFromArray(T[] array) {
-		return invoke().newList(array);
-	}
-
 	public static final <T> List<T> newList(Collection<? extends T> collection) {
 		return invoke().newList(collection);
 	}
@@ -71,10 +51,6 @@ public class Collections {
 
 	public static final <T> Set<T> newSet() {
 		return invoke().newSet();
-	}
-
-	public static final <T> Set<T> newSet(T[] array) {
-		return invoke().newSet(array);
 	}
 
 	public static <T> Set<T> newSet(java.util.Collection<T> java_colletion) {
@@ -105,11 +81,6 @@ public class Collections {
 		return invoke().equalLists(A, B);
 	}
 
-	
-	public static List<Float> newList(float[] floats) {
-		return invoke().newList(floats);
-	}
-
 	public static boolean listBeginsWith(Collection<?> list, Collection<?> with) {
 		return invoke().beginsWith(list, with);
 	}
@@ -129,8 +100,6 @@ public class Collections {
 	public static <A, B, X, Y> Map<A, B> castMap(Mapping<X, Y> input) {
 		return invoke().castMap(input);
 	}
-
-	
 
 	public static <T> void arrayCopy(Collection<? extends T> source, int source_index, EditableCollection<? super T> destination, int number_of_elements) {
 		invoke().arrayCopy(source, source_index, destination, number_of_elements);

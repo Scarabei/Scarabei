@@ -39,8 +39,6 @@ public interface CollectionsComponent {
 
 	boolean equalLists(List<?> a, List<?> b);
 
-	List<Float> newList(float[] floats);
-
 	public <A, B, X, Y> Map<A, B> castMap(Mapping<X, Y> input);
 
 	public <A, B, X, Y, Mp extends Map<A, B>> Mp castMap(Mapping<X, Y> input, Mp output);
