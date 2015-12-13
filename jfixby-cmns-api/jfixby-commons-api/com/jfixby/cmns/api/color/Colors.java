@@ -54,7 +54,7 @@ public class Colors {
 		return invoke().BLACK();
 	}
 
-	public static Color PURPLE() {
+	public static ColorConstant PURPLE() {
 		return invoke().PURPLE();
 	}//
 
@@ -74,11 +74,11 @@ public class Colors {
 		return invoke().BROWN();
 	}
 
-	public static Color newRandomColor(float alpha) {
+	public static CustomColor newRandomColor(float alpha) {
 		return invoke().newRandomColor(alpha);
 	}
 
-	public static Color newColor(float a, float r, float g, float b) {
+	public static CustomColor newColor(float a, float r, float g, float b) {
 		return invoke().newColor(a, r, g, b);
 	}
 
@@ -94,7 +94,7 @@ public class Colors {
 		return invoke().limit(f);
 	}
 
-	public static Color ORANGE() {
+	public static ColorConstant ORANGE() {
 		return invoke().ORANGE();
 	}
 
@@ -106,7 +106,7 @@ public class Colors {
 		return invoke().newGray(gray);
 	}
 
-	public static Color newColor(int argb) {
+	public static CustomColor newColor(int argb) {
 		return invoke().newColor(argb);
 	}
 
