@@ -18,6 +18,7 @@ import com.jfixby.cmns.api.math.FloatMath;
 import com.jfixby.cmns.api.math.IntegerMath;
 import com.jfixby.cmns.api.math.MathTools;
 import com.jfixby.cmns.api.sys.Sys;
+import com.jfixby.cmns.api.util.JUtils;
 import com.jfixby.cmns.collections.DesktopCollections;
 import com.jfixby.red.color.RedColors;
 import com.jfixby.red.debug.RedDebug;
@@ -36,11 +37,13 @@ import com.jfixby.red.graphs.RedGraphs;
 import com.jfixby.red.io.RedIO;
 import com.jfixby.red.lambda.RedLambda;
 import com.jfixby.red.name.RedAssetsNamespace;
+import com.jfixby.red.util.RedJUtils;
 
 public class DesktopAssembler {
 
 	public static final void setup() {
 		L.installComponent(new DesktopLogger());
+		JUtils.installComponent(new RedJUtils());
 		Collections.installComponent(new DesktopCollections());
 		FloatMath.installComponent(new DesktopFloatMath());
 		Sys.installComponent(new DesktopSystem());
@@ -55,14 +58,14 @@ public class DesktopAssembler {
 		Err.installComponent(new RedError());
 		Debug.installComponent(new RedDebug());
 		Lambda.installComponent(new RedLambda());
-		
+
 		// --
 
 		LocalFileSystem.installComponent(new WinFileSystem());
 
 		ImageProcessing.installComponent(new DesktopImageProcessing());
 		FileCache.installComponent(new RedFileCache());
-		
+
 	}
 
 }
