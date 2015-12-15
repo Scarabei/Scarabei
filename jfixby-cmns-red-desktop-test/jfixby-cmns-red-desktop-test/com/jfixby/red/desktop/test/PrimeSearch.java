@@ -10,7 +10,7 @@ public class PrimeSearch {
 
 	public static void main(String[] args) {
 		DesktopAssembler.setup();
-		long N = Integer.MAX_VALUE;
+		long N = Integer.MAX_VALUE * 0 + 100000000;
 
 		L.d("array size", N * 1.0f / 1024 / 1024 / 1024 + " GB");
 
@@ -22,7 +22,7 @@ public class PrimeSearch {
 				prime++;
 				long val = 2 * i;
 				for (long k = 2; val < N;) {
-					array.set((int)val, NOT_PRIME);
+					array.set((int) val, NOT_PRIME);
 					k++;
 					val = i * k;
 				}
