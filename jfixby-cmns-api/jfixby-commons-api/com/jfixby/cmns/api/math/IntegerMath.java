@@ -4,11 +4,9 @@ import com.jfixby.cmns.api.ComponentInstaller;
 
 public class IntegerMath {
 
-	static private ComponentInstaller<IntegerMathComponent> componentInstaller = new ComponentInstaller<IntegerMathComponent>(
-			"IntegerMath");
+	static private ComponentInstaller<IntegerMathComponent> componentInstaller = new ComponentInstaller<IntegerMathComponent>("IntegerMath");
 
-	public static final void installComponent(
-			IntegerMathComponent component_to_install) {
+	public static final void installComponent(IntegerMathComponent component_to_install) {
 		componentInstaller.installComponent(component_to_install);
 	}
 
@@ -86,6 +84,10 @@ public class IntegerMath {
 
 	public static long abs(long value) {
 		return invoke().abs(value);
+	}
+
+	public static boolean isPowerOfTwo(int x) {
+		return invoke().isPowerOfTwo(x);
 	}
 
 }

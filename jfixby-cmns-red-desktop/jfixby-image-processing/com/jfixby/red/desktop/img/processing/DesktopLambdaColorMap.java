@@ -36,7 +36,7 @@ public class DesktopLambdaColorMap implements LambdaColorMap {
 
 	@Override
 	public Color getValue(int x, int y) {
-		return lambda.val(x, y);
+		return lambda.valueAt(x, y);
 	}
 
 	@Override

@@ -26,8 +26,7 @@ public interface IntegerMathComponent {
 
 	public int composeInteger(byte byte1, byte byte2, byte byte3, byte byte4);
 
-	public long composeInteger(byte byte1, byte byte2, byte byte3, byte byte4,
-			byte byte5, byte byte6, byte byte7, byte byte8);
+	public long composeInteger(byte byte1, byte byte2, byte byte3, byte byte4, byte byte5, byte byte6, byte byte7, byte byte8);
 
 	public int decomposeInteger(int input_alue, int byte_position);
 
@@ -44,5 +43,7 @@ public interface IntegerMathComponent {
 	public Int2 newInt2(Int2 original, long offset_x, long offset_y);
 
 	public long abs(long value);
+
+	public boolean isPowerOfTwo(int x);
 
 }

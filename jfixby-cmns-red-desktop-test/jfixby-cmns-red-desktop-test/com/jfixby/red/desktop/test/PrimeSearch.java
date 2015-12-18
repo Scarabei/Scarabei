@@ -5,14 +5,13 @@ import com.jfixby.cmns.desktop.DesktopAssembler;
 
 public class PrimeSearch {
 
-	public static final int offset = 0;
-	public static final boolean NOT_PRIME = true;
-
-	public static void main(String[] args) {
+	static final public void main(String[] args) {
 		DesktopAssembler.setup();
-		long N = Integer.MAX_VALUE * 0 + 100000000;
+		long N = 1000;
 
-		L.d("array size", N * 1.0f / 1024 / 1024 / 1024 + " GB");
+		// L.d("array size", N * 1.0f / 1024 / 1024 / 1024 + " GB");
+
+		boolean NOT_PRIME = true;
 
 		BooleanArray array = new BooleanArray(N);
 		long prime = 1;
@@ -30,14 +29,6 @@ public class PrimeSearch {
 
 		}
 
-	}
-
-	public static final int indexToNumber(int index) {
-		return index + offset;
-	}
-
-	public static final int numberToIndex(int number) {
-		return number - offset;
 	}
 
 }
