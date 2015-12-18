@@ -2,7 +2,7 @@ package com.jfixby.red.desktop.img.processing;
 
 import com.jfixby.cmns.api.image.ArrayColorMap;
 import com.jfixby.cmns.api.image.ArrayColorMapSpecs;
-import com.jfixby.cmns.api.lambda.λImage;
+import com.jfixby.cmns.api.lambda.img.λImage;
 import com.jfixby.cmns.api.math.FloatMath;
 import com.jfixby.red.image.ArraySupply;
 import com.jfixby.red.image.RedImage;

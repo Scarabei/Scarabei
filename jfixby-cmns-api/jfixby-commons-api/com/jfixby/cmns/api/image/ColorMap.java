@@ -1,7 +1,7 @@
 package com.jfixby.cmns.api.image;
 
 import com.jfixby.cmns.api.color.Color;
-import com.jfixby.cmns.api.lambda.λImage;
+import com.jfixby.cmns.api.lambda.img.λImage;
 
 public interface ColorMap {
 

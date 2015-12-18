@@ -1,4 +1,4 @@
-package com.jfixby.cmns.api.lambda;
+package com.jfixby.cmns.api.lambda.img;
 
 import com.jfixby.cmns.api.color.Color;
 

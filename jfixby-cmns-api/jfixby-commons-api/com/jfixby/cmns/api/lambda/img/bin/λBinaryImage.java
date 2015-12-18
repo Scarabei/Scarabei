@@ -1,4 +1,4 @@
-package com.jfixby.cmns.api.lambda;
+package com.jfixby.cmns.api.lambda.img.bin;
 
 public interface λBinaryImage {
 

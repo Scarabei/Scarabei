@@ -1,7 +1,7 @@
 package com.jfixby.red.image;
 
 import com.jfixby.cmns.api.image.LambdaColorMapSpecs;
-import com.jfixby.cmns.api.lambda.λImage;
+import com.jfixby.cmns.api.lambda.img.λImage;
 
 public class RedLambdaColorMapSpecs implements LambdaColorMapSpecs {
 
