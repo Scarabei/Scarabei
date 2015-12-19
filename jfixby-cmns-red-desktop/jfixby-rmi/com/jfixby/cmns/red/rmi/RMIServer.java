@@ -1,16 +1,16 @@
 package com.jfixby.cmns.red.rmi;
 
 import java.rmi.NoSuchObjectException;
-import java.rmi.RMISecurityManager;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
+import com.jfixby.cmns.api.log.L;
+
 public class RMIServer extends UnicastRemoteObject implements RMIFace {
 	private static final long serialVersionUID = -393912772332642695L;
 	private Registry stReg;
-	private RMISecurityManager RM;
 
 	public RMIServer(String postOfficeID, int port) throws RemoteException {
 		super();
@@ -18,14 +18,11 @@ public class RMIServer extends UnicastRemoteObject implements RMIFace {
 		stReg = LocateRegistry.createRegistry(port);
 
 		if (System.getSecurityManager() == null) {
-			RM = new RMISecurityManager();
-			System.setSecurityManager(RM);
 
 		}
 		stReg.rebind(postOfficeID, this);
 		System.out.println("Open:   " + stReg);
-		System.out.println("			at: rmi://localhost:" + port + "/"
-				+ postOfficeID);
+		System.out.println("			at: rmi://localhost:" + port + "/" + postOfficeID);
 		// /System.out.println(stReg.list().toString());
 
 	}
@@ -46,6 +43,7 @@ public class RMIServer extends UnicastRemoteObject implements RMIFace {
 
 	@Override
 	public boolean ping() throws RemoteException {
+		L.d("server: ping received");
 		return true;
 	}
 
