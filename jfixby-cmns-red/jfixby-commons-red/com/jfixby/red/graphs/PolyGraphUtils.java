@@ -1,8 +1,8 @@
 package com.jfixby.red.graphs;
 
 import com.jfixby.cmns.api.angles.Angles;
-import com.jfixby.cmns.api.collections.EditableCollection;
 import com.jfixby.cmns.api.collections.Collections;
+import com.jfixby.cmns.api.collections.EditableCollection;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.collections.Set;
 import com.jfixby.cmns.api.floatn.FixedFloat2;

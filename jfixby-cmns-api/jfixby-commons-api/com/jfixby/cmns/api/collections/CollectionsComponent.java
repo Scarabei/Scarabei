@@ -3,7 +3,6 @@ package com.jfixby.cmns.api.collections;
 import java.util.Comparator;
 
 import com.jfixby.cmns.api.lambda.λFunction;
-import com.jfixby.cmns.api.util.StateSwitcher;
 
 public interface CollectionsComponent {
 

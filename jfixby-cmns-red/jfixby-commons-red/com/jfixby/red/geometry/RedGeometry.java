@@ -2,8 +2,8 @@ package com.jfixby.red.geometry;
 
 import com.jfixby.cmns.api.angles.Angles;
 import com.jfixby.cmns.api.collections.Collection;
-import com.jfixby.cmns.api.collections.EditableCollection;
 import com.jfixby.cmns.api.collections.Collections;
+import com.jfixby.cmns.api.collections.EditableCollection;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.floatn.FixedFloat2;

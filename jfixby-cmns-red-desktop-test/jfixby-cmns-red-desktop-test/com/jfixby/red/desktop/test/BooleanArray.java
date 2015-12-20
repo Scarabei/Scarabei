@@ -1,6 +1,5 @@
 package com.jfixby.red.desktop.test;
 
-import com.jfixby.cmns.api.log.L;
 
 public class BooleanArray {
 
