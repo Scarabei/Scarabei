@@ -19,7 +19,6 @@ public class RMIClient<T extends RMIFace> {
 		this.office = postOfficeId;
 		this.port = port;
 		this.add = buildAddressString(ip_name, port, postOfficeId);
-		// TODO Auto-generated constructor stub
 	}
 
 	public String getPostOfficeId() {
@@ -38,37 +37,30 @@ public class RMIClient<T extends RMIFace> {
 		return this.add;
 	}
 
-	public static String buildAddressString(String ip_name, int port,
-			String postOfficeId) {
+	public static String buildAddressString(String ip_name, int port, String postOfficeId) {
 		return "rmi://" + ip_name + ":" + port + "/" + postOfficeId;
 	}
 
-	public static <T extends RMIFace> T lookup(String ip_name, int port,
-			String pid, Class<T> clazz) throws MalformedURLException,
-			RemoteException, NotBoundException {
+	public static <T extends RMIFace> T lookup(String ip_name, int port, String pid, Class<T> clazz) throws MalformedURLException, RemoteException, NotBoundException {
 
 		return lookup(buildAddressString(ip_name, port, pid), clazz);
 
 	}
 
 	@SuppressWarnings("unchecked")
-	public static <T extends RMIFace> T lookup(String fullAddress,
-			Class<T> clazz) throws MalformedURLException, RemoteException,
-			NotBoundException {
+	public static <T extends RMIFace> T lookup(String fullAddress, Class<T> clazz) throws MalformedURLException, RemoteException, NotBoundException {
 
 		return (T) Naming.lookup(fullAddress);
 
 	}
 
 	@SuppressWarnings("unchecked")
-	public T lookup() throws MalformedURLException, RemoteException,
-			NotBoundException {
+	public T lookup() throws MalformedURLException, RemoteException, NotBoundException {
 		return (T) Naming.lookup(this.getAddress());
 
 	}
 
-	public <E extends RMIFace> E lookup(Class<E> remoteInterfaceType)
-			throws MalformedURLException, RemoteException, NotBoundException {
+	public <E extends RMIFace> E lookup(Class<E> remoteInterfaceType) throws MalformedURLException, RemoteException, NotBoundException {
 		return (E) lookup(this.getAddress(), remoteInterfaceType);
 
 	}

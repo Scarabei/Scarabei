@@ -18,13 +18,10 @@ public class RMIServer extends UnicastRemoteObject implements RMIFace {
 
 		stReg = LocateRegistry.createRegistry(port);
 
-		if (System.getSecurityManager() == null) {
-
-		}
 		stReg.rebind(postOfficeID, this);
-		System.out.println("Open:   " + stReg);
-		System.out.println("			at: rmi://localhost:" + port + "/" + postOfficeID);
-		// /System.out.println(stReg.list().toString());
+		L.d("Open:   " + stReg);
+		L.d("			at: rmi://localhost:" + port + "/" + postOfficeID);
+		// /L.d(stReg.list().toString());
 
 	}
 
@@ -33,7 +30,7 @@ public class RMIServer extends UnicastRemoteObject implements RMIFace {
 		try {
 			UnicastRemoteObject.unexportObject(this, force);
 			UnicastRemoteObject.unexportObject(stReg, force);
-			System.out.println("Closed: " + stReg);
+			L.d("Closed: " + stReg);
 
 		} catch (NoSuchObjectException e) {
 			// TODO Auto-generated catch block
