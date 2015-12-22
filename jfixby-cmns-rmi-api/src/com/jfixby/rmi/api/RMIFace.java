@@ -1,4 +1,4 @@
-package com.jfixby.cmns.red.rmi;
+package com.jfixby.rmi.api;
 
 import java.rmi.Remote;
 

@@ -12,6 +12,5 @@
 	<classpathentry kind="src" path="jfixby-filesystem-win"/>
 	<classpathentry kind="src" path="jfixby-image-processing"/>
 	<classpathentry kind="src" path="jfixby-cmns-desktop"/>
-	<classpathentry kind="src" path="jfixby-rmi"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

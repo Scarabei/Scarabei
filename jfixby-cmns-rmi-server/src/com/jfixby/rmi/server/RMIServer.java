@@ -1,4 +1,4 @@
-package com.jfixby.cmns.red.rmi;
+package com.jfixby.rmi.server;
 
 import java.rmi.NoSuchObjectException;
 import java.rmi.RemoteException;
@@ -7,6 +7,7 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
 import com.jfixby.cmns.api.log.L;
+import com.jfixby.rmi.api.RMIFace;
 
 public class RMIServer extends UnicastRemoteObject implements RMIFace {
 	private static final long serialVersionUID = -393912772332642695L;

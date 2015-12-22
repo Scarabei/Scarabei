@@ -1,9 +1,11 @@
-package com.jfixby.cmns.red.rmi;
+package com.jfixby.rmi.client;
 
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+
+import com.jfixby.rmi.api.RMIFace;
 
 public class RMIClient<T extends RMIFace> {
 

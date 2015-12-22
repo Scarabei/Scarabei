@@ -1,11 +1,11 @@
-package com.jfixby.red.desktop.test;
+package com.jfixby.rmi.test;
 
 import java.io.IOException;
 import java.rmi.NotBoundException;
 
 import com.jfixby.cmns.desktop.DesktopAssembler;
-import com.jfixby.cmns.red.rmi.RMIClient;
-import com.jfixby.cmns.red.rmi.RMIFace;
+import com.jfixby.rmi.api.RMIFace;
+import com.jfixby.rmi.client.RMIClient;
 
 public class TestRMIClient {
 	public static void main(String[] args) throws IOException, NotBoundException {
