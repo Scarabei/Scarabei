@@ -54,4 +54,8 @@ public class JUtils {
 		return invoke().split(input_string, splitter);
 	}
 
+	public static String newString(byte[] data) {
+		return invoke().newString(data);
+	}
+
 }

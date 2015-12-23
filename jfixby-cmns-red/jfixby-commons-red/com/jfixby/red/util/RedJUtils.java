@@ -1,8 +1,11 @@
 package com.jfixby.red.util;
 
+import java.io.UnsupportedEncodingException;
+
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.debug.Debug;
+import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.util.StateSwitcher;
 import com.jfixby.cmns.api.util.UtilsComponent;
 import com.jfixby.cmns.api.util.path.AbsolutePath;
@@ -50,5 +53,15 @@ public class RedJUtils implements UtilsComponent {
 	@Override
 	public RelativePath newRelativePath(java.util.List<String> steps_list) {
 		return this.newRelativePath(Collections.newList(steps_list));
+	}
+
+	@Override
+	public String newString(byte[] data) {
+		try {
+			return new String(data, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			Err.reportError(e);
+		}
+		throw new Error();
 	}
 }

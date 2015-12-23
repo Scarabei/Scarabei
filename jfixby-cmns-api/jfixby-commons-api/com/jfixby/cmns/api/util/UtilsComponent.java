@@ -23,4 +23,6 @@ public interface UtilsComponent {
 
 	List<String> split(String input_string, String splitter);
 
+	String newString(byte[] data);
+
 }
