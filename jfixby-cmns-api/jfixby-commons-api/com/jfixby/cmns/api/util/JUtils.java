@@ -37,6 +37,10 @@ public class JUtils {
 	public static final RelativePath newRelativePath(List<String> steps_list) {
 		return invoke().newRelativePath(steps_list);
 	}
+	
+	public static final RelativePath newRelativePath(java.util.List<String> steps_list) {
+		return invoke().newRelativePath(steps_list);
+	}
 
 	public static final RelativePath newRelativePath() {
 		return invoke().newRelativePath();

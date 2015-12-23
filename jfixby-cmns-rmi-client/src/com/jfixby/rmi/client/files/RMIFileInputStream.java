@@ -16,7 +16,7 @@ public class RMIFileInputStream implements FileInputStream {
 
 	public RMIFileInputStream(RMIDataContainer rmiDataContainer, RelativePath relativePath) throws IOException {
 		try {
-			is = rmiDataContainer.lookup().getInputStream(relativePath);
+			is = rmiDataContainer.lookup().getInputStream(relativePath.steps().toJavaList());
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (RemoteException e) {

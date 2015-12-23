@@ -42,6 +42,7 @@ public class RMIFileSystemServerTest {
 		File server_root = LocalFileSystem.ApplicationHome().child("server-root");
 		config.setServerRootFolder(server_root);
 		RMIFileSystemServer server = RMIFileSystemFactory.newServerInstance(config);
+		server.start();
 
 	}
 

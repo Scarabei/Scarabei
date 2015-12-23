@@ -28,7 +28,12 @@ public class RMIFileSystemClientTest {
 		Debug.installComponent(new RedDebug());
 
 		RMIFileSystemConfig config = new RMIFileSystemConfig();
+		config.setRemoteHost("127.0.0.1");
+		config.setRemotePort(16000);
+		config.setRemoteBox("remote-filesystem");
+
 		RMIFileSystem remote_file_system = new RMIFileSystem(config);
+		remote_file_system.ping();
 
 		remote_file_system.ROOT().listChildren().print("scane root");
 

@@ -11,6 +11,8 @@ public interface UtilsComponent {
 
 	RelativePath newRelativePath(List<String> steps_list);
 
+	RelativePath newRelativePath(java.util.List<String> steps_list);
+
 	RelativePath newRelativePath();
 
 	<T extends MountPoint> AbsolutePath<T> newAbsolutePath(T mount_point, RelativePath relative);

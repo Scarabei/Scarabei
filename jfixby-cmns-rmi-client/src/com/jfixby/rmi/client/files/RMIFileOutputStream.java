@@ -7,7 +7,6 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 import com.jfixby.cmns.api.file.FileOutputStream;
-import com.jfixby.cmns.api.io.BufferOutputStream;
 import com.jfixby.cmns.api.io.Data;
 import com.jfixby.cmns.api.util.path.RelativePath;
 
@@ -17,7 +16,7 @@ public class RMIFileOutputStream implements FileOutputStream {
 
 	public RMIFileOutputStream(RMIDataContainer rmiDataContainer, RelativePath relativePath) throws IOException {
 		try {
-			os = rmiDataContainer.lookup().getOutputStream(relativePath);
+			os = rmiDataContainer.lookup().getOutputStream(relativePath.steps().toJavaList());
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (RemoteException e) {

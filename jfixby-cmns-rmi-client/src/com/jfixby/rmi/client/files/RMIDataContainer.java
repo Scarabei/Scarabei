@@ -5,6 +5,7 @@ import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
+import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.util.path.RelativePath;
@@ -19,7 +20,7 @@ public class RMIDataContainer extends RMIClient<RMIFilesDataContainer> {
 
 	public boolean delete(RelativePath relativePath) {
 		try {
-			return this.lookup().delete(relativePath);
+			return this.lookup().delete(relativePath.steps().toJavaList());
 		} catch (MalformedURLException e) {
 			Err.reportError(e);
 		} catch (RemoteException e) {
@@ -32,7 +33,7 @@ public class RMIDataContainer extends RMIClient<RMIFilesDataContainer> {
 
 	public boolean isFolder(RelativePath relativePath) {
 		try {
-			return this.lookup().isFolder(relativePath);
+			return this.lookup().isFolder(relativePath.steps().toJavaList());
 		} catch (MalformedURLException | RemoteException | NotBoundException e) {
 			Err.reportError(e);
 		}
@@ -41,7 +42,7 @@ public class RMIDataContainer extends RMIClient<RMIFilesDataContainer> {
 
 	public boolean isFile(RelativePath relativePath) {
 		try {
-			return this.lookup().isFile(relativePath);
+			return this.lookup().isFile(relativePath.steps().toJavaList());
 		} catch (MalformedURLException | RemoteException | NotBoundException e) {
 			Err.reportError(e);
 		}
@@ -50,7 +51,7 @@ public class RMIDataContainer extends RMIClient<RMIFilesDataContainer> {
 
 	public boolean exists(RelativePath relativePath) {
 		try {
-			return this.lookup().exists(relativePath);
+			return this.lookup().exists(relativePath.steps().toJavaList());
 		} catch (MalformedURLException | RemoteException | NotBoundException e) {
 			Err.reportError(e);
 		}
@@ -59,7 +60,7 @@ public class RMIDataContainer extends RMIClient<RMIFilesDataContainer> {
 
 	public List<String> listChildren(RelativePath relativePath) {
 		try {
-			return this.lookup().listChildren(relativePath);
+			return Collections.newList(this.lookup().listChildren(relativePath.steps().toJavaList()));
 		} catch (MalformedURLException | RemoteException | NotBoundException e) {
 			Err.reportError(e);
 		}
@@ -68,7 +69,7 @@ public class RMIDataContainer extends RMIClient<RMIFilesDataContainer> {
 
 	public boolean mkdirs(RelativePath relativePath) {
 		try {
-			return this.lookup().mkdirs(relativePath);
+			return this.lookup().mkdirs(relativePath.steps().toJavaList());
 		} catch (MalformedURLException | RemoteException | NotBoundException e) {
 			Err.reportError(e);
 		}
@@ -77,7 +78,7 @@ public class RMIDataContainer extends RMIClient<RMIFilesDataContainer> {
 
 	public void rename(RelativePath relativePath, String new_name) {
 		try {
-			this.lookup().rename(relativePath, new_name);
+			this.lookup().rename(relativePath.steps().toJavaList(), new_name);
 		} catch (MalformedURLException | RemoteException | NotBoundException e) {
 			Err.reportError(e);
 		}
@@ -86,7 +87,7 @@ public class RMIDataContainer extends RMIClient<RMIFilesDataContainer> {
 
 	public long lastModified(RelativePath relativePath) {
 		try {
-			return this.lookup().lastModified(relativePath);
+			return this.lookup().lastModified(relativePath.steps().toJavaList());
 		} catch (MalformedURLException | RemoteException | NotBoundException e) {
 			Err.reportError(e);
 		}
@@ -95,7 +96,7 @@ public class RMIDataContainer extends RMIClient<RMIFilesDataContainer> {
 
 	public long getSize(RelativePath relativePath) {
 		try {
-			return this.lookup().getSize(relativePath);
+			return this.lookup().getSize(relativePath.steps().toJavaList());
 		} catch (MalformedURLException | RemoteException | NotBoundException e) {
 			Err.reportError(e);
 		}

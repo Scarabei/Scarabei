@@ -2,7 +2,12 @@ package com.jfixby.rmi.client.files;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 
+import com.jfixby.cmns.api.debug.Debug;
+import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.FileInputStream;
 import com.jfixby.cmns.api.file.FileOutputStream;
@@ -18,9 +23,10 @@ public class RMIFileSystem extends AbstractFileSystem implements FileSystem {
 	final private RMIDataContainer content;
 
 	public RMIFileSystem(RMIFileSystemConfig config) {
-		String server_host = config.getRemoteHost();
+		String server_host = Debug.checkNull("server_host", config.getRemoteHost());
 		int server_port = config.getRemotePort();
-		String mail_box = config.getMailBox();
+		String mail_box = Debug.checkNull("mail_box", config.getMailBox());
+		;
 		content = new RMIDataContainer(server_host, server_port, mail_box);
 	}
 
@@ -90,6 +96,18 @@ public class RMIFileSystem extends AbstractFileSystem implements FileSystem {
 		String checksum = MD5.md5Stream(java_input_stream);
 		java_input_stream.close();
 		return checksum.toUpperCase();
+	}
+
+	public boolean ping() {
+		try {
+			this.content.lookup().ping();
+			return true;
+		} catch (RemoteException | MalformedURLException | NotBoundException e) {
+			// e.printStackTrace();
+			//
+			Err.reportError(e);
+			return false;
+		}
 	}
 
 }

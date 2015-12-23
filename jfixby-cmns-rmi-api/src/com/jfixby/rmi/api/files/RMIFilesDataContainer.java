@@ -1,33 +1,31 @@
 package com.jfixby.rmi.api.files;
 
-import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.file.FileInputStream;
 import com.jfixby.cmns.api.file.FileOutputStream;
-import com.jfixby.cmns.api.util.path.RelativePath;
 import com.jfixby.rmi.api.RMIFace;
 
 public interface RMIFilesDataContainer extends RMIFace {
 
-	boolean delete(RelativePath relativePath);
+	boolean delete(java.util.List<String> relativePath) throws java.rmi.RemoteException;
 
-	FileInputStream getInputStream(RelativePath relativePath);
+	FileInputStream getInputStream(java.util.List<String> relativePath) throws java.rmi.RemoteException;
 
-	FileOutputStream getOutputStream(RelativePath relativePath);
+	FileOutputStream getOutputStream(java.util.List<String> relativePath) throws java.rmi.RemoteException;
 
-	boolean isFolder(RelativePath relativePath);
+	boolean isFolder(java.util.List<String> relativePath) throws java.rmi.RemoteException;
 
-	boolean isFile(RelativePath relativePath);
+	boolean isFile(java.util.List<String> relativePath) throws java.rmi.RemoteException;
 
-	boolean exists(RelativePath relativePath);
+	boolean exists(java.util.List<String> relativePath) throws java.rmi.RemoteException;
 
-	List<String> listChildren(RelativePath relativePath);
+	String[] listChildren(java.util.List<String> relativePath) throws java.rmi.RemoteException;
 
-	boolean mkdirs(RelativePath relativePath);
+	boolean mkdirs(java.util.List<String> relativePath) throws java.rmi.RemoteException;
 
-	void rename(RelativePath relativePath, String new_name);
+	boolean rename(java.util.List<String> relativePath, String new_name) throws java.rmi.RemoteException;
 
-	long lastModified(RelativePath relativePath);
+	long lastModified(java.util.List<String> relativePath) throws java.rmi.RemoteException;
 
-	long getSize(RelativePath relativePath);
+	long getSize(java.util.List<String> relativePath) throws java.rmi.RemoteException;
 
 }

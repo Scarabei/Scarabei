@@ -46,4 +46,9 @@ public class RedJUtils implements UtilsComponent {
 	public <T> StateSwitcher<T> newStateSwitcher(T default_state) {
 		return new RedStateSwitcher<T>(default_state);
 	}
+
+	@Override
+	public RelativePath newRelativePath(java.util.List<String> steps_list) {
+		return this.newRelativePath(Collections.newList(steps_list));
+	}
 }
