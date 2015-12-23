@@ -22,7 +22,7 @@ import com.jfixby.cmns.api.util.JUtils;
 import com.jfixby.cmns.collections.DesktopCollections;
 import com.jfixby.red.color.RedColors;
 import com.jfixby.red.debug.RedDebug;
-import com.jfixby.red.desktop.filesystem.unix.UnixFileSystem;
+import com.jfixby.red.desktop.filesystem.win.WinFileSystem;
 import com.jfixby.red.desktop.img.processing.DesktopImageProcessing;
 import com.jfixby.red.desktop.log.DesktopLogger;
 import com.jfixby.red.desktop.math.DesktopFloatMath;
@@ -61,7 +61,7 @@ public class DesktopAssembler {
 
 		// --
 
-		LocalFileSystem.installComponent(new UnixFileSystem());
+		LocalFileSystem.installComponent(new WinFileSystem());
 
 		ImageProcessing.installComponent(new DesktopImageProcessing());
 		FileCache.installComponent(new RedFileCache());

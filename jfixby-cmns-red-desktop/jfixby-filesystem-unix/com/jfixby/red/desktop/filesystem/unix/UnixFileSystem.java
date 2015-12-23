@@ -34,26 +34,12 @@ public class UnixFileSystem extends AbstractFileSystem implements LocalFileSyste
 	}
 
 	private AbsolutePath<FileSystem> resolve(java.io.File file) {
-		// L.d();
 		Debug.checkNull("file", file);
 		file = file.getAbsoluteFile();
-
 		String path_string = file.getAbsolutePath();
-		// L.d("path_string", path_string);
-		// if (path_string.contains("@")) {
-		// throw new Error();
-		// }
-		// if (path_string.contains("#input_sprites_tmp_folder#")) {
-		// throw new Error();
-		// }
-
 		List<String> steps = Collections.newList(path_string.split(OS_SEPARATOR));
-		// steps.print("steps");
-
 		RelativePath relative = JUtils.newRelativePath(steps);
 		AbsolutePath<FileSystem> path = JUtils.newAbsolutePath((FileSystem) this, relative);
-		// L.d("path", path);
-		// throw new Error();
 		return path;
 	}
 
