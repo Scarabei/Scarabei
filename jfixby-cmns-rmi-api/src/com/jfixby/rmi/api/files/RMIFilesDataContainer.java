@@ -1,16 +1,12 @@
 package com.jfixby.rmi.api.files;
 
-import com.jfixby.cmns.api.file.FileInputStream;
-import com.jfixby.cmns.api.file.FileOutputStream;
+import java.io.IOException;
+
 import com.jfixby.rmi.api.RMIFace;
 
 public interface RMIFilesDataContainer extends RMIFace {
 
 	boolean delete(java.util.List<String> relativePath) throws java.rmi.RemoteException;
-
-	FileInputStream getInputStream(java.util.List<String> relativePath) throws java.rmi.RemoteException;
-
-	FileOutputStream getOutputStream(java.util.List<String> relativePath) throws java.rmi.RemoteException;
 
 	boolean isFolder(java.util.List<String> relativePath) throws java.rmi.RemoteException;
 
@@ -27,5 +23,9 @@ public interface RMIFilesDataContainer extends RMIFace {
 	long lastModified(java.util.List<String> relativePath) throws java.rmi.RemoteException;
 
 	long getSize(java.util.List<String> relativePath) throws java.rmi.RemoteException;
+
+	boolean writeDataToFile(java.util.List<String> relativePath, byte[] data) throws java.rmi.RemoteException, IOException;
+
+	byte[] readDataFromFile(java.util.List<String> relativePath) throws java.rmi.RemoteException, IOException;
 
 }

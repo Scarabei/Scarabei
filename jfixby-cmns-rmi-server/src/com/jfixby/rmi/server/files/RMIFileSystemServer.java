@@ -1,5 +1,6 @@
 package com.jfixby.rmi.server.files;
 
+import java.io.IOException;
 import java.rmi.NoSuchObjectException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -65,16 +66,6 @@ public class RMIFileSystemServer extends UnicastRemoteObject implements RMIFiles
 	}
 
 	@Override
-	public FileInputStream getInputStream(List<String> steps) throws RemoteException {
-		return null;
-	}
-
-	@Override
-	public FileOutputStream getOutputStream(List<String> steps) throws RemoteException {
-		return null;
-	}
-
-	@Override
 	public boolean isFolder(List<String> steps) throws RemoteException {
 		RelativePath relative = toRelative(steps);
 		File target = rootFolder.proceed(relative);
@@ -129,5 +120,22 @@ public class RMIFileSystemServer extends UnicastRemoteObject implements RMIFiles
 		File target = rootFolder.proceed(relative);
 		return target.getSize();
 	}
+
+	@Override
+	public boolean writeDataToFile(List<String> steps, byte[] data) throws RemoteException, IOException {
+		RelativePath relative = toRelative(steps);
+		File target = rootFolder.proceed(relative);
+		target.writeBytes(data);
+		return true;
+	}
+
+	@Override
+	public byte[] readDataFromFile(List<String> steps) throws RemoteException, IOException {
+		RelativePath relative = toRelative(steps);
+		File target = rootFolder.proceed(relative);
+		return target.readBytes();
+	}
+
+	
 
 }

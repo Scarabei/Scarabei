@@ -8,6 +8,8 @@ import java.rmi.RemoteException;
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.err.Err;
+import com.jfixby.cmns.api.file.FileInputStream;
+import com.jfixby.cmns.api.io.IO;
 import com.jfixby.cmns.api.util.path.RelativePath;
 import com.jfixby.rmi.api.files.RMIFilesDataContainer;
 import com.jfixby.rmi.client.RMIClient;
@@ -103,8 +105,13 @@ public class RMIDataContainer extends RMIClient<RMIFilesDataContainer> {
 		return -1;
 	}
 
-	public RMIFileInputStream getInputStream(RelativePath relativePath) throws IOException {
-		return new RMIFileInputStream(this, relativePath);
+	public FileInputStream getInputStream(RelativePath relativePath) throws IOException {
+		try {
+			byte[] data = this.lookup().readDataFromFile(relativePath.steps().toJavaList());
+			return (FileInputStream) IO.newBufferInputStream(IO.newBuffer(data));
+		} catch (MalformedURLException | RemoteException | NotBoundException e) {
+			throw new IOException(e);
+		}
 	}
 
 	public RMIFileOutputStream getOutputStream(RelativePath relativePath) throws IOException {
