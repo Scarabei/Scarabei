@@ -9,6 +9,10 @@ public class LocalFileSystem {
 
 	static private ComponentInstaller<LocalFileSystemComponent> componentInstaller = new ComponentInstaller<LocalFileSystemComponent>(
 			"LocalFileSystem");
+	
+	public static void deInstallCurrentComponent() {
+		componentInstaller.deInstallCurrentComponent();
+	}
 
 	public static final void installComponent(
 			LocalFileSystemComponent component_to_install) {
