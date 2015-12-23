@@ -25,8 +25,9 @@ public class RunFileServer {
 		}
 
 		byte[] data = config_file.readBytes();
-
-		ServerConfig config = Json.deserializeFromString(ServerConfig.class, JUtils.newString(data));
+		String string = JUtils.newString(data);
+		ServerConfig config = Json.deserializeFromString(ServerConfig.class, string);
+		L.d("", string);
 
 		RMIFileSystemServerConfig server_config = new RMIFileSystemServerConfig();
 		server_config.setPort(config.port);
@@ -46,7 +47,7 @@ public class RunFileServer {
 		ServerConfig cfg = new ServerConfig();
 		cfg.port = 16000;
 		cfg.box_name = "remote-filesystem";
-		cfg.server_root_path_string = "deep-forger";
+		cfg.server_root_path_string = "";
 		String string = Json.serializeToString(cfg);
 		config_file.writeBytes(string.getBytes());
 	}

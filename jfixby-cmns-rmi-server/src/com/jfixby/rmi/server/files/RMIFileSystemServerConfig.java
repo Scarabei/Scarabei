@@ -7,7 +7,7 @@ public class RMIFileSystemServerConfig {
 	private int port;
 	private File server_root;
 	private String mailbox;
-
+	
 	public String getMailBoxName() {
 		return mailbox;
 	}
@@ -31,5 +31,7 @@ public class RMIFileSystemServerConfig {
 	public File getServerRootFolder() {
 		return this.server_root;
 	}
+
+
 
 }

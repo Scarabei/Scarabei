@@ -26,7 +26,6 @@ public class RMIFileSystem extends AbstractFileSystem implements FileSystem {
 		String server_host = Debug.checkNull("server_host", config.getRemoteHost());
 		int server_port = config.getRemotePort();
 		String mail_box = Debug.checkNull("mail_box", config.getMailBox());
-		;
 		content = new RMIDataContainer(server_host, server_port, mail_box);
 	}
 
@@ -71,7 +70,7 @@ public class RMIFileSystem extends AbstractFileSystem implements FileSystem {
 		return OS_SEPARATOR;
 	}
 
-	final private String name = "VirtualFileSystem";
+	final private String name = "RMIFileSystem";
 
 	public static String toNativePathString(String string) {
 		return string;
@@ -103,8 +102,6 @@ public class RMIFileSystem extends AbstractFileSystem implements FileSystem {
 			this.content.lookup().ping();
 			return true;
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
-			// e.printStackTrace();
-			//
 			Err.reportError(e);
 			return false;
 		}

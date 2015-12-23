@@ -5,6 +5,7 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
+import com.jfixby.cmns.api.log.L;
 import com.jfixby.rmi.api.RMIFace;
 
 public class RMIClient<T extends RMIFace> {
@@ -19,6 +20,7 @@ public class RMIClient<T extends RMIFace> {
 		this.office = postOfficeId;
 		this.port = port;
 		this.add = buildAddressString(ip_name, port, postOfficeId);
+		L.d("connecting to remote server", add);
 	}
 
 	public String getPostOfficeId() {
