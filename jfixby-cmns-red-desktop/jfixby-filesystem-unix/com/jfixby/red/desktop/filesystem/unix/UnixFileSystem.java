@@ -47,7 +47,7 @@ public class UnixFileSystem extends AbstractFileSystem implements LocalFileSyste
 		// throw new Error();
 		// }
 
-		List<String> steps = Collections.newList(path_string.split(OS_SEPARATOR + OS_SEPARATOR));
+		List<String> steps = Collections.newList(path_string.split(OS_SEPARATOR));
 		// steps.print("steps");
 
 		RelativePath relative = JUtils.newRelativePath(steps);
@@ -107,7 +107,7 @@ public class UnixFileSystem extends AbstractFileSystem implements LocalFileSyste
 
 	@Override
 	public String toString() {
-		return "UnixFileSystem";
+		return "WinFileSystem";
 	}
 
 	@Override
@@ -133,8 +133,8 @@ public class UnixFileSystem extends AbstractFileSystem implements LocalFileSyste
 			L.e("FileSystem", file_path.getMountPoint());
 			throw new Error("Path does not belong to this filesystem: " + this);
 		}
-		UnixFile original_file = (UnixFile) file;
-		return original_file.getJavaFile();
+		UnixFile win_f = (UnixFile) file;
+		return win_f.getJavaFile();
 	}
 
 	@Override

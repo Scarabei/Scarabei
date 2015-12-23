@@ -12,6 +12,7 @@ public class WinFileOutputStream extends AbstractRedOutputStream {
 	}
 
 	private static BufferedOutputStream os(WinFile output_file) throws IOException {
+		output_file.parent().makeFolder();
 		String path_string = output_file.toAbsolutePathString();
 		java.io.File file = new java.io.File(path_string);
 
