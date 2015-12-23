@@ -1,7 +1,8 @@
-package com.jfixby.rmi.server.files;
+package com.jfixby.rmi.client.files;
 
 import java.io.IOException;
 
+import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.file.ChildrenList;
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.FileHash;
@@ -12,8 +13,9 @@ import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.util.path.AbsolutePath;
 import com.jfixby.cmns.api.util.path.RelativePath;
 import com.jfixby.red.filesystem.FilesList;
+import com.jfixby.red.filesystem.RedFileHash;
 
-public class RemoteFile implements File {
+public class RMIFile implements File {
 	@Override
 	public void checkIsFolder() {
 		checkExists();
@@ -37,21 +39,14 @@ public class RemoteFile implements File {
 		}
 	}
 
-	private RMIFileSystemServer sandbox;
+	private RMIFileSystem virtualFileSystem;
 	private AbsolutePath<FileSystem> absolute_path;
 	private RelativePath relativePath;
-	private AbsolutePath<FileSystem> unprotected_path;
 
-	public RemoteFile(RMIFileSystemServer sandbox, AbsolutePath<FileSystem> file_path) {
-		this.sandbox = sandbox;
+	public RMIFile(RMIFileSystem virtualFileSystem, AbsolutePath<FileSystem> file_path) {
+		this.virtualFileSystem = virtualFileSystem;
 		this.absolute_path = file_path;
 		this.relativePath = file_path.getRelativePath();
-		this.unprotected_path = sandbox.getRootFolder().getAbsoluteFilePath().proceed(relativePath);
-	}
-
-	private File getUnprotectedFile() {
-		File unprotected_file = unprotected_path.getMountPoint().newFile(unprotected_path);
-		return unprotected_file;
 	}
 
 	@Override
@@ -61,20 +56,26 @@ public class RemoteFile implements File {
 
 	@Override
 	public boolean delete() {
-		File unprotected_file = getUnprotectedFile();
-		return unprotected_file.delete();
+		if (this.isFolder()) {
+			this.clearFolder();
+		}
+		RMIDataContainer content = this.virtualFileSystem.getContent();
+		// L.d("deleting", this.absolute_path);
+		;
+		return content.delete(this.absolute_path.getRelativePath());
+
 	}
 
 	@Override
 	public boolean isFolder() {
-		File unprotected_file = getUnprotectedFile();
-		return unprotected_file.isFolder();
+		RMIDataContainer content = this.virtualFileSystem.getContent();
+		return content.isFolder(this.absolute_path.getRelativePath());
 	}
 
 	@Override
 	public boolean isFile() {
-		File unprotected_file = getUnprotectedFile();
-		return unprotected_file.isFile();
+		RMIDataContainer content = this.virtualFileSystem.getContent();
+		return content.isFile(this.absolute_path.getRelativePath());
 	}
 
 	@Override
@@ -83,8 +84,6 @@ public class RemoteFile implements File {
 			ChildrenList children = listChildren();
 			for (int i = 0; i < children.size(); i++) {
 				File child = children.getElementAt(i);
-				// WinFile file = new WinFile(child);
-				// File child = this.sandbox.newFile(child_path);
 
 				child.delete();
 				// L.d("deleting", child.getAbsoluteFilePath());
@@ -102,21 +101,20 @@ public class RemoteFile implements File {
 
 	@Override
 	public ChildrenList listChildren() {
-		File unprotected_file = getUnprotectedFile();
+		RMIDataContainer content = this.virtualFileSystem.getContent();
 
-		if (!unprotected_file.exists()) {
+		if (!content.exists(relativePath)) {
 			throw new Error("File does not exist: " + absolute_path);
 		}
-		if (unprotected_file.isFolder()) {
-
-			ChildrenList unprotected_children = unprotected_file.listChildren();
-
-			// List<String> files = content.listChildren(relativePath);
+		if (content.isFolder(relativePath)) {
+			List<String> files = content.listChildren(relativePath);
 
 			FilesList listFiles = new FilesList();
-			for (int i = 0; i < unprotected_children.size(); i++) {
-				String file_i = unprotected_children.getElementAt(i).getName();
+			for (int i = 0; i < files.size(); i++) {
+				String file_i = files.getElementAt(i);
+
 				AbsolutePath<FileSystem> absolute_file = absolute_path.child(file_i);
+				;
 				listFiles.add(absolute_file.getMountPoint().newFile(absolute_file));
 			}
 			// L.d("listFiles", listFiles);
@@ -130,38 +128,41 @@ public class RemoteFile implements File {
 
 	@Override
 	public File child(String child_name) {
-		return new RemoteFile(this.getFileSystem(), this.getAbsoluteFilePath().child(child_name));
+		return new RMIFile(this.getFileSystem(), this.absolute_path.child(child_name));
 	}
 
 	@Override
 	public boolean exists() {
-		File unprotected_file = getUnprotectedFile();
-		return unprotected_file.exists();
+		RMIDataContainer content = this.virtualFileSystem.getContent();
+		return content.exists(this.absolute_path.getRelativePath());
 	}
 
 	@Override
 	public boolean makeFolder() {
-		File unprotected_file = getUnprotectedFile();
-		return unprotected_file.makeFolder();
+		RMIDataContainer content = this.virtualFileSystem.getContent();
+		return content.mkdirs(this.absolute_path.getRelativePath());
 	}
 
 	@Override
 	public boolean rename(String new_name) {
-		File unprotected_file = getUnprotectedFile();
-		return unprotected_file.rename(new_name);
+		RMIDataContainer content = this.virtualFileSystem.getContent();
+		content.rename(this.absolute_path.getRelativePath(), new_name);
+		this.absolute_path = this.absolute_path.parent().child(new_name);
+		this.relativePath = this.absolute_path.getRelativePath();
+		return true;
 	}
 
 	@Override
 	public String getName() {
 		if (this.relativePath.isRoot()) {
-			return this.sandbox.getName();
+			return this.virtualFileSystem.getName();
 		}
 		return this.absolute_path.getName();
 	}
 
 	@Override
-	public RMIFileSystemServer getFileSystem() {
-		return this.sandbox;
+	public RMIFileSystem getFileSystem() {
+		return this.virtualFileSystem;
 	}
 
 	@Override
@@ -175,20 +176,17 @@ public class RemoteFile implements File {
 
 	@Override
 	public FileHash calculateHash() throws IOException {
-		File unprotected_file = getUnprotectedFile();
-		return unprotected_file.calculateHash();
+		return new RedFileHash(this.virtualFileSystem.md5Hex(this));
 	}
 
 	@Override
 	public FileInputStream newInputStream() throws IOException {
-		File unprotected_file = getUnprotectedFile();
-		return unprotected_file.newInputStream();
+		return absolute_path.getMountPoint().newFileInputStream(this);
 	}
 
 	@Override
 	public FileOutputStream newOutputStream() throws IOException {
-		File unprotected_file = getUnprotectedFile();
-		return unprotected_file.newOutputStream();
+		return absolute_path.getMountPoint().newFileOutputStream(this);
 	}
 
 	@Override
@@ -217,8 +215,10 @@ public class RemoteFile implements File {
 	@Override
 	public long getSize() {
 		if (this.isFile()) {
-			File unprotected_file = getUnprotectedFile();
-			return unprotected_file.getSize();
+			// return this.getContent().getData().length;
+			RMIDataContainer content = this.virtualFileSystem.getContent();
+			return content.getSize(this.relativePath);
+
 		} else {
 			return 0;
 		}
@@ -226,13 +226,12 @@ public class RemoteFile implements File {
 
 	@Override
 	public java.io.File toJavaFile() {
-		File unprotected_file = getUnprotectedFile();
-		return unprotected_file.toJavaFile();
+		throw new Error("The method is not supported");
 	}
 
 	@Override
 	public File parent() {
-		return new RemoteFile(this.getFileSystem(), this.absolute_path.parent());
+		return new RMIFile(virtualFileSystem, this.absolute_path.parent());
 	}
 
 	@Override
@@ -242,12 +241,12 @@ public class RemoteFile implements File {
 
 	@Override
 	public long lastModified() {
-		File unprotected_file = getUnprotectedFile();
-		return unprotected_file.lastModified();
+		RMIDataContainer content = this.virtualFileSystem.getContent();
+		return content.lastModified(this.absolute_path.getRelativePath());
 	}
 
 	@Override
-	public File proceed(RelativePath relative) {
+	public File proceed(RelativePath relativePath) {
 		AbsolutePath<FileSystem> file_path = this.getAbsoluteFilePath().proceed(relativePath);
 		return this.getFileSystem().newFile(file_path);
 	}
@@ -255,6 +254,16 @@ public class RemoteFile implements File {
 	@Override
 	public boolean extensionIs(final String postfix) {
 		return this.getName().toLowerCase().endsWith(postfix.toLowerCase());
+	}
+
+	public FileInputStream getInputStream() throws IOException {
+		RMIDataContainer content = this.virtualFileSystem.getContent();
+		return content.getInputStream(this.absolute_path.getRelativePath());
+	}
+
+	public FileOutputStream getOutputStream() throws IOException {
+		RMIDataContainer content = this.virtualFileSystem.getContent();
+		return content.getOutputStream(this.absolute_path.getRelativePath());
 	}
 
 }
