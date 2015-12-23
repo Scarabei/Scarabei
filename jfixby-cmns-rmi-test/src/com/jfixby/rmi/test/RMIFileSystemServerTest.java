@@ -13,7 +13,7 @@ import com.jfixby.cmns.api.sys.Sys;
 import com.jfixby.cmns.api.util.JUtils;
 import com.jfixby.cmns.collections.DesktopCollections;
 import com.jfixby.red.debug.RedDebug;
-import com.jfixby.red.desktop.filesystem.win.WinFileSystem;
+import com.jfixby.red.desktop.filesystem.unix.UnixFileSystem;
 import com.jfixby.red.desktop.log.DesktopLogger;
 import com.jfixby.red.desktop.sys.DesktopSystem;
 import com.jfixby.red.err.RedError;
@@ -34,7 +34,7 @@ public class RMIFileSystemServerTest {
 		Err.installComponent(new RedError());
 		Debug.installComponent(new RedDebug());
 
-		LocalFileSystem.installComponent(new WinFileSystem());
+		LocalFileSystem.installComponent(new UnixFileSystem());
 
 		RMIFileSystemServerConfig config = new RMIFileSystemServerConfig();
 		config.setPort(16000);
