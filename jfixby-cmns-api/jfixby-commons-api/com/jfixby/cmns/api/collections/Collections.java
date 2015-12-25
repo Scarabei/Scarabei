@@ -53,6 +53,10 @@ public class Collections {
 		return invoke().newSet();
 	}
 
+	public static <T> Set<T> newSet(T... array) {
+		return invoke().newSet(array);
+	}
+	
 	public static <T> Set<T> newSet(java.util.Collection<T> java_colletion) {
 		return invoke().newSet(java_colletion);
 	}
