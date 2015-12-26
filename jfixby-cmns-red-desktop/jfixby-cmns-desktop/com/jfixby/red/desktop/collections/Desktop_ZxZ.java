@@ -1,4 +1,4 @@
-package com.jfixby.cmns.collections;
+package com.jfixby.red.desktop.collections;
 
 public class Desktop_ZxZ {
 

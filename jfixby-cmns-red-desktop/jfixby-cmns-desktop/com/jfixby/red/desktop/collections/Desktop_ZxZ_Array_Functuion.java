@@ -1,4 +1,4 @@
-package com.jfixby.cmns.collections;
+package com.jfixby.red.desktop.collections;
 
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
