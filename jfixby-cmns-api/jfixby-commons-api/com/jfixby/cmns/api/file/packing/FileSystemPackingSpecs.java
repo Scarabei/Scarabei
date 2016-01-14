@@ -13,4 +13,8 @@ public interface FileSystemPackingSpecs {
 
 	OutputStream getOutputStream();
 
+	void setCompressionSchemaName(String string);
+
+	String getCompressionSchemaName();
+
 }

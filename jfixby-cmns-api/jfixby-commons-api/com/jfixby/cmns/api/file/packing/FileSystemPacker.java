@@ -6,11 +6,9 @@ import com.jfixby.cmns.api.ComponentInstaller;
 
 public class FileSystemPacker {
 
-	static private ComponentInstaller<FileSystemPackerComponent> componentInstaller = new ComponentInstaller<FileSystemPackerComponent>(
-			"FileSystemPacker");
+	static private ComponentInstaller<FileSystemPackerComponent> componentInstaller = new ComponentInstaller<FileSystemPackerComponent>("FileSystemPacker");
 
-	public static final void installComponent(
-			FileSystemPackerComponent component_to_install) {
+	public static final void installComponent(FileSystemPackerComponent component_to_install) {
 		componentInstaller.installComponent(component_to_install);
 	}
 
@@ -36,6 +34,10 @@ public class FileSystemPacker {
 
 	public static void pack(FileSystemPackingSpecs packing_spec) throws IOException {
 		invoke().pack(packing_spec);
+	}
+
+	public static void installCompressionSchema(CompressionSchema schema) {
+		invoke().installCompressionSchema(schema);
 	}
 
 }
