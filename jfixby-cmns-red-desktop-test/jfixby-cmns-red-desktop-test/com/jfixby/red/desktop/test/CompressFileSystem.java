@@ -8,6 +8,7 @@ import com.jfixby.cmns.api.file.packing.CompressionSchema;
 import com.jfixby.cmns.api.file.packing.FileSystemPacker;
 import com.jfixby.cmns.api.file.packing.FileSystemPackingSpecs;
 import com.jfixby.cmns.api.io.OutputStream;
+import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.desktop.DesktopAssembler;
 import com.jfixby.red.filesystem.archived.R3ArrayCompressionSchema;
 import com.jfixby.red.filesystem.archived.RedFileSystemPacker;
@@ -29,6 +30,9 @@ public class CompressFileSystem {
 		OutputStream os = archive_file.newOutputStream();
 		packing_specs.setOutputStream(os);
 		packing_specs.setCompressionSchemaName(R3ArrayCompressionSchema.SCHEMA_NAME);
+
+		L.d("Packing", folder_to_pack);
+		L.d("     to", archive_file);
 
 		FileSystemPacker.pack(packing_specs);
 
