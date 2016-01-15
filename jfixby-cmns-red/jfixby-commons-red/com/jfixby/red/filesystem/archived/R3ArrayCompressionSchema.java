@@ -2,7 +2,6 @@ package com.jfixby.red.filesystem.archived;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.ObjectInputStream;
 import java.util.ArrayList;
 
 import com.jfixby.cmns.api.collections.Collections;
@@ -48,12 +47,12 @@ public class R3ArrayCompressionSchema implements CompressionSchema {
 
 	@Override
 	public boolean isFile(RelativePath relativePath) {
-		return chechNull(chechNull(registry.get(relativePath), relativePath), relativePath).isFile;
+		return chechNull(registry.get(relativePath), relativePath).isFile;
 	}
 
 	@Override
 	public long lastModified(RelativePath relativePath) {
-		return chechNull(chechNull(registry.get(relativePath), relativePath), relativePath).lastModified;
+		return chechNull(registry.get(relativePath), relativePath).lastModified;
 	}
 
 	@Override
@@ -79,13 +78,20 @@ public class R3ArrayCompressionSchema implements CompressionSchema {
 		InputStream jis = is.toJavaInputStream();
 		skip(header_skip, jis);
 		L.d("header_skip", header_skip);
-		byte byt = 0;
-		while (byt != -1) {
-			byt = (byte) jis.read();
-			L.d_addChars(new String(new byte[] { byt }, "UTF-8"));
-		}
 
-		 return null;
+		FilePointer pointer = registry.get(relativePath);
+
+		if (pointer == null) {
+			throw new IOException("File not found " + relativePath + " in archive " + archive);
+		}
+		if (!pointer.isFile) {
+			throw new IOException("File not found " + relativePath + " in archive " + archive);
+		}
+		skip(pointer.offset, jis);
+		byte[] bytes = new byte[(int) pointer.size];
+		jis.read(bytes);
+
+		return new ContentLeaf(bytes, pointer);
 
 	}
 
@@ -97,37 +103,68 @@ public class R3ArrayCompressionSchema implements CompressionSchema {
 		throw new Error("Failed to read: " + relativePath);
 	}
 
+	public static final String END_LINE = "#";// " ←\n"
+
 	private void setup_header_skip(File archive) throws IOException {
 		this.header_skip = 0;
 		FileInputStream is = archive.newInputStream();
 		InputStream jis = is.toJavaInputStream();
+
 		int schema_name_len = jis.read();
 		header_skip = header_skip + 1;
 
-		skip(5, jis);
-		header_skip = header_skip + 5;
-
-		byte[] name_array = new byte[schema_name_len];
-		jis.read(name_array);
+		skip(END_LINE.length(), jis);
+		header_skip = header_skip + END_LINE.length();
+		//
+		skip(schema_name_len, jis);
 		header_skip = header_skip + schema_name_len;
 
-		skip(5, jis);
-		header_skip = header_skip + 5;
-
-		java.io.ObjectInputStream jos = new ObjectInputStream(jis);
-		long schema_len = jos.readLong();
+		skip(END_LINE.length(), jis);
+		header_skip = header_skip + END_LINE.length();
+		//
+		// //
+		long schema_len = readLong(jis);
+		L.d("schema_len", schema_len);
+		// //
+		header_skip = header_skip + 8;
+		// // //
+		skip(END_LINE.length(), jis);
+		header_skip = header_skip + END_LINE.length();
+		// //
+		skip(schema_len, jis);
 		header_skip = header_skip + schema_len;
 
-		skip(5, jos);
-		header_skip = header_skip + 5;
+		skip(END_LINE.length(), jis);
+		header_skip = header_skip + END_LINE.length();
+		//
+		header_skip = header_skip + "data:".length();
 
-		byte[] shema_bytes = new byte[(int) schema_len];
-		jos.read(shema_bytes);
-		header_skip = header_skip + schema_len;
-		// L.d("shema_bytes", new String(shema_bytes));
-		jos.close();
+		header_skip = header_skip + 8;
+
+		skip(END_LINE.length(), jis);
+		header_skip = header_skip + END_LINE.length();
+
+		jis.close();
 		is.close();
 
+	}
+
+	private long readLong(InputStream jis) throws IOException {
+		byte[] tmp = new byte[8];
+		jis.read(tmp);
+		return byteArrayToLong(tmp);
+	}
+
+	private long byteArrayToLong(byte[] tmp) {
+		long b7 = tmp[0] << 8 * 7;
+		long b6 = tmp[1] << 8 * 6;
+		long b5 = tmp[2] << 8 * 5;
+		long b4 = tmp[3] << 8 * 4;
+		long b3 = tmp[4] << 8 * 3;
+		long b2 = tmp[5] << 8 * 2;
+		long b1 = tmp[6] << 8 * 1;
+		long b0 = tmp[7] << 8 * 0;
+		return b0 | b1 | b2 | b3 | b4 | b5 | b6 | b7;
 	}
 
 	private void skip(final long k, InputStream jis) throws IOException {

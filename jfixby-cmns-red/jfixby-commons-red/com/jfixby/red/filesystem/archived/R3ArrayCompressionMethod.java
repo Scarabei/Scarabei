@@ -2,7 +2,6 @@ package com.jfixby.red.filesystem.archived;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.packing.CompressionMethod;
@@ -25,8 +24,7 @@ public class R3ArrayCompressionMethod implements CompressionMethod {
 
 	@Override
 	public void pack(Iterable<File> input, OutputStream os) throws IOException {
-		java.io.OutputStream o = os.toJavaOutputStream();
-		ObjectOutputStream jos = new ObjectOutputStream(o);
+		java.io.OutputStream jos = os.toJavaOutputStream();
 
 		TagsList list = new TagsList();
 
@@ -58,7 +56,7 @@ public class R3ArrayCompressionMethod implements CompressionMethod {
 		String shema_string = Json.serializeToString(pointers);
 		byte[] shema_data = shema_string.getBytes();
 
-		jos.writeLong(shema_string.length());
+		writeLong(jos, shema_string.length());
 		L.d("schema_len", shema_string.length());
 		endLine(jos);
 
@@ -70,7 +68,7 @@ public class R3ArrayCompressionMethod implements CompressionMethod {
 		jos.write(shema_data);
 		endLine(jos);
 		jos.write("data:".getBytes());
-		jos.writeLong(offset);
+		writeLong(jos, offset);
 		endLine(jos);
 		for (FileTag tag : list.tags) {
 			if (tag.file.isFile()) {
@@ -81,8 +79,17 @@ public class R3ArrayCompressionMethod implements CompressionMethod {
 		jos.flush();
 	}
 
+	private void writeLong(java.io.OutputStream jos, long offset) throws IOException {
+		byte[] array = longToByteArray(offset);
+		jos.write(array);
+	}
+
+	public byte[] longToByteArray(long value) {
+		return new byte[] { (byte) (value >> 8 * 7), (byte) (value >> 8 * 6), (byte) (value >> 8 * 5), (byte) (value >> 8 * 4), (byte) (value >> 8 * 3), (byte) (value >> 8 * 2), (byte) (value >> 8), (byte) value };
+	}
+
 	public static void endLine(java.io.OutputStream jos) throws IOException {
-		jos.write(" ←\n".getBytes());
+		jos.write(END_LINE.getBytes());
 	}
 
 	private void absorb(File file, RelativePath path, TagsList list) {
@@ -118,26 +125,28 @@ public class R3ArrayCompressionMethod implements CompressionMethod {
 		}
 	}
 
-	private void skip(int i, java.io.InputStream jis) throws IOException {
-		for (; i > 0; i--) {
+	private void skip(int k, java.io.InputStream jis) throws IOException {
+		for (int i = k; i > 0; i--) {
 			jis.read();
 		}
 	}
 
+	public static final String END_LINE = "#";// " ←\n"
+
 	@Override
 	public CompressionSchema readSchema(InputStream jis) throws IOException {
 		java.io.InputStream is = jis.toJavaInputStream();
-		java.io.ObjectInputStream jos = new ObjectInputStream(is);
-		long schema_len = jos.readLong();
+
+		long schema_len = this.readLong(is);
 		L.d("schema_len", schema_len);
-		skip(5, jos);
+		skip(END_LINE.length(), is);
 
 		byte[] shema_bytes = new byte[(int) schema_len];
-		jos.read(shema_bytes);
-		jos.close();
+		is.read(shema_bytes);
+		is.close();
 		String schema_string = new String(shema_bytes, "UTF-8");
 
-		L.d("schema_string", schema_string);
+		// L.d("schema_string", schema_string);
 
 		FilePointers pointers = Json.deserializeFromString(FilePointers.class, schema_string);
 
@@ -145,4 +154,23 @@ public class R3ArrayCompressionMethod implements CompressionMethod {
 
 		return schema;
 	}
+
+	private long readLong(java.io.InputStream jis) throws IOException {
+		byte[] tmp = new byte[8];
+		jis.read(tmp);
+		return byteArrayToLong(tmp);
+	}
+
+	private long byteArrayToLong(byte[] tmp) {
+		long b7 = tmp[0] << 8 * 7;
+		long b6 = tmp[1] << 8 * 6;
+		long b5 = tmp[2] << 8 * 5;
+		long b4 = tmp[3] << 8 * 4;
+		long b3 = tmp[4] << 8 * 3;
+		long b2 = tmp[5] << 8 * 2;
+		long b1 = tmp[6] << 8 * 1;
+		long b0 = tmp[7] << 8 * 0;
+		return b0 | b1 | b2 | b3 | b4 | b5 | b6 | b7;
+	}
+
 }

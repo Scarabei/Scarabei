@@ -30,13 +30,13 @@ public class RedFileSystemPacker implements FileSystemPackerComponent {
 		FileInputStream is = archive.newInputStream();
 		InputStream jis = is.toJavaInputStream();
 		int schema_name_len = jis.read();
-		L.d("schema_name_len", schema_name_len);
-		skip(5, jis);
+		// L.d("schema_name_len", schema_name_len);
+		skip(END_LINE.length(), jis);
 		byte[] name_array = new byte[schema_name_len];
 		jis.read(name_array);
 		String schema_name = new String(name_array, "UTF-8");
 
-		L.d("shema_name", schema_name);
+		// L.d("shema_name", schema_name);
 
 		CompressionMethod method = this.findMethod(schema_name);
 
@@ -44,7 +44,7 @@ public class RedFileSystemPacker implements FileSystemPackerComponent {
 			throw new Error("CompressionMethod [" + schema_name + "] not found.");
 		}
 
-		skip(5, jis);
+		skip(END_LINE.length(), jis);
 
 		CompressionSchema schema = method.readSchema(is);
 		jis.close();
@@ -53,8 +53,8 @@ public class RedFileSystemPacker implements FileSystemPackerComponent {
 		return packed_file_system;
 	}
 
-	private void skip(int i, InputStream jis) throws IOException {
-		for (; i > 0; i--) {
+	private void skip(int k, InputStream jis) throws IOException {
+		for (int i = k; i > 0; i--) {
 			jis.read();
 		}
 	}
@@ -90,8 +90,10 @@ public class RedFileSystemPacker implements FileSystemPackerComponent {
 		os.flush();
 	}
 
+	public static final String END_LINE = "#";// " ←\n"
+
 	public static void endLine(java.io.OutputStream jos) throws IOException {
-		jos.write(" ←\n".getBytes());
+		jos.write(END_LINE.getBytes());
 	}
 
 	private CompressionMethod findMethod(String schema_name) {

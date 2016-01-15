@@ -1,21 +1,29 @@
 package com.jfixby.red.filesystem.archived;
 
-public class ContentLeaf {
+import com.jfixby.cmns.api.file.packing.FileData;
+
+public class ContentLeaf implements FileData {
 
 	private byte[] data = new byte[0];
-	private long last_edit = System.currentTimeMillis();
+	private FilePointer pointer;
 
-	public synchronized byte[] getData() {
-		return data;
-	}
-
-	public synchronized void setData(byte[] data) {
-		this.data = data;
-		last_edit = System.currentTimeMillis();
+	public ContentLeaf(byte[] bytes, FilePointer pointer) {
+		this.data = bytes;
+		this.pointer = pointer;
 	}
 
 	public long lastModified() {
-		return last_edit;
+		return pointer.lastModified;
+	}
+
+	@Override
+	public long getSize() {
+		return data.length;
+	}
+
+	@Override
+	public byte[] getBytes() {
+		return data;
 	}
 
 }
