@@ -6,7 +6,7 @@ import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.util.JUtils;
 import com.jfixby.cmns.api.util.path.RelativePath;
 
- class RedRelativePath implements RelativePath {
+class RedRelativePath implements RelativePath {
 
 	final private List<String> path_steps = Collections.newList();
 
@@ -134,6 +134,11 @@ import com.jfixby.cmns.api.util.path.RelativePath;
 		steps.addAll(value.steps());
 		RelativePath incremented = JUtils.newRelativePath(steps);
 		return incremented;
+	}
+
+	@Override
+	public int size() {
+		return this.steps().size();
 	}
 
 }
