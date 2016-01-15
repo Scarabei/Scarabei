@@ -20,6 +20,8 @@ public interface CollectionsComponent {
 
 	<T> List<T> newList(java.util.Collection<? extends T> java_colletion);
 
+	<T> List<T> newList(Iterable<? extends T> java_colletion);
+
 	<T> Set<T> newSet(java.util.Collection<? extends T> java_colletion);
 
 	<K, V> Map<K, V> newMap();

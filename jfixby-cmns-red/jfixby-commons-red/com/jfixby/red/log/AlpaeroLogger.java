@@ -53,7 +53,7 @@ public abstract class AlpaeroLogger implements LoggerComponent {
 		String t = canonocal_name.substring(0, canonocal_name.length() - 1) + n + "]\n";
 		String indent_str = indent(indent);
 		for (int i = 0; i < n; i++) {
-			t = t + indent_str + "(" + i + ") " + array.getKeyAt(i) + ":->" + array.getValueAt(i) + "\n";
+			t = t + indent_str + "(" + i + ") " + array.getKeyAt(i) + " :-> " + array.getValueAt(i) + "\n";
 		}
 
 		// d("---Map[" + name + "]-----------------------");

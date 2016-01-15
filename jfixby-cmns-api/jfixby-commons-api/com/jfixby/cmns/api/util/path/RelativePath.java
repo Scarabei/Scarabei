@@ -24,4 +24,6 @@ public interface RelativePath {
 
 	RelativePath proceed(RelativePath value);
 
+	int size();
+
 }

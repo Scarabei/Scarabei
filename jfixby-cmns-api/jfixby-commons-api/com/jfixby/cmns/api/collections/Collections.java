@@ -36,6 +36,10 @@ public class Collections {
 	public static final <T> List<T> newList(java.util.Collection<? extends T> java_colletion) {
 		return invoke().newList(java_colletion);
 	}
+	
+	public static final <T> List<T> newList(Iterable<? extends T> java_colletion) {
+		return invoke().newList(java_colletion);
+	}
 
 	public static final <K, V> Map<K, V> newMap() {
 		return invoke().newMap();
