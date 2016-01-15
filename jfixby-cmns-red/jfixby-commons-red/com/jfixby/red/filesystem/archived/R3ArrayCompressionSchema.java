@@ -23,7 +23,6 @@ public class R3ArrayCompressionSchema implements CompressionSchema {
 	public void pack(Iterable<File> input, OutputStream os) throws IOException {
 		java.io.OutputStream o = os.toJavaOutputStream();
 		ObjectOutputStream jos = new ObjectOutputStream(o);
-		jos.write("\n".getBytes());
 
 		TagsList list = new TagsList();
 
@@ -47,14 +46,16 @@ public class R3ArrayCompressionSchema implements CompressionSchema {
 		}
 
 		String shema_string = Json.serializeToString(pointers);
-		byte[] shema_data = shema_string.getBytes();
+		// byte[] shema_data = shema_string.getBytes();
 
-		jos.writeLong(shema_data.length);
-		jos.write("\n".getBytes());
-		jos.write(shema_data);
-		jos.write("\n".getBytes());
+		jos.writeLong(shema_string.length());
+		endLine(jos);
+		jos.writeBytes(shema_string);
+		// jos.write(shema_data);
+		endLine(jos);
+		jos.write("data:".getBytes());
 		jos.writeLong(offset);
-		jos.write("\n".getBytes());
+		endLine(jos);
 		for (FileTag tag : list.tags) {
 			if (tag.file.isFile()) {
 				byte[] data = tag.file.readBytes();
@@ -62,6 +63,10 @@ public class R3ArrayCompressionSchema implements CompressionSchema {
 			}
 		}
 		jos.flush();
+	}
+
+	public static void endLine(java.io.OutputStream jos) throws IOException {
+		jos.write(" ←\n".getBytes());
 	}
 
 	private void absorb(File file, RelativePath path, TagsList list) {

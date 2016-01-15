@@ -1,6 +1,7 @@
 package com.jfixby.red.filesystem.archived;
 
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.Map;
@@ -43,13 +44,19 @@ public class RedFileSystemPacker implements FileSystemPackerComponent {
 		java.io.OutputStream jos = os.toJavaOutputStream();
 		byte schema_len = (byte) schema_name.length();
 		jos.write(schema_len);
+		endLine(jos);
 
 		byte[] bytes = schema_name.getBytes();
 		Debug.checkTrue(bytes.length == schema_len);
 		jos.write(bytes);
+		endLine(jos);
 
 		schema.pack(input, os);
 		os.flush();
+	}
+
+	public static void endLine(java.io.OutputStream jos) throws IOException {
+		jos.write(" ←\n".getBytes());
 	}
 
 	private CompressionSchema findSchema(String schema_name) {
