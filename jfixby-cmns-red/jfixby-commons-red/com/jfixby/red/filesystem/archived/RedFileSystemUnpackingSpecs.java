@@ -2,26 +2,19 @@ package com.jfixby.red.filesystem.archived;
 
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.packing.FileSystemUnpackingSpecs;
-import com.jfixby.cmns.api.io.InputStream;
 
 public class RedFileSystemUnpackingSpecs implements FileSystemUnpackingSpecs {
 
+	private File archive_file;
+
 	@Override
-	public void setTargetFolder(File local_resource_folder) {
+	public void setDataFile(File archive_file) {
+		this.archive_file = archive_file;
 	}
 
 	@Override
-	public void setInputStream(InputStream is) {
-	}
-
-	@Override
-	public File getTargetFolder() {
-		return null;
-	}
-
-	@Override
-	public InputStream getInputStream() {
-		return null;
+	public File getDataFile() {
+		return archive_file;
 	}
 
 }

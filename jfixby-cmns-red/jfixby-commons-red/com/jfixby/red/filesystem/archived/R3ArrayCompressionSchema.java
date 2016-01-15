@@ -1,105 +1,138 @@
 package com.jfixby.red.filesystem.archived;
 
 import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.util.ArrayList;
 
+import com.jfixby.cmns.api.collections.Collections;
+import com.jfixby.cmns.api.collections.Map;
+import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.file.File;
+import com.jfixby.cmns.api.file.FileInputStream;
 import com.jfixby.cmns.api.file.packing.CompressionSchema;
-import com.jfixby.cmns.api.io.OutputStream;
-import com.jfixby.cmns.api.json.Json;
+import com.jfixby.cmns.api.file.packing.FileData;
+import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.util.JUtils;
 import com.jfixby.cmns.api.util.path.RelativePath;
 
 public class R3ArrayCompressionSchema implements CompressionSchema {
 
-	public static final String SCHEMA_NAME = "R3.Array";
+	private FilePointers pointers;
+	final Map<RelativePath, FilePointer> registry = Collections.newMap();
+	final Map<RelativePath, ArrayList<String>> folders = Collections.newMap();
 
-	@Override
-	public String getName() {
-		return SCHEMA_NAME;
-	}
+	public R3ArrayCompressionSchema(FilePointers pointers) {
 
-	@Override
-	public void pack(Iterable<File> input, OutputStream os) throws IOException {
-		java.io.OutputStream o = os.toJavaOutputStream();
-		ObjectOutputStream jos = new ObjectOutputStream(o);
-
-		TagsList list = new TagsList();
-
-		RelativePath path = JUtils.newRelativePath();
-
-		absrobCollection(input, path, list);
-		long offset = 0;
-		FilePointers pointers = new FilePointers();
-		for (FileTag tag : list.tags) {
-			FilePointer pointer = new FilePointer();
-			pointer.path = tag.path.toString();
-			pointer.isFile = tag.file.isFile();
-			if (pointer.isFile) {
-				pointer.offset = offset;
-				pointer.size = tag.file.getSize();
-				offset = offset + pointer.size;
-			} else {
-
-			}
-			pointers.list.add(pointer);
-		}
-
-		String shema_string = Json.serializeToString(pointers);
-		// byte[] shema_data = shema_string.getBytes();
-
-		jos.writeLong(shema_string.length());
-		endLine(jos);
-		jos.writeBytes(shema_string);
-		// jos.write(shema_data);
-		endLine(jos);
-		jos.write("data:".getBytes());
-		jos.writeLong(offset);
-		endLine(jos);
-		for (FileTag tag : list.tags) {
-			if (tag.file.isFile()) {
-				byte[] data = tag.file.readBytes();
-				jos.write(data);
+		this.pointers = pointers;
+		for (int i = 0; i < pointers.list.size(); i++) {
+			FilePointer pointer = pointers.list.get(i);
+			RelativePath key = JUtils.newRelativePath(pointer.path);
+			registry.put(key, pointer);
+			if (key.size() > 0) {
+				RelativePath parent_folder = key.parent();
+				ArrayList<String> parent_children_list = folders.get(parent_folder);
+				if (parent_children_list == null) {
+					parent_children_list = new ArrayList<String>();
+					folders.put(parent_folder, parent_children_list);
+				}
+				parent_children_list.add(key.getLastStep());
 			}
 		}
-		jos.flush();
 	}
 
-	public static void endLine(java.io.OutputStream jos) throws IOException {
-		jos.write(" ←\n".getBytes());
+	@Override
+	public void print(String tag) {
+		registry.print(tag);
 	}
 
-	private void absorb(File file, RelativePath path, TagsList list) {
-		if (file.isFile()) {
-			absorbFile(file, path, list);
+	@Override
+	public boolean isFile(RelativePath relativePath) {
+		return chechNull(chechNull(registry.get(relativePath), relativePath), relativePath).isFile;
+	}
+
+	@Override
+	public long lastModified(RelativePath relativePath) {
+		return chechNull(chechNull(registry.get(relativePath), relativePath), relativePath).lastModified;
+	}
+
+	@Override
+	public boolean isFolder(RelativePath relativePath) {
+		return !chechNull(registry.get(relativePath), relativePath).isFile;
+	}
+
+	@Override
+	public Iterable<String> listChildren(RelativePath relativePath) {
+		return folders.get(relativePath);
+	}
+
+	long header_skip = -1;
+
+	@Override
+	public FileData readFileData(RelativePath relativePath, File archive) throws IOException {
+		archive = Debug.checkNull("archive", archive);
+		if (this.header_skip == -1) {
+			setup_header_skip(archive);
 		}
-		if (file.isFolder()) {
-			absorbFolder(file, path, list);
+		// header_skip = 100;
+		FileInputStream is = archive.newInputStream();
+		InputStream jis = is.toJavaInputStream();
+		skip(header_skip, jis);
+		L.d("header_skip", header_skip);
+		byte byt = 0;
+		while (byt != -1) {
+			byt = (byte) jis.read();
+			L.d_addChars(new String(new byte[] { byt }, "UTF-8"));
 		}
+
+		 return null;
+
 	}
 
-	private void absorbFile(File file, RelativePath path, TagsList list) {
-		if (!file.isFile()) {
-			throw new Error(file + " is not a file");
+	private FilePointer chechNull(FilePointer filePointer, RelativePath relativePath) {
+		if (filePointer != null) {
+			return filePointer;
 		}
-		FileTag info = new FileTag(file, path);
-		list.addInfo(info);
+		registry.print("Failed to read: " + relativePath);
+		throw new Error("Failed to read: " + relativePath);
 	}
 
-	private void absorbFolder(File folder, RelativePath path, TagsList list) {
-		if (!folder.isFolder()) {
-			throw new Error(folder + " is not a folder");
-		}
-		FileTag info = new FileTag(folder, path);
-		list.addInfo(info);
-		absrobCollection(folder.listChildren(), path, list);
+	private void setup_header_skip(File archive) throws IOException {
+		this.header_skip = 0;
+		FileInputStream is = archive.newInputStream();
+		InputStream jis = is.toJavaInputStream();
+		int schema_name_len = jis.read();
+		header_skip = header_skip + 1;
+
+		skip(5, jis);
+		header_skip = header_skip + 5;
+
+		byte[] name_array = new byte[schema_name_len];
+		jis.read(name_array);
+		header_skip = header_skip + schema_name_len;
+
+		skip(5, jis);
+		header_skip = header_skip + 5;
+
+		java.io.ObjectInputStream jos = new ObjectInputStream(jis);
+		long schema_len = jos.readLong();
+		header_skip = header_skip + schema_len;
+
+		skip(5, jos);
+		header_skip = header_skip + 5;
+
+		byte[] shema_bytes = new byte[(int) schema_len];
+		jos.read(shema_bytes);
+		header_skip = header_skip + schema_len;
+		// L.d("shema_bytes", new String(shema_bytes));
+		jos.close();
+		is.close();
+
 	}
 
-	private void absrobCollection(Iterable<File> input, RelativePath path, TagsList list) {
-		for (File file : input) {
-			RelativePath path_i = path.child(file.getName());
-			absorb(file, path_i, list);
+	private void skip(final long k, InputStream jis) throws IOException {
+		for (long i = k; i > 0; i--) {
+			jis.read();
 		}
 	}
-
 }

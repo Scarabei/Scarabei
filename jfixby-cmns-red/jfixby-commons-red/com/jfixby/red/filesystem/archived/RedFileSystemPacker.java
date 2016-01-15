@@ -1,16 +1,21 @@
 package com.jfixby.red.filesystem.archived;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.Map;
 import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.file.File;
+import com.jfixby.cmns.api.file.FileInputStream;
+import com.jfixby.cmns.api.file.packing.CompressionMethod;
 import com.jfixby.cmns.api.file.packing.CompressionSchema;
 import com.jfixby.cmns.api.file.packing.FileSystemPackerComponent;
 import com.jfixby.cmns.api.file.packing.FileSystemPackingSpecs;
 import com.jfixby.cmns.api.file.packing.FileSystemUnpackingSpecs;
+import com.jfixby.cmns.api.file.packing.PackedFileSystem;
 import com.jfixby.cmns.api.io.OutputStream;
+import com.jfixby.cmns.api.log.L;
 
 public class RedFileSystemPacker implements FileSystemPackerComponent {
 
@@ -20,7 +25,38 @@ public class RedFileSystemPacker implements FileSystemPackerComponent {
 	}
 
 	@Override
-	public void unpack(FileSystemUnpackingSpecs unpacking_spec) throws IOException {
+	public PackedFileSystem unpack(FileSystemUnpackingSpecs unpacking_spec) throws IOException {
+		File archive = Debug.checkNull("DataFile", unpacking_spec.getDataFile());
+		FileInputStream is = archive.newInputStream();
+		InputStream jis = is.toJavaInputStream();
+		int schema_name_len = jis.read();
+		L.d("schema_name_len", schema_name_len);
+		skip(5, jis);
+		byte[] name_array = new byte[schema_name_len];
+		jis.read(name_array);
+		String schema_name = new String(name_array, "UTF-8");
+
+		L.d("shema_name", schema_name);
+
+		CompressionMethod method = this.findMethod(schema_name);
+
+		if (method == null) {
+			throw new Error("CompressionMethod [" + schema_name + "] not found.");
+		}
+
+		skip(5, jis);
+
+		CompressionSchema schema = method.readSchema(is);
+		jis.close();
+		PackedFileSystem packed_file_system = new RedPackedFileSystem(schema, archive);
+
+		return packed_file_system;
+	}
+
+	private void skip(int i, InputStream jis) throws IOException {
+		for (; i > 0; i--) {
+			jis.read();
+		}
 	}
 
 	@Override
@@ -34,10 +70,10 @@ public class RedFileSystemPacker implements FileSystemPackerComponent {
 		OutputStream os = Debug.checkNull("OutputStream", packing_spec.getOutputStream());
 		Iterable<File> input = Debug.checkNull("TargetFolder", packing_spec.listFiles());
 
-		CompressionSchema schema = this.findSchema(schema_name);
+		CompressionMethod schema = this.findMethod(schema_name);
 
 		if (schema == null) {
-			throw new Error("Schema [" + schema_name + "] not found.");
+			throw new Error("CompressionMethod [" + schema_name + "] not found.");
 		}
 
 		java.io.OutputStream jos = os.toJavaOutputStream();
@@ -58,19 +94,19 @@ public class RedFileSystemPacker implements FileSystemPackerComponent {
 		jos.write(" ←\n".getBytes());
 	}
 
-	private CompressionSchema findSchema(String schema_name) {
-		return schemas.get(schema_name);
+	private CompressionMethod findMethod(String schema_name) {
+		return methods.get(schema_name);
 	}
 
 	@Override
-	public void installCompressionSchema(CompressionSchema schema) {
+	public void installCompressionMethod(CompressionMethod schema) {
 		String schema_name = schema.getName();
-		CompressionSchema schema_stored = schemas.get(schema_name);
+		CompressionMethod schema_stored = methods.get(schema_name);
 		if (schema_stored != null) {
-			throw new Error("Schema [" + schema_name + "] is already installed: " + schema_stored);
+			throw new Error("CompressionMethod [" + schema_name + "] is already installed: " + schema_stored);
 		}
-		schemas.put(schema_name, schema);
+		methods.put(schema_name, schema);
 	}
 
-	final Map<String, CompressionSchema> schemas = Collections.newMap();
+	final Map<String, CompressionMethod> methods = Collections.newMap();
 }
