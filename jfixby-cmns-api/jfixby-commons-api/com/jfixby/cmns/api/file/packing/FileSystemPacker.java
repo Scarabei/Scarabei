@@ -24,8 +24,8 @@ public class FileSystemPacker {
 		return invoke().newUnpackingSpecs();
 	}
 
-	public static void unpack(FileSystemUnpackingSpecs unpacking_spec) throws IOException {
-		invoke().unpack(unpacking_spec);
+	public static PackedFileSystem unpack(FileSystemUnpackingSpecs unpacking_spec) throws IOException {
+		return invoke().unpack(unpacking_spec);
 	}
 
 	public static FileSystemPackingSpecs newPackingSpecs() {
@@ -36,8 +36,8 @@ public class FileSystemPacker {
 		invoke().pack(packing_spec);
 	}
 
-	public static void installCompressionSchema(CompressionSchema schema) {
-		invoke().installCompressionSchema(schema);
+	public static void installCompressionSchema(CompressionMethod schema) {
+		invoke().installCompressionMethod(schema);
 	}
 
 }

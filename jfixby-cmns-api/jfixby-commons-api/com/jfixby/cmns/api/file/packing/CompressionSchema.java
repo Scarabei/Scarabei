@@ -3,12 +3,20 @@ package com.jfixby.cmns.api.file.packing;
 import java.io.IOException;
 
 import com.jfixby.cmns.api.file.File;
-import com.jfixby.cmns.api.io.OutputStream;
+import com.jfixby.cmns.api.util.path.RelativePath;
 
 public interface CompressionSchema {
 
-	public String getName();
+	void print(String tag);
 
-	public void pack(Iterable<File> input, OutputStream os) throws IOException;
+	boolean isFile(RelativePath relativePath);
+
+	long lastModified(RelativePath relativePath);
+
+	boolean isFolder(RelativePath relativePath);
+
+	Iterable<String> listChildren(RelativePath relativePath);
+
+	FileData readFileData(RelativePath relativePath, File archive) throws IOException;
 
 }
