@@ -51,6 +51,13 @@ public class DesktopList<T> implements List<T> {
 
 	}
 
+	@Override
+	public void addAll(Iterable<? extends T> parts_list) {
+		for (T e : parts_list) {
+			this.add(e);
+		}
+	}
+
 	// ----------------------------------------------------------------------------------------
 	@Override
 	public int hashCode() {

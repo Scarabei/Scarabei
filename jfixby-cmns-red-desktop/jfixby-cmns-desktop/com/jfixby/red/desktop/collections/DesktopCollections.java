@@ -145,8 +145,6 @@ public class DesktopCollections implements CollectionsComponent {
 		return true;
 	}
 
-	
-
 	@Override
 	public boolean beginsWith(Collection<?> list, Collection<?> with) {
 		Debug.checkNull("list", list);
@@ -220,5 +218,12 @@ public class DesktopCollections implements CollectionsComponent {
 	@Override
 	public <T> λFunction<Collection<T>, Collection<T>> MERGE_SORT() {
 		return new DesktopMergeSort<T>();
+	}
+
+	@Override
+	public <T> List<T> newList(Iterable<? extends T> java_colletion) {
+		List<T> list = this.newList();
+		list.addAll(java_colletion);
+		return list;
 	}
 }

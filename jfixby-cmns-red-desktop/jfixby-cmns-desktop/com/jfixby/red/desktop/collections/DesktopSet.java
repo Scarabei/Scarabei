@@ -27,6 +27,13 @@ public class DesktopSet<T> implements Set<T> {
 		content_set.remove(element);
 		return content_list.remove(element);
 	}
+	
+	@Override
+	public void addAll(Iterable<? extends T> parts_list) {
+		for (T e : parts_list) {
+			this.add(e);
+		}
+	}
 
 	@Override
 	public void print(String tag, int from_index, int to_index) {
