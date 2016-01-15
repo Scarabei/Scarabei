@@ -8,21 +8,11 @@ public class RedFileSystemPackingSpecs implements FileSystemPackingSpecs {
 
 	private String schema;
 	private OutputStream os;
-	private File folder_to_pack;
-
-	@Override
-	public void setTargetFolder(File folder_to_pack) {
-		this.folder_to_pack = folder_to_pack;
-	}
+	private Iterable<File> listFiles;
 
 	@Override
 	public void setOutputStream(OutputStream os) {
 		this.os = os;
-	}
-
-	@Override
-	public File getTargetFolder() {
-		return folder_to_pack;
 	}
 
 	@Override
@@ -38,6 +28,16 @@ public class RedFileSystemPackingSpecs implements FileSystemPackingSpecs {
 	@Override
 	public String getCompressionSchemaName() {
 		return schema;
+	}
+
+	@Override
+	public void setFilesList(Iterable<File> listFiles) {
+		this.listFiles = listFiles;
+	}
+
+	@Override
+	public Iterable<File> listFiles() {
+		return listFiles;
 	}
 
 }

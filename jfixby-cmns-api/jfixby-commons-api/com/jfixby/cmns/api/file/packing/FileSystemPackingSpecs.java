@@ -5,11 +5,11 @@ import com.jfixby.cmns.api.io.OutputStream;
 
 public interface FileSystemPackingSpecs {
 
-	void setTargetFolder(File folder_to_pack);
+	void setFilesList(Iterable<File> files);
 
 	void setOutputStream(OutputStream os);
 
-	File getTargetFolder();
+	Iterable<File> listFiles();
 
 	OutputStream getOutputStream();
 

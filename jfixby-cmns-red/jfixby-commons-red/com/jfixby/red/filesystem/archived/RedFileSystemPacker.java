@@ -32,7 +32,7 @@ public class RedFileSystemPacker implements FileSystemPackerComponent {
 	public void pack(FileSystemPackingSpecs packing_spec) throws IOException {
 		String schema_name = Debug.checkNull("Schema", packing_spec.getCompressionSchemaName());
 		OutputStream os = Debug.checkNull("OutputStream", packing_spec.getOutputStream());
-		File input = Debug.checkNull("TargetFolder", packing_spec.getTargetFolder());
+		Iterable<File> input = Debug.checkNull("TargetFolder", packing_spec.listFiles());
 
 		CompressionSchema schema = this.findSchema(schema_name);
 

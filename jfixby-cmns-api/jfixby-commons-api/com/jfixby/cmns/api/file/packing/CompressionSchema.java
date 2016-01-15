@@ -9,6 +9,6 @@ public interface CompressionSchema {
 
 	public String getName();
 
-	public void pack(File input, OutputStream os) throws IOException;
+	public void pack(Iterable<File> input, OutputStream os) throws IOException;
 
 }
