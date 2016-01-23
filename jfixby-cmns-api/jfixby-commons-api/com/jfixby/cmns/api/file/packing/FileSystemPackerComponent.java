@@ -2,8 +2,6 @@ package com.jfixby.cmns.api.file.packing;
 
 import java.io.IOException;
 
-import com.jfixby.cmns.api.file.File;
-
 public interface FileSystemPackerComponent {
 
 	FileSystemUnpackingSpecs newUnpackingSpecs();

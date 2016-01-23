@@ -1,7 +1,6 @@
 package com.jfixby.red.filesystem.archived;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
 
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.packing.CompressionMethod;

@@ -15,7 +15,6 @@ import com.jfixby.cmns.api.file.packing.FileSystemPackingSpecs;
 import com.jfixby.cmns.api.file.packing.FileSystemUnpackingSpecs;
 import com.jfixby.cmns.api.file.packing.PackedFileSystem;
 import com.jfixby.cmns.api.io.OutputStream;
-import com.jfixby.cmns.api.log.L;
 
 public class RedFileSystemPacker implements FileSystemPackerComponent {
 
