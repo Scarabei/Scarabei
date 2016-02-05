@@ -3,6 +3,6 @@
 	<classpathentry kind="src" path="gdx-jfixby-cmns"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/jfixby-cmns-api"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/gdx"/>
+	<classpathentry kind="lib" path="/libs/gdx/1.9.1/core/gdx-1.9.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

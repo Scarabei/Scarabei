@@ -9,13 +9,12 @@ public class LocalFileSystem {
 
 	static private ComponentInstaller<LocalFileSystemComponent> componentInstaller = new ComponentInstaller<LocalFileSystemComponent>(
 			"LocalFileSystem");
-	
+
 	public static void deInstallCurrentComponent() {
 		componentInstaller.deInstallCurrentComponent();
 	}
 
-	public static final void installComponent(
-			LocalFileSystemComponent component_to_install) {
+	public static final void installComponent(LocalFileSystemComponent component_to_install) {
 		componentInstaller.installComponent(component_to_install);
 	}
 
@@ -31,13 +30,11 @@ public class LocalFileSystem {
 		return invoke().newFile(file_path);
 	}
 
-	public static FileInputStream newFileInputStream(File newFile)
-			throws IOException {
+	public static FileInputStream newFileInputStream(File newFile) throws IOException {
 		return invoke().newFileInputStream(newFile);
 	}
 
-	public static void copyFolderContentsToFolder(File input_folder,
-			File output_folder) throws IOException {
+	public static void copyFolderContentsToFolder(File input_folder, File output_folder) throws IOException {
 		invoke().copyFolderContentsToFolder(input_folder, output_folder);
 	}
 
@@ -57,13 +54,11 @@ public class LocalFileSystem {
 		return invoke().toJavaFile(file);
 	}
 
-	public static void copyFilesTo(ChildrenList children_list, File to_folder)
-			throws IOException {
+	public static void copyFilesTo(ChildrenList children_list, File to_folder) throws IOException {
 		invoke().copyFilesTo(children_list, to_folder);
 	}
 
-	public static String readFileToString(AbsolutePath<FileSystem> file_path)
-			throws IOException {
+	public static String readFileToString(AbsolutePath<FileSystem> file_path) throws IOException {
 		return invoke().readFileToString(file_path);
 	}
 
@@ -71,8 +66,7 @@ public class LocalFileSystem {
 		return invoke().toAbsolutePathString(file);
 	}
 
-	public static FileOutputStream newFileOutputStream(File file)
-			throws IOException {
+	public static FileOutputStream newFileOutputStream(File file) throws IOException {
 		return invoke().newFileOutputStream(file);
 	}
 
@@ -80,9 +74,12 @@ public class LocalFileSystem {
 		return invoke().WorkspaceFolder();
 	}
 
-	public static void writeStringToFile(String string_data,
-			AbsolutePath<FileSystem> file_path) throws IOException {
+	public static void writeStringToFile(String string_data, AbsolutePath<FileSystem> file_path) throws IOException {
 		invoke().writeStringToFile(string_data, file_path);
+	}
+
+	public static void copyFileToFolder(File file, File to_folder) throws IOException {
+		invoke().copyFileToFolder(file, to_folder);
 	}
 
 }
