@@ -1,5 +1,6 @@
 package com.jfixby.cmns.api.util;
 
+import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.collections.Set;
 import com.jfixby.cmns.api.util.path.AbsolutePath;
@@ -26,6 +27,6 @@ public interface UtilsComponent {
 
 	String newString(byte[] data);
 
-	<T> Set<T> intersectLists(List<T> listA, List<T> listB);
+	<T> Set<T> intersectCollections(Collection<T> listA, Collection<T> listB);
 
 }

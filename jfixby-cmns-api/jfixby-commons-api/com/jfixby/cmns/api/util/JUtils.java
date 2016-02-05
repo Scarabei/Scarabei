@@ -1,6 +1,7 @@
 package com.jfixby.cmns.api.util;
 
 import com.jfixby.cmns.api.ComponentInstaller;
+import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.collections.Set;
 import com.jfixby.cmns.api.util.path.AbsolutePath;
@@ -60,8 +61,8 @@ public class JUtils {
 		return invoke().newString(data);
 	}
 
-	public static <T> Set<T> intersectLists(List<T> listA, List<T> listB) {
-		return invoke().intersectLists(listA, listB);
+	public static <T> Set<T> intersectCollection(Collection<T> listA, Collection<T> listB) {
+		return invoke().intersectCollections(listA, listB);
 	}
 
 }

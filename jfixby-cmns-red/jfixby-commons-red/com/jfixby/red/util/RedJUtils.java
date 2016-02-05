@@ -2,6 +2,7 @@ package com.jfixby.red.util;
 
 import java.io.UnsupportedEncodingException;
 
+import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.collections.Set;
@@ -67,7 +68,7 @@ public class RedJUtils implements UtilsComponent {
 	}
 
 	@Override
-	public <T> Set<T> intersectLists(List<T> listA, List<T> listB) {
+	public <T> Set<T> intersectCollections(Collection<T> listA, Collection<T> listB) {
 		Set<T> intersection = Collections.newSet();
 		for (int i = 0; i < listA.size(); i++) {
 			T a = listA.getElementAt(i);
