@@ -107,7 +107,8 @@ public class RedGeometry implements GeometryComponent {
 	@Override
 	public void copyValues(Collection<? extends FixedFloat2> a, EditableCollection<? extends Float2> b, int offset) {
 		if (a.size() + offset > b.size()) {
-			throw new Error("Not enough space in the destination array, required = " + (a.size() + offset) + ", available = " + b.size());
+			throw new Error("Not enough space in the destination array, required = " + (a.size() + offset)
+					+ ", available = " + b.size());
 		}
 		for (int i = 0; i < a.size(); i++) {
 			b.getElementAt(i + offset).set(a.getElementAt(i));
@@ -316,12 +317,14 @@ public class RedGeometry implements GeometryComponent {
 
 	@Override
 	public List<Float3> newFloat3List(int size) {
-		return this.newFloat3(Collections.newList(), size);
+		List<Float3> newList = Collections.newList();
+		return this.newFloat3(newList, size);
 	}
 
 	@Override
 	public List<Float2> newFloat2List(int size) {
-		return this.newFloat2(Collections.newList(), size);
+		List<Float2> newList = Collections.newList();
+		return this.newFloat2(newList, size);
 	}
 
 	@Override

@@ -22,7 +22,13 @@ public class RedLambda implements LambdaComponent {
 
 	@Override
 	final public <X, Y, Z> λFunction<X, Z> compose(final λFunction<Y, Z> g, final λFunction<X, Y> f) {
-		return x -> g.val(f.val(x));
+		λFunction<X, Z> result = new λFunction<X, Z>() {
+			@Override
+			public Z val(X input) {
+				return g.val(f.val(input));
+			}
+		};
+		return result;
 	}
 
 	@Override

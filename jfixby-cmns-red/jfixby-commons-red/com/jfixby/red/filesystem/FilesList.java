@@ -146,8 +146,13 @@ public class FilesList implements ChildrenList {
 	}
 
 	@Override
-	public ChildrenList filterByExtension(String extention) {
-		return this.filter(file -> file.getName().toLowerCase().endsWith(extention.toLowerCase()));
+	public ChildrenList filterByExtension(final String extention) {
+		return this.filter(new FileFilter() {
+			@Override
+			public boolean fits(File file) {
+				return file.getName().toLowerCase().endsWith(extention.toLowerCase());
+			}
+		});
 	}
 
 }
