@@ -1,7 +1,5 @@
 package com.jfixby.red.math;
 
-import java.text.DecimalFormat;
-
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.math.FloatMath;
 import com.jfixby.cmns.api.math.Matrix;
@@ -70,8 +68,7 @@ public class RedMatrix implements Matrix {
 		return E;
 	}
 
-	private static double multiply_row_column(Matrix A, int a_row_number,
-			Matrix B, int b_column_number) {
+	private static double multiply_row_column(Matrix A, int a_row_number, Matrix B, int b_column_number) {
 		int a_width = A.getWidth();
 		int b_height = B.getHeight();
 		if (a_width != b_height) {
@@ -80,8 +77,7 @@ public class RedMatrix implements Matrix {
 		int n = a_width;
 		double result = 0d;
 		for (int i = 0; i < n; i++) {
-			result = result + A.getValue(i, a_row_number)
-					* B.getValue(b_column_number, i);
+			result = result + A.getValue(i, a_row_number) * B.getValue(b_column_number, i);
 		}
 		return result;
 	}
@@ -124,8 +120,7 @@ public class RedMatrix implements Matrix {
 
 		if (a_width != b_height) {
 
-			throw new Error("B's matrix height (" + b_height
-					+ ") is not equal the A's matrix width (" + a_width + ")");
+			throw new Error("B's matrix height (" + b_height + ") is not equal the A's matrix width (" + a_width + ")");
 		}
 		// if (b_width != result_width) {
 		// throw new Error("Resulting matrix width (" + result_width
@@ -136,8 +131,7 @@ public class RedMatrix implements Matrix {
 
 		for (int row_number = 0; row_number < a_height; row_number++) {
 			for (int column_number = 0; column_number < b_width; column_number++) {
-				double axb = multiply_row_column(A, row_number, B,
-						column_number);
+				double axb = multiply_row_column(A, row_number, B, column_number);
 				result.setValue(column_number, row_number, axb);
 			}
 		}
@@ -159,8 +153,7 @@ public class RedMatrix implements Matrix {
 
 		if (a_width != b_height) {
 
-			throw new Error("B's matrix height (" + b_height
-					+ ") is not equal the A's matrix width (" + a_width + ")");
+			throw new Error("B's matrix height (" + b_height + ") is not equal the A's matrix width (" + a_width + ")");
 		}
 		// if (b_width != result_width) {
 		// throw new Error("Resulting matrix width (" + result_width
@@ -169,8 +162,7 @@ public class RedMatrix implements Matrix {
 
 		for (int row_number = 0; row_number < a_height; row_number++) {
 			for (int column_number = 0; column_number < b_width; column_number++) {
-				double axb = multiply_row_column(A, row_number, B,
-						column_number);
+				double axb = multiply_row_column(A, row_number, B, column_number);
 				result.setValue(column_number, row_number, axb);
 			}
 		}
@@ -197,8 +189,7 @@ public class RedMatrix implements Matrix {
 	}
 
 	public static void print(String matrix_name, RedMatrix matrix) {
-		L.d("---Matrix[" + matrix.getWidth() + "x" + matrix.getHeight() + "] <"
-				+ matrix_name + ">---");
+		L.d("---Matrix[" + matrix.getWidth() + "x" + matrix.getHeight() + "] <" + matrix_name + ">---");
 
 		for (int k = 0; k < matrix.getHeight(); k++) {
 			L.d("   ", matrix_row_string(matrix, k));
@@ -211,8 +202,7 @@ public class RedMatrix implements Matrix {
 	private static String matrix_row_string(RedMatrix matrix, int row) {
 		String result = "[";
 		for (int k = 0; k < matrix.getWidth();) {
-			result = result + matrix_value_to_string(matrix.getValue(k, row))
-					+ "]";
+			result = result + matrix_value_to_string(matrix.getValue(k, row)) + "]";
 			k++;
 			if (k != matrix.getWidth()) {
 				result = result + " [";
@@ -222,8 +212,9 @@ public class RedMatrix implements Matrix {
 	}
 
 	private static String matrix_value_to_string(double val) {
-		DecimalFormat df = new DecimalFormat("0.00000");
-		return df.format(val);
+		// DecimalFormat df = new DecimalFormat("0.00000");
+		// return df.format(val);
+		return FloatMath.roundToDigit(val, 4) + "";
 	}
 
 	@Override
@@ -280,8 +271,7 @@ public class RedMatrix implements Matrix {
 
 	}
 
-	private static void resolve_column_to_diagonal_form(Matrix a, Matrix e,
-			int diaginal_position) {
+	private static void resolve_column_to_diagonal_form(Matrix a, Matrix e, int diaginal_position) {
 		double lead_element = a.getValue(diaginal_position, diaginal_position);
 		if (FloatMath.isWithinEpsilon(lead_element)) {
 			lead_element = fix_lead_element(a, e, diaginal_position);
@@ -328,8 +318,8 @@ public class RedMatrix implements Matrix {
 		throw new Error("This is not a reversable matrix.");
 	}
 
-	private static void add_row(int source_row, int target_row, Matrix A,
-			int from_column_and_to_the_right, double multiplier) {
+	private static void add_row(int source_row, int target_row, Matrix A, int from_column_and_to_the_right,
+			double multiplier) {
 		for (int i = from_column_and_to_the_right; i < A.getWidth(); i++) {
 			double source_value = A.getValue(i, source_row);
 			double current_value = A.getValue(i, target_row);
