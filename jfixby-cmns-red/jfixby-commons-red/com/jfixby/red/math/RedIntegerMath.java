@@ -1,9 +1,8 @@
-package com.jfixby.red.desktop.math;
+package com.jfixby.red.math;
 
 import com.jfixby.cmns.api.math.FloatMath;
 import com.jfixby.cmns.api.math.Int2;
 import com.jfixby.cmns.api.math.IntegerMathComponent;
-import com.jfixby.red.math.RedInt2;
 
 public class RedIntegerMath implements IntegerMathComponent {
 

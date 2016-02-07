@@ -1,4 +1,4 @@
-package com.jfixby.red.desktop.math;
+package com.jfixby.red.math;
 
 import com.jfixby.cmns.api.math.Angle;
 import com.jfixby.cmns.api.math.CustomAngle;

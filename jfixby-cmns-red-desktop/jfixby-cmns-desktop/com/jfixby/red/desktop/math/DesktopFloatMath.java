@@ -1,5 +1,7 @@
 package com.jfixby.red.desktop.math;
 
+import com.jfixby.red.math.RedFloatMath;
+
 public class DesktopFloatMath extends RedFloatMath {
 
 	@Override

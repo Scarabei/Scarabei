@@ -1,4 +1,4 @@
-package com.jfixby.red.desktop.math;
+package com.jfixby.red.math;
 
 import java.text.DecimalFormat;
 
