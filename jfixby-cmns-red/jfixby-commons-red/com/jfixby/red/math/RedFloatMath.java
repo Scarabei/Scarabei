@@ -372,5 +372,19 @@ public abstract class RedFloatMath implements FloatMathComponent {
 	public double roundToDigit(double raw_value, int index_after_point) {
 		return round(raw_value * power(10, index_after_point)) / power(10, index_after_point);
 	}
+	
+	public double limit(double left_border, double value, double right_border) {
+		if (left_border > right_border) {
+			return limit(right_border, value, left_border);
+		}
+		if (value < left_border) {
+			return left_border;
+		}
+		if (value > right_border) {
+			return right_border;
+		}
+		return value;
+
+	}
 
 }

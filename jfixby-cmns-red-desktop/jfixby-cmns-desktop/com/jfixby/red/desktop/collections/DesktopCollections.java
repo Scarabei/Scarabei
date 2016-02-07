@@ -1,6 +1,5 @@
 package com.jfixby.red.desktop.collections;
 
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Objects;
 
@@ -18,7 +17,6 @@ import com.jfixby.cmns.api.collections.Queue;
 import com.jfixby.cmns.api.collections.Set;
 import com.jfixby.cmns.api.collections.ZxZ_Functuion;
 import com.jfixby.cmns.api.debug.Debug;
-import com.jfixby.cmns.api.lambda.λFunction;
 
 public class DesktopCollections implements CollectionsComponent {
 
@@ -204,21 +202,23 @@ public class DesktopCollections implements CollectionsComponent {
 	}
 
 	@Override
-	public <T> void arrayCopy(final Collection<? extends T> source, final int source_index, EditableCollection<? super T> destination, final int number_of_elements) {
+	public <T> void arrayCopy(final Collection<? extends T> source, final int source_index,
+			EditableCollection<? super T> destination, final int number_of_elements) {
 		for (int i = source_index; i < source_index + number_of_elements; i++) {
 			destination.add(source.getElementAt(i));
 		}
 	}
 
-	@Override
-	public <T> λFunction<Collection<T>, Collection<T>> MERGE_SORT(Comparator<? super T> comparator) {
-		return new DesktopMergeSort<T>(comparator);
-	}
-
-	@Override
-	public <T> λFunction<Collection<T>, Collection<T>> MERGE_SORT() {
-		return new DesktopMergeSort<T>();
-	}
+	// @Override
+	// public <T> λFunction<Collection<T>, Collection<T>>
+	// MERGE_SORT(Comparator<? super T> comparator) {
+	// return new DesktopMergeSort<T>(comparator);
+	// }
+	//
+	// @Override
+	// public <T> λFunction<Collection<T>, Collection<T>> MERGE_SORT() {
+	// return new DesktopMergeSort<T>();
+	// }
 
 	@Override
 	public <T> List<T> newList(Iterable<? extends T> java_colletion) {

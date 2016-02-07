@@ -1,9 +1,5 @@
 package com.jfixby.cmns.api.collections;
 
-import java.util.Comparator;
-
-import com.jfixby.cmns.api.lambda.λFunction;
-
 public interface CollectionsComponent {
 
 	<T> List<T> newList();
@@ -52,8 +48,9 @@ public interface CollectionsComponent {
 
 	public <T> void arrayCopy(Collection<? extends T> source, int source_index, EditableCollection<? super T> destination, int number_of_elements);
 
-	public <T> λFunction<Collection<T>, Collection<T>> MERGE_SORT(Comparator<? super T> comparator);
-
-	public <T> λFunction<Collection<T>, Collection<T>> MERGE_SORT();
+	// public <T> λFunction<Collection<T>, Collection<T>>
+	// MERGE_SORT(Comparator<? super T> comparator);
+	//
+	// public <T> λFunction<Collection<T>, Collection<T>> MERGE_SORT();
 
 }

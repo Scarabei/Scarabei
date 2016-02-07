@@ -29,24 +29,9 @@ public class DesktopFloatMath extends RedFloatMath {
 		return StrictMath.sqrt(f);
 	}
 
-	public double limit(double left_border, double value, double right_border) {
-		if (left_border > right_border) {
-			return limit(right_border, value, left_border);
-		}
-		if (value < left_border) {
-			return left_border;
-		}
-		if (value > right_border) {
-			return right_border;
-		}
-		return value;
-
-	}
-
 	@Override
 	public double log(double base, double exp_value) {
 		return StrictMath.log(exp_value) / StrictMath.log(base);
 	}
-
 
 }

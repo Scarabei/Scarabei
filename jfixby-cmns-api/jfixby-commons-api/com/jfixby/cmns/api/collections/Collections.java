@@ -1,9 +1,6 @@
 package com.jfixby.cmns.api.collections;
 
-import java.util.Comparator;
-
 import com.jfixby.cmns.api.ComponentInstaller;
-import com.jfixby.cmns.api.lambda.λFunction;
 
 public class Collections {
 
@@ -113,11 +110,11 @@ public class Collections {
 		invoke().arrayCopy(source, source_index, destination, number_of_elements);
 	}
 
-	public static <T> λFunction<Collection<T>, Collection<T>> MERGE_SORT(Comparator<? super T> comparator) {
-		return invoke().MERGE_SORT(comparator);
-	}
-
-	public static <T> λFunction<Collection<T>, Collection<T>> MERGE_SORT() {
-		return invoke().MERGE_SORT();
-	}
+//	public static <T> λFunction<Collection<T>, Collection<T>> MERGE_SORT(Comparator<? super T> comparator) {
+//		return invoke().MERGE_SORT(comparator);
+//	}
+//
+//	public static <T> λFunction<Collection<T>, Collection<T>> MERGE_SORT() {
+//		return invoke().MERGE_SORT();
+//	}
 }
