@@ -50,7 +50,7 @@ public interface File {
 
 	void writeBytes(byte[] bytes) throws IOException;
 
-	long getSize() ;
+	long getSize();
 
 	java.io.File toJavaFile();
 
@@ -67,5 +67,7 @@ public interface File {
 	void checkIsFile();
 
 	File proceed(RelativePath relative);
+
+	ChildrenList listSubFolders();
 
 }

@@ -46,7 +46,10 @@ public interface CollectionsComponent {
 
 	public <Q, P> List<P> castCollection(Collection<Q> input);
 
-	public <T> void arrayCopy(Collection<? extends T> source, int source_index, EditableCollection<? super T> destination, int number_of_elements);
+	public <T> void arrayCopy(Collection<? extends T> source, int source_index,
+			EditableCollection<? super T> destination, int number_of_elements);
+
+	public <T> List<T> filter(Collection<? extends T> source, CollectionFilter<T> filter);
 
 	// public <T> λFunction<Collection<T>, Collection<T>>
 	// MERGE_SORT(Comparator<? super T> comparator);

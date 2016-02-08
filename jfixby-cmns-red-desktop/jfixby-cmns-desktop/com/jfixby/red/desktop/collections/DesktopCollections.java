@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.Objects;
 
 import com.jfixby.cmns.api.collections.Collection;
+import com.jfixby.cmns.api.collections.CollectionFilter;
 import com.jfixby.cmns.api.collections.CollectionScanner;
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.CollectionsComponent;
@@ -225,5 +226,16 @@ public class DesktopCollections implements CollectionsComponent {
 		List<T> list = this.newList();
 		list.addAll(java_colletion);
 		return list;
+	}
+
+	@Override
+	public <T> List<T> filter(Collection<? extends T> source, CollectionFilter<T> filter) {
+		List<T> result = Collections.newList();
+		for (T t : source) {
+			if (filter.fits(t)) {
+				result.add(t);
+			}
+		}
+		return result;
 	}
 }

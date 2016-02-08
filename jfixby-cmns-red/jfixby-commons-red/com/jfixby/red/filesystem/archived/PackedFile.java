@@ -14,32 +14,11 @@ import com.jfixby.cmns.api.file.packing.FileData;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.util.path.AbsolutePath;
 import com.jfixby.cmns.api.util.path.RelativePath;
+import com.jfixby.red.filesystem.AbstractRedFile;
 import com.jfixby.red.filesystem.FilesList;
 import com.jfixby.red.filesystem.RedFileHash;
 
-public class PackedFile implements File {
-	@Override
-	public void checkIsFolder() {
-		checkExists();
-		if (!this.isFolder()) {
-			throw new Error("" + this + " is not a folder");
-		}
-	}
-
-	@Override
-	public void checkExists() {
-		if (!this.exists()) {
-			throw new Error(this + " does not exist.");
-		}
-	}
-
-	@Override
-	public void checkIsFile() {
-		checkExists();
-		if (!this.isFile()) {
-			throw new Error(this + " does not exist.");
-		}
-	}
+public class PackedFile extends AbstractRedFile implements File {
 
 	private RedPackedFileSystem virtualFileSystem;
 	private AbsolutePath<FileSystem> absolute_path;
@@ -263,17 +242,6 @@ public class PackedFile implements File {
 	public long lastModified() {
 		PackedFileSystemContent content = this.virtualFileSystem.getContent();
 		return content.lastModified(this.absolute_path.getRelativePath());
-	}
-
-	@Override
-	public File proceed(RelativePath relativePath) {
-		AbsolutePath<FileSystem> file_path = this.getAbsoluteFilePath().proceed(relativePath);
-		return this.getFileSystem().newFile(file_path);
-	}
-
-	@Override
-	public boolean extensionIs(final String postfix) {
-		return this.getName().toLowerCase().endsWith(postfix.toLowerCase());
 	}
 
 }

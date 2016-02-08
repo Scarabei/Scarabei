@@ -8,6 +8,7 @@ import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.collections.Set;
 import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.err.Err;
+import com.jfixby.cmns.api.math.IntegerMath;
 import com.jfixby.cmns.api.util.StateSwitcher;
 import com.jfixby.cmns.api.util.UtilsComponent;
 import com.jfixby.cmns.api.util.path.AbsolutePath;
@@ -83,5 +84,12 @@ public class RedJUtils implements UtilsComponent {
 			}
 		}
 		return intersection;
+	}
+
+	@Override
+	public String truncated(String data, int begin_char, int end_char) {
+		int beginIndex = (int) IntegerMath.max(begin_char, 0);
+		int endIndex = (int) IntegerMath.min(end_char, data.length());
+		return data.substring(beginIndex, endIndex);
 	}
 }

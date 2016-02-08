@@ -11,31 +11,10 @@ import com.jfixby.cmns.api.file.FileSystem;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.util.path.AbsolutePath;
 import com.jfixby.cmns.api.util.path.RelativePath;
+import com.jfixby.red.filesystem.AbstractRedFile;
 import com.jfixby.red.filesystem.FilesList;
 
-public class SandboxFile implements File {
-	@Override
-	public void checkIsFolder() {
-		checkExists();
-		if (!this.isFolder()) {
-			throw new Error("" + this + " is not a folder");
-		}
-	}
-
-	@Override
-	public void checkExists() {
-		if (!this.exists()) {
-			throw new Error(this + " does not exist.");
-		}
-	}
-
-	@Override
-	public void checkIsFile() {
-		checkExists();
-		if (!this.isFile()) {
-			throw new Error(this + " does not exist.");
-		}
-	}
+public class SandboxFile extends AbstractRedFile implements File {
 
 	private RedSandboxFileSystem sandbox;
 	private AbsolutePath<FileSystem> absolute_path;
@@ -196,7 +175,7 @@ public class SandboxFile implements File {
 		FileInputStream is = this.newInputStream();
 		byte[] data = is.readAll();
 		is.close();
-		return new String(data,"UTF-8");
+		return new String(data, "UTF-8");
 	}
 
 	@Override
@@ -244,17 +223,6 @@ public class SandboxFile implements File {
 	public long lastModified() {
 		File unprotected_file = getUnprotectedFile();
 		return unprotected_file.lastModified();
-	}
-
-	@Override
-	public File proceed(RelativePath relative) {
-		AbsolutePath<FileSystem> file_path = this.getAbsoluteFilePath().proceed(relativePath);
-		return this.getFileSystem().newFile(file_path);
-	}
-
-	@Override
-	public boolean extensionIs(final String postfix) {
-		return this.getName().toLowerCase().endsWith(postfix.toLowerCase());
 	}
 
 }

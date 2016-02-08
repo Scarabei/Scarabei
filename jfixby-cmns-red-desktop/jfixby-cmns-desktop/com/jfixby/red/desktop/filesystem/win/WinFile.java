@@ -13,32 +13,12 @@ import com.jfixby.cmns.api.file.FileSystem;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.util.path.AbsolutePath;
 import com.jfixby.cmns.api.util.path.RelativePath;
+import com.jfixby.red.filesystem.AbstractRedFile;
 import com.jfixby.red.filesystem.FilesList;
 import com.jfixby.red.filesystem.RedFileHash;
 
-public class WinFile implements File {
-	@Override
-	public void checkIsFolder() {
-		checkExists();
-		if (!this.isFolder()) {
-			throw new Error("" + this + " is not a folder");
-		}
-	}
-
-	@Override
-	public void checkExists() {
-		if (!this.exists()) {
-			throw new Error(this + " does not exist.");
-		}
-	}
-
-	@Override
-	public void checkIsFile() {
-		checkExists();
-		if (!this.isFile()) {
-			throw new Error(this + " does not exist.");
-		}
-	}
+public class WinFile extends AbstractRedFile implements File {
+	
 
 	final private AbsolutePath<FileSystem> absolute_path;
 	private WinFileSystem fs;
@@ -221,7 +201,7 @@ public class WinFile implements File {
 		FileInputStream is = this.newInputStream();
 		byte[] data = is.readAll();
 		is.close();
-		return new String(data,"UTF-8");
+		return new String(data, "UTF-8");
 	}
 
 	@Override
@@ -298,14 +278,7 @@ public class WinFile implements File {
 		return true;
 	}
 
-	@Override
-	public File proceed(RelativePath relativePath) {
-		AbsolutePath<FileSystem> file_path = this.getAbsoluteFilePath().proceed(relativePath);
-		return this.getFileSystem().newFile(file_path);
-	}
+	
 
-	@Override
-	public boolean extensionIs(final String postfix) {
-		return this.getName().toLowerCase().endsWith(postfix.toLowerCase());
-	}
+	
 }

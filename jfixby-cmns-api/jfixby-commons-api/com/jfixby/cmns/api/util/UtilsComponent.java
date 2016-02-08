@@ -29,4 +29,6 @@ public interface UtilsComponent {
 
 	<T> Set<T> intersectCollections(Collection<T> listA, Collection<T> listB);
 
+	String truncated(String data, int begin_char, int end_char);
+
 }

@@ -4,7 +4,8 @@ import com.jfixby.cmns.api.ComponentInstaller;
 
 public class Collections {
 
-	static private ComponentInstaller<CollectionsComponent> componentInstaller = new ComponentInstaller<CollectionsComponent>("Collections");
+	static private ComponentInstaller<CollectionsComponent> componentInstaller = new ComponentInstaller<CollectionsComponent>(
+			"Collections");
 
 	public static final void installComponent(CollectionsComponent component_to_install) {
 		componentInstaller.installComponent(component_to_install);
@@ -33,7 +34,7 @@ public class Collections {
 	public static final <T> List<T> newList(java.util.Collection<? extends T> java_colletion) {
 		return invoke().newList(java_colletion);
 	}
-	
+
 	public static final <T> List<T> newList(Iterable<? extends T> java_colletion) {
 		return invoke().newList(java_colletion);
 	}
@@ -57,7 +58,7 @@ public class Collections {
 	public static <T> Set<T> newSet(T... array) {
 		return invoke().newSet(array);
 	}
-	
+
 	public static <T> Set<T> newSet(java.util.Collection<T> java_colletion) {
 		return invoke().newSet(java_colletion);
 	}
@@ -106,15 +107,13 @@ public class Collections {
 		return invoke().castMap(input);
 	}
 
-	public static <T> void arrayCopy(Collection<? extends T> source, int source_index, EditableCollection<? super T> destination, int number_of_elements) {
+	public static <T> void arrayCopy(Collection<? extends T> source, int source_index,
+			EditableCollection<? super T> destination, int number_of_elements) {
 		invoke().arrayCopy(source, source_index, destination, number_of_elements);
 	}
 
-//	public static <T> λFunction<Collection<T>, Collection<T>> MERGE_SORT(Comparator<? super T> comparator) {
-//		return invoke().MERGE_SORT(comparator);
-//	}
-//
-//	public static <T> λFunction<Collection<T>, Collection<T>> MERGE_SORT() {
-//		return invoke().MERGE_SORT();
-//	}
+	public static <T> List<T> filter(Collection<? extends T> source, CollectionFilter<T> filter) {
+		return invoke().filter(source, filter);
+	}
+
 }

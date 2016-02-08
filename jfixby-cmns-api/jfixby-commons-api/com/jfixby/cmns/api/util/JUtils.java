@@ -65,4 +65,8 @@ public class JUtils {
 		return invoke().intersectCollections(listA, listB);
 	}
 
+	public static String truncated(String data, int begin_char, int end_char) {
+		return invoke().truncated(data, begin_char, end_char);
+	}
+
 }

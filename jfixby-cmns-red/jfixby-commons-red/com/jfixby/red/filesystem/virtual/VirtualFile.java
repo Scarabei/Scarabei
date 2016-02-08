@@ -12,39 +12,17 @@ import com.jfixby.cmns.api.file.FileSystem;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.util.path.AbsolutePath;
 import com.jfixby.cmns.api.util.path.RelativePath;
+import com.jfixby.red.filesystem.AbstractRedFile;
 import com.jfixby.red.filesystem.FilesList;
 import com.jfixby.red.filesystem.RedFileHash;
 
-public class VirtualFile implements File {
-	@Override
-	public void checkIsFolder() {
-		checkExists();
-		if (!this.isFolder()) {
-			throw new Error("" + this + " is not a folder");
-		}
-	}
-
-	@Override
-	public void checkExists() {
-		if (!this.exists()) {
-			throw new Error(this + " does not exist.");
-		}
-	}
-
-	@Override
-	public void checkIsFile() {
-		checkExists();
-		if (!this.isFile()) {
-			throw new Error(this + " does not exist.");
-		}
-	}
+public class VirtualFile extends AbstractRedFile implements File {
 
 	private VirtualFileSystem virtualFileSystem;
 	private AbsolutePath<FileSystem> absolute_path;
 	private RelativePath relativePath;
 
-	public VirtualFile(VirtualFileSystem virtualFileSystem,
-			AbsolutePath<FileSystem> file_path) {
+	public VirtualFile(VirtualFileSystem virtualFileSystem, AbsolutePath<FileSystem> file_path) {
 		this.virtualFileSystem = virtualFileSystem;
 		this.absolute_path = file_path;
 		this.relativePath = file_path.getRelativePath();
@@ -114,11 +92,9 @@ public class VirtualFile implements File {
 			for (int i = 0; i < files.size(); i++) {
 				String file_i = files.getElementAt(i);
 
-				AbsolutePath<FileSystem> absolute_file = absolute_path
-						.child(file_i);
+				AbsolutePath<FileSystem> absolute_file = absolute_path.child(file_i);
 				;
-				listFiles.add(absolute_file.getMountPoint().newFile(
-						absolute_file));
+				listFiles.add(absolute_file.getMountPoint().newFile(absolute_file));
 			}
 			// L.d("listFiles", listFiles);
 
@@ -131,8 +107,7 @@ public class VirtualFile implements File {
 
 	@Override
 	public File child(String child_name) {
-		return new VirtualFile(this.getFileSystem(),
-				this.absolute_path.child(child_name));
+		return new VirtualFile(this.getFileSystem(), this.absolute_path.child(child_name));
 	}
 
 	@Override
@@ -214,7 +189,7 @@ public class VirtualFile implements File {
 		FileInputStream is = this.newInputStream();
 		byte[] data = is.readAll();
 		is.close();
-		return new String(data,"UTF-8");
+		return new String(data, "UTF-8");
 	}
 
 	@Override
@@ -260,18 +235,6 @@ public class VirtualFile implements File {
 	public long lastModified() {
 		VirtualFileSystemContent content = this.virtualFileSystem.getContent();
 		return content.lastModified(this.absolute_path.getRelativePath());
-	}
-
-	@Override
-	public File proceed(RelativePath relativePath) {
-		AbsolutePath<FileSystem> file_path = this.getAbsoluteFilePath()
-				.proceed(relativePath);
-		return this.getFileSystem().newFile(file_path);
-	}
-	
-	@Override
-	public boolean extensionIs(final String postfix) {
-		return this.getName().toLowerCase().endsWith(postfix.toLowerCase());
 	}
 
 }
