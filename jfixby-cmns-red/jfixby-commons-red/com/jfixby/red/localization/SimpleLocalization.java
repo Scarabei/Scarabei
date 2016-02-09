@@ -2,6 +2,7 @@ package com.jfixby.red.localization;
 
 import java.io.IOException;
 
+import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.json.Json;
 import com.jfixby.cmns.api.localize.Locale;
@@ -13,8 +14,7 @@ import com.jfixby.cmns.api.localize.StringValueLocalizationSpecs;
 import com.jfixby.cmns.api.localize.StringValueLocalizations;
 import com.jfixby.cmns.api.localize.StringValuesContainer;
 
-public class SimpleLocalization implements LocalizationComponent,
-		StringValuesContainer {
+public class SimpleLocalization implements LocalizationComponent, StringValuesContainer {
 
 	@Override
 	public StringValuesContainer getStringValuesContainer() {
@@ -38,10 +38,10 @@ public class SimpleLocalization implements LocalizationComponent,
 
 		String data = file.readToString();
 
-		SimpleLocale locale = Json.deserializeFromString(SimpleLocale.class,
-				data);
-
-		return locale;
+		// SimpleLocale locale = Json.deserializeFromString(SimpleLocale.class,
+		// data);
+		Err.reportError("Not implemented!");
+		return null;
 	}
 
 	@Override
@@ -56,8 +56,7 @@ public class SimpleLocalization implements LocalizationComponent,
 	}
 
 	@Override
-	public StringValueLocalizations getLocalizationsFor(
-			StringValueID string_value_id) {
+	public StringValueLocalizations getLocalizationsFor(StringValueID string_value_id) {
 		throw new Error();
 	}
 
@@ -72,14 +71,12 @@ public class SimpleLocalization implements LocalizationComponent,
 	}
 
 	@Override
-	public LocalizedStringValue newLocalizationEntry(
-			StringValueLocalizationSpecs specs) {
+	public LocalizedStringValue newLocalizationEntry(StringValueLocalizationSpecs specs) {
 		throw new Error();
 	}
 
 	@Override
-	public LocalizedStringValue getLocalizationFor(String locale_name,
-			StringValueID string_value_id) {
+	public LocalizedStringValue getLocalizationFor(String locale_name, StringValueID string_value_id) {
 		throw new Error();
 	}
 
