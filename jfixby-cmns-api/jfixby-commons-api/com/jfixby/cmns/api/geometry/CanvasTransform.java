@@ -2,6 +2,7 @@ package com.jfixby.cmns.api.geometry;
 
 import com.jfixby.cmns.api.floatn.FixedFloat2;
 import com.jfixby.cmns.api.math.Angle;
+import com.jfixby.cmns.api.transform.Transform;
 
 public interface CanvasTransform extends Transform {
 

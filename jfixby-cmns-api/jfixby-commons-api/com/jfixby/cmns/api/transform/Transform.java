@@ -1,22 +1,11 @@
 package com.jfixby.cmns.api.transform;
 
-import com.jfixby.cmns.api.ComponentInstaller;
+import com.jfixby.cmns.api.floatn.Float2;
 
-public class Transform {
+public interface Transform {
 
-	static private ComponentInstaller<TransformComponent> componentInstaller = new ComponentInstaller<TransformComponent>(
-			"Transform");
+	void transform(Float2 temp_point);
 
-	public static final void installComponent(
-			TransformComponent component_to_install) {
-		componentInstaller.installComponent(component_to_install);
-	}
+	void reverse(Float2 temp_point);
 
-	public static final TransformComponent invoke() {
-		return componentInstaller.invokeComponent();
-	}
-
-	public static final TransformComponent component() {
-		return componentInstaller.getComponent();
-	}
 }

@@ -1,5 +1,5 @@
 package com.jfixby.cmns.api.transform;
 
-public interface TransformComponent {
+public interface Transform2DComponent {
 
 }
