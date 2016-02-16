@@ -5,7 +5,6 @@ import com.jfixby.cmns.api.floatn.Float2;
 import com.jfixby.cmns.api.geometry.Geometry;
 import com.jfixby.cmns.api.geometry.RectangleCorner;
 import com.jfixby.cmns.api.geometry.Vertex;
-import com.jfixby.cmns.api.transform.CanvasTransform;
 import com.jfixby.cmns.api.transform.Transform;
 
 public class RedVertex implements Vertex, RectangleCorner {
