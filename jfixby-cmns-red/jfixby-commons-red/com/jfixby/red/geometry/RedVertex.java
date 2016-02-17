@@ -2,10 +2,11 @@ package com.jfixby.red.geometry;
 
 import com.jfixby.cmns.api.floatn.FixedFloat2;
 import com.jfixby.cmns.api.floatn.Float2;
-import com.jfixby.cmns.api.geometry.CanvasTransform;
 import com.jfixby.cmns.api.geometry.Geometry;
 import com.jfixby.cmns.api.geometry.RectangleCorner;
 import com.jfixby.cmns.api.geometry.Vertex;
+import com.jfixby.cmns.api.transform.CanvasTransform;
+import com.jfixby.cmns.api.transform.Transform;
 
 public class RedVertex implements Vertex, RectangleCorner {
 
@@ -41,8 +42,12 @@ public class RedVertex implements Vertex, RectangleCorner {
 	@Override
 	public FixedFloat2 transformed() {
 		this.world_position.set(relative_position);
-		this.getTransform().transform(world_position);
+		this.getTransform().transform(world_position);/// ? ISSUE?
 		return world_position;
+	}
+
+	private Transform getTransform() {
+		return master.getTransform();
 	}
 
 	@Override
@@ -54,10 +59,10 @@ public class RedVertex implements Vertex, RectangleCorner {
 		throw new Error();
 	}
 
-	@Override
-	public CanvasTransform getTransform() {
-		return this.master.getTransform();
-	}
+	// @Override
+	// public CanvasTransform getTransform() {
+	// return this.master.getTransform();
+	// }
 
 	@Override
 	public String toString() {

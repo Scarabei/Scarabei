@@ -13,6 +13,7 @@ import com.jfixby.cmns.api.geometry.Rectangle;
 import com.jfixby.cmns.api.geometry.RectangleCorner;
 import com.jfixby.cmns.api.geometry.Triangle;
 import com.jfixby.cmns.api.math.Angle;
+import com.jfixby.cmns.api.transform.CanvasTransform;
 
 public class RedRectangle extends VertexMaster implements Rectangle {
 	double width = 0;
@@ -22,6 +23,7 @@ public class RedRectangle extends VertexMaster implements Rectangle {
 	final RedVertex top_right = new RedVertex(this);
 	final RedVertex bottom_left = new RedVertex(this);
 	final RedVertex bottom_right = new RedVertex(this);
+	final RedTransform transform = new RedTransform();
 	final List<FixedFloat2> vertices = Collections.newList((FixedFloat2) top_left, (FixedFloat2) top_right,
 			(FixedFloat2) bottom_right, (FixedFloat2) bottom_left);
 
@@ -123,6 +125,11 @@ public class RedRectangle extends VertexMaster implements Rectangle {
 	@Override
 	public void setPositionY(double y) {
 		this.getTransform().setOffsetY(y);
+	}
+
+	public CanvasTransform getTransform() {
+		return transform;
+
 	}
 
 	@Override
