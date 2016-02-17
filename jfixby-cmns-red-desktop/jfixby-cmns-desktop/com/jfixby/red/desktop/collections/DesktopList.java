@@ -1,8 +1,8 @@
 package com.jfixby.red.desktop.collections;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
-import java.util.LinkedList;
 
 import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.Collections;
@@ -13,7 +13,7 @@ import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.math.IntegerMath;
 
 public class DesktopList<T> implements List<T> {
-	private final LinkedList<T> legacy = new LinkedList<T>();
+	private final ArrayList<T> legacy = new ArrayList<T>();
 
 	@Override
 	public void addAllArrayElements(T[] array) {
@@ -34,7 +34,7 @@ public class DesktopList<T> implements List<T> {
 	public boolean remove(Object element) {
 		return this.legacy.remove(element);
 	}
-
+	
 	@Override
 	public int size() {
 		return this.legacy.size();

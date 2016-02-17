@@ -1,10 +1,11 @@
 package com.jfixby.red.sys;
 
+import java.util.Vector;
+
 import com.jfixby.cmns.api.assets.AssetID;
 import com.jfixby.cmns.api.assets.Names;
 import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.Collections;
-import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.collections.Map;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.sys.ExecutionMode;
@@ -17,15 +18,16 @@ import com.jfixby.cmns.api.time.TimeStream;
 public abstract class RedSystem implements SystemComponent {
 
 	private RedSystemExecutor executor;
-	final List<RedTask> new_tasks;
-	final List<RedTask> active_tasks;
-	final List<RedTask> delete_candidates;
+	final Vector<RedTask> new_tasks;
+	final Vector<RedTask> active_tasks;
+	final Vector<RedTask> delete_candidates;
+	private boolean print_tasks;
 
 	public RedSystem() {
 		executor = new RedSystemExecutor(this);
-		active_tasks = Collections.newList();
-		new_tasks = Collections.newList();
-		delete_candidates = Collections.newList();
+		active_tasks = new Vector<RedTask>();
+		new_tasks = new Vector<RedTask>();
+		delete_candidates = new Vector<RedTask>();
 		SysExecutor.installComponent(executor);
 	}
 
@@ -83,7 +85,7 @@ public abstract class RedSystem implements SystemComponent {
 	public void push() {
 
 		this.active_tasks.addAll(this.new_tasks);
-		boolean print_tasks = false;
+		print_tasks = !false;
 		if (this.new_tasks.size() > 0) {
 			// this.new_tasks.print("new tasks");
 			print_tasks = true;
@@ -92,7 +94,7 @@ public abstract class RedSystem implements SystemComponent {
 		this.delete_candidates.clear();
 		// this.temp_list.addAll(active_tasks);
 		for (int i = 0; i < this.active_tasks.size(); i++) {
-			final RedTask task = this.active_tasks.getElementAt(i);
+			final RedTask task = this.active_tasks.get(i);
 			if (!task.isActive()) {
 				delete_candidates.add(task);
 			} else {
@@ -100,7 +102,7 @@ public abstract class RedSystem implements SystemComponent {
 			}
 		}
 		if (this.delete_candidates.size() > 0) {
-//			this.delete_candidates.print("closed tasks");
+			// this.delete_candidates.print("closed tasks");
 		}
 		this.active_tasks.removeAll(delete_candidates);
 		delete_candidates.clear();
@@ -109,9 +111,9 @@ public abstract class RedSystem implements SystemComponent {
 			// this.active_tasks.print("active tasks");
 		}
 	}
-	
-	//--------
-	
+
+	// --------
+
 	final Map<String, Boolean> flags = Collections.newMap();
 	final Map<String, String> strings = Collections.newMap();
 	final Map<String, AssetID> assets = Collections.newMap();

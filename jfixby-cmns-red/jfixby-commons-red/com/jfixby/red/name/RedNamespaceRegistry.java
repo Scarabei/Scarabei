@@ -32,8 +32,7 @@ public class RedNamespaceRegistry<T> implements NamespaceRegistry<T> {
 	}
 
 	@Override
-	public void putAll(
-			Mapping<? extends AssetID, ? extends Collection<T>> other_map) {
+	public void putAll(Mapping<? extends AssetID, ? extends Collection<T>> other_map) {
 		for (AssetID key : other_map.keys()) {
 			Collection<T> value = other_map.get(key);
 			this.put(key, value);
@@ -42,8 +41,7 @@ public class RedNamespaceRegistry<T> implements NamespaceRegistry<T> {
 	}
 
 	@Override
-	public void putJavaMap(
-			java.util.Map<? extends AssetID, ? extends Collection<T>> java_map) {
+	public void putJavaMap(java.util.Map<? extends AssetID, ? extends Collection<T>> java_map) {
 		for (AssetID key : java_map.keySet()) {
 			Collection<T> value = java_map.get(key);
 			this.put(key, value);
@@ -81,7 +79,8 @@ public class RedNamespaceRegistry<T> implements NamespaceRegistry<T> {
 
 	private Collection<T> wildcardGet(AssetID id) {
 		List<T> result = Collections.newList();
-		for (AssetID k : this.map.keys()) {
+		for (int i = 0; i < this.map.size(); i++) {
+			final AssetID k = this.map.keys().getElementAt(i);
 			if (id.includes(k)) {
 				Collection<T> vals = this.map.get(k);
 				result.addAll(vals);

@@ -6,6 +6,8 @@ import com.jfixby.cmns.api.sys.Sys;
 
 public class RedBait implements Bait {
 
+	public final byte[] weight = new byte[1024 * 1024 * 200];
+
 	@Override
 	protected void finalize() throws Throwable {
 		super.finalize();
