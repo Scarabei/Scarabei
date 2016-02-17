@@ -8,13 +8,17 @@ public class PerformanceTest {
 	private static final int KKK = 10000;
 
 	private static long current_time;
+	static byte[] b = new byte[1024 * 1024 * 500000000];
 
 	public static void main(String[] args) {
 		// DesktopAssembler.setup();
 
+		check(b);
+		b = null;
+
 		for (;;) {
-			runTestB();
 			runTestA();
+			runTestB();
 
 		}
 	}
@@ -49,16 +53,19 @@ public class PerformanceTest {
 
 	private static void disposeList() {
 		list = null;
+		value = null;
 	}
 
 	static int D = 1024 * 1024;
 	static int N = D * 1;
 
+	private static Object value;
+
 	private static void setupList() {
 
 		list = new ArrayList<Object>();
 		for (int i = 0; i < N; i++) {
-			list.add(new Object());
+			list.add("4");
 			if (i % D == 0) {
 				// log("" + i / D, N / D);
 			}
@@ -73,7 +80,7 @@ public class PerformanceTest {
 	}
 
 	private static void check(final Object o) {
-		current_time = 0;
+		value = o;
 	}
 
 	private static void testB() {
