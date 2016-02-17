@@ -5,10 +5,9 @@ import com.jfixby.cmns.api.ComponentInstaller;
 public class Transform2D {
 
 	static private ComponentInstaller<Transform2DComponent> componentInstaller = new ComponentInstaller<Transform2DComponent>(
-			"Transform");
+			"Transform2D");
 
-	public static final void installComponent(
-			Transform2DComponent component_to_install) {
+	public static final void installComponent(Transform2DComponent component_to_install) {
 		componentInstaller.installComponent(component_to_install);
 	}
 
@@ -18,5 +17,9 @@ public class Transform2D {
 
 	public static final Transform2DComponent component() {
 		return componentInstaller.getComponent();
+	}
+
+	public static RectangleTransform newRectangleTransform() {
+		return invoke().newRectangleTransform();
 	}
 }
