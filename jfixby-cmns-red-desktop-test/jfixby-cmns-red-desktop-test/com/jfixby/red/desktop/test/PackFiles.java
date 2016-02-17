@@ -12,7 +12,7 @@ import com.jfixby.cmns.api.file.packing.FileSystemPackingSpecs;
 import com.jfixby.cmns.api.io.OutputStream;
 import com.jfixby.cmns.api.json.Json;
 import com.jfixby.cmns.api.log.L;
-import com.jfixby.cmns.desktop.DesktopAssembler;
+import com.jfixby.red.desktop.DesktopAssembler;
 import com.jfixby.red.filesystem.archived.R3ArrayCompressionMethod;
 import com.jfixby.red.filesystem.archived.RedFileSystemPacker;
 

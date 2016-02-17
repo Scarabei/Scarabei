@@ -8,7 +8,7 @@ import com.jfixby.cmns.api.file.LocalFileSystem;
 import com.jfixby.cmns.api.json.Json;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.util.JUtils;
-import com.jfixby.cmns.desktop.DesktopAssembler;
+import com.jfixby.red.desktop.DesktopAssembler;
 import com.jfixby.red.desktop.filesystem.unix.UnixFileSystem;
 import com.jfixby.rmi.server.files.RMIFileSystemFactory;
 import com.jfixby.rmi.server.files.RMIFileSystemServer;

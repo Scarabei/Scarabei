@@ -9,7 +9,7 @@ import com.jfixby.cmns.api.file.packing.CompressionMethod;
 import com.jfixby.cmns.api.file.packing.FileSystemPacker;
 import com.jfixby.cmns.api.file.packing.FileSystemUnpackingSpecs;
 import com.jfixby.cmns.api.json.Json;
-import com.jfixby.cmns.desktop.DesktopAssembler;
+import com.jfixby.red.desktop.DesktopAssembler;
 import com.jfixby.red.filesystem.archived.R3ArrayCompressionMethod;
 import com.jfixby.red.filesystem.archived.RedFileSystemPacker;
 
