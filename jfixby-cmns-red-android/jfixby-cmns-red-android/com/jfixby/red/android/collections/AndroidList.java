@@ -1,6 +1,7 @@
 package com.jfixby.red.android.collections;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 
 import com.jfixby.cmns.api.collections.List;
@@ -19,6 +20,6 @@ public class AndroidList<T> extends RedList<T> implements List<T> {
 
 	@Override
 	public void sort(final Comparator<T> comparator) {
-		this.legacy.sort(comparator);
+		Collections.sort(legacy, comparator);
 	}
 }

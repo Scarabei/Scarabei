@@ -17,7 +17,7 @@ public class RedStateSwitcher<T> implements StateSwitcher<T> {
 	final RedStateSwitcherEvaluationResult result = new RedStateSwitcherEvaluationResult();
 
 	@Override
-	public EvaluationResult expectsState(T expected_state) {
+	public EvaluationResult expectsState(final T expected_state) {
 		if (!this.state.equals(expected_state)) {
 			String message = "Wrong state=" + this.state + ", expected: " + expected_state;
 			if (throw_error) {
@@ -28,13 +28,13 @@ public class RedStateSwitcher<T> implements StateSwitcher<T> {
 				return result;
 			}
 		}
-		result.setErrorFlag(false);
-		result.setErrorMessage(null);
+		this.result.setErrorFlag(false);
+		this.result.setErrorMessage(null);
 		return result;
 	}
 
 	@Override
-	public void switchState(T next_state) {
+	public void switchState(final T next_state) {
 		if (next_state == null) {
 			Err.reportError("Null state detected");
 		}
@@ -50,14 +50,14 @@ public class RedStateSwitcher<T> implements StateSwitcher<T> {
 	}
 
 	@Override
-	public void setDebugName(String string) {
+	public void setDebugName(final String string) {
 		this.debug_name = string;
 	}
 
 	boolean debug = false;
 
 	@Override
-	public void setDebugFlag(boolean b) {
+	public void setDebugFlag(final boolean b) {
 		debug = b;
 	}
 
@@ -69,12 +69,12 @@ public class RedStateSwitcher<T> implements StateSwitcher<T> {
 	boolean throw_error = true;
 
 	@Override
-	public void setThrowErrorOnUnexpectedState(boolean throw_error) {
+	public void setThrowErrorOnUnexpectedState(final boolean throw_error) {
 		this.throw_error = throw_error;
 	}
 
 	@Override
-	public EvaluationResult doesNotExpectState(T unexpected_state) {
+	public EvaluationResult doesNotExpectState(final T unexpected_state) {
 		if (this.state.equals(unexpected_state)) {
 			String message = "Unexpected state=" + this.state;
 			if (throw_error) {
@@ -85,8 +85,8 @@ public class RedStateSwitcher<T> implements StateSwitcher<T> {
 				return result;
 			}
 		}
-		result.setErrorFlag(false);
-		result.setErrorMessage(null);
+		this.result.setErrorFlag(false);
+		this.result.setErrorMessage(null);
 		return result;
 	}
 

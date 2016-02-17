@@ -6,7 +6,7 @@ import com.jfixby.cmns.api.sys.Sys;
 
 public class RedBait implements Bait {
 
-	public final byte[] weight = new byte[1024 * 1024 * 500];
+	public final byte[] weight;
 
 	@Override
 	protected void finalize() throws Throwable {
@@ -18,10 +18,11 @@ public class RedBait implements Bait {
 	final long timestamp;
 	private RedBaitInfo info;
 
-	public RedBait(long bait_id) {
+	public RedBait(long bait_id, int size_in_MB) {
 		this.bait_id = bait_id;
 		this.timestamp = Sys.SystemTime().currentTimeMillis();
 		this.info = new RedBaitInfo(this);
+		weight = new byte[1024 * 1024 * size_in_MB];
 	}
 
 	public RedBaitInfo getInfo() {

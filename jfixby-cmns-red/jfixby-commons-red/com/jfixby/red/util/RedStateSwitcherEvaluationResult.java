@@ -7,11 +7,11 @@ class RedStateSwitcherEvaluationResult implements EvaluationResult {
 	private boolean error_flag;
 	private String error_message;
 
-	public void setErrorMessage(String error_message) {
+	public void setErrorMessage(final String error_message) {
 		this.error_message = error_message;
 	}
 
-	public void setErrorFlag(boolean error_flag) {
+	public void setErrorFlag(final boolean error_flag) {
 		this.error_flag = error_flag;
 	}
 

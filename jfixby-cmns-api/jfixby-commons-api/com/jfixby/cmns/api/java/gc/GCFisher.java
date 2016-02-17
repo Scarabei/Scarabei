@@ -4,6 +4,8 @@ import com.jfixby.cmns.api.ComponentInstaller;
 
 public class GCFisher {
 
+	public static final String DefaultBaitSize = "DefaultBaitSize";
+
 	static private ComponentInstaller<GCFisherComponent> componentInstaller = new ComponentInstaller<GCFisherComponent>(
 			"GCFisher");
 
@@ -21,6 +23,10 @@ public class GCFisher {
 
 	public static void onBaitCaptured(Bait bait) {
 		invoke().onBaitCaptured(bait);
+	}
+
+	public static BaitInfo throwBait(int size_in_MB) {
+		return invoke().throwBait(size_in_MB);
 	}
 
 	public static BaitInfo throwBait() {
