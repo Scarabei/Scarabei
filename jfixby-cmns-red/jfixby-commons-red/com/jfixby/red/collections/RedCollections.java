@@ -1,6 +1,5 @@
 package com.jfixby.red.collections;
 
-import java.util.Iterator;
 import java.util.Objects;
 
 import com.jfixby.cmns.api.collections.Collection;
@@ -34,8 +33,6 @@ public abstract class RedCollections implements CollectionsComponent {
 		result.addAllArrayElements(array);
 		return result;
 	}
-
-	
 
 	@Override
 	public <K, V> Map<K, V> newMap() {
@@ -130,11 +127,14 @@ public abstract class RedCollections implements CollectionsComponent {
 		if (a.size() != b.size()) {
 			return false;
 		}
-		Iterator<?> iA = a.iterator();
-		Iterator<?> iB = b.iterator();
-		while (iA.hasNext()) {
-			Object ai = iA.next();
-			Object bi = iB.next();
+
+		// Iterator<?> iA = a.iterator();
+		// Iterator<?> iB = b.iterator();
+		// while (iA.hasNext())
+		final int N = a.size();
+		for (int i = 0; i < N; i++) {
+			final Object ai = a.getElementAt(i);
+			final Object bi = b.getElementAt(i);
 			if (ai == null) {
 				if (bi != null) {
 					return false;
