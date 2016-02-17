@@ -1,4 +1,4 @@
-package com.jfixby.red.desktop.collections;
+package com.jfixby.red.collections;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -11,9 +11,9 @@ import com.jfixby.cmns.api.collections.Mapping;
 import com.jfixby.cmns.api.collections.Set;
 import com.jfixby.cmns.api.log.L;
 
-public class DesktopHashMap<K, V> implements Map<K, V> {
+public class RedHashMap<K, V> implements Map<K, V> {
 	final HashMap<K, V> hash_map = new HashMap<K, V>();
-	final DesktopSet<K> keys_list = new DesktopSet<K>();
+	final RedSet<K> keys_list = new RedSet<K>();
 
 	@Override
 	public void put(K key, V value) {
@@ -61,7 +61,7 @@ public class DesktopHashMap<K, V> implements Map<K, V> {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		DesktopHashMap<?, ?> other = (DesktopHashMap<?, ?>) obj;
+		RedHashMap<?, ?> other = (RedHashMap<?, ?>) obj;
 		if (hash_map == null) {
 			if (other.hash_map != null)
 				return false;

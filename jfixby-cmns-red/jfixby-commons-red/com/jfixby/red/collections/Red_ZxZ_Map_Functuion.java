@@ -1,19 +1,21 @@
-package com.jfixby.red.desktop.collections;
+package com.jfixby.red.collections;
 
 import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.Map;
 import com.jfixby.cmns.api.collections.ZxZ_Functuion;
+import com.jfixby.cmns.api.math.Int2;
+import com.jfixby.cmns.api.math.IntegerMath;
 
-public class Desktop_ZxZ_Map_Functuion<T> implements ZxZ_Functuion<T> {
+public class Red_ZxZ_Map_Functuion<T> implements ZxZ_Functuion<T> {
 
-	final Map<Desktop_ZxZ, T> mapping = Collections.newMap();
+	final Map<Int2, T> mapping = Collections.newMap();
 
 	@Override
 	public T getValueAt(long x, long y) {
 
 		{
-			Desktop_ZxZ position = Desktop_ZxZ.newIndexedPosition(x, y);
+			Int2 position = IntegerMath.newInt2(x, y);
 			return this.mapping.get(position);
 		}
 
@@ -28,7 +30,7 @@ public class Desktop_ZxZ_Map_Functuion<T> implements ZxZ_Functuion<T> {
 
 	@Override
 	public void setValueAt(long x, long y, T value) {
-		Desktop_ZxZ position = Desktop_ZxZ.newIndexedPosition(x, y);
+		Int2 position = IntegerMath.newInt2(x, y);
 		this.mapping.put(position, value);
 		//
 		// int position = (int) IntegerMath.ZxZtoN(x, y);
@@ -43,7 +45,7 @@ public class Desktop_ZxZ_Map_Functuion<T> implements ZxZ_Functuion<T> {
 
 	@Override
 	public T removeElementAt(long x, long y) {
-		Desktop_ZxZ position = Desktop_ZxZ.newIndexedPosition(x, y);
+		Int2 position = IntegerMath.newInt2(x, y);
 		return this.mapping.remove(position);
 
 		// int position = (int) IntegerMath.ZxZtoN(x, y);

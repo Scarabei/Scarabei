@@ -1,4 +1,4 @@
-package com.jfixby.red.desktop.collections;
+package com.jfixby.red.collections;
 
 import java.util.ArrayList;
 
@@ -6,13 +6,13 @@ import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.Pool;
 import com.jfixby.cmns.api.collections.PoolElementsSpawner;
 
-public class DesktopPool<T> implements Pool<T> {
+public class RedPool<T> implements Pool<T> {
 
 	final private ArrayList<T> legacy = new ArrayList<T>();
 
 	private PoolElementsSpawner<T> spawner;
 
-	public DesktopPool(PoolElementsSpawner<T> spawner) {
+	public RedPool(PoolElementsSpawner<T> spawner) {
 		this.spawner = spawner;
 	}
 

@@ -1,4 +1,4 @@
-package com.jfixby.red.desktop.collections;
+package com.jfixby.red.collections;
 
 import java.util.Comparator;
 import java.util.HashSet;
@@ -13,9 +13,13 @@ import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.math.IntegerMath;
 
-public class DesktopSet<T> implements Set<T> {
-	final DesktopList<T> content_list = new DesktopList<T>();
+public class RedSet<T> implements Set<T> {
+	final List<T> content_list = Collections.newList();
 	final HashSet<T> content_set = new HashSet<T>();
+
+	public RedSet() {
+		super();
+	}
 
 	@Override
 	public boolean contains(Object element) {
@@ -27,7 +31,7 @@ public class DesktopSet<T> implements Set<T> {
 		content_set.remove(element);
 		return content_list.remove(element);
 	}
-	
+
 	@Override
 	public void addAll(Iterable<? extends T> parts_list) {
 		for (T e : parts_list) {
@@ -107,7 +111,7 @@ public class DesktopSet<T> implements Set<T> {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		DesktopSet<?> other = (DesktopSet<?>) obj;
+		RedSet<?> other = (RedSet<?>) obj;
 		if (content_list == null) {
 			if (other.content_list != null)
 				return false;
@@ -200,7 +204,7 @@ public class DesktopSet<T> implements Set<T> {
 	public void sort(Comparator<T> comparator) {
 		this.content_list.sort(comparator);
 	}
-	
+
 	@Override
 	public void sort() {
 		this.sort(null);
