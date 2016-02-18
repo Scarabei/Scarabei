@@ -24,7 +24,7 @@ public class RedGCFisher implements GCFisherComponent {
 	public void onBaitCaptured(Bait bait) {
 		String message = "GC bait captured " + bait.getInfo();
 		L.d(message);
-		new Error(message).printStackTrace();
+		L.e(new Error(message));
 		GCFisher.throwBait();
 	}
 
