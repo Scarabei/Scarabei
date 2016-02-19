@@ -27,4 +27,8 @@ public class Android {
 		return invoke().getRecommendedHeapSize();
 	}
 
+	public static String getApplicationPrivateDir() {
+		return invoke().getApplicationPrivateDirPath();
+	}
+
 }

@@ -7,5 +7,7 @@ public interface AndroidComponent {
 
 	long getRecommendedHeapSize();
 
+	String getApplicationPrivateDirPath();
+
 
 }

@@ -1,8 +1,9 @@
-package com.jfixby.red.desktop.filesystem.unix;
+package com.jfixby.red.android.filesystem;
 
 import java.io.IOException;
 import java.io.InputStream;
 
+import com.jfixby.android.api.Android;
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.debug.Debug;
@@ -18,18 +19,19 @@ import com.jfixby.cmns.api.util.path.AbsolutePath;
 import com.jfixby.cmns.api.util.path.RelativePath;
 import com.jfixby.red.filesystem.AbstractFileSystem;
 
-public class UnixFileSystem extends AbstractFileSystem implements LocalFileSystemComponent {
+public class AndroidFileSystem extends AbstractFileSystem implements LocalFileSystemComponent {
 
 	String application_home_path_string = System.getProperty("user.dir");
 
-	public UnixFileSystem() {
-
+	public AndroidFileSystem() {
+		L.d("System.getProperty(user.dir)", System.getProperty("user.dir"));
+		application_home_path_string = Android.getApplicationPrivateDir();
 	}
 
 	public static final String OS_SEPARATOR = "/";
 
 	@Override
-	public UnixFile newFile(java.io.File file) {
+	public AndroidFile newFile(java.io.File file) {
 		return newFile(resolve(file));
 	}
 
@@ -45,13 +47,13 @@ public class UnixFileSystem extends AbstractFileSystem implements LocalFileSyste
 
 	//
 	@Override
-	public UnixFile newFile(String java_file_path) {
+	public AndroidFile newFile(String java_file_path) {
 		java.io.File f = new java.io.File(Debug.checkNull("java_file_path", java_file_path));
 		return newFile(f);
 	}
 
 	@Override
-	public UnixFile newFile(AbsolutePath<FileSystem> file_path) {
+	public AndroidFile newFile(AbsolutePath<FileSystem> file_path) {
 		if (file_path == null) {
 			throw new Error("Filepath is null.");
 		}
@@ -60,7 +62,7 @@ public class UnixFileSystem extends AbstractFileSystem implements LocalFileSyste
 			L.e("FileSystem", file_path.getMountPoint());
 			throw new Error("Path does not belong to this filesystem: " + this);
 		}
-		return new UnixFile(file_path, (UnixFileSystem) this);
+		return new AndroidFile(file_path, (AndroidFileSystem) this);
 	}
 
 	@Override
@@ -71,7 +73,7 @@ public class UnixFileSystem extends AbstractFileSystem implements LocalFileSyste
 		if (output_file.getFileSystem() != this) {
 			throw new Error("Output file does not belong to this filesystem: " + output_file);
 		}
-		return new UnixFileOutputStream((UnixFile) output_file);
+		return new AndroidFileOutputStream((AndroidFile) output_file);
 	}
 
 	@Override
@@ -83,7 +85,7 @@ public class UnixFileSystem extends AbstractFileSystem implements LocalFileSyste
 			throw new Error("Input file does not belong to this filesystem: " + input_file);
 		}
 
-		return new UnixFileInputStream((UnixFile) input_file);
+		return new AndroidFileInputStream((AndroidFile) input_file);
 	}
 
 	@Override
@@ -93,7 +95,7 @@ public class UnixFileSystem extends AbstractFileSystem implements LocalFileSyste
 
 	@Override
 	public String toString() {
-		return "UnixFileSystem";
+		return "AndroidFileSystem";
 	}
 
 	@Override
@@ -119,7 +121,7 @@ public class UnixFileSystem extends AbstractFileSystem implements LocalFileSyste
 			L.e("FileSystem", file_path.getMountPoint());
 			throw new Error("Path does not belong to this filesystem: " + this);
 		}
-		UnixFile win_f = (UnixFile) file;
+		AndroidFile win_f = (AndroidFile) file;
 		return win_f.getJavaFile();
 	}
 
@@ -133,7 +135,7 @@ public class UnixFileSystem extends AbstractFileSystem implements LocalFileSyste
 			L.e("FileSystem", file_path.getMountPoint());
 			throw new Error("Path does not belong to this filesystem: " + this);
 		}
-		return new UnixFile(file_path, (UnixFileSystem) this).getAbsoluteWindowsPathString();
+		return new AndroidFile(file_path, (AndroidFileSystem) this).getAbsoluteWindowsPathString();
 	}
 
 	@Override
