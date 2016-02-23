@@ -92,4 +92,18 @@ public class RedJUtils implements UtilsComponent {
 		int endIndex = (int) IntegerMath.min(end_char, data.length());
 		return data.substring(beginIndex, endIndex);
 	}
+
+	@Override
+	public boolean equalObjects(final Object a, final Object b) {
+		if (a == b) {
+			return true;
+		}
+		if (a == null) {
+			return false;
+		}
+		if (b == null) {
+			return false;
+		}
+		return a.equals(b);
+	}
 }

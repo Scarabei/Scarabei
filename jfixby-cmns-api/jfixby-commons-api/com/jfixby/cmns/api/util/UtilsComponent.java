@@ -31,4 +31,5 @@ public interface UtilsComponent {
 
 	String truncated(String data, int begin_char, int end_char);
 
+	boolean equalObjects(final Object a, final Object b);
 }

@@ -69,4 +69,8 @@ public class JUtils {
 		return invoke().truncated(data, begin_char, end_char);
 	}
 
+	public static boolean equalObjects(final Object a, final Object b) {
+		return invoke().equalObjects(a, b);
+	}
+
 }
