@@ -17,6 +17,7 @@ import com.jfixby.cmns.api.collections.Queue;
 import com.jfixby.cmns.api.collections.Set;
 import com.jfixby.cmns.api.collections.ZxZ_Functuion;
 import com.jfixby.cmns.api.debug.Debug;
+import com.jfixby.cmns.api.util.JUtils;
 
 public abstract class RedCollections implements CollectionsComponent {
 
@@ -135,14 +136,17 @@ public abstract class RedCollections implements CollectionsComponent {
 		for (int i = 0; i < N; i++) {
 			final Object ai = a.getElementAt(i);
 			final Object bi = b.getElementAt(i);
-			if (ai == null) {
-				if (bi != null) {
-					return false;
-				}
-			} else {
-				if (!ai.equals(bi)) {
-					return false;
-				}
+			// if (ai == null) {
+			// if (bi != null) {
+			// return false;
+			// }
+			// } else {
+			// if (!ai.equals(bi)) {
+			// return false;
+			// }
+			// }
+			if (!JUtils.equalObjects(ai, bi)) {
+				return false;
 			}
 		}
 		return true;
