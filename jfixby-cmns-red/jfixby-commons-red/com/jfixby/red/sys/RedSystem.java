@@ -1,6 +1,6 @@
 package com.jfixby.red.sys;
 
-import java.util.Vector;
+import java.util.ArrayList;
 
 import com.jfixby.cmns.api.assets.AssetID;
 import com.jfixby.cmns.api.assets.Names;
@@ -18,16 +18,16 @@ import com.jfixby.cmns.api.time.TimeStream;
 public abstract class RedSystem implements SystemComponent {
 
 	private RedSystemExecutor executor;
-	final Vector<RedTask> new_tasks;
-	final Vector<RedTask> active_tasks;
-	final Vector<RedTask> delete_candidates;
+	final ArrayList<RedTask> new_tasks;
+	final ArrayList<RedTask> active_tasks;
+	final ArrayList<RedTask> delete_candidates;
 	private boolean print_tasks;
 
 	public RedSystem() {
 		executor = new RedSystemExecutor(this);
-		active_tasks = new Vector<RedTask>();
-		new_tasks = new Vector<RedTask>();
-		delete_candidates = new Vector<RedTask>();
+		active_tasks = new ArrayList<RedTask>();
+		new_tasks = new ArrayList<RedTask>();
+		delete_candidates = new ArrayList<RedTask>();
 		SysExecutor.installComponent(executor);
 	}
 

@@ -84,7 +84,9 @@ public class R3ArrayCompressionMethod implements CompressionMethod {
 	}
 
 	public byte[] longToByteArray(long value) {
-		return new byte[] { (byte) (value >> 8 * 7), (byte) (value >> 8 * 6), (byte) (value >> 8 * 5), (byte) (value >> 8 * 4), (byte) (value >> 8 * 3), (byte) (value >> 8 * 2), (byte) (value >> 8), (byte) value };
+		return new byte[] { (byte) (value >> 8 * 7), (byte) (value >> 8 * 6), (byte) (value >> 8 * 5),
+				(byte) (value >> 8 * 4), (byte) (value >> 8 * 3), (byte) (value >> 8 * 2), (byte) (value >> 8),
+				(byte) value };
 	}
 
 	public static void endLine(java.io.OutputStream jos) throws IOException {

@@ -1,11 +1,9 @@
 package com.jfixby.red.filesystem.archived;
 
-import java.util.Vector;
+import java.util.ArrayList;
 
 public class FilePointers {
 
-	public Vector<FilePointer> list = new Vector<FilePointer>();
-
-	
+	public ArrayList<FilePointer> list = new ArrayList<FilePointer>();
 
 }

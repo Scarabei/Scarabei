@@ -1,12 +1,12 @@
 package com.jfixby.red.filesystem.archived;
 
-import java.util.Vector;
+import java.util.ArrayList;
 
 public class TagsList {
-	public final Vector<FileTag> tags = new Vector<FileTag>();
+	public final ArrayList<FileTag> tags = new ArrayList<FileTag>();
 
 	public void addInfo(FileTag info) {
-		tags.addElement(info);
+		tags.add(info);
 		// L.d("packing", info);
 	}
 

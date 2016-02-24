@@ -1,7 +1,7 @@
 package com.jfixby.red.desktop.log.mq;
 
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.Vector;
 
 import javax.jms.Connection;
 import javax.jms.DeliveryMode;
@@ -18,7 +18,7 @@ import com.jfixby.cmns.api.log.L;
 
 public class MQPipe {
 
-	final Vector<String> log_messages = new Vector<String>();
+	final ArrayList<String> log_messages = new ArrayList<String>();
 	final int MAX = 500;
 	private final String LOG_PROPERTY_TAG = "LOG.MESSAGE";
 
@@ -98,8 +98,7 @@ public class MQPipe {
 			connection.start();
 
 			// Create a Session
-			session = (ActiveMQSession) connection.createSession(false,
-					Session.AUTO_ACKNOWLEDGE);
+			session = (ActiveMQSession) connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
 			// Create the destination (Topic or Queue)
 			Destination destination = session.createQueue(BOX);
@@ -126,8 +125,8 @@ public class MQPipe {
 		}
 	}
 
-	public synchronized void init(String url, String logger_box,
-			String mq_server_file_password, long MESSAGE_EXPIRE_PERIOD) {
+	public synchronized void init(String url, String logger_box, String mq_server_file_password,
+			long MESSAGE_EXPIRE_PERIOD) {
 		if (inited) {
 			return;
 		}
@@ -136,8 +135,7 @@ public class MQPipe {
 		BOX = logger_box;
 		this.url = url;
 
-		String replacement = mq_server_file_password.substring(0, 5)
-				+ "******************";
+		String replacement = mq_server_file_password.substring(0, 5) + "******************";
 
 		L.d("Starting :" + url.replaceAll(mq_server_file_password, replacement));
 
