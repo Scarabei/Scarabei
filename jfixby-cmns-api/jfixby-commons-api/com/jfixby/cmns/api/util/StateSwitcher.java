@@ -3,7 +3,7 @@ package com.jfixby.cmns.api.util;
 
 public interface StateSwitcher<T> {
 
-	EvaluationResult expectsState(T expected_state);
+	EvaluationResult expectState(T expected_state);
 
 	EvaluationResult doesNotExpectState(T unexpected_state);
 

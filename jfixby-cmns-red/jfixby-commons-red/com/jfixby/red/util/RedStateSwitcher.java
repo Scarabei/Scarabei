@@ -17,7 +17,7 @@ public class RedStateSwitcher<T> implements StateSwitcher<T> {
 	final RedStateSwitcherEvaluationResult result = new RedStateSwitcherEvaluationResult();
 
 	@Override
-	public EvaluationResult expectsState(final T expected_state) {
+	public EvaluationResult expectState(final T expected_state) {
 		if (!this.state.equals(expected_state)) {
 			String message = "Wrong state=" + this.state + ", expected: " + expected_state;
 			if (throw_error) {
