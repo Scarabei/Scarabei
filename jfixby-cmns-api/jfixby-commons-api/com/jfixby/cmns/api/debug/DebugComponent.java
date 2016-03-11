@@ -12,7 +12,7 @@ public interface DebugComponent {
 
 	<T> T checkNull(T value);
 
-	void checkEmpty(String parameter_name, String value);
+	String checkEmpty(String parameter_name, String value);
 
 	void checkTrue(boolean flag);
 
