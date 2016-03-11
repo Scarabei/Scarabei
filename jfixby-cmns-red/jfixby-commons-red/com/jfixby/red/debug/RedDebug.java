@@ -3,6 +3,7 @@ package com.jfixby.red.debug;
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.debug.DebugComponent;
+import com.jfixby.cmns.api.debug.DebugTimer;
 import com.jfixby.cmns.api.sys.Sys;
 
 public class RedDebug implements DebugComponent {
@@ -73,6 +74,11 @@ public class RedDebug implements DebugComponent {
 	if (flag == false) {
 	    throw new Error();
 	}
+    }
+
+    @Override
+    public DebugTimer newTimer() {
+	return new RedDebugTimer();
     }
 
 }

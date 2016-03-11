@@ -51,4 +51,8 @@ public class Debug {
 	invoke().checkTrue(flag_name, flag);
     }
 
+    public static DebugTimer newTimer() {
+	return invoke().newTimer();
+    }
+
 }
