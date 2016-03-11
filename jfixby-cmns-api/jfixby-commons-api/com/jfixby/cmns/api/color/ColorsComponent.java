@@ -2,54 +2,56 @@ package com.jfixby.cmns.api.color;
 
 public interface ColorsComponent {
 
-	ColorConstant BLACK();
+    ColorConstant BLACK();
 
-	ColorConstant RED();
+    ColorConstant RED();
 
-	ColorConstant BLUE();
+    ColorConstant BLUE();
 
-	ColorConstant GREEN();
+    ColorConstant GREEN();
 
-	ColorConstant YELLOW();
+    ColorConstant YELLOW();
 
-	ColorConstant BROWN();
+    ColorConstant BROWN();
 
-	ColorConstant GRAY();
+    ColorConstant GRAY();
 
-	ColorConstant WHITE();
+    ColorConstant WHITE();
 
-	ColorConstant PURPLE();
+    ColorConstant PURPLE();
 
-	ColorConstant NO();
+    ColorConstant NO();
 
-	CustomColor newColor(float a, float r, float g, float b);
+    CustomColor newColor(float a, float r, float g, float b);
 
-	CustomColor newColor();
+    CustomColor newColor();
 
-	CustomColor newRandomColor();
+    CustomColor newRandomColor();
 
-	CustomColor newRandomColor(float alpha);
+    CustomColor newRandomColor(float alpha);
 
-	CustomColor newColor(float r, float g, float b);
+    CustomColor newColor(float r, float g, float b);
 
-	double distance(Color x, Color y);
+    double distance(Color x, Color y);
 
-	CustomColor newColor(int argb);
+    CustomColor newColor(int argb);
 
-	ColorConstant DARK_GRAY();
+    ColorConstant DARK_GRAY();
 
-	ColorConstant LIGHT_GRAY();
+    ColorConstant LIGHT_GRAY();
 
-	ColorsSet newColorsSet();
+    ColorsSet newColorsSet();
 
-	float limit(float f);
+    float limit(float f);
 
-	ColorConstant ORANGE();
+    ColorConstant ORANGE();
 
-	<T> ColorMapping<T> newColorMapping();
+    <T> ColorMapping<T> newColorMapping();
 
-	CustomColor newGray(float gray);
+    CustomColor newGray(float gray);
 
-	ColorRandomiser newColorRandomizer(long seed);
+    ColorRandomiser newColorRandomizer(long seed);
+
+    Color FUCHSIA();
 
 }

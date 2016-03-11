@@ -24,312 +24,316 @@ import com.jfixby.cmns.api.util.path.AbsolutePath;
 
 public class ToGdxFileAdaptor extends FileHandle {
 
-	private File fokker_file;
+    private File fixby_file;
 
-	@Override
-	public String path() {
-		err("path");
-		return super.path();
-	}
+    @Override
+    public String path() {
+	err("path");
+	return super.path();
+    }
 
-	@Override
-	public String name() {
-		return this.fokker_file.getName();
-	}
+    @Override
+    public String name() {
+	return this.fixby_file.getName();
+    }
 
-	@Override
-	public String extension() {
-		err("extension");
-		return super.extension();
+    @Override
+    public OutputStream write(boolean append) {
+	if (append) {
+	    err("write");
+	} else {
+	    err("write");
 	}
+	return super.write(append);
+    }
 
-	@Override
-	public String nameWithoutExtension() {
-		return fokker_file.nameWithoutExtension();
-	}
+    @Override
+    public String extension() {
+	err("extension");
+	return super.extension();
+    }
 
-	@Override
-	public String pathWithoutExtension() {
-		// L.d(super.pathWithoutExtension());
-		// err("pathWithoutExtension");
-		return this.fokker_file.getName();
-	}
+    @Override
+    public String nameWithoutExtension() {
+	return fixby_file.nameWithoutExtension();
+    }
 
-	@Override
-	public FileType type() {
-		err("type");
-		return super.type();
-	}
+    @Override
+    public String pathWithoutExtension() {
+	// L.d(super.pathWithoutExtension());
+	// err("pathWithoutExtension");
+	return this.fixby_file.getName();
+    }
 
-	@Override
-	public InputStream read() {
-		try {
-			FileSystem filesystem = this.fokker_file.getFileSystem();
-			FileInputStream is;
-			is = filesystem.newFileInputStream(fokker_file);
-			return is.toJavaInputStream();
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new Error();
-		}
-	}
+    @Override
+    public FileType type() {
+	err("type");
+	return super.type();
+    }
 
-	@Override
-	public BufferedInputStream read(int bufferSize) {
-		err("read");
-		return super.read(bufferSize);
+    @Override
+    public InputStream read() {
+	try {
+	    FileSystem filesystem = this.fixby_file.getFileSystem();
+	    FileInputStream is;
+	    is = filesystem.newFileInputStream(fixby_file);
+	    return is.toJavaInputStream();
+	} catch (IOException e) {
+	    e.printStackTrace();
+	    throw new Error();
 	}
+    }
 
-	@Override
-	public Reader reader() {
-		err("reader");
-		return super.reader();
-	}
+    @Override
+    public BufferedInputStream read(int bufferSize) {
+	err("read");
+	return super.read(bufferSize);
+    }
 
-	@Override
-	public Reader reader(String charset) {
-		L("reader");
-		InputStream stream = read();
-		try {
-			return new InputStreamReader(stream, charset);
-		} catch (UnsupportedEncodingException ex) {
-			StreamUtils.closeQuietly(stream);
-			throw new GdxRuntimeException("Error reading file: " + this, ex);
-		}
-	}
+    @Override
+    public Reader reader() {
+	err("reader");
+	return super.reader();
+    }
 
-	@Override
-	public BufferedReader reader(int bufferSize) {
-		err("reader");
-		return super.reader(bufferSize);
+    @Override
+    public Reader reader(String charset) {
+	L("reader");
+	InputStream stream = read();
+	try {
+	    return new InputStreamReader(stream, charset);
+	} catch (UnsupportedEncodingException ex) {
+	    StreamUtils.closeQuietly(stream);
+	    throw new GdxRuntimeException("Error reading file: " + this, ex);
 	}
+    }
 
-	@Override
-	public BufferedReader reader(int bufferSize, String charset) {
-		err("reader");
-		return super.reader(bufferSize, charset);
-	}
+    @Override
+    public BufferedReader reader(int bufferSize) {
+	err("reader");
+	return super.reader(bufferSize);
+    }
 
-	@Override
-	public String readString() {
-		err("readString");
-		return super.readString();
-	}
+    @Override
+    public BufferedReader reader(int bufferSize, String charset) {
+	err("reader");
+	return super.reader(bufferSize, charset);
+    }
 
-	@Override
-	public String readString(String charset) {
-		err("readString");
-		return super.readString(charset);
-	}
+    @Override
+    public String readString() {
+	err("readString");
+	return super.readString();
+    }
 
-	@Override
-	public byte[] readBytes() {
-		// L("readBytes()");
-		try {
-			return fokker_file.readBytes();
-		} catch (IOException e) {
-			L.e(e + "");
-			e.printStackTrace();
-		}
-		return null;
-	}
+    @Override
+    public String readString(String charset) {
+	err("readString");
+	return super.readString(charset);
+    }
 
-	@Override
-	public int readBytes(byte[] bytes, int offset, int size) {
-		err("readBytes byte[] bytes");
-		return super.readBytes(bytes, offset, size);
+    @Override
+    public byte[] readBytes() {
+	// L("readBytes()");
+	try {
+	    return fixby_file.readBytes();
+	} catch (IOException e) {
+	    L.e(e + "");
+	    e.printStackTrace();
 	}
+	return null;
+    }
 
-	@Override
-	public OutputStream write(boolean append) {
-		err("write");
-		return super.write(append);
-	}
+    @Override
+    public int readBytes(byte[] bytes, int offset, int size) {
+	err("readBytes byte[] bytes");
+	return super.readBytes(bytes, offset, size);
+    }
 
-	@Override
-	public OutputStream write(boolean append, int bufferSize) {
-		err("write");
-		return super.write(append, bufferSize);
-	}
+    @Override
+    public OutputStream write(boolean append, int bufferSize) {
+	err("write");
+	return super.write(append, bufferSize);
+    }
 
-	@Override
-	public void write(InputStream input, boolean append) {
-		err("write");
-		super.write(input, append);
-	}
+    @Override
+    public void write(InputStream input, boolean append) {
+	err("write");
+	super.write(input, append);
+    }
 
-	@Override
-	public Writer writer(boolean append) {
-		err("writer");
-		return super.writer(append);
-	}
+    @Override
+    public Writer writer(boolean append) {
+	err("writer");
+	return super.writer(append);
+    }
 
-	@Override
-	public Writer writer(boolean append, String charset) {
-		err("writer");
-		return super.writer(append, charset);
-	}
+    @Override
+    public Writer writer(boolean append, String charset) {
+	err("writer");
+	return super.writer(append, charset);
+    }
 
-	@Override
-	public void writeString(String string, boolean append) {
-		err("writeString");
-		super.writeString(string, append);
-	}
+    @Override
+    public void writeString(String string, boolean append) {
+	err("writeString");
+	super.writeString(string, append);
+    }
 
-	@Override
-	public void writeString(String string, boolean append, String charset) {
-		err("writeString");
-		super.writeString(string, append, charset);
-	}
+    @Override
+    public void writeString(String string, boolean append, String charset) {
+	err("writeString");
+	super.writeString(string, append, charset);
+    }
 
-	@Override
-	public void writeBytes(byte[] bytes, boolean append) {
-		err("writeBytes");
-		super.writeBytes(bytes, append);
-	}
+    @Override
+    public void writeBytes(byte[] bytes, boolean append) {
+	err("writeBytes");
+	super.writeBytes(bytes, append);
+    }
 
-	@Override
-	public void writeBytes(byte[] bytes, int offset, int length, boolean append) {
-		err("writeBytes");
-		super.writeBytes(bytes, offset, length, append);
-	}
+    @Override
+    public void writeBytes(byte[] bytes, int offset, int length, boolean append) {
+	err("writeBytes");
+	super.writeBytes(bytes, offset, length, append);
+    }
 
-	@Override
-	public FileHandle[] list() {
-		err("list");
-		return super.list();
-	}
+    @Override
+    public FileHandle[] list() {
+	err("list");
+	return super.list();
+    }
 
-	@Override
-	public FileHandle[] list(FileFilter filter) {
-		err("list");
-		return super.list(filter);
-	}
+    @Override
+    public FileHandle[] list(FileFilter filter) {
+	err("list");
+	return super.list(filter);
+    }
 
-	@Override
-	public FileHandle[] list(FilenameFilter filter) {
-		err("list");
-		return super.list(filter);
-	}
+    @Override
+    public FileHandle[] list(FilenameFilter filter) {
+	err("list");
+	return super.list(filter);
+    }
 
-	@Override
-	public FileHandle[] list(String suffix) {
-		err("list");
-		return super.list(suffix);
-	}
+    @Override
+    public FileHandle[] list(String suffix) {
+	err("list");
+	return super.list(suffix);
+    }
 
-	@Override
-	public boolean isDirectory() {
-		err("isDirectory");
-		return super.isDirectory();
-	}
+    @Override
+    public boolean isDirectory() {
+	err("isDirectory");
+	return super.isDirectory();
+    }
 
-	@Override
-	public FileHandle child(String name) {
-		L("child: " + name);
-		return new ToGdxFileAdaptor(this.fokker_file.child(name));
-	}
+    @Override
+    public FileHandle child(String name) {
+	L("child: " + name);
+	return new ToGdxFileAdaptor(this.fixby_file.child(name));
+    }
 
-	@Override
-	public FileHandle sibling(String name) {
-		err("sibling");
-		return super.sibling(name);
-	}
+    @Override
+    public FileHandle sibling(String name) {
+	err("sibling");
+	return super.sibling(name);
+    }
 
-	@Override
-	public ToGdxFileAdaptor parent() {
-		L("parent");
-		return new ToGdxFileAdaptor(this.fokker_file.parent());
-	}
+    @Override
+    public ToGdxFileAdaptor parent() {
+	L("parent");
+	return new ToGdxFileAdaptor(this.fixby_file.parent());
+    }
 
-	@Override
-	public void mkdirs() {
-		L("mkdirs");
-		fokker_file.makeFolder();
-	}
+    @Override
+    public void mkdirs() {
+	L("mkdirs");
+	fixby_file.makeFolder();
+    }
 
-	private void L(String string) {
-		// L.d(string);
-	}
+    private void L(String string) {
+	// L.d(string);
+    }
 
-	@Override
-	public boolean exists() {
-		L("exists");
-		return this.fokker_file.exists();
-	}
+    @Override
+    public boolean exists() {
+	L("exists");
+	return this.fixby_file.exists();
+    }
 
-	@Override
-	public boolean delete() {
-		err("delete");
-		return super.delete();
-	}
+    @Override
+    public boolean delete() {
+	err("delete");
+	return super.delete();
+    }
 
-	@Override
-	public boolean deleteDirectory() {
-		err("deleteDirectory");
-		return super.deleteDirectory();
-	}
+    @Override
+    public boolean deleteDirectory() {
+	err("deleteDirectory");
+	return super.deleteDirectory();
+    }
 
-	@Override
-	public void copyTo(FileHandle dest) {
-		err("dest");
-		super.copyTo(dest);
-	}
+    @Override
+    public void copyTo(FileHandle dest) {
+	err("dest");
+	super.copyTo(dest);
+    }
 
-	@Override
-	public void moveTo(FileHandle dest) {
-		err("dest");
-		super.moveTo(dest);
-	}
+    @Override
+    public void moveTo(FileHandle dest) {
+	err("dest");
+	super.moveTo(dest);
+    }
 
-	@Override
-	public long length() {
-		return this.fokker_file.getSize();
-		// err("length");
-		// return super.length();
-	}
+    @Override
+    public long length() {
+	return this.fixby_file.getSize();
+	// err("length");
+	// return super.length();
+    }
 
-	@Override
-	public long lastModified() {
-		err("lastModified");
-		return super.lastModified();
-	}
+    @Override
+    public long lastModified() {
+	err("lastModified");
+	return super.lastModified();
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		err("obj");
-		return super.equals(obj);
-	}
+    @Override
+    public boolean equals(Object obj) {
+	err("obj");
+	return super.equals(obj);
+    }
 
-	@Override
-	public int hashCode() {
-		err("hashCode");
-		return super.hashCode();
-	}
+    @Override
+    public int hashCode() {
+	err("hashCode");
+	return super.hashCode();
+    }
 
-	@Override
-	public String toString() {
-		L("ToGdxFileAdaptor.toString");
-		return this.fokker_file.toString();
-		// err("toString");
-		// return super.toString();
-	}
+    @Override
+    public String toString() {
+	L("ToGdxFileAdaptor.toString");
+	return this.fixby_file.toString();
+	// err("toString");
+	// return super.toString();
+    }
 
-	private void err(String msg) {
-		throw new Error(msg + ": not implemented yet");
-	}
+    private void err(String msg) {
+	throw new Error(msg + ": not implemented yet");
+    }
 
-	public ToGdxFileAdaptor(final File fokker_file) {
-		this.fokker_file = fokker_file;
-		// L.d("ToGdxFileAdaptor", fokker_file + " " + this.exists());
-	}
+    public ToGdxFileAdaptor(final File fokker_file) {
+	this.fixby_file = fokker_file;
+	// L.d("ToGdxFileAdaptor", fokker_file + " " + this.exists());
+    }
 
-	public AbsolutePath<FileSystem> getPath() {
-		return this.fokker_file.getAbsoluteFilePath();
-	}
+    public AbsolutePath<FileSystem> getPath() {
+	return this.fixby_file.getAbsoluteFilePath();
+    }
 
-	public File getTriplaneFile() {
-		return this.fokker_file;
-	}
+    public File getFixbyFile() {
+	return this.fixby_file;
+    }
 
 }
