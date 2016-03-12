@@ -41,13 +41,4 @@ public class ImageProcessing {
 	return invoke().newImageCache(width, height);
     }
 
-    // public static ChannelExtractor newAlphaChannelExtractor(ExtractorSpecs
-    // alphaExtractorSpecs) {
-    // return invoke().newAlphaChannelExtractor(alphaExtractorSpecs);
-    // }
-    //
-    // public static ExtractorSpecs newAlphaChannelExtractorSpecs() {
-    // return invoke().newAlphaChannelExtractorSpecs();
-    // }
-
 }
