@@ -13,7 +13,6 @@ import com.jfixby.cmns.api.image.EditableColorMap;
 import com.jfixby.cmns.api.image.EditableGrayMap;
 import com.jfixby.cmns.api.image.ImageProcessing;
 import com.jfixby.red.desktop.DesktopAssembler;
-import com.jfixby.red.desktop.image.RedImageAWT;
 
 public class SplitChannelsTest {
 
