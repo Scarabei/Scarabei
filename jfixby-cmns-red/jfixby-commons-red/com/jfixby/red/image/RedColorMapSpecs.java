@@ -1,37 +1,94 @@
 package com.jfixby.red.image;
 
-import com.jfixby.cmns.api.color.Color;
-import com.jfixby.cmns.api.color.Colors;
-import com.jfixby.cmns.api.image.ArrayColorMapSpecs;
+import com.jfixby.cmns.api.image.ColorMapSpecs;
+import com.jfixby.cmns.api.image.ColoredλImage;
+import com.jfixby.cmns.api.image.GrayλImage;
 
-public class RedColorMapSpecs implements ArrayColorMapSpecs {
+public class RedColorMapSpecs implements ColorMapSpecs {
 
-	public int getWidth() {
-		return width;
-	}
+    private int w;
+    private int h;
+    private ColoredλImage base;
+    private GrayλImage red;
+    private GrayλImage green;
+    private GrayλImage blue;
+    private GrayλImage alpha;
 
-	public void setWidth(int width) {
-		this.width = width;
-	}
+    @Override
+    public void setColorMapWidth(int w) {
+	this.w = w;
+    }
 
-	public int getHeight() {
-		return height;
-	}
+    @Override
+    public void setColorMapHeight(int h) {
+	this.h = h;
+    }
 
-	public void setHeight(int height) {
-		this.height = height;
-	}
+    @Override
+    public int getColorMapWidth() {
+	return w;
+    }
 
-	public Color getDefaultColor() {
-		return defaultColor;
-	}
+    @Override
+    public int getColorMapHeight() {
+	return h;
+    }
 
-	public void setDefaultColor(Color defaultColor) {
-		this.defaultColor = defaultColor;
-	}
+    @Override
+    public void setLambdaColoredImage(ColoredλImage base) {
+	this.base = base;
+    }
 
-	int width;
-	int height;
-	Color defaultColor = Colors.BLACK();
+    @Override
+    public ColoredλImage getLambdaColoredImage() {
+	return base;
+    }
+
+    @Override
+    public void setColorMapDimentions(int w, int h) {
+	this.setColorMapWidth(w);
+	this.setColorMapHeight(h);
+    }
+
+    @Override
+    public void setRed(GrayλImage red) {
+	this.red = red;
+
+    }
+
+    @Override
+    public void setGreen(GrayλImage green) {
+	this.green = green;
+    }
+
+    @Override
+    public void setBlue(GrayλImage blue) {
+	this.blue = blue;
+    }
+
+    @Override
+    public void setAlpha(GrayλImage alpha) {
+	this.alpha = alpha;
+    }
+
+    @Override
+    public GrayλImage getGreen() {
+	return green;
+    }
+
+    @Override
+    public GrayλImage getRed() {
+	return red;
+    }
+
+    @Override
+    public GrayλImage getBlue() {
+	return blue;
+    }
+
+    @Override
+    public GrayλImage getAlpha() {
+	return alpha;
+    }
 
 }

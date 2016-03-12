@@ -18,4 +18,20 @@ public interface ColorMapSpecs {
 
     ColoredλImage getLambdaColoredImage();
 
+    void setRed(GrayλImage alpha);
+
+    void setGreen(GrayλImage alpha);
+
+    void setBlue(GrayλImage alpha);
+
+    void setAlpha(GrayλImage alpha);
+
+    GrayλImage getGreen();
+
+    GrayλImage getRed();
+
+    GrayλImage getBlue();
+
+    GrayλImage getAlpha();
+
 }

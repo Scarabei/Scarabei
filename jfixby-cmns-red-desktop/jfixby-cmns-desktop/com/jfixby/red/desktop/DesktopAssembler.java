@@ -5,6 +5,7 @@ import com.jfixby.cmns.api.assets.Names;
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.color.Colors;
 import com.jfixby.cmns.api.debug.Debug;
+import com.jfixby.cmns.api.desktop.ImageAWT;
 import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.file.LocalFileSystem;
 import com.jfixby.cmns.api.file.cache.FileCache;
@@ -22,7 +23,7 @@ import com.jfixby.red.color.RedColors;
 import com.jfixby.red.debug.RedDebug;
 import com.jfixby.red.desktop.collections.DesktopCollections;
 import com.jfixby.red.desktop.filesystem.win.WinFileSystem;
-import com.jfixby.red.desktop.img.processing.DesktopImageProcessing;
+import com.jfixby.red.desktop.image.RedImageAWT;
 import com.jfixby.red.desktop.log.DesktopLogger;
 import com.jfixby.red.desktop.math.DesktopFloatMath;
 import com.jfixby.red.desktop.sys.DesktopSystem;
@@ -30,6 +31,7 @@ import com.jfixby.red.err.RedError;
 import com.jfixby.red.filesystem.cache.RedFileCache;
 import com.jfixby.red.geometry.RedGeometry;
 import com.jfixby.red.graphs.RedGraphs;
+import com.jfixby.red.image.RedImageProcessing;
 import com.jfixby.red.io.RedIO;
 import com.jfixby.red.math.RedAngles;
 import com.jfixby.red.math.RedIntegerMath;
@@ -39,30 +41,31 @@ import com.jfixby.red.util.RedJUtils;
 
 public class DesktopAssembler {
 
-	public static final void setup() {
-		L.installComponent(new DesktopLogger());
-		JUtils.installComponent(new RedJUtils());
-		Collections.installComponent(new DesktopCollections());
-		FloatMath.installComponent(new DesktopFloatMath());
-		Sys.installComponent(new DesktopSystem());
-		IntegerMath.installComponent(new RedIntegerMath());
-		Names.installComponent(new RedAssetsNamespace());
-		IO.installComponent(new RedIO());
-		Graphs.installComponent(new RedGraphs());
-		Angles.installComponent(new RedAngles());
-		Geometry.installComponent(new RedGeometry());
-		Colors.installComponent(new RedColors());
-		MathTools.installComponent(new RedMathTools());
-		Err.installComponent(new RedError());
-		Debug.installComponent(new RedDebug());
+    public static final void setup() {
+	L.installComponent(new DesktopLogger());
+	JUtils.installComponent(new RedJUtils());
+	Collections.installComponent(new DesktopCollections());
+	FloatMath.installComponent(new DesktopFloatMath());
+	Sys.installComponent(new DesktopSystem());
+	IntegerMath.installComponent(new RedIntegerMath());
+	Names.installComponent(new RedAssetsNamespace());
+	IO.installComponent(new RedIO());
+	Graphs.installComponent(new RedGraphs());
+	Angles.installComponent(new RedAngles());
+	Geometry.installComponent(new RedGeometry());
+	Colors.installComponent(new RedColors());
+	MathTools.installComponent(new RedMathTools());
+	Err.installComponent(new RedError());
+	Debug.installComponent(new RedDebug());
 
-		// --
+	// --
 
-		LocalFileSystem.installComponent(new WinFileSystem());
+	LocalFileSystem.installComponent(new WinFileSystem());
 
-		ImageProcessing.installComponent(new DesktopImageProcessing());
-		FileCache.installComponent(new RedFileCache());
+	ImageProcessing.installComponent(new RedImageProcessing());
+	ImageAWT.installComponent(new RedImageAWT());
+	FileCache.installComponent(new RedFileCache());
 
-	}
+    }
 
 }

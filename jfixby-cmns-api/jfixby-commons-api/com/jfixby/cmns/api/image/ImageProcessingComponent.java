@@ -10,9 +10,6 @@ public interface ImageProcessingComponent {
 
     ColorMap newLambdaColorMap(ColorMapSpecs lambda_specs);
 
-    // ChannelExtractor newAlphaChannelExtractor(ExtractorSpecs
-    // alphaExtractorSpecs);
-    //
-    // ExtractorSpecs newAlphaChannelExtractorSpecs();
+    ColoredλImageCache newImageCache(int width, int height);
 
 }

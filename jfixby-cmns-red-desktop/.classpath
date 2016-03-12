@@ -4,5 +4,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/jfixby-cmns-api"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/jfixby-cmns-red"/>
 	<classpathentry kind="src" path="jfixby-cmns-desktop"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/jfixby-cmns-api-desktop"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -37,6 +37,10 @@ public class ImageProcessing {
 	return invoke().newLambdaColorMap(lambda_specs);
     }
 
+    public static ColoredλImageCache newImageCache(int width, int height) {
+	return invoke().newImageCache(width, height);
+    }
+
     // public static ChannelExtractor newAlphaChannelExtractor(ExtractorSpecs
     // alphaExtractorSpecs) {
     // return invoke().newAlphaChannelExtractor(alphaExtractorSpecs);

@@ -1,14 +1,12 @@
 package com.jfixby.cmns.api.image;
 
-import com.jfixby.cmns.api.color.Color;
-
-public interface ColorMap {
+public interface ColorMap extends ColoredλImage {
 
     int getWidth();
 
     int getHeight();
 
-    Color getValue(int x, int y);
-
     ColoredλImage getLambdaImage();
+
+    GrayMap getAlpha();
 }
