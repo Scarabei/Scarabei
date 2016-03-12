@@ -1,8 +1,8 @@
-package com.jfixby.cmns.api.lambda.img;
+package com.jfixby.cmns.api.image;
 
 import com.jfixby.cmns.api.color.Color;
 
-public interface λImageCache {
+public interface ColoredλImageCache {
 	Color get(float x, float y);
 
 	void put(float x, float y, Color value);

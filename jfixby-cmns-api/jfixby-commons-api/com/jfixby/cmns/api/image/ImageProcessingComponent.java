@@ -2,12 +2,17 @@ package com.jfixby.cmns.api.image;
 
 public interface ImageProcessingComponent {
 
-	ArrayColorMapSpecs newColorMapSpecs();
+    ArrayColorMapSpecs newColorMapSpecs();
 
-	ArrayColorMap newArrayColorMap(ArrayColorMapSpecs color_function_specs);
+    ArrayColorMap newArrayColorMap(ArrayColorMapSpecs color_function_specs);
 
-	LambdaColorMapSpecs newLambdaColorMapSpecs();
+    ColorMapSpecs newLambdaColorMapSpecs();
 
-	LambdaColorMap newLambdaColorMap(LambdaColorMapSpecs lambda_specs);
+    ColorMap newLambdaColorMap(ColorMapSpecs lambda_specs);
+
+    // ChannelExtractor newAlphaChannelExtractor(ExtractorSpecs
+    // alphaExtractorSpecs);
+    //
+    // ExtractorSpecs newAlphaChannelExtractorSpecs();
 
 }

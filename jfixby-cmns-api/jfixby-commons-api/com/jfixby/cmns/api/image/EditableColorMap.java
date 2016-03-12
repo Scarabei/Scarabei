@@ -4,8 +4,6 @@ import com.jfixby.cmns.api.color.Color;
 
 public interface EditableColorMap extends ColorMap {
 
-	void setValue(int x, int y, Color color_value);
-
-	
+    void setValue(int x, int y, Color color_value);
 
 }

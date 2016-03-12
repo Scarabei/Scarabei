@@ -4,34 +4,46 @@ import com.jfixby.cmns.api.ComponentInstaller;
 
 public class ImageProcessing {
 
-	static private ComponentInstaller<ImageProcessingComponent> componentInstaller = new ComponentInstaller<ImageProcessingComponent>("ImageProcessing");
+    public static final String IMAGE_CHANNEL_FILE_EXTENTION = ".r3-img-gray";
 
-	public static final void installComponent(ImageProcessingComponent component_to_install) {
-		componentInstaller.installComponent(component_to_install);
-	}
+    static private ComponentInstaller<ImageProcessingComponent> componentInstaller = new ComponentInstaller<ImageProcessingComponent>(
+	    "ImageProcessing");
 
-	public static final ImageProcessingComponent invoke() {
-		return componentInstaller.invokeComponent();
-	}
+    public static final void installComponent(ImageProcessingComponent component_to_install) {
+	componentInstaller.installComponent(component_to_install);
+    }
 
-	public static final ImageProcessingComponent component() {
-		return componentInstaller.getComponent();
-	}
+    public static final ImageProcessingComponent invoke() {
+	return componentInstaller.invokeComponent();
+    }
 
-	public static ArrayColorMap newArrayColorMap(ArrayColorMapSpecs color_function_specs) {
-		return invoke().newArrayColorMap(color_function_specs);
-	}
+    public static final ImageProcessingComponent component() {
+	return componentInstaller.getComponent();
+    }
 
-	public static ArrayColorMapSpecs newArrayColorMapSpecs() {
-		return invoke().newColorMapSpecs();
-	}
+    public static ArrayColorMap newArrayColorMap(ArrayColorMapSpecs color_function_specs) {
+	return invoke().newArrayColorMap(color_function_specs);
+    }
 
-	public static LambdaColorMapSpecs newLambdaColorMapSpecs() {
-		return invoke().newLambdaColorMapSpecs();
-	}
+    public static ArrayColorMapSpecs newArrayColorMapSpecs() {
+	return invoke().newColorMapSpecs();
+    }
 
-	public static LambdaColorMap newLambdaColorMap(LambdaColorMapSpecs lambda_specs) {
-		return invoke().newLambdaColorMap(lambda_specs);
-	}
+    public static ColorMapSpecs newLambdaColorMapSpecs() {
+	return invoke().newLambdaColorMapSpecs();
+    }
+
+    public static ColorMap newColorMap(ColorMapSpecs lambda_specs) {
+	return invoke().newLambdaColorMap(lambda_specs);
+    }
+
+    // public static ChannelExtractor newAlphaChannelExtractor(ExtractorSpecs
+    // alphaExtractorSpecs) {
+    // return invoke().newAlphaChannelExtractor(alphaExtractorSpecs);
+    // }
+    //
+    // public static ExtractorSpecs newAlphaChannelExtractorSpecs() {
+    // return invoke().newAlphaChannelExtractorSpecs();
+    // }
 
 }

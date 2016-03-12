@@ -1,7 +1,7 @@
-package com.jfixby.cmns.api.lambda.img;
+package com.jfixby.cmns.api.image;
 
 import com.jfixby.cmns.api.color.Color;
 
-public interface λImage  {
+public interface ColoredλImage  {
 	public Color valueAt(float x, float y);
 }
