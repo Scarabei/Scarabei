@@ -77,4 +77,12 @@ public class IO {
     public static void forceClose(final OutputStream os) {
 	invoke().forceClose(os);
     }
+
+    public static GZipOutputStream newGZipStream(OutputStream os) throws IOException {
+	return invoke().newGZipStream(os);
+    }
+
+    public static GZipInputStream newGZipStream(InputStream is) throws IOException {
+	return invoke().newGZipStream(is);
+    }
 }

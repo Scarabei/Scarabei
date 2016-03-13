@@ -8,6 +8,8 @@ import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.image.ArrayColorMap;
 import com.jfixby.cmns.api.image.ColorMap;
 import com.jfixby.cmns.api.image.GrayMap;
+import com.jfixby.cmns.api.io.InputStream;
+import com.jfixby.cmns.api.io.OutputStream;
 
 public interface ImageAWTComponent {
 
@@ -28,5 +30,10 @@ public interface ImageAWTComponent {
     BufferedImage toAWTImage(GrayMap grayImage);
 
     void writeToFile(Image java_image, File file, String file_type, int image_mode) throws IOException;
+
+    void writeToStream(Image javaImage, OutputStream outputStream, String file_type, int awtImageMode)
+	    throws IOException;
+
+    BufferedImage readFromStream(InputStream is) throws IOException;
 
 }

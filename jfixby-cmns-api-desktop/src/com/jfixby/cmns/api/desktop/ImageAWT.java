@@ -9,6 +9,8 @@ import com.jfixby.cmns.api.image.ArrayColorMap;
 import com.jfixby.cmns.api.image.ColorMap;
 import com.jfixby.cmns.api.image.EditableColorMap;
 import com.jfixby.cmns.api.image.GrayMap;
+import com.jfixby.cmns.api.io.InputStream;
+import com.jfixby.cmns.api.io.OutputStream;
 
 public class ImageAWT {
 
@@ -64,6 +66,15 @@ public class ImageAWT {
     public static BufferedImage toAWTImage(GrayMap grayImage) {
 	return invoke().toAWTImage(grayImage);
 
+    }
+
+    public static void writeToStream(java.awt.Image javaImage, OutputStream outputStream, String file_type,
+	    int awtImageMode) throws IOException {
+	invoke().writeToStream(javaImage, outputStream, file_type, awtImageMode);
+    }
+
+    public static BufferedImage readFromStream(InputStream is) throws IOException {
+	return invoke().readFromStream(is);
     }
 
 }

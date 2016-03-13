@@ -35,7 +35,7 @@ public class AbstractRedOutputStream implements FileOutputStream {
 	for (int i = 0; i < bytes.length; i++) {
 	    this.os.write(bytes[i]);
 	}
-	// this.os.flush();
+	 this.os.flush();
 	// this.os.flush();
     }
 

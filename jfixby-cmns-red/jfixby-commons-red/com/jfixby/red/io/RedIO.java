@@ -6,6 +6,8 @@ import com.jfixby.cmns.api.file.FileOutputStream;
 import com.jfixby.cmns.api.io.Buffer;
 import com.jfixby.cmns.api.io.BufferInputStream;
 import com.jfixby.cmns.api.io.BufferOutputStream;
+import com.jfixby.cmns.api.io.GZipInputStream;
+import com.jfixby.cmns.api.io.GZipOutputStream;
 import com.jfixby.cmns.api.io.IOComponent;
 import com.jfixby.cmns.api.io.InputStream;
 import com.jfixby.cmns.api.io.OutputStream;
@@ -109,10 +111,17 @@ public class RedIO implements IOComponent {
 
     @Override
     public void forceClose(OutputStream os) {
-	
-	    os.forceClose();
-	    
-	    
+	os.forceClose();
+    }
+
+    @Override
+    public GZipOutputStream newGZipStream(OutputStream os) throws IOException {
+	return new RedGZipOutputStream(os);
+    }
+
+    @Override
+    public GZipInputStream newGZipStream(InputStream is) throws IOException {
+	return new RedGZipInputStream(is);
     }
 
 }

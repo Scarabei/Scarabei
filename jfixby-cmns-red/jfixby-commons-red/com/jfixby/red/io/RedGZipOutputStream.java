@@ -1,60 +1,57 @@
 package com.jfixby.red.io;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.zip.GZIPOutputStream;
 
-import com.jfixby.cmns.api.io.BufferOutputStream;
 import com.jfixby.cmns.api.io.Data;
+import com.jfixby.cmns.api.io.GZipOutputStream;
 
-public class RedBufferOutputStream implements BufferOutputStream {
+public class RedGZipOutputStream implements GZipOutputStream {
 
-    private ByteArrayOutputStream os;
+    private GZIPOutputStream zip;
+    private OutputStream java_os;
 
-    public RedBufferOutputStream() {
-	os = new ByteArrayOutputStream();
+    public RedGZipOutputStream(com.jfixby.cmns.api.io.OutputStream os) throws IOException {
+	java_os = os.toJavaOutputStream();
+	zip = new GZIPOutputStream(java_os);
     }
 
     @Override
     public void write(Data data) throws IOException {
 	final RedData di = (RedData) data;
-	os.write(di.integer);
+	zip.write(di.integer);
     }
 
     @Override
     public void close() throws IOException {
-	os.flush();
-	os.close();
+	zip.flush();
+	zip.close();
     }
 
     @Override
     public void flush() throws IOException {
-	os.flush();
+	zip.flush();
     }
 
     @Override
     public void write(byte[] bytes) throws IOException {
 	for (int i = 0; i < bytes.length; i++) {
-	    this.os.write(bytes[i]);
+	    this.zip.write(bytes[i]);
 	}
-	this.os.flush();
-//	this.os.close();
-    }
-
-    @Override
-    public byte[] getBytes() {
-	return this.os.toByteArray();
+	this.zip.flush();
+	// this.zip.close();
     }
 
     @Override
     public OutputStream toJavaOutputStream() {
-	return os;
+	return zip;
     }
 
     @Override
     public void forceClose() {
 	try {
-	    os.close();
+	    zip.close();
 	} catch (IOException ignored) {
 	}
     }

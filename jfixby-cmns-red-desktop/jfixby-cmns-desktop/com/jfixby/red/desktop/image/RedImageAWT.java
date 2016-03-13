@@ -1,12 +1,11 @@
 package com.jfixby.red.desktop.image;
 
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 import java.awt.image.DataBufferInt;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.Vector;
 
 import javax.imageio.ImageIO;
@@ -24,6 +23,8 @@ import com.jfixby.cmns.api.image.ColorMap;
 import com.jfixby.cmns.api.image.EditableColorMap;
 import com.jfixby.cmns.api.image.GrayMap;
 import com.jfixby.cmns.api.image.ImageProcessing;
+import com.jfixby.cmns.api.io.InputStream;
+import com.jfixby.cmns.api.io.OutputStream;
 import com.jfixby.cmns.api.log.L;
 
 public class RedImageAWT implements ImageAWTComponent {
@@ -32,8 +33,7 @@ public class RedImageAWT implements ImageAWTComponent {
     public BufferedImage readFromFile(File image_file) throws IOException {
 	Debug.checkNull("image_file", image_file);
 	FileInputStream is = image_file.newInputStream();
-	InputStream java_is = is.toJavaInputStream();
-	BufferedImage bad_image = ImageIO.read(java_is);
+	BufferedImage bad_image = readFromStream(is);
 	if (bad_image == null) {
 	    L.d("Failed to read image", image_file);
 	    L.d("    exists", image_file.exists());
@@ -48,19 +48,20 @@ public class RedImageAWT implements ImageAWTComponent {
     }
 
     @Override
+    public BufferedImage readFromStream(InputStream is) throws IOException {
+	java.io.InputStream java_is = is.toJavaInputStream();
+	BufferedImage bad_image = ImageIO.read(java_is);
+	return bad_image;
+    }
+
+    @Override
     public void writeToFile(java.awt.Image java_image, File file, String file_type, int image_mode) throws IOException {
 	Debug.checkNull("java_image", java_image);
 	Debug.checkNull("file", file);
 	Debug.checkNull("file_type", file_type);
-	int width = java_image.getWidth(null);
-	int height = java_image.getHeight(null);
-	BufferedImage out = new BufferedImage(width, height, image_mode);
-	Graphics2D g2 = out.createGraphics();
-	g2.drawImage(java_image, 0, 0, null);
+
 	FileOutputStream os = file.newOutputStream();
-	OutputStream java_os = os.toJavaOutputStream();
-	ImageIO.write(out, file_type, java_os);
-	os.flush();
+	this.writeToStream(java_image, os, file_type, image_mode);
 	os.close();
     }
 
@@ -70,7 +71,7 @@ public class RedImageAWT implements ImageAWTComponent {
     }
 
     @Override
-    public ArrayColorMap readAWTColorMap(InputStream java_is) throws IOException {
+    public ArrayColorMap readAWTColorMap(java.io.InputStream java_is) throws IOException {
 	BufferedImage bad_image = ImageIO.read(java_is);
 	if (bad_image == null) {
 	    L.d("Failed to read image", java_is);
@@ -171,7 +172,7 @@ public class RedImageAWT implements ImageAWTComponent {
     @Override
     public ArrayColorMap readAWTColorMap(File image_file) throws IOException {
 	FileInputStream is = image_file.newInputStream();
-	InputStream java_is = is.toJavaInputStream();
+	java.io.InputStream java_is = is.toJavaInputStream();
 	ArrayColorMap map = this.readAWTColorMap(java_is);
 	java_is.close();
 	is.close();
@@ -219,6 +220,20 @@ public class RedImageAWT implements ImageAWTComponent {
 	    }
 	}
 	return im;
+    }
+
+    @Override
+    public void writeToStream(Image java_image, OutputStream outputStream, String file_type, int awtImageMode)
+	    throws IOException {
+	int width = java_image.getWidth(null);
+	int height = java_image.getHeight(null);
+	BufferedImage out = new BufferedImage(width, height, awtImageMode);
+	Graphics2D g2 = out.createGraphics();
+	g2.drawImage(java_image, 0, 0, null);
+
+	java.io.OutputStream java_os = outputStream.toJavaOutputStream();
+	ImageIO.write(out, file_type, java_os);
+	outputStream.flush();
     }
 
 }

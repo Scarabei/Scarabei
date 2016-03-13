@@ -39,6 +39,10 @@ public interface IOComponent {
 
     void forceClose(OutputStream os);
 
+    GZipOutputStream newGZipStream(OutputStream os) throws IOException;
+
+    GZipInputStream newGZipStream(InputStream is) throws IOException;
+
     // public String deserializeFromString(String from_string) throws
     // IOException;
 
