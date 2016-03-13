@@ -12,13 +12,13 @@ import com.jfixby.cmns.api.image.ColorMapSpecs;
 import com.jfixby.cmns.api.image.EditableColorMap;
 import com.jfixby.cmns.api.image.EditableGrayMap;
 import com.jfixby.cmns.api.image.ImageProcessing;
+import com.jfixby.cmns.api.log.L;
 import com.jfixby.red.desktop.DesktopAssembler;
 
 public class SplitChannelsTest {
 
     public static void main(String[] args) throws IOException {
 	DesktopAssembler.setup();
-	
 
 	File home = LocalFileSystem.ApplicationHome();
 	File input_folder = home.child("input");
@@ -37,9 +37,13 @@ public class SplitChannelsTest {
 	    spces.setGreen(alpha);
 	    spces.setBlue(alpha);
 	    ColorMap outputColorMap = ImageProcessing.newColorMap(spces);
-	    BufferedImage resultingImage = ImageAWT.toAWTImage(outputColorMap);
+	    // BufferedImage resultingImage =
+	    // ImageAWT.toAWTImage(outputColorMap);
+	    BufferedImage resultingImage = ImageAWT.toAWTImage(outputColorMap.getRed());
+
 	    File outputFile = output_folder.child(file.nameWithoutExtension() + "-alpha.png");
-	    ImageAWT.writeToFile(resultingImage, outputFile, "png");
+	    L.d("writing", outputFile);
+	    ImageAWT.writeToFile(resultingImage, outputFile, "png", BufferedImage.TYPE_BYTE_GRAY);
 	}
 
     }

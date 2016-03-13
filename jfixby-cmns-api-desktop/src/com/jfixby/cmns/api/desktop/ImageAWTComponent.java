@@ -1,11 +1,13 @@
 package com.jfixby.cmns.api.desktop;
 
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.image.ArrayColorMap;
 import com.jfixby.cmns.api.image.ColorMap;
+import com.jfixby.cmns.api.image.GrayMap;
 
 public interface ImageAWTComponent {
 
@@ -22,5 +24,9 @@ public interface ImageAWTComponent {
     ArrayColorMap readAWTColorMap(File image_file) throws IOException;
 
     void writeToFile(ColorMap image, File image_file, String file_type) throws IOException;
+
+    BufferedImage toAWTImage(GrayMap grayImage);
+
+    void writeToFile(Image java_image, File file, String file_type, int image_mode) throws IOException;
 
 }

@@ -16,7 +16,7 @@ public class RedColorMap implements ColorMap {
     private int width;
     private int height;
 
-    private GrayMap alpha = new GrayMap() {
+    final private GrayMap alpha = new GrayMap() {
 
 	@Override
 	public int getWidth() {
@@ -36,6 +36,29 @@ public class RedColorMap implements ColorMap {
 	@Override
 	public float valueAt(float x, float y) {
 	    return master.valueAt(x, y).alpha();
+	}
+
+    };
+    final private GrayMap red = new GrayMap() {
+
+	@Override
+	public int getWidth() {
+	    return master.getWidth();
+	}
+
+	@Override
+	public int getHeight() {
+	    return master.getHeight();
+	}
+
+	@Override
+	public GrayλImage getLambdaImage() {
+	    return master.red;
+	}
+
+	@Override
+	public float valueAt(float x, float y) {
+	    return master.valueAt(x, y).red();
 	}
 
     };
@@ -106,6 +129,11 @@ public class RedColorMap implements ColorMap {
     @Override
     public Color valueAt(float x, float y) {
 	return lambda.valueAt(x, y);
+    }
+
+    @Override
+    public GrayMap getRed() {
+	return red;
     }
 
 }

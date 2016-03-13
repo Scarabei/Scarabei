@@ -2,6 +2,7 @@ package com.jfixby.red.desktop.image;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferByte;
 import java.awt.image.DataBufferInt;
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,6 +22,7 @@ import com.jfixby.cmns.api.image.ArrayColorMap;
 import com.jfixby.cmns.api.image.ArrayColorMapSpecs;
 import com.jfixby.cmns.api.image.ColorMap;
 import com.jfixby.cmns.api.image.EditableColorMap;
+import com.jfixby.cmns.api.image.GrayMap;
 import com.jfixby.cmns.api.image.ImageProcessing;
 import com.jfixby.cmns.api.log.L;
 
@@ -46,13 +48,13 @@ public class RedImageAWT implements ImageAWTComponent {
     }
 
     @Override
-    public void writeToFile(java.awt.Image java_image, File file, String file_type) throws IOException {
+    public void writeToFile(java.awt.Image java_image, File file, String file_type, int image_mode) throws IOException {
 	Debug.checkNull("java_image", java_image);
 	Debug.checkNull("file", file);
 	Debug.checkNull("file_type", file_type);
 	int width = java_image.getWidth(null);
 	int height = java_image.getHeight(null);
-	BufferedImage out = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+	BufferedImage out = new BufferedImage(width, height, image_mode);
 	Graphics2D g2 = out.createGraphics();
 	g2.drawImage(java_image, 0, 0, null);
 	FileOutputStream os = file.newOutputStream();
@@ -60,6 +62,11 @@ public class RedImageAWT implements ImageAWTComponent {
 	ImageIO.write(out, file_type, java_os);
 	os.flush();
 	os.close();
+    }
+
+    @Override
+    public void writeToFile(java.awt.Image java_image, File file, String file_type) throws IOException {
+	writeToFile(java_image, file, file_type, BufferedImage.TYPE_INT_ARGB);
     }
 
     @Override
@@ -195,6 +202,23 @@ public class RedImageAWT implements ImageAWTComponent {
     @Override
     public void writeToFile(ColorMap image, File image_file, String file_type) throws IOException {
 	this.writeToFile(this.toAWTImage(image), image_file, file_type);
+    }
+
+    @Override
+    public BufferedImage toAWTImage(GrayMap image_function) {
+	int h = image_function.getHeight();
+	int w = image_function.getWidth();
+	BufferedImage im = new BufferedImage(w, h, BufferedImage.TYPE_BYTE_GRAY);
+	byte[] data = ((DataBufferByte) im.getRaster().getDataBuffer()).getData();
+	for (int j = 0; j < h; j++) {
+	    for (int i = 0; i < w; i++) {
+		int K = i + j * w;
+		float color_c = image_function.valueAt(i, j);
+		data[K] = (byte) (255 * color_c);
+		// im.setRGB(i, j, rgb);
+	    }
+	}
+	return im;
     }
 
 }

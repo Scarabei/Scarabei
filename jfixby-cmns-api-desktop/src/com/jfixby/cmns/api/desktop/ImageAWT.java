@@ -8,6 +8,7 @@ import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.image.ArrayColorMap;
 import com.jfixby.cmns.api.image.ColorMap;
 import com.jfixby.cmns.api.image.EditableColorMap;
+import com.jfixby.cmns.api.image.GrayMap;
 
 public class ImageAWT {
 
@@ -34,6 +35,11 @@ public class ImageAWT {
 	invoke().writeToFile(javaImage, image_file, file_type);
     }
 
+    public static void writeToFile(java.awt.Image javaImage, File image_file, String file_type, int awtImageMode)
+	    throws IOException {
+	invoke().writeToFile(javaImage, image_file, file_type, awtImageMode);
+    }
+
     public static EditableColorMap newAWTColorMap(BufferedImage image) {
 	return invoke().newAWTColorMap(image);
     }
@@ -53,6 +59,11 @@ public class ImageAWT {
 
     public static void writeToFile(ColorMap image, File restoredFile, String file_type) throws IOException {
 	invoke().writeToFile(image, restoredFile, file_type);
+    }
+
+    public static BufferedImage toAWTImage(GrayMap grayImage) {
+	return invoke().toAWTImage(grayImage);
+
     }
 
 }

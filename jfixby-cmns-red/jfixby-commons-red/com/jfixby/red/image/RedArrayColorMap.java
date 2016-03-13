@@ -8,6 +8,7 @@ import com.jfixby.cmns.api.image.ArrayColorMap;
 import com.jfixby.cmns.api.image.ArrayColorMapSpecs;
 import com.jfixby.cmns.api.image.ColoredλImage;
 import com.jfixby.cmns.api.image.EditableGrayMap;
+import com.jfixby.cmns.api.image.GrayMap;
 import com.jfixby.cmns.api.image.GrayλImage;
 import com.jfixby.cmns.api.math.FloatMath;
 
@@ -38,7 +39,7 @@ public class RedArrayColorMap implements ArrayColorMap {
     final private int height;
     final private Color default_color;
     private final ArraySupply supply;
-    private EditableGrayMap alpha = new EditableGrayMap() {
+    final private EditableGrayMap alpha = new EditableGrayMap() {
 
 	@Override
 	public int getWidth() {
@@ -138,5 +139,48 @@ public class RedArrayColorMap implements ArrayColorMap {
 	}
 	return value;
     }
+
+    @Override
+    public GrayMap getRed() {
+	return red;
+    }
+
+    final private EditableGrayMap red = new EditableGrayMap() {
+
+	@Override
+	public int getWidth() {
+	    return master.getWidth();
+	}
+
+	@Override
+	public int getHeight() {
+	    return master.getHeight();
+	}
+
+	@Override
+	public GrayλImage getLambdaImage() {
+	    return master.red;
+	}
+
+	@Override
+	public float valueAt(float x, float y) {
+	    return master.valueAt(x, y).red();
+	}
+
+	@Override
+	public void setValue(int x, int y, float grayscale_value) {
+	    if (master.out_of_the_scope(x, y)) {
+		return;
+	    }
+
+	    Color color_value = master.supply.get(x, y);
+	    CustomColor color_value_custom = Colors.newColor();
+	    if (color_value != null) {
+		color_value_custom.setRed(grayscale_value);
+	    }
+	    master.supply.set(x, y, color_value_custom);
+
+	}
+    };
 
 }

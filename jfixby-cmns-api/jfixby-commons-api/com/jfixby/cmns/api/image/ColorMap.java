@@ -9,4 +9,6 @@ public interface ColorMap extends ColoredλImage {
     ColoredλImage getLambdaImage();
 
     GrayMap getAlpha();
+
+    GrayMap getRed();
 }
