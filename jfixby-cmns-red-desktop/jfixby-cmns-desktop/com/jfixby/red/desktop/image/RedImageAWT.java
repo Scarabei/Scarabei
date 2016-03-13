@@ -63,28 +63,7 @@ public class RedImageAWT implements ImageAWTComponent {
     }
 
     @Override
-    public ArrayColorMap newAWTColorMap(BufferedImage img) {
-	Debug.checkNull(img);
-
-	ArrayColorMapSpecs specs = ImageProcessing.newArrayColorMapSpecs();
-	specs.setWidth(img.getWidth());
-	specs.setHeight(img.getHeight());
-	specs.setDefaultColor(Colors.BLACK());
-
-	ArrayColorMap array = ImageProcessing.newArrayColorMap(specs);
-
-	for (int j = 0; j < array.getHeight(); j++) {
-	    for (int i = 0; i < array.getWidth(); i++) {
-		int rgb = img.getRGB(i, j);
-		array.setValue(i, j, Colors.newColor(rgb));
-	    }
-	}
-
-	return array;
-    }
-
-    @Override
-    public ArrayColorMap newAWTColorMap(InputStream java_is) throws IOException {
+    public ArrayColorMap readAWTColorMap(InputStream java_is) throws IOException {
 	BufferedImage bad_image = ImageIO.read(java_is);
 	if (bad_image == null) {
 	    L.d("Failed to read image", java_is);
@@ -186,10 +165,36 @@ public class RedImageAWT implements ImageAWTComponent {
     public ArrayColorMap readAWTColorMap(File image_file) throws IOException {
 	FileInputStream is = image_file.newInputStream();
 	InputStream java_is = is.toJavaInputStream();
-	ArrayColorMap map = this.newAWTColorMap(java_is);
+	ArrayColorMap map = this.readAWTColorMap(java_is);
 	java_is.close();
 	is.close();
 	return map;
+    }
+
+    @Override
+    public ArrayColorMap newAWTColorMap(BufferedImage img) {
+	Debug.checkNull(img);
+
+	ArrayColorMapSpecs specs = ImageProcessing.newArrayColorMapSpecs();
+	specs.setWidth(img.getWidth());
+	specs.setHeight(img.getHeight());
+	specs.setDefaultColor(Colors.BLACK());
+
+	ArrayColorMap array = ImageProcessing.newArrayColorMap(specs);
+
+	for (int j = 0; j < array.getHeight(); j++) {
+	    for (int i = 0; i < array.getWidth(); i++) {
+		int rgb = img.getRGB(i, j);
+		array.setValue(i, j, Colors.newColor(rgb));
+	    }
+	}
+
+	return array;
+    }
+
+    @Override
+    public void writeToFile(ColorMap image, File image_file, String file_type) throws IOException {
+	this.writeToFile(this.toAWTImage(image), image_file, file_type);
     }
 
 }

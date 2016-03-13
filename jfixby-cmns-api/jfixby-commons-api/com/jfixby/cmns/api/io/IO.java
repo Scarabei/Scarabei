@@ -73,4 +73,8 @@ public class IO {
     public static void writeByte(java.io.OutputStream javaOutputStream, int value) throws IOException {
 	invoke().writeByte(javaOutputStream, value);
     }
+
+    public static void forceClose(final OutputStream os) {
+	invoke().forceClose(os);
+    }
 }

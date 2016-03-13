@@ -15,12 +15,12 @@ public class RedImageProcessing implements ImageProcessingComponent {
     }
 
     @Override
-    public ArrayColorMapSpecs newColorMapSpecs() {
+    public ArrayColorMapSpecs newArrayColorMapSpecs() {
 	return new RedArrayColorMapSpecs();
     }
 
     @Override
-    public ColorMapSpecs newLambdaColorMapSpecs() {
+    public ColorMapSpecs newColorMapSpecs() {
 	return new RedColorMapSpecs();
     }
 
@@ -30,7 +30,7 @@ public class RedImageProcessing implements ImageProcessingComponent {
     }
 
     @Override
-    public ColorMap newLambdaColorMap(ColorMapSpecs lambda_specs) {
+    public ColorMap newColorMap(ColorMapSpecs lambda_specs) {
 	return new RedColorMap(lambda_specs);
     }
 

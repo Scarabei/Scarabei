@@ -43,4 +43,12 @@ public class AbstractRedOutputStream implements FileOutputStream {
     public OutputStream toJavaOutputStream() {
 	return os;
     }
+
+    @Override
+    public void forceClose() {
+	try {
+	    os.close();
+	} catch (IOException ignored) {
+	}
+    }
 }

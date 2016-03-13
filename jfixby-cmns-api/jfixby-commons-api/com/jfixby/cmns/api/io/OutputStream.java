@@ -4,14 +4,16 @@ import java.io.IOException;
 
 public interface OutputStream {
 
-	void write(Data data) throws IOException;
+    void write(Data data) throws IOException;
 
-	void close() throws IOException;
+    void close() throws IOException;
 
-	void flush() throws IOException;
+    void flush() throws IOException;
 
-	void write(byte[] bytes) throws IOException;
+    void write(byte[] bytes) throws IOException;
 
-	java.io.OutputStream toJavaOutputStream();
+    java.io.OutputStream toJavaOutputStream();
+
+    void forceClose();
 
 }

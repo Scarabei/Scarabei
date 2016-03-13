@@ -26,15 +26,15 @@ public class ImageProcessing {
     }
 
     public static ArrayColorMapSpecs newArrayColorMapSpecs() {
+	return invoke().newArrayColorMapSpecs();
+    }
+
+    public static ColorMapSpecs newColorMapSpecs() {
 	return invoke().newColorMapSpecs();
     }
 
-    public static ColorMapSpecs newLambdaColorMapSpecs() {
-	return invoke().newLambdaColorMapSpecs();
-    }
-
     public static ColorMap newColorMap(ColorMapSpecs lambda_specs) {
-	return invoke().newLambdaColorMap(lambda_specs);
+	return invoke().newColorMap(lambda_specs);
     }
 
     public static ColoredλImageCache newImageCache(int width, int height) {

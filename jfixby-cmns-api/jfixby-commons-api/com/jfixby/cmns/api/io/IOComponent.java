@@ -37,6 +37,8 @@ public interface IOComponent {
 
     public void writeByte(java.io.OutputStream javaOutputStream, int value) throws IOException;
 
+    void forceClose(OutputStream os);
+
     // public String deserializeFromString(String from_string) throws
     // IOException;
 

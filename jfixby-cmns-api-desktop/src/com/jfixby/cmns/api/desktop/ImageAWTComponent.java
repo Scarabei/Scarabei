@@ -17,8 +17,10 @@ public interface ImageAWTComponent {
 
     BufferedImage toAWTImage(ColorMap image_function);
 
-    ArrayColorMap newAWTColorMap(java.io.InputStream java_is) throws IOException;
+    ArrayColorMap readAWTColorMap(java.io.InputStream java_is) throws IOException;
 
     ArrayColorMap readAWTColorMap(File image_file) throws IOException;
+
+    void writeToFile(ColorMap image, File image_file, String file_type) throws IOException;
 
 }

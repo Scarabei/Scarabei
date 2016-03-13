@@ -31,7 +31,7 @@ public class SplitChannelsTest {
 	    EditableColorMap colorMap = ImageAWT.newAWTColorMap(awtImage);
 	    EditableGrayMap alpha = colorMap.getAlpha();
 
-	    ColorMapSpecs spces = ImageProcessing.newLambdaColorMapSpecs();
+	    ColorMapSpecs spces = ImageProcessing.newColorMapSpecs();
 	    spces.setColorMapDimentions(colorMap.getWidth(), colorMap.getHeight());
 	    spces.setRed(alpha);
 	    spces.setGreen(alpha);

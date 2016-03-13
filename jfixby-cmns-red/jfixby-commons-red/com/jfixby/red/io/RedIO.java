@@ -107,4 +107,12 @@ public class RedIO implements IOComponent {
 	javaOutputStream.write(value);
     }
 
+    @Override
+    public void forceClose(OutputStream os) {
+	
+	    os.forceClose();
+	    
+	    
+    }
+
 }

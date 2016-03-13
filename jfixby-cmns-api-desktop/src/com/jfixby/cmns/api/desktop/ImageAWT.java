@@ -39,7 +39,7 @@ public class ImageAWT {
     }
 
     public static EditableColorMap newAWTColorMap(java.io.InputStream java_input_stream) throws IOException {
-	return invoke().newAWTColorMap(java_input_stream);
+	return invoke().readAWTColorMap(java_input_stream);
     }
 
     public static BufferedImage toAWTImage(ColorMap image_function) {
@@ -49,6 +49,10 @@ public class ImageAWT {
 
     public static ArrayColorMap readAWTColorMap(File image_file) throws IOException {
 	return invoke().readAWTColorMap(image_file);
+    }
+
+    public static void writeToFile(ColorMap image, File restoredFile, String file_type) throws IOException {
+	invoke().writeToFile(image, restoredFile, file_type);
     }
 
 }

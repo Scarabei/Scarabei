@@ -2,13 +2,13 @@ package com.jfixby.cmns.api.image;
 
 public interface ImageProcessingComponent {
 
-    ArrayColorMapSpecs newColorMapSpecs();
+    ArrayColorMapSpecs newArrayColorMapSpecs();
 
     ArrayColorMap newArrayColorMap(ArrayColorMapSpecs color_function_specs);
 
-    ColorMapSpecs newLambdaColorMapSpecs();
+    ColorMapSpecs newColorMapSpecs();
 
-    ColorMap newLambdaColorMap(ColorMapSpecs lambda_specs);
+    ColorMap newColorMap(ColorMapSpecs lambda_specs);
 
     ColoredλImageCache newImageCache(int width, int height);
 
