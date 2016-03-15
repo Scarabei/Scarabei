@@ -12,7 +12,7 @@ import com.jfixby.cmns.api.math.FloatMath;
 public class RedColors implements ColorsComponent {
 
     private static final RedColor BLUE = new RedColor("BLUE", 0xFF0072BC);
-    private static final RedColor FUCHSIA = new RedColor(1, 1, 0, 1);
+    private static final RedColor FUCHSIA = new RedColor("FUCHSIA", 1, 1, 0, 1);
     private static final RedColor BLACK = new RedColor("BLACK", 0xff000000);
     private static final RedColor RED = new RedColor("RED", 0xffff0000);
     private static final RedColor WHITE = new RedColor("WHITE", 0xffffffff);
@@ -169,6 +169,13 @@ public class RedColors implements ColorsComponent {
     @Override
     public Color FUCHSIA() {
 	return FUCHSIA;
+    }
+
+    @Override
+    public Color newColor(String hexstring) {
+	hexstring = hexstring.replaceAll("#", "");
+	final int intColr = Integer.parseInt(hexstring);
+	return new RedColor(hexstring, intColr);
     }
 
 }

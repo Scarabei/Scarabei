@@ -54,4 +54,6 @@ public interface ColorsComponent {
 
     Color FUCHSIA();
 
+    Color newColor(String hexstring);
+
 }

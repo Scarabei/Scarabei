@@ -119,4 +119,8 @@ public class Colors {
 	return invoke().newColorRandomizer(seed);
     }
 
+    public static Color newColor(String hexstring) {
+	return invoke().newColor(hexstring);
+    }
+
 }
