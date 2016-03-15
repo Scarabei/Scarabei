@@ -174,7 +174,7 @@ public class RedColors implements ColorsComponent {
     @Override
     public Color newColor(String hexstring) {
 	hexstring = hexstring.replaceAll("#", "");
-	final int intColr = Integer.parseInt(hexstring);
+	final int intColr = (int) Long.parseLong(hexstring, 16);
 	return new RedColor(hexstring, intColr);
     }
 
