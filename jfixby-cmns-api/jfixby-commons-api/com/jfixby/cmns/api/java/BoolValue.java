@@ -1,19 +1,18 @@
 package com.jfixby.cmns.api.java;
 
-public class IntValue {
-
+public class BoolValue {
     @Override
     public String toString() {
 	return "" + value;
     }
 
-    public long value;
+    public boolean value;
 
     @Override
     public int hashCode() {
 	final int prime = 31;
 	int result = 1;
-	result = prime * result + (int) (value ^ (value >>> 32));
+	result = prime * result + (value ? 1231 : 1237);
 	return result;
     }
 
@@ -25,7 +24,7 @@ public class IntValue {
 	    return false;
 	if (getClass() != obj.getClass())
 	    return false;
-	IntValue other = (IntValue) obj;
+	BoolValue other = (BoolValue) obj;
 	if (value != other.value)
 	    return false;
 	return true;
