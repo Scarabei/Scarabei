@@ -10,6 +10,7 @@ public class NoClock implements TimeStream {
 
     @Override
     public long currentTimeMillis() {
+//	new Exception().printStackTrace();
 	return 0;
     }
 }

@@ -4,6 +4,7 @@ import com.jfixby.cmns.api.assets.AssetID;
 import com.jfixby.cmns.api.assets.Names;
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.Map;
+import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.sys.ExecutionMode;
 
@@ -15,21 +16,21 @@ public class RedSystemSettings {
 
     public void printSystemParameters() {
 	L.d("---[SystemSettings]-----------------------------------");
-	 flags.print("   Flags  ");
-       strings.print("   Strings");
+	flags.print("   Flags  ");
+	strings.print("   Strings");
 	assets.print("   Assets ");
 	L.d("---[SystemSettings-END]-----------------------------------");
     }
 
-    private ExecutionMode execution_mode;
+    private ExecutionMode execution_mode = ExecutionMode.EARLY_DEVELOPMENT;
 
-    public void setExecutionMode(ExecutionMode execution_mode) {
-	// L.d("ExecutionMode", execution_mode);
-	this.execution_mode = execution_mode;
+    public void setExecutionMode(final ExecutionMode executionMode) {
+	Debug.checkNull("ExecutionMode", executionMode);
+	this.execution_mode = executionMode;
     }
 
     public void setFlag(String flag_name, boolean flag_value) {
-	flags.put(flag_name, flag_value);
+	this.flags.put(flag_name, flag_value);
     }
 
     public boolean getFlag(String flag_name) {
@@ -65,6 +66,14 @@ public class RedSystemSettings {
 	    return Names.newAssetID("com.jfixby.redtriplane.fokker.render.raster_is_missing");
 	}
 	return value;
+    }
+
+    public boolean executionModeIs(final ExecutionMode execution_mode) {
+	return execution_mode == this.execution_mode;
+    }
+
+    public ExecutionMode getExecutionMode() {
+	return this.execution_mode;
     }
 
 }

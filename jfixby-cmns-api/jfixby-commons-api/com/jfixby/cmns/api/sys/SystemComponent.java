@@ -7,6 +7,7 @@ import com.jfixby.cmns.api.time.TimeStream;
 public interface SystemComponent {
 
     TimeStream SystemTime();
+
     TimeStream NoTime();
 
     void exit();
@@ -44,5 +45,9 @@ public interface SystemComponent {
     AssetID getSystemAssetID(String parameter_name);
 
     void printSystemParameters();
+
+    boolean executionModeIs(ExecutionMode mode);
+
+    ExecutionMode getExecutionMode();
 
 }

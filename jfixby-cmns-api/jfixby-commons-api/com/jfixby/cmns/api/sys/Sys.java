@@ -86,4 +86,12 @@ public class Sys {
 	invoke().printSystemParameters();
     }
 
+    public static boolean executionModeIs(ExecutionMode mode) {
+	return invoke().executionModeIs(mode);
+    }
+
+    public static ExecutionMode getExecutionMode() {
+	return invoke().getExecutionMode();
+    }
+
 }

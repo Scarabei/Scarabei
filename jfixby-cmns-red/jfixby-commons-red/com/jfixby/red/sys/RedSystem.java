@@ -68,6 +68,16 @@ public abstract class RedSystem implements SystemComponent {
     }
 
     @Override
+    public ExecutionMode getExecutionMode() {
+	return this.settings.getExecutionMode();
+    }
+
+    @Override
+    public boolean executionModeIs(final ExecutionMode execution_mode) {
+	return this.settings.executionModeIs(execution_mode);
+    }
+
+    @Override
     public void setFlag(String flag_name, boolean flag_value) {
 	this.settings.setFlag(flag_name, flag_value);
     }

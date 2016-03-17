@@ -9,6 +9,7 @@ public class RedDebugTimer implements DebugTimer {
     }
 
     long startTime;
+    private long value;
 
     @Override
     public void reset() {
@@ -16,8 +17,21 @@ public class RedDebugTimer implements DebugTimer {
     }
 
     @Override
-    public void printTime(String string) {
-	L.d(string, System.currentTimeMillis() - startTime);
+    public void printTime(final String string) {
+	L.component().d(string, getTime());
+    }
+
+    @Override
+    public final long getTime() {
+	this.value = System.currentTimeMillis() - startTime;
+	return this.value;
+    }
+
+    @Override
+    public void printTimeAbove(long threshold, String tag) {
+	if (this.getTime() > threshold) {
+	    this.printTime(tag);
+	}
     }
 
 }
