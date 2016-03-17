@@ -26,6 +26,10 @@ public class Sys {
 	return invoke().SystemTime();
     }
 
+    public static TimeStream NoTime() {
+	return invoke().NoTime();
+    }
+
     public static void exit() {
 	invoke().exit();
     }
