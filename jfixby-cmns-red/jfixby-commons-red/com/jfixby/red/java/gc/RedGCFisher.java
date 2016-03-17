@@ -23,8 +23,8 @@ public class RedGCFisher implements GCFisherComponent {
 	@Override
 	public void onBaitCaptured(Bait bait) {
 		String message = "GC bait captured " + bait.getInfo();
-		L.d(message);
-		L.e(new Error(message));
+		L.e(message);
+//		L.e(new Error(message));
 		GCFisher.throwBait();
 	}
 
