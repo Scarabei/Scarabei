@@ -64,7 +64,7 @@ public class RedSystemSettings implements SystemSettingsComponent {
 	AssetID value = assets.get(parameter_name);
 	if (value == null) {
 	    L.d("Parameter not found", parameter_name);
-	    return Names.newAssetID("com.jfixby.redtriplane.fokker.render.raster_is_missing");
+	    return null;
 	}
 	return value;
     }
