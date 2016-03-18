@@ -1,4 +1,4 @@
-package com.jfixby.cmns.api.sys;
+package com.jfixby.cmns.api.taskman;
 
 public interface Task {
 

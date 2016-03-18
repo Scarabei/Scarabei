@@ -6,9 +6,10 @@ import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.Map;
 import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.log.L;
-import com.jfixby.cmns.api.sys.ExecutionMode;
+import com.jfixby.cmns.api.sys.settings.ExecutionMode;
+import com.jfixby.cmns.api.sys.settings.SystemSettingsComponent;
 
-public class RedSystemSettings {
+public class RedSystemSettings implements SystemSettingsComponent {
 
     final Map<String, Boolean> flags = Collections.newMap();
     final Map<String, String> strings = Collections.newMap();

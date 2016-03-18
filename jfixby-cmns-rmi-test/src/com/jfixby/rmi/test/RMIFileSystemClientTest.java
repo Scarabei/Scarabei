@@ -8,7 +8,7 @@ import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.io.IO;
 import com.jfixby.cmns.api.log.L;
-import com.jfixby.cmns.api.sys.Sys;
+import com.jfixby.cmns.api.taskman.TaskManager;
 import com.jfixby.cmns.api.util.JUtils;
 import com.jfixby.red.debug.RedDebug;
 import com.jfixby.red.desktop.collections.DesktopCollections;
@@ -25,7 +25,7 @@ public class RMIFileSystemClientTest {
 		L.installComponent(new DesktopLogger());
 		JUtils.installComponent(new RedJUtils());
 		Collections.installComponent(new DesktopCollections());
-		Sys.installComponent(new DesktopSystem());
+		TaskManager.installComponent(new DesktopSystem());
 		IO.installComponent(new RedIO());
 		Err.installComponent(new RedError());
 		Debug.installComponent(new RedDebug());
