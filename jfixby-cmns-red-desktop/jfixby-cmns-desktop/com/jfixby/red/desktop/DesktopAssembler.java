@@ -17,6 +17,8 @@ import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.math.FloatMath;
 import com.jfixby.cmns.api.math.IntegerMath;
 import com.jfixby.cmns.api.math.MathTools;
+import com.jfixby.cmns.api.sys.Sys;
+import com.jfixby.cmns.api.sys.settings.SystemSettings;
 import com.jfixby.cmns.api.taskman.TaskManager;
 import com.jfixby.cmns.api.util.JUtils;
 import com.jfixby.red.color.RedColors;
@@ -37,6 +39,8 @@ import com.jfixby.red.math.RedAngles;
 import com.jfixby.red.math.RedIntegerMath;
 import com.jfixby.red.math.RedMathTools;
 import com.jfixby.red.name.RedAssetsNamespace;
+import com.jfixby.red.sys.RedSystemSettings;
+import com.jfixby.red.sys.RedTaskManager;
 import com.jfixby.red.util.RedJUtils;
 
 public class DesktopAssembler {
@@ -46,7 +50,9 @@ public class DesktopAssembler {
 	JUtils.installComponent(new RedJUtils());
 	Collections.installComponent(new DesktopCollections());
 	FloatMath.installComponent(new DesktopFloatMath());
-	TaskManager.installComponent(new DesktopSystem());
+	TaskManager.installComponent(new RedTaskManager());
+	Sys.installComponent(new DesktopSystem());
+	SystemSettings.installComponent(new RedSystemSettings());
 	IntegerMath.installComponent(new RedIntegerMath());
 	Names.installComponent(new RedAssetsNamespace());
 	IO.installComponent(new RedIO());

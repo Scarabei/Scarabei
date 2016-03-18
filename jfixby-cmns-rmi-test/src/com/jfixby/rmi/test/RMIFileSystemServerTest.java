@@ -29,7 +29,7 @@ public class RMIFileSystemServerTest {
 		L.installComponent(new DesktopLogger());
 		JUtils.installComponent(new RedJUtils());
 		Collections.installComponent(new DesktopCollections());
-		TaskManager.installComponent(new DesktopSystem());
+		
 		IO.installComponent(new RedIO());
 		Err.installComponent(new RedError());
 		Debug.installComponent(new RedDebug());
