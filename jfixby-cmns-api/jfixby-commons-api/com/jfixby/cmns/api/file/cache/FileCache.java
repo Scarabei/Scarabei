@@ -5,24 +5,27 @@ import com.jfixby.cmns.api.file.File;
 
 public class FileCache {
 
-	static private ComponentInstaller<FileCacheComponent> componentInstaller = new ComponentInstaller<FileCacheComponent>(
-			"FileCache");
+    static private ComponentInstaller<FileCacheComponent> componentInstaller = new ComponentInstaller<FileCacheComponent>(
+	    "FileCache");
 
-	public static final void installComponent(
-			FileCacheComponent component_to_install) {
-		componentInstaller.installComponent(component_to_install);
-	}
+    public static final void installComponent(FileCacheComponent component_to_install) {
+	componentInstaller.installComponent(component_to_install);
+    }
 
-	public static final FileCacheComponent invoke() {
-		return componentInstaller.invokeComponent();
-	}
+    public static final FileCacheComponent invoke() {
+	return componentInstaller.invokeComponent();
+    }
 
-	public static final FileCacheComponent component() {
-		return componentInstaller.getComponent();
-	}
+    public static final FileCacheComponent component() {
+	return componentInstaller.getComponent();
+    }
 
-	public static TempFolder createTempFolder(File where) {
-		return invoke().createTempFolder(where);
-	}
+    public static TempFolder createTempFolder(File where) {
+	return invoke().createTempFolder(where);
+    }
+
+    public static TempFolder createTempFolder() {
+	return invoke().createTempFolder();
+    }
 
 }
