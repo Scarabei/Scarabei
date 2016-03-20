@@ -6,88 +6,88 @@ import com.jfixby.cmns.api.util.EvaluationResult;
 import com.jfixby.cmns.api.util.StateSwitcher;
 
 public class RedStateSwitcher<T> implements StateSwitcher<T> {
-	T state;
-	private String debug_name;
+    T state;
+    private String debug_name;
 
-	public RedStateSwitcher(T default_state) {
-		debug_name = "StateSwitcher<?>";
-		this.switchState(default_state);
-	}
+    public RedStateSwitcher(T default_state) {
+	debug_name = "StateSwitcher<?>";
+	this.switchState(default_state);
+    }
 
-	final RedStateSwitcherEvaluationResult result = new RedStateSwitcherEvaluationResult();
+    final RedStateSwitcherEvaluationResult result = new RedStateSwitcherEvaluationResult();
 
-	@Override
-	public EvaluationResult expectState(final T expected_state) {
-		if (!this.state.equals(expected_state)) {
-			String message = "Wrong state=" + this.state + ", expected: " + expected_state;
-			if (throw_error) {
-				throw new Error(message);
-			} else {
-				result.setErrorFlag(true);
-				result.setErrorMessage(message);
-				return result;
-			}
-		}
-		this.result.setErrorFlag(false);
-		this.result.setErrorMessage(null);
+    @Override
+    public EvaluationResult expectState(final T expected_state) {
+	if (!this.state.equals(expected_state)) {
+	    String message = "Wrong state=" + this.state + ", expected: " + expected_state;
+	    if (throw_error) {
+		Err.reportError(message);
+	    } else {
+		result.setErrorFlag(true);
+		result.setErrorMessage(message);
 		return result;
+	    }
 	}
+	this.result.setErrorFlag(false);
+	this.result.setErrorMessage(null);
+	return result;
+    }
 
-	@Override
-	public void switchState(final T next_state) {
-		if (next_state == null) {
-			Err.reportError("Null state detected");
-		}
-		if (debug) {
-			L.d(this.debug_name + ": " + this.state + " -", next_state);
-		}
-		this.state = next_state;
+    @Override
+    public void switchState(final T next_state) {
+	if (next_state == null) {
+	    Err.reportError("Null state detected");
 	}
-
-	@Override
-	public T currentState() {
-		return this.state;
+	if (debug) {
+	    L.d(this.debug_name + ": " + this.state + " -", next_state);
 	}
+	this.state = next_state;
+    }
 
-	@Override
-	public void setDebugName(final String string) {
-		this.debug_name = string;
-	}
+    @Override
+    public T currentState() {
+	return this.state;
+    }
 
-	boolean debug = false;
+    @Override
+    public void setDebugName(final String string) {
+	this.debug_name = string;
+    }
 
-	@Override
-	public void setDebugFlag(final boolean b) {
-		debug = b;
-	}
+    boolean debug = false;
 
-	@Override
-	public String toString() {
-		return "<" + state + ">";
-	}
+    @Override
+    public void setDebugFlag(final boolean b) {
+	debug = b;
+    }
 
-	boolean throw_error = true;
+    @Override
+    public String toString() {
+	return "<" + state + ">";
+    }
 
-	@Override
-	public void setThrowErrorOnUnexpectedState(final boolean throw_error) {
-		this.throw_error = throw_error;
-	}
+    boolean throw_error = true;
 
-	@Override
-	public EvaluationResult doesNotExpectState(final T unexpected_state) {
-		if (this.state.equals(unexpected_state)) {
-			String message = "Unexpected state=" + this.state;
-			if (throw_error) {
-				Err.reportError(message);
-			} else {
-				result.setErrorFlag(true);
-				result.setErrorMessage(message);
-				return result;
-			}
-		}
-		this.result.setErrorFlag(false);
-		this.result.setErrorMessage(null);
+    @Override
+    public void setThrowErrorOnUnexpectedState(final boolean throw_error) {
+	this.throw_error = throw_error;
+    }
+
+    @Override
+    public EvaluationResult doesNotExpectState(final T unexpected_state) {
+	if (this.state.equals(unexpected_state)) {
+	    String message = "Unexpected state=" + this.state;
+	    if (throw_error) {
+		Err.reportError(message);
+	    } else {
+		result.setErrorFlag(true);
+		result.setErrorMessage(message);
 		return result;
+	    }
 	}
+	this.result.setErrorFlag(false);
+	this.result.setErrorMessage(null);
+	return result;
+    }
 
 }
