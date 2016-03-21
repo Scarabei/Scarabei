@@ -2,6 +2,8 @@ package com.jfixby.cmns.api.sys.settings;
 
 public enum ExecutionMode {
 
-	EARLY_DEVELOPMENT, PUBLIC_RELEASE;
+	EARLY_DEVELOPMENT,
+	//PUBLIC_RELEASE
+	;
 
 }
