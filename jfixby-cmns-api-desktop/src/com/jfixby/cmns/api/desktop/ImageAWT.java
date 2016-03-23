@@ -6,6 +6,7 @@ import java.io.IOException;
 import com.jfixby.cmns.api.ComponentInstaller;
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.image.ArrayColorMap;
+import com.jfixby.cmns.api.image.ArrayGrayMap;
 import com.jfixby.cmns.api.image.ColorMap;
 import com.jfixby.cmns.api.image.EditableColorMap;
 import com.jfixby.cmns.api.image.GrayMap;
@@ -63,9 +64,12 @@ public class ImageAWT {
 	invoke().writeToFile(image, restoredFile, file_type);
     }
 
+    public static void writeToFile(GrayMap image, File restoredFile, String file_type) throws IOException {
+	invoke().writeToFile(image, restoredFile, file_type);
+    }
+
     public static BufferedImage toAWTImage(GrayMap grayImage) {
 	return invoke().toAWTImage(grayImage);
-
     }
 
     public static void writeToStream(java.awt.Image javaImage, OutputStream outputStream, String file_type,
@@ -75,6 +79,26 @@ public class ImageAWT {
 
     public static BufferedImage readFromStream(InputStream is) throws IOException {
 	return invoke().readFromStream(is);
+    }
+
+    public static ArrayGrayMap readAWTGrayMap(File image_file) throws IOException {
+	return invoke().readAWTGrayMap(image_file);
+    }
+
+    public static GrayMap newAWTGrayMap(BufferedImage awt_image) {
+	return invoke().newAWTGrayMap(awt_image);
+    }
+
+    public static GrayMap awtScaleTo(GrayMap image, int width, int height) {
+	return invoke().awtScaleTo(image, width, height);
+    }
+
+    public static BufferedImage awtScaleTo(BufferedImage javaImage, int width, int height) {
+	return invoke().awtScaleTo(javaImage, width, height);
+    }
+
+    public static BufferedImage linearMix(BufferedImage a, float aWeight, BufferedImage b, float bWeight) {
+	return invoke().linearMix(a, aWeight, b, bWeight);
     }
 
 }

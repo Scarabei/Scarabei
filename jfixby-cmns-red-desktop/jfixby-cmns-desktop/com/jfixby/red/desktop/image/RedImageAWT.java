@@ -13,12 +13,16 @@ import javax.imageio.ImageIO;
 import com.jfixby.cmns.api.color.Color;
 import com.jfixby.cmns.api.color.Colors;
 import com.jfixby.cmns.api.debug.Debug;
+import com.jfixby.cmns.api.desktop.ImageAWT;
 import com.jfixby.cmns.api.desktop.ImageAWTComponent;
+import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.FileInputStream;
 import com.jfixby.cmns.api.file.FileOutputStream;
 import com.jfixby.cmns.api.image.ArrayColorMap;
 import com.jfixby.cmns.api.image.ArrayColorMapSpecs;
+import com.jfixby.cmns.api.image.ArrayGrayMap;
+import com.jfixby.cmns.api.image.ArrayGrayMapSpecs;
 import com.jfixby.cmns.api.image.ColorMap;
 import com.jfixby.cmns.api.image.EditableColorMap;
 import com.jfixby.cmns.api.image.GrayMap;
@@ -230,10 +234,96 @@ public class RedImageAWT implements ImageAWTComponent {
 	BufferedImage out = new BufferedImage(width, height, awtImageMode);
 	Graphics2D g2 = out.createGraphics();
 	g2.drawImage(java_image, 0, 0, null);
-
+	g2.dispose();
 	java.io.OutputStream java_os = outputStream.toJavaOutputStream();
 	ImageIO.write(out, file_type, java_os);
 	outputStream.flush();
+    }
+
+    @Override
+    public void writeToFile(GrayMap image, File image_file, String file_type) throws IOException {
+	BufferedImage awt = this.toAWTImage(image);
+	this.writeToFile(awt, image_file, file_type, BufferedImage.TYPE_BYTE_GRAY);
+    }
+
+    @Override
+    public ArrayGrayMap readAWTGrayMap(File image_file) throws IOException {
+	BufferedImage image = this.readFromFile(image_file);
+	if (image.getType() != BufferedImage.TYPE_BYTE_GRAY) {
+	    Err.reportError("Not implemented yet!");
+	}
+
+	return this.newAWTGrayMap(image);
+    }
+
+    @Override
+    public ArrayGrayMap newAWTGrayMap(BufferedImage img) {
+	Debug.checkNull(img);
+
+	ArrayGrayMapSpecs specs = ImageProcessing.newArrayGrayMapSpecs();
+	specs.setWidth(img.getWidth());
+	specs.setHeight(img.getHeight());
+
+	ArrayGrayMap array = ImageProcessing.newArrayGrayMap(specs);
+	byte[] data = ((DataBufferByte) img.getRaster().getDataBuffer()).getData();
+	int w = array.getWidth();
+	for (int j = 0; j < array.getHeight(); j++) {
+	    for (int i = 0; i < w; i++) {
+		int K = i + j * w;
+		int gray = data[K];
+		// int rgb = img.getRGB(i, j);
+		float value = gray / 255f;
+		array.setValue(i, j, value);
+	    }
+	}
+
+	return array;
+    }
+
+    @Override
+    public GrayMap awtScaleTo(GrayMap image, int width, int height) {
+	BufferedImage reduced_awt = ImageAWT.toAWTImage(image);
+	BufferedImage expanded_awt = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_GRAY);
+	Graphics2D g2 = expanded_awt.createGraphics();
+	g2.drawImage(reduced_awt, 0, 0, width, height, null);
+	g2.dispose();
+	GrayMap expanded = ImageAWT.newAWTGrayMap(expanded_awt);
+	return expanded;
+    }
+
+    @Override
+    public BufferedImage awtScaleTo(BufferedImage javaImage, int width, int height) {
+	int type = javaImage.getType();
+	BufferedImage output = new BufferedImage(width, height, type);
+	Graphics2D g2 = output.createGraphics();
+	g2.drawImage(javaImage, 0, 0, width, height, null);
+	g2.dispose();
+	return output;
+    }
+
+    @Override
+    public BufferedImage linearMix(BufferedImage a, float aWeight, BufferedImage b, float bWeight) {
+	final int type = a.getType();
+	final int width = a.getWidth();
+	final int height = a.getHeight();
+	final BufferedImage output = new BufferedImage(width, height, type);
+	if (type == BufferedImage.TYPE_BYTE_GRAY) {
+	    final byte[] data = ((DataBufferByte) output.getRaster().getDataBuffer()).getData();
+	    final byte[] A = ((DataBufferByte) a.getRaster().getDataBuffer()).getData();
+	    final byte[] B = ((DataBufferByte) b.getRaster().getDataBuffer()).getData();
+	    for (int j = 0; j < height; j++) {
+		for (int i = 0; i < width; i++) {
+		    final int K = i + j * width;
+		    final float value_A = A[K] / 255f;
+		    final float value_B = B[K] / 255f;
+		    final float mix = value_A * aWeight + bWeight * value_B;
+		    data[K] = (byte) (255 * mix);
+		}
+	    }
+	} else {
+	    Err.reportError("Not implemented yet!");
+	}
+	return output;
     }
 
 }

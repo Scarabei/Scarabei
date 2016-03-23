@@ -12,4 +12,26 @@ public interface ImageProcessingComponent {
 
     ColoredλImageCache newImageCache(int width, int height);
 
+    GrayλImage scale(GrayλImage base, float scaleX, float scaleY);
+
+    GrayλImage minus(GrayλImage base, GrayλImage diff);
+
+    GrayλImage multiply(GrayλImage image, float mult);
+
+    GrayMap newGrayMap(GrayλImage lambda, int width, int height);
+
+    GrayMapSpecs newGrayMapSpecs();
+
+    GrayλImage roundArguments(GrayλImage image);
+
+    ArrayGrayMapSpecs newArrayGrayMapSpecs();
+
+    ArrayGrayMap newArrayGrayMap(ArrayGrayMapSpecs specs);
+
+    GrayλImage plus(GrayλImage base, GrayλImage add);
+
+    int roundArgument(float x);
+
+
+
 }

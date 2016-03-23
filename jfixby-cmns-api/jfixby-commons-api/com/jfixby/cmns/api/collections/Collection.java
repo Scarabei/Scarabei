@@ -2,6 +2,8 @@ package com.jfixby.cmns.api.collections;
 
 import java.util.Iterator;
 
+import com.jfixby.cmns.api.image.GrayMap;
+
 public interface Collection<T> extends Iterable<T> {
 	public int size();
 
@@ -24,4 +26,6 @@ public interface Collection<T> extends Iterable<T> {
 	public void print(String tag, int from_index, int to_index);
 
 	public boolean beginsWith(Collection<T> steps);
+
+	
 }

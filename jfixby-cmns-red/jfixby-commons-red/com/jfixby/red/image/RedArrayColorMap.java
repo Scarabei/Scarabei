@@ -10,7 +10,7 @@ import com.jfixby.cmns.api.image.ColoredλImage;
 import com.jfixby.cmns.api.image.EditableGrayMap;
 import com.jfixby.cmns.api.image.GrayMap;
 import com.jfixby.cmns.api.image.GrayλImage;
-import com.jfixby.cmns.api.math.FloatMath;
+import com.jfixby.cmns.api.image.ImageProcessing;
 
 public class RedArrayColorMap implements ArrayColorMap {
     RedArrayColorMap master = this;
@@ -19,8 +19,8 @@ public class RedArrayColorMap implements ArrayColorMap {
 	this(specs.getWidth(), specs.getHeight(), specs.getDefaultColor(), new ArraySupply(specs));
     }
 
-    static public int toInt(double x) {
-	return (int) FloatMath.round(x);
+    static public int toInt(float x) {
+	return ImageProcessing.component().roundArgument(x);
     }
 
     final private ColoredλImage COLORED = new ColoredλImage() {

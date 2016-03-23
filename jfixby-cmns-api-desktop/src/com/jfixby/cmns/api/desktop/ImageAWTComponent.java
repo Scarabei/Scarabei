@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.image.ArrayColorMap;
+import com.jfixby.cmns.api.image.ArrayGrayMap;
 import com.jfixby.cmns.api.image.ColorMap;
 import com.jfixby.cmns.api.image.GrayMap;
 import com.jfixby.cmns.api.io.InputStream;
@@ -27,6 +28,8 @@ public interface ImageAWTComponent {
 
     void writeToFile(ColorMap image, File image_file, String file_type) throws IOException;
 
+    void writeToFile(GrayMap image, File image_file, String file_type) throws IOException;
+
     BufferedImage toAWTImage(GrayMap grayImage);
 
     void writeToFile(Image java_image, File file, String file_type, int image_mode) throws IOException;
@@ -35,5 +38,15 @@ public interface ImageAWTComponent {
 	    throws IOException;
 
     BufferedImage readFromStream(InputStream is) throws IOException;
+
+    ArrayGrayMap readAWTGrayMap(File image_file) throws IOException;
+
+    ArrayGrayMap newAWTGrayMap(BufferedImage img);
+
+    GrayMap awtScaleTo(GrayMap image, int width, int height);
+
+    BufferedImage awtScaleTo(BufferedImage javaImage, int width, int height);
+
+    BufferedImage linearMix(BufferedImage a, float aWeight, BufferedImage b, float bWeight);
 
 }

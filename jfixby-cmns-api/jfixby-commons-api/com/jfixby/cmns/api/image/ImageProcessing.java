@@ -41,4 +41,46 @@ public class ImageProcessing {
 	return invoke().newImageCache(width, height);
     }
 
+    public static GrayλImage scale(GrayλImage base, float scaleX, float scaleY) {
+	return invoke().scale(base, scaleX, scaleY);
+    }
+
+    public static GrayλImage minus(GrayλImage base, GrayλImage diff) {
+	return invoke().minus(base, diff);
+    }
+
+    public static GrayλImage multiply(GrayλImage image, float mult) {
+	return invoke().multiply(image, mult);
+    }
+
+    public static GrayMap newGrayMap(GrayλImage lambda, int width, int height) {
+	return invoke().newGrayMap(lambda, width, height);
+    }
+
+    public static GrayMapSpecs newGrayMapSpecs() {
+	return invoke().newGrayMapSpecs();
+    }
+
+    public static GrayλImage roundArguments(GrayλImage image) {
+	return invoke().roundArguments(image);
+    }
+
+    public static ArrayGrayMapSpecs newArrayGrayMapSpecs() {
+	return invoke().newArrayGrayMapSpecs();
+    }
+
+    public static ArrayGrayMap newArrayGrayMap(ArrayGrayMapSpecs specs) {
+	return invoke().newArrayGrayMap(specs);
+    }
+
+    public static GrayλImage plus(GrayλImage base, GrayλImage add) {
+	return invoke().plus(base, add);
+    }
+
+    public static int roundArgument(float x) {
+	return invoke().roundArgument(x);
+    }
+
+    
+
 }
