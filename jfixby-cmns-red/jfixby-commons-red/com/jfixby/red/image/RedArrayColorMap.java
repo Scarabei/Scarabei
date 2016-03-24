@@ -183,4 +183,90 @@ public class RedArrayColorMap implements ArrayColorMap {
 	}
     };
 
+    final private EditableGrayMap green = new EditableGrayMap() {
+
+	@Override
+	public int getWidth() {
+	    return master.getWidth();
+	}
+
+	@Override
+	public int getHeight() {
+	    return master.getHeight();
+	}
+
+	@Override
+	public GrayλImage getLambdaImage() {
+	    return master.green;
+	}
+
+	@Override
+	public float valueAt(float x, float y) {
+	    return master.valueAt(x, y).green();
+	}
+
+	@Override
+	public void setValue(int x, int y, float grayscale_value) {
+	    if (master.out_of_the_scope(x, y)) {
+		return;
+	    }
+
+	    Color color_value = master.supply.get(x, y);
+	    CustomColor color_value_custom = Colors.newColor();
+	    if (color_value != null) {
+		color_value_custom.setGreen(grayscale_value);
+	    }
+	    master.supply.set(x, y, color_value_custom);
+
+	}
+    };
+
+    final private EditableGrayMap blue = new EditableGrayMap() {
+
+	@Override
+	public int getWidth() {
+	    return master.getWidth();
+	}
+
+	@Override
+	public int getHeight() {
+	    return master.getHeight();
+	}
+
+	@Override
+	public GrayλImage getLambdaImage() {
+	    return master.green;
+	}
+
+	@Override
+	public float valueAt(float x, float y) {
+	    return master.valueAt(x, y).blue();
+	}
+
+	@Override
+	public void setValue(int x, int y, float grayscale_value) {
+	    if (master.out_of_the_scope(x, y)) {
+		return;
+	    }
+
+	    Color color_value = master.supply.get(x, y);
+	    CustomColor color_value_custom = Colors.newColor();
+	    if (color_value != null) {
+		color_value_custom.setBlue(grayscale_value);
+	    }
+	    master.supply.set(x, y, color_value_custom);
+
+	}
+    };
+
+    @Override
+    public GrayMap getGreen() {
+	return green;
+    }
+
+    @Override
+    public GrayMap getBlue() {
+	return blue;
+    }
+
 }

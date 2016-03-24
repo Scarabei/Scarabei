@@ -1,5 +1,7 @@
 package com.jfixby.cmns.api.image;
 
+import com.jfixby.cmns.api.color.GraySet;
+
 public interface ImageProcessingComponent {
 
     ArrayColorMapSpecs newArrayColorMapSpecs();
@@ -39,5 +41,9 @@ public interface ImageProcessingComponent {
     GrayλImage ZERO();
 
     ColorMap newColorMap(ColoredλImage lambda, int width, int height);
+
+    IndexedColorMapSpecs newIndexedColorMapSpecs();
+
+    GrayIndexedλImage index(GrayλImage lambdaImage, GraySet palette);
 
 }

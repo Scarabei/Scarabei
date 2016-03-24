@@ -56,4 +56,10 @@ public interface ColorsComponent {
 
     Color newColor(String hexstring);
 
+    GraySet newGraySet();
+
+    GraySet newGraySet(float... array);
+
+    GraySet newUniformGraySet(int depth);
+
 }

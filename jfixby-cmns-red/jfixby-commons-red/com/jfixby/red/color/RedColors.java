@@ -7,6 +7,7 @@ import com.jfixby.cmns.api.color.ColorRandomiser;
 import com.jfixby.cmns.api.color.ColorsComponent;
 import com.jfixby.cmns.api.color.ColorsSet;
 import com.jfixby.cmns.api.color.CustomColor;
+import com.jfixby.cmns.api.color.GraySet;
 import com.jfixby.cmns.api.math.FloatMath;
 
 public class RedColors implements ColorsComponent {
@@ -176,6 +177,26 @@ public class RedColors implements ColorsComponent {
 	hexstring = hexstring.replaceAll("#", "");
 	final int intColr = (int) Long.parseLong(hexstring, 16);
 	return new RedColor(hexstring, intColr);
+    }
+
+    @Override
+    public GraySet newGraySet() {
+	return new RedGraySet();
+    }
+
+    @Override
+    public GraySet newGraySet(float... array) {
+	return new RedGraySet().addAll(array);
+    }
+
+    @Override
+    public GraySet newUniformGraySet(int depth) {
+	RedGraySet set = new RedGraySet();
+	for (int i = 0; i <= depth; i++) {
+	    final float value = i * 1f / depth;
+	    set.add(value);
+	}
+	return set;
     }
 
 }

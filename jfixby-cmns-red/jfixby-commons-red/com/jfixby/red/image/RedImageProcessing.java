@@ -1,6 +1,7 @@
 package com.jfixby.red.image;
 
 import com.jfixby.cmns.api.color.Color;
+import com.jfixby.cmns.api.color.GraySet;
 import com.jfixby.cmns.api.image.ArrayColorMap;
 import com.jfixby.cmns.api.image.ArrayColorMapSpecs;
 import com.jfixby.cmns.api.image.ArrayGrayMap;
@@ -9,10 +10,12 @@ import com.jfixby.cmns.api.image.ColorMap;
 import com.jfixby.cmns.api.image.ColorMapSpecs;
 import com.jfixby.cmns.api.image.ColoredλImage;
 import com.jfixby.cmns.api.image.ColoredλImageCache;
+import com.jfixby.cmns.api.image.GrayIndexedλImage;
 import com.jfixby.cmns.api.image.GrayMap;
 import com.jfixby.cmns.api.image.GrayMapSpecs;
 import com.jfixby.cmns.api.image.GrayλImage;
 import com.jfixby.cmns.api.image.ImageProcessingComponent;
+import com.jfixby.cmns.api.image.IndexedColorMapSpecs;
 
 public class RedImageProcessing implements ImageProcessingComponent {
 
@@ -157,6 +160,26 @@ public class RedImageProcessing implements ImageProcessingComponent {
 	    @Override
 	    public Color valueAt(float x, float y) {
 		return base.valueAt(x / scaleX, y / scaleY);
+	    }
+	};
+    }
+
+    @Override
+    public IndexedColorMapSpecs newIndexedColorMapSpecs() {
+	return new RedIndexedColorMapSpecs();
+    }
+
+    @Override
+    public GrayIndexedλImage index(final GrayλImage base, final GraySet palette) {
+	return new GrayIndexedλImage() {
+	    @Override
+	    public float valueAt(float x, float y) {
+		return palette.findClosest(base.valueAt(x, y));
+	    }
+
+	    @Override
+	    public GraySet getPalette() {
+		return palette;
 	    }
 	};
     }

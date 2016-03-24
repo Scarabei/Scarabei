@@ -123,4 +123,16 @@ public class Colors {
 	return invoke().newColor(hexstring);
     }
 
+    public static GraySet newGraySet() {
+	return invoke().newGraySet();
+    }
+
+    public static GraySet newGraySet(float... array) {
+	return invoke().newGraySet(array);
+    }
+
+    public static GraySet newUniformGraySet(int depth) {
+	return invoke().newUniformGraySet(depth);
+    }
+
 }
