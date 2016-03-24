@@ -37,11 +37,19 @@ public class ImageProcessing {
 	return invoke().newColorMap(lambda_specs);
     }
 
+    public static ColorMap newColorMap(ColoredλImage lambda, int width, int height) {
+	return invoke().newColorMap(lambda, width, height);
+    }
+
     public static ColoredλImageCache newImageCache(int width, int height) {
 	return invoke().newImageCache(width, height);
     }
 
     public static GrayλImage scale(GrayλImage base, float scaleX, float scaleY) {
+	return invoke().scale(base, scaleX, scaleY);
+    }
+
+    public static ColoredλImage scale(ColoredλImage base, float scaleX, float scaleY) {
 	return invoke().scale(base, scaleX, scaleY);
     }
 
@@ -81,6 +89,12 @@ public class ImageProcessing {
 	return invoke().roundArgument(x);
     }
 
-    
+    public static GrayλImage ONE() {
+	return invoke().ONE();
+    }
+
+    public static GrayλImage ZERO() {
+	return invoke().ZERO();
+    }
 
 }

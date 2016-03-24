@@ -12,6 +12,8 @@ public interface ImageProcessingComponent {
 
     ColoredλImageCache newImageCache(int width, int height);
 
+    ColoredλImage scale(ColoredλImage base, float scaleX, float scaleY);
+
     GrayλImage scale(GrayλImage base, float scaleX, float scaleY);
 
     GrayλImage minus(GrayλImage base, GrayλImage diff);
@@ -32,6 +34,10 @@ public interface ImageProcessingComponent {
 
     int roundArgument(float x);
 
+    GrayλImage ONE();
 
+    GrayλImage ZERO();
+
+    ColorMap newColorMap(ColoredλImage lambda, int width, int height);
 
 }

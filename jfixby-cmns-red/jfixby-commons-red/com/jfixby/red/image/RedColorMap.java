@@ -8,6 +8,7 @@ import com.jfixby.cmns.api.image.ColorMapSpecs;
 import com.jfixby.cmns.api.image.ColoredλImage;
 import com.jfixby.cmns.api.image.GrayMap;
 import com.jfixby.cmns.api.image.GrayλImage;
+import com.jfixby.cmns.api.image.ImageProcessing;
 
 public class RedColorMap implements ColorMap {
     RedColorMap master = this;
@@ -89,14 +90,15 @@ public class RedColorMap implements ColorMap {
 
     }
 
+    public RedColorMap(ColoredλImage lambda, int width, int height) {
+	this.width = width;
+	this.height = height;
+	this.lambda = lambda;
+    }
+
     private GrayλImage defaultAlpha(GrayλImage alpha) {
 	if (alpha == null) {
-	    alpha = new GrayλImage() {
-		@Override
-		public float valueAt(float x, float y) {
-		    return 1;
-		}
-	    };
+	    return ImageProcessing.ONE();
 	}
 	return alpha;
     }
