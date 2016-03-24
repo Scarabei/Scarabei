@@ -1,10 +1,10 @@
 package com.jfixby.cmns.api.image;
 
-import com.jfixby.cmns.api.color.ColorsSet;
+import com.jfixby.cmns.api.color.ColorSet;
 
 public interface IndexedColorMapSpecs {
 
-    void setPalette(ColorsSet palette);
+    void setPalette(ColorSet palette);
 
-    ColorsSet getPalette();
+    ColorSet getPalette();
 }

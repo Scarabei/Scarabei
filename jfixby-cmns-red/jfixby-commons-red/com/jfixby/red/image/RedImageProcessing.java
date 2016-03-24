@@ -1,6 +1,7 @@
 package com.jfixby.red.image;
 
 import com.jfixby.cmns.api.color.Color;
+import com.jfixby.cmns.api.color.ColorProjector;
 import com.jfixby.cmns.api.color.GraySet;
 import com.jfixby.cmns.api.image.ArrayColorMap;
 import com.jfixby.cmns.api.image.ArrayColorMapSpecs;
@@ -181,6 +182,17 @@ public class RedImageProcessing implements ImageProcessingComponent {
 	    public GraySet getPalette() {
 		return palette;
 	    }
+	};
+    }
+
+    @Override
+    public ColoredλImage index(final ColoredλImage lambdaImage, final ColorProjector palette) {
+	return new ColoredλImage() {
+	    @Override
+	    public Color valueAt(float x, float y) {
+		return palette.findClosest(lambdaImage.valueAt(x, y));
+	    }
+
 	};
     }
 

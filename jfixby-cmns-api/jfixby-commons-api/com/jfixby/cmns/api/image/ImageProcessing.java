@@ -1,6 +1,7 @@
 package com.jfixby.cmns.api.image;
 
 import com.jfixby.cmns.api.ComponentInstaller;
+import com.jfixby.cmns.api.color.ColorProjector;
 import com.jfixby.cmns.api.color.GraySet;
 
 public class ImageProcessing {
@@ -103,6 +104,10 @@ public class ImageProcessing {
     }
 
     public static GrayIndexedλImage index(GrayλImage lambdaImage, GraySet palette) {
+	return invoke().index(lambdaImage, palette);
+    }
+
+    public static ColoredλImage index(ColoredλImage lambdaImage, ColorProjector palette) {
 	return invoke().index(lambdaImage, palette);
     }
 

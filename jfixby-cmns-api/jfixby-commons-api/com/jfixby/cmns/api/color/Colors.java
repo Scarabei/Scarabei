@@ -1,6 +1,7 @@
 package com.jfixby.cmns.api.color;
 
 import com.jfixby.cmns.api.ComponentInstaller;
+import com.jfixby.cmns.api.image.ColorMap;
 
 public class Colors {
 
@@ -79,7 +80,7 @@ public class Colors {
 	return invoke().BROWN();
     }
 
-    public static ColorsSet newColorsSet() {
+    public static ColorSet newColorsSet() {
 	return invoke().newColorsSet();
     }
 
@@ -89,10 +90,6 @@ public class Colors {
 
     public static CustomColor newColor(float a, float r, float g, float b) {
 	return invoke().newColor(a, r, g, b);
-    }
-
-    public static double distance(Color A, Color B) {
-	return invoke().distance(A, B);
     }
 
     public static CustomColor newColor() {
@@ -133,6 +130,18 @@ public class Colors {
 
     public static GraySet newUniformGraySet(int depth) {
 	return invoke().newUniformGraySet(depth);
+    }
+
+    public static ColorSet newColorsSet(ColorMap image) {
+	return invoke().newColorsSet(image);
+    }
+
+    public static ColorDistance distanceRGB() {
+	return invoke().distanceRGB();
+    }
+
+    public static CachedColorProjector colorProjectorCache(ColorProjector input) {
+	return invoke().colorProjectorCache(input);
     }
 
 }

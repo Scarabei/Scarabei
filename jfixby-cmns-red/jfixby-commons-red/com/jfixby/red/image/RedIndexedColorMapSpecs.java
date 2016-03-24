@@ -1,16 +1,16 @@
 package com.jfixby.red.image;
 
-import com.jfixby.cmns.api.color.ColorsSet;
+import com.jfixby.cmns.api.color.ColorSet;
 import com.jfixby.cmns.api.image.IndexedColorMapSpecs;
 
 public class RedIndexedColorMapSpecs implements IndexedColorMapSpecs {
 
     @Override
-    public void setPalette(ColorsSet palette) {
+    public void setPalette(ColorSet palette) {
     }
 
     @Override
-    public ColorsSet getPalette() {
+    public ColorSet getPalette() {
 	return null;
     }
 

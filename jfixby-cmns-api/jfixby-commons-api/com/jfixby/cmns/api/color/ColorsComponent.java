@@ -1,5 +1,7 @@
 package com.jfixby.cmns.api.color;
 
+import com.jfixby.cmns.api.image.ColorMap;
+
 public interface ColorsComponent {
 
     ColorConstant BLACK();
@@ -32,15 +34,13 @@ public interface ColorsComponent {
 
     CustomColor newColor(float r, float g, float b);
 
-    double distance(Color x, Color y);
-
     CustomColor newColor(int argb);
 
     ColorConstant DARK_GRAY();
 
     ColorConstant LIGHT_GRAY();
 
-    ColorsSet newColorsSet();
+    ColorSet newColorsSet();
 
     float limit(float f);
 
@@ -61,5 +61,11 @@ public interface ColorsComponent {
     GraySet newGraySet(float... array);
 
     GraySet newUniformGraySet(int depth);
+
+    ColorSet newColorsSet(ColorMap image);
+
+    ColorDistance distanceRGB();
+
+    CachedColorProjector colorProjectorCache(ColorProjector input);
 
 }

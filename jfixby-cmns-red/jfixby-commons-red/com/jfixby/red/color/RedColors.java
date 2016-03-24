@@ -1,13 +1,18 @@
 package com.jfixby.red.color;
 
+import com.jfixby.cmns.api.color.CachedColorProjector;
 import com.jfixby.cmns.api.color.Color;
 import com.jfixby.cmns.api.color.ColorConstant;
+import com.jfixby.cmns.api.color.ColorDistance;
 import com.jfixby.cmns.api.color.ColorMapping;
+import com.jfixby.cmns.api.color.ColorProjector;
 import com.jfixby.cmns.api.color.ColorRandomiser;
+import com.jfixby.cmns.api.color.ColorSet;
+import com.jfixby.cmns.api.color.Colors;
 import com.jfixby.cmns.api.color.ColorsComponent;
-import com.jfixby.cmns.api.color.ColorsSet;
 import com.jfixby.cmns.api.color.CustomColor;
 import com.jfixby.cmns.api.color.GraySet;
+import com.jfixby.cmns.api.image.ColorMap;
 import com.jfixby.cmns.api.math.FloatMath;
 
 public class RedColors implements ColorsComponent {
@@ -104,12 +109,17 @@ public class RedColors implements ColorsComponent {
 	return BROWN;
     }
 
-    public double distance(Color X, Color Y) {
-	final double dR = FloatMath.abs(X.red() - Y.red());
-	final double dG = FloatMath.abs(X.green() - Y.green());
-	final double dB = FloatMath.abs(X.blue() - Y.blue());
-	return FloatMath.sqrt(dR * dR + dG * dG + dB * dB);
-    }
+    final ColorDistance distanceRGB = new ColorDistance() {
+
+	@Override
+	public float measure(Color X, Color Y) {
+	    final double dR = FloatMath.component().abs(X.red() - Y.red());
+	    final double dG = FloatMath.component().abs(X.green() - Y.green());
+	    final double dB = FloatMath.component().abs(X.blue() - Y.blue());
+	    return (float) FloatMath.component().sqrt(dR * dR + dG * dG + dB * dB);
+	}
+
+    };
 
     @Override
     public CustomColor newColor(int argb) {
@@ -117,8 +127,8 @@ public class RedColors implements ColorsComponent {
     }
 
     @Override
-    public ColorsSet newColorsSet() {
-	return new RedColorsSet();
+    public ColorSet newColorsSet() {
+	return new RedColorsSet(Colors.distanceRGB());
     }
 
     @Override
@@ -197,6 +207,28 @@ public class RedColors implements ColorsComponent {
 	    set.add(value);
 	}
 	return set;
+    }
+
+    @Override
+    public ColorSet newColorsSet(ColorMap image) {
+	ColorSet palette = this.newColorsSet();
+	for (int i = 0; i < image.getWidth(); i++) {
+	    for (int j = 0; j < image.getHeight(); j++) {
+		Color color = image.valueAt(i, j);
+		palette.add(color);
+	    }
+	}
+	return palette;
+    }
+
+    @Override
+    public ColorDistance distanceRGB() {
+	return distanceRGB;
+    }
+
+    @Override
+    public CachedColorProjector colorProjectorCache(ColorProjector input) {
+	return new RedCachedColorProjector(input);
     }
 
 }
