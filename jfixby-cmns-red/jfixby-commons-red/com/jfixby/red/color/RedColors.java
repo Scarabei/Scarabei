@@ -13,6 +13,7 @@ import com.jfixby.cmns.api.color.ColorsComponent;
 import com.jfixby.cmns.api.color.CustomColor;
 import com.jfixby.cmns.api.color.GraySet;
 import com.jfixby.cmns.api.image.ColorMap;
+import com.jfixby.cmns.api.image.GrayMap;
 import com.jfixby.cmns.api.math.FloatMath;
 
 public class RedColors implements ColorsComponent {
@@ -229,6 +230,17 @@ public class RedColors implements ColorsComponent {
     @Override
     public CachedColorProjector colorProjectorCache(ColorProjector input) {
 	return new RedCachedColorProjector(input);
+    }
+
+    @Override
+    public GraySet newGraySet(GrayMap image) {
+	GraySet palette = this.newGraySet();
+	for (int i = 0; i < image.getWidth(); i++) {
+	    for (int j = 0; j < image.getHeight(); j++) {
+		palette.add(image.valueAt(i, j));
+	    }
+	}
+	return palette;
     }
 
 }

@@ -1,6 +1,7 @@
 package com.jfixby.cmns.api.color;
 
 import com.jfixby.cmns.api.image.ColorMap;
+import com.jfixby.cmns.api.image.GrayMap;
 
 public interface ColorsComponent {
 
@@ -67,5 +68,7 @@ public interface ColorsComponent {
     ColorDistance distanceRGB();
 
     CachedColorProjector colorProjectorCache(ColorProjector input);
+
+    GraySet newGraySet(GrayMap image);
 
 }

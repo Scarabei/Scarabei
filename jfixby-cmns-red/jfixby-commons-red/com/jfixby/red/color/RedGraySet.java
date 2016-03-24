@@ -58,4 +58,9 @@ public class RedGraySet implements GraySet {
 	this.palette.print(string);
     }
 
+    @Override
+    public void sort() {
+	palette.sort();
+    }
+
 }

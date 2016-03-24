@@ -1,6 +1,6 @@
 package com.jfixby.cmns.api.java;
 
-public class FloatValue {
+public class FloatValue implements Comparable<FloatValue> {
 
     @Override
     public String toString() {
@@ -31,6 +31,11 @@ public class FloatValue {
 	if (Double.doubleToLongBits(value) != Double.doubleToLongBits(other.value))
 	    return false;
 	return true;
+    }
+
+    @Override
+    final public int compareTo(final FloatValue o) {
+	return Double.compare(value, o.value);
     }
 
 }

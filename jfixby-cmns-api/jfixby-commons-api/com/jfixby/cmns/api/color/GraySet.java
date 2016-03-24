@@ -10,4 +10,6 @@ public interface GraySet {
 
     void print(String string);
 
+    void sort();
+
 }

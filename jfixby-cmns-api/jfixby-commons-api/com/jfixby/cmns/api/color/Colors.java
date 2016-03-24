@@ -2,6 +2,7 @@ package com.jfixby.cmns.api.color;
 
 import com.jfixby.cmns.api.ComponentInstaller;
 import com.jfixby.cmns.api.image.ColorMap;
+import com.jfixby.cmns.api.image.GrayMap;
 
 public class Colors {
 
@@ -142,6 +143,10 @@ public class Colors {
 
     public static CachedColorProjector colorProjectorCache(ColorProjector input) {
 	return invoke().colorProjectorCache(input);
+    }
+
+    public static GraySet newGraySet(GrayMap image) {
+	return invoke().newGraySet(image);
     }
 
 }
