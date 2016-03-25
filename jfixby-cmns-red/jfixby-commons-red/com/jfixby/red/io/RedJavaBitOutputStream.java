@@ -8,6 +8,7 @@ import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.io.JavaBitOutputStream;
 import com.jfixby.cmns.api.math.IntegerMath;
 import com.jfixby.cmns.api.util.BinaryCode;
+import com.jfixby.cmns.api.util.EditableBinaryCode;
 import com.jfixby.cmns.api.util.JUtils;
 
 public class RedJavaBitOutputStream implements JavaBitOutputStream {
@@ -15,8 +16,9 @@ public class RedJavaBitOutputStream implements JavaBitOutputStream {
     final private OutputStream os;
     private int frameSize;
     private long valueLimit;
-    final BinaryCode buffer = JUtils.newBinaryCode();
-    int max_buffer_size = 512 * 8;
+    final EditableBinaryCode buffer = JUtils.newBinaryCode();
+    int max_buffer_size = 8;
+    private int byteValue;
 
     public RedJavaBitOutputStream(java.io.OutputStream os) throws IOException {
 	this.os = os;
@@ -51,19 +53,26 @@ public class RedJavaBitOutputStream implements JavaBitOutputStream {
 
     private void flushWhatCanBeFlushed() throws IOException {
 	while (this.buffer.size() >= 8) {
-	    int byteValue = this.buffer.retrieveByte();
+	    byteValue = this.buffer.retrieveByte();
+	    // byteValue = Integer.parseInt("10101010", 2);
+	    // L.d("WRITE BYTE", Integer.toBinaryString(byteValue));
 	    os.write(byteValue);
 	}
     }
 
     public int getMissingTailSize() {
+	if (this.buffer.size() == 0) {
+	    return 0;
+	}
 	return 8 - this.buffer.size() % 8;
     }
 
     @Override
     public void finalizeStream() throws IOException {
 	final int missimg_bits = getMissingTailSize();
-	writeBits(0, missimg_bits);
+	if (missimg_bits != 0) {
+	    writeBits(0, missimg_bits);
+	}
 	flushWhatCanBeFlushed();
 	if (this.buffer.size() > 0) {
 	    throw new IOException("Failed to finalizeStream: " + this.buffer);

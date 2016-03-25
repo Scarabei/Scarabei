@@ -93,11 +93,18 @@ public class RedIO implements IOComponent {
     }
 
     @Override
-    public int readInt(final java.io.InputStream javaInputStream) throws IOException {
-	return (readByte(javaInputStream) << 8 * 3) | //
-		(readByte(javaInputStream) << 8 * 2) | //
-		(readByte(javaInputStream) << 8 * 1) | //
-		(readByte(javaInputStream) << 8 * 0);//
+    final public int readInt(final java.io.InputStream javaInputStream) throws IOException {
+	final int b0 = javaInputStream.read() << (8 * 3);
+	final int b1 = javaInputStream.read() << (8 * 2);
+	final int b2 = javaInputStream.read() << (8 * 1);
+	final int b3 = javaInputStream.read() << (8 * 0);
+	final int result = b0 | b1 | b2 | b3;
+	// L.d(Integer.toBinaryString(b0));
+	// L.d(Integer.toBinaryString(b1));
+	// L.d(Integer.toBinaryString(b2));
+	// L.d(Integer.toBinaryString(b3));
+	// L.d(Integer.toBinaryString(result));
+	return result;//
     }
 
     @Override

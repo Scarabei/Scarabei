@@ -35,5 +35,5 @@ public interface UtilsComponent {
 
     BinaryCode binaryCodeOf(int bits, int numberOfBits);
 
-    BinaryCode newBinaryCode();
+    EditableBinaryCode newBinaryCode();
 }

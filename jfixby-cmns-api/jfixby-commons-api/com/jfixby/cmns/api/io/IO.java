@@ -23,88 +23,88 @@ public class IO {
     }
 
     public static InputStream toInputStream(java.io.InputStream java_input_stream) throws IOException {
-	return invoke().toInputStream(java_input_stream);
+	return component().toInputStream(java_input_stream);
     }
 
     public static OutputStream toOutputStream(java.io.OutputStream java_output_stream) throws IOException {
-	return invoke().toOutputStream(java_output_stream);
+	return component().toOutputStream(java_output_stream);
     }
 
     public static Buffer newBuffer(byte[] bytes) {
-	return invoke().newBuffer(bytes);
+	return component().newBuffer(bytes);
     }
 
     public static BufferInputStream newBufferInputStream(Buffer buffer) {
-	return invoke().newBufferInputStream(buffer);
+	return component().newBufferInputStream(buffer);
     }
 
     public static Buffer readStreamToBuffer(FileInputStream is) throws IOException {
-	return invoke().readStreamToBuffer(is);
+	return component().readStreamToBuffer(is);
     }
 
     public static StreamPipe newStreamPipe(InputStream input_stream, OutputStream output_stream,
 	    U_StreamPipeProgressListener progress_listener) {
-	return invoke().newStreamPipe(input_stream, output_stream, progress_listener);
+	return component().newStreamPipe(input_stream, output_stream, progress_listener);
     }
 
     public static BufferOutputStream newBufferOutputStream() {
-	return invoke().newBufferOutputStream();
+	return component().newBufferOutputStream();
     }
 
     public static void serialize(Object object, OutputStream output_stream) throws IOException {
-	invoke().serialize(object, output_stream);
+	component().serialize(object, output_stream);
     }
 
     public static <T> T deserialize(Class<T> type, InputStream input_stream) throws IOException {
-	return invoke().deserialize(type, input_stream);
+	return component().deserialize(type, input_stream);
     }
 
     public static byte readByte(java.io.InputStream javaInputStream) throws IOException {
-	return invoke().readByte(javaInputStream);
+	return component().readByte(javaInputStream);
     }
 
     public static int readInt(java.io.InputStream javaInputStream) throws IOException {
-	return invoke().readInt(javaInputStream);
+	return component().readInt(javaInputStream);
     }
 
     public static void writeInt(java.io.OutputStream javaOutputStream, int value) throws IOException {
-	invoke().writeInt(javaOutputStream, value);
+	component().writeInt(javaOutputStream, value);
     }
 
     public static void writeByte(java.io.OutputStream javaOutputStream, int value) throws IOException {
-	invoke().writeByte(javaOutputStream, value);
+	component().writeByte(javaOutputStream, value);
     }
 
     public static void forceClose(final ForceCloseable os) {
-	invoke().forceClose(os);
+	component().forceClose(os);
     }
 
     public static void forceClose(final Closeable os) {
-	invoke().forceClose(os);
+	component().forceClose(os);
     }
 
     public static GZipOutputStream newGZipStream(OutputStream os) throws IOException {
-	return invoke().newGZipStream(os);
+	return component().newGZipStream(os);
     }
 
     public static GZipInputStream newGZipStream(InputStream is) throws IOException {
-	return invoke().newGZipStream(is);
+	return component().newGZipStream(is);
     }
 
     public static void writeBytes(java.io.OutputStream javaOutputStream, int[] bytes) throws IOException {
-	invoke().writeBytes(javaOutputStream, bytes);
+	component().writeBytes(javaOutputStream, bytes);
     }
 
     public static JavaBitOutputStream newBitOutputStream(java.io.OutputStream os) throws IOException {
-	return invoke().newBitOutputStream(os);
+	return component().newBitOutputStream(os);
     }
 
     public static void readBytes(java.io.InputStream javaInputStream, int[] array) throws IOException {
-	invoke().readBytes(javaInputStream, array);
+	component().readBytes(javaInputStream, array);
     }
 
     public static JavaBitInputStream newBitInputStream(java.io.InputStream is) {
-	return invoke().newBitInputStream(is);
+	return component().newBitInputStream(is);
     }
 
 }

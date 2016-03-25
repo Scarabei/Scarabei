@@ -77,7 +77,7 @@ public class JUtils {
 	return invoke().binaryCodeOf(bits, numberOfBits);
     }
 
-    public static BinaryCode newBinaryCode() {
+    public static EditableBinaryCode newBinaryCode() {
 	return invoke().newBinaryCode();
     }
 

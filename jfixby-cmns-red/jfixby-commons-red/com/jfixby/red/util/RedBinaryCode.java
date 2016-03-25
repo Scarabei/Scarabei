@@ -1,14 +1,22 @@
 package com.jfixby.red.util;
 
+import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.err.Err;
+import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.util.BinaryCode;
+import com.jfixby.cmns.api.util.EditableBinaryCode;
 import com.jfixby.cmns.api.util.JUtils;
 
-public class RedBitForm implements BinaryCode {
+public class RedBinaryCode implements BinaryCode, EditableBinaryCode {
 
     final StringBuffer bits = new StringBuffer();;
 
-    public RedBitForm(int bits, int size) {
+    @Override
+    public EditableBinaryCode copy() {
+	return new RedBinaryCode(bits);
+    }
+
+    public RedBinaryCode(int bits, int size) {
 	if (size > 8) {
 	    Err.reportError("Not sure about that: size=" + size);
 	}
@@ -32,19 +40,53 @@ public class RedBitForm implements BinaryCode {
 	return bits.toString();
     }
 
-    public RedBitForm() {
+    public RedBinaryCode() {
+    }
+
+    public RedBinaryCode(String bits) {
+	this.bits.append(bits);
+    }
+
+    public RedBinaryCode(StringBuffer other_bits) {
+	this.bits.append(other_bits);
+    }
+
+    @Override
+    public int hashCode() {
+	final int prime = 31;
+	int result = 1;
+	result = prime * result + ((bits == null) ? 0 : bits.toString().hashCode());
+	return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+	if (this == obj)
+	    return true;
+	if (obj == null)
+	    return false;
+	if (getClass() != obj.getClass())
+	    return false;
+	RedBinaryCode other = (RedBinaryCode) obj;
+	if (bits == null) {
+	    if (other.bits != null)
+		return false;
+	} else if (!bits.toString().equals(other.bits.toString()))
+	    return false;
+	return true;
     }
 
     @Override
     public void append(final BinaryCode bitform) {
-	RedBitForm form = (RedBitForm) bitform;
+	RedBinaryCode form = (RedBinaryCode) bitform;
 	this.bits.append(form.bits);
 
     }
 
     @Override
     public void insertAt(BinaryCode bitform, int place) {
-	RedBitForm form = (RedBitForm) bitform;
+	Debug.component().checkNull("BinaryCode", bitform);
+	RedBinaryCode form = (RedBinaryCode) bitform;
 	this.bits.insert(place, form.bits);
     }
 
@@ -74,13 +116,14 @@ public class RedBitForm implements BinaryCode {
 	if (this.size() < 8) {
 	    Err.reportError("No enough bits to retrive byte");
 	}
-	final int value = Integer.parseInt(this.bits.substring(0, 8));
+	final String section = this.bits.substring(0, 8);
+	final int value = Integer.parseInt(section, 2);
 	this.bits.delete(0, 8);
 	return value;
     }
 
     @Override
-    public BinaryCode append(int bits, int numberOfBits) {
+    public EditableBinaryCode append(int bits, int numberOfBits) {
 	final int originalSize = this.size();
 	while (numberOfBits > 8) {
 	    final BinaryCode cached = JUtils.component().binaryCodeOf(bits, 8);
@@ -90,8 +133,21 @@ public class RedBitForm implements BinaryCode {
 	}
 
 	final BinaryCode cached = JUtils.component().binaryCodeOf(bits, numberOfBits);
+	if (cached == null) {
+	    L.d("bits=" + bits);
+	    L.d("numberOfBits=" + numberOfBits);
+	    Err.reportError("Cached value not found");
+	}
 	this.insertAt(cached, originalSize);
+
 	return this;
+    }
+
+    @Override
+    public int retrieveBits(int numberOfBits) {
+	final int bits = Integer.parseInt(this.bits.substring(0, numberOfBits), 2);
+	this.bits.delete(0, numberOfBits);
+	return bits;
     }
 
 }

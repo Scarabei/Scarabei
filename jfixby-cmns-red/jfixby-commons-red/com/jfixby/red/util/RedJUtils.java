@@ -10,6 +10,8 @@ import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.math.IntegerMath;
 import com.jfixby.cmns.api.util.BinaryCode;
+import com.jfixby.cmns.api.util.EditableBinaryCode;
+import com.jfixby.cmns.api.util.EditableBinaryCode;
 import com.jfixby.cmns.api.util.StateSwitcher;
 import com.jfixby.cmns.api.util.UtilsComponent;
 import com.jfixby.cmns.api.util.path.AbsolutePath;
@@ -108,7 +110,7 @@ public class RedJUtils implements UtilsComponent {
 	return a.equals(b);
     }
 
-    final BitCache cache = new BitCache();
+    final RedBinaryCodeCache cache = new RedBinaryCodeCache();
 
     @Override
     public BinaryCode binaryCodeOf(final int bits, final int numberOfBits) {
@@ -119,7 +121,7 @@ public class RedJUtils implements UtilsComponent {
     }
 
     @Override
-    public BinaryCode newBinaryCode() {
-	return new RedBitForm();
+    public EditableBinaryCode newBinaryCode() {
+	return new RedBinaryCode();
     }
 }
