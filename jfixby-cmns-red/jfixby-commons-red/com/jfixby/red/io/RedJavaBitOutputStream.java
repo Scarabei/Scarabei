@@ -7,7 +7,7 @@ import java.math.BigInteger;
 import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.io.JavaBitOutputStream;
 import com.jfixby.cmns.api.math.IntegerMath;
-import com.jfixby.cmns.api.util.BitForm;
+import com.jfixby.cmns.api.util.BinaryCode;
 import com.jfixby.cmns.api.util.JUtils;
 
 public class RedJavaBitOutputStream implements JavaBitOutputStream {
@@ -15,7 +15,7 @@ public class RedJavaBitOutputStream implements JavaBitOutputStream {
     final private OutputStream os;
     private int frameSize;
     private long valueLimit;
-    final BitForm buffer = JUtils.newBitForm();
+    final BinaryCode buffer = JUtils.newBinaryCode();
     int max_buffer_size = 512 * 8;
 
     public RedJavaBitOutputStream(java.io.OutputStream os) throws IOException {
@@ -41,7 +41,7 @@ public class RedJavaBitOutputStream implements JavaBitOutputStream {
     }
 
     public void writeBits(int bits, int numberOfBitsToWrite) throws IOException {
-	final BitForm bitform = JUtils.component().bitformOf(bits, numberOfBitsToWrite);
+	final BinaryCode bitform = JUtils.component().binaryCodeOf(bits, numberOfBitsToWrite);
 	buffer.append(bitform);
 	if (buffer.size() >= max_buffer_size) {
 	    flushWhatCanBeFlushed();

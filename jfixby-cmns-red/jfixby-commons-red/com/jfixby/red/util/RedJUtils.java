@@ -9,7 +9,7 @@ import com.jfixby.cmns.api.collections.Set;
 import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.math.IntegerMath;
-import com.jfixby.cmns.api.util.BitForm;
+import com.jfixby.cmns.api.util.BinaryCode;
 import com.jfixby.cmns.api.util.StateSwitcher;
 import com.jfixby.cmns.api.util.UtilsComponent;
 import com.jfixby.cmns.api.util.path.AbsolutePath;
@@ -111,15 +111,15 @@ public class RedJUtils implements UtilsComponent {
     final BitCache cache = new BitCache();
 
     @Override
-    public BitForm bitformOf(final int bits, final int numberOfBits) {
+    public BinaryCode binaryCodeOf(final int bits, final int numberOfBits) {
 	if (numberOfBits <= 8) {
 	    return cache.get(bits, numberOfBits);
 	}
-	return newBitForm().append(bits, numberOfBits);
+	return newBinaryCode().append(bits, numberOfBits);
     }
 
     @Override
-    public BitForm newBitForm() {
+    public BinaryCode newBinaryCode() {
 	return new RedBitForm();
     }
 }

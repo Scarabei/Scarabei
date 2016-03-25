@@ -1,11 +1,11 @@
 package com.jfixby.red.util;
 
-import com.jfixby.cmns.api.util.BitForm;
+import com.jfixby.cmns.api.util.BinaryCode;
 
 public class BitCache {
     private static final int SIZE = 256;
     private static final int MAX_BITS = 8;
-    final BitForm[][] array = new BitForm[SIZE][MAX_BITS];
+    final BinaryCode[][] array = new BinaryCode[SIZE][MAX_BITS];
 
     BitCache() {
 	for (int s = 0; s < MAX_BITS; s++) {
@@ -16,7 +16,7 @@ public class BitCache {
 	}
     }
 
-    public BitForm get(final int bits, final int numberOfBits) {
+    public BinaryCode get(final int bits, final int numberOfBits) {
 
 	return this.array[0xff & bits][numberOfBits - 1];
     }

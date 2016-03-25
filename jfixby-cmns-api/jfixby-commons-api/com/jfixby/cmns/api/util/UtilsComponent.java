@@ -33,7 +33,7 @@ public interface UtilsComponent {
 
     boolean equalObjects(final Object a, final Object b);
 
-    BitForm bitformOf(int bits, int numberOfBits);
+    BinaryCode binaryCodeOf(int bits, int numberOfBits);
 
-    BitForm newBitForm();
+    BinaryCode newBinaryCode();
 }

@@ -73,12 +73,12 @@ public class JUtils {
 	return invoke().equalObjects(a, b);
     }
 
-    public static BitForm bitformOf(final int bits, final int numberOfBits) {
-	return invoke().bitformOf(bits, numberOfBits);
+    public static BinaryCode binaryCodeOf(final int bits, final int numberOfBits) {
+	return invoke().binaryCodeOf(bits, numberOfBits);
     }
 
-    public static BitForm newBitForm() {
-	return invoke().newBitForm();
+    public static BinaryCode newBinaryCode() {
+	return invoke().newBinaryCode();
     }
 
 }

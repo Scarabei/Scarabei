@@ -1,10 +1,10 @@
 package com.jfixby.red.util;
 
 import com.jfixby.cmns.api.err.Err;
-import com.jfixby.cmns.api.util.BitForm;
+import com.jfixby.cmns.api.util.BinaryCode;
 import com.jfixby.cmns.api.util.JUtils;
 
-public class RedBitForm implements BitForm {
+public class RedBitForm implements BinaryCode {
 
     final StringBuffer bits = new StringBuffer();;
 
@@ -18,7 +18,7 @@ public class RedBitForm implements BitForm {
 	    string = string.substring(string.length() - size, string.length());
 	}
 	while (string.length() < size) {
-	    string = (charOf(BitForm.ZERO)) + string;
+	    string = (charOf(BinaryCode.ZERO)) + string;
 	}
 	this.bits.append(string);
 	if (this.size() != size) {
@@ -36,14 +36,14 @@ public class RedBitForm implements BitForm {
     }
 
     @Override
-    public void append(final BitForm bitform) {
+    public void append(final BinaryCode bitform) {
 	RedBitForm form = (RedBitForm) bitform;
 	this.bits.append(form.bits);
 
     }
 
     @Override
-    public void insertAt(BitForm bitform, int place) {
+    public void insertAt(BinaryCode bitform, int place) {
 	RedBitForm form = (RedBitForm) bitform;
 	this.bits.insert(place, form.bits);
     }
@@ -54,7 +54,7 @@ public class RedBitForm implements BitForm {
     }
 
     static final private char charOf(final boolean bit) {
-	if (bit == BitForm.ONE)
+	if (bit == BinaryCode.ONE)
 	    return '1';
 	return '0';
     }
@@ -80,16 +80,16 @@ public class RedBitForm implements BitForm {
     }
 
     @Override
-    public BitForm append(int bits, int numberOfBits) {
+    public BinaryCode append(int bits, int numberOfBits) {
 	final int originalSize = this.size();
 	while (numberOfBits > 8) {
-	    final BitForm cached = JUtils.component().bitformOf(bits, 8);
+	    final BinaryCode cached = JUtils.component().binaryCodeOf(bits, 8);
 	    this.insertAt(cached, originalSize);
 	    bits = bits >> 8;
 	    numberOfBits = numberOfBits - 8;
 	}
 
-	final BitForm cached = JUtils.component().bitformOf(bits, numberOfBits);
+	final BinaryCode cached = JUtils.component().binaryCodeOf(bits, numberOfBits);
 	this.insertAt(cached, originalSize);
 	return this;
     }
