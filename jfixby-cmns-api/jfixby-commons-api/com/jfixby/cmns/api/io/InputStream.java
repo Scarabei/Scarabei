@@ -2,20 +2,18 @@ package com.jfixby.cmns.api.io;
 
 import java.io.IOException;
 
+public interface InputStream extends ForceCloseable {
 
+    boolean hasData() throws IOException;
 
-public interface InputStream {
+    Data read() throws IOException;
 
-	boolean hasData() throws IOException;
+    int available() throws IOException;
 
-	Data read() throws IOException;
+    void close() throws IOException;
 
-	int available() throws IOException;
+    byte[] readAll() throws IOException;
 
-	void close() throws IOException;
-
-	byte[] readAll() throws IOException;
-
-	java.io.InputStream toJavaInputStream();
+    java.io.InputStream toJavaInputStream();
 
 }

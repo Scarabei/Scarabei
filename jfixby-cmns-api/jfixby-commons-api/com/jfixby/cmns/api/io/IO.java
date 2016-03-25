@@ -1,5 +1,6 @@
 package com.jfixby.cmns.api.io;
 
+import java.io.Closeable;
 import java.io.IOException;
 
 import com.jfixby.cmns.api.ComponentInstaller;
@@ -74,11 +75,11 @@ public class IO {
 	invoke().writeByte(javaOutputStream, value);
     }
 
-    public static void forceClose(final OutputStream os) {
+    public static void forceClose(final ForceCloseable os) {
 	invoke().forceClose(os);
     }
 
-    public static void forceClose(final java.io.OutputStream os) {
+    public static void forceClose(final Closeable os) {
 	invoke().forceClose(os);
     }
 
@@ -96,6 +97,14 @@ public class IO {
 
     public static JavaBitOutputStream newBitOutputStream(java.io.OutputStream os) throws IOException {
 	return invoke().newBitOutputStream(os);
+    }
+
+    public static void readBytes(java.io.InputStream javaInputStream, int[] array) throws IOException {
+	invoke().readBytes(javaInputStream, array);
+    }
+
+    public static JavaBitInputStream newBitInputStream(java.io.InputStream is) {
+	return invoke().newBitInputStream(is);
     }
 
 }

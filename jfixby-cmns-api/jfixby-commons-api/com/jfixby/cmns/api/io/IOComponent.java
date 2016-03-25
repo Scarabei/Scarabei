@@ -1,5 +1,6 @@
 package com.jfixby.cmns.api.io;
 
+import java.io.Closeable;
 import java.io.IOException;
 
 import com.jfixby.cmns.api.file.FileOutputStream;
@@ -37,7 +38,7 @@ public interface IOComponent {
 
     public void writeByte(java.io.OutputStream javaOutputStream, int value) throws IOException;
 
-    void forceClose(OutputStream os);
+    void forceClose(ForceCloseable os);
 
     GZipOutputStream newGZipStream(OutputStream os) throws IOException;
 
@@ -47,7 +48,11 @@ public interface IOComponent {
 
     JavaBitOutputStream newBitOutputStream(java.io.OutputStream os) throws IOException;
 
-    void forceClose(java.io.OutputStream os);
+    void forceClose(Closeable os);
+
+    void readBytes(java.io.InputStream javaInputStream, int[] array) throws IOException;
+
+    JavaBitInputStream newBitInputStream(java.io.InputStream is);
 
     // public String deserializeFromString(String from_string) throws
     // IOException;

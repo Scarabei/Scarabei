@@ -6,6 +6,7 @@ import java.io.InputStream;
 
 import com.jfixby.cmns.api.file.FileInputStream;
 import com.jfixby.cmns.api.io.Data;
+import com.jfixby.cmns.api.io.IO;
 
 public class AbstractRedInputStream implements FileInputStream {
     InputStream is;
@@ -65,5 +66,10 @@ public class AbstractRedInputStream implements FileInputStream {
     @Override
     public InputStream toJavaInputStream() {
 	return is;
+    }
+
+    @Override
+    public void forceClose() {
+	IO.forceClose(is);
     }
 }

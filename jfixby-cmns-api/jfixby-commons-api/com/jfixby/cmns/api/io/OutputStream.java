@@ -2,7 +2,7 @@ package com.jfixby.cmns.api.io;
 
 import java.io.IOException;
 
-public interface OutputStream {
+public interface OutputStream extends ForceCloseable {
 
     void write(Data data) throws IOException;
 
@@ -14,6 +14,6 @@ public interface OutputStream {
 
     java.io.OutputStream toJavaOutputStream();
 
-    void forceClose();
+  
 
 }

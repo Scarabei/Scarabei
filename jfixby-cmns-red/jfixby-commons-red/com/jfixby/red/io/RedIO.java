@@ -1,15 +1,18 @@
 package com.jfixby.red.io;
 
+import java.io.Closeable;
 import java.io.IOException;
 
 import com.jfixby.cmns.api.file.FileOutputStream;
 import com.jfixby.cmns.api.io.Buffer;
 import com.jfixby.cmns.api.io.BufferInputStream;
 import com.jfixby.cmns.api.io.BufferOutputStream;
+import com.jfixby.cmns.api.io.ForceCloseable;
 import com.jfixby.cmns.api.io.GZipInputStream;
 import com.jfixby.cmns.api.io.GZipOutputStream;
 import com.jfixby.cmns.api.io.IOComponent;
 import com.jfixby.cmns.api.io.InputStream;
+import com.jfixby.cmns.api.io.JavaBitInputStream;
 import com.jfixby.cmns.api.io.JavaBitOutputStream;
 import com.jfixby.cmns.api.io.OutputStream;
 import com.jfixby.cmns.api.io.StreamPipe;
@@ -111,7 +114,7 @@ public class RedIO implements IOComponent {
     }
 
     @Override
-    public void forceClose(OutputStream os) {
+    public void forceClose(ForceCloseable os) {
 	os.forceClose();
     }
 
@@ -139,11 +142,23 @@ public class RedIO implements IOComponent {
     }
 
     @Override
-    public void forceClose(java.io.OutputStream os) {
+    public void forceClose(Closeable os) {
 	try {
 	    os.close();
 	} catch (IOException ignored) {
 	}
+    }
+
+    @Override
+    public void readBytes(java.io.InputStream javaInputStream, int[] array) throws IOException {
+	for (int i = 0; i < array.length; i++) {
+	    array[i] = javaInputStream.read();
+	}
+    }
+
+    @Override
+    public JavaBitInputStream newBitInputStream(java.io.InputStream is) {
+	return new RedJavaBitInputStream(is);
     }
 
 }
