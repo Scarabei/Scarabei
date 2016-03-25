@@ -14,6 +14,7 @@ import com.jfixby.cmns.api.io.IOComponent;
 import com.jfixby.cmns.api.io.InputStream;
 import com.jfixby.cmns.api.io.JavaBitInputStream;
 import com.jfixby.cmns.api.io.JavaBitOutputStream;
+import com.jfixby.cmns.api.io.JavaBitStreamMode;
 import com.jfixby.cmns.api.io.OutputStream;
 import com.jfixby.cmns.api.io.StreamPipe;
 import com.jfixby.cmns.api.io.U_StreamPipeProgressListener;
@@ -122,7 +123,9 @@ public class RedIO implements IOComponent {
 
     @Override
     public void forceClose(ForceCloseable os) {
-	os.forceClose();
+	if (os != null) {
+	    os.forceClose();
+	}
     }
 
     @Override
@@ -144,11 +147,6 @@ public class RedIO implements IOComponent {
     }
 
     @Override
-    public JavaBitOutputStream newBitOutputStream(java.io.OutputStream os) throws IOException {
-	return new RedJavaBitOutputStream(os);
-    }
-
-    @Override
     public void forceClose(Closeable os) {
 	try {
 	    os.close();
@@ -165,7 +163,22 @@ public class RedIO implements IOComponent {
 
     @Override
     public JavaBitInputStream newBitInputStream(java.io.InputStream is) {
-	return new RedJavaBitInputStream(is);
+	return new RedJavaBitInputStream(is, JavaBitStreamMode.SIMPLE_BYTE);
+    }
+
+    @Override
+    public JavaBitInputStream newBitInputStream(java.io.InputStream is, JavaBitStreamMode mode) {
+	return new RedJavaBitInputStream(is, mode);
+    }
+
+    @Override
+    public JavaBitOutputStream newBitOutputStream(java.io.OutputStream os, JavaBitStreamMode mode) {
+	return new RedJavaBitOutputStream(os, mode);
+    }
+
+    @Override
+    public JavaBitOutputStream newBitOutputStream(java.io.OutputStream os) {
+	return new RedJavaBitOutputStream(os, JavaBitStreamMode.SIMPLE_BYTE);
     }
 
 }

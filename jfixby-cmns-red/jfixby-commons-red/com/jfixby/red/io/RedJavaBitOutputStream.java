@@ -6,6 +6,7 @@ import java.math.BigInteger;
 
 import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.io.JavaBitOutputStream;
+import com.jfixby.cmns.api.io.JavaBitStreamMode;
 import com.jfixby.cmns.api.math.IntegerMath;
 import com.jfixby.cmns.api.util.BinaryCode;
 import com.jfixby.cmns.api.util.EditableBinaryCode;
@@ -19,14 +20,16 @@ public class RedJavaBitOutputStream implements JavaBitOutputStream {
     final EditableBinaryCode buffer = JUtils.newBinaryCode();
     int max_buffer_size = 8;
     private int byteValue;
+    private JavaBitStreamMode mode;
 
-    public RedJavaBitOutputStream(java.io.OutputStream os) throws IOException {
+    public RedJavaBitOutputStream(java.io.OutputStream os, JavaBitStreamMode mode) {
 	this.os = os;
+	this.mode = Debug.checkNull("JavaBitStreamMode", mode);
 	this.setFrameSize(8);
     }
 
     @Override
-    public void setFrameSize(final int frameSize) throws IOException {
+    public void setFrameSize(final int frameSize) {
 	Debug.checkTrue("frame size = " + frameSize, frameSize > 0);
 	this.frameSize = frameSize;
 	this.valueLimit = IntegerMath.component().powerOfTwo(frameSize);
@@ -34,12 +37,17 @@ public class RedJavaBitOutputStream implements JavaBitOutputStream {
 
     @Override
     public void write(final int bits) throws IOException {
-	if (bits >= this.valueLimit) {
-	    BigInteger tmp = new BigInteger("" + bits);
-	    String bits_strign = tmp.toString(2);
-	    throw new IOException("Frame overflow: " + this.frameSize + " by " + bits_strign);
+	if (mode == JavaBitStreamMode.COMPRESSED_BITS) {
+
+	    if (bits >= this.valueLimit) {
+		BigInteger tmp = new BigInteger("" + bits);
+		String bits_strign = tmp.toString(2);
+		throw new IOException("Frame overflow: " + this.frameSize + " by " + bits_strign);
+	    }
+	    writeBits(bits, this.frameSize);
+	} else {
+	    os.write(bits);
 	}
-	writeBits(bits, this.frameSize);
     }
 
     public void writeBits(int bits, int numberOfBitsToWrite) throws IOException {

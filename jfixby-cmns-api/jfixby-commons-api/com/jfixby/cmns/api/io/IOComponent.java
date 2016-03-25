@@ -46,13 +46,17 @@ public interface IOComponent {
 
     void writeBytes(java.io.OutputStream javaOutputStream, int[] bytes) throws IOException;
 
-    JavaBitOutputStream newBitOutputStream(java.io.OutputStream os) throws IOException;
-
     void forceClose(Closeable os);
 
     void readBytes(java.io.InputStream javaInputStream, int[] array) throws IOException;
 
     JavaBitInputStream newBitInputStream(java.io.InputStream is);
+
+    JavaBitInputStream newBitInputStream(java.io.InputStream is, JavaBitStreamMode mode);
+
+    JavaBitOutputStream newBitOutputStream(java.io.OutputStream os, JavaBitStreamMode mode);
+
+    JavaBitOutputStream newBitOutputStream(java.io.OutputStream os);
 
     // public String deserializeFromString(String from_string) throws
     // IOException;

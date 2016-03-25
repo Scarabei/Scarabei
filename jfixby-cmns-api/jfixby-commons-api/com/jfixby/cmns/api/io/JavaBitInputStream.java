@@ -8,4 +8,6 @@ public interface JavaBitInputStream {
 
     int read() throws IOException;
 
+    
+
 }

@@ -10,4 +10,6 @@ public interface JavaBitOutputStream {
 
     void finalizeStream() throws IOException;
 
+    
+
 }

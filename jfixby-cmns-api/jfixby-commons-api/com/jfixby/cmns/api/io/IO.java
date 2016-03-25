@@ -1,5 +1,6 @@
 package com.jfixby.cmns.api.io;
 
+import java.io.BufferedInputStream;
 import java.io.Closeable;
 import java.io.IOException;
 
@@ -95,16 +96,24 @@ public class IO {
 	component().writeBytes(javaOutputStream, bytes);
     }
 
-    public static JavaBitOutputStream newBitOutputStream(java.io.OutputStream os) throws IOException {
-	return component().newBitOutputStream(os);
-    }
-
     public static void readBytes(java.io.InputStream javaInputStream, int[] array) throws IOException {
 	component().readBytes(javaInputStream, array);
     }
 
     public static JavaBitInputStream newBitInputStream(java.io.InputStream is) {
 	return component().newBitInputStream(is);
+    }
+
+    public static JavaBitOutputStream newBitOutputStream(java.io.OutputStream os, JavaBitStreamMode mode) {
+	return component().newBitOutputStream(os, mode);
+    }
+
+    public static JavaBitInputStream newBitInputStream(java.io.InputStream is, JavaBitStreamMode simpleByte) {
+	return component().newBitInputStream(is, simpleByte);
+    }
+
+    public static JavaBitOutputStream newBitOutputStream(java.io.OutputStream os) {
+	return component().newBitOutputStream(os);
     }
 
 }
