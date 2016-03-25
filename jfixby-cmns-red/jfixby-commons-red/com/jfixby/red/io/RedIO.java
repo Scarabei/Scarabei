@@ -10,6 +10,7 @@ import com.jfixby.cmns.api.io.GZipInputStream;
 import com.jfixby.cmns.api.io.GZipOutputStream;
 import com.jfixby.cmns.api.io.IOComponent;
 import com.jfixby.cmns.api.io.InputStream;
+import com.jfixby.cmns.api.io.JavaBitOutputStream;
 import com.jfixby.cmns.api.io.OutputStream;
 import com.jfixby.cmns.api.io.StreamPipe;
 import com.jfixby.cmns.api.io.U_StreamPipeProgressListener;
@@ -122,6 +123,27 @@ public class RedIO implements IOComponent {
     @Override
     public GZipInputStream newGZipStream(InputStream is) throws IOException {
 	return new RedGZipInputStream(is);
+    }
+
+    @Override
+    final public void writeBytes(final java.io.OutputStream javaOutputStream, final int[] bytes) throws IOException {
+	for (int i = 0; i < bytes.length; i++) {
+	    javaOutputStream.write(bytes[i]);
+	}
+
+    }
+
+    @Override
+    public JavaBitOutputStream newBitOutputStream(java.io.OutputStream os) throws IOException {
+	return new RedJavaBitOutputStream(os);
+    }
+
+    @Override
+    public void forceClose(java.io.OutputStream os) {
+	try {
+	    os.close();
+	} catch (IOException ignored) {
+	}
     }
 
 }

@@ -43,6 +43,12 @@ public interface IOComponent {
 
     GZipInputStream newGZipStream(InputStream is) throws IOException;
 
+    void writeBytes(java.io.OutputStream javaOutputStream, int[] bytes) throws IOException;
+
+    JavaBitOutputStream newBitOutputStream(java.io.OutputStream os) throws IOException;
+
+    void forceClose(java.io.OutputStream os);
+
     // public String deserializeFromString(String from_string) throws
     // IOException;
 

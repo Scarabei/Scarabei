@@ -78,6 +78,10 @@ public class IO {
 	invoke().forceClose(os);
     }
 
+    public static void forceClose(final java.io.OutputStream os) {
+	invoke().forceClose(os);
+    }
+
     public static GZipOutputStream newGZipStream(OutputStream os) throws IOException {
 	return invoke().newGZipStream(os);
     }
@@ -85,4 +89,13 @@ public class IO {
     public static GZipInputStream newGZipStream(InputStream is) throws IOException {
 	return invoke().newGZipStream(is);
     }
+
+    public static void writeBytes(java.io.OutputStream javaOutputStream, int[] bytes) throws IOException {
+	invoke().writeBytes(javaOutputStream, bytes);
+    }
+
+    public static JavaBitOutputStream newBitOutputStream(java.io.OutputStream os) throws IOException {
+	return invoke().newBitOutputStream(os);
+    }
+
 }

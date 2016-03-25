@@ -5,6 +5,7 @@ import java.io.OutputStream;
 
 import com.jfixby.cmns.api.file.FileOutputStream;
 import com.jfixby.cmns.api.io.Data;
+import com.jfixby.cmns.api.io.IO;
 
 public class AbstractRedOutputStream implements FileOutputStream {
     private OutputStream os;
@@ -35,7 +36,7 @@ public class AbstractRedOutputStream implements FileOutputStream {
 	for (int i = 0; i < bytes.length; i++) {
 	    this.os.write(bytes[i]);
 	}
-	 this.os.flush();
+	this.os.flush();
 	// this.os.flush();
     }
 
@@ -46,9 +47,6 @@ public class AbstractRedOutputStream implements FileOutputStream {
 
     @Override
     public void forceClose() {
-	try {
-	    os.close();
-	} catch (IOException ignored) {
-	}
+	IO.forceClose(os);
     }
 }

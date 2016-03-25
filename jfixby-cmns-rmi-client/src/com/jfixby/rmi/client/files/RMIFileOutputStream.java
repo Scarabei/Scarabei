@@ -61,10 +61,7 @@ public class RMIFileOutputStream implements FileOutputStream {
 
     @Override
     public void forceClose() {
-	try {
-	    os.close();
-	} catch (IOException ignored) {
-	}
+	IO.forceClose(os);
     }
 
 }

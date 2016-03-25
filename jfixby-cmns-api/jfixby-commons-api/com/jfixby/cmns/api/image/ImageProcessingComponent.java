@@ -49,4 +49,8 @@ public interface ImageProcessingComponent {
 
     ColoredλImage index(ColoredλImage lambdaImage, ColorProjector palette);
 
+    ColorMap newColorMap(int width, int height, GrayλImage alpha, GrayλImage red, GrayλImage green, GrayλImage blue);
+
+    ColoredλImage merge(GrayλImage alpha, GrayλImage red, GrayλImage green, GrayλImage blue);
+
 }

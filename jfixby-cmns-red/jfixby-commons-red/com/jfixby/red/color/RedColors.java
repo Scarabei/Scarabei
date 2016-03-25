@@ -12,6 +12,7 @@ import com.jfixby.cmns.api.color.Colors;
 import com.jfixby.cmns.api.color.ColorsComponent;
 import com.jfixby.cmns.api.color.CustomColor;
 import com.jfixby.cmns.api.color.GraySet;
+import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.image.ColorMap;
 import com.jfixby.cmns.api.image.GrayMap;
 import com.jfixby.cmns.api.math.FloatMath;
@@ -202,9 +203,11 @@ public class RedColors implements ColorsComponent {
 
     @Override
     public GraySet newUniformGraySet(int depth) {
-	RedGraySet set = new RedGraySet();
-	for (int i = 0; i <= depth; i++) {
-	    final float value = i * 1f / depth;
+	Debug.component().checkTrue("depth > 0", depth > 0);
+	final RedGraySet set = new RedGraySet();
+	final float delta = (depth - 1);
+	for (int i = 0; i < depth; i++) {
+	    final float value = i / delta;
 	    set.add(value);
 	}
 	return set;

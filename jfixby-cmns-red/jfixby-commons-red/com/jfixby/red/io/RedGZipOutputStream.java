@@ -6,6 +6,7 @@ import java.util.zip.GZIPOutputStream;
 
 import com.jfixby.cmns.api.io.Data;
 import com.jfixby.cmns.api.io.GZipOutputStream;
+import com.jfixby.cmns.api.io.IO;
 
 public class RedGZipOutputStream implements GZipOutputStream {
 
@@ -50,10 +51,7 @@ public class RedGZipOutputStream implements GZipOutputStream {
 
     @Override
     public void forceClose() {
-	try {
-	    zip.close();
-	} catch (IOException ignored) {
-	}
+	IO.forceClose(zip);
     }
 
 }

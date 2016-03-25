@@ -6,6 +6,7 @@ import java.io.OutputStream;
 
 import com.jfixby.cmns.api.io.BufferOutputStream;
 import com.jfixby.cmns.api.io.Data;
+import com.jfixby.cmns.api.io.IO;
 
 public class RedBufferOutputStream implements BufferOutputStream {
 
@@ -53,10 +54,7 @@ public class RedBufferOutputStream implements BufferOutputStream {
 
     @Override
     public void forceClose() {
-	try {
-	    os.close();
-	} catch (IOException ignored) {
-	}
+	IO.forceClose(os);
     }
 
 }

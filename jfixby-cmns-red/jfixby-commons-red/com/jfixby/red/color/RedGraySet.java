@@ -63,4 +63,24 @@ public class RedGraySet implements GraySet {
 	palette.sort();
     }
 
+    @Override
+    public int size() {
+	return palette.size();
+    }
+
+    @Override
+    public float getValue(int index) {
+	return (float) this.palette.getElementAt(index).value;
+    }
+
+    @Override
+    public int indexOf(float exactValue) {
+	for (int i = 0; i < this.palette.size(); i++) {
+	    if (this.palette.getElementAt(i).value == exactValue) {
+		return i;
+	    }
+	}
+	return -1;
+    }
+
 }

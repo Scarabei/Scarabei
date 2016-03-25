@@ -111,4 +111,13 @@ public class ImageProcessing {
 	return invoke().index(lambdaImage, palette);
     }
 
+    public static ColorMap newColorMap(int width, int height, GrayλImage alpha, GrayλImage red, GrayλImage green,
+	    GrayλImage blue) {
+	return invoke().newColorMap(width, height, alpha, red, green, blue);
+    }
+
+    public static ColoredλImage merge(GrayλImage alpha, GrayλImage red, GrayλImage green, GrayλImage blue) {
+	return invoke().merge(alpha, red, green, blue);
+    }
+
 }

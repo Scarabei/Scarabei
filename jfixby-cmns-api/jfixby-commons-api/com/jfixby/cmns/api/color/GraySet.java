@@ -12,4 +12,10 @@ public interface GraySet {
 
     void sort();
 
+    int size();
+
+    float getValue(int index);
+
+    int indexOf(float exactValue);
+
 }

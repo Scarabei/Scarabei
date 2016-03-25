@@ -1,14 +1,10 @@
 package com.jfixby.red.image;
 
 import com.jfixby.cmns.api.color.Color;
-import com.jfixby.cmns.api.color.Colors;
-import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.image.ColorMap;
-import com.jfixby.cmns.api.image.ColorMapSpecs;
 import com.jfixby.cmns.api.image.ColoredλImage;
 import com.jfixby.cmns.api.image.GrayMap;
 import com.jfixby.cmns.api.image.GrayλImage;
-import com.jfixby.cmns.api.image.ImageProcessing;
 
 public class RedColorMap implements ColorMap {
     RedColorMap master = this;
@@ -112,43 +108,10 @@ public class RedColorMap implements ColorMap {
 
     };
 
-    public RedColorMap(ColorMapSpecs lambda_specs) {
-	this.width = lambda_specs.getColorMapWidth();
-	this.height = lambda_specs.getColorMapHeight();
-	ColoredλImage tmp_lambda = lambda_specs.getLambdaColoredImage();
-	if (tmp_lambda != null) {
-	    this.lambda = tmp_lambda;
-	    return;
-	}
-	final GrayλImage green = Debug.checkNull(lambda_specs.getGreen());
-	final GrayλImage red = Debug.checkNull(lambda_specs.getRed());
-	final GrayλImage blue = Debug.checkNull(lambda_specs.getBlue());
-	final GrayλImage alpha = defaultAlpha(lambda_specs.getAlpha());
-
-	this.lambda = new ColoredλImage() {
-	    @Override
-	    public Color valueAt(final float x, final float y) {
-		float a = alpha.valueAt(x, y);
-		float r = red.valueAt(x, y);
-		float g = green.valueAt(x, y);
-		float b = blue.valueAt(x, y);
-		return Colors.newColor(a, r, g, b);
-	    }
-	};
-
-    }
-
     public RedColorMap(ColoredλImage lambda, int width, int height) {
 	this.width = width;
 	this.height = height;
 	this.lambda = lambda;
-    }
-
-    private GrayλImage defaultAlpha(GrayλImage alpha) {
-	if (alpha == null) {
-	    return ImageProcessing.ONE();
-	}
-	return alpha;
     }
 
     @Override

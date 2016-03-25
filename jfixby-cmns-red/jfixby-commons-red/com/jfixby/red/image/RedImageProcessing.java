@@ -2,7 +2,9 @@ package com.jfixby.red.image;
 
 import com.jfixby.cmns.api.color.Color;
 import com.jfixby.cmns.api.color.ColorProjector;
+import com.jfixby.cmns.api.color.Colors;
 import com.jfixby.cmns.api.color.GraySet;
+import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.image.ArrayColorMap;
 import com.jfixby.cmns.api.image.ArrayColorMapSpecs;
 import com.jfixby.cmns.api.image.ArrayGrayMap;
@@ -15,6 +17,7 @@ import com.jfixby.cmns.api.image.GrayIndexedλImage;
 import com.jfixby.cmns.api.image.GrayMap;
 import com.jfixby.cmns.api.image.GrayMapSpecs;
 import com.jfixby.cmns.api.image.GrayλImage;
+import com.jfixby.cmns.api.image.ImageProcessing;
 import com.jfixby.cmns.api.image.ImageProcessingComponent;
 import com.jfixby.cmns.api.image.IndexedColorMapSpecs;
 
@@ -51,11 +54,6 @@ public class RedImageProcessing implements ImageProcessingComponent {
     @Override
     public ColoredλImageCache newImageCache(int width, int height) {
 	return new RedColoredλImageCache(width, height);
-    }
-
-    @Override
-    public ColorMap newColorMap(ColorMapSpecs lambda_specs) {
-	return new RedColorMap(lambda_specs);
     }
 
     @Override
@@ -194,6 +192,51 @@ public class RedImageProcessing implements ImageProcessingComponent {
 	    }
 
 	};
+    }
+
+    @Override
+    public ColorMap newColorMap(int width, int height, GrayλImage alpha, GrayλImage red, GrayλImage green,
+	    GrayλImage blue) {
+	ColoredλImage lambda = merge(alpha, red, green, blue);
+
+	return new RedColorMap(lambda, width, height);
+    }
+
+    final static private GrayλImage defaultAlpha(GrayλImage alpha) {
+	if (alpha == null) {
+	    return ImageProcessing.ONE();
+	}
+	return alpha;
+    }
+
+    @Override
+    public ColoredλImage merge(GrayλImage c_alpha, GrayλImage c_red, GrayλImage c_green, GrayλImage c_blue) {
+	final GrayλImage green = Debug.checkNull(c_green);
+	final GrayλImage red = Debug.checkNull(c_red);
+	final GrayλImage blue = Debug.checkNull(c_blue);
+	final GrayλImage alpha = defaultAlpha(c_alpha);
+
+	final ColoredλImage lambda = new ColoredλImage() {
+	    @Override
+	    public Color valueAt(final float x, final float y) {
+		float a = alpha.valueAt(x, y);
+		float r = red.valueAt(x, y);
+		float g = green.valueAt(x, y);
+		float b = blue.valueAt(x, y);
+		return Colors.newColor(a, r, g, b);
+	    }
+	};
+	return lambda;
+    }
+
+    @Override
+    public ColorMap newColorMap(ColorMapSpecs lambda_specs) {
+	final GrayλImage green = Debug.checkNull(lambda_specs.getGreen());
+	final GrayλImage red = Debug.checkNull(lambda_specs.getRed());
+	final GrayλImage blue = Debug.checkNull(lambda_specs.getBlue());
+	final GrayλImage alpha = defaultAlpha(lambda_specs.getAlpha());
+	final ColoredλImage lambda = merge(alpha, red, green, blue);
+	return new RedColorMap(lambda, lambda_specs.getColorMapWidth(), lambda_specs.getColorMapHeight());
     }
 
 }
