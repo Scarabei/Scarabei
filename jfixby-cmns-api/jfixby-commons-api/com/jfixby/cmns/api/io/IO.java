@@ -1,6 +1,5 @@
 package com.jfixby.cmns.api.io;
 
-import java.io.BufferedInputStream;
 import java.io.Closeable;
 import java.io.IOException;
 

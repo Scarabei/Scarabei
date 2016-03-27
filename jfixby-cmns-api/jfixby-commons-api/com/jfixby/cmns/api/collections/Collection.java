@@ -2,8 +2,6 @@ package com.jfixby.cmns.api.collections;
 
 import java.util.Iterator;
 
-import com.jfixby.cmns.api.image.GrayMap;
-
 public interface Collection<T> extends Iterable<T> {
 	public int size();
 
