@@ -1,10 +1,10 @@
 package com.jfixby.cmns.api.color;
 
-public interface Color  {
+public interface Color extends Comparable<Color> {
 
-    public static final float grayscale_alpha = 1;
-    public static final float grayscale_betta = 1;
-    public static final float grayscale_gamma = 1;
+    public static final float grayscale_alpha = 0.21f;
+    public static final float grayscale_betta = 0.72f;
+    public static final float grayscale_gamma = 0.07f;
 
     public float alpha();
 
@@ -13,8 +13,8 @@ public interface Color  {
     public float green();
 
     public float blue();
-    
-    public float getGrayscaleValue();
+
+    public float gray();
 
     public float getGrayscaleValue(float grayscale_alpha, float grayscale_betta, float grayscale_gamma);
 

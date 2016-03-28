@@ -120,4 +120,16 @@ public class ImageProcessing {
 	return invoke().merge(alpha, red, green, blue);
     }
 
+    public static ColorMap scaleTo(ColorMap lambdaImage, int width, int height) {
+	return invoke().scaleTo(lambdaImage, width, height);
+    }
+
+    public static void scanImage(ColorMap image, PixelByPixelAction action) {
+	invoke().scanImage(image, action);
+    }
+
+    public static ColorMap removeAlpha(ColorMap original_image) {
+	return invoke().removeAlpha(original_image);
+    }
+
 }

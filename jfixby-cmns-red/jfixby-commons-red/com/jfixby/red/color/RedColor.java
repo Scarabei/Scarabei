@@ -277,13 +277,14 @@ public class RedColor implements Color, CustomColor, ColorConstant {
     }
 
     @Override
-    public float getGrayscaleValue(float grayscale_alpha, float grayscale_betta, float grayscale_gamma) {
-	return A * ((R * grayscale_alpha + G * grayscale_betta + B * grayscale_gamma)
+    public final float getGrayscaleValue(final float grayscale_alpha, final float grayscale_betta,
+	    final float grayscale_gamma) {
+	return ((R * grayscale_alpha + G * grayscale_betta + B * grayscale_gamma)
 		/ (grayscale_alpha + grayscale_betta + grayscale_gamma));
     }
 
     @Override
-    public float getGrayscaleValue() {
+    public final float gray() {
 	return getGrayscaleValue(grayscale_alpha, grayscale_betta, grayscale_gamma);
     }
 
@@ -293,8 +294,13 @@ public class RedColor implements Color, CustomColor, ColorConstant {
     }
 
     @Override
-    public CustomColor toGrayscale() {
-	return this.customize().setRed(this.getGrayscaleValue()).setGreen(this.getGrayscaleValue())
-		.setBlue(this.getGrayscaleValue());
+    public final CustomColor toGrayscale() {
+	final float gray = this.gray();
+	return this.customize().setRed(gray).setGreen(gray).setBlue(gray);
+    }
+
+    @Override
+    final public int compareTo(final Color o) {
+	return Float.compare(this.gray(), o.gray());
     }
 }

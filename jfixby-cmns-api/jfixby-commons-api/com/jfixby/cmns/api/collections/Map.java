@@ -1,5 +1,7 @@
 package com.jfixby.cmns.api.collections;
 
+import java.util.Comparator;
+
 public interface Map<K, V> extends Mapping<K, V> {
 
     void put(K key, V value);
@@ -15,5 +17,9 @@ public interface Map<K, V> extends Mapping<K, V> {
     void removeAll(Collection<?> keys);
 
     void sortKeys();
+
+    void sortKeys(Comparator<? super K> keysComparator);
+
+    EditableCollection<K> cutToSize(int max_size);
 
 }

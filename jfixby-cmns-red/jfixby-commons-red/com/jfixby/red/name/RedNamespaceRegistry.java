@@ -1,11 +1,13 @@
 package com.jfixby.red.name;
 
+import java.util.Comparator;
 import java.util.Iterator;
 
 import com.jfixby.cmns.api.assets.AssetID;
 import com.jfixby.cmns.api.assets.NamespaceRegistry;
 import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.Collections;
+import com.jfixby.cmns.api.collections.EditableCollection;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.collections.Map;
 import com.jfixby.cmns.api.collections.Mapping;
@@ -101,12 +103,12 @@ public class RedNamespaceRegistry<T> implements NamespaceRegistry<T> {
     }
 
     @Override
-    public AssetID getKeyAt(int i) {
+    public AssetID getKeyAt(long i) {
 	return map.getKeyAt(i);
     }
 
     @Override
-    public Collection<T> getValueAt(int i) {
+    public Collection<T> getValueAt(long i) {
 	return map.getValueAt(i);
     }
 
@@ -160,6 +162,16 @@ public class RedNamespaceRegistry<T> implements NamespaceRegistry<T> {
     @Override
     public void sortKeys() {
 	map.sortKeys();
+    }
+
+    @Override
+    public void sortKeys(Comparator<? super AssetID> keysComparator) {
+	map.sortKeys(keysComparator);
+    }
+
+    @Override
+    public EditableCollection<AssetID> cutToSize(int max_size) {
+	return this.map.cutToSize(max_size);
     }
 
 }

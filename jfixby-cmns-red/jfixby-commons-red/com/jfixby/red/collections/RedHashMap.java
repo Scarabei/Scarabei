@@ -1,14 +1,17 @@
 package com.jfixby.red.collections;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 
 import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.Collections;
+import com.jfixby.cmns.api.collections.EditableCollection;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.collections.Map;
 import com.jfixby.cmns.api.collections.Mapping;
 import com.jfixby.cmns.api.collections.Set;
+import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.log.L;
 
 public class RedHashMap<K, V> implements Map<K, V> {
@@ -90,12 +93,12 @@ public class RedHashMap<K, V> implements Map<K, V> {
     }
 
     @Override
-    public K getKeyAt(int i) {
+    public K getKeyAt(long i) {
 	return this.keys_list.getElementAt(i);
     }
 
     @Override
-    public V getValueAt(int i) {
+    public V getValueAt(long i) {
 	K key = keys_list.getElementAt(i);
 	return this.get(key);
     }
@@ -140,15 +143,43 @@ public class RedHashMap<K, V> implements Map<K, V> {
 
     @Override
     public void removeAll(Collection<?> keys) {
+	this.keys_list.removeAll(keys);
 	Iterator<?> i = keys.iterator();
 	while (i.hasNext()) {
 	    Object key = i.next();
-	    this.remove(key);
+	    this.hash_map.remove(key);
 	}
     }
 
     @Override
     public void sortKeys() {
 	this.keys_list.sort();
+    }
+
+    @Override
+    public void sortKeys(Comparator<? super K> keysComparator) {
+	this.keys_list.sort(keysComparator);
+    }
+
+    @Override
+    public EditableCollection<K> cutToSize(int max_size) {
+	if (max_size < 0) {
+	    Err.reportError("Negative target size: " + max_size);
+	}
+
+	if (max_size == 0) {
+	    this.clear();
+	}
+
+	final EditableCollection<K> to_remove = this.keys_list.splitAt(max_size);
+
+	final Iterator<?> i = to_remove.iterator();
+	while (i.hasNext()) {
+	    Object key = i.next();
+	    this.hash_map.remove(key);
+	}
+
+	return to_remove;
+
     }
 }

@@ -12,9 +12,9 @@ public interface Mapping<K, V> {
 
 	int size();
 
-	K getKeyAt(int i);
+	K getKeyAt(long i);
 
-	V getValueAt(int i);
+	V getValueAt(long i);
 
 	Iterator<K> keysIterator();
 

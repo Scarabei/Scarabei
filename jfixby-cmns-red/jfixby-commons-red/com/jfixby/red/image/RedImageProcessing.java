@@ -20,6 +20,7 @@ import com.jfixby.cmns.api.image.GrayλImage;
 import com.jfixby.cmns.api.image.ImageProcessing;
 import com.jfixby.cmns.api.image.ImageProcessingComponent;
 import com.jfixby.cmns.api.image.IndexedColorMapSpecs;
+import com.jfixby.cmns.api.image.PixelByPixelAction;
 
 public class RedImageProcessing implements ImageProcessingComponent {
 
@@ -231,12 +232,44 @@ public class RedImageProcessing implements ImageProcessingComponent {
 
     @Override
     public ColorMap newColorMap(ColorMapSpecs lambda_specs) {
+	if (lambda_specs.getLambdaColoredImage() != null) {
+	    return new RedColorMap(lambda_specs.getLambdaColoredImage(), lambda_specs.getColorMapWidth(),
+		    lambda_specs.getColorMapHeight());
+	}
+
 	final GrayλImage green = Debug.checkNull(lambda_specs.getGreen());
 	final GrayλImage red = Debug.checkNull(lambda_specs.getRed());
 	final GrayλImage blue = Debug.checkNull(lambda_specs.getBlue());
 	final GrayλImage alpha = defaultAlpha(lambda_specs.getAlpha());
 	final ColoredλImage lambda = merge(alpha, red, green, blue);
 	return new RedColorMap(lambda, lambda_specs.getColorMapWidth(), lambda_specs.getColorMapHeight());
+    }
+
+    @Override
+    public ColorMap scaleTo(ColorMap image, int width, int height) {
+	return this.newColorMap(this.scale(image, (width * 1f / image.getWidth()), (1f * height / image.getHeight())),
+		width, height);
+    }
+
+    @Override
+    public void scanImage(ColorMap image, PixelByPixelAction action) {
+	final int W = image.getWidth();
+	final int H = image.getHeight();
+	for (int y = 0; y < H; y++) {
+	    for (int x = 0; x < W; x++) {
+		final Color value = image.valueAt(x, y);
+		if (action.scanPixelAt(image, x, y, value)) {
+		    return;
+		}
+	    }
+	}
+    }
+
+    @Override
+    public ColorMap removeAlpha(ColorMap original_image) {
+	return this.newColorMap(original_image.getWidth(), original_image.getHeight(), ONE, original_image.getRed(),
+		original_image.getGreen(), original_image.getBlue());
+
     }
 
 }

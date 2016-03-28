@@ -8,17 +8,17 @@ import com.jfixby.red.collections.RedList;
 
 public class GwtList<T> extends RedList<T> implements List<T> {
 
-	public GwtList() {
-		super(new ArrayList<T>());
-	}
+    public GwtList() {
+	super(new ArrayList<T>());
+    }
 
-	@Override
-	public void sort() {
-		this.sort(null);
-	}
+    @Override
+    public void sort() {
+	this.sort(null);
+    }
 
-	@Override
-	public void sort(final Comparator<T> comparator) {
-		this.legacy.sort(comparator);
-	}
+    @Override
+    public void sort(final Comparator<? super T> comparator) {
+	this.legacy.sort(comparator);
+    }
 }

@@ -19,7 +19,7 @@ public class AndroidList<T> extends RedList<T> implements List<T> {
 	}
 
 	@Override
-	public void sort(final Comparator<T> comparator) {
+	public void sort(final Comparator<? super T> comparator) {
 		Collections.sort(legacy, comparator);
 	}
 }

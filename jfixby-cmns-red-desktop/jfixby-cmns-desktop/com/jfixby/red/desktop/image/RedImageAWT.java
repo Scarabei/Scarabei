@@ -163,7 +163,7 @@ public class RedImageAWT implements ImageAWTComponent {
 
 		// Log.d("gray", gray);
 
-		String val = palette(color.getGrayscaleValue());
+		String val = palette(color.gray());
 
 		// line = line + "[" + val + "]";
 		line = line + val + val;

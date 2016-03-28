@@ -18,7 +18,7 @@ public class DesktopList<T> extends RedList<T> implements List<T> {
 	}
 
 	@Override
-	public void sort(final Comparator<T> comparator) {
+	public void sort(final Comparator<? super T> comparator) {
 		this.legacy.sort(comparator);
 	}
 }

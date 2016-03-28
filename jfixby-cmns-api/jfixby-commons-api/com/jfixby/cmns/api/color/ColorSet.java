@@ -1,15 +1,17 @@
 package com.jfixby.cmns.api.color;
 
-public interface ColorSet extends ColorProjector {
+import com.jfixby.cmns.api.collections.EditableCollection;
 
-    void add(Color color);
+public interface ColorSet extends ColorProjector, EditableCollection<Color> {
 
-    public int size();
-
-    public Color get(int i);
-
-  
-
-    void print(String tag);
+    // void add(Color color);
+    //
+    // public int size();
+    //
+    // public Color get(int i);
+    //
+    // void print(String tag);
+    //
+    // void sort();
 
 }

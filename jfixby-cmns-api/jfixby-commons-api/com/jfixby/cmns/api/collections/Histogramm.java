@@ -1,6 +1,6 @@
 package com.jfixby.cmns.api.collections;
 
-public interface Histogramm<T> {
+public interface Histogramm<T> extends Collection<T> {
 
     void add(T value);
 
@@ -10,8 +10,18 @@ public interface Histogramm<T> {
 
     void print(String tag);
 
-    void sort();
+    void sortValues();
 
     void addIf(T value, boolean condition);
+
+    long getNumberAt(long index);
+
+    int size();
+
+    T getValueAt(long index);
+
+    void sortNumbers();
+
+    void cutToSize(int index_max_size);
 
 }

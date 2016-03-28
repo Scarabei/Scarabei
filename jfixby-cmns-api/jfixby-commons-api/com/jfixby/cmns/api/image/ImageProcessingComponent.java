@@ -53,4 +53,10 @@ public interface ImageProcessingComponent {
 
     ColoredλImage merge(GrayλImage alpha, GrayλImage red, GrayλImage green, GrayλImage blue);
 
+    ColorMap scaleTo(ColorMap lambdaImage, int width, int height);
+
+    void scanImage(ColorMap image, PixelByPixelAction action);
+
+    ColorMap removeAlpha(ColorMap original_image);
+
 }
