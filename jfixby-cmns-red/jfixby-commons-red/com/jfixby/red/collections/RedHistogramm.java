@@ -8,10 +8,9 @@ import com.jfixby.cmns.api.collections.CollectionScanner;
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.Histogramm;
 import com.jfixby.cmns.api.collections.Map;
-import com.jfixby.cmns.api.java.IntValue;
 
 public class RedHistogramm<T> implements Histogramm<T> {
-    final Map<T, IntValue> storage = Collections.newMap();
+    final Map<T, RedHistogrammValue> storage = Collections.newMap();
     long max = 0;
     final private CollectionScanner<T> max_scanner = new CollectionScanner<T>() {
 	@Override
@@ -22,9 +21,9 @@ public class RedHistogramm<T> implements Histogramm<T> {
 
     @Override
     public void add(T value) {
-	IntValue num = storage.get(value);
+	RedHistogrammValue num = storage.get(value);
 	if (num == null) {
-	    num = new IntValue();
+	    num = new RedHistogrammValue(this);
 	    storage.put(value, num);
 	}
 	num.value = num.value + 1;
@@ -40,7 +39,7 @@ public class RedHistogramm<T> implements Histogramm<T> {
 
     @Override
     public long getNumberOf(T value) {
-	IntValue num = storage.get(value);
+	RedHistogrammValue num = storage.get(value);
 	if (num == null) {
 	    return 0;
 	}
@@ -142,7 +141,6 @@ public class RedHistogramm<T> implements Histogramm<T> {
 
     @Override
     public void cutToSize(int max_size) {
-	
 	this.storage.cutToSize(max_size);
 	this.getMaxAgain();
     }
@@ -150,6 +148,10 @@ public class RedHistogramm<T> implements Histogramm<T> {
     private void getMaxAgain() {
 	this.max = 0;
 	Collections.scanCollection(this, max_scanner);
+    }
+
+    public float presence(final long value) {
+	return value * 1f / this.max;
     }
 
 }

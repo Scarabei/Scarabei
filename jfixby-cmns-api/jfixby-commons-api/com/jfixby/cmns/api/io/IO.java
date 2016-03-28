@@ -115,4 +115,12 @@ public class IO {
 	return component().newBitOutputStream(os);
     }
 
+    public static void writeShort(java.io.OutputStream javaOutputStream, short value) throws IOException {
+	component().writeShort(javaOutputStream, value);
+    }
+
+    public static short readShort(java.io.InputStream steam) throws IOException {
+	return component().readShort(steam);
+    }
+
 }

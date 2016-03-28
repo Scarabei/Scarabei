@@ -58,6 +58,10 @@ public interface IOComponent {
 
     JavaBitOutputStream newBitOutputStream(java.io.OutputStream os);
 
+    void writeShort(java.io.OutputStream javaOutputStream, short value) throws IOException;
+
+    short readShort(java.io.InputStream javaInputStream) throws IOException;
+
     // public String deserializeFromString(String from_string) throws
     // IOException;
 
