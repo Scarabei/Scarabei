@@ -81,8 +81,8 @@ public class Colors {
 	return invoke().BROWN();
     }
 
-    public static ColorSet newColorsSet() {
-	return invoke().newColorsSet();
+    public static ColorSet newColorSet() {
+	return invoke().newColorSet();
     }
 
     public static CustomColor newRandomColor(float alpha) {

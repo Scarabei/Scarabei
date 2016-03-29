@@ -89,8 +89,8 @@ public class RedIO implements IOComponent {
     }
 
     @Override
-    public byte readByte(java.io.InputStream javaInputStream) throws IOException {
-	return (byte) javaInputStream.read();
+    public int readByte(java.io.InputStream javaInputStream) throws IOException {
+	return  javaInputStream.read();
     }
 
     @Override
@@ -109,10 +109,11 @@ public class RedIO implements IOComponent {
     }
 
     @Override
-    final public short readShort(final java.io.InputStream javaInputStream) throws IOException {
-	final int b2 = javaInputStream.read() << (8 * 1);
+    final public int readShort(final java.io.InputStream javaInputStream) throws IOException {
 	final int b3 = javaInputStream.read() << (8 * 0);
-	return (short) (b2 | b3);//
+	final int b2 = javaInputStream.read() << (8 * 1);
+
+	return (b2 | b3);//
     }
 
     @Override
@@ -189,9 +190,9 @@ public class RedIO implements IOComponent {
     }
 
     @Override
-    public void writeShort(java.io.OutputStream javaOutputStream, short value) throws IOException {
-	javaOutputStream.write((value >> 8 * 1) & 0xff);
+    public void writeShort(java.io.OutputStream javaOutputStream, int value) throws IOException {
 	javaOutputStream.write((value >> 8 * 0) & 0xff);
+	javaOutputStream.write((value >> 8 * 1) & 0xff);
 
     }
 

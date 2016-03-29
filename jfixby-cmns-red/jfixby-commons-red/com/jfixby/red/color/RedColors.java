@@ -129,7 +129,7 @@ public class RedColors implements ColorsComponent {
     }
 
     @Override
-    public ColorSet newColorsSet() {
+    public ColorSet newColorSet() {
 	return new RedColorsSet(Colors.distanceRGB());
     }
 
@@ -215,7 +215,7 @@ public class RedColors implements ColorsComponent {
 
     @Override
     public ColorSet newColorsSet(ColorMap image) {
-	ColorSet palette = this.newColorsSet();
+	ColorSet palette = this.newColorSet();
 	for (int i = 0; i < image.getWidth(); i++) {
 	    for (int j = 0; j < image.getHeight(); j++) {
 		Color color = image.valueAt(i, j);

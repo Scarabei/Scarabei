@@ -41,7 +41,7 @@ public interface ColorsComponent {
 
     ColorConstant LIGHT_GRAY();
 
-    ColorSet newColorsSet();
+    ColorSet newColorSet();
 
     float limit(float f);
 

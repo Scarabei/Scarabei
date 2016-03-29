@@ -30,7 +30,7 @@ public interface IOComponent {
 
     public OutputStream toOutputStream(java.io.OutputStream java_output_stream) throws IOException;
 
-    byte readByte(java.io.InputStream javaInputStream) throws IOException;
+    int readByte(java.io.InputStream javaInputStream) throws IOException;
 
     int readInt(java.io.InputStream javaInputStream) throws IOException;
 
@@ -58,9 +58,9 @@ public interface IOComponent {
 
     JavaBitOutputStream newBitOutputStream(java.io.OutputStream os);
 
-    void writeShort(java.io.OutputStream javaOutputStream, short value) throws IOException;
+    void writeShort(java.io.OutputStream javaOutputStream, int value) throws IOException;
 
-    short readShort(java.io.InputStream javaInputStream) throws IOException;
+    int readShort(java.io.InputStream javaInputStream) throws IOException;
 
     // public String deserializeFromString(String from_string) throws
     // IOException;

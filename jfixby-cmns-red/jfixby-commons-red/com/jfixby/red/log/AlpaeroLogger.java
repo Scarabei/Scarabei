@@ -29,18 +29,19 @@ public abstract class AlpaeroLogger implements LoggerComponent {
     }
 
     private String listToString(int indent, Collection<?> array) {
+	StringBuilder string = new StringBuilder();
 	String canonocal_name = "Collection[]";
 	final int n = array.size();
 	if (n == 0) {
 	    return canonocal_name;
 	}
 
-	String t = canonocal_name.substring(0, canonocal_name.length() - 1) + n + "]\n";
+	string.append(canonocal_name.substring(0, canonocal_name.length() - 1) + n + "]\n");
 	String indent_str = indent(indent);
 	for (int i = 0; i < n; i++) {
-	    t = t + indent_str + "(" + i + ") " + array.getElementAt(i) + "\n";
+	    string.append(indent_str + "(" + i + ") " + array.getElementAt(i) + "\n");
 	}
-	return t;
+	return string.toString();
     }
 
     private String mapToString(int indent, Mapping<?, ?> array) {

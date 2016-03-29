@@ -59,7 +59,7 @@ public class IO {
 	return component().deserialize(type, input_stream);
     }
 
-    public static byte readByte(java.io.InputStream javaInputStream) throws IOException {
+    public static int readByte(java.io.InputStream javaInputStream) throws IOException {
 	return component().readByte(javaInputStream);
     }
 
@@ -115,11 +115,11 @@ public class IO {
 	return component().newBitOutputStream(os);
     }
 
-    public static void writeShort(java.io.OutputStream javaOutputStream, short value) throws IOException {
+    public static void writeShort(java.io.OutputStream javaOutputStream, int value) throws IOException {
 	component().writeShort(javaOutputStream, value);
     }
 
-    public static short readShort(java.io.InputStream steam) throws IOException {
+    public static int readShort(java.io.InputStream steam) throws IOException {
 	return component().readShort(steam);
     }
 
