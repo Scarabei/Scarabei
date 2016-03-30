@@ -9,7 +9,7 @@ import com.jfixby.cmns.api.util.JUtils;
 
 public class RedBinaryCode implements BinaryCode, EditableBinaryCode {
 
-    final StringBuffer bits = new StringBuffer();;
+    final StringBuilder bits = new StringBuilder();;
 
     @Override
     public EditableBinaryCode copy() {
@@ -47,7 +47,7 @@ public class RedBinaryCode implements BinaryCode, EditableBinaryCode {
 	this.bits.append(bits);
     }
 
-    public RedBinaryCode(StringBuffer other_bits) {
+    public RedBinaryCode(StringBuilder other_bits) {
 	this.bits.append(other_bits);
     }
 
