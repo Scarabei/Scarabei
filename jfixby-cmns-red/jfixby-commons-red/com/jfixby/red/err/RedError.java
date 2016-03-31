@@ -14,7 +14,7 @@ public class RedError implements ErrorComponent {
 
     @Override
     public void reportError(String message) {
-	if (SystemSettings.executionModeIs(ExecutionMode.EARLY_DEVELOPMENT)) {
+	if (SystemSettings.executionModeCovers(ExecutionMode.EARLY_DEVELOPMENT)) {
 	    throw new Error(message);
 	} else {
 	    L.e(message);
@@ -23,7 +23,7 @@ public class RedError implements ErrorComponent {
 
     @Override
     public void reportError(Throwable e) {
-	if (SystemSettings.executionModeIs(ExecutionMode.EARLY_DEVELOPMENT)) {
+	if (SystemSettings.executionModeCovers(ExecutionMode.EARLY_DEVELOPMENT)) {
 	    throw new Error(e);
 	} else {
 	    L.e(e);

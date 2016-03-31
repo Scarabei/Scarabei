@@ -1,5 +1,6 @@
 package com.jfixby.red.desktop.filesystem.win;
 
+import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -18,9 +19,8 @@ public class WinFileOutputStream extends AbstractRedOutputStream {
 	java.io.File file = new java.io.File(path_string);
 
 	FileOutputStream fos = new java.io.FileOutputStream(file);
-	// BufferedOutputStream os = new BufferedOutputStream(
-	// fos);
-	return fos;
+	BufferedOutputStream os = new BufferedOutputStream(fos);
+	return os;
     }
 
 }

@@ -19,8 +19,8 @@ public class RedSystemSettings implements SystemSettingsComponent {
 	L.d("---[SystemSettings]-----------------------------------");
 	flags.print("   Flags  ");
 	longs.print("   Longs  ");
-      strings.print("   Strings");
-       assets.print("   Assets ");
+	strings.print("   Strings");
+	assets.print("   Assets ");
 	L.d("---[SystemSettings-END]-----------------------------------");
     }
 
@@ -70,8 +70,8 @@ public class RedSystemSettings implements SystemSettingsComponent {
 	return value;
     }
 
-    public boolean executionModeIs(final ExecutionMode execution_mode) {
-	return execution_mode == this.execution_mode;
+    public boolean executionModeCovers(final ExecutionMode execution_mode) {
+	return this.execution_mode.covers(execution_mode);
     }
 
     public ExecutionMode getExecutionMode() {
@@ -82,14 +82,14 @@ public class RedSystemSettings implements SystemSettingsComponent {
     public void setLongParameter(String parameterName, long parameterValue) {
 	longs.put(parameterName, parameterValue);
     }
-    
+
     public long getLongParameter(String parameterName) {
-  	Long value = longs.get(parameterName);
-  	if (value == null) {
-  	    L.d("Flag not found", parameterName);
-  	    return 0;
-  	}
-  	return value;
-      }
+	Long value = longs.get(parameterName);
+	if (value == null) {
+	    L.d("Parameter not found", parameterName);
+	    return 0;
+	}
+	return value;
+    }
 
 }

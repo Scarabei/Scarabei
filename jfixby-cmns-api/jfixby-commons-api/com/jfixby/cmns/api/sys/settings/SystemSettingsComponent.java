@@ -20,8 +20,12 @@ public interface SystemSettingsComponent {
 
     void printSystemParameters();
 
-    boolean executionModeIs(ExecutionMode mode);
+    boolean executionModeCovers(ExecutionMode mode);
 
     ExecutionMode getExecutionMode();
+
+    void setLongParameter(String parameterName, long parameterValue);
+
+    long getLongParameter(String parameterName);
 
 }

@@ -87,14 +87,14 @@ public class RedImageAWT implements ImageAWTComponent {
 
     @Override
     public BufferedImage toAWTImage(ColorMap image_function) {
-	int h = image_function.getHeight();
-	int w = image_function.getWidth();
-	BufferedImage im = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
-	int[] data = ((DataBufferInt) im.getRaster().getDataBuffer()).getData();
+	final int h = image_function.getHeight();
+	final int w = image_function.getWidth();
+	final BufferedImage im = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+	final int[] data = ((DataBufferInt) im.getRaster().getDataBuffer()).getData();
 	for (int j = 0; j < h; j++) {
 	    for (int i = 0; i < w; i++) {
 		int K = i + j * w;
-		Color color_c = image_function.valueAt(i, j);
+		final Color color_c = image_function.valueAt(i, j);
 		data[K] = color_c.toInteger();
 	    }
 	}

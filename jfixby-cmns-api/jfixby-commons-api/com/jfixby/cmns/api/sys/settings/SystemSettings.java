@@ -25,39 +25,47 @@ public class SystemSettings {
     }
 
     public static void setFlag(String flag_name, boolean flag_value) {
-	componentInstaller.invokeComponent().setFlag(flag_name, flag_value);
+	invoke().setFlag(flag_name, flag_value);
     }
 
     public static boolean getFlag(String flag_name) {
-	return componentInstaller.invokeComponent().getFlag(flag_name);
+	return invoke().getFlag(flag_name);
     }
 
     public static String getStringParameter(String parameter_name) {
-	return componentInstaller.invokeComponent().getStringParameter(parameter_name);
+	return invoke().getStringParameter(parameter_name);
+    }
+
+    public static void setLongParameter(String parameterName, long parameterValue) {
+	invoke().setLongParameter(parameterName, parameterValue);
     }
 
     public static void setStringParameter(String parameter_name, String parameter_value) {
-	componentInstaller.invokeComponent().setStringParameter(parameter_name, parameter_value);
+	invoke().setStringParameter(parameter_name, parameter_value);
     }
 
     public static void setSystemAssetID(String parameter_name, AssetID parameter_value) {
-	componentInstaller.invokeComponent().setSystemAssetID(parameter_name, parameter_value);
+	invoke().setSystemAssetID(parameter_name, parameter_value);
     }
 
     public static AssetID getSystemAssetID(String parameter_name) {
-	return componentInstaller.invokeComponent().getSystemAssetID(parameter_name);
+	return invoke().getSystemAssetID(parameter_name);
     }
 
     public static void printSystemParameters() {
 	invoke().printSystemParameters();
     }
 
-    public static boolean executionModeIs(ExecutionMode mode) {
-	return invoke().executionModeIs(mode);
+    public static boolean executionModeCovers(ExecutionMode mode) {
+	return invoke().executionModeCovers(mode);
     }
 
     public static ExecutionMode getExecutionMode() {
 	return invoke().getExecutionMode();
+    }
+
+    public static long getLongParameter(String parameterName) {
+	return invoke().getLongParameter(parameterName);
     }
 
 }
