@@ -11,14 +11,16 @@ import com.jfixby.cmns.api.sys.settings.SystemSettingsComponent;
 public class RedSystemSettings implements SystemSettingsComponent {
 
     final Map<String, Boolean> flags = Collections.newMap();
+    final Map<String, Long> longs = Collections.newMap();
     final Map<String, String> strings = Collections.newMap();
     final Map<String, AssetID> assets = Collections.newMap();
 
     public void printSystemParameters() {
 	L.d("---[SystemSettings]-----------------------------------");
 	flags.print("   Flags  ");
-	strings.print("   Strings");
-	assets.print("   Assets ");
+	longs.print("   Longs  ");
+      strings.print("   Strings");
+       assets.print("   Assets ");
 	L.d("---[SystemSettings-END]-----------------------------------");
     }
 
@@ -75,5 +77,19 @@ public class RedSystemSettings implements SystemSettingsComponent {
     public ExecutionMode getExecutionMode() {
 	return this.execution_mode;
     }
+
+    @Override
+    public void setLongParameter(String parameterName, long parameterValue) {
+	longs.put(parameterName, parameterValue);
+    }
+    
+    public long getLongParameter(String parameterName) {
+  	Long value = longs.get(parameterName);
+  	if (value == null) {
+  	    L.d("Flag not found", parameterName);
+  	    return 0;
+  	}
+  	return value;
+      }
 
 }
