@@ -25,8 +25,8 @@ public class GCFisher {
 		invoke().onBaitCaptured(bait);
 	}
 
-	public static BaitInfo throwBait(int size_in_MB) {
-		return invoke().throwBait(size_in_MB);
+	public static BaitInfo throwBait(long size_in_bytes) {
+		return invoke().throwBait(size_in_bytes);
 	}
 
 	public static BaitInfo throwBait() {

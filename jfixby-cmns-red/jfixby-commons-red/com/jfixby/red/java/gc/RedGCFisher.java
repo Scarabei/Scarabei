@@ -13,9 +13,9 @@ public class RedGCFisher implements GCFisherComponent {
     static long bait_id = -1;
 
     @Override
-    synchronized public BaitInfo throwBait(int size) {
+    synchronized public BaitInfo throwBait(long size_in_bytes) {
 	bait_id++;
-	RedBait bait = new RedBait(bait_id, size);
+	RedBait bait = new RedBait(bait_id, size_in_bytes);
 	RedBaitInfo info = bait.getInfo();
 	return info;
     }
@@ -31,9 +31,8 @@ public class RedGCFisher implements GCFisherComponent {
     @Override
     public BaitInfo throwBait() {
 
-	String config = SystemSettings.getStringParameter(GCFisher.DefaultBaitSize);
-	int DEFAULT_BAIT_SIZE = parse(config);
-	return this.throwBait(DEFAULT_BAIT_SIZE);
+	long DEFAULT_BAIT_SIZE = SystemSettings.getLongParameter(GCFisher.DefaultBaitSize);
+	return this.throwBait( DEFAULT_BAIT_SIZE);
     }
 
     private int parse(String config_line) {
