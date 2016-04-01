@@ -79,7 +79,7 @@ public class RedDebug implements DebugComponent {
 
     @Override
     public DebugTimer newTimer() {
-	return new RedDebugTimer(DEBUG_TIMER_MODE.MILLISECONDS);
+	return new RedDebugTimer(DEBUG_TIMER_MODE.NANOSECONDS);
     }
 
     @Override

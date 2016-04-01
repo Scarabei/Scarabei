@@ -22,10 +22,9 @@ public class RedDebugTimer implements DebugTimer {
     static final double MILLISECONDS_IN_SECOND = 1000L;
 
     @Override
-    public void reset() {
+    public final void reset() {
 	this.start_time_milliseconds = System.currentTimeMillis();
 	this.start_time_nanoseconds = System.nanoTime();
-
     }
 
     @Override
