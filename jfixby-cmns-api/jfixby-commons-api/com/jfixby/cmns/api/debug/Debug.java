@@ -55,4 +55,8 @@ public class Debug {
 	return invoke().newTimer();
     }
 
+    public static DebugTimer newTimer(DEBUG_TIMER_MODE mode) {
+	return invoke().newTimer(mode);
+    }
+
 }

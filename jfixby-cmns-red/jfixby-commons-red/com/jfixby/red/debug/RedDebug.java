@@ -2,6 +2,7 @@ package com.jfixby.red.debug;
 
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
+import com.jfixby.cmns.api.debug.DEBUG_TIMER_MODE;
 import com.jfixby.cmns.api.debug.DebugComponent;
 import com.jfixby.cmns.api.debug.DebugTimer;
 import com.jfixby.cmns.api.sys.Sys;
@@ -78,7 +79,12 @@ public class RedDebug implements DebugComponent {
 
     @Override
     public DebugTimer newTimer() {
-	return new RedDebugTimer();
+	return new RedDebugTimer(DEBUG_TIMER_MODE.MILLISECONDS);
+    }
+
+    @Override
+    public DebugTimer newTimer(DEBUG_TIMER_MODE mode) {
+	return new RedDebugTimer(mode);
     }
 
 }

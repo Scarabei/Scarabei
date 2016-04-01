@@ -20,4 +20,6 @@ public interface DebugComponent {
 
     DebugTimer newTimer();
 
+    DebugTimer newTimer(DEBUG_TIMER_MODE mode);
+
 }
