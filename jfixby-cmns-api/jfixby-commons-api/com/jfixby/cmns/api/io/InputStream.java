@@ -2,6 +2,8 @@ package com.jfixby.cmns.api.io;
 
 import java.io.IOException;
 
+import com.jfixby.cmns.api.java.ByteArray;
+
 public interface InputStream extends ForceCloseable {
 
     boolean hasData() throws IOException;
@@ -12,7 +14,7 @@ public interface InputStream extends ForceCloseable {
 
     void close() throws IOException;
 
-    byte[] readAll() throws IOException;
+    ByteArray readAll() throws IOException;
 
     java.io.InputStream toJavaInputStream();
 

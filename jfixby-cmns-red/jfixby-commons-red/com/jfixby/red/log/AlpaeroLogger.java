@@ -3,18 +3,20 @@ package com.jfixby.red.log;
 import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.Mapping;
 import com.jfixby.cmns.api.log.LoggerComponent;
+import com.jfixby.cmns.api.util.JUtils;
 
 public abstract class AlpaeroLogger implements LoggerComponent {
 
     public abstract String arrayToString(int indent, Object[] array);
 
+    @Override
     public void d(String string, Object object) {
 	if (object instanceof Object[]) {
 	    System_out_println(string + " > " + arrayToString(string.length() + 3, (Object[]) object));
 	    return;
 	}
 	if (object instanceof byte[]) {
-	    System_out_println(string + " > " + new String((byte[]) object));
+	    System_out_println(string + " > " + JUtils.newString((byte[]) object));
 	    return;
 	}
 	if (object instanceof Collection) {
@@ -77,14 +79,17 @@ public abstract class AlpaeroLogger implements LoggerComponent {
 	return r;
     }
 
+    @Override
     public void d(Object string) {
 	System_out_println(string);
     }
 
+    @Override
     public void e(String string, Object object) {
 	System_err_println(string + " > " + object);
     }
 
+    @Override
     public void e(Object string) {
 	System_err_println(string);
     }

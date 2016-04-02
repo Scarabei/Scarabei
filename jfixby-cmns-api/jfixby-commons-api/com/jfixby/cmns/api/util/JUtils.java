@@ -4,6 +4,7 @@ import com.jfixby.cmns.api.ComponentInstaller;
 import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.collections.Set;
+import com.jfixby.cmns.api.java.ByteArray;
 import com.jfixby.cmns.api.util.path.AbsolutePath;
 import com.jfixby.cmns.api.util.path.MountPoint;
 import com.jfixby.cmns.api.util.path.RelativePath;
@@ -57,7 +58,7 @@ public class JUtils {
 	return invoke().split(input_string, splitter);
     }
 
-    public static String newString(byte[] data) {
+    public static String newString(ByteArray data) {
 	return invoke().newString(data);
     }
 
@@ -79,6 +80,30 @@ public class JUtils {
 
     public static EditableBinaryCode newBinaryCode() {
 	return invoke().newBinaryCode();
+    }
+
+    public static ByteArray newByteArray(int size) {
+	return invoke().newByteArray(size);
+    }
+
+    public static ByteArray newByteArray(byte[] bytes) {
+	return invoke().newByteArray(bytes);
+    }
+
+    public static String newString(char[] chars) {
+	return invoke().newString(chars);
+    }
+
+    public static String newString(byte[] bytes) {
+	return invoke().newString(bytes);
+    }
+
+    public static String newString(byte[] bytes, String encoding) {
+	return invoke().newString(bytes, encoding);
+    }
+
+    public static String newString(ByteArray bytes, String encoding) {
+	return invoke().newString(bytes, encoding);
     }
 
 }

@@ -9,6 +9,8 @@ import com.jfixby.cmns.api.file.FileOutputStream;
 import com.jfixby.cmns.api.io.BufferOutputStream;
 import com.jfixby.cmns.api.io.Data;
 import com.jfixby.cmns.api.io.IO;
+import com.jfixby.cmns.api.java.ByteArray;
+import com.jfixby.cmns.api.util.JUtils;
 import com.jfixby.cmns.api.util.path.RelativePath;
 
 public class RMIFileOutputStream implements FileOutputStream {
@@ -36,7 +38,7 @@ public class RMIFileOutputStream implements FileOutputStream {
     @Override
     public void close() throws IOException {
 	os.close();
-	byte[] data = os.getBytes();
+	ByteArray data = os.getBytes();
 	try {
 	    rmiDataContainer.lookup().writeDataToFile(relativePath, data);
 	} catch (NotBoundException e) {
@@ -50,7 +52,7 @@ public class RMIFileOutputStream implements FileOutputStream {
     }
 
     @Override
-    public void write(byte[] bytes) throws IOException {
+    public void write(ByteArray bytes) throws IOException {
 	os.write(bytes);
     }
 
@@ -62,6 +64,11 @@ public class RMIFileOutputStream implements FileOutputStream {
     @Override
     public void forceClose() {
 	IO.forceClose(os);
+    }
+
+    @Override
+    public void write(byte[] bytes) throws IOException {
+	this.write(JUtils.newByteArray(bytes));
     }
 
 }

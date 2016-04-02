@@ -136,7 +136,7 @@ public class ToGdxFileAdaptor extends FileHandle {
     public byte[] readBytes() {
 	// L("readBytes()");
 	try {
-	    return fixby_file.readBytes();
+	    return fixby_file.readBytes().toArray();
 	} catch (IOException e) {
 	    L.e(e + "");
 	    e.printStackTrace();

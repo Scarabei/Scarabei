@@ -7,6 +7,8 @@ import java.io.InputStream;
 import com.jfixby.cmns.api.file.FileInputStream;
 import com.jfixby.cmns.api.io.Data;
 import com.jfixby.cmns.api.io.IO;
+import com.jfixby.cmns.api.java.ByteArray;
+import com.jfixby.cmns.api.util.JUtils;
 
 public class AbstractRedInputStream implements FileInputStream {
     InputStream is;
@@ -47,7 +49,7 @@ public class AbstractRedInputStream implements FileInputStream {
     }
 
     @Override
-    public byte[] readAll() throws IOException {
+    public ByteArray readAll() throws IOException {
 	ByteArrayOutputStream baos = new ByteArrayOutputStream();
 	byte[] buf = new byte[10 * 4096];
 	while (true) {
@@ -60,7 +62,7 @@ public class AbstractRedInputStream implements FileInputStream {
 	// bis.close();
 	is.close();
 	byte data[] = baos.toByteArray();
-	return data;
+	return JUtils.newByteArray(data);
     }
 
     @Override

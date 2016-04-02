@@ -7,7 +7,8 @@ import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.collections.Set;
 import com.jfixby.cmns.api.debug.Debug;
-import com.jfixby.cmns.api.err.Err;
+import com.jfixby.cmns.api.java.ByteArray;
+import com.jfixby.cmns.api.lang.RedByteArray;
 import com.jfixby.cmns.api.math.IntegerMath;
 import com.jfixby.cmns.api.util.BinaryCode;
 import com.jfixby.cmns.api.util.EditableBinaryCode;
@@ -61,13 +62,8 @@ public class RedJUtils implements UtilsComponent {
     }
 
     @Override
-    public String newString(byte[] data) {
-	try {
-	    return new String(data, "UTF-8");
-	} catch (UnsupportedEncodingException e) {
-	    Err.reportError(e);
-	}
-	throw new Error();
+    public String newString(ByteArray data) {
+	return this.newString(data.toArray());
     }
 
     @Override
@@ -123,4 +119,40 @@ public class RedJUtils implements UtilsComponent {
     public EditableBinaryCode newBinaryCode() {
 	return new RedBinaryCode();
     }
+
+    @Override
+    public ByteArray newByteArray(int size) {
+	return new RedByteArray(size);
+    }
+
+    @Override
+    public ByteArray newByteArray(byte[] bytes) {
+	return new RedByteArray(bytes);
+    }
+
+    @Override
+    public String newString(char[] chars) {
+	return new String(chars);
+    }
+
+    @Override
+    public String newString(byte[] bytes) {
+	return this.newString(bytes, "UTF-8");
+    }
+
+    @Override
+    public String newString(byte[] bytes, String encoding) {
+	try {
+	    return new String(bytes, encoding);
+	} catch (UnsupportedEncodingException e) {
+	    e.printStackTrace();
+	}
+	return null;
+    }
+
+    @Override
+    public String newString(ByteArray bytes, String encoding) {
+	return this.newString(bytes.toArray(), encoding);
+    }
+
 }

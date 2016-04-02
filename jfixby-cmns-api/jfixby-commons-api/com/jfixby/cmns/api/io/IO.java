@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import com.jfixby.cmns.api.ComponentInstaller;
 import com.jfixby.cmns.api.file.FileInputStream;
+import com.jfixby.cmns.api.java.ByteArray;
 
 public class IO {
 
@@ -30,7 +31,7 @@ public class IO {
 	return component().toOutputStream(java_output_stream);
     }
 
-    public static Buffer newBuffer(byte[] bytes) {
+    public static Buffer newBuffer(ByteArray bytes) {
 	return component().newBuffer(bytes);
     }
 

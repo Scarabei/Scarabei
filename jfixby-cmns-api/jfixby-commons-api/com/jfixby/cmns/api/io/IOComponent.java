@@ -4,6 +4,7 @@ import java.io.Closeable;
 import java.io.IOException;
 
 import com.jfixby.cmns.api.file.FileOutputStream;
+import com.jfixby.cmns.api.java.ByteArray;
 
 public interface IOComponent {
 
@@ -20,7 +21,7 @@ public interface IOComponent {
 
     Buffer readStreamToBuffer(InputStream is) throws IOException;
 
-    Buffer newBuffer(byte[] bytes);
+    Buffer newBuffer(ByteArray bytes);
 
     void writeBufferToStream(Buffer buffer, FileOutputStream os) throws IOException;
 

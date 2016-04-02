@@ -2,6 +2,7 @@ package com.jfixby.cmns.api.file;
 
 import java.io.IOException;
 
+import com.jfixby.cmns.api.java.ByteArray;
 import com.jfixby.cmns.api.util.path.AbsolutePath;
 import com.jfixby.cmns.api.util.path.RelativePath;
 
@@ -46,7 +47,9 @@ public interface File {
 
     String readToString() throws IOException;
 
-    byte[] readBytes() throws IOException;
+    ByteArray readBytes() throws IOException;
+
+    void writeBytes(ByteArray bytes) throws IOException;
 
     void writeBytes(byte[] bytes) throws IOException;
 

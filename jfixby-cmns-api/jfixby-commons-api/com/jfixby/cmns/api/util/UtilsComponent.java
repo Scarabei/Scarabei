@@ -3,6 +3,7 @@ package com.jfixby.cmns.api.util;
 import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.collections.Set;
+import com.jfixby.cmns.api.java.ByteArray;
 import com.jfixby.cmns.api.util.path.AbsolutePath;
 import com.jfixby.cmns.api.util.path.MountPoint;
 import com.jfixby.cmns.api.util.path.RelativePath;
@@ -25,7 +26,7 @@ public interface UtilsComponent {
 
     List<String> split(String input_string, String splitter);
 
-    String newString(byte[] data);
+    String newString(ByteArray data);
 
     <T> Set<T> intersectCollections(Collection<T> listA, Collection<T> listB);
 
@@ -36,4 +37,17 @@ public interface UtilsComponent {
     BinaryCode binaryCodeOf(int bits, int numberOfBits);
 
     EditableBinaryCode newBinaryCode();
+
+    ByteArray newByteArray(int size);
+
+    ByteArray newByteArray(byte[] bytes);
+
+    String newString(char[] chars);
+
+    String newString(byte[] bytes);
+
+    String newString(byte[] bytes, String encoding);
+
+    String newString(ByteArray bytes, String encoding);
+
 }

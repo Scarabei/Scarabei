@@ -8,6 +8,7 @@ import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.FileInputStream;
 import com.jfixby.cmns.api.file.FileOutputStream;
 import com.jfixby.cmns.api.file.FileSystem;
+import com.jfixby.cmns.api.java.ByteArray;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.util.JUtils;
 import com.jfixby.cmns.api.util.path.AbsolutePath;
@@ -86,13 +87,13 @@ public abstract class AbstractFileSystem implements FileSystem {
     public String readFileToString(AbsolutePath<FileSystem> file_path) throws IOException {
 	File file = this.newFile(file_path);
 	FileInputStream is = this.newFileInputStream(file);
-	byte[] data = is.readAll();
+	ByteArray data = is.readAll();
 	is.close();
-	return new String(data, "UTF-8");
+	return JUtils.newString(data);
     }
 
     @Override
-    public void writeDataToFile(AbsolutePath<FileSystem> file_path, byte[] bytes) throws IOException {
+    public void writeDataToFile(AbsolutePath<FileSystem> file_path, ByteArray bytes) throws IOException {
 	File file = this.newFile(file_path);
 	FileOutputStream fos = this.newFileOutputStream(file);
 	fos.write(bytes);
@@ -102,7 +103,7 @@ public abstract class AbstractFileSystem implements FileSystem {
 
     @Override
     public void writeStringToFile(String string_data, AbsolutePath<FileSystem> file_path) throws IOException {
-	writeDataToFile(file_path, string_data.getBytes());
+	writeDataToFile(file_path, JUtils.newByteArray(string_data.getBytes()));
     }
 
     @Override
@@ -119,7 +120,7 @@ public abstract class AbstractFileSystem implements FileSystem {
 	    L.d("          to", output_file.getAbsoluteFilePath());
 	    // DebugTimer timer = Debug.newTimer();
 	    // timer.reset();
-	    final byte[] data = input_file.readBytes();
+	    final ByteArray data = input_file.readBytes();
 	    // timer.printTimeAbove(30, "readBytes");
 	    // timer.reset();
 	    output_file.writeBytes(data);

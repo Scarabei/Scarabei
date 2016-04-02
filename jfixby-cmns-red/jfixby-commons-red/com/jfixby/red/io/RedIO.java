@@ -18,7 +18,9 @@ import com.jfixby.cmns.api.io.JavaBitStreamMode;
 import com.jfixby.cmns.api.io.OutputStream;
 import com.jfixby.cmns.api.io.StreamPipe;
 import com.jfixby.cmns.api.io.U_StreamPipeProgressListener;
+import com.jfixby.cmns.api.java.ByteArray;
 import com.jfixby.cmns.api.json.Json;
+import com.jfixby.cmns.api.util.JUtils;
 
 public class RedIO implements IOComponent {
 
@@ -31,15 +33,15 @@ public class RedIO implements IOComponent {
     @Override
     public void serialize(Object object, OutputStream output_stream) throws IOException {
 	String data_string = Json.serializeToString(object);
-	byte[] bytes = data_string.getBytes();
+	ByteArray bytes = JUtils.newByteArray(data_string.getBytes());
 	output_stream.write(bytes);
 	output_stream.flush();
     }
 
     @Override
     public <T> T deserialize(Class<T> type, InputStream input_stream) throws IOException {
-	byte[] bytes = input_stream.readAll();
-	String data_string = new String(bytes, "UTF-8");
+	ByteArray bytes = input_stream.readAll();
+	String data_string = JUtils.newString(bytes.toArray());
 	T object = Json.deserializeFromString(type, data_string);
 	return object;
     }
@@ -56,13 +58,13 @@ public class RedIO implements IOComponent {
 
     @Override
     public Buffer readStreamToBuffer(InputStream input_stream) throws IOException {
-	byte[] bytes = input_stream.readAll();
+	ByteArray bytes = input_stream.readAll();
 
 	return new RedBuffer(bytes);
     }
 
     @Override
-    public Buffer newBuffer(byte[] bytes) {
+    public Buffer newBuffer(ByteArray bytes) {
 	return new RedBuffer(bytes);
     }
 
@@ -90,7 +92,7 @@ public class RedIO implements IOComponent {
 
     @Override
     public int readByte(java.io.InputStream javaInputStream) throws IOException {
-	return  javaInputStream.read();
+	return javaInputStream.read();
     }
 
     @Override

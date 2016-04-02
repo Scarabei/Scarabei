@@ -9,6 +9,7 @@ import com.jfixby.cmns.api.io.Buffer;
 import com.jfixby.cmns.api.io.BufferInputStream;
 import com.jfixby.cmns.api.io.Data;
 import com.jfixby.cmns.api.io.IO;
+import com.jfixby.cmns.api.java.ByteArray;
 
 public class RedBufferInputStream implements BufferInputStream, FileInputStream {
 
@@ -18,7 +19,7 @@ public class RedBufferInputStream implements BufferInputStream, FileInputStream 
 
     public RedBufferInputStream(Buffer buffer) {
 	this.buffer = buffer;
-	bis = new ByteArrayInputStream(buffer.getBytes());
+	bis = new ByteArrayInputStream(buffer.getBytes().toArray());
     }
 
     @Override
@@ -43,7 +44,7 @@ public class RedBufferInputStream implements BufferInputStream, FileInputStream 
     }
 
     @Override
-    public byte[] readAll() throws IOException {
+    public ByteArray readAll() throws IOException {
 	return buffer.getBytes();
     }
 

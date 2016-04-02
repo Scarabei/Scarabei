@@ -1,7 +1,9 @@
 package com.jfixby.cmns.api.io;
 
-public interface BufferOutputStream extends OutputStream{
+import com.jfixby.cmns.api.java.ByteArray;
 
-	byte[] getBytes();
+public interface BufferOutputStream extends OutputStream {
+
+    ByteArray getBytes();
 
 }

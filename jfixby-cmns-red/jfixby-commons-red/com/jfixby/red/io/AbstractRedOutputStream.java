@@ -6,6 +6,8 @@ import java.io.OutputStream;
 import com.jfixby.cmns.api.file.FileOutputStream;
 import com.jfixby.cmns.api.io.Data;
 import com.jfixby.cmns.api.io.IO;
+import com.jfixby.cmns.api.java.ByteArray;
+import com.jfixby.cmns.api.util.JUtils;
 
 public class AbstractRedOutputStream implements FileOutputStream {
     private OutputStream os;
@@ -32,9 +34,9 @@ public class AbstractRedOutputStream implements FileOutputStream {
     }
 
     @Override
-    public void write(byte[] bytes) throws IOException {
-	for (int i = 0; i < bytes.length; i++) {
-	    this.os.write(bytes[i]);
+    public void write(ByteArray bytes) throws IOException {
+	for (int i = 0; i < bytes.size(); i++) {
+	    this.os.write(bytes.getByte(i));
 	}
 	this.os.flush();
 	// this.os.flush();
@@ -48,5 +50,10 @@ public class AbstractRedOutputStream implements FileOutputStream {
     @Override
     public void forceClose() {
 	IO.forceClose(os);
+    }
+
+    @Override
+    public void write(byte[] bytes) throws IOException {
+	this.write(JUtils.newByteArray(bytes));
     }
 }

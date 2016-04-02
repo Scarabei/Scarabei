@@ -7,6 +7,8 @@ import com.jfixby.cmns.api.file.FileOutputStream;
 import com.jfixby.cmns.api.io.BufferOutputStream;
 import com.jfixby.cmns.api.io.Data;
 import com.jfixby.cmns.api.io.IO;
+import com.jfixby.cmns.api.java.ByteArray;
+import com.jfixby.cmns.api.util.JUtils;
 
 public class VirtualFileOutputStream implements FileOutputStream {
 
@@ -14,7 +16,7 @@ public class VirtualFileOutputStream implements FileOutputStream {
     private BufferOutputStream os;
 
     public VirtualFileOutputStream(VirtualFile output_file) throws IOException {
-	VirtualFile v_file = (VirtualFile) output_file;
+	VirtualFile v_file = output_file;
 	leaf = v_file.getContent();
 	if (leaf == null) {
 	    leaf = v_file.createFile();
@@ -36,9 +38,14 @@ public class VirtualFileOutputStream implements FileOutputStream {
     }
 
     @Override
+    public void write(byte[] bytes) throws IOException {
+	this.write(JUtils.newByteArray(bytes));
+    }
+
+    @Override
     public void close() throws IOException {
 	os.close();
-	byte[] data = os.getBytes();
+	ByteArray data = os.getBytes();
 	leaf.setData(data);
     }
 
@@ -48,7 +55,7 @@ public class VirtualFileOutputStream implements FileOutputStream {
     }
 
     @Override
-    public void write(byte[] bytes) throws IOException {
+    public void write(ByteArray bytes) throws IOException {
 	os.write(bytes);
     }
 
