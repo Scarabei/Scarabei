@@ -4,7 +4,6 @@ import com.jfixby.cmns.api.floatn.FixedFloat2;
 import com.jfixby.cmns.api.floatn.Float2;
 import com.jfixby.cmns.api.geometry.Geometry;
 import com.jfixby.cmns.api.geometry.Triangle;
-import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.math.MathTools;
 
 public class RedTriangle extends VertexMaster implements Triangle {
@@ -52,7 +51,7 @@ public class RedTriangle extends VertexMaster implements Triangle {
      */
     @Override
     public boolean containsPoint(FixedFloat2 point) {
-	L.e("Warning: bad performance  function!");
+	// L.e("Warning: bad performance function!");
 	if (this.A.transformed().isInEpsilonDistance(point)) {
 	    return true;
 	}
