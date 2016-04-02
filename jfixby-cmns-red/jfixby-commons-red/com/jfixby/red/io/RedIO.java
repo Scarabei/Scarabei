@@ -1,8 +1,13 @@
 package com.jfixby.red.io;
 
+import java.io.ByteArrayOutputStream;
 import java.io.Closeable;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
+import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.file.FileOutputStream;
 import com.jfixby.cmns.api.io.Buffer;
 import com.jfixby.cmns.api.io.BufferInputStream;
@@ -19,7 +24,6 @@ import com.jfixby.cmns.api.io.OutputStream;
 import com.jfixby.cmns.api.io.StreamPipe;
 import com.jfixby.cmns.api.io.U_StreamPipeProgressListener;
 import com.jfixby.cmns.api.java.ByteArray;
-import com.jfixby.cmns.api.json.Json;
 import com.jfixby.cmns.api.util.JUtils;
 
 public class RedIO implements IOComponent {
@@ -28,22 +32,6 @@ public class RedIO implements IOComponent {
     public StreamPipe newStreamPipe(InputStream input_stream, OutputStream output_stream,
 	    U_StreamPipeProgressListener progress_listener) {
 	return new RedStreamPipe(input_stream, output_stream, progress_listener);
-    }
-
-    @Override
-    public void serialize(Object object, OutputStream output_stream) throws IOException {
-	String data_string = Json.serializeToString(object);
-	ByteArray bytes = JUtils.newByteArray(data_string.getBytes());
-	output_stream.write(bytes);
-	output_stream.flush();
-    }
-
-    @Override
-    public <T> T deserialize(Class<T> type, InputStream input_stream) throws IOException {
-	ByteArray bytes = input_stream.readAll();
-	String data_string = JUtils.newString(bytes.toArray());
-	T object = Json.deserializeFromString(type, data_string);
-	return object;
     }
 
     @Override
@@ -196,6 +184,43 @@ public class RedIO implements IOComponent {
 	javaOutputStream.write((value >> 8 * 0) & 0xff);
 	javaOutputStream.write((value >> 8 * 1) & 0xff);
 
+    }
+
+    @Override
+    public ByteArray serialize(Serializable object) throws IOException {
+	ByteArrayOutputStream buff = new ByteArrayOutputStream();
+	ObjectOutputStream os = new ObjectOutputStream(buff);
+	os.writeObject(object);
+	os.flush();
+	os.close();
+	buff.close();
+	return JUtils.newByteArray(buff.toByteArray());
+    }
+
+    @Override
+    public void serialize(Serializable object, OutputStream output_stream) throws IOException {
+	java.io.OutputStream jos = output_stream.toJavaOutputStream();
+	ObjectOutputStream os = new ObjectOutputStream(jos);
+	os.writeObject(object);
+	os.flush();
+	jos.flush();
+    }
+
+    @Override
+    public <T> T deserialize(Class<T> type, InputStream input_stream) throws IOException {
+	Debug.checkNull("input_stream", input_stream);
+	Debug.checkNull("type", type);
+	java.io.InputStream jis = input_stream.toJavaInputStream();
+	ObjectInputStream os = new ObjectInputStream(jis);
+	try {
+	    T object = (T) os.readObject();
+	    return object;
+	} catch (Throwable e) {
+	    throw new IOException(e);
+	} finally {
+	    // forceClose(jis);
+	    // forceClose(os);
+	}
     }
 
 }

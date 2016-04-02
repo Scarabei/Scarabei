@@ -52,14 +52,6 @@ public class IO {
 	return component().newBufferOutputStream();
     }
 
-    public static void serialize(Object object, OutputStream output_stream) throws IOException {
-	component().serialize(object, output_stream);
-    }
-
-    public static <T> T deserialize(Class<T> type, InputStream input_stream) throws IOException {
-	return component().deserialize(type, input_stream);
-    }
-
     public static int readByte(java.io.InputStream javaInputStream) throws IOException {
 	return component().readByte(javaInputStream);
     }
@@ -122,6 +114,18 @@ public class IO {
 
     public static int readShort(java.io.InputStream steam) throws IOException {
 	return component().readShort(steam);
+    }
+
+    public static ByteArray serialize(java.io.Serializable object) throws IOException {
+	return invoke().serialize(object);
+    }
+
+    public static void serialize(java.io.Serializable object, OutputStream output_stream) throws IOException {
+	component().serialize(object, output_stream);
+    }
+
+    public static <T> T deserialize(Class<T> type, InputStream input_stream) throws IOException {
+	return component().deserialize(type, input_stream);
     }
 
 }

@@ -2,6 +2,7 @@ package com.jfixby.cmns.api.io;
 
 import java.io.Closeable;
 import java.io.IOException;
+import java.io.Serializable;
 
 import com.jfixby.cmns.api.file.FileOutputStream;
 import com.jfixby.cmns.api.java.ByteArray;
@@ -11,7 +12,7 @@ public interface IOComponent {
     StreamPipe newStreamPipe(InputStream input_stream, OutputStream output_stream,
 	    U_StreamPipeProgressListener progress_listener);
 
-    void serialize(Object object, OutputStream output_stream) throws IOException;
+    void serialize(Serializable object, OutputStream output_stream) throws IOException;
 
     public <T> T deserialize(Class<T> type, InputStream input_stream) throws IOException;
 
@@ -63,9 +64,6 @@ public interface IOComponent {
 
     int readShort(java.io.InputStream javaInputStream) throws IOException;
 
-    // public String deserializeFromString(String from_string) throws
-    // IOException;
-
-    // Object deserialize(FileInputStream output_stream,Class<?> type);
+    ByteArray serialize(java.io.Serializable object) throws IOException;
 
 }
