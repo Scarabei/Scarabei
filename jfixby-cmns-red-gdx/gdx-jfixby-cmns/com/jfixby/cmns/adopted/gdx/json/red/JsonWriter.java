@@ -14,7 +14,7 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.jfixby.cmns.adopted.gdx.json;
+package com.jfixby.cmns.adopted.gdx.json.red;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -22,30 +22,30 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 import com.badlogic.gdx.utils.Array;
+import com.jfixby.cmns.adopted.gdx.io.CharWriter;
+import com.jfixby.cmns.adopted.gdx.io.DataWriter;
+import com.jfixby.cmns.adopted.gdx.io.StringBuffer;
+import com.jfixby.cmns.api.json.JsonString;
 
 /**
  * Builder style API for emitting JSON.
  * 
  * @author Nathan Sweet
  */
-public class JsonWriter implements Closeable, Writer {
-    final Writer writer;
+public class JsonWriter implements Closeable, CharWriter, DataWriter<JsonString> {
+    final StringBuffer buffer;
     private final Array<JsonObject> stack = new Array();
     private JsonObject current;
     private boolean named;
-    private OutputType outputType = OutputType.json;
+    private JsonOutputType outputType = JsonOutputType.json;
     private boolean quoteLongValues = false;
 
-    public JsonWriter(Writer writer) {
-	this.writer = writer;
+    public JsonWriter() {
+	this.buffer = new StringBuffer();
     }
 
-    public Writer getWriter() {
-	return writer;
-    }
-
-    /** Sets the type of JSON output. Default is {@link OutputType#minimal}. */
-    public void setOutputType(OutputType outputType) {
+    /** Sets the type of JSON output. Default is {@link JsonOutputType#minimal}. */
+    public void setOutputType(JsonOutputType outputType) {
 	this.outputType = outputType;
     }
 
@@ -59,15 +59,17 @@ public class JsonWriter implements Closeable, Writer {
 	this.quoteLongValues = quoteLongValues;
     }
 
-    public JsonWriter name(String name) throws IOException {
+    public JsonWriter writeName(String name) throws IOException {
 	if (current == null || current.array)
 	    throw new IllegalStateException("Current item must be an object.");
+
 	if (!current.needsComma)
 	    current.needsComma = true;
 	else
-	    writer.write(',');
-	writer.write(outputType.quoteName(name));
-	writer.write(':');
+	    buffer.write(',');
+
+	buffer.write(outputType.quoteName(name));
+	buffer.write(':');
 	named = true;
 	return this;
     }
@@ -95,14 +97,14 @@ public class JsonWriter implements Closeable, Writer {
 		value = longValue;
 	}
 	requireCommaOrName();
-	writer.write(outputType.quoteValue(value));
+	buffer.write(outputType.quoteValue(value));
 	return this;
     }
 
     /** Writes the specified JSON value, without quoting or escaping. */
     public JsonWriter json(String json) throws IOException {
 	requireCommaOrName();
-	writer.write(json);
+	buffer.write(json);
 	return this;
     }
 
@@ -113,7 +115,7 @@ public class JsonWriter implements Closeable, Writer {
 	    if (!current.needsComma)
 		current.needsComma = true;
 	    else
-		writer.write(',');
+		buffer.write(',');
 	} else {
 	    if (!named)
 		throw new IllegalStateException("Name must be set.");
@@ -122,20 +124,20 @@ public class JsonWriter implements Closeable, Writer {
     }
 
     public JsonWriter object(String name) throws IOException {
-	return name(name).object();
+	return writeName(name).object();
     }
 
     public JsonWriter array(String name) throws IOException {
-	return name(name).array();
+	return writeName(name).array();
     }
 
     public JsonWriter set(String name, Object value) throws IOException {
-	return name(name).value(value);
+	return writeName(name).value(value);
     }
 
     /** Writes the specified JSON value, without quoting or escaping. */
     public JsonWriter json(String name, String json) throws IOException {
-	return name(name).json(json);
+	return writeName(name).json(json);
     }
 
     public JsonWriter pop() throws IOException {
@@ -147,17 +149,17 @@ public class JsonWriter implements Closeable, Writer {
     }
 
     public void write(char[] cbuf, int off, int len) throws IOException {
-	writer.write(cbuf, off, len);
+	buffer.write(cbuf, off, len);
     }
 
     public void flush() throws IOException {
-	writer.flush();
+	buffer.flush();
     }
 
     public void close() throws IOException {
 	while (stack.size > 0)
 	    pop();
-	writer.close();
+	buffer.close();
     }
 
     @Override
@@ -168,6 +170,15 @@ public class JsonWriter implements Closeable, Writer {
     @Override
     public void write(String quoteName) {
 	throw new Error();
+    }
+
+    public StringBuffer getBuffer() {
+	return buffer;
+    }
+
+    @Override
+    public JsonString toOutputData() {
+	return getBuffer().toJsonString();
     }
 
 }
