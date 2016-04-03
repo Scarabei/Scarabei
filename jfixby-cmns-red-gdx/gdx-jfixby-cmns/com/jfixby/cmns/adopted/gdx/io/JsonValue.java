@@ -17,7 +17,7 @@
 package com.jfixby.cmns.adopted.gdx.io;
 
 import com.badlogic.gdx.utils.SerializationException;
-import com.jfixby.cmns.adopted.gdx.json.JsonOutputType;
+import com.jfixby.cmns.adopted.gdx.json.red.JsonOutputType;
 import com.jfixby.cmns.api.json.Json;
 import com.jfixby.cmns.api.json.JsonString;
 

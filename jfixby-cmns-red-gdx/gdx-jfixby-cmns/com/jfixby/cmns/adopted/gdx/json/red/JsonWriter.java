@@ -14,7 +14,7 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.jfixby.cmns.adopted.gdx.json;
+package com.jfixby.cmns.adopted.gdx.json.red;
 
 import java.io.Closeable;
 import java.io.IOException;

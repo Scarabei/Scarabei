@@ -1,4 +1,4 @@
-package com.jfixby.cmns.adopted.gdx.json;
+package com.jfixby.cmns.adopted.gdx.json.red;
 
 import com.jfixby.cmns.adopted.gdx.io.DataWriter;
 import com.jfixby.cmns.adopted.gdx.io.GdxSerialization;

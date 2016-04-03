@@ -1,7 +1,6 @@
-package com.jfixby.cmns.adopted.gdx.json;
+package com.jfixby.cmns.adopted.gdx.json.red;
 
 import java.util.regex.Pattern;
-
 import com.badlogic.gdx.utils.StringBuilder;
 
 public enum JsonOutputType {

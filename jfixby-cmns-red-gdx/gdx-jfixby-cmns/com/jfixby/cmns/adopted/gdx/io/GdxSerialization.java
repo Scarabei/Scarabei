@@ -41,7 +41,7 @@ import com.badlogic.gdx.utils.reflect.ClassReflection;
 import com.badlogic.gdx.utils.reflect.Constructor;
 import com.badlogic.gdx.utils.reflect.Field;
 import com.badlogic.gdx.utils.reflect.ReflectionException;
-import com.jfixby.cmns.adopted.gdx.json.JsonReader;
+import com.jfixby.cmns.adopted.gdx.json.red.JsonReader;
 import com.jfixby.cmns.api.json.JsonString;
 
 /**
