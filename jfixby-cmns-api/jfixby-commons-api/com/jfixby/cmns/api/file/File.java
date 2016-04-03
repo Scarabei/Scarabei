@@ -73,4 +73,8 @@ public interface File {
 
     ChildrenList listSubFolders();
 
+    void writeData(Object object) throws IOException;
+
+    <T> T readData(Class<T> type) throws IOException;
+
 }

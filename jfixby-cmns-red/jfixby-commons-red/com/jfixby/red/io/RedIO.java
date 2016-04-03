@@ -193,7 +193,7 @@ public class RedIO implements IOComponent {
 	ObjectOutputStream os = new ObjectOutputStream(buff);
 	os.writeObject(object);
 	os.flush();
-	os.close();
+//	os.close();
 	buff.close();
 	return JUtils.newByteArray(buff.toByteArray());
     }

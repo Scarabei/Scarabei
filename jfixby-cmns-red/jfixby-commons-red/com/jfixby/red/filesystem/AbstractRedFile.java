@@ -1,12 +1,14 @@
 package com.jfixby.red.filesystem;
 
 import java.io.IOException;
+import java.io.Serializable;
 
 import com.jfixby.cmns.api.file.ChildrenList;
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.FileInputStream;
 import com.jfixby.cmns.api.file.FileOutputStream;
 import com.jfixby.cmns.api.file.FileSystem;
+import com.jfixby.cmns.api.io.IO;
 import com.jfixby.cmns.api.java.ByteArray;
 import com.jfixby.cmns.api.util.JUtils;
 import com.jfixby.cmns.api.util.path.AbsolutePath;
@@ -34,6 +36,12 @@ public abstract class AbstractRedFile implements File {
 	if (!this.isFile()) {
 	    throw new Error(this + " does not exist.");
 	}
+    }
+
+    @Override
+    public void writeData(Object object) throws IOException {
+	ByteArray data = IO.serialize((Serializable) object);
+	this.writeBytes(data);
     }
 
     @Override
@@ -92,4 +100,12 @@ public abstract class AbstractRedFile implements File {
     public void writeString(String bytes) throws IOException {
 	this.writeBytes(JUtils.newByteArray(bytes.getBytes()));
     }
+
+    @Override
+    public <T> T readData(Class<T> type) throws IOException {
+
+	ByteArray bytes = this.readBytes();
+	return IO.deserialize(type, bytes);
+    }
+
 }
