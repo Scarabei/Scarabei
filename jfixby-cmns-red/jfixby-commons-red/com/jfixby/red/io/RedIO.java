@@ -1,5 +1,6 @@
 package com.jfixby.red.io;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.Closeable;
 import java.io.IOException;
@@ -220,6 +221,23 @@ public class RedIO implements IOComponent {
 	} finally {
 	    // forceClose(jis);
 	    // forceClose(os);
+	}
+    }
+
+    @Override
+    public <T> T deserialize(Class<T> type, ByteArray bytes) throws IOException {
+	Debug.checkNull("bytes", bytes);
+	Debug.checkNull("type", type);
+	ByteArrayInputStream jis = new ByteArrayInputStream(bytes.toArray());
+	ObjectInputStream os = new ObjectInputStream(jis);
+	try {
+	    T object = (T) os.readObject();
+	    return object;
+	} catch (Throwable e) {
+	    throw new IOException(e);
+	} finally {
+	    forceClose(jis);
+	    forceClose(os);
 	}
     }
 

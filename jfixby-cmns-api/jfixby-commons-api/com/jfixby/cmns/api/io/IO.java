@@ -124,8 +124,13 @@ public class IO {
 	component().serialize(object, output_stream);
     }
 
-    public static <T> T deserialize(Class<T> type, InputStream input_stream) throws IOException {
+    public static <T extends java.io.Serializable> T deserialize(Class<T> type, InputStream input_stream)
+	    throws IOException {
 	return component().deserialize(type, input_stream);
+    }
+
+    public static <T extends java.io.Serializable> T deserialize(Class<T> type, ByteArray bytes) throws IOException {
+	return component().deserialize(type, bytes);
     }
 
 }

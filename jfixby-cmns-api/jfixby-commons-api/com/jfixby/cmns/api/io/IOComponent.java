@@ -16,6 +16,8 @@ public interface IOComponent {
 
     public <T> T deserialize(Class<T> type, InputStream input_stream) throws IOException;
 
+    public <T> T deserialize(Class<T> type, ByteArray bytes) throws IOException;
+
     Buffer newBuffer();
 
     BufferOutputStream newBufferOutputStream();
