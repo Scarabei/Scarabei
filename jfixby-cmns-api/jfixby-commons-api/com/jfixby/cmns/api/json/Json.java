@@ -34,4 +34,8 @@ public class Json {
 	invoke().printPretty(json_string);
     }
 
+    public static JsonString newJsonString(String raw_json_string) {
+	return invoke().newJsonString(raw_json_string);
+    }
+
 }

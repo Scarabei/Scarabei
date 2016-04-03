@@ -17,6 +17,7 @@
 package com.jfixby.cmns.adopted.gdx.json;
 
 import com.badlogic.gdx.utils.SerializationException;
+import com.jfixby.cmns.api.json.Json;
 import com.jfixby.cmns.api.json.JsonString;
 
 /**
@@ -1256,7 +1257,7 @@ public class JsonValue implements Iterable<JsonValue> {
     public JsonString prettyPrint(PrettyPrintSettings settings) {
 	StringBuilder buffer = new StringBuilder(512);
 	prettyPrint(this, buffer, 0, settings);
-	return new GdxJsonString(buffer.toString());
+	return Json.newJsonString(buffer.toString());
     }
 
     private void prettyPrint(JsonValue object, StringBuilder buffer, int indent, PrettyPrintSettings settings) {

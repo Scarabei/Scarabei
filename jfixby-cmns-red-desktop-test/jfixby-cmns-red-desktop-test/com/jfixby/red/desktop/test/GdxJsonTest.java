@@ -6,7 +6,7 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jfixby.cmns.adopted.gdx.json.GdxJson;
+import com.jfixby.cmns.adopted.gdx.json.RedGdxJson;
 import com.jfixby.cmns.api.json.Json;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.red.desktop.DesktopAssembler;
@@ -21,7 +21,7 @@ public class GdxJsonTest {
     @Test
     public void test() {
 	DesktopAssembler.setup();
-	Json.installComponent(new GdxJson());
+	Json.installComponent(new RedGdxJson());
 
 	L.d("GdxJsonTest");
 

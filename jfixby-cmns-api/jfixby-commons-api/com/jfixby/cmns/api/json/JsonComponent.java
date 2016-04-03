@@ -16,4 +16,6 @@ public interface JsonComponent {
 
     void printPretty(JsonString json_string);
 
+    JsonString newJsonString(String raw_json_string);
+
 }
