@@ -16,8 +16,8 @@
 
 package com.jfixby.cmns.adopted.gdx.json;
 
+import java.io.Closeable;
 import java.io.IOException;
-import java.io.Writer;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
@@ -28,7 +28,7 @@ import com.badlogic.gdx.utils.Array;
  * 
  * @author Nathan Sweet
  */
-public class JsonWriter extends Writer {
+public class JsonWriter implements Closeable, Writer {
     final Writer writer;
     private final Array<JsonObject> stack = new Array();
     private JsonObject current;
@@ -159,4 +159,15 @@ public class JsonWriter extends Writer {
 	    pop();
 	writer.close();
     }
+
+    @Override
+    public void write(int c) {
+	throw new Error();
+    }
+
+    @Override
+    public void write(String quoteName) {
+	throw new Error();
+    }
+
 }
