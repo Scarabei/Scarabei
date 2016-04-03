@@ -26,10 +26,9 @@ import java.io.Reader;
 
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Array;
-
-
 import com.badlogic.gdx.utils.SerializationException;
 import com.badlogic.gdx.utils.StreamUtils;
+import com.jfixby.cmns.api.json.JsonString;
 
 /** Lightweight JSON parser.<br>
  * <br>
@@ -37,7 +36,7 @@ import com.badlogic.gdx.utils.StreamUtils;
  * methods to perform event driven parsing. When this is done, the parse methods will return null.
  * @author Nathan Sweet */
 public class JsonReader implements BaseJsonReader {
-	public JsonValue parse (String json) {
+	public JsonValue parse (JsonString json) {
 		char[] data = json.toCharArray();
 		return parse(data, 0, data.length);
 	}

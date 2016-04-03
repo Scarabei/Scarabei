@@ -27,7 +27,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ArrayMap;
 import com.badlogic.gdx.utils.ObjectMap;
@@ -42,6 +41,7 @@ import com.badlogic.gdx.utils.reflect.ClassReflection;
 import com.badlogic.gdx.utils.reflect.Constructor;
 import com.badlogic.gdx.utils.reflect.Field;
 import com.badlogic.gdx.utils.reflect.ReflectionException;
+import com.jfixby.cmns.api.json.JsonString;
 
 /**
  * Reads/writes Java objects to/from JSON, automatically. See the wiki for
@@ -214,11 +214,11 @@ public class Json {
 	return nameToField;
     }
 
-    public String toJson(Object object) {
+    public JsonString toJson(Object object) {
 	return toJson(object, object == null ? null : object.getClass(), (Class) null);
     }
 
-    public String toJson(Object object, Class knownType) {
+    public JsonString toJson(Object object, Class knownType) {
 	return toJson(object, knownType, (Class) null);
     }
 
@@ -228,10 +228,10 @@ public class Json {
      * @param elementType
      *            May be null if the type is unknown.
      */
-    public String toJson(Object object, Class knownType, Class elementType) {
+    public JsonString toJson(Object object, Class knownType, Class elementType) {
 	StringWriter buffer = new StringWriter();
 	toJson(object, knownType, elementType, buffer);
-	return buffer.toString();
+	return buffer.toJsonString();
     }
 
     public void toJson(Object object, Writer writer) {
@@ -805,34 +805,6 @@ public class Json {
      *            May be null if the type is unknown.
      * @return May be null.
      */
-    public <T> T fromJson(Class<T> type, FileHandle file) {
-	try {
-	    return (T) readValue(type, null, new JsonReader().parse(file));
-	} catch (Exception ex) {
-	    throw new SerializationException("Error reading file: " + file, ex);
-	}
-    }
-
-    /**
-     * @param type
-     *            May be null if the type is unknown.
-     * @param elementType
-     *            May be null if the type is unknown.
-     * @return May be null.
-     */
-    public <T> T fromJson(Class<T> type, Class elementType, FileHandle file) {
-	try {
-	    return (T) readValue(type, elementType, new JsonReader().parse(file));
-	} catch (Exception ex) {
-	    throw new SerializationException("Error reading file: " + file, ex);
-	}
-    }
-
-    /**
-     * @param type
-     *            May be null if the type is unknown.
-     * @return May be null.
-     */
     public <T> T fromJson(Class<T> type, char[] data, int offset, int length) {
 	return (T) readValue(type, null, new JsonReader().parse(data, offset, length));
     }
@@ -853,7 +825,7 @@ public class Json {
      *            May be null if the type is unknown.
      * @return May be null.
      */
-    public <T> T fromJson(Class<T> type, String json) {
+    public <T> T fromJson(Class<T> type, JsonString json) {
 	return (T) readValue(type, null, new JsonReader().parse(json));
     }
 
@@ -862,7 +834,7 @@ public class Json {
      *            May be null if the type is unknown.
      * @return May be null.
      */
-    public <T> T fromJson(Class<T> type, Class elementType, String json) {
+    public <T> T fromJson(Class<T> type, Class elementType, JsonString json) {
 	return (T) readValue(type, elementType, new JsonReader().parse(json));
     }
 
@@ -1255,27 +1227,27 @@ public class Json {
 	}
     }
 
-    public String prettyPrint(Object object) {
+    public JsonString prettyPrint(Object object) {
 	return prettyPrint(object, 0);
     }
 
-    public String prettyPrint(String json) {
+    public JsonString prettyPrint(String json) {
 	return prettyPrint(json, 0);
     }
 
-    public String prettyPrint(Object object, int singleLineColumns) {
+    public JsonString prettyPrint(Object object, int singleLineColumns) {
 	return prettyPrint(toJson(object), singleLineColumns);
     }
 
-    public String prettyPrint(String json, int singleLineColumns) {
+    public JsonString prettyPrint(JsonString json, int singleLineColumns) {
 	return new JsonReader().parse(json).prettyPrint(outputType, singleLineColumns);
     }
 
-    public String prettyPrint(Object object, PrettyPrintSettings settings) {
+    public JsonString prettyPrint(Object object, PrettyPrintSettings settings) {
 	return prettyPrint(toJson(object), settings);
     }
 
-    public String prettyPrint(String json, PrettyPrintSettings settings) {
+    public JsonString prettyPrint(JsonString json, PrettyPrintSettings settings) {
 	return new JsonReader().parse(json).prettyPrint(settings);
     }
 }

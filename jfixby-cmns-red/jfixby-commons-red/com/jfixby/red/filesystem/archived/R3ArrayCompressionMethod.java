@@ -52,7 +52,7 @@ public class R3ArrayCompressionMethod implements CompressionMethod {
 	    pointers.list.add(pointer);
 	}
 
-	String shema_string = Json.serializeToString(pointers);
+	String shema_string = Json.serializeToString(pointers).toString();
 	byte[] shema_data = shema_string.getBytes();
 
 	writeLong(jos, shema_string.length());

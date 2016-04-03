@@ -34,7 +34,7 @@ public class GdxJsonTest {
 	
 	L.d("  original", original);
 
-	String string = Json.serializeToString(original);
+	String string = Json.serializeToString(original).toString();
 	GdxJsonTest restored = Json.deserializeFromString(GdxJsonTest.class, string);
 	L.d("  string", string);
 	L.d("restored", restored.equals(original));

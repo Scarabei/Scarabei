@@ -54,7 +54,7 @@ public class RunFileServer {
 	cfg.port = 16000;
 	cfg.box_name = "remote-filesystem";
 	cfg.server_root_path_string = "";
-	String string = Json.serializeToString(cfg);
+	String string = Json.serializeToString(cfg).toString();
 	config_file.writeBytes(JUtils.newByteArray(string.getBytes()));
     }
 }

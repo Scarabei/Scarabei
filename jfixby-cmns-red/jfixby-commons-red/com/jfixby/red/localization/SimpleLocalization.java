@@ -30,7 +30,7 @@ public class SimpleLocalization implements LocalizationComponent, StringValuesCo
 	}
 
 	public void writeToFile(File file, Locale locale) throws IOException {
-		String serialized_locale = Json.serializeToString(locale);
+		String serialized_locale = Json.serializeToString(locale).toString();
 		file.writeString(serialized_locale);
 	}
 

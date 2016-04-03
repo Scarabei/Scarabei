@@ -2,16 +2,18 @@ package com.jfixby.cmns.api.json;
 
 public interface JsonComponent {
 
-	// void serialize(Object object, OutputStream output_stream) throws
-	// IOException;
+    // void serialize(Object object, OutputStream output_stream) throws
+    // IOException;
 
-	// <T> T deserialize(Class<T> type, InputStream input_stream) throws
-	// IOException;
+    // <T> T deserialize(Class<T> type, InputStream input_stream) throws
+    // IOException;
 
-	String serializeToString(Object object);
+    JsonString serializeToString(Object object);
 
-	public <T> T deserializeFromString(Class<T> type, String input_data);
+    public <T> T deserializeFromString(Class<T> type, JsonString input_data);
 
-	void printPretty(String json_string);
+    public <T> T deserializeFromString(Class<T> type, String raw_json_string);
+
+    void printPretty(JsonString json_string);
 
 }
