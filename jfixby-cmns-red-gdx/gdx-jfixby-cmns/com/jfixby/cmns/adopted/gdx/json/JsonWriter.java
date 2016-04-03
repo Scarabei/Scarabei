@@ -29,19 +29,15 @@ import com.badlogic.gdx.utils.Array;
  * @author Nathan Sweet
  */
 public class JsonWriter implements Closeable, CharWriter {
-    final CharWriter writer;
+    final StringBuffer buffer;
     private final Array<JsonObject> stack = new Array();
     private JsonObject current;
     private boolean named;
     private OutputType outputType = OutputType.json;
     private boolean quoteLongValues = false;
 
-    public JsonWriter(CharWriter writer) {
-	this.writer = writer;
-    }
-
-    public CharWriter getWriter() {
-	return writer;
+    public JsonWriter() {
+	this.buffer = new StringBuffer();
     }
 
     /** Sets the type of JSON output. Default is {@link OutputType#minimal}. */
@@ -59,15 +55,17 @@ public class JsonWriter implements Closeable, CharWriter {
 	this.quoteLongValues = quoteLongValues;
     }
 
-    public JsonWriter name(String name) throws IOException {
+    public JsonWriter writeName(String name) throws IOException {
 	if (current == null || current.array)
 	    throw new IllegalStateException("Current item must be an object.");
+
 	if (!current.needsComma)
 	    current.needsComma = true;
 	else
-	    writer.write(',');
-	writer.write(outputType.quoteName(name));
-	writer.write(':');
+	    buffer.write(',');
+
+	buffer.write(outputType.quoteName(name));
+	buffer.write(':');
 	named = true;
 	return this;
     }
@@ -95,14 +93,14 @@ public class JsonWriter implements Closeable, CharWriter {
 		value = longValue;
 	}
 	requireCommaOrName();
-	writer.write(outputType.quoteValue(value));
+	buffer.write(outputType.quoteValue(value));
 	return this;
     }
 
     /** Writes the specified JSON value, without quoting or escaping. */
     public JsonWriter json(String json) throws IOException {
 	requireCommaOrName();
-	writer.write(json);
+	buffer.write(json);
 	return this;
     }
 
@@ -113,7 +111,7 @@ public class JsonWriter implements Closeable, CharWriter {
 	    if (!current.needsComma)
 		current.needsComma = true;
 	    else
-		writer.write(',');
+		buffer.write(',');
 	} else {
 	    if (!named)
 		throw new IllegalStateException("Name must be set.");
@@ -122,20 +120,20 @@ public class JsonWriter implements Closeable, CharWriter {
     }
 
     public JsonWriter object(String name) throws IOException {
-	return name(name).object();
+	return writeName(name).object();
     }
 
     public JsonWriter array(String name) throws IOException {
-	return name(name).array();
+	return writeName(name).array();
     }
 
     public JsonWriter set(String name, Object value) throws IOException {
-	return name(name).value(value);
+	return writeName(name).value(value);
     }
 
     /** Writes the specified JSON value, without quoting or escaping. */
     public JsonWriter json(String name, String json) throws IOException {
-	return name(name).json(json);
+	return writeName(name).json(json);
     }
 
     public JsonWriter pop() throws IOException {
@@ -147,17 +145,17 @@ public class JsonWriter implements Closeable, CharWriter {
     }
 
     public void write(char[] cbuf, int off, int len) throws IOException {
-	writer.write(cbuf, off, len);
+	buffer.write(cbuf, off, len);
     }
 
     public void flush() throws IOException {
-	writer.flush();
+	buffer.flush();
     }
 
     public void close() throws IOException {
 	while (stack.size > 0)
 	    pop();
-	writer.close();
+	buffer.close();
     }
 
     @Override
@@ -168,6 +166,10 @@ public class JsonWriter implements Closeable, CharWriter {
     @Override
     public void write(String quoteName) {
 	throw new Error();
+    }
+
+    public StringBuffer getBuffer() {
+	return buffer;
     }
 
 }

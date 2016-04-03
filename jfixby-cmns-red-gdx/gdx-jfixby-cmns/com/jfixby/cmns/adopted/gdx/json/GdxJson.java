@@ -229,21 +229,21 @@ public class GdxJson {
      *            May be null if the type is unknown.
      */
     public JsonString toJson(Object object, Class knownType, Class elementType) {
-	StringWriter buffer = new StringWriter();
-	toJson(object, knownType, elementType, buffer);
-	return buffer.toJsonString();
+
+	toJsonBuff(object, knownType, elementType);
+	return this.writer.getBuffer().toJsonString();
     }
 
-    public void toJson(Object object, CharWriter writer) {
-	toJson(object, object == null ? null : object.getClass(), null, writer);
+    public void toJsonBuff(Object object) {
+	toJsonBuff(object, object == null ? null : object.getClass(), null);
     }
 
     /**
      * @param knownType
      *            May be null if the type is unknown.
      */
-    public void toJson(Object object, Class knownType, CharWriter writer) {
-	toJson(object, knownType, null, writer);
+    public void toJsonBuff(Object object, Class knownType) {
+	toJsonBuff(object, knownType, null);
     }
 
     /**
@@ -252,13 +252,13 @@ public class GdxJson {
      * @param elementType
      *            May be null if the type is unknown.
      */
-    public void toJson(Object object, Class knownType, Class elementType, CharWriter writer) {
-	setWriter(writer);
+    public void toJsonBuff(Object object, Class knownType, Class elementType) {
+	setWriter();
 	try {
 	    writeValue(object, knownType, elementType);
 	} finally {
 	    StreamUtils.closeQuietly(this.writer);
-	    this.writer = null;
+	    // this.writer = null;
 	}
     }
 
@@ -266,10 +266,10 @@ public class GdxJson {
      * Sets the writer where JSON output will be written. This is only necessary
      * when not using the toJson methods.
      */
-    public void setWriter(CharWriter writer) {
-	if (!(writer instanceof JsonWriter))
-	    writer = new JsonWriter(writer);
-	this.writer = (JsonWriter) writer;
+    public void setWriter() {
+	// if (!(writer instanceof JsonWriter))
+	// writer = new JsonWriter(writer);
+	this.writer = new JsonWriter();
 	this.writer.setOutputType(outputType);
 	this.writer.setQuoteLongValues(quoteLongValues);
     }
@@ -308,7 +308,7 @@ public class GdxJson {
 
 		if (debug)
 		    System.out.println("Writing field: " + field.getName() + " (" + type.getName() + ")");
-		writer.name(field.getName());
+		writer.writeName(field.getName());
 		writeValue(value, field.getType(), metadata.elementType);
 	    } catch (ReflectionException ex) {
 		throw new SerializationException(
@@ -398,7 +398,7 @@ public class GdxJson {
 	try {
 	    if (debug)
 		System.out.println("Writing field: " + field.getName() + " (" + type.getName() + ")");
-	    writer.name(jsonName);
+	    writer.writeName(jsonName);
 	    writeValue(field.get(object), field.getType(), elementType);
 	} catch (ReflectionException ex) {
 	    throw new SerializationException("Error accessing field: " + field.getName() + " (" + type.getName() + ")",
@@ -423,7 +423,7 @@ public class GdxJson {
      */
     public void writeValue(String name, Object value) {
 	try {
-	    writer.name(name);
+	    writer.writeName(name);
 	} catch (IOException ex) {
 	    throw new SerializationException(ex);
 	}
@@ -445,7 +445,7 @@ public class GdxJson {
      */
     public void writeValue(String name, Object value, Class knownType) {
 	try {
-	    writer.name(name);
+	    writer.writeName(name);
 	} catch (IOException ex) {
 	    throw new SerializationException(ex);
 	}
@@ -466,7 +466,7 @@ public class GdxJson {
      */
     public void writeValue(String name, Object value, Class knownType, Class elementType) {
 	try {
-	    writer.name(name);
+	    writer.writeName(name);
 	} catch (IOException ex) {
 	    throw new SerializationException(ex);
 	}
@@ -610,7 +610,7 @@ public class GdxJson {
 		    knownType = ObjectMap.class;
 		writeObjectStart(actualType, knownType);
 		for (Entry entry : ((ObjectMap<?, ?>) value).entries()) {
-		    writer.name(convertToString(entry.key));
+		    writer.writeName(convertToString(entry.key));
 		    writeValue(entry.value, elementType, null);
 		}
 		writeObjectEnd();
@@ -622,7 +622,7 @@ public class GdxJson {
 		writeObjectStart(actualType, knownType);
 		ArrayMap map = (ArrayMap) value;
 		for (int i = 0, n = map.size; i < n; i++) {
-		    writer.name(convertToString(map.keys[i]));
+		    writer.writeName(convertToString(map.keys[i]));
 		    writeValue(map.values[i], elementType, null);
 		}
 		writeObjectEnd();
@@ -633,7 +633,7 @@ public class GdxJson {
 		    knownType = HashMap.class;
 		writeObjectStart(actualType, knownType);
 		for (Map.Entry entry : ((Map<?, ?>) value).entrySet()) {
-		    writer.name(convertToString(entry.getKey()));
+		    writer.writeName(convertToString(entry.getKey()));
 		    writeValue(entry.getValue(), elementType, null);
 		}
 		writeObjectEnd();
@@ -649,7 +649,7 @@ public class GdxJson {
 			actualType = actualType.getSuperclass();
 
 		    writeObjectStart(actualType, null);
-		    writer.name("value");
+		    writer.writeName("value");
 		    writer.value(convertToString((Enum) value));
 		    writeObjectEnd();
 		} else {
@@ -668,7 +668,7 @@ public class GdxJson {
 
     public void writeObjectStart(String name) {
 	try {
-	    writer.name(name);
+	    writer.writeName(name);
 	} catch (IOException ex) {
 	    throw new SerializationException(ex);
 	}
@@ -681,7 +681,7 @@ public class GdxJson {
      */
     public void writeObjectStart(String name, Class actualType, Class knownType) {
 	try {
-	    writer.name(name);
+	    writer.writeName(name);
 	} catch (IOException ex) {
 	    throw new SerializationException(ex);
 	}
@@ -722,7 +722,7 @@ public class GdxJson {
 
     public void writeArrayStart(String name) {
 	try {
-	    writer.name(name);
+	    writer.writeName(name);
 	    writer.array();
 	} catch (IOException ex) {
 	    throw new SerializationException(ex);
@@ -1251,5 +1251,4 @@ public class GdxJson {
 	return new JsonReader().parse(json).prettyPrint(settings);
     }
 
-   
 }
