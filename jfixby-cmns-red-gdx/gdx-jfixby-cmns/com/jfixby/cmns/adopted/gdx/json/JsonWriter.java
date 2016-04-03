@@ -22,6 +22,9 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 import com.badlogic.gdx.utils.Array;
+import com.jfixby.cmns.adopted.gdx.io.CharWriter;
+import com.jfixby.cmns.adopted.gdx.io.DataWriter;
+import com.jfixby.cmns.adopted.gdx.io.StringBuffer;
 import com.jfixby.cmns.api.json.JsonString;
 
 /**

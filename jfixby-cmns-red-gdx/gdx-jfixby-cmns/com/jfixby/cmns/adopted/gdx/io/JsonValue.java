@@ -14,9 +14,10 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.jfixby.cmns.adopted.gdx.json;
+package com.jfixby.cmns.adopted.gdx.io;
 
 import com.badlogic.gdx.utils.SerializationException;
+import com.jfixby.cmns.adopted.gdx.json.JsonOutputType;
 import com.jfixby.cmns.api.json.Json;
 import com.jfixby.cmns.api.json.JsonString;
 

@@ -28,6 +28,10 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.SerializationException;
 import com.badlogic.gdx.utils.StreamUtils;
+import com.jfixby.cmns.adopted.gdx.io.BaseJsonReader;
+import com.jfixby.cmns.adopted.gdx.io.DataReader;
+import com.jfixby.cmns.adopted.gdx.io.JsonValue;
+import com.jfixby.cmns.adopted.gdx.io.ValueType;
 import com.jfixby.cmns.api.json.JsonString;
 
 /**

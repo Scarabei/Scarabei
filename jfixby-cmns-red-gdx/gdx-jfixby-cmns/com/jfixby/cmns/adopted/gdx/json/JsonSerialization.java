@@ -1,5 +1,7 @@
 package com.jfixby.cmns.adopted.gdx.json;
 
+import com.jfixby.cmns.adopted.gdx.io.DataWriter;
+import com.jfixby.cmns.adopted.gdx.io.GdxSerialization;
 import com.jfixby.cmns.api.json.JsonString;
 
 public class JsonSerialization extends GdxSerialization<JsonString> {

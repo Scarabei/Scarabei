@@ -1,4 +1,6 @@
-package com.jfixby.cmns.adopted.gdx.json;
+package com.jfixby.cmns.adopted.gdx.io;
+
+import com.jfixby.cmns.adopted.gdx.json.JsonOutputType;
 
 public class PrettyPrintSettings {
 	public JsonOutputType outputType;

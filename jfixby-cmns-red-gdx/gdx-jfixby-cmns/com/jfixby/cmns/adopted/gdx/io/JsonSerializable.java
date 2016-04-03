@@ -1,4 +1,4 @@
-package com.jfixby.cmns.adopted.gdx.json;
+package com.jfixby.cmns.adopted.gdx.io;
 
 public interface JsonSerializable {
 	public void write (GdxSerialization json);

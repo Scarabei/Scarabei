@@ -1,5 +1,6 @@
 package com.jfixby.cmns.adopted.gdx.json;
 
+import com.jfixby.cmns.adopted.gdx.io.JsonValue;
 import com.jfixby.cmns.api.json.Json;
 import com.jfixby.cmns.api.json.JsonComponent;
 import com.jfixby.cmns.api.json.JsonString;

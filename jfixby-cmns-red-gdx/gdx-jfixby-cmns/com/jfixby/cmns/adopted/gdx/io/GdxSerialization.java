@@ -14,7 +14,7 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.jfixby.cmns.adopted.gdx.json;
+package com.jfixby.cmns.adopted.gdx.io;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -41,6 +41,7 @@ import com.badlogic.gdx.utils.reflect.ClassReflection;
 import com.badlogic.gdx.utils.reflect.Constructor;
 import com.badlogic.gdx.utils.reflect.Field;
 import com.badlogic.gdx.utils.reflect.ReflectionException;
+import com.jfixby.cmns.adopted.gdx.json.JsonReader;
 import com.jfixby.cmns.api.json.JsonString;
 
 /**
