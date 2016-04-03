@@ -9,17 +9,31 @@ public class RedGdxJson implements JsonComponent {
 
     @Override
     public JsonString serializeToString(Object object) {
-	GdxJson json = new GdxJson();
-	json.setOutputType(OutputType.json);
-	JsonString data = json.toJson(object);
-	JsonValue gdx_json = new JsonReader().parse(data);
-	data = gdx_json.prettyPrint(OutputType.json, 0);
+	GdxJson<JsonString> json = new GdxJson<JsonString>();
+	json.setOutputType(OutputTypeID.json);
+
+	JsonWriter jsonWriter = new JsonWriter();
+	jsonWriter.setOutputType(OutputTypeID.json);
+	jsonWriter.setQuoteLongValues(false);
+
+	DataWriter<JsonString> writer = jsonWriter;
+
+	JsonString data = json.toJsonRed(object, writer);
+	JsonValue gdx_json = new JsonReader<JsonString>().parse(data);
+	data = gdx_json.prettyPrint(OutputTypeID.json, 0);
 	return data;
     }
 
     @Override
     public <T> T deserializeFromString(Class<T> type, String raw_json_string) {
-	GdxJson json = new GdxJson();
+
+	// JsonWriter jsonWriter = new JsonWriter();
+	// jsonWriter.setOutputType(outputTypeID);
+	// jsonWriter.setQuoteLongValues(quoteLongValues);
+
+	// DataWriter<JsonString> writer = jsonWriter;
+
+	GdxJson<JsonString> json = new GdxJson<JsonString>();
 	try {
 	    T object = json.fromJson(type, Json.newJsonString(raw_json_string));
 	    return object;
@@ -33,7 +47,7 @@ public class RedGdxJson implements JsonComponent {
 
     @Override
     public void printPretty(JsonString json_string) {
-	JsonValue gdx_json = new JsonReader().parse(json_string);
+	JsonValue gdx_json = new JsonReader<JsonString>().parse(json_string);
 	L.d(gdx_json.toString());
     }
 

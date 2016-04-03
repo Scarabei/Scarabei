@@ -22,26 +22,27 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 import com.badlogic.gdx.utils.Array;
+import com.jfixby.cmns.api.json.JsonString;
 
 /**
  * Builder style API for emitting JSON.
  * 
  * @author Nathan Sweet
  */
-public class JsonWriter implements Closeable, CharWriter {
+public class JsonWriter implements Closeable, CharWriter, DataWriter<JsonString> {
     final StringBuffer buffer;
     private final Array<JsonObject> stack = new Array();
     private JsonObject current;
     private boolean named;
-    private OutputType outputType = OutputType.json;
+    private OutputTypeID outputType = OutputTypeID.json;
     private boolean quoteLongValues = false;
 
     public JsonWriter() {
 	this.buffer = new StringBuffer();
     }
 
-    /** Sets the type of JSON output. Default is {@link OutputType#minimal}. */
-    public void setOutputType(OutputType outputType) {
+    /** Sets the type of JSON output. Default is {@link OutputTypeID#minimal}. */
+    public void setOutputType(OutputTypeID outputType) {
 	this.outputType = outputType;
     }
 
@@ -170,6 +171,11 @@ public class JsonWriter implements Closeable, CharWriter {
 
     public StringBuffer getBuffer() {
 	return buffer;
+    }
+
+    @Override
+    public JsonString toOutputData() {
+	return getBuffer().toJsonString();
     }
 
 }

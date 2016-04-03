@@ -41,7 +41,6 @@ import com.badlogic.gdx.utils.reflect.ClassReflection;
 import com.badlogic.gdx.utils.reflect.Constructor;
 import com.badlogic.gdx.utils.reflect.Field;
 import com.badlogic.gdx.utils.reflect.ReflectionException;
-import com.jfixby.cmns.api.json.JsonString;
 
 /**
  * Reads/writes Java objects to/from JSON, automatically. See the wiki for
@@ -49,13 +48,13 @@ import com.jfixby.cmns.api.json.JsonString;
  * 
  * @author Nathan Sweet
  */
-public class GdxJson {
+public class GdxJson<OutputType> {
     static private final boolean debug = false;
 
-    private JsonWriter writer;
+    private DataWriter<OutputType> writer;
     private String typeName = "class";
     private boolean usePrototypes = true;
-    private OutputType outputType;
+    private OutputTypeID outputTypeID;
     private boolean quoteLongValues;
     private boolean ignoreUnknownFields;
     private boolean enumNames = true;
@@ -68,11 +67,11 @@ public class GdxJson {
     private final Object[] equals1 = { null }, equals2 = { null };
 
     public GdxJson() {
-	outputType = OutputType.minimal;
+	outputTypeID = OutputTypeID.minimal;
     }
 
-    public GdxJson(OutputType outputType) {
-	this.outputType = outputType;
+    public GdxJson(OutputTypeID outputType) {
+	this.outputTypeID = outputType;
     }
 
     /**
@@ -84,8 +83,8 @@ public class GdxJson {
     }
 
     /** @see JsonWriter#setOutputType(OutputType) */
-    public void setOutputType(OutputType outputType) {
-	this.outputType = outputType;
+    public void setOutputType(OutputTypeID outputType) {
+	this.outputTypeID = outputType;
     }
 
     /** @see JsonWriter#setQuoteLongValues(boolean) */
@@ -214,36 +213,12 @@ public class GdxJson {
 	return nameToField;
     }
 
-    public JsonString toJson(Object object) {
-	return toJson(object, object == null ? null : object.getClass(), (Class) null);
+    public OutputType toJsonRed(Object object, DataWriter<OutputType> writer) {
+	return toJsonRed(object, object == null ? null : object.getClass(), (Class) null, writer);
     }
 
-    public JsonString toJson(Object object, Class knownType) {
-	return toJson(object, knownType, (Class) null);
-    }
-
-    /**
-     * @param knownType
-     *            May be null if the type is unknown.
-     * @param elementType
-     *            May be null if the type is unknown.
-     */
-    public JsonString toJson(Object object, Class knownType, Class elementType) {
-
-	toJsonBuff(object, knownType, elementType);
-	return this.writer.getBuffer().toJsonString();
-    }
-
-    public void toJsonBuff(Object object) {
-	toJsonBuff(object, object == null ? null : object.getClass(), null);
-    }
-
-    /**
-     * @param knownType
-     *            May be null if the type is unknown.
-     */
-    public void toJsonBuff(Object object, Class knownType) {
-	toJsonBuff(object, knownType, null);
+    public OutputType toJsonRed(Object object, Class knownType, DataWriter<OutputType> writer) {
+	return toJsonRed(object, knownType, (Class) null, writer);
     }
 
     /**
@@ -252,8 +227,34 @@ public class GdxJson {
      * @param elementType
      *            May be null if the type is unknown.
      */
-    public void toJsonBuff(Object object, Class knownType, Class elementType) {
-	setWriter();
+    public OutputType toJsonRed(Object object, Class knownType, Class elementType, DataWriter<OutputType> writer) {
+
+	toJsonBuff(object, knownType, elementType, writer);
+	return this.writer.toOutputData();
+    }
+
+    public void toJsonBuff(Object object, DataWriter<OutputType> writer) {
+	toJsonBuff(object, object == null ? null : object.getClass(), null, writer);
+    }
+
+    /**
+     * @param knownType
+     *            May be null if the type is unknown.
+     */
+    public void toJsonBuff(Object object, Class knownType, DataWriter<OutputType> writer) {
+	toJsonBuff(object, knownType, null, writer);
+    }
+
+    /**
+     * @param knownType
+     *            May be null if the type is unknown.
+     * @param elementType
+     *            May be null if the type is unknown.
+     */
+    public void toJsonBuff(Object object, Class knownType, Class elementType, DataWriter<OutputType> writer) {
+
+	this.writer = writer;
+
 	try {
 	    writeValue(object, knownType, elementType);
 	} finally {
@@ -262,19 +263,7 @@ public class GdxJson {
 	}
     }
 
-    /**
-     * Sets the writer where JSON output will be written. This is only necessary
-     * when not using the toJson methods.
-     */
-    public void setWriter() {
-	// if (!(writer instanceof JsonWriter))
-	// writer = new JsonWriter(writer);
-	this.writer = new JsonWriter();
-	this.writer.setOutputType(outputType);
-	this.writer.setQuoteLongValues(quoteLongValues);
-    }
-
-    public JsonWriter getWriter() {
+    public DataWriter getWriter() {
 	return writer;
     }
 
@@ -825,7 +814,7 @@ public class GdxJson {
      *            May be null if the type is unknown.
      * @return May be null.
      */
-    public <T> T fromJson(Class<T> type, JsonString json) {
+    public <T> T fromJson(Class<T> type, OutputType json) {
 	return (T) readValue(type, null, new JsonReader().parse(json));
     }
 
@@ -834,7 +823,7 @@ public class GdxJson {
      *            May be null if the type is unknown.
      * @return May be null.
      */
-    public <T> T fromJson(Class<T> type, Class elementType, JsonString json) {
+    public <T> T fromJson(Class<T> type, Class elementType, OutputType json) {
 	return (T) readValue(type, elementType, new JsonReader().parse(json));
     }
 
@@ -1227,28 +1216,31 @@ public class GdxJson {
 	}
     }
 
-    public JsonString prettyPrint(Object object) {
-	return prettyPrint(object, 0);
-    }
-
-    public JsonString prettyPrint(String json) {
-	return prettyPrint(json, 0);
-    }
-
-    public JsonString prettyPrint(Object object, int singleLineColumns) {
-	return prettyPrint(toJson(object), singleLineColumns);
-    }
-
-    public JsonString prettyPrint(JsonString json, int singleLineColumns) {
-	return new JsonReader().parse(json).prettyPrint(outputType, singleLineColumns);
-    }
-
-    public JsonString prettyPrint(Object object, PrettyPrintSettings settings) {
-	return prettyPrint(toJson(object), settings);
-    }
-
-    public JsonString prettyPrint(JsonString json, PrettyPrintSettings settings) {
-	return new JsonReader().parse(json).prettyPrint(settings);
-    }
+    // public OutputType prettyPrint(Object object) {
+    // return prettyPrint(object, 0);
+    // }
+    //
+    // public OutputType prettyPrint(OutputType json) {
+    // return prettyPrint(json, 0);
+    // }
+    //
+    // public OutputType prettyPrint(Object object, int singleLineColumns) {
+    // return prettyPrint(toJson(object), singleLineColumns);
+    // }
+    //
+    // public OutputType prettyPrint(OutputType json, int singleLineColumns) {
+    // return new JsonReader().parse(json).prettyPrint(outputTypeID,
+    // singleLineColumns);
+    // }
+    //
+    // public OutputType prettyPrint(Object object, PrettyPrintSettings
+    // settings) {
+    // return prettyPrint(toJson(object), settings);
+    // }
+    //
+    // public OutputType prettyPrint(OutputType json, PrettyPrintSettings
+    // settings) {
+    // return new JsonReader().parse(json).prettyPrint(settings);
+    // }
 
 }

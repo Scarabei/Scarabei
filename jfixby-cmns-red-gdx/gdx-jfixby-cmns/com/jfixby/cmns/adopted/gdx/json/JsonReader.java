@@ -35,9 +35,9 @@ import com.jfixby.cmns.api.json.JsonString;
  * The default behavior is to parse the JSON into a DOM containing {@link JsonValue} objects. Extend this class and override
  * methods to perform event driven parsing. When this is done, the parse methods will return null.
  * @author Nathan Sweet */
-public class JsonReader implements BaseJsonReader {
-	public JsonValue parse (JsonString json) {
-		char[] data = json.toCharArray();
+public class JsonReader<OutputType> implements BaseJsonReader {
+	public JsonValue parse (OutputType json) {
+		char[] data = json.toString().toCharArray();
 		return parse(data, 0, data.length);
 	}
 
