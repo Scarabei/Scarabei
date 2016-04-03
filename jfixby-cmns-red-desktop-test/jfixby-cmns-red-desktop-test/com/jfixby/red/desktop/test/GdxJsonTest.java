@@ -18,6 +18,8 @@ public class GdxJsonTest {
 
     public Vector<String> vector = new Vector<String>();
 
+    GdxJsonTest other = null;
+
     @Test
     public void test() {
 	DesktopAssembler.setup();
@@ -25,13 +27,12 @@ public class GdxJsonTest {
 
 	L.d("GdxJsonTest");
 
-	
 	GdxJsonTest original = new GdxJsonTest();
 	original.vector.add(System.currentTimeMillis() + "A");
 	original.vector.add(System.currentTimeMillis() + "B");
 	original.vector.add(System.currentTimeMillis() + "C");
+	original.other = new GdxJsonTest();
 
-	
 	L.d("  original", original);
 
 	String string = Json.serializeToString(original).toString();

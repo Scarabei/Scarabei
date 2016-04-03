@@ -17,8 +17,11 @@ public class JsonSerialization extends GdxSerialization<JsonString> {
 
 	this.setWriter(writer);
 
-	
+    }
 
+    public <T> T deSerialize(Class<T> type, JsonString newJsonString) {
+	JsonReader reader = new JsonReader();
+	return this.deSerialize(type, newJsonString, reader);
     }
 
 }

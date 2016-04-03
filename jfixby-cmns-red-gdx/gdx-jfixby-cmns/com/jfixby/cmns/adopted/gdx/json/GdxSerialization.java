@@ -41,6 +41,7 @@ import com.badlogic.gdx.utils.reflect.ClassReflection;
 import com.badlogic.gdx.utils.reflect.Constructor;
 import com.badlogic.gdx.utils.reflect.Field;
 import com.badlogic.gdx.utils.reflect.ReflectionException;
+import com.jfixby.cmns.api.json.JsonString;
 
 /**
  * Reads/writes Java objects to/from JSON, automatically. See the wiki for
@@ -48,10 +49,10 @@ import com.badlogic.gdx.utils.reflect.ReflectionException;
  * 
  * @author Nathan Sweet
  */
-public class GdxSerialization<OutputType> {
+public class GdxSerialization<DataType> {
     static private final boolean debug = false;
 
-    private DataWriter<OutputType> writer;
+    private DataWriter<DataType> writer;
     private String typeName = "class";
     private boolean usePrototypes = true;
     // private OutputTypeID outputTypeID;
@@ -213,11 +214,11 @@ public class GdxSerialization<OutputType> {
 	return nameToField;
     }
 
-    public OutputType serialize(Object object) {
+    public DataType serialize(Object object) {
 	return toJsonRed(object, object == null ? null : object.getClass(), (Class) null);
     }
 
-    public OutputType toJsonRed(Object object, Class knownType) {
+    public DataType toJsonRed(Object object, Class knownType) {
 	return toJsonRed(object, knownType, (Class) null);
     }
 
@@ -227,7 +228,7 @@ public class GdxSerialization<OutputType> {
      * @param elementType
      *            May be null if the type is unknown.
      */
-    public OutputType toJsonRed(Object object, Class knownType, Class elementType) {
+    public DataType toJsonRed(Object object, Class knownType, Class elementType) {
 
 	toJsonBuff(object, knownType, elementType);
 	return this.writer.toOutputData();
@@ -263,7 +264,7 @@ public class GdxSerialization<OutputType> {
 	}
     }
 
-    protected void setWriter(DataWriter<OutputType> writer) {
+    protected void setWriter(DataWriter<DataType> writer) {
 	this.writer = writer;
     }
 
@@ -814,8 +815,8 @@ public class GdxSerialization<OutputType> {
      *            May be null if the type is unknown.
      * @return May be null.
      */
-    public <T> T fromJson(Class<T> type, OutputType json) {
-	return (T) readValue(type, null, new JsonReader().parse(json));
+    public <T> T deSerialize(Class<T> type, DataType json, DataReader<DataType> reader) {
+	return (T) readValue(type, null, reader.parse(json));
     }
 
     /**
@@ -823,9 +824,9 @@ public class GdxSerialization<OutputType> {
      *            May be null if the type is unknown.
      * @return May be null.
      */
-    public <T> T fromJson(Class<T> type, Class elementType, OutputType json) {
-	return (T) readValue(type, elementType, new JsonReader().parse(json));
-    }
+    // public <T> T fromJson(Class<T> type, Class elementType, DataType json) {
+    // return (T) readValue(type, elementType, new JsonReader().parse(json));
+    // }
 
     public void readField(Object object, String name, JsonValue jsonData) {
 	readField(object, name, name, null, jsonData);
