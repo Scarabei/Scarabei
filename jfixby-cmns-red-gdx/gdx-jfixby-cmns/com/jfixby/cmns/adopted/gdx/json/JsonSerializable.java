@@ -1,7 +1,7 @@
 package com.jfixby.cmns.adopted.gdx.json;
 
 public interface JsonSerializable {
-	public void write (GdxJson json);
+	public void write (GdxSerialization json);
 
-	public void read (GdxJson json, JsonValue jsonData);
+	public void read (GdxSerialization json, JsonValue jsonData);
 }

@@ -9,16 +9,9 @@ public class RedGdxJson implements JsonComponent {
 
     @Override
     public JsonString serializeToString(Object object) {
-	GdxJson<JsonString> json = new GdxJson<JsonString>();
-	json.setOutputType(OutputTypeID.json);
+	JsonSerialization json = new JsonSerialization();
 
-	JsonWriter jsonWriter = new JsonWriter();
-	jsonWriter.setOutputType(OutputTypeID.json);
-	jsonWriter.setQuoteLongValues(false);
-
-	DataWriter<JsonString> writer = jsonWriter;
-
-	JsonString data = json.toJsonRed(object, writer);
+	JsonString data = json.serialize(object);
 	JsonValue gdx_json = new JsonReader<JsonString>().parse(data);
 	data = gdx_json.prettyPrint(OutputTypeID.json, 0);
 	return data;
@@ -33,7 +26,7 @@ public class RedGdxJson implements JsonComponent {
 
 	// DataWriter<JsonString> writer = jsonWriter;
 
-	GdxJson<JsonString> json = new GdxJson<JsonString>();
+	GdxSerialization<JsonString> json = new GdxSerialization<JsonString>();
 	try {
 	    T object = json.fromJson(type, Json.newJsonString(raw_json_string));
 	    return object;

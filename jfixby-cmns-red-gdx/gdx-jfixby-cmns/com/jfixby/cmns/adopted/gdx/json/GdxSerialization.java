@@ -48,14 +48,14 @@ import com.badlogic.gdx.utils.reflect.ReflectionException;
  * 
  * @author Nathan Sweet
  */
-public class GdxJson<OutputType> {
+public class GdxSerialization<OutputType> {
     static private final boolean debug = false;
 
     private DataWriter<OutputType> writer;
     private String typeName = "class";
     private boolean usePrototypes = true;
-    private OutputTypeID outputTypeID;
-    private boolean quoteLongValues;
+    // private OutputTypeID outputTypeID;
+    // private boolean quoteLongValues;
     private boolean ignoreUnknownFields;
     private boolean enumNames = true;
     private JsonSerializer defaultSerializer;
@@ -66,13 +66,13 @@ public class GdxJson<OutputType> {
     private final ObjectMap<Class, Object[]> classToDefaultValues = new ObjectMap();
     private final Object[] equals1 = { null }, equals2 = { null };
 
-    public GdxJson() {
-	outputTypeID = OutputTypeID.minimal;
+    public GdxSerialization() {
+	// outputTypeID = OutputTypeID.minimal;
     }
 
-    public GdxJson(OutputTypeID outputType) {
-	this.outputTypeID = outputType;
-    }
+    // public GdxJson(OutputTypeID outputType) {
+    // this.outputTypeID = outputType;
+    // }
 
     /**
      * When true, fields in the JSON that are not found on the class will not
@@ -82,15 +82,15 @@ public class GdxJson<OutputType> {
 	this.ignoreUnknownFields = ignoreUnknownFields;
     }
 
-    /** @see JsonWriter#setOutputType(OutputType) */
-    public void setOutputType(OutputTypeID outputType) {
-	this.outputTypeID = outputType;
-    }
-
-    /** @see JsonWriter#setQuoteLongValues(boolean) */
-    public void setQuoteLongValues(boolean quoteLongValues) {
-	this.quoteLongValues = quoteLongValues;
-    }
+    // /** @see JsonWriter#setOutputType(OutputType) */
+    // public void setOutputType(OutputTypeID outputType) {
+    // this.outputTypeID = outputType;
+    // }
+    //
+    // /** @see JsonWriter#setQuoteLongValues(boolean) */
+    // public void setQuoteLongValues(boolean quoteLongValues) {
+    // this.quoteLongValues = quoteLongValues;
+    // }
 
     /**
      * When true, {@link Enum#name()} is used to write enum values. When false,
@@ -213,12 +213,12 @@ public class GdxJson<OutputType> {
 	return nameToField;
     }
 
-    public OutputType toJsonRed(Object object, DataWriter<OutputType> writer) {
-	return toJsonRed(object, object == null ? null : object.getClass(), (Class) null, writer);
+    public OutputType serialize(Object object) {
+	return toJsonRed(object, object == null ? null : object.getClass(), (Class) null);
     }
 
-    public OutputType toJsonRed(Object object, Class knownType, DataWriter<OutputType> writer) {
-	return toJsonRed(object, knownType, (Class) null, writer);
+    public OutputType toJsonRed(Object object, Class knownType) {
+	return toJsonRed(object, knownType, (Class) null);
     }
 
     /**
@@ -227,22 +227,22 @@ public class GdxJson<OutputType> {
      * @param elementType
      *            May be null if the type is unknown.
      */
-    public OutputType toJsonRed(Object object, Class knownType, Class elementType, DataWriter<OutputType> writer) {
+    public OutputType toJsonRed(Object object, Class knownType, Class elementType) {
 
-	toJsonBuff(object, knownType, elementType, writer);
+	toJsonBuff(object, knownType, elementType);
 	return this.writer.toOutputData();
     }
 
-    public void toJsonBuff(Object object, DataWriter<OutputType> writer) {
-	toJsonBuff(object, object == null ? null : object.getClass(), null, writer);
+    public void toJsonBuff(Object object) {
+	toJsonBuff(object, object == null ? null : object.getClass(), null);
     }
 
     /**
      * @param knownType
      *            May be null if the type is unknown.
      */
-    public void toJsonBuff(Object object, Class knownType, DataWriter<OutputType> writer) {
-	toJsonBuff(object, knownType, null, writer);
+    public void toJsonBuff(Object object, Class knownType) {
+	toJsonBuff(object, knownType, null);
     }
 
     /**
@@ -251,7 +251,7 @@ public class GdxJson<OutputType> {
      * @param elementType
      *            May be null if the type is unknown.
      */
-    public void toJsonBuff(Object object, Class knownType, Class elementType, DataWriter<OutputType> writer) {
+    public void toJsonBuff(Object object, Class knownType, Class elementType) {
 
 	this.writer = writer;
 
@@ -263,8 +263,8 @@ public class GdxJson<OutputType> {
 	}
     }
 
-    public DataWriter getWriter() {
-	return writer;
+    protected void setWriter(DataWriter<OutputType> writer) {
+	this.writer = writer;
     }
 
     /** Writes all fields of the specified object to the current JSON object. */

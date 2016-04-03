@@ -1,7 +1,7 @@
 package com.jfixby.cmns.adopted.gdx.json;
 
 public interface JsonSerializer<T> {
-	public void write (GdxJson json, T object, Class knownType);
+	public void write (GdxSerialization json, T object, Class knownType);
 
-	public T read (GdxJson json, JsonValue jsonData, Class type);
+	public T read (GdxSerialization json, JsonValue jsonData, Class type);
 }
