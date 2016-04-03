@@ -14,7 +14,7 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.jfixby.cmns.adopted.gdx.json;
+package com.jfixby.cmns.adopted.gdx.io;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -41,6 +41,7 @@ import com.badlogic.gdx.utils.reflect.ClassReflection;
 import com.badlogic.gdx.utils.reflect.Constructor;
 import com.badlogic.gdx.utils.reflect.Field;
 import com.badlogic.gdx.utils.reflect.ReflectionException;
+import com.jfixby.cmns.adopted.gdx.json.red.JsonReader;
 import com.jfixby.cmns.api.json.JsonString;
 
 /**
@@ -49,14 +50,14 @@ import com.jfixby.cmns.api.json.JsonString;
  * 
  * @author Nathan Sweet
  */
-public class GdxJson {
+public class GdxSerialization<DataType> {
     static private final boolean debug = false;
 
-    private JsonWriter writer;
+    private DataWriter<DataType> writer;
     private String typeName = "class";
     private boolean usePrototypes = true;
-    private OutputType outputType;
-    private boolean quoteLongValues;
+    // private OutputTypeID outputTypeID;
+    // private boolean quoteLongValues;
     private boolean ignoreUnknownFields;
     private boolean enumNames = true;
     private JsonSerializer defaultSerializer;
@@ -67,13 +68,13 @@ public class GdxJson {
     private final ObjectMap<Class, Object[]> classToDefaultValues = new ObjectMap();
     private final Object[] equals1 = { null }, equals2 = { null };
 
-    public GdxJson() {
-	outputType = OutputType.minimal;
+    public GdxSerialization() {
+	// outputTypeID = OutputTypeID.minimal;
     }
 
-    public GdxJson(OutputType outputType) {
-	this.outputType = outputType;
-    }
+    // public GdxJson(OutputTypeID outputType) {
+    // this.outputTypeID = outputType;
+    // }
 
     /**
      * When true, fields in the JSON that are not found on the class will not
@@ -83,15 +84,15 @@ public class GdxJson {
 	this.ignoreUnknownFields = ignoreUnknownFields;
     }
 
-    /** @see JsonWriter#setOutputType(OutputType) */
-    public void setOutputType(OutputType outputType) {
-	this.outputType = outputType;
-    }
-
-    /** @see JsonWriter#setQuoteLongValues(boolean) */
-    public void setQuoteLongValues(boolean quoteLongValues) {
-	this.quoteLongValues = quoteLongValues;
-    }
+    // /** @see JsonWriter#setOutputType(OutputType) */
+    // public void setOutputType(OutputTypeID outputType) {
+    // this.outputTypeID = outputType;
+    // }
+    //
+    // /** @see JsonWriter#setQuoteLongValues(boolean) */
+    // public void setQuoteLongValues(boolean quoteLongValues) {
+    // this.quoteLongValues = quoteLongValues;
+    // }
 
     /**
      * When true, {@link Enum#name()} is used to write enum values. When false,
@@ -214,36 +215,12 @@ public class GdxJson {
 	return nameToField;
     }
 
-    public JsonString toJson(Object object) {
-	return toJson(object, object == null ? null : object.getClass(), (Class) null);
+    public DataType serialize(Object object) {
+	return toJsonRed(object, object == null ? null : object.getClass(), (Class) null);
     }
 
-    public JsonString toJson(Object object, Class knownType) {
-	return toJson(object, knownType, (Class) null);
-    }
-
-    /**
-     * @param knownType
-     *            May be null if the type is unknown.
-     * @param elementType
-     *            May be null if the type is unknown.
-     */
-    public JsonString toJson(Object object, Class knownType, Class elementType) {
-	StringWriter buffer = new StringWriter();
-	toJson(object, knownType, elementType, buffer);
-	return buffer.toJsonString();
-    }
-
-    public void toJson(Object object, Writer writer) {
-	toJson(object, object == null ? null : object.getClass(), null, writer);
-    }
-
-    /**
-     * @param knownType
-     *            May be null if the type is unknown.
-     */
-    public void toJson(Object object, Class knownType, Writer writer) {
-	toJson(object, knownType, null, writer);
+    public DataType toJsonRed(Object object, Class knownType) {
+	return toJsonRed(object, knownType, (Class) null);
     }
 
     /**
@@ -252,30 +229,44 @@ public class GdxJson {
      * @param elementType
      *            May be null if the type is unknown.
      */
-    public void toJson(Object object, Class knownType, Class elementType, Writer writer) {
-	setWriter(writer);
+    public DataType toJsonRed(Object object, Class knownType, Class elementType) {
+
+	toJsonBuff(object, knownType, elementType);
+	return this.writer.toOutputData();
+    }
+
+    public void toJsonBuff(Object object) {
+	toJsonBuff(object, object == null ? null : object.getClass(), null);
+    }
+
+    /**
+     * @param knownType
+     *            May be null if the type is unknown.
+     */
+    public void toJsonBuff(Object object, Class knownType) {
+	toJsonBuff(object, knownType, null);
+    }
+
+    /**
+     * @param knownType
+     *            May be null if the type is unknown.
+     * @param elementType
+     *            May be null if the type is unknown.
+     */
+    public void toJsonBuff(Object object, Class knownType, Class elementType) {
+
+	this.writer = writer;
+
 	try {
 	    writeValue(object, knownType, elementType);
 	} finally {
 	    StreamUtils.closeQuietly(this.writer);
-	    this.writer = null;
+	    // this.writer = null;
 	}
     }
 
-    /**
-     * Sets the writer where JSON output will be written. This is only necessary
-     * when not using the toJson methods.
-     */
-    public void setWriter(Writer writer) {
-	if (!(writer instanceof JsonWriter))
-	    writer = new JsonWriter(writer);
-	this.writer = (JsonWriter) writer;
-	this.writer.setOutputType(outputType);
-	this.writer.setQuoteLongValues(quoteLongValues);
-    }
-
-    public JsonWriter getWriter() {
-	return writer;
+    protected void setWriter(DataWriter<DataType> writer) {
+	this.writer = writer;
     }
 
     /** Writes all fields of the specified object to the current JSON object. */
@@ -308,7 +299,7 @@ public class GdxJson {
 
 		if (debug)
 		    System.out.println("Writing field: " + field.getName() + " (" + type.getName() + ")");
-		writer.name(field.getName());
+		writer.writeName(field.getName());
 		writeValue(value, field.getType(), metadata.elementType);
 	    } catch (ReflectionException ex) {
 		throw new SerializationException(
@@ -398,7 +389,7 @@ public class GdxJson {
 	try {
 	    if (debug)
 		System.out.println("Writing field: " + field.getName() + " (" + type.getName() + ")");
-	    writer.name(jsonName);
+	    writer.writeName(jsonName);
 	    writeValue(field.get(object), field.getType(), elementType);
 	} catch (ReflectionException ex) {
 	    throw new SerializationException("Error accessing field: " + field.getName() + " (" + type.getName() + ")",
@@ -423,7 +414,7 @@ public class GdxJson {
      */
     public void writeValue(String name, Object value) {
 	try {
-	    writer.name(name);
+	    writer.writeName(name);
 	} catch (IOException ex) {
 	    throw new SerializationException(ex);
 	}
@@ -445,7 +436,7 @@ public class GdxJson {
      */
     public void writeValue(String name, Object value, Class knownType) {
 	try {
-	    writer.name(name);
+	    writer.writeName(name);
 	} catch (IOException ex) {
 	    throw new SerializationException(ex);
 	}
@@ -466,7 +457,7 @@ public class GdxJson {
      */
     public void writeValue(String name, Object value, Class knownType, Class elementType) {
 	try {
-	    writer.name(name);
+	    writer.writeName(name);
 	} catch (IOException ex) {
 	    throw new SerializationException(ex);
 	}
@@ -610,7 +601,7 @@ public class GdxJson {
 		    knownType = ObjectMap.class;
 		writeObjectStart(actualType, knownType);
 		for (Entry entry : ((ObjectMap<?, ?>) value).entries()) {
-		    writer.name(convertToString(entry.key));
+		    writer.writeName(convertToString(entry.key));
 		    writeValue(entry.value, elementType, null);
 		}
 		writeObjectEnd();
@@ -622,7 +613,7 @@ public class GdxJson {
 		writeObjectStart(actualType, knownType);
 		ArrayMap map = (ArrayMap) value;
 		for (int i = 0, n = map.size; i < n; i++) {
-		    writer.name(convertToString(map.keys[i]));
+		    writer.writeName(convertToString(map.keys[i]));
 		    writeValue(map.values[i], elementType, null);
 		}
 		writeObjectEnd();
@@ -633,7 +624,7 @@ public class GdxJson {
 		    knownType = HashMap.class;
 		writeObjectStart(actualType, knownType);
 		for (Map.Entry entry : ((Map<?, ?>) value).entrySet()) {
-		    writer.name(convertToString(entry.getKey()));
+		    writer.writeName(convertToString(entry.getKey()));
 		    writeValue(entry.getValue(), elementType, null);
 		}
 		writeObjectEnd();
@@ -649,7 +640,7 @@ public class GdxJson {
 			actualType = actualType.getSuperclass();
 
 		    writeObjectStart(actualType, null);
-		    writer.name("value");
+		    writer.writeName("value");
 		    writer.value(convertToString((Enum) value));
 		    writeObjectEnd();
 		} else {
@@ -668,7 +659,7 @@ public class GdxJson {
 
     public void writeObjectStart(String name) {
 	try {
-	    writer.name(name);
+	    writer.writeName(name);
 	} catch (IOException ex) {
 	    throw new SerializationException(ex);
 	}
@@ -681,7 +672,7 @@ public class GdxJson {
      */
     public void writeObjectStart(String name, Class actualType, Class knownType) {
 	try {
-	    writer.name(name);
+	    writer.writeName(name);
 	} catch (IOException ex) {
 	    throw new SerializationException(ex);
 	}
@@ -722,7 +713,7 @@ public class GdxJson {
 
     public void writeArrayStart(String name) {
 	try {
-	    writer.name(name);
+	    writer.writeName(name);
 	    writer.array();
 	} catch (IOException ex) {
 	    throw new SerializationException(ex);
@@ -825,8 +816,8 @@ public class GdxJson {
      *            May be null if the type is unknown.
      * @return May be null.
      */
-    public <T> T fromJson(Class<T> type, JsonString json) {
-	return (T) readValue(type, null, new JsonReader().parse(json));
+    public <T> T deSerialize(Class<T> type, DataType json, DataReader<DataType> reader) {
+	return (T) readValue(type, null, reader.parse(json));
     }
 
     /**
@@ -834,9 +825,9 @@ public class GdxJson {
      *            May be null if the type is unknown.
      * @return May be null.
      */
-    public <T> T fromJson(Class<T> type, Class elementType, JsonString json) {
-	return (T) readValue(type, elementType, new JsonReader().parse(json));
-    }
+    // public <T> T fromJson(Class<T> type, Class elementType, DataType json) {
+    // return (T) readValue(type, elementType, new JsonReader().parse(json));
+    // }
 
     public void readField(Object object, String name, JsonValue jsonData) {
 	readField(object, name, name, null, jsonData);
@@ -1227,29 +1218,31 @@ public class GdxJson {
 	}
     }
 
-    public JsonString prettyPrint(Object object) {
-	return prettyPrint(object, 0);
-    }
+    // public OutputType prettyPrint(Object object) {
+    // return prettyPrint(object, 0);
+    // }
+    //
+    // public OutputType prettyPrint(OutputType json) {
+    // return prettyPrint(json, 0);
+    // }
+    //
+    // public OutputType prettyPrint(Object object, int singleLineColumns) {
+    // return prettyPrint(toJson(object), singleLineColumns);
+    // }
+    //
+    // public OutputType prettyPrint(OutputType json, int singleLineColumns) {
+    // return new JsonReader().parse(json).prettyPrint(outputTypeID,
+    // singleLineColumns);
+    // }
+    //
+    // public OutputType prettyPrint(Object object, PrettyPrintSettings
+    // settings) {
+    // return prettyPrint(toJson(object), settings);
+    // }
+    //
+    // public OutputType prettyPrint(OutputType json, PrettyPrintSettings
+    // settings) {
+    // return new JsonReader().parse(json).prettyPrint(settings);
+    // }
 
-    public JsonString prettyPrint(String json) {
-	return prettyPrint(json, 0);
-    }
-
-    public JsonString prettyPrint(Object object, int singleLineColumns) {
-	return prettyPrint(toJson(object), singleLineColumns);
-    }
-
-    public JsonString prettyPrint(JsonString json, int singleLineColumns) {
-	return new JsonReader().parse(json).prettyPrint(outputType, singleLineColumns);
-    }
-
-    public JsonString prettyPrint(Object object, PrettyPrintSettings settings) {
-	return prettyPrint(toJson(object), settings);
-    }
-
-    public JsonString prettyPrint(JsonString json, PrettyPrintSettings settings) {
-	return new JsonReader().parse(json).prettyPrint(settings);
-    }
-
-   
 }

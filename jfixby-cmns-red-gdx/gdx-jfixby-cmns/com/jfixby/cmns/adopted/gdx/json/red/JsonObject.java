@@ -1,4 +1,4 @@
-package com.jfixby.cmns.adopted.gdx.json;
+package com.jfixby.cmns.adopted.gdx.json.red;
 
 import java.io.IOException;
 
@@ -13,10 +13,10 @@ class JsonObject {
     JsonObject(JsonWriter jsonWriter, boolean array) throws IOException {
         this.jsonWriter = jsonWriter;
         this.array = array;
-        this.jsonWriter.writer.write(array ? '[' : '{');
+        this.jsonWriter.buffer.write(array ? '[' : '{');
     }
 
     void close() throws IOException {
-        this.jsonWriter.writer.write(array ? ']' : '}');
+        this.jsonWriter.buffer.write(array ? ']' : '}');
     }
 }

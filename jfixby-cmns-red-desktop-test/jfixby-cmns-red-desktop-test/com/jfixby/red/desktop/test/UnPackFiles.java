@@ -2,7 +2,7 @@ package com.jfixby.red.desktop.test;
 
 import java.io.IOException;
 
-import com.jfixby.cmns.adopted.gdx.json.RedGdxJson;
+import com.jfixby.cmns.adopted.gdx.json.RedJson;
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.LocalFileSystem;
 import com.jfixby.cmns.api.file.packing.CompressionMethod;
@@ -18,7 +18,7 @@ public class UnPackFiles {
 	public static void main(String[] args) throws IOException {
 
 		DesktopAssembler.setup();
-		Json.installComponent(new RedGdxJson());
+		Json.installComponent(new RedJson());
 		FileSystemPacker.installComponent(new RedFileSystemPacker());
 		CompressionMethod schema = new R3ArrayCompressionMethod();
 		FileSystemPacker.installCompressionSchema(schema);

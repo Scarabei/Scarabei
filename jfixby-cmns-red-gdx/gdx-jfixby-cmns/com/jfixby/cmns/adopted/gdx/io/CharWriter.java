@@ -1,10 +1,10 @@
-package com.jfixby.cmns.adopted.gdx.json;
+package com.jfixby.cmns.adopted.gdx.io;
 
 import java.io.IOException;
 
-public abstract interface Writer {
+public abstract interface CharWriter {
 
-    void write(int c);
+    void write(int cchar);
 
     void write(String quoteName);
 
