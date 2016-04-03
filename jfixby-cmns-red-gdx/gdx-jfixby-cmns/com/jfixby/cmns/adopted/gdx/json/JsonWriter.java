@@ -28,19 +28,19 @@ import com.badlogic.gdx.utils.Array;
  * 
  * @author Nathan Sweet
  */
-public class JsonWriter implements Closeable, Writer {
-    final Writer writer;
+public class JsonWriter implements Closeable, CharWriter {
+    final CharWriter writer;
     private final Array<JsonObject> stack = new Array();
     private JsonObject current;
     private boolean named;
     private OutputType outputType = OutputType.json;
     private boolean quoteLongValues = false;
 
-    public JsonWriter(Writer writer) {
+    public JsonWriter(CharWriter writer) {
 	this.writer = writer;
     }
 
-    public Writer getWriter() {
+    public CharWriter getWriter() {
 	return writer;
     }
 

@@ -234,7 +234,7 @@ public class GdxJson {
 	return buffer.toJsonString();
     }
 
-    public void toJson(Object object, Writer writer) {
+    public void toJson(Object object, CharWriter writer) {
 	toJson(object, object == null ? null : object.getClass(), null, writer);
     }
 
@@ -242,7 +242,7 @@ public class GdxJson {
      * @param knownType
      *            May be null if the type is unknown.
      */
-    public void toJson(Object object, Class knownType, Writer writer) {
+    public void toJson(Object object, Class knownType, CharWriter writer) {
 	toJson(object, knownType, null, writer);
     }
 
@@ -252,7 +252,7 @@ public class GdxJson {
      * @param elementType
      *            May be null if the type is unknown.
      */
-    public void toJson(Object object, Class knownType, Class elementType, Writer writer) {
+    public void toJson(Object object, Class knownType, Class elementType, CharWriter writer) {
 	setWriter(writer);
 	try {
 	    writeValue(object, knownType, elementType);
@@ -266,7 +266,7 @@ public class GdxJson {
      * Sets the writer where JSON output will be written. This is only necessary
      * when not using the toJson methods.
      */
-    public void setWriter(Writer writer) {
+    public void setWriter(CharWriter writer) {
 	if (!(writer instanceof JsonWriter))
 	    writer = new JsonWriter(writer);
 	this.writer = (JsonWriter) writer;
