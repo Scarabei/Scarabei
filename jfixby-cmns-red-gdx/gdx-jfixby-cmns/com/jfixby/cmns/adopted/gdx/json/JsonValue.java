@@ -1181,7 +1181,7 @@ public class JsonValue implements Iterable<JsonValue> {
 	type = ValueType.booleanValue;
     }
 
-    public String toJson(OutputTypeID outputType) {
+    public String toJson(JsonOutputType outputType) {
 	if (isValue())
 	    return asString();
 	StringBuilder buffer = new StringBuilder(512);
@@ -1189,7 +1189,7 @@ public class JsonValue implements Iterable<JsonValue> {
 	return buffer.toString();
     }
 
-    private void json(JsonValue object, StringBuilder buffer, OutputTypeID outputType) {
+    private void json(JsonValue object, StringBuilder buffer, JsonOutputType outputType) {
 	if (object.isObject()) {
 	    if (object.child == null)
 		buffer.append("{}");
@@ -1244,10 +1244,10 @@ public class JsonValue implements Iterable<JsonValue> {
     public String toString() {
 	if (isValue())
 	    return name == null ? asString() : name + ": " + asString();
-	return (name == null ? "" : name + ": ") + prettyPrint(OutputTypeID.minimal, 0);
+	return (name == null ? "" : name + ": ") + prettyPrint(JsonOutputType.minimal, 0);
     }
 
-    public JsonString prettyPrint(OutputTypeID outputType, int singleLineColumns) {
+    public JsonString prettyPrint(JsonOutputType outputType, int singleLineColumns) {
 	PrettyPrintSettings settings = new PrettyPrintSettings();
 	settings.outputType = outputType;
 	settings.singleLineColumns = singleLineColumns;
@@ -1261,7 +1261,7 @@ public class JsonValue implements Iterable<JsonValue> {
     }
 
     private void prettyPrint(JsonValue object, StringBuilder buffer, int indent, PrettyPrintSettings settings) {
-	OutputTypeID outputType = settings.outputType;
+	JsonOutputType outputType = settings.outputType;
 	if (object.isObject()) {
 	    if (object.child == null)
 		buffer.append("{}");
@@ -1277,7 +1277,7 @@ public class JsonValue implements Iterable<JsonValue> {
 			buffer.append(outputType.quoteName(child.name));
 			buffer.append(": ");
 			prettyPrint(child, buffer, indent + 1, settings);
-			if ((!newLines || outputType != OutputTypeID.minimal) && child.next != null)
+			if ((!newLines || outputType != JsonOutputType.minimal) && child.next != null)
 			    buffer.append(',');
 			buffer.append(newLines ? '\n' : ' ');
 			if (!newLines && buffer.length() - start > settings.singleLineColumns) {
@@ -1305,7 +1305,7 @@ public class JsonValue implements Iterable<JsonValue> {
 			if (newLines)
 			    indent(indent, buffer);
 			prettyPrint(child, buffer, indent + 1, settings);
-			if ((!newLines || outputType != OutputTypeID.minimal) && child.next != null)
+			if ((!newLines || outputType != JsonOutputType.minimal) && child.next != null)
 			    buffer.append(',');
 			buffer.append(newLines ? '\n' : ' ');
 			if (wrap && !newLines && buffer.length() - start > settings.singleLineColumns) {

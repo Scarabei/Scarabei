@@ -10,7 +10,7 @@ public class JsonSerialization extends GdxSerialization<JsonString> {
 	super();
 
 	jsonWriter = new JsonWriter();
-	jsonWriter.setOutputType(OutputTypeID.json);
+	jsonWriter.setOutputType(JsonOutputType.json);
 	jsonWriter.setQuoteLongValues(false);
 
 	DataWriter<JsonString> writer = jsonWriter;

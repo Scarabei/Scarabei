@@ -13,15 +13,12 @@ public class RedGdxJson implements JsonComponent {
 
 	JsonString data = json.serialize(object);
 	JsonValue gdx_json = new JsonReader().parse(data);
-	data = gdx_json.prettyPrint(OutputTypeID.json, 0);
+	data = gdx_json.prettyPrint(JsonOutputType.json, 0);
 	return data;
     }
 
     @Override
     public <T> T deserializeFromString(Class<T> type, String raw_json_string) {
-
-	// GdxSerialization<JsonString> json = new
-	// GdxSerialization<JsonString>();
 
 	JsonSerialization json = new JsonSerialization();
 

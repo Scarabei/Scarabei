@@ -34,15 +34,15 @@ public class JsonWriter implements Closeable, CharWriter, DataWriter<JsonString>
     private final Array<JsonObject> stack = new Array();
     private JsonObject current;
     private boolean named;
-    private OutputTypeID outputType = OutputTypeID.json;
+    private JsonOutputType outputType = JsonOutputType.json;
     private boolean quoteLongValues = false;
 
     public JsonWriter() {
 	this.buffer = new StringBuffer();
     }
 
-    /** Sets the type of JSON output. Default is {@link OutputTypeID#minimal}. */
-    public void setOutputType(OutputTypeID outputType) {
+    /** Sets the type of JSON output. Default is {@link JsonOutputType#minimal}. */
+    public void setOutputType(JsonOutputType outputType) {
 	this.outputType = outputType;
     }
 

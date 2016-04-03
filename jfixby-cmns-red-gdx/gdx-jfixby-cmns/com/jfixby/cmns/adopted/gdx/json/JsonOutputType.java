@@ -4,7 +4,7 @@ import java.util.regex.Pattern;
 
 import com.badlogic.gdx.utils.StringBuilder;
 
-public enum OutputTypeID {
+public enum JsonOutputType {
     /** Normal JSON, with all its double quotes. */
     json,
     /** Like JSON, but names are only double quoted if necessary. */
@@ -40,7 +40,7 @@ public enum OutputTypeID {
     	return string;
         StringBuilder buffer = new StringBuilder(string);
         buffer.replace('\\', "\\\\").replace('\r', "\\r").replace('\n', "\\n").replace('\t', "\\t");
-        if (this == OutputTypeID.minimal && !string.equals("true") && !string.equals("false")
+        if (this == JsonOutputType.minimal && !string.equals("true") && !string.equals("false")
     	    && !string.equals("null") && !string.contains("//") && !string.contains("/*")) {
     	int length = buffer.length();
     	if (length > 0 && buffer.charAt(length - 1) != ' ' && minimalValuePattern.matcher(buffer).matches())
