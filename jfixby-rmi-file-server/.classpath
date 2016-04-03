@@ -7,6 +7,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/jfixby-cmns-red-desktop"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/jfixby-cmns-rmi-api"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/jfixby-cmns-rmi-server"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/gdx-jfixby-cmns"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/jfixby-cmns-red-gdx"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
