@@ -1,9 +1,5 @@
 package com.jfixby.cmns.adopted.gdx.json;
 
-import com.badlogic.gdx.utils.Json;
-import com.badlogic.gdx.utils.JsonReader;
-import com.badlogic.gdx.utils.JsonValue;
-import com.badlogic.gdx.utils.JsonWriter.OutputType;
 import com.jfixby.cmns.api.json.JsonComponent;
 import com.jfixby.cmns.api.log.L;
 
