@@ -1,3 +1,4 @@
+
 package com.jfixby.red.util;
 
 import java.io.UnsupportedEncodingException;
@@ -19,140 +20,140 @@ import com.jfixby.cmns.api.util.path.MountPoint;
 import com.jfixby.cmns.api.util.path.RelativePath;
 
 public class RedJUtils implements UtilsComponent {
-    @Override
-    public List<String> split(String input_string, String splitter) {
-	Debug.checkNull("input_string", input_string);
-	Debug.checkNull("splitter", splitter);
-	return Collections.newList(input_string.split(splitter));
-    }
-
-    @Override
-    public <T extends MountPoint> AbsolutePath<T> newAbsolutePath(T mount_point) {
-	return new RedAbsolutePath<T>(mount_point, new RedRelativePath(RedRelativePath.E));
-    }
-
-    @Override
-    public RelativePath newRelativePath() {
-	return new RedRelativePath(RedRelativePath.E);
-    }
-
-    @Override
-    public RelativePath newRelativePath(String path_string) {
-	return new RedRelativePath(path_string);
-    }
-
-    @Override
-    public <T extends MountPoint> AbsolutePath<T> newAbsolutePath(T mount_point, RelativePath relative) {
-	return new RedAbsolutePath<T>(mount_point, relative);
-    }
-
-    @Override
-    public RelativePath newRelativePath(List<String> steps_list) {
-	return new RedRelativePath(steps_list);
-    }
-
-    @Override
-    public <T> StateSwitcher<T> newStateSwitcher(T default_state) {
-	return new RedStateSwitcher<T>(default_state);
-    }
-
-    @Override
-    public RelativePath newRelativePath(java.util.List<String> steps_list) {
-	return this.newRelativePath(Collections.newList(steps_list));
-    }
-
-    @Override
-    public String newString(ByteArray data) {
-	return this.newString(data.toArray());
-    }
-
-    @Override
-    public <T> Set<T> intersectCollections(Collection<T> listA, Collection<T> listB) {
-	Set<T> intersection = Collections.newSet();
-	for (int i = 0; i < listA.size(); i++) {
-	    T a = listA.getElementAt(i);
-	    if (listB.contains(a)) {
-		intersection.add(a);
-	    }
+	@Override
+	public List<String> split (String input_string, String splitter) {
+		Debug.checkNull("input_string", input_string);
+		Debug.checkNull("splitter", splitter);
+		return Collections.newList(input_string.split(splitter));
 	}
-	for (int i = 0; i < listB.size(); i++) {
-	    T b = listB.getElementAt(i);
-	    if (listA.contains(b)) {
-		intersection.add(b);
-	    }
+
+	@Override
+	public <T extends MountPoint> AbsolutePath<T> newAbsolutePath (T mount_point) {
+		return new RedAbsolutePath<T>(mount_point, new RedRelativePath(RedRelativePath.E));
 	}
-	return intersection;
-    }
 
-    @Override
-    public String truncated(String data, int begin_char, int end_char) {
-	int beginIndex = (int) IntegerMath.max(begin_char, 0);
-	int endIndex = (int) IntegerMath.min(end_char, data.length());
-	return data.substring(beginIndex, endIndex);
-    }
-
-    @Override
-    public boolean equalObjects(final Object a, final Object b) {
-	if (a == b) {
-	    return true;
+	@Override
+	public RelativePath newRelativePath () {
+		return new RedRelativePath(RedRelativePath.E);
 	}
-	if (a == null) {
-	    return false;
+
+	@Override
+	public RelativePath newRelativePath (String path_string) {
+		return new RedRelativePath(path_string);
 	}
-	if (b == null) {
-	    return false;
+
+	@Override
+	public <T extends MountPoint> AbsolutePath<T> newAbsolutePath (T mount_point, RelativePath relative) {
+		return new RedAbsolutePath<T>(mount_point, relative);
 	}
-	return a.equals(b);
-    }
 
-    final RedBinaryCodeCache cache = new RedBinaryCodeCache();
-
-    @Override
-    public BinaryCode binaryCodeOf(final int bits, final int numberOfBits) {
-	if (numberOfBits <= 8) {
-	    return cache.get(bits, numberOfBits);
+	@Override
+	public RelativePath newRelativePath (List<String> steps_list) {
+		return new RedRelativePath(steps_list);
 	}
-	return newBinaryCode().append(bits, numberOfBits);
-    }
 
-    @Override
-    public EditableBinaryCode newBinaryCode() {
-	return new RedBinaryCode();
-    }
-
-    @Override
-    public ByteArray newByteArray(int size) {
-	return new RedByteArray(size);
-    }
-
-    @Override
-    public ByteArray newByteArray(byte[] bytes) {
-	return new RedByteArray(bytes);
-    }
-
-    @Override
-    public String newString(char[] chars) {
-	return new String(chars);
-    }
-
-    @Override
-    public String newString(byte[] bytes) {
-	return this.newString(bytes, "UTF-8");
-    }
-
-    @Override
-    public String newString(byte[] bytes, String encoding) {
-	try {
-	    return new String(bytes, encoding);
-	} catch (UnsupportedEncodingException e) {
-	    e.printStackTrace();
+	@Override
+	public <T> StateSwitcher<T> newStateSwitcher (T default_state) {
+		return new RedStateSwitcher<T>(default_state);
 	}
-	return null;
-    }
 
-    @Override
-    public String newString(ByteArray bytes, String encoding) {
-	return this.newString(bytes.toArray(), encoding);
-    }
+	@Override
+	public RelativePath newRelativePath (java.util.List<String> steps_list) {
+		return this.newRelativePath(Collections.newList(steps_list));
+	}
+
+	@Override
+	public String newString (ByteArray data) {
+		return this.newString(data.toArray());
+	}
+
+	@Override
+	public <T> Set<T> intersectCollections (Collection<T> listA, Collection<T> listB) {
+		Set<T> intersection = Collections.newSet();
+		for (int i = 0; i < listA.size(); i++) {
+			T a = listA.getElementAt(i);
+			if (listB.contains(a)) {
+				intersection.add(a);
+			}
+		}
+		for (int i = 0; i < listB.size(); i++) {
+			T b = listB.getElementAt(i);
+			if (listA.contains(b)) {
+				intersection.add(b);
+			}
+		}
+		return intersection;
+	}
+
+	@Override
+	public String truncated (String data, int begin_char, int end_char) {
+		int beginIndex = (int)IntegerMath.max(begin_char, 0);
+		int endIndex = (int)IntegerMath.min(end_char, data.length());
+		return data.substring(beginIndex, endIndex);
+	}
+
+	@Override
+	public boolean equalObjects (final Object a, final Object b) {
+		if (a == b) {
+			return true;
+		}
+		if (a == null) {
+			return false;
+		}
+		if (b == null) {
+			return false;
+		}
+		return a.equals(b);
+	}
+
+	final RedBinaryCodeCache cache = new RedBinaryCodeCache();
+
+	@Override
+	public BinaryCode binaryCodeOf (final int bits, final int numberOfBits) {
+		if (numberOfBits <= 8) {
+			return cache.get(bits, numberOfBits);
+		}
+		return newBinaryCode().append(bits, numberOfBits);
+	}
+
+	@Override
+	public EditableBinaryCode newBinaryCode () {
+		return new RedBinaryCode();
+	}
+
+	@Override
+	public ByteArray newByteArray (int size) {
+		return new RedByteArray(size);
+	}
+
+	@Override
+	public ByteArray newByteArray (byte[] bytes) {
+		return new RedByteArray(bytes);
+	}
+
+	@Override
+	public String newString (char[] chars) {
+		return new String(chars);
+	}
+
+	@Override
+	public String newString (byte[] bytes) {
+		return this.newString(bytes, "UTF-8");
+	}
+
+	@Override
+	public String newString (byte[] bytes, String encoding) {
+		try {
+			return new String(bytes, encoding);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public String newString (ByteArray bytes, String encoding) {
+		return this.newString(bytes.toArray(), encoding);
+	}
 
 }

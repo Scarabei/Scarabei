@@ -1,3 +1,4 @@
+
 package com.jfixby.cmns.api.util;
 
 import com.jfixby.cmns.api.ComponentInstaller;
@@ -11,99 +12,98 @@ import com.jfixby.cmns.api.util.path.RelativePath;
 
 public class JUtils {
 
-    static private ComponentInstaller<UtilsComponent> componentInstaller = new ComponentInstaller<UtilsComponent>(
-	    "JUtils");
+	static private ComponentInstaller<UtilsComponent> componentInstaller = new ComponentInstaller<UtilsComponent>("JUtils");
 
-    public static final void installComponent(UtilsComponent component_to_install) {
-	componentInstaller.installComponent(component_to_install);
-    }
+	public static final void installComponent (UtilsComponent component_to_install) {
+		componentInstaller.installComponent(component_to_install);
+	}
 
-    public static final UtilsComponent invoke() {
-	return componentInstaller.invokeComponent();
-    }
+	public static final UtilsComponent invoke () {
+		return componentInstaller.invokeComponent();
+	}
 
-    public static final UtilsComponent component() {
-	return componentInstaller.getComponent();
-    }
+	public static final UtilsComponent component () {
+		return componentInstaller.getComponent();
+	}
 
-    public static final RelativePath newRelativePath(String path_string) {
-	return invoke().newRelativePath(path_string);
-    }
+	public static final RelativePath newRelativePath (String path_string) {
+		return invoke().newRelativePath(path_string);
+	}
 
-    public static final <T extends MountPoint> AbsolutePath<T> newAbsolutePath(T mount_point, RelativePath relative) {
-	return invoke().newAbsolutePath(mount_point, relative);
-    }
+	public static final <T extends MountPoint> AbsolutePath<T> newAbsolutePath (T mount_point, RelativePath relative) {
+		return invoke().newAbsolutePath(mount_point, relative);
+	}
 
-    public static final <T extends MountPoint> AbsolutePath<T> newAbsolutePath(T mount_point) {
-	return invoke().newAbsolutePath(mount_point);
-    }
+	public static final <T extends MountPoint> AbsolutePath<T> newAbsolutePath (T mount_point) {
+		return invoke().newAbsolutePath(mount_point);
+	}
 
-    public static final RelativePath newRelativePath(List<String> steps_list) {
-	return invoke().newRelativePath(steps_list);
-    }
+	public static final RelativePath newRelativePath (List<String> steps_list) {
+		return invoke().newRelativePath(steps_list);
+	}
 
-    public static final RelativePath newRelativePath(java.util.List<String> steps_list) {
-	return invoke().newRelativePath(steps_list);
-    }
+	public static final RelativePath newRelativePath (java.util.List<String> steps_list) {
+		return invoke().newRelativePath(steps_list);
+	}
 
-    public static final RelativePath newRelativePath() {
-	return invoke().newRelativePath();
-    }
+	public static final RelativePath newRelativePath () {
+		return invoke().newRelativePath();
+	}
 
-    public static <T> StateSwitcher<T> newStateSwitcher(T default_state) {
-	return invoke().newStateSwitcher(default_state);
-    }
+	public static <T> StateSwitcher<T> newStateSwitcher (T default_state) {
+		return invoke().newStateSwitcher(default_state);
+	}
 
-    public static List<String> split(String input_string, String splitter) {
-	return invoke().split(input_string, splitter);
-    }
+	public static List<String> split (String input_string, String splitter) {
+		return invoke().split(input_string, splitter);
+	}
 
-    public static String newString(ByteArray data) {
-	return invoke().newString(data);
-    }
+	public static String newString (ByteArray data) {
+		return invoke().newString(data);
+	}
 
-    public static <T> Set<T> intersectCollection(Collection<T> listA, Collection<T> listB) {
-	return invoke().intersectCollections(listA, listB);
-    }
+	public static <T> Set<T> intersectCollection (Collection<T> listA, Collection<T> listB) {
+		return invoke().intersectCollections(listA, listB);
+	}
 
-    public static String truncated(String data, int begin_char, int end_char) {
-	return invoke().truncated(data, begin_char, end_char);
-    }
+	public static String truncated (String data, int begin_char, int end_char) {
+		return invoke().truncated(data, begin_char, end_char);
+	}
 
-    public static boolean equalObjects(final Object a, final Object b) {
-	return invoke().equalObjects(a, b);
-    }
+	public static boolean equalObjects (final Object a, final Object b) {
+		return invoke().equalObjects(a, b);
+	}
 
-    public static BinaryCode binaryCodeOf(final int bits, final int numberOfBits) {
-	return invoke().binaryCodeOf(bits, numberOfBits);
-    }
+	public static BinaryCode binaryCodeOf (final int bits, final int numberOfBits) {
+		return invoke().binaryCodeOf(bits, numberOfBits);
+	}
 
-    public static EditableBinaryCode newBinaryCode() {
-	return invoke().newBinaryCode();
-    }
+	public static EditableBinaryCode newBinaryCode () {
+		return invoke().newBinaryCode();
+	}
 
-    public static ByteArray newByteArray(int size) {
-	return invoke().newByteArray(size);
-    }
+	public static ByteArray newByteArray (int size) {
+		return invoke().newByteArray(size);
+	}
 
-    public static ByteArray newByteArray(byte[] bytes) {
-	return invoke().newByteArray(bytes);
-    }
+	public static ByteArray newByteArray (byte[] bytes) {
+		return invoke().newByteArray(bytes);
+	}
 
-    public static String newString(char[] chars) {
-	return invoke().newString(chars);
-    }
+	public static String newString (char[] chars) {
+		return invoke().newString(chars);
+	}
 
-    public static String newString(byte[] bytes) {
-	return invoke().newString(bytes);
-    }
+	public static String newString (byte[] bytes) {
+		return invoke().newString(bytes);
+	}
 
-    public static String newString(byte[] bytes, String encoding) {
-	return invoke().newString(bytes, encoding);
-    }
+	public static String newString (byte[] bytes, String encoding) {
+		return invoke().newString(bytes, encoding);
+	}
 
-    public static String newString(ByteArray bytes, String encoding) {
-	return invoke().newString(bytes, encoding);
-    }
+	public static String newString (ByteArray bytes, String encoding) {
+		return invoke().newString(bytes, encoding);
+	}
 
 }
