@@ -86,8 +86,8 @@ public class FloatMath {
 		return invoke().INDEX(x);
 	}
 
-	public static double distance(double xa, double ya, double xb, double yb) {
-		return invoke().distance(xa, ya, xb, yb);
+	public static double distance(double x1, double y1, double x2, double y2) {
+		return invoke().distance(x1, y1, x2, y2);
 	}
 
 	public static double min(double a, double b) {

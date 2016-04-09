@@ -32,7 +32,7 @@ public interface FloatMathComponent {
 
 	public int INDEX(boolean x);
 
-	public double distance(double xa, double ya, double xb, double yb);
+	public double distance(double x1, double y1, double x2, double y2);
 
 	public double min(double a, double b);
 
