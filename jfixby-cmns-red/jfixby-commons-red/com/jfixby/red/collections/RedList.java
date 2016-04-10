@@ -1,8 +1,10 @@
+
 package com.jfixby.red.collections;
 
 import java.util.Iterator;
 
 import com.jfixby.cmns.api.collections.Collection;
+import com.jfixby.cmns.api.collections.CollectionFilter;
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.EditableCollection;
 import com.jfixby.cmns.api.collections.List;
@@ -13,12 +15,12 @@ import com.jfixby.cmns.api.math.IntegerMath;
 public abstract class RedList<T> implements List<T> {
 	public final java.util.List<T> legacy;
 
-	public RedList(java.util.List<T> legacy_list) {
+	public RedList (java.util.List<T> legacy_list) {
 		legacy = legacy_list;
 	}
 
 	@Override
-	public void addAllArrayElements(T[] array) {
+	public void addAllArrayElements (T[] array) {
 		if (array == null) {
 			throw new Error("Input array is null");
 		}
@@ -28,33 +30,33 @@ public abstract class RedList<T> implements List<T> {
 	}
 
 	@Override
-	public boolean contains(Object element) {
+	public boolean contains (Object element) {
 		return this.legacy.contains(element);
 	}
 
 	@Override
-	public boolean remove(Object element) {
+	public boolean remove (Object element) {
 		return this.legacy.remove(element);
 	}
 
 	@Override
-	public int size() {
+	public int size () {
 		return this.legacy.size();
 	}
 
 	@Override
-	public T getElementAt(long i) {
-		return this.legacy.get((int) i);
+	public T getElementAt (long i) {
+		return this.legacy.get((int)i);
 	}
 
 	@Override
-	public void addAll(Collection<? extends T> parts_list) {
+	public void addAll (Collection<? extends T> parts_list) {
 		this.legacy.addAll(parts_list.toJavaList());
 
 	}
 
 	@Override
-	public void addAll(Iterable<? extends T> parts_list) {
+	public void addAll (Iterable<? extends T> parts_list) {
 		for (T e : parts_list) {
 			this.add(e);
 		}
@@ -62,7 +64,7 @@ public abstract class RedList<T> implements List<T> {
 
 	// ----------------------------------------------------------------------------------------
 	@Override
-	public int hashCode() {
+	public int hashCode () {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((legacy == null) ? 0 : legacy.hashCode());
@@ -70,44 +72,39 @@ public abstract class RedList<T> implements List<T> {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		RedList<?> other = (RedList<?>) obj;
+	public boolean equals (Object obj) {
+		if (this == obj) return true;
+		if (obj == null) return false;
+		if (getClass() != obj.getClass()) return false;
+		RedList<?> other = (RedList<?>)obj;
 		if (legacy == null) {
-			if (other.legacy != null)
-				return false;
-		} else if (!legacy.equals(other.legacy))
-			return false;
+			if (other.legacy != null) return false;
+		} else if (!legacy.equals(other.legacy)) return false;
 		return true;
 	}
 
 	@Override
-	public String toString() {
+	public String toString () {
 		return legacy.toString();
 	}
 
 	@Override
-	public Iterator<T> iterator() {
+	public Iterator<T> iterator () {
 		return this.legacy.iterator();
 	}
 
 	@Override
-	public boolean add(T element) {
+	public boolean add (T element) {
 		this.legacy.add(element);
 		return true;
 	}
 
-	public void clear() {
+	public void clear () {
 		this.legacy.clear();
 	}
 
 	@Override
-	public T removeLast() {
+	public T removeLast () {
 		if (this.size() == 0) {
 			throw new Error("List is empty!");
 		}
@@ -115,18 +112,18 @@ public abstract class RedList<T> implements List<T> {
 	}
 
 	@Override
-	public void print(String tag) {
+	public void print (String tag) {
 		L.d(tag, this);
 	}
 
 	@Override
-	public void print(String tag, int from_index, int to_index) {
+	public void print (String tag, int from_index, int to_index) {
 		List<T> l = Collections.newList();
 		int N = this.size();
 		int a = 0;
 		int b = N;
-		a = (int) IntegerMath.limit(0, from_index, N);
-		b = (int) IntegerMath.limit(0, to_index, N);
+		a = (int)IntegerMath.limit(0, from_index, N);
+		b = (int)IntegerMath.limit(0, to_index, N);
 
 		int d = 1;
 		if (a > b) {
@@ -140,7 +137,7 @@ public abstract class RedList<T> implements List<T> {
 	}
 
 	@Override
-	public T getLast() {
+	public T getLast () {
 		if (this.size() == 0) {
 			throw new Error("List is empty!");
 		}
@@ -148,64 +145,64 @@ public abstract class RedList<T> implements List<T> {
 	}
 
 	@Override
-	public T removeElementAt(long i) {
-		return this.legacy.remove((int) i);
+	public T removeElementAt (long i) {
+		return this.legacy.remove((int)i);
 	}
 
 	@Override
-	public int indexOf(Object element) {
+	public int indexOf (Object element) {
 		return this.legacy.indexOf(element);
 	}
 
 	@Override
-	public void removeAll(Collection<? extends Object> collection) {
+	public void removeAll (Collection<? extends Object> collection) {
 		this.legacy.removeAll(collection.toJavaList());
 	}
 
 	@Override
-	public void insertElementAt(T element, int iindex) {
+	public void insertElementAt (T element, int iindex) {
 		this.legacy.add(iindex, element);
 	}
 
 	@Override
-	public T setElementAt(T element, int iindex) {
+	public T setElementAt (T element, int iindex) {
 		return this.legacy.set(iindex, element);
 	}
 
 	@Override
-	public java.util.List<T> toJavaList() {
+	public java.util.List<T> toJavaList () {
 		java.util.ArrayList<T> result = new java.util.ArrayList<T>();
 		result.addAll(this.legacy);
 		return result;
 	}
 
 	@Override
-	public void addJavaCollection(java.util.Collection<? extends T> java_collection) {
+	public void addJavaCollection (java.util.Collection<? extends T> java_collection) {
 		this.legacy.addAll(java_collection);
 	}
 
 	@Override
-	public List<T> toList() {
+	public List<T> toList () {
 		return this;
 	}
 
 	@Override
-	public boolean isEmpty() {
+	public boolean isEmpty () {
 		return this.legacy.isEmpty();
 	}
 
 	@Override
-	public void reverse() {
+	public void reverse () {
 		java.util.Collections.reverse(legacy);
 	}
 
 	@Override
-	public boolean beginsWith(Collection<T> steps) {
+	public boolean beginsWith (Collection<T> steps) {
 		return Collections.listBeginsWith(this, steps);
 	}
 
 	@Override
-	public EditableCollection<T> splitAt(int index) {
+	public EditableCollection<T> splitAt (int index) {
 		if (index < 0) {
 			Err.reportError("index(" + index + ") < 0");
 		}
@@ -221,6 +218,11 @@ public abstract class RedList<T> implements List<T> {
 		}
 
 		return tail;
+	}
+
+	@Override
+	public List<T> filter (CollectionFilter<? super T> filter) {
+		return Collections.filter(this, filter);
 	}
 
 }

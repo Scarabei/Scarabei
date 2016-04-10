@@ -1,14 +1,14 @@
 package com.jfixby.red.net;
 
-import com.jfixby.cmns.api.net.http.HttpCallSpecs;
+import com.jfixby.cmns.api.net.http.HttpCallParams;
 import com.jfixby.cmns.api.net.http.HttpURL;
 import com.jfixby.cmns.api.net.http.METHOD;
 
-public class RedCallSpecs implements HttpCallSpecs {
+public class RedHttpCallParams implements HttpCallParams {
 
 	private HttpURL url;
 	private boolean set_agent;
-	private METHOD method;
+	private METHOD method = METHOD.GET;
 	private boolean ssl;
 
 	@Override

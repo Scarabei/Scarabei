@@ -2,14 +2,14 @@ package com.jfixby.red.desktop.net;
 
 import com.jfixby.cmns.api.net.http.HttpCall;
 import com.jfixby.cmns.api.net.http.HttpCallExecutor;
-import com.jfixby.cmns.api.net.http.HttpCallSpecs;
+import com.jfixby.cmns.api.net.http.HttpCallParams;
 import com.jfixby.cmns.api.net.http.HttpComponent;
 import com.jfixby.cmns.api.net.http.HttpConnection;
 import com.jfixby.cmns.api.net.http.HttpConnectionSpecs;
 import com.jfixby.cmns.api.net.http.HttpURL;
 import com.jfixby.red.net.RedCall;
 import com.jfixby.red.net.RedCallExecutor;
-import com.jfixby.red.net.RedCallSpecs;
+import com.jfixby.red.net.RedHttpCallParams;
 
 public class HttpDesktopComponent implements HttpComponent {
 
@@ -36,8 +36,8 @@ public class HttpDesktopComponent implements HttpComponent {
 	}
 
 	@Override
-	public HttpCallSpecs newCallSpecs() {
-		return new RedCallSpecs();
+	public HttpCallParams newCallParams() {
+		return new RedHttpCallParams();
 	}
 
 	@Override
@@ -46,7 +46,7 @@ public class HttpDesktopComponent implements HttpComponent {
 	}
 
 	@Override
-	public HttpCall newCall(HttpCallSpecs call_scecs) {
+	public HttpCall newCall(HttpCallParams call_scecs) {
 		return new RedCall(call_scecs);
 	}
 

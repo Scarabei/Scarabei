@@ -1,8 +1,10 @@
+
 package com.jfixby.red.collections;
 
 import java.util.Iterator;
 
 import com.jfixby.cmns.api.collections.Collection;
+import com.jfixby.cmns.api.collections.CollectionFilter;
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.collections.Queue;
@@ -11,87 +13,92 @@ public class RedQueue<T> implements Queue<T> {
 
 	final List<T> queue = Collections.newList();
 
-	public RedQueue() {
+	@Override
+	public List<T> filter (CollectionFilter<? super T> filter) {
+		return this.queue.filter(filter);
+	}
+
+	public RedQueue () {
 
 	}
 
 	@Override
-	public void push(T element) {
+	public void push (T element) {
 		queue.add(element);
 	}
 
 	@Override
-	public boolean hasMore() {
+	public boolean hasMore () {
 		return queue.size() > 0;
 	}
 
 	@Override
-	public T pop() {
+	public T pop () {
 		return queue.removeElementAt(0);
 	}
 
 	@Override
-	public void pushAll(Collection<T> elements) {
+	public void pushAll (Collection<T> elements) {
 		queue.addAll(elements);
 	}
 
 	@Override
-	public int size() {
+	public int size () {
 		return queue.size();
 	}
 
 	@Override
-	public boolean contains(Object element) {
+	public boolean contains (Object element) {
 		return queue.contains(element);
 	}
 
 	@Override
-	public java.util.List<T> toJavaList() {
+	public java.util.List<T> toJavaList () {
 		return queue.toJavaList();
 	}
 
 	@Override
-	public T getElementAt(long i) {
+	public T getElementAt (long i) {
 		return queue.getElementAt(i);
 	}
 
 	@Override
-	public Iterator<T> iterator() {
+	public Iterator<T> iterator () {
 		return queue.iterator();
 	}
 
 	@Override
-	public T getLast() {
+	public T getLast () {
 		return queue.getLast();
 	}
 
 	@Override
-	public List<T> toList() {
+	public List<T> toList () {
 		return queue.toList();
 	}
 
 	@Override
-	public boolean isEmpty() {
+	public boolean isEmpty () {
 		return queue.isEmpty();
 	}
 
 	@Override
-	public void print(String tag) {
+	public void print (String tag) {
 		queue.print(tag);
 	}
 
 	@Override
-	public void print(String tag, int from_index, int to_index) {
+	public void print (String tag, int from_index, int to_index) {
 		queue.print(tag, from_index, to_index);
 	}
 
 	@Override
-	public boolean beginsWith(Collection<T> steps) {
+	public boolean beginsWith (Collection<T> steps) {
 		return queue.beginsWith(steps);
 	}
 
 	@Override
-	public void clear() {
+	public void clear () {
 		queue.clear();
 	}
 

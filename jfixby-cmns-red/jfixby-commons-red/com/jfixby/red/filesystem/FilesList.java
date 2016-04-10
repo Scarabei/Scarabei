@@ -1,8 +1,10 @@
+
 package com.jfixby.red.filesystem;
 
 import java.util.Iterator;
 
 import com.jfixby.cmns.api.collections.Collection;
+import com.jfixby.cmns.api.collections.CollectionFilter;
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.file.ChildrenList;
@@ -13,29 +15,34 @@ import com.jfixby.cmns.api.math.IntegerMath;
 public class FilesList implements ChildrenList {
 	final List<File> internal_list = Collections.newList();
 
-	public void add(File absolute_file) {
+	@Override
+	public List<File> filter (CollectionFilter<? super File> filter) {
+		return this.internal_list.filter(filter);
+	}
+
+	public void add (File absolute_file) {
 		internal_list.add(absolute_file);
 	}
 
 	@Override
-	public Iterator<File> iterator() {
+	public Iterator<File> iterator () {
 		return internal_list.iterator();
 	}
 
-	public void addAllArrayElements(File[] array) {
+	public void addAllArrayElements (File[] array) {
 		internal_list.addAllArrayElements(array);
 	}
 
-	public boolean contains(Object element) {
+	public boolean contains (Object element) {
 		return internal_list.contains(element);
 	}
 
-	public boolean remove(Object element) {
+	public boolean remove (Object element) {
 		return internal_list.remove(element);
 	}
 
 	@Override
-	public int size() {
+	public int size () {
 		return internal_list.size();
 	}
 
@@ -44,12 +51,12 @@ public class FilesList implements ChildrenList {
 	// return internal_list.getElementAt(i);
 	// }
 
-	public void addAll(List<? extends File> list) {
+	public void addAll (List<? extends File> list) {
 		this.internal_list.addAll(list);
 	}
 
 	@Override
-	public File findChild(String short_file_name) {
+	public File findChild (String short_file_name) {
 		for (int i = 0; i < this.internal_list.size(); i++) {
 			File element = this.internal_list.getElementAt(i);
 			if (true) {
@@ -63,17 +70,17 @@ public class FilesList implements ChildrenList {
 	}
 
 	@Override
-	public String toString() {
+	public String toString () {
 		return "FilesList" + internal_list + "";
 	}
 
 	@Override
-	public void print() {
+	public void print () {
 		internal_list.print("FilesList");
 	}
 
 	@Override
-	public ChildrenList filter(FileFilter filter) {
+	public ChildrenList filterFile (FileFilter filter) {
 		final FilesList result = new FilesList();
 		for (int i = 0; i < this.size(); i++) {
 			final File child = this.getElementAt(i);
@@ -85,49 +92,49 @@ public class FilesList implements ChildrenList {
 	}
 
 	@Override
-	public java.util.List<File> toJavaList() {
+	public java.util.List<File> toJavaList () {
 		// TODO Auto-generated method stub
 		return internal_list.toJavaList();
 	}
 
 	@Override
-	public File getElementAt(long i) {
+	public File getElementAt (long i) {
 		// TODO Auto-generated method stub
 		return internal_list.getElementAt(i);
 	}
 
 	@Override
-	public File getLast() {
+	public File getLast () {
 		// TODO Auto-generated method stub
 		return internal_list.getLast();
 	}
 
 	@Override
-	public List<File> toList() {
+	public List<File> toList () {
 		// TODO Auto-generated method stub
 		return internal_list.toList();
 	}
 
 	@Override
-	public boolean isEmpty() {
+	public boolean isEmpty () {
 		// TODO Auto-generated method stub
 		return internal_list.isEmpty();
 	}
 
 	@Override
-	public void print(String tag) {
+	public void print (String tag) {
 		internal_list.print(tag);
 
 	}
 
 	@Override
-	public void print(String tag, int from_index, int to_index) {
+	public void print (String tag, int from_index, int to_index) {
 		List<File> l = Collections.newList();
 		int N = this.size();
 		int a = 0;
 		int b = N;
-		a = (int) IntegerMath.limit(0, from_index, N);
-		b = (int) IntegerMath.limit(0, to_index, N);
+		a = (int)IntegerMath.limit(0, from_index, N);
+		b = (int)IntegerMath.limit(0, to_index, N);
 
 		int d = 1;
 		if (a > b) {
@@ -141,15 +148,15 @@ public class FilesList implements ChildrenList {
 	}
 
 	@Override
-	public boolean beginsWith(Collection<File> steps) {
+	public boolean beginsWith (Collection<File> steps) {
 		return this.internal_list.beginsWith(steps);
 	}
 
 	@Override
-	public ChildrenList filterByExtension(final String extention) {
-		return this.filter(new FileFilter() {
+	public ChildrenList filterByExtension (final String extention) {
+		return this.filterFile(new FileFilter() {
 			@Override
-			public boolean fits(File file) {
+			public boolean fits (File file) {
 				return file.getName().toLowerCase().endsWith(extention.toLowerCase());
 			}
 		});

@@ -4,6 +4,7 @@ package com.jfixby.red.collections;
 import java.util.Objects;
 
 import com.jfixby.cmns.api.collections.Collection;
+import com.jfixby.cmns.api.collections.CollectionConverter;
 import com.jfixby.cmns.api.collections.CollectionFilter;
 import com.jfixby.cmns.api.collections.CollectionScanner;
 import com.jfixby.cmns.api.collections.Collections;
@@ -118,7 +119,7 @@ public abstract class RedCollections implements CollectionsComponent {
 	}
 
 	@Override
-	public <T> void scanCollection (Collection<? extends T> collection, CollectionScanner<T> scanner) {
+	public <T> void scanCollection (Collection<? extends T> collection, CollectionScanner<? super T> scanner) {
 		for (int i = 0; i < collection.size(); i++) {
 			T element = collection.getElementAt(i);
 			scanner.scanElement(element, i, collection);
@@ -222,7 +223,7 @@ public abstract class RedCollections implements CollectionsComponent {
 	}
 
 	@Override
-	public <T> List<T> filter (Collection<? extends T> source, CollectionFilter<T> filter) {
+	public <T> List<T> filter (Collection<? extends T> source, CollectionFilter<? super T> filter) {
 		List<T> result = Collections.newList();
 		for (T t : source) {
 			if (filter.fits(t)) {
@@ -231,4 +232,18 @@ public abstract class RedCollections implements CollectionsComponent {
 		}
 		return result;
 	}
+
+	@Override
+	public <A, B> void convertCollection (final Collection<? extends A> input, final EditableCollection<? super B> output,
+		final CollectionConverter<A, B> converter) {
+		CollectionScanner<A> scanner = new CollectionScanner<A>() {
+			@Override
+			public void scanElement (A element, int index, Collection<? extends A> collection) {
+				B converted = converter.convert(element);
+				output.add(converted);
+			}
+		};
+		this.scanCollection(input, scanner);
+	}
+
 }

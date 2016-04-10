@@ -10,10 +10,10 @@ public interface HttpComponent {
 
 	HttpConnection newConnection(HttpConnectionSpecs specs);
 
-	HttpCallSpecs newCallSpecs();
+	HttpCallParams newCallParams();
 
 	HttpCallExecutor newCallExecutor();
 
-	HttpCall newCall(HttpCallSpecs call_scecs);
+	HttpCall newCall(HttpCallParams params);
 
 }

@@ -80,7 +80,7 @@ public class Collections {
 		return invoke().newPool(spawner);
 	}
 
-	public static <T> void scanCollection (Collection<? extends T> collection, CollectionScanner<T> scanner) {
+	public static <T> void scanCollection (Collection<? extends T> collection, CollectionScanner<? super T> scanner) {
 		invoke().scanCollection(collection, scanner);
 	}
 
@@ -113,7 +113,7 @@ public class Collections {
 		invoke().arrayCopy(source, source_index, destination, number_of_elements);
 	}
 
-	public static <T> List<T> filter (Collection<? extends T> source, CollectionFilter<T> filter) {
+	public static <T> List<T> filter (Collection<? extends T> source, CollectionFilter<? super T> filter) {
 		return invoke().filter(source, filter);
 	}
 

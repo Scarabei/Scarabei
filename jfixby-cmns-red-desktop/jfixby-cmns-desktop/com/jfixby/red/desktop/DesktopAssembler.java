@@ -1,3 +1,4 @@
+
 package com.jfixby.red.desktop;
 
 import com.jfixby.cmns.api.angles.Angles;
@@ -17,6 +18,7 @@ import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.math.FloatMath;
 import com.jfixby.cmns.api.math.IntegerMath;
 import com.jfixby.cmns.api.math.MathTools;
+import com.jfixby.cmns.api.net.http.Http;
 import com.jfixby.cmns.api.sys.Sys;
 import com.jfixby.cmns.api.sys.settings.SystemSettings;
 import com.jfixby.cmns.api.taskman.TaskManager;
@@ -28,6 +30,7 @@ import com.jfixby.red.desktop.filesystem.win.WinFileSystem;
 import com.jfixby.red.desktop.image.RedImageAWT;
 import com.jfixby.red.desktop.log.DesktopLogger;
 import com.jfixby.red.desktop.math.DesktopFloatMath;
+import com.jfixby.red.desktop.net.HttpDesktopComponent;
 import com.jfixby.red.desktop.sys.DesktopSystem;
 import com.jfixby.red.err.RedError;
 import com.jfixby.red.filesystem.cache.RedFileCache;
@@ -45,33 +48,34 @@ import com.jfixby.red.util.RedJUtils;
 
 public class DesktopAssembler {
 
-    public static final void setup() {
-	L.installComponent(new DesktopLogger());
-	JUtils.installComponent(new RedJUtils());
-	Collections.installComponent(new DesktopCollections());
-	FloatMath.installComponent(new DesktopFloatMath());
-	TaskManager.installComponent(new RedTaskManager());
-	Sys.installComponent(new DesktopSystem());
-	SystemSettings.installComponent(new RedSystemSettings());
-	IntegerMath.installComponent(new RedIntegerMath());
-	Names.installComponent(new RedAssetsNamespace());
-	IO.installComponent(new RedIO());
-	Graphs.installComponent(new RedGraphs());
-	Angles.installComponent(new RedAngles());
-	Geometry.installComponent(new RedGeometry());
-	Colors.installComponent(new RedColors());
-	MathTools.installComponent(new RedMathTools());
-	Err.installComponent(new RedError());
-	Debug.installComponent(new RedDebug());
+	public static final void setup () {
+		L.installComponent(new DesktopLogger());
+		JUtils.installComponent(new RedJUtils());
+		Collections.installComponent(new DesktopCollections());
+		FloatMath.installComponent(new DesktopFloatMath());
+		TaskManager.installComponent(new RedTaskManager());
+		Sys.installComponent(new DesktopSystem());
+		SystemSettings.installComponent(new RedSystemSettings());
+		IntegerMath.installComponent(new RedIntegerMath());
+		Names.installComponent(new RedAssetsNamespace());
+		IO.installComponent(new RedIO());
+		Graphs.installComponent(new RedGraphs());
+		Angles.installComponent(new RedAngles());
+		Geometry.installComponent(new RedGeometry());
+		Colors.installComponent(new RedColors());
+		MathTools.installComponent(new RedMathTools());
+		Err.installComponent(new RedError());
+		Debug.installComponent(new RedDebug());
 
-	// --
+		// --
 
-	LocalFileSystem.installComponent(new WinFileSystem());
+		LocalFileSystem.installComponent(new WinFileSystem());
+		Http.installComponent(new HttpDesktopComponent());
 
-	ImageProcessing.installComponent(new RedImageProcessing());
-	ImageAWT.installComponent(new RedImageAWT());
-	FileCache.installComponent(new RedFileCache());
+		ImageProcessing.installComponent(new RedImageProcessing());
+		ImageAWT.installComponent(new RedImageAWT());
+		FileCache.installComponent(new RedFileCache());
 
-    }
+	}
 
 }

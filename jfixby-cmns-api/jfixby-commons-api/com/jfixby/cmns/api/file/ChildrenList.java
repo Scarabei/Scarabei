@@ -1,17 +1,18 @@
+
 package com.jfixby.cmns.api.file;
 
 import com.jfixby.cmns.api.collections.Collection;
 
 public interface ChildrenList extends Collection<File> {
 
-	File findChild(String short_child_name);
+	File findChild (String short_child_name);
 
 	// File getChild(int i);
 
-	void print();
+	void print ();
 
-	ChildrenList filter(FileFilter filter);
+	ChildrenList filterFile (FileFilter filter);
 
-	ChildrenList filterByExtension(String extension);
+	ChildrenList filterByExtension (String extension);
 
 }

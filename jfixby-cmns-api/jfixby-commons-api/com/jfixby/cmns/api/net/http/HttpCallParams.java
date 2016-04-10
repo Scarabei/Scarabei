@@ -1,7 +1,7 @@
 package com.jfixby.cmns.api.net.http;
 
 
-public interface HttpCallSpecs {
+public interface HttpCallParams {
 
 	void setURL(HttpURL http_url);
 
