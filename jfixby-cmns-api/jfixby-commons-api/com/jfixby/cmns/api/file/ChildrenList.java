@@ -7,12 +7,9 @@ public interface ChildrenList extends Collection<File> {
 
 	File findChild (String short_child_name);
 
-	// File getChild(int i);
-
-	void print ();
-
-	ChildrenList filterFile (FileFilter filter);
+	ChildrenList filterFiles (FileFilter filter);
 
 	ChildrenList filterByExtension (String extension);
 
+	void print ();
 }

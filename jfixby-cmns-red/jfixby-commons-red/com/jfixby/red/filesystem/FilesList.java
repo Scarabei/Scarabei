@@ -80,7 +80,7 @@ public class FilesList implements ChildrenList {
 	}
 
 	@Override
-	public ChildrenList filterFile (FileFilter filter) {
+	public ChildrenList filterFiles (FileFilter filter) {
 		final FilesList result = new FilesList();
 		for (int i = 0; i < this.size(); i++) {
 			final File child = this.getElementAt(i);
@@ -154,7 +154,7 @@ public class FilesList implements ChildrenList {
 
 	@Override
 	public ChildrenList filterByExtension (final String extention) {
-		return this.filterFile(new FileFilter() {
+		return this.filterFiles(new FileFilter() {
 			@Override
 			public boolean fits (File file) {
 				return file.getName().toLowerCase().endsWith(extention.toLowerCase());

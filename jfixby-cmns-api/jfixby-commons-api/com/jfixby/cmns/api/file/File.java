@@ -1,3 +1,4 @@
+
 package com.jfixby.cmns.api.file;
 
 import java.io.IOException;
@@ -8,73 +9,73 @@ import com.jfixby.cmns.api.util.path.RelativePath;
 
 public interface File {
 
-    AbsolutePath<FileSystem> getAbsoluteFilePath();
+	AbsolutePath<FileSystem> getAbsoluteFilePath ();
 
-    boolean delete();
+	boolean delete ();
 
-    boolean isFolder();
+	boolean isFolder ();
 
-    boolean isFile();
+	boolean isFile ();
 
-    void clearFolder();
+	void clearFolder ();
 
-    public FileHash calculateHash() throws IOException;
+	public FileHash calculateHash () throws IOException;
 
-    ChildrenList listChildren();
+	ChildrenList listChildren ();
 
-    File child(String child_name);
+	File child (String child_name);
 
-    boolean exists();
+	boolean exists ();
 
-    boolean makeFolder();
+	boolean makeFolder ();
 
-    /*
-     * Example: .extensionIs(".java");
-     */
-    public boolean extensionIs(String postfix);
+	/*
+	 * Examples: .extensionIs("java"); .extensionIs("txt"); .extensionIs("jar");
+	 */
+	public boolean extensionIs (String postfix);
 
-    boolean rename(String new_name);
+	boolean rename (String new_name);
 
-    String getName();
+	String getName ();
 
-    FileSystem getFileSystem();
+	FileSystem getFileSystem ();
 
-    String nameWithoutExtension();
+	String nameWithoutExtension ();
 
-    FileInputStream newInputStream() throws IOException;
+	FileInputStream newInputStream () throws IOException;
 
-    FileOutputStream newOutputStream() throws IOException;
+	FileOutputStream newOutputStream () throws IOException;
 
-    String readToString() throws IOException;
+	String readToString () throws IOException;
 
-    ByteArray readBytes() throws IOException;
+	ByteArray readBytes () throws IOException;
 
-    void writeBytes(ByteArray bytes) throws IOException;
+	void writeBytes (ByteArray bytes) throws IOException;
 
-    void writeBytes(byte[] bytes) throws IOException;
+	void writeBytes (byte[] bytes) throws IOException;
 
-    long getSize();
+	long getSize ();
 
-    java.io.File toJavaFile();
+	java.io.File toJavaFile ();
 
-    File parent();
+	File parent ();
 
-    void writeString(String data) throws IOException;
+	void writeString (String data) throws IOException;
 
-    long lastModified();
+	long lastModified ();
 
-    void checkIsFolder();
+	void checkIsFolder ();
 
-    void checkExists();
+	void checkExists ();
 
-    void checkIsFile();
+	void checkIsFile ();
 
-    File proceed(RelativePath relative);
+	File proceed (RelativePath relative);
 
-    ChildrenList listSubFolders();
+	ChildrenList listSubFolders ();
 
-    void writeData(Object object) throws IOException;
+	void writeData (Object object) throws IOException;
 
-    <T> T readData(Class<T> type) throws IOException;
+	<T> T readData (Class<T> type) throws IOException;
 
 }
