@@ -80,7 +80,7 @@ public class Collections {
 		return invoke().newPool(spawner);
 	}
 
-	public static <T> void scanCollection (Collection<? extends T> collection, CollectionScanner<? super T> scanner) {
+	public static <T> void scanCollection (Collection<? extends T> collection, CollectionScanner<T> scanner) {
 		invoke().scanCollection(collection, scanner);
 	}
 

@@ -33,10 +33,9 @@ public interface CollectionsComponent {
 
 	public <T> Pool<T> newPool (PoolElementsSpawner<T> spawner);
 
-	public <T> void scanCollection (Collection<? extends T> collection, CollectionScanner<? super T> scanner);
+	public <T> void scanCollection (Collection<? extends T> collection, CollectionScanner<T> scanner);
 
-	public <A, B> void convertCollection (Collection<? extends A> input, EditableCollection<? super B> output,
-		CollectionConverter<A, B> converter);
+	public <A, B> void convertCollection (Collection<A> input, EditableCollection<B> output, CollectionConverter<A, B> converter);
 
 	boolean equalLists (List<?> a, List<?> b);
 

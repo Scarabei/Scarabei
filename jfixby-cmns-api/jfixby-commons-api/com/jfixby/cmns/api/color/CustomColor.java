@@ -1,20 +1,23 @@
+
 package com.jfixby.cmns.api.color;
 
 public interface CustomColor extends Color {
 
-	CustomColor setValue(Color other);
+	CustomColor setValue (Color other);
 
-	CustomColor setAlpha(float alpha);
+	CustomColor setAlpha (float alpha);
 
-	CustomColor setRed(float red);
+	CustomColor setRed (float red);
 
-	CustomColor setGreen(float green);
+	CustomColor setGreen (float green);
 
-	CustomColor setBlue(float blue);
+	CustomColor setBlue (float blue);
 
-	CustomColor setARGB(int argb);
+	CustomColor setARGB (int argb);
 
-	Color mutliply(float f);
+	Color mutliply (float f);
+
+	
 
 
 

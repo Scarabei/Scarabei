@@ -119,11 +119,22 @@ public abstract class RedCollections implements CollectionsComponent {
 	}
 
 	@Override
-	public <T> void scanCollection (Collection<? extends T> collection, CollectionScanner<? super T> scanner) {
+	public <T> void scanCollection (Collection<? extends T> collection, CollectionScanner<T> scanner) {
 		for (int i = 0; i < collection.size(); i++) {
 			T element = collection.getElementAt(i);
-			scanner.scanElement(element, i, collection);
+			scanner.scanElement(element, i);
 		}
+	}
+
+	@Override
+	public <T> List<T> filter (Collection<? extends T> source, CollectionFilter<? super T> filter) {
+		List<T> result = Collections.newList();
+		for (T t : source) {
+			if (filter.fits(t)) {
+				result.add(t);
+			}
+		}
+		return result;
 	}
 
 	@Override
@@ -223,22 +234,11 @@ public abstract class RedCollections implements CollectionsComponent {
 	}
 
 	@Override
-	public <T> List<T> filter (Collection<? extends T> source, CollectionFilter<? super T> filter) {
-		List<T> result = Collections.newList();
-		for (T t : source) {
-			if (filter.fits(t)) {
-				result.add(t);
-			}
-		}
-		return result;
-	}
-
-	@Override
-	public <A, B> void convertCollection (final Collection<? extends A> input, final EditableCollection<? super B> output,
+	public <A, B> void convertCollection (final Collection<A> input, final EditableCollection<B> output,
 		final CollectionConverter<A, B> converter) {
 		CollectionScanner<A> scanner = new CollectionScanner<A>() {
 			@Override
-			public void scanElement (A element, int index, Collection<? extends A> collection) {
+			public void scanElement (A element, int index) {
 				B converted = converter.convert(element);
 				output.add(converted);
 			}
