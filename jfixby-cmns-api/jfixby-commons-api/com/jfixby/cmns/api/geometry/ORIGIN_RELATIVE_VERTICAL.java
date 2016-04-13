@@ -1,3 +1,4 @@
+
 package com.jfixby.cmns.api.geometry;
 
 public enum ORIGIN_RELATIVE_VERTICAL {
@@ -6,7 +7,7 @@ public enum ORIGIN_RELATIVE_VERTICAL {
 
 	public double relative_value;
 
-	ORIGIN_RELATIVE_VERTICAL(double relative) {
+	ORIGIN_RELATIVE_VERTICAL (double relative) {
 		this.relative_value = relative;
 	}
 

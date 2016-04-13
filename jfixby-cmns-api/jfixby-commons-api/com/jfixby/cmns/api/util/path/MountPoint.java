@@ -1,3 +1,4 @@
+
 package com.jfixby.cmns.api.util.path;
 
 public interface MountPoint {

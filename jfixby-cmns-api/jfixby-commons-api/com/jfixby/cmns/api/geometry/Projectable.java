@@ -1,46 +1,46 @@
+
 package com.jfixby.cmns.api.geometry;
 
 import com.jfixby.cmns.api.math.Angle;
 
 public interface Projectable extends GeometryFigure {
-	double getWidth();
+	double getWidth ();
 
-	double getHeight();
+	double getHeight ();
 
-	void setOrigin(ORIGIN_RELATIVE_HORIZONTAL orX, ORIGIN_RELATIVE_VERTICAL orY);
+	void setOrigin (ORIGIN_RELATIVE_HORIZONTAL orX, ORIGIN_RELATIVE_VERTICAL orY);
 
-	void setOriginX(ORIGIN_RELATIVE_HORIZONTAL orX);
+	void setOriginX (ORIGIN_RELATIVE_HORIZONTAL orX);
 
-	void setOriginY(ORIGIN_RELATIVE_VERTICAL orY);
+	void setOriginY (ORIGIN_RELATIVE_VERTICAL orY);
 
-	void setOrigin(double ORIGIN_POSITION_HORIZONTAL,
-			double ORIGIN_POSITION_VERTICAL);
+	void setOrigin (double ORIGIN_POSITION_HORIZONTAL, double ORIGIN_POSITION_VERTICAL);
 
-	void setOriginX(double ORIGIN_POSITION_HORIZONTAL);
+	void setOriginX (double ORIGIN_POSITION_HORIZONTAL);
 
-	void setOriginY(double ORIGIN_POSITION_VERTICAL);
+	void setOriginY (double ORIGIN_POSITION_VERTICAL);
 
-	public Angle getRotation();
+	public Angle getRotation ();
 
-	public double getPositionX();
+	public double getPositionX ();
 
-	public double getPositionY();
+	public double getPositionY ();
 
-	RectangleCorner getTopLeftCorner();
+	RectangleCorner getTopLeftCorner ();
 
-	RectangleCorner getTopRightCorner();
+	RectangleCorner getTopRightCorner ();
 
-	RectangleCorner getBottomLeftCorner();
+	RectangleCorner getBottomLeftCorner ();
 
-	RectangleCorner getBottomRightCorner();
+	RectangleCorner getBottomRightCorner ();
 
-	public void setRotation(Angle rotation);
+	public void setRotation (Angle rotation);
 
-	public void setRotation(double rotation);
+	public void setRotation (double rotation);
 
-	public void setPositionXY(double x, double y);
+	public void setPositionXY (double x, double y);
 
-	public void setPositionX(double x);
+	public void setPositionX (double x);
 
-	public void setPositionY(double y);
+	public void setPositionY (double y);
 }

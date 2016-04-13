@@ -1,13 +1,14 @@
+
 package com.jfixby.cmns.api.net.message;
 
 public interface MQMessageFactorySpecs {
 
-	public String getHost();
+	public String getHost ();
 
-	public void setHost(String host);
+	public void setHost (String host);
 
-	public int getPort();
+	public int getPort ();
 
-	public void setPort(int port);
+	public void setPort (int port);
 
 }

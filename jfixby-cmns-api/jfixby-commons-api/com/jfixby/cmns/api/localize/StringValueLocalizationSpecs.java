@@ -1,17 +1,18 @@
+
 package com.jfixby.cmns.api.localize;
 
 public interface StringValueLocalizationSpecs {
 
-	void setLocaleName(String locale_name);
+	void setLocaleName (String locale_name);
 
-	void setStringValueId(StringValueID value_id);
+	void setStringValueId (StringValueID value_id);
 
-	void setLocalizedValue(String localizedValue);
+	void setLocalizedValue (String localizedValue);
 
-	String getLocaleName();
+	String getLocaleName ();
 
-	StringValueID getStringValueId();
+	StringValueID getStringValueId ();
 
-	String getLocalizedValue();
+	String getLocalizedValue ();
 
 }

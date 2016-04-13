@@ -1,16 +1,16 @@
+
 package com.jfixby.cmns.api.collections;
 
 public interface ZxZ_Functuion<T> {
 
-	T getValueAt(long x, long y);
+	T getValueAt (long x, long y);
 
-	void setValueAt(long x, long y, T value);
+	void setValueAt (long x, long y, T value);
 
-	T removeElementAt(long x, long y);
+	T removeElementAt (long x, long y);
 
-	Collection<T> getAllValues();
+	Collection<T> getAllValues ();
 
-
-	void print(String tag);
+	void print (String tag);
 
 }

@@ -1,19 +1,20 @@
+
 package com.jfixby.cmns.api.image;
 
 import com.jfixby.cmns.api.color.Color;
 
 public interface ArrayColorMapSpecs {
 
-	int getHeight();
+	int getHeight ();
 
-	int getWidth();
+	int getWidth ();
 
-	Color getDefaultColor();
+	Color getDefaultColor ();
 
-	void setDefaultColor(Color default_color);
+	void setDefaultColor (Color default_color);
 
-	void setWidth(int color_function_width);
+	void setWidth (int color_function_width);
 
-	void setHeight(int color_function_height);
+	void setHeight (int color_function_height);
 
 }

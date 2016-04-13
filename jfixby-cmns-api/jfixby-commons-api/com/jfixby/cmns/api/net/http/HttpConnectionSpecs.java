@@ -1,13 +1,14 @@
+
 package com.jfixby.cmns.api.net.http;
 
 public interface HttpConnectionSpecs {
 
-	void setURL(HttpURL url);
+	void setURL (HttpURL url);
 
-	void setUseAgent(boolean b);
+	void setUseAgent (boolean b);
 
-	HttpURL getURL();
+	HttpURL getURL ();
 
-	boolean getUseAgent();
+	boolean getUseAgent ();
 
 }

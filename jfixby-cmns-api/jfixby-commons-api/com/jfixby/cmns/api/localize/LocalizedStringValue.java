@@ -1,9 +1,10 @@
+
 package com.jfixby.cmns.api.localize;
 
 public interface LocalizedStringValue {
 
-	String getLocaleName();
+	String getLocaleName ();
 
-	String getLocalizedStringValue();
+	String getLocalizedStringValue ();
 
 }

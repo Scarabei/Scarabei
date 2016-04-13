@@ -1,15 +1,16 @@
+
 package com.jfixby.cmns.api.floatn;
 
 public interface FixedFloat2 {
 
-	double getX();
+	double getX ();
 
-	double getY();
+	double getY ();
 
-	boolean isInEpsilonDistance(FixedFloat2 other);
+	boolean isInEpsilonDistance (FixedFloat2 other);
 
-	boolean isInEpsilonDistanceOfZero();
+	boolean isInEpsilonDistanceOfZero ();
 
-	public double distanceTo(FixedFloat2 other);
+	public double distanceTo (FixedFloat2 other);
 
 }

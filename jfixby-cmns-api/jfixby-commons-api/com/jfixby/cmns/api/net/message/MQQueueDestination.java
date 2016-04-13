@@ -1,5 +1,6 @@
+
 package com.jfixby.cmns.api.net.message;
 
-public interface MQQueueDestination extends MQDestination{
+public interface MQQueueDestination extends MQDestination {
 
 }

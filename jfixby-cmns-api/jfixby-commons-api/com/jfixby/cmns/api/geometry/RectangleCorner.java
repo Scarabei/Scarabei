@@ -1,5 +1,6 @@
+
 package com.jfixby.cmns.api.geometry;
 
-public interface RectangleCorner extends Vertex{
+public interface RectangleCorner extends Vertex {
 
 }

@@ -1,3 +1,4 @@
+
 package com.jfixby.cmns.api.color;
 
 import com.jfixby.cmns.api.collections.Map;

@@ -1,17 +1,16 @@
+
 package com.jfixby.cmns.api.net.message;
 
 public interface Message {
 
 	// void setHeader(String header) throws MQTransportException;
 
-	void print() throws MQTransportException;
+	void print () throws MQTransportException;
 
-	void setStringProperty(String name, String value)
-			throws MQTransportException;
+	void setStringProperty (String name, String value) throws MQTransportException;
 
-	String getStringProperty(String paremeter_name) throws MQTransportException;
+	String getStringProperty (String paremeter_name) throws MQTransportException;
 
-	 
 	//
 	// String getHeader() throws MQTransportException;
 	//

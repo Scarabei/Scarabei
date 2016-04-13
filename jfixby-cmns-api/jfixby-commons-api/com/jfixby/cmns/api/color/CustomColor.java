@@ -17,8 +17,4 @@ public interface CustomColor extends Color {
 
 	Color mutliply (float f);
 
-	
-
-
-
 }

@@ -1,19 +1,20 @@
+
 package com.jfixby.cmns.api.net.http;
 
 public interface HttpComponent {
 
-	HttpURL newURL(String url_string);
+	HttpURL newURL (String url_string);
 
-	HttpConnection newConnection(HttpURL url);
+	HttpConnection newConnection (HttpURL url);
 
-	HttpConnectionSpecs newConnectionSpecs();
+	HttpConnectionSpecs newConnectionSpecs ();
 
-	HttpConnection newConnection(HttpConnectionSpecs specs);
+	HttpConnection newConnection (HttpConnectionSpecs specs);
 
-	HttpCallParams newCallParams();
+	HttpCallParams newCallParams ();
 
-	HttpCallExecutor newCallExecutor();
+	HttpCallExecutor newCallExecutor ();
 
-	HttpCall newCall(HttpCallParams params);
+	HttpCall newCall (HttpCallParams params);
 
 }

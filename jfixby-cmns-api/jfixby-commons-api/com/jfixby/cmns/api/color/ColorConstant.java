@@ -1,15 +1,16 @@
+
 package com.jfixby.cmns.api.color;
 
 public interface ColorConstant extends Color {
 
-	float alpha();
+	float alpha ();
 
-	float red();
+	float red ();
 
-	float green();
+	float green ();
 
-	float blue();
+	float blue ();
 
-	public String getName();
+	public String getName ();
 
 }

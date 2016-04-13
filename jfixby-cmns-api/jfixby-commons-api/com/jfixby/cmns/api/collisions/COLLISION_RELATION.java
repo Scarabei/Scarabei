@@ -1,3 +1,4 @@
+
 package com.jfixby.cmns.api.collisions;
 
 public enum COLLISION_RELATION {

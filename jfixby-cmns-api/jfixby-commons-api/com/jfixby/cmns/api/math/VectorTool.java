@@ -1,3 +1,4 @@
+
 package com.jfixby.cmns.api.math;
 
 public abstract class VectorTool {
@@ -7,8 +8,8 @@ public abstract class VectorTool {
 	public double X;
 	public double Y;
 
-	public abstract void ARtoXY();
+	public abstract void ARtoXY ();
 
-	public abstract void XYtoAR();
+	public abstract void XYtoAR ();
 
 }

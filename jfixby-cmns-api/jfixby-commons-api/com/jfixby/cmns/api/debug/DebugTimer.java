@@ -1,17 +1,18 @@
+
 package com.jfixby.cmns.api.debug;
 
 public interface DebugTimer {
 
-    void reset();
+	void reset ();
 
-    double getTime();// in seconds
+	double getTime ();// in seconds
 
-    void printTime(String tag);
+	void printTime (String tag);
 
-    void printTimeAbove(double threshold_in_seconds, String tag);
+	void printTimeAbove (double threshold_in_seconds, String tag);
 
-    void printTimeAbove(long threshold_in_milliseconds, String tag);
+	void printTimeAbove (long threshold_in_milliseconds, String tag);
 
-    DEBUG_TIMER_MODE getMode();
+	DEBUG_TIMER_MODE getMode ();
 
 }

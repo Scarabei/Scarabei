@@ -1,11 +1,12 @@
+
 package com.jfixby.cmns.api.floatn;
 
-public interface FixedFloat3  {
+public interface FixedFloat3 {
 
-	double getX();
+	double getX ();
 
-	double getY();
+	double getY ();
 
-	double getZ();
+	double getZ ();
 
 }

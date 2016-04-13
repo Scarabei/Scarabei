@@ -1,19 +1,20 @@
+
 package com.jfixby.cmns.api.net.message;
 
 public interface MQSession {
 
-	MQQueueDestination createQueue(String name);
+	MQQueueDestination createQueue (String name);
 
-	MQTopicDestination createTopic(String name);
+	MQTopicDestination createTopic (String name);
 
-	MQMessageConsumerSpecs newMessageConsumerSpecs();
+	MQMessageConsumerSpecs newMessageConsumerSpecs ();
 
-	MQMessageConsumer newMessageConsumer(MQMessageConsumerSpecs receiver_specs) throws MQTransportException;
+	MQMessageConsumer newMessageConsumer (MQMessageConsumerSpecs receiver_specs) throws MQTransportException;
 
-	MQMessageProducerSpecs newMessageProducerSpecs();
+	MQMessageProducerSpecs newMessageProducerSpecs ();
 
-	MQMessageProducer newMessageProducer(MQMessageProducerSpecs sender_specs) throws MQTransportException;
+	MQMessageProducer newMessageProducer (MQMessageProducerSpecs sender_specs) throws MQTransportException;
 
-	Message newMessage() throws MQTransportException;
+	Message newMessage () throws MQTransportException;
 
 }

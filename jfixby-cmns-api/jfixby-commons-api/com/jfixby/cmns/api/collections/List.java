@@ -7,6 +7,4 @@ public interface List<T> extends EditableCollection<T> {
 
 	public T setElementAt (T element, int iindex);
 
-	
-
 }

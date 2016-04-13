@@ -1,3 +1,4 @@
+
 package com.jfixby.cmns.api.geometry;
 
 import com.jfixby.cmns.api.collections.Collection;
@@ -7,82 +8,82 @@ import com.jfixby.cmns.api.math.Angle;
 
 public interface Rectangle extends GeometryFigure {
 
-	double getWidth();
+	double getWidth ();
 
-	double getHeight();
+	double getHeight ();
 
-	void setSize(double width, double height);
+	void setSize (double width, double height);
 
-	void setWidth(double width);
+	void setWidth (double width);
 
-	void setHeight(double height);
+	void setHeight (double height);
 
-	void setOriginAbsolute(double origin_x, double origin_y);
+	void setOriginAbsolute (double origin_x, double origin_y);
 
-	void setOriginAbsoluteX(double origin_x);
+	void setOriginAbsoluteX (double origin_x);
 
-	void setOriginAbsoluteY(double origin_y);
+	void setOriginAbsoluteY (double origin_y);
 
-	void setOriginRelative(ORIGIN_RELATIVE_HORIZONTAL orX, ORIGIN_RELATIVE_VERTICAL orY);
+	void setOriginRelative (ORIGIN_RELATIVE_HORIZONTAL orX, ORIGIN_RELATIVE_VERTICAL orY);
 
-	void setOriginRelativeX(ORIGIN_RELATIVE_HORIZONTAL orX);
+	void setOriginRelativeX (ORIGIN_RELATIVE_HORIZONTAL orX);
 
-	void setOriginRelativeY(ORIGIN_RELATIVE_VERTICAL orY);
+	void setOriginRelativeY (ORIGIN_RELATIVE_VERTICAL orY);
 
-	void setOriginRelative(double ORIGIN_POSITION_HORIZONTAL, double ORIGIN_POSITION_VERTICAL);
+	void setOriginRelative (double ORIGIN_POSITION_HORIZONTAL, double ORIGIN_POSITION_VERTICAL);
 
-	void setOriginRelativeX(double ORIGIN_POSITION_HORIZONTAL);
+	void setOriginRelativeX (double ORIGIN_POSITION_HORIZONTAL);
 
-	void setOriginRelativeY(double ORIGIN_POSITION_VERTICAL);
+	void setOriginRelativeY (double ORIGIN_POSITION_VERTICAL);
 
-	public Angle getRotation();
+	public Angle getRotation ();
 
-	public void setRotation(Angle rotation);
+	public void setRotation (Angle rotation);
 
-	public void setRotation(double rotation);
+	public void setRotation (double rotation);
 
-	public void setPosition(double x, double y);
+	public void setPosition (double x, double y);
 
-	public void setPositionX(double x);
+	public void setPositionX (double x);
 
-	public void setPositionY(double y);
+	public void setPositionY (double y);
 
-	public double getPositionX();
+	public double getPositionX ();
 
-	public double getPositionY();
+	public double getPositionY ();
 
-	public Rectangle setup(Rectangle other);
+	public Rectangle setup (Rectangle other);
 
-	RectangleCorner getTopLeftCorner();
+	RectangleCorner getTopLeftCorner ();
 
-	RectangleCorner getTopRightCorner();
+	RectangleCorner getTopRightCorner ();
 
-	RectangleCorner getBottomLeftCorner();
+	RectangleCorner getBottomLeftCorner ();
 
-	RectangleCorner getBottomRightCorner();
+	RectangleCorner getBottomRightCorner ();
 
-	CanvasPosition getPosition();
+	CanvasPosition getPosition ();
 
-	void setCanvasPosition(CanvasPosition position);
+	void setCanvasPosition (CanvasPosition position);
 
-	void setPositionXY(FixedFloat2 position);
+	void setPositionXY (FixedFloat2 position);
 
-	boolean containsPoint(double canvas_x, double canvas_y);
+	boolean containsPoint (double canvas_x, double canvas_y);
 
-	boolean containsPoint(FixedFloat2 canvas_point);
+	boolean containsPoint (FixedFloat2 canvas_point);
 
-	public double getOriginRelativeX();
+	public double getOriginRelativeX ();
 
-	public double getOriginRelativeY();
+	public double getOriginRelativeY ();
 
-	void toRelative(Float2 temp_point);
+	void toRelative (Float2 temp_point);
 
-	void toAbsolute(Float2 temp_point);
+	void toAbsolute (Float2 temp_point);
 
-	void setOriginAbsolute(FixedFloat2 tmp);
+	void setOriginAbsolute (FixedFloat2 tmp);
 
-	Collection<FixedFloat2> listVertices();
+	Collection<FixedFloat2> listVertices ();
 
-	void reScale(double scaleX, double scaleY);
+	void reScale (double scaleX, double scaleY);
 
 }

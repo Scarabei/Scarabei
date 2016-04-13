@@ -1,29 +1,30 @@
+
 package com.jfixby.cmns.api.util.path;
 
 import com.jfixby.cmns.api.collections.List;
 
 public interface RelativePath {
 
-	String getPathString();
+	String getPathString ();
 
 	// String getNativePathString();
 
 	public static final String SEPARATOR = "/";
 
-	RelativePath parent();
+	RelativePath parent ();
 
-	public boolean isRoot();
+	public boolean isRoot ();
 
-	RelativePath child(String name);
+	RelativePath child (String name);
 
-	public List<String> steps();
+	public List<String> steps ();
 
-	String getLastStep();
+	String getLastStep ();
 
-	boolean beginsWith(RelativePath other);
+	boolean beginsWith (RelativePath other);
 
-	RelativePath proceed(RelativePath value);
+	RelativePath proceed (RelativePath value);
 
-	int size();
+	int size ();
 
 }

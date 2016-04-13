@@ -1,11 +1,10 @@
+
 package com.jfixby.cmns.api.input;
-
-
 
 public interface KeysList {
 
-	int size();
+	int size ();
 
-	Key get(int i);
+	Key get (int i);
 
 }

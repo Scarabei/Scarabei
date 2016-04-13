@@ -1,13 +1,14 @@
+
 package com.jfixby.cmns.api.taskman;
 
 public interface Task {
 
-	boolean isActive();
+	boolean isActive ();
 
-	boolean isFailed();
+	boolean isFailed ();
 
-	boolean isSuccessfullyCompleted();
+	boolean isSuccessfullyCompleted ();
 
-	TASK_STATE getState();
+	TASK_STATE getState ();
 
 }

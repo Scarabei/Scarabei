@@ -1,11 +1,12 @@
+
 package com.jfixby.cmns.api.io;
 
 public interface Data {
 
-	char toChar();
+	char toChar ();
 
-	boolean isEndOfStream();
+	boolean isEndOfStream ();
 
-	boolean isEndOfLine();
+	boolean isEndOfLine ();
 
 }

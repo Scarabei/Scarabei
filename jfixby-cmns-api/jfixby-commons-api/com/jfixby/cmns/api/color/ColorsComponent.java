@@ -1,3 +1,4 @@
+
 package com.jfixby.cmns.api.color;
 
 import com.jfixby.cmns.api.image.ColorMap;
@@ -5,70 +6,70 @@ import com.jfixby.cmns.api.image.GrayMap;
 
 public interface ColorsComponent {
 
-    ColorConstant BLACK();
+	ColorConstant BLACK ();
 
-    ColorConstant RED();
+	ColorConstant RED ();
 
-    ColorConstant BLUE();
+	ColorConstant BLUE ();
 
-    ColorConstant GREEN();
+	ColorConstant GREEN ();
 
-    ColorConstant YELLOW();
+	ColorConstant YELLOW ();
 
-    ColorConstant BROWN();
+	ColorConstant BROWN ();
 
-    ColorConstant GRAY();
+	ColorConstant GRAY ();
 
-    ColorConstant WHITE();
+	ColorConstant WHITE ();
 
-    ColorConstant PURPLE();
+	ColorConstant PURPLE ();
 
-    ColorConstant NO();
+	ColorConstant NO ();
 
-    CustomColor newColor(float a, float r, float g, float b);
+	CustomColor newColor (float a, float r, float g, float b);
 
-    CustomColor newColor();
+	CustomColor newColor ();
 
-    CustomColor newRandomColor();
+	CustomColor newRandomColor ();
 
-    CustomColor newRandomColor(float alpha);
+	CustomColor newRandomColor (float alpha);
 
-    CustomColor newColor(float r, float g, float b);
+	CustomColor newColor (float r, float g, float b);
 
-    CustomColor newColor(int argb);
+	CustomColor newColor (int argb);
 
-    ColorConstant DARK_GRAY();
+	ColorConstant DARK_GRAY ();
 
-    ColorConstant LIGHT_GRAY();
+	ColorConstant LIGHT_GRAY ();
 
-    ColorSet newColorSet();
+	ColorSet newColorSet ();
 
-    float limit(float f);
+	float limit (float f);
 
-    ColorConstant ORANGE();
+	ColorConstant ORANGE ();
 
-    <T> ColorMapping<T> newColorMapping();
+	<T> ColorMapping<T> newColorMapping ();
 
-    CustomColor newGray(float gray);
+	CustomColor newGray (float gray);
 
-    ColorRandomiser newColorRandomizer(long seed);
+	ColorRandomiser newColorRandomizer (long seed);
 
-    Color FUCHSIA();
+	Color FUCHSIA ();
 
-    Color newColor(String hexstring);
+	Color newColor (String hexstring);
 
-    GraySet newGraySet();
+	GraySet newGraySet ();
 
-    GraySet newGraySet(float... array);
+	GraySet newGraySet (float... array);
 
-    GraySet newUniformGraySet(int depth);
+	GraySet newUniformGraySet (int depth);
 
-    ColorSet newColorsSet(ColorMap image);
+	ColorSet newColorsSet (ColorMap image);
 
-    ColorDistance distanceRGB();
+	ColorDistance distanceRGB ();
 
-    CachedColorProjector colorProjectorCache(ColorProjector input);
+	CachedColorProjector colorProjectorCache (ColorProjector input);
 
-    GraySet newGraySet(GrayMap image);
+	GraySet newGraySet (GrayMap image);
 
 }

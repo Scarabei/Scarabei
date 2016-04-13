@@ -1,17 +1,18 @@
+
 package com.jfixby.cmns.api.math;
 
 public interface Angle {
 
-	double toRadians();
+	double toRadians ();
 
-	double toDegrees();
+	double toDegrees ();
 
-	double getMagnitude();
+	double getMagnitude ();
 
-	public int getSignum();
+	public int getSignum ();
 
-	public Angle freeze();
+	public Angle freeze ();
 
-	public CustomAngle newAngle();
+	public CustomAngle newAngle ();
 
 }

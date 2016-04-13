@@ -1,3 +1,4 @@
+
 package com.jfixby.cmns.api.net.http;
 
 import java.io.IOException;
@@ -5,8 +6,8 @@ import java.io.UnsupportedEncodingException;
 
 public interface HttpCallProgress {
 
-    public String readResultAsString(String encoding_string) throws UnsupportedEncodingException;
+	public String readResultAsString (String encoding_string) throws UnsupportedEncodingException;
 
-    public Object readObject() throws IOException, ClassNotFoundException;
+	public Object readObject () throws IOException, ClassNotFoundException;
 
 }

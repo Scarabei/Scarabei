@@ -1,21 +1,22 @@
+
 package com.jfixby.cmns.api.color;
 
 public interface GraySet {
 
-    float findClosest(float valueAt);
+	float findClosest (float valueAt);
 
-    GraySet addAll(float... array);
+	GraySet addAll (float... array);
 
-    GraySet add(float value);
+	GraySet add (float value);
 
-    void print(String string);
+	void print (String string);
 
-    void sort();
+	void sort ();
 
-    int size();
+	int size ();
 
-    float getValue(int index);
+	float getValue (int index);
 
-    int indexOf(float exactValue);
+	int indexOf (float exactValue);
 
 }

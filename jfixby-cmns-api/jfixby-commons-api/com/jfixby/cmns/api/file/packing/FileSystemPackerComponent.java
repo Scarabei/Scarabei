@@ -1,17 +1,18 @@
+
 package com.jfixby.cmns.api.file.packing;
 
 import java.io.IOException;
 
 public interface FileSystemPackerComponent {
 
-	FileSystemUnpackingSpecs newUnpackingSpecs();
+	FileSystemUnpackingSpecs newUnpackingSpecs ();
 
-	PackedFileSystem unpack(FileSystemUnpackingSpecs unpacking_spec) throws IOException;
+	PackedFileSystem unpack (FileSystemUnpackingSpecs unpacking_spec) throws IOException;
 
-	FileSystemPackingSpecs newPackingSpecs();
+	FileSystemPackingSpecs newPackingSpecs ();
 
-	void pack(FileSystemPackingSpecs packing_spec) throws IOException;
+	void pack (FileSystemPackingSpecs packing_spec) throws IOException;
 
-	void installCompressionMethod(CompressionMethod schema);
+	void installCompressionMethod (CompressionMethod schema);
 
 }

@@ -1,14 +1,15 @@
+
 package com.jfixby.cmns.api.util;
 
 public interface BinaryCode {
 
-    public static final boolean ZERO = false;
-    public static final boolean ONE = !ZERO;
+	public static final boolean ZERO = false;
+	public static final boolean ONE = !ZERO;
 
-    int size();
+	int size ();
 
-    boolean getBit(int i);
+	boolean getBit (int i);
 
-    EditableBinaryCode copy();
+	EditableBinaryCode copy ();
 
 }

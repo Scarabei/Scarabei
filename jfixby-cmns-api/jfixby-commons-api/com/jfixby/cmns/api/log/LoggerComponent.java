@@ -1,21 +1,22 @@
+
 package com.jfixby.cmns.api.log;
 
 public interface LoggerComponent {
 
-	void d(Object msg);
+	void d (Object msg);
 
-	void d(String tag, Object msg);
+	void d (String tag, Object msg);
 
-	void e(Object msg);
+	void e (Object msg);
 
-	void e(String tag, Object msg);
+	void e (String tag, Object msg);
 
-	void d();
+	void d ();
 
-	void e();
+	void e ();
 
-	void d_addChars(Object msg);
+	void d_addChars (Object msg);
 
-	public String toString(Object[] array);
+	public String toString (Object[] array);
 
 }

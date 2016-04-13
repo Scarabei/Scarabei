@@ -1,11 +1,12 @@
+
 package com.jfixby.cmns.api.java;
 
 public interface ByteArray {
 
-    byte[] toArray();
+	byte[] toArray ();
 
-    long size();
+	long size ();
 
-    int getByte(int i);
+	int getByte (int i);
 
 }

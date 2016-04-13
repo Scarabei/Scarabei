@@ -1,21 +1,20 @@
-package com.jfixby.cmns.api.localize;
 
+package com.jfixby.cmns.api.localize;
 
 public interface StringValuesContainer {
 
-	StringValueID getIdByValue(String ui_string_value);
+	StringValueID getIdByValue (String ui_string_value);
 
-	StringValueLocalizations getLocalizationsFor(StringValueID string_value_id);
+	StringValueLocalizations getLocalizationsFor (StringValueID string_value_id);
 
-	StringValueLocalizationSpecs newLocalizationSpecs();
+	StringValueLocalizationSpecs newLocalizationSpecs ();
 
-	StringValueID spawnNewStringValueID(String string_value_id_string);
+	StringValueID spawnNewStringValueID (String string_value_id_string);
 
-	LocalizedStringValue newLocalizationEntry(StringValueLocalizationSpecs specs);
+	LocalizedStringValue newLocalizationEntry (StringValueLocalizationSpecs specs);
 
-	LocalizedStringValue getLocalizationFor(String locale_name,
-			StringValueID string_value_id);
+	LocalizedStringValue getLocalizationFor (String locale_name, StringValueID string_value_id);
 
-	LocalizedStringValuesList listAllValues();
+	LocalizedStringValuesList listAllValues ();
 
 }

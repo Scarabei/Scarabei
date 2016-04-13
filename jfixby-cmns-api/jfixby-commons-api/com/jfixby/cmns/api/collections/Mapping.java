@@ -1,27 +1,28 @@
+
 package com.jfixby.cmns.api.collections;
 
 import java.util.Iterator;
 
 public interface Mapping<K, V> {
 
-	boolean containsKey(Object key);
+	boolean containsKey (Object key);
 
-	V get(Object key);
+	V get (Object key);
 
-	void print(String tag);
+	void print (String tag);
 
-	int size();
+	int size ();
 
-	K getKeyAt(long i);
+	K getKeyAt (long i);
 
-	V getValueAt(long i);
+	V getValueAt (long i);
 
-	Iterator<K> keysIterator();
+	Iterator<K> keysIterator ();
 
-	Collection<V> values();
+	Collection<V> values ();
 
-	Collection<K> keys();
-	
-	java.util.Map<K, V> toJavaMap();
+	Collection<K> keys ();
+
+	java.util.Map<K, V> toJavaMap ();
 
 }

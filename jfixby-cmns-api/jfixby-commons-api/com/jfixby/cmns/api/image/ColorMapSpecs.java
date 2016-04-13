@@ -1,37 +1,38 @@
+
 package com.jfixby.cmns.api.image;
 
 public interface ColorMapSpecs {
 
-    void setLambdaColoredImage(ColoredλImage base);
+	void setLambdaColoredImage (ColoredλImage base);
 
-    void setColorMapWidth(int w);
+	void setColorMapWidth (int w);
 
-    void setColorMapHeight(int h);
+	void setColorMapHeight (int h);
 
-    void setColorMapDimentions(int w, int h);
+	void setColorMapDimentions (int w, int h);
 
-    // ------------
+	// ------------
 
-    public int getColorMapWidth();
+	public int getColorMapWidth ();
 
-    public int getColorMapHeight();
+	public int getColorMapHeight ();
 
-    ColoredλImage getLambdaColoredImage();
+	ColoredλImage getLambdaColoredImage ();
 
-    void setRed(GrayλImage alpha);
+	void setRed (GrayλImage alpha);
 
-    void setGreen(GrayλImage alpha);
+	void setGreen (GrayλImage alpha);
 
-    void setBlue(GrayλImage alpha);
+	void setBlue (GrayλImage alpha);
 
-    void setAlpha(GrayλImage alpha);
+	void setAlpha (GrayλImage alpha);
 
-    GrayλImage getGreen();
+	GrayλImage getGreen ();
 
-    GrayλImage getRed();
+	GrayλImage getRed ();
 
-    GrayλImage getBlue();
+	GrayλImage getBlue ();
 
-    GrayλImage getAlpha();
+	GrayλImage getAlpha ();
 
 }

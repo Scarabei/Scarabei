@@ -1,22 +1,22 @@
-package com.jfixby.cmns.api.net.http;
 
+package com.jfixby.cmns.api.net.http;
 
 public interface HttpCallParams {
 
-	void setURL(HttpURL http_url);
+	void setURL (HttpURL http_url);
 
-	void setUseAgent(boolean b);
+	void setUseAgent (boolean b);
 
-	void setMethod(METHOD get);
+	void setMethod (METHOD get);
 
-	public void setUseSSL(boolean use_ssl);
+	public void setUseSSL (boolean use_ssl);
 
-	public boolean getUseSSL();
+	public boolean getUseSSL ();
 
-	HttpURL getURL();
+	HttpURL getURL ();
 
-	boolean getUseAgent();
+	boolean getUseAgent ();
 
-	METHOD getMethod();
+	METHOD getMethod ();
 
 }

@@ -1,3 +1,4 @@
+
 package com.jfixby.cmns.api.io;
 
 public interface U_StreamPipeProgressListener {
@@ -5,22 +6,22 @@ public interface U_StreamPipeProgressListener {
 	U_StreamPipeProgressListener NULL = new U_StreamPipeProgressListener() {
 
 		@Override
-		public void begin(int available) {
+		public void begin (int available) {
 		}
 
 		@Override
-		public void update(int available) {
+		public void update (int available) {
 		}
 
 		@Override
-		public void end() {
+		public void end () {
 		}
 	};
 
-	void begin(int total);
+	void begin (int total);
 
-	void update(int progress);
+	void update (int progress);
 
-	void end();
+	void end ();
 
 }

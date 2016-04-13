@@ -1,27 +1,28 @@
+
 package com.jfixby.cmns.api.collections;
 
 public interface Histogramm<T> extends Collection<T> {
 
-    void add(T value);
+	void add (T value);
 
-    long getNumberOf(T value);
+	long getNumberOf (T value);
 
-    long getMax();
+	long getMax ();
 
-    void print(String tag);
+	void print (String tag);
 
-    void sortValues();
+	void sortValues ();
 
-    void addIf(T value, boolean condition);
+	void addIf (T value, boolean condition);
 
-    long getNumberAt(long index);
+	long getNumberAt (long index);
 
-    int size();
+	int size ();
 
-    T getValueAt(long index);
+	T getValueAt (long index);
 
-    void sortNumbers();
+	void sortNumbers ();
 
-    void cutToSize(int index_max_size);
+	void cutToSize (int index_max_size);
 
 }

@@ -1,13 +1,14 @@
+
 package com.jfixby.cmns.api.net.http;
 
 public interface HttpCall {
 
-	void addRequestHeader(String parameter_name, Object value);
+	void addRequestHeader (String parameter_name, Object value);
 
-	HttpURL getUrl();
+	HttpURL getUrl ();
 
-	boolean getUseSSL();
-	
-	boolean getUseAgent();
+	boolean getUseSSL ();
+
+	boolean getUseAgent ();
 
 }

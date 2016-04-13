@@ -1,10 +1,11 @@
+
 package com.jfixby.cmns.api.image;
 
 public interface GrayMap extends GrayλImage {
 
-    int getWidth();
+	int getWidth ();
 
-    int getHeight();
+	int getHeight ();
 
-    GrayλImage getLambdaImage();
+	GrayλImage getLambdaImage ();
 }

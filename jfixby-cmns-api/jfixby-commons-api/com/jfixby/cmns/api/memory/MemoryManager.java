@@ -1,28 +1,29 @@
+
 package com.jfixby.cmns.api.memory;
 
 import com.jfixby.cmns.api.ComponentInstaller;
 
 public class MemoryManager {
 	static private ComponentInstaller<MemoryManagerComponent> componentInstaller = new ComponentInstaller<MemoryManagerComponent>(
-			"MemoryManager");
+		"MemoryManager");
 
-	public static final void installComponent(MemoryManagerComponent component_to_install) {
+	public static final void installComponent (MemoryManagerComponent component_to_install) {
 		componentInstaller.installComponent(component_to_install);
 	}
 
-	public static final MemoryManagerComponent invoke() {
+	public static final MemoryManagerComponent invoke () {
 		return componentInstaller.invokeComponent();
 	}
 
-	public static final MemoryManagerComponent component() {
+	public static final MemoryManagerComponent component () {
 		return componentInstaller.getComponent();
 	}
 
-	public static long getMaxHeapSize() {
+	public static long getMaxHeapSize () {
 		return invoke().getMaxHeapSize();
 	}
 
-	public static long getRecommendedHeapSize() {
+	public static long getRecommendedHeapSize () {
 		return invoke().getRecommendedHeapSize();
 	}
 

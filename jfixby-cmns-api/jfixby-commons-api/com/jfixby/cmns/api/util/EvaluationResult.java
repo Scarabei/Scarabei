@@ -1,9 +1,10 @@
+
 package com.jfixby.cmns.api.util;
 
 public interface EvaluationResult {
 
-	boolean isOK();
+	boolean isOK ();
 
-	String getErrorMessage();
+	String getErrorMessage ();
 
 }

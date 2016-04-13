@@ -1,25 +1,26 @@
+
 package com.jfixby.cmns.api.collections;
 
 import java.util.Comparator;
 
 public interface Map<K, V> extends Mapping<K, V> {
 
-    void put(K key, V value);
+	void put (K key, V value);
 
-    void clear();
+	void clear ();
 
-    V remove(Object key);
+	V remove (Object key);
 
-    void putAll(Mapping<? extends K, ? extends V> other_map);
+	void putAll (Mapping<? extends K, ? extends V> other_map);
 
-    void putJavaMap(java.util.Map<? extends K, ? extends V> java_map);
+	void putJavaMap (java.util.Map<? extends K, ? extends V> java_map);
 
-    void removeAll(Collection<?> keys);
+	void removeAll (Collection<?> keys);
 
-    void sortKeys();
+	void sortKeys ();
 
-    void sortKeys(Comparator<? super K> keysComparator);
+	void sortKeys (Comparator<? super K> keysComparator);
 
-    EditableCollection<K> cutToSize(int max_size);
+	EditableCollection<K> cutToSize (int max_size);
 
 }

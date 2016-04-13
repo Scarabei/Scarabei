@@ -1,5 +1,5 @@
-package com.jfixby.cmns.api.localize;
 
+package com.jfixby.cmns.api.localize;
 
 public interface LocalizationComponent {
 
@@ -13,8 +13,8 @@ public interface LocalizationComponent {
 	// Locale readFromFile(AbsolutePath<FileSystemMountPoint> cfg_file_path)
 	// throws IOException;
 
-	StringValuesContainer getStringValuesContainer();
+	StringValuesContainer getStringValuesContainer ();
 
-	Locale getLocale(String locale_name);
+	Locale getLocale (String locale_name);
 
 }

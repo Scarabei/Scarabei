@@ -1,9 +1,10 @@
+
 package com.jfixby.cmns.api.image;
 
 public interface GrayλImageCache {
-    float get(float x, float y);
+	float get (float x, float y);
 
-    void put(float x, float y, float value);
+	void put (float x, float y, float value);
 
-    void print(String tag);
+	void print (String tag);
 }

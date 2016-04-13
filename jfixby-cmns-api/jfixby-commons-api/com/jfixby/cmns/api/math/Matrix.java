@@ -1,23 +1,24 @@
+
 package com.jfixby.cmns.api.math;
 
 public interface Matrix {
 
-	void print(String string);
+	void print (String string);
 
-	void setValue(int i, int j, double value);
+	void setValue (int i, int j, double value);
 
-	double getValue(int i, int j);
+	double getValue (int i, int j);
 
-	int getWidth();
+	int getWidth ();
 
-	int getHeight();
+	int getHeight ();
 
-	void setValue(Matrix matrix);
+	void setValue (Matrix matrix);
 
-	void resetToIdentityMatrix();
+	void resetToIdentityMatrix ();
 
-	boolean isSquare();
+	boolean isSquare ();
 
-	void resetToZeroMatrix();
+	void resetToZeroMatrix ();
 
 }
