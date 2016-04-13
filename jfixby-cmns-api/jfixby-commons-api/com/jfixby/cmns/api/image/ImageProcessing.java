@@ -12,7 +12,7 @@ public class ImageProcessing {
 	static private ComponentInstaller<ImageProcessingComponent> componentInstaller = new ComponentInstaller<ImageProcessingComponent>(
 		"ImageProcessing");
 
-	public static final void installComponent (ImageProcessingComponent component_to_install) {
+	public static final void installComponent (final ImageProcessingComponent component_to_install) {
 		componentInstaller.installComponent(component_to_install);
 	}
 
@@ -24,7 +24,7 @@ public class ImageProcessing {
 		return componentInstaller.getComponent();
 	}
 
-	public static ArrayColorMap newArrayColorMap (ArrayColorMapSpecs color_function_specs) {
+	public static ArrayColorMap newArrayColorMap (final ArrayColorMapSpecs color_function_specs) {
 		return invoke().newArrayColorMap(color_function_specs);
 	}
 
@@ -36,35 +36,35 @@ public class ImageProcessing {
 		return invoke().newColorMapSpecs();
 	}
 
-	public static ColorMap newColorMap (ColorMapSpecs lambda_specs) {
+	public static ColorMap newColorMap (final ColorMapSpecs lambda_specs) {
 		return invoke().newColorMap(lambda_specs);
 	}
 
-	public static ColorMap newColorMap (ColoredλImage lambda, int width, int height) {
+	public static ColorMap newColorMap (final ColoredλImage lambda, final int width, final int height) {
 		return invoke().newColorMap(lambda, width, height);
 	}
 
-	public static ColoredλImageCache newImageCache (int width, int height) {
+	public static ColoredλImageCache newImageCache (final int width, final int height) {
 		return invoke().newImageCache(width, height);
 	}
 
-	public static GrayλImage scale (GrayλImage base, float scaleX, float scaleY) {
+	public static GrayλImage scale (final GrayλImage base, final float scaleX, final float scaleY) {
 		return invoke().scale(base, scaleX, scaleY);
 	}
 
-	public static ColoredλImage scale (ColoredλImage base, float scaleX, float scaleY) {
+	public static ColoredλImage scale (final ColoredλImage base, final float scaleX, final float scaleY) {
 		return invoke().scale(base, scaleX, scaleY);
 	}
 
-	public static GrayλImage minus (GrayλImage base, GrayλImage diff) {
+	public static GrayλImage minus (final GrayλImage base, final GrayλImage diff) {
 		return invoke().minus(base, diff);
 	}
 
-	public static GrayλImage multiply (GrayλImage image, float mult) {
+	public static GrayλImage multiply (final GrayλImage image, final float mult) {
 		return invoke().multiply(image, mult);
 	}
 
-	public static GrayMap newGrayMap (GrayλImage lambda, int width, int height) {
+	public static GrayMap newGrayMap (final GrayλImage lambda, final int width, final int height) {
 		return invoke().newGrayMap(lambda, width, height);
 	}
 
@@ -72,7 +72,7 @@ public class ImageProcessing {
 		return invoke().newGrayMapSpecs();
 	}
 
-	public static GrayλImage roundArguments (GrayλImage image) {
+	public static GrayλImage roundArguments (final GrayλImage image) {
 		return invoke().roundArguments(image);
 	}
 
@@ -80,15 +80,15 @@ public class ImageProcessing {
 		return invoke().newArrayGrayMapSpecs();
 	}
 
-	public static ArrayGrayMap newArrayGrayMap (ArrayGrayMapSpecs specs) {
+	public static ArrayGrayMap newArrayGrayMap (final ArrayGrayMapSpecs specs) {
 		return invoke().newArrayGrayMap(specs);
 	}
 
-	public static GrayλImage plus (GrayλImage base, GrayλImage add) {
+	public static GrayλImage plus (final GrayλImage base, final GrayλImage add) {
 		return invoke().plus(base, add);
 	}
 
-	public static int roundArgument (float x) {
+	public static int roundArgument (final float x) {
 		return invoke().roundArgument(x);
 	}
 
@@ -104,33 +104,38 @@ public class ImageProcessing {
 		return invoke().newIndexedColorMapSpecs();
 	}
 
-	public static GrayIndexedλImage index (GrayλImage lambdaImage, GraySet palette) {
+	public static GrayIndexedλImage index (final GrayλImage lambdaImage, final GraySet palette) {
 		return invoke().index(lambdaImage, palette);
 	}
 
-	public static ColoredλImage index (ColoredλImage lambdaImage, ColorProjector palette) {
+	public static ColoredλImage index (final ColoredλImage lambdaImage, final ColorProjector palette) {
 		return invoke().index(lambdaImage, palette);
 	}
 
-	public static ColorMap newColorMap (int width, int height, GrayλImage alpha, GrayλImage red, GrayλImage green,
-		GrayλImage blue) {
+	public static ColorMap newColorMap (final int width, final int height, final GrayλImage alpha, final GrayλImage red,
+		final GrayλImage green, final GrayλImage blue) {
 		return invoke().newColorMap(width, height, alpha, red, green, blue);
 	}
 
-	public static ColoredλImage merge (GrayλImage alpha, GrayλImage red, GrayλImage green, GrayλImage blue) {
+	public static ColoredλImage merge (final GrayλImage alpha, final GrayλImage red, final GrayλImage green,
+		final GrayλImage blue) {
 		return invoke().merge(alpha, red, green, blue);
 	}
 
-	public static ColorMap scaleTo (ColorMap lambdaImage, int width, int height) {
+	public static ColorMap scaleTo (final ColorMap lambdaImage, final int width, final int height) {
 		return invoke().scaleTo(lambdaImage, width, height);
 	}
 
-	public static void scanImage (ColorMap image, PixelByPixelAction action) {
+	public static void scanImage (final ColorMap image, final PixelByPixelAction action) {
 		invoke().scanImage(image, action);
 	}
 
-	public static ColorMap removeAlpha (ColorMap original_image) {
+	public static ColorMap removeAlpha (final ColorMap original_image) {
 		return invoke().removeAlpha(original_image);
+	}
+
+	public static ColorMap scale (final ColorMap image, final float scaleFactor) {
+		return invoke().scale(image, scaleFactor);
 	}
 
 }

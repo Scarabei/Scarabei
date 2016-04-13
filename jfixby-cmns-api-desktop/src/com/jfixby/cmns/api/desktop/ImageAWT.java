@@ -62,8 +62,8 @@ public class ImageAWT {
 		return invoke().readAWTColorMap(image_file);
 	}
 
-	public static void writeToFile (final ColorMap image, final File restoredFile, final String file_type) throws IOException {
-		invoke().writeToFile(image, restoredFile, file_type);
+	public static void writeToFile (final ColorMap image, final File outputFile, final String file_type) throws IOException {
+		invoke().writeToFile(image, outputFile, file_type);
 	}
 
 	public static void writeToFile (final GrayMap image, final File restoredFile, final String file_type) throws IOException {

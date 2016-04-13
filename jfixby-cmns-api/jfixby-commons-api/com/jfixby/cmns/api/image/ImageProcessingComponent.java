@@ -1,3 +1,4 @@
+
 package com.jfixby.cmns.api.image;
 
 import com.jfixby.cmns.api.color.ColorProjector;
@@ -5,58 +6,60 @@ import com.jfixby.cmns.api.color.GraySet;
 
 public interface ImageProcessingComponent {
 
-    ArrayColorMapSpecs newArrayColorMapSpecs();
+	ArrayColorMapSpecs newArrayColorMapSpecs ();
 
-    ArrayColorMap newArrayColorMap(ArrayColorMapSpecs color_function_specs);
+	ArrayColorMap newArrayColorMap (ArrayColorMapSpecs color_function_specs);
 
-    ColorMapSpecs newColorMapSpecs();
+	ColorMapSpecs newColorMapSpecs ();
 
-    ColorMap newColorMap(ColorMapSpecs lambda_specs);
+	ColorMap newColorMap (ColorMapSpecs lambda_specs);
 
-    ColoredλImageCache newImageCache(int width, int height);
+	ColoredλImageCache newImageCache (int width, int height);
 
-    ColoredλImage scale(ColoredλImage base, float scaleX, float scaleY);
+	ColoredλImage scale (ColoredλImage base, float scaleX, float scaleY);
 
-    GrayλImage scale(GrayλImage base, float scaleX, float scaleY);
+	GrayλImage scale (GrayλImage base, float scaleX, float scaleY);
 
-    GrayλImage minus(GrayλImage base, GrayλImage diff);
+	GrayλImage minus (GrayλImage base, GrayλImage diff);
 
-    GrayλImage multiply(GrayλImage image, float mult);
+	GrayλImage multiply (GrayλImage image, float mult);
 
-    GrayMap newGrayMap(GrayλImage lambda, int width, int height);
+	GrayMap newGrayMap (GrayλImage lambda, int width, int height);
 
-    GrayMapSpecs newGrayMapSpecs();
+	GrayMapSpecs newGrayMapSpecs ();
 
-    GrayλImage roundArguments(GrayλImage image);
+	GrayλImage roundArguments (GrayλImage image);
 
-    ArrayGrayMapSpecs newArrayGrayMapSpecs();
+	ArrayGrayMapSpecs newArrayGrayMapSpecs ();
 
-    ArrayGrayMap newArrayGrayMap(ArrayGrayMapSpecs specs);
+	ArrayGrayMap newArrayGrayMap (ArrayGrayMapSpecs specs);
 
-    GrayλImage plus(GrayλImage base, GrayλImage add);
+	GrayλImage plus (GrayλImage base, GrayλImage add);
 
-    int roundArgument(float x);
+	int roundArgument (float x);
 
-    GrayλImage ONE();
+	GrayλImage ONE ();
 
-    GrayλImage ZERO();
+	GrayλImage ZERO ();
 
-    ColorMap newColorMap(ColoredλImage lambda, int width, int height);
+	ColorMap newColorMap (ColoredλImage lambda, int width, int height);
 
-    IndexedColorMapSpecs newIndexedColorMapSpecs();
+	IndexedColorMapSpecs newIndexedColorMapSpecs ();
 
-    GrayIndexedλImage index(GrayλImage lambdaImage, GraySet palette);
+	GrayIndexedλImage index (GrayλImage lambdaImage, GraySet palette);
 
-    ColoredλImage index(ColoredλImage lambdaImage, ColorProjector palette);
+	ColoredλImage index (ColoredλImage lambdaImage, ColorProjector palette);
 
-    ColorMap newColorMap(int width, int height, GrayλImage alpha, GrayλImage red, GrayλImage green, GrayλImage blue);
+	ColorMap newColorMap (int width, int height, GrayλImage alpha, GrayλImage red, GrayλImage green, GrayλImage blue);
 
-    ColoredλImage merge(GrayλImage alpha, GrayλImage red, GrayλImage green, GrayλImage blue);
+	ColoredλImage merge (GrayλImage alpha, GrayλImage red, GrayλImage green, GrayλImage blue);
 
-    ColorMap scaleTo(ColorMap lambdaImage, int width, int height);
+	ColorMap scaleTo (ColorMap lambdaImage, int width, int height);
 
-    void scanImage(ColorMap image, PixelByPixelAction action);
+	void scanImage (ColorMap image, PixelByPixelAction action);
 
-    ColorMap removeAlpha(ColorMap original_image);
+	ColorMap removeAlpha (ColorMap original_image);
+
+	ColorMap scale (ColorMap image, float scaleFactor);
 
 }

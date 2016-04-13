@@ -11,31 +11,31 @@ public abstract class RedFloatMath implements FloatMathComponent {
 
 	public final int POSSIBLE_NUMBER_OF_SAFE_FLOAT_OPERATIONS = 10000;
 
-	public final double JAVA_FLOAT_PRECISION = power(2, -25);
-	public final double JAVA_DOUBLE_PRECISION = power(2, -53);
+	public final double JAVA_FLOAT_PRECISION = this.power(2, -25);
+	public final double JAVA_DOUBLE_PRECISION = this.power(2, -53);
 
 	// f1==f2 <=> |f1-f2|<FLOAT_EPSILON
 	public final double FLOAT_EPSILON//
-		= JAVA_FLOAT_PRECISION * POSSIBLE_NUMBER_OF_SAFE_FLOAT_OPERATIONS;
+		= this.JAVA_FLOAT_PRECISION * this.POSSIBLE_NUMBER_OF_SAFE_FLOAT_OPERATIONS;
 
 	// distinguish floats from doubles
 	// f1==f2 but d1!=d2
 	public final double EPSILON//
-		= JAVA_FLOAT_PRECISION / 2d;
+		= this.JAVA_FLOAT_PRECISION / 2d;
 
 	// d1==d2 <=> |d1-d2|<DOUBLE_EPSILON
 	public final double DOUBLE_EPSILON//
-		= JAVA_DOUBLE_PRECISION * POSSIBLE_NUMBER_OF_SAFE_FLOAT_OPERATIONS;
+		= this.JAVA_DOUBLE_PRECISION * this.POSSIBLE_NUMBER_OF_SAFE_FLOAT_OPERATIONS;
 
 	@Override
-	public double DOUBLE_EPSILON (int number_of_safe_operations) {
+	public double DOUBLE_EPSILON (final int number_of_safe_operations) {
 		if (number_of_safe_operations < 1) {
 			throw new Error("number_of_safe_operations must be in[1;10000]");
 		}
 		if (number_of_safe_operations > 100000) {
 			throw new Error("number_of_safe_operations must be in[1;100000]");
 		}
-		return JAVA_DOUBLE_PRECISION * number_of_safe_operations;
+		return this.JAVA_DOUBLE_PRECISION * number_of_safe_operations;
 	}
 
 	public final int min (final int x, final int y) {
@@ -61,6 +61,7 @@ public abstract class RedFloatMath implements FloatMathComponent {
 		}
 	}
 
+	@Override
 	public final double min (final double x, final double y) {
 		// TODO Auto-generated method stub
 		if (x < y) {
@@ -70,27 +71,32 @@ public abstract class RedFloatMath implements FloatMathComponent {
 		}
 	}
 
+	@Override
 	public final double sin (final double f) {
-		return native_sin(f);
+		return this.native_sin(f);
 	}
 
+	@Override
 	public final double abs (final double x) {
-		if (x < VAL_0) {
+		if (x < this.VAL_0) {
 			return -x;
 		}
 		return x;
 	}
 
+	@Override
 	public final double cos (final double a) {
-		return native_cos(a);
+		return this.native_cos(a);
 	}
 
+	@Override
 	public final double sqrt (final double f) {
-		return native_sqrt(f);
+		return this.native_sqrt(f);
 	}
 
+	@Override
 	public final double power (final double f, final double d) {
-		return native_pow(f, d);
+		return this.native_pow(f, d);
 	}
 
 	public final double PI = java.lang.Math.PI;
@@ -121,11 +127,12 @@ public abstract class RedFloatMath implements FloatMathComponent {
 	public final double VAL_k2_d_2 = (StrictMath.sqrt(2) / 2d);
 	public final double VAL_mk2_d_2 = (-StrictMath.sqrt(2) / 2d);
 	public final double VAL_PI_d_6 = (java.lang.Math.PI / 6d);
-	public final double VAL_m2PI = -VAL_2PI;
+	public final double VAL_m2PI = -this.VAL_2PI;
 	public final double VAL_PI_d_8 = (java.lang.Math.PI / 8d);
 
+	@Override
 	public final double aOmegaAB (final double a) {
-		return native_asin(a);
+		return this.native_asin(a);
 	}
 
 	public abstract double native_sin (double f);
@@ -138,30 +145,33 @@ public abstract class RedFloatMath implements FloatMathComponent {
 
 	public abstract double native_sqrt (double f);
 
+	@Override
 	public final double toDegrees (final double r) {
-		return r * VAL_180_d_PI;
+		return r * this.VAL_180_d_PI;
 	}
 
+	@Override
 	public final double toRadians (final double degrees) {
-		return degrees * VAL_PI_d_180;
+		return degrees * this.VAL_PI_d_180;
 	}
 
+	@Override
 	public final double norm (final double x, final double y) {
-		return native_sqrt(x * x + y * y);
+		return this.native_sqrt(x * x + y * y);
 	}
 
 	public final double normAngle (final double value) {
 		double tmp_ = value;
 
-		if (tmp_ < VAL_0) {
+		if (tmp_ < this.VAL_0) {
 			do {
-				tmp_ = tmp_ + VAL_2PI;
-			} while (tmp_ < VAL_0);
+				tmp_ = tmp_ + this.VAL_2PI;
+			} while (tmp_ < this.VAL_0);
 
-		} else if (tmp_ >= VAL_2PI) {
+		} else if (tmp_ >= this.VAL_2PI) {
 			do {
-				tmp_ = tmp_ - VAL_2PI;
-			} while ((tmp_ >= VAL_2PI));
+				tmp_ = tmp_ - this.VAL_2PI;
+			} while ((tmp_ >= this.VAL_2PI));
 
 		}
 
@@ -172,10 +182,12 @@ public abstract class RedFloatMath implements FloatMathComponent {
 		return java.lang.Math.atan(f);
 	}
 
-	public double tan (double angle) {
+	@Override
+	public double tan (final double angle) {
 		return java.lang.Math.tan(angle);
 	}
 
+	@Override
 	public final int INDEX (final boolean b) {
 		if (b) {
 			return 1;
@@ -185,20 +197,22 @@ public abstract class RedFloatMath implements FloatMathComponent {
 
 	}
 
-	public double distance (double x1, double y1, double x2, double y2) {
+	@Override
+	public double distance (final double x1, final double y1, final double x2, final double y2) {
 		// TODO Auto-generated method stub
-		return sqrt(power(x2 - x1, 2) + power(y2 - y1, 2));
+		return this.sqrt(this.power(x2 - x1, 2) + this.power(y2 - y1, 2));
 	}
 
-	public final double max (final double x, final double y, double... values) {
-		int n = values.length;
-		double max_xy = max(x, y);
+	public final double max (final double x, final double y, final double... values) {
+		final int n = values.length;
+		double max_xy = this.max(x, y);
 		for (int i = 0; i < n; i++) {
-			max_xy = max(max_xy, values[i]);
+			max_xy = this.max(max_xy, values[i]);
 		}
 		return max_xy;
 	}
 
+	@Override
 	public final double max (final double x, final double y) {
 		if (x > y) {
 			return x;
@@ -207,8 +221,8 @@ public abstract class RedFloatMath implements FloatMathComponent {
 		}
 	}
 
-	public int signum (double value) {
-		if (isWithinEpsilon(value)) {
+	public int signum (final double value) {
+		if (this.isWithinEpsilon(value)) {
 			return 0;
 		}
 		if (value > 0) {
@@ -217,39 +231,43 @@ public abstract class RedFloatMath implements FloatMathComponent {
 		return -1;
 	}
 
-	public long floorUp (double d) {
+	@Override
+	public long floorUp (final double d) {
 		final long int_d = (long)d;
 		if (int_d == d) {
 			return int_d;
 		}
-		if (d < ZERO) {
+		if (d < this.ZERO) {
 			return int_d;
 		}
 		return int_d + 1;
 	}
 
-	public long floorDown (double d) {
+	@Override
+	public long floorDown (final double d) {
 		final long int_d = (long)d;
 		if (int_d == d) {
 			return int_d;
 		}
-		if (d < ZERO) {
+		if (d < this.ZERO) {
 			return int_d - 1;
 		}
 		return int_d;
 	}
 
-	public long integerPartOf (double d) {
+	@Override
+	public long integerPartOf (final double d) {
 		return (int)d;
 	}
 
 	@Override
-	public long round (double float_value) {
+	public long round (final double float_value) {
 		return (long)(float_value + this.signum(float_value) * 0.5d);
 	}
 
-	public double fractionalPartOf (double d) {
-		double t = abs(d) - abs(integerPartOf(d));
+	@Override
+	public double fractionalPartOf (final double d) {
+		double t = this.abs(d) - this.abs(this.integerPartOf(d));
 
 		if (d < 0d) {
 			t = -t;
@@ -258,125 +276,134 @@ public abstract class RedFloatMath implements FloatMathComponent {
 		return t;
 	}
 
+	@Override
 	public boolean isInteger (final double value) {
-		return integerPartOf(value) == value;
+		return this.integerPartOf(value) == value;
 	}
 
 	@Override
-	public boolean isIntegerInEpsilonNeighbourhood (double value, double epsilon) {
-		if (isInteger(value)) {
+	public boolean isIntegerInEpsilonNeighbourhood (final double value, final double epsilon) {
+		if (this.isInteger(value)) {
 			return true;
 		}
-		if (abs(fractionalPartOf(value)) < epsilon) {
+		if (this.abs(this.fractionalPartOf(value)) < epsilon) {
 			return true;
 		}
-		final double abs = abs(value);
-		if (abs(ONE - fractionalPartOf(abs)) < epsilon) {
+		final double abs = this.abs(value);
+		if (this.abs(this.ONE - this.fractionalPartOf(abs)) < epsilon) {
 			return true;
 		}
 		return false;
 	}
 
+	@Override
 	public boolean isIntegerInDoubleEpsilonNeighbourhood (final double value) {
-		return isIntegerInEpsilonNeighbourhood(value, DOUBLE_EPSILON);
+		return this.isIntegerInEpsilonNeighbourhood(value, this.DOUBLE_EPSILON);
 	}
 
+	@Override
 	public boolean isIntegerInFloatEpsilonNeighbourhood (final double value) {
-		return isIntegerInEpsilonNeighbourhood(value, FLOAT_EPSILON);
+		return this.isIntegerInEpsilonNeighbourhood(value, this.FLOAT_EPSILON);
 	}
 
-	public boolean isFloatInteger (double d) {
-		return isInteger((float)d);
+	@Override
+	public boolean isFloatInteger (final double d) {
+		return this.isInteger((float)d);
 	}
 
+	@Override
 	public boolean isWithinEpsilon (final double small_value) {
-		return abs(small_value) < EPSILON;
+		return this.abs(small_value) < this.EPSILON;
 	}
 
 	public boolean isWithinEpsilon (final double small_value, final double EPSILON) {
-		return abs(small_value) < EPSILON;
+		return this.abs(small_value) < EPSILON;
 	}
 
-	public boolean isEpsilonEqualFloat (double double1, double double2) {
-		return isWithinEpsilon(abs(double1 - double2), FLOAT_EPSILON);
+	@Override
+	public boolean isEpsilonEqualFloat (final double double1, final double double2) {
+		return this.isWithinEpsilon(this.abs(double1 - double2), this.FLOAT_EPSILON);
 	}
 
-	public boolean isEpsilonEqualDouble (double double1, double double2) {
-		return isWithinEpsilon(abs(double1 - double2), DOUBLE_EPSILON);
+	@Override
+	public boolean isEpsilonEqualDouble (final double double1, final double double2) {
+		return this.isWithinEpsilon(this.abs(double1 - double2), this.DOUBLE_EPSILON);
 	}
 
-	public boolean isEpsilonEqual (double double1, double double2) {
-		return isWithinEpsilon(abs(double1 - double2), EPSILON);
+	@Override
+	public boolean isEpsilonEqual (final double double1, final double double2) {
+		return this.isWithinEpsilon(this.abs(double1 - double2), this.EPSILON);
 	}
 
 	@Override
 	public double ONE () {
-		return ONE;
+		return this.ONE;
 	}
 
 	@Override
 	public double DOUBLE_EPSILON () {
-		return DOUBLE_EPSILON;
+		return this.DOUBLE_EPSILON;
 	}
 
 	@Override
 	public double EPSILON () {
-		return EPSILON;
+		return this.EPSILON;
 	}
 
 	@Override
 	public double FLOAT_EPSILON () {
-		return FLOAT_EPSILON;
+		return this.FLOAT_EPSILON;
 	}
 
 	@Override
 	public double VAL_PI_d_2 () {
-		return VAL_PI_d_2;
+		return this.VAL_PI_d_2;
 	}
 
 	@Override
 	public double VAL_0 () {
-		return VAL_0;
+		return this.VAL_0;
 	}
 
 	@Override
 	public double PI () {
-		return PI;
+		return this.PI;
 	}
 
 	@Override
 	public double VAL_k2_d_2 () {
-		return VAL_k2_d_2;
+		return this.VAL_k2_d_2;
 	}
 
 	@Override
 	public double VAL_3PI_d_2 () {
-		return VAL_3PI_d_2;
+		return this.VAL_3PI_d_2;
 	}
 
 	@Override
 	public double VAL_mk2_d_2 () {
-		return VAL_mk2_d_2;
+		return this.VAL_mk2_d_2;
 	}
 
 	@Override
 	public double VAL_mPI_d_2 () {
-		return VAL_mPI_d_2;
+		return this.VAL_mPI_d_2;
 	}
 
 	@Override
 	public double VAL_2PI () {
-		return VAL_2PI;
+		return this.VAL_2PI;
 	}
 
 	@Override
-	public double roundToDigit (double raw_value, int index_after_point) {
-		return round(raw_value * power(10, index_after_point)) / power(10, index_after_point);
+	public double roundToDigit (final double raw_value, final int index_after_point) {
+		return this.round(raw_value * this.power(10, index_after_point)) / this.power(10, index_after_point);
 	}
 
-	public double limit (double left_border, double value, double right_border) {
+	@Override
+	public double limit (final double left_border, final double value, final double right_border) {
 		if (left_border > right_border) {
-			return limit(right_border, value, left_border);
+			return this.limit(right_border, value, left_border);
 		}
 		if (value < left_border) {
 			return left_border;
@@ -386,6 +413,11 @@ public abstract class RedFloatMath implements FloatMathComponent {
 		}
 		return value;
 
+	}
+
+	@Override
+	public float limit (final float left_border, final float value, final float right_border) {
+		return (float)this.limit((double)left_border, (double)value, (double)right_border);
 	}
 
 }
