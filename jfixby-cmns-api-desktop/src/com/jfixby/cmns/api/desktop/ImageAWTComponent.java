@@ -51,4 +51,6 @@ public interface ImageAWTComponent {
 
 	BufferedImage toBufferedImage (Image image);
 
+	Image awtScale (Image java_image, float scaleFactor);
+
 }
