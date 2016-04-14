@@ -1,3 +1,4 @@
+
 package com.jfixby.red.input;
 
 import com.jfixby.cmns.api.input.Key;
@@ -5,18 +6,18 @@ import com.jfixby.cmns.api.input.Key;
 public final class KeyCode implements Key {
 	final String name;
 
-	KeyCode(String name, RedKeyboard keyboard) {
+	KeyCode (String name, RedKeyboard keyboard) {
 		this.name = name;
-		final RedKeysList list = (RedKeysList) keyboard.KEYS_LIST;
+		final RedKeysList list = (RedKeysList)keyboard.KEYS_LIST;
 		list.add(this);
 	}
 
 	@Override
-	public String toString() {
+	public String toString () {
 		return "KeyCode [" + name + "]";
 	}
 
-	public String getName() {
+	public String getName () {
 		return this.name;
 	}
 

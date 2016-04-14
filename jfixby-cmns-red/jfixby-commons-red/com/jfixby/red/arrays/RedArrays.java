@@ -1,3 +1,4 @@
+
 package com.jfixby.red.arrays;
 
 import com.jfixby.cmns.api.arrays.ArraysComponent;
@@ -8,7 +9,7 @@ import com.jfixby.cmns.api.collections.Set;
 public class RedArrays implements ArraysComponent {
 
 	@Override
-	public List<Float> newFloatsList(float[] floats) {
+	public List<Float> newFloatsList (float[] floats) {
 		List<Float> result = Collections.newList();
 		for (int i = 0; i < floats.length; i++) {
 			Float float_val = floats[i];
@@ -18,7 +19,7 @@ public class RedArrays implements ArraysComponent {
 	}
 
 	@Override
-	public List<Integer> newIntsList(int[] ints) {
+	public List<Integer> newIntsList (int[] ints) {
 		List<Integer> result = Collections.newList();
 		for (int i = 0; i < ints.length; i++) {
 			Integer float_val = ints[i];
@@ -28,7 +29,7 @@ public class RedArrays implements ArraysComponent {
 	}
 
 	@Override
-	public <T> List<T> newList(T[] array) {
+	public <T> List<T> newList (T[] array) {
 		List<T> result = Collections.newList();
 		for (int i = 0; i < array.length; i++) {
 			T float_val = array[i];
@@ -38,7 +39,7 @@ public class RedArrays implements ArraysComponent {
 	}
 
 	@Override
-	public <T> Set<T> newSet(T[] array) {
+	public <T> Set<T> newSet (T[] array) {
 		Set<T> result = Collections.newSet();
 		for (int i = 0; i < array.length; i++) {
 			T float_val = array[i];

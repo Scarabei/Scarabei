@@ -1,3 +1,4 @@
+
 package com.jfixby.red.debug;
 
 public class CallStack extends Error {

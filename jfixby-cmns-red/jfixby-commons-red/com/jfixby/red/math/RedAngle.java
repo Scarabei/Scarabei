@@ -1,3 +1,4 @@
+
 package com.jfixby.red.math;
 
 import com.jfixby.cmns.api.math.Angle;
@@ -30,42 +31,42 @@ public class RedAngle implements Angle, CustomAngle {
 	private double magnitude;
 	private int signum = 1;
 
-	public RedAngle(double radians) {
+	public RedAngle (double radians) {
 		this.setValue(radians);
 	}
 
-	public RedAngle() {
+	public RedAngle () {
 		this(0);
 	}
 
-	public RedAngle(RedAngle other_angle) {
+	public RedAngle (RedAngle other_angle) {
 		this.setValue(other_angle);
 	}
 
-	public double toRadians() {
+	public double toRadians () {
 		return (signum * magnitude);
 	}
 
-	public double getMagnitude() {
+	public double getMagnitude () {
 		return magnitude;
 	}
 
-	public int getSignum() {
+	public int getSignum () {
 		if (this.isZero()) {
 			return 0;
 		}
 		return this.signum;
 	}
 
-	public boolean isZero() {
+	public boolean isZero () {
 		return this.isZeroRadians(magnitude);
 	}
 
-	static boolean isNegativeZero(double d) {
+	static boolean isNegativeZero (double d) {
 		return Double.compare(d, 0.0) < 0;
 	}
 
-	public CustomAngle setValue(double radians) {
+	public CustomAngle setValue (double radians) {
 		// log("...radians", radians);
 
 		this.magnitude = radians;
@@ -88,7 +89,7 @@ public class RedAngle implements Angle, CustomAngle {
 			this.magnitude = ZERO;
 			this.signum = 1;
 			return this;
-		}// remove zero
+		} // remove zero
 
 		// if (magnitude > Angle.MAX_ANGLE_VALUE) { // >180
 		// magnitude = magnitude - Angle.MAX_ANGLE_VALUE;// cap
@@ -112,23 +113,23 @@ public class RedAngle implements Angle, CustomAngle {
 		return this;
 	}
 
-	private int floor(double d) {
-		return (int) Math.floor(d);
+	private int floor (double d) {
+		return (int)Math.floor(d);
 	}
 
-	private boolean isZeroRadians(double radians) {
+	private boolean isZeroRadians (double radians) {
 		return Math.abs(radians) < FLOAT_EPSILON;
 	}
 
-	public CustomAngle setValue(Angle angle) {
-		RedAngle angle_impl = (RedAngle) angle;
+	public CustomAngle setValue (Angle angle) {
+		RedAngle angle_impl = (RedAngle)angle;
 		this.magnitude = angle_impl.magnitude;
 		this.signum = angle_impl.signum;
 		return this;
 	}
 
 	@Override
-	public String toString() {
+	public String toString () {
 
 		final double g = Math.toDegrees(magnitude);
 		final String sg = signToString();
@@ -138,50 +139,49 @@ public class RedAngle implements Angle, CustomAngle {
 		return result;
 	}
 
-	private String signToString() {
+	private String signToString () {
 		if (this.signum == 1) {
 			return "";
 		}
 		return "-";
 	}
 
-	public static CustomAngle inverse(CustomAngle a, CustomAngle b) {
+	public static CustomAngle inverse (CustomAngle a, CustomAngle b) {
 		b.setValue(-a.toRadians());
 		return b;
 	}
 
-	public static CustomAngle plus(CustomAngle a, CustomAngle b, CustomAngle c) {
+	public static CustomAngle plus (CustomAngle a, CustomAngle b, CustomAngle c) {
 
 		c.setValue(a.toRadians() + b.toRadians());
 		return c;
 
 	}
 
-	public static CustomAngle subtract(CustomAngle a, CustomAngle b,
-			CustomAngle c) {
+	public static CustomAngle subtract (CustomAngle a, CustomAngle b, CustomAngle c) {
 		CustomAngle t = inverse(b, new RedAngle());
 		c = plus(a, t, c);
 		return c;
 
 	}
 
-	public static boolean equalAngles(RedAngle A, RedAngle B) {
+	public static boolean equalAngles (RedAngle A, RedAngle B) {
 		return A.equals(B);
 	}
 
 	@Override
-	public int hashCode() {
+	public int hashCode () {
 		final int prime = 31;
 		int result = 1;
 		long temp;
 		temp = Double.doubleToLongBits(magnitude);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + (int)(temp ^ (temp >>> 32));
 		result = prime * result + signum;
 		return result;
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals (Object obj) {
 		if (this == obj) {
 			return true;
 		}
@@ -191,9 +191,8 @@ public class RedAngle implements Angle, CustomAngle {
 		if (!(obj instanceof RedAngle)) {
 			return false;
 		}
-		RedAngle other = (RedAngle) obj;
-		if (Double.doubleToLongBits(magnitude) != Double
-				.doubleToLongBits(other.magnitude)) {
+		RedAngle other = (RedAngle)obj;
+		if (Double.doubleToLongBits(magnitude) != Double.doubleToLongBits(other.magnitude)) {
 			return false;
 		}
 		if (signum != other.signum) {
@@ -202,22 +201,22 @@ public class RedAngle implements Angle, CustomAngle {
 		return true;
 	}
 
-	public void makePositive() {
+	public void makePositive () {
 		this.setValue(this.toRadians() + TWICE_PI);
 	}
 
 	@Override
-	public double toDegrees() {
+	public double toDegrees () {
 		return FloatMath.toDegrees(this.toRadians());
 	}
 
 	@Override
-	public Angle freeze() {
+	public Angle freeze () {
 		return this;
 	}
 
 	@Override
-	public CustomAngle newAngle() {
+	public CustomAngle newAngle () {
 		return new RedAngle(this);
 	}
 

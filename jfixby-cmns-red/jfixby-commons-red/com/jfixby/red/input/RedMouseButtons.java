@@ -1,3 +1,4 @@
+
 package com.jfixby.red.input;
 
 import com.jfixby.cmns.api.input.MouseButton;
@@ -12,17 +13,17 @@ public class RedMouseButtons implements MouseButtons {
 	final MouseButton MIDDLE = new RedMouseButton("MIDDLE");
 
 	@Override
-	public MouseButton LEFT() {
+	public MouseButton LEFT () {
 		return LEFT;
 	}
 
 	@Override
-	public MouseButton MIDDLE() {
+	public MouseButton MIDDLE () {
 		return MIDDLE;
 	}
 
 	@Override
-	public MouseButton RIGHT() {
+	public MouseButton RIGHT () {
 		return RIGHT;
 	}
 

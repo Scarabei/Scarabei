@@ -1,3 +1,4 @@
+
 package com.jfixby.red.graphs;
 
 import com.jfixby.cmns.api.collections.Collections;
@@ -11,11 +12,11 @@ import com.jfixby.cmns.api.log.L;
 
 public class MultiGraphImpl<VertexType, EdgeType> implements MultiGraph<VertexType, EdgeType> {
 
-	public MultiGraphImpl() {
+	public MultiGraphImpl () {
 		super();
 	}
 
-	void print(MultiGraphImpl<VertexType, EdgeType> graph) {
+	void print (MultiGraphImpl<VertexType, EdgeType> graph) {
 		L.d("---MultiGraph---");
 		L.d("Nodes:");
 		for (int i = 0; i < graph.size(); i++) {
@@ -32,7 +33,7 @@ public class MultiGraphImpl<VertexType, EdgeType> implements MultiGraph<VertexTy
 
 	}
 
-	void printEdges(String string, List<EdgeImpl<VertexType, EdgeType>> list, MultiGraphImpl<VertexType, EdgeType> graph) {
+	void printEdges (String string, List<EdgeImpl<VertexType, EdgeType>> list, MultiGraphImpl<VertexType, EdgeType> graph) {
 		L.d(string + ":");
 		for (int i = 0; i < list.size(); i++) {
 			EdgeImpl<VertexType, EdgeType> n = list.getElementAt(i);
@@ -43,7 +44,7 @@ public class MultiGraphImpl<VertexType, EdgeType> implements MultiGraph<VertexTy
 
 	}
 
-	static void printNodes(String string, List<VertexImpl<Object, Object>> list, MultiGraphImpl<Object, Object> graph) {
+	static void printNodes (String string, List<VertexImpl<Object, Object>> list, MultiGraphImpl<Object, Object> graph) {
 		L.d(string + ":");
 		for (int i = 0; i < list.size(); i++) {
 			VertexImpl<Object, Object> n = list.getElementAt(i);
@@ -54,22 +55,22 @@ public class MultiGraphImpl<VertexType, EdgeType> implements MultiGraph<VertexTy
 
 	}
 
-	private String toString(VertexImpl<Object, Object> n) {
+	private String toString (VertexImpl<Object, Object> n) {
 		return n.toString();
 	}
 
-	private VertexImpl<VertexType, EdgeType> getVertex(int i) {
+	private VertexImpl<VertexType, EdgeType> getVertex (int i) {
 		return this.vertices.getElementAt(i);
 	}
 
 	final List<VertexImpl<VertexType, EdgeType>> vertices = Collections.newList();
 	final List<EdgeImpl<VertexType, EdgeType>> edges = Collections.newList();
 
-	public int size() {
+	public int size () {
 		return this.vertices.size();
 	}
 
-	public void establishLinks() {
+	public void establishLinks () {
 		for (int i = 0; i < this.edges.size(); i++) {
 			EdgeImpl<VertexType, EdgeType> e = this.edges.getElementAt(i);
 			e.getLeftNode().addLink(e);
@@ -78,23 +79,23 @@ public class MultiGraphImpl<VertexType, EdgeType> implements MultiGraph<VertexTy
 
 	}
 
-	public int numberOfEdges() {
+	public int numberOfEdges () {
 		return this.edges.size();
 	}
 
-	public EdgeImpl<VertexType, EdgeType> getEdge(int i) {
+	public EdgeImpl<VertexType, EdgeType> getEdge (int i) {
 		return this.edges.getElementAt(i);
 	}
 
-	private String toString(EdgeImpl<VertexType, EdgeType> current) {
+	private String toString (EdgeImpl<VertexType, EdgeType> current) {
 		return "[" + this.indexOf(current) + "] " + current.toString();
 	}
 
-	public int indexOf(EdgeImpl<VertexType, EdgeType> n) {
+	public int indexOf (EdgeImpl<VertexType, EdgeType> n) {
 		return indexOf(n, this.edges);
 	}
 
-	int indexOf(EdgeImpl<VertexType, EdgeType> n, List<EdgeImpl<VertexType, EdgeType>> edges) {
+	int indexOf (EdgeImpl<VertexType, EdgeType> n, List<EdgeImpl<VertexType, EdgeType>> edges) {
 		for (int i = 0; i < edges.size(); i++) {
 			EdgeImpl<VertexType, EdgeType> e = edges.getElementAt(i);
 			if (e == n) {
@@ -104,20 +105,20 @@ public class MultiGraphImpl<VertexType, EdgeType> implements MultiGraph<VertexTy
 		return -1;
 	}
 
-	public void print() {
+	public void print () {
 		// print(this);
 
 	}
 
 	@Override
-	public Vertex<VertexType> newVertex() {
+	public Vertex<VertexType> newVertex () {
 		final VertexImpl<VertexType, EdgeType> element = new VertexImpl<VertexType, EdgeType>();
 		this.vertices.add(element);
 		return element;
 	}
 
 	@Override
-	public Vertex<VertexType> findVertexByObject(VertexType vertex_object) {
+	public Vertex<VertexType> findVertexByObject (VertexType vertex_object) {
 		if (vertex_object == null) {
 			throw new Error("Null argument exception.");
 		}
@@ -132,17 +133,17 @@ public class MultiGraphImpl<VertexType, EdgeType> implements MultiGraph<VertexTy
 	}
 
 	@Override
-	public Edge<EdgeType> newEdge(Vertex<VertexType> vertex_a, Vertex<VertexType> vertex_b) {
-		EdgeImpl<VertexType, EdgeType> edge = this.createNewEdge((VertexImpl<VertexType, EdgeType>) vertex_a,
-				(VertexImpl<VertexType, EdgeType>) vertex_b);
+	public Edge<EdgeType> newEdge (Vertex<VertexType> vertex_a, Vertex<VertexType> vertex_b) {
+		EdgeImpl<VertexType, EdgeType> edge = this.createNewEdge((VertexImpl<VertexType, EdgeType>)vertex_a,
+			(VertexImpl<VertexType, EdgeType>)vertex_b);
 
 		this.establishLinks();
 
 		return edge;
 	}
 
-	public EdgeImpl<VertexType, EdgeType> createNewEdge(final VertexImpl<VertexType, EdgeType> left_node,
-			final VertexImpl<VertexType, EdgeType> right_node) {
+	public EdgeImpl<VertexType, EdgeType> createNewEdge (final VertexImpl<VertexType, EdgeType> left_node,
+		final VertexImpl<VertexType, EdgeType> right_node) {
 		if (left_node == null || right_node == null) {
 			throw new Error("left_node=" + left_node + " , right_node=" + right_node);
 		}
@@ -155,18 +156,18 @@ public class MultiGraphImpl<VertexType, EdgeType> implements MultiGraph<VertexTy
 	}
 
 	@Override
-	public PathInGraph<VertexType, EdgeType> findPath(Vertex<VertexType> from_vertex, Vertex<VertexType> to_vertex) {
+	public PathInGraph<VertexType, EdgeType> findPath (Vertex<VertexType> from_vertex, Vertex<VertexType> to_vertex) {
 		List<VertexImpl<VertexType, EdgeType>> visited = Collections.newList();
 		List<VertexImpl<VertexType, EdgeType>> states = Collections.newList();
 		List<EdgeImpl<VertexType, EdgeType>> steps = Collections.newList();
 
-		visited.add((VertexImpl<VertexType, EdgeType>) from_vertex);
-		states.add((VertexImpl<VertexType, EdgeType>) from_vertex);
-		try_search((VertexImpl<VertexType, EdgeType>) from_vertex, (VertexImpl<VertexType, EdgeType>) to_vertex,
-				visited, states, steps);
+		visited.add((VertexImpl<VertexType, EdgeType>)from_vertex);
+		states.add((VertexImpl<VertexType, EdgeType>)from_vertex);
+		try_search((VertexImpl<VertexType, EdgeType>)from_vertex, (VertexImpl<VertexType, EdgeType>)to_vertex, visited, states,
+			steps);
 		// L.d("--------------------------------------------------");
 		// L.d("from_vertex", from_vertex);
-		// L.d("  to_vertex", to_vertex);
+		// L.d(" to_vertex", to_vertex);
 		// states.print("states");
 		// steps.print("steps");
 
@@ -178,9 +179,9 @@ public class MultiGraphImpl<VertexType, EdgeType> implements MultiGraph<VertexTy
 		return path;
 	}
 
-	private boolean try_search(VertexImpl<VertexType, EdgeType> from_vertex,
-			VertexImpl<VertexType, EdgeType> final_vertex, List<VertexImpl<VertexType, EdgeType>> visited,
-			List<VertexImpl<VertexType, EdgeType>> states, List<EdgeImpl<VertexType, EdgeType>> steps) {
+	private boolean try_search (VertexImpl<VertexType, EdgeType> from_vertex, VertexImpl<VertexType, EdgeType> final_vertex,
+		List<VertexImpl<VertexType, EdgeType>> visited, List<VertexImpl<VertexType, EdgeType>> states,
+		List<EdgeImpl<VertexType, EdgeType>> steps) {
 		if (from_vertex == final_vertex) {
 			return true;
 		}
@@ -203,7 +204,7 @@ public class MultiGraphImpl<VertexType, EdgeType> implements MultiGraph<VertexTy
 	}
 
 	@Override
-	public void print(String tag) {
+	public void print (String tag) {
 		print(this);
 	}
 }

@@ -1,3 +1,4 @@
+
 package com.jfixby.red.localization;
 
 import java.io.IOException;
@@ -17,24 +18,24 @@ import com.jfixby.cmns.api.localize.StringValuesContainer;
 public class SimpleLocalization implements LocalizationComponent, StringValuesContainer {
 
 	@Override
-	public StringValuesContainer getStringValuesContainer() {
+	public StringValuesContainer getStringValuesContainer () {
 		return this;
 	}
 
-	public SimpleLocalizationSpecs newSimpleLocalizationSpecs() {
+	public SimpleLocalizationSpecs newSimpleLocalizationSpecs () {
 		return new SimpleLocalizationSpecs();
 	}
 
-	public SimpleLocale newLocalization(SimpleLocalizationSpecs loc_specs) {
+	public SimpleLocale newLocalization (SimpleLocalizationSpecs loc_specs) {
 		return new SimpleLocale(loc_specs);
 	}
 
-	public void writeToFile(File file, Locale locale) throws IOException {
+	public void writeToFile (File file, Locale locale) throws IOException {
 		String serialized_locale = Json.serializeToString(locale).toString();
 		file.writeString(serialized_locale);
 	}
 
-	public SimpleLocale readFromFile(File file) throws IOException {
+	public SimpleLocale readFromFile (File file) throws IOException {
 
 		String data = file.readToString();
 
@@ -45,43 +46,43 @@ public class SimpleLocalization implements LocalizationComponent, StringValuesCo
 	}
 
 	@Override
-	public Locale getLocale(String locale_name) {
+	public Locale getLocale (String locale_name) {
 		throw new Error();
 
 	}
 
 	@Override
-	public StringValueID getIdByValue(String ui_string_value) {
+	public StringValueID getIdByValue (String ui_string_value) {
 		throw new Error();
 	}
 
 	@Override
-	public StringValueLocalizations getLocalizationsFor(StringValueID string_value_id) {
+	public StringValueLocalizations getLocalizationsFor (StringValueID string_value_id) {
 		throw new Error();
 	}
 
 	@Override
-	public StringValueLocalizationSpecs newLocalizationSpecs() {
+	public StringValueLocalizationSpecs newLocalizationSpecs () {
 		throw new Error();
 	}
 
 	@Override
-	public StringValueID spawnNewStringValueID(String string_value_id_string) {
+	public StringValueID spawnNewStringValueID (String string_value_id_string) {
 		return new RedStringValueID(string_value_id_string);
 	}
 
 	@Override
-	public LocalizedStringValue newLocalizationEntry(StringValueLocalizationSpecs specs) {
+	public LocalizedStringValue newLocalizationEntry (StringValueLocalizationSpecs specs) {
 		throw new Error();
 	}
 
 	@Override
-	public LocalizedStringValue getLocalizationFor(String locale_name, StringValueID string_value_id) {
+	public LocalizedStringValue getLocalizationFor (String locale_name, StringValueID string_value_id) {
 		throw new Error();
 	}
 
 	@Override
-	public LocalizedStringValuesList listAllValues() {
+	public LocalizedStringValuesList listAllValues () {
 		throw new Error();
 	}
 

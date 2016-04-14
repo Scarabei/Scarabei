@@ -1,3 +1,4 @@
+
 package com.jfixby.red.color;
 
 import java.util.Random;
@@ -11,7 +12,7 @@ public class RedColorRandomizer implements ColorRandomiser {
 	private long seed;
 	private Random random;
 
-	public RedColorRandomizer(RedColors redColors, long seed) {
+	public RedColorRandomizer (RedColors redColors, long seed) {
 		this.master = redColors;
 		this.seed = seed;
 		random = new Random(seed);
@@ -19,7 +20,7 @@ public class RedColorRandomizer implements ColorRandomiser {
 	}
 
 	@Override
-	public Color newRandomColor(float alpha) {
+	public Color newRandomColor (float alpha) {
 		final float r = random.nextFloat();
 		final float g = random.nextFloat();
 		final float b = random.nextFloat();

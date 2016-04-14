@@ -1,3 +1,4 @@
+
 package com.jfixby.red.graphs;
 
 import com.jfixby.cmns.api.collections.Collections;
@@ -8,33 +9,33 @@ import com.jfixby.cmns.api.log.L;
 public class CyclePathImpl<VertexType, EdgeType> implements PathInGraph<VertexType, EdgeType> {
 
 	@Override
-	public String toString() {
+	public String toString () {
 		return "GraphCycle" + states + "";
 	}
 
 	private final List<StateImpl<VertexType, EdgeType>> states = Collections.newList();
 	private final List<StepImpl<VertexType, EdgeType>> steps = Collections.newList();
 
-	public int numberOfSteps() {
+	public int numberOfSteps () {
 		return this.states.size();
 	}
 
 	@Override
-	public int numberOfStates() {
+	public int numberOfStates () {
 		return this.states.size();
 	}
 
 	@Override
-	public StateImpl<VertexType, EdgeType> getState(int state_number) {
+	public StateImpl<VertexType, EdgeType> getState (int state_number) {
 		return this.states.getElementAt(state_number);
 	}
 
 	@Override
-	public StepImpl<VertexType, EdgeType> getStep(int step_number) {
+	public StepImpl<VertexType, EdgeType> getStep (int step_number) {
 		return steps.getElementAt(step_number);
 	}
 
-	public void setNumberOfVetices(final int n) {
+	public void setNumberOfVetices (final int n) {
 		if (n < 0) {
 			throw new Error("Negative size graph: " + n);
 		}
@@ -59,7 +60,7 @@ public class CyclePathImpl<VertexType, EdgeType> implements PathInGraph<VertexTy
 
 	}
 
-	private int removeVertex(final int current_size) {// current_size>1;
+	private int removeVertex (final int current_size) {// current_size>1;
 		StateImpl<VertexType, EdgeType> removed = this.states.removeElementAt(current_size - 1);
 
 		StateImpl<VertexType, EdgeType> first = this.states.getElementAt(0);
@@ -78,7 +79,7 @@ public class CyclePathImpl<VertexType, EdgeType> implements PathInGraph<VertexTy
 		return this.states.size();
 	}
 
-	private int addVertex(final int current_size) {
+	private int addVertex (final int current_size) {
 		if (current_size == 0) {
 			final StateImpl<VertexType, EdgeType> new_vertex = newVertex();
 			final StepImpl<VertexType, EdgeType> new_edge = new StepImpl<VertexType, EdgeType>();
@@ -112,11 +113,11 @@ public class CyclePathImpl<VertexType, EdgeType> implements PathInGraph<VertexTy
 
 	}
 
-	private StateImpl<VertexType, EdgeType> newVertex() {
+	private StateImpl<VertexType, EdgeType> newVertex () {
 		return new StateImpl<VertexType, EdgeType>().setVertex(new VertexImpl<VertexType, EdgeType>());
 	}
 
-	public void print() {
+	public void print () {
 		L.d("---GraphCycle---");
 		if (this.states.size() == 0) {
 			return;
@@ -130,7 +131,7 @@ public class CyclePathImpl<VertexType, EdgeType> implements PathInGraph<VertexTy
 	}
 
 	@Override
-	public List<VertexType> toVerticesList() {
+	public List<VertexType> toVerticesList () {
 		List<VertexType> vertices = Collections.newList();
 		for (int i = 0; i < this.numberOfSteps(); i++) {
 			VertexType object = this.getState(i).getVertex().getVertexObject();

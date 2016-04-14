@@ -1,3 +1,4 @@
+
 package com.jfixby.red.geometry;
 
 import com.jfixby.cmns.api.floatn.FixedFloat2;
@@ -28,7 +29,7 @@ public class RedTransform implements CanvasTransform {
 	// final private CustomAngle rotation = Angles.newAngle();
 	final private VectorTool vector_tool = MathTools.newVectorTool();
 
-	RedTransform() {
+	RedTransform () {
 
 		// scale_matrix = MathTools.newIdentityMatrix(3);
 		// skew_matrix = MathTools.newIdentityMatrix(3);
@@ -42,7 +43,7 @@ public class RedTransform implements CanvasTransform {
 	}
 
 	@Override
-	public void transform(final Float2 temp_point) {
+	public void transform (final Float2 temp_point) {
 		temp_point.setX(temp_point.getX() * this.scale.getX());
 		temp_point.setY(temp_point.getY() * this.scale.getY());
 
@@ -63,7 +64,7 @@ public class RedTransform implements CanvasTransform {
 
 	}
 
-	private void setup() {
+	private void setup () {
 		// if (!need_setup) {
 		// return;
 		// }
@@ -95,7 +96,7 @@ public class RedTransform implements CanvasTransform {
 	}
 
 	@Override
-	public void reverse(Float2 temp_point) {
+	public void reverse (Float2 temp_point) {
 		vector_tool.X = temp_point.getX() - position.getX();
 		vector_tool.Y = temp_point.getY() - position.getY();
 		vector_tool.XYtoAR();
@@ -118,142 +119,142 @@ public class RedTransform implements CanvasTransform {
 	// final private Point offset = Geometry.newPoint();
 
 	@Override
-	public void setOffset(double x, double y) {
+	public void setOffset (double x, double y) {
 		this.position.setXY(x, y);
 		// need_setup = true;
 	}
 
 	@Override
-	public void setOffset(FixedFloat2 offset) {
+	public void setOffset (FixedFloat2 offset) {
 		this.position.set(offset);
 		// need_setup = true;
 	}
 
 	@Override
-	public void setOffsetX(double x) {
+	public void setOffsetX (double x) {
 		// need_setup = true;
 		this.position.setX(x);
 	}
 
 	@Override
-	public void setOffsetY(double y) {
+	public void setOffsetY (double y) {
 		// need_setup = true;
 		this.position.setY(y);
 	}
 
 	@Override
-	public FixedFloat2 getOffset() {
+	public FixedFloat2 getOffset () {
 
 		return this.position;
 	}
 
 	@Override
-	public double getOffsetX() {
+	public double getOffsetX () {
 		return this.position.getX();
 	}
 
 	@Override
-	public double getOffsetY() {
+	public double getOffsetY () {
 		return this.position.getY();
 	}
 
 	@Override
-	public void setRotation(Angle rotation) {
+	public void setRotation (Angle rotation) {
 		// need_setup = true;
 		this.position.getRotation().setValue(rotation);
 	}
 
 	@Override
-	public void setRotation(double radians) {
+	public void setRotation (double radians) {
 		// need_setup = true;
 		this.position.getRotation().setValue(radians);
 	}
 
 	@Override
-	public Angle getRotation() {
+	public Angle getRotation () {
 
 		return this.position.getRotation();
 	}
 
 	@Override
-	public void setSkew(double skewx, double skewy) {
+	public void setSkew (double skewx, double skewy) {
 		// need_setup = true;
 		this.skew.setXY(skewx, skewy);
 	}
 
 	@Override
-	public void setSkewX(double skew) {
+	public void setSkewX (double skew) {
 		// need_setup = true;
 		this.skew.setX(skew);
 	}
 
 	@Override
-	public void setSkewY(double skew) {
+	public void setSkewY (double skew) {
 		// need_setup = true;
 		this.skew.setY(skew);
 	}
 
 	@Override
-	public void setSkew(FixedFloat2 skew) {
+	public void setSkew (FixedFloat2 skew) {
 		// need_setup = true;
 		this.skew.set(skew);
 	}
 
 	@Override
-	public FixedFloat2 getSkew() {
+	public FixedFloat2 getSkew () {
 
 		return this.skew;
 	}
 
 	@Override
-	public double getSkewX() {
+	public double getSkewX () {
 		return this.skew.getX();
 	}
 
 	@Override
-	public double getSkewY() {
+	public double getSkewY () {
 		return this.skew.getY();
 	}
 
 	//
 
 	@Override
-	public void setScale(double scalex, double scaley) {
+	public void setScale (double scalex, double scaley) {
 		// need_setup = true;
 		this.scale.setXY(scalex, scaley);
 	}
 
 	@Override
-	public void setScaleX(double scale) {
+	public void setScaleX (double scale) {
 		// need_setup = true;
 		this.scale.setX(scale);
 	}
 
 	@Override
-	public void setScaleY(double scale) {
+	public void setScaleY (double scale) {
 		// need_setup = true;
 		this.scale.setY(scale);
 	}
 
 	@Override
-	public void setScale(FixedFloat2 scale) {
+	public void setScale (FixedFloat2 scale) {
 		// need_setup = true;
 		this.scale.set(scale);
 	}
 
 	@Override
-	public FixedFloat2 getScale() {
+	public FixedFloat2 getScale () {
 
 		return this.scale;
 	}
 
 	@Override
-	public double getScaleX() {
+	public double getScaleX () {
 		return this.scale.getX();
 	}
 
 	@Override
-	public double getScaleY() {
+	public double getScaleY () {
 		return this.scale.getY();
 	}
 

@@ -1,3 +1,4 @@
+
 package com.jfixby.red.collections;
 
 import com.jfixby.cmns.api.collections.Collection;
@@ -12,7 +13,7 @@ public class Red_ZxZ_Map_Functuion<T> implements ZxZ_Functuion<T> {
 	final Map<Int2, T> mapping = Collections.newMap();
 
 	@Override
-	public T getValueAt(long x, long y) {
+	public T getValueAt (long x, long y) {
 
 		{
 			Int2 position = IntegerMath.newInt2(x, y);
@@ -29,7 +30,7 @@ public class Red_ZxZ_Map_Functuion<T> implements ZxZ_Functuion<T> {
 	int N = 10;
 
 	@Override
-	public void setValueAt(long x, long y, T value) {
+	public void setValueAt (long x, long y, T value) {
 		Int2 position = IntegerMath.newInt2(x, y);
 		this.mapping.put(position, value);
 		//
@@ -44,7 +45,7 @@ public class Red_ZxZ_Map_Functuion<T> implements ZxZ_Functuion<T> {
 	}
 
 	@Override
-	public T removeElementAt(long x, long y) {
+	public T removeElementAt (long x, long y) {
 		Int2 position = IntegerMath.newInt2(x, y);
 		return this.mapping.remove(position);
 
@@ -56,13 +57,13 @@ public class Red_ZxZ_Map_Functuion<T> implements ZxZ_Functuion<T> {
 	}
 
 	@Override
-	public Collection<T> getAllValues() {
+	public Collection<T> getAllValues () {
 		Collection<T> collection = this.mapping.values();
 		return collection;
 	}
 
 	@Override
-	public void print(String tag) {
+	public void print (String tag) {
 		this.mapping.print(tag);
 	}
 }

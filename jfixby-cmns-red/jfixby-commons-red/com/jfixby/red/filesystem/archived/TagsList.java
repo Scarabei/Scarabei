@@ -1,3 +1,4 @@
+
 package com.jfixby.red.filesystem.archived;
 
 import java.util.ArrayList;
@@ -5,7 +6,7 @@ import java.util.ArrayList;
 public class TagsList {
 	public final ArrayList<FileTag> tags = new ArrayList<FileTag>();
 
-	public void addInfo(FileTag info) {
+	public void addInfo (FileTag info) {
 		tags.add(info);
 		// L.d("packing", info);
 	}

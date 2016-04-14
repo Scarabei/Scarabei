@@ -1,3 +1,4 @@
+
 package com.jfixby.red.geometry;
 
 import com.jfixby.cmns.api.angles.Angles;
@@ -24,23 +25,23 @@ import com.jfixby.cmns.api.math.Matrix;
 
 public class RedGeometry implements GeometryComponent {
 
-	public RedGeometry() {
+	public RedGeometry () {
 		super();
 
 	}
 
 	@Override
-	public Line newLine() {
+	public Line newLine () {
 		return new RedLine();
 	}
 
 	@Override
-	public Rectangle newRectangle() {
+	public Rectangle newRectangle () {
 		return new RedRectangle();
 	}
 
 	@Override
-	public Rectangle newRectangle(Rectangle other) {
+	public Rectangle newRectangle (Rectangle other) {
 		Rectangle result = this.newRectangle();
 		result.setWidth(other.getWidth());
 		result.setHeight(other.getHeight());
@@ -51,44 +52,44 @@ public class RedGeometry implements GeometryComponent {
 	}
 
 	@Override
-	public Circle newCircle() {
+	public Circle newCircle () {
 		return new RedCircle();
 	}
 
 	@Override
-	public CombinedGeometry newCombinedGeometry() {
+	public CombinedGeometry newCombinedGeometry () {
 		return new RedCombinedGeometry();
 	}
 
 	@Override
-	public Float2 newFloat2() {
+	public Float2 newFloat2 () {
 		return new RedPoint();
 	}
 
 	@Override
-	public Line newLine(Line other) {
+	public Line newLine (Line other) {
 		return new RedLine(other);
 	}
 
 	@Override
-	public Circle newCircle(Circle other) {
+	public Circle newCircle (Circle other) {
 		return new RedCircle(other);
 	}
 
 	@Override
-	public Triangle newTriangle() {
+	public Triangle newTriangle () {
 		return new RedTriangle();
 	}
 
 	@Override
-	public <T extends FixedFloat2> void setPointsCollectionSize(EditableCollection<T> a, int size) {
+	public <T extends FixedFloat2> void setPointsCollectionSize (EditableCollection<T> a, int size) {
 		if (a.size() == size) {
 			return;
 		}
 		if (a.size() < size) {
 			int needed = -a.size() + size;
 			for (int i = 0; i < needed; i++) {
-				a.add((T) new RedPoint());
+				a.add((T)new RedPoint());
 			}
 		}
 		if (a.size() > size) {
@@ -100,15 +101,15 @@ public class RedGeometry implements GeometryComponent {
 	}
 
 	@Override
-	public void copyValues(Collection<? extends FixedFloat2> a, EditableCollection<? extends Float2> b) {
+	public void copyValues (Collection<? extends FixedFloat2> a, EditableCollection<? extends Float2> b) {
 		this.copyValues(a, b, 0);
 	}
 
 	@Override
-	public void copyValues(Collection<? extends FixedFloat2> a, EditableCollection<? extends Float2> b, int offset) {
+	public void copyValues (Collection<? extends FixedFloat2> a, EditableCollection<? extends Float2> b, int offset) {
 		if (a.size() + offset > b.size()) {
-			throw new Error("Not enough space in the destination array, required = " + (a.size() + offset)
-					+ ", available = " + b.size());
+			throw new Error(
+				"Not enough space in the destination array, required = " + (a.size() + offset) + ", available = " + b.size());
 		}
 		for (int i = 0; i < a.size(); i++) {
 			b.getElementAt(i + offset).set(a.getElementAt(i));
@@ -116,7 +117,7 @@ public class RedGeometry implements GeometryComponent {
 	}
 
 	@Override
-	public boolean equalPointCollections(Collection<? extends FixedFloat2> a, Collection<? extends FixedFloat2> b) {
+	public boolean equalPointCollections (Collection<? extends FixedFloat2> a, Collection<? extends FixedFloat2> b) {
 		if (a.size() != b.size()) {
 			return false;
 		}
@@ -142,7 +143,7 @@ public class RedGeometry implements GeometryComponent {
 	}
 
 	@Override
-	public void applyTransformation(Matrix transformation, EditableCollection<? extends Float2> points_to_process) {
+	public void applyTransformation (Matrix transformation, EditableCollection<? extends Float2> points_to_process) {
 		for (int i = 0; i < points_to_process.size(); i++) {
 			Float2 point = points_to_process.getElementAt(i);
 			applyTransformation(transformation, point);
@@ -150,7 +151,7 @@ public class RedGeometry implements GeometryComponent {
 	}
 
 	@Override
-	public void applyTransformation(Matrix transformation, Float2 point) {
+	public void applyTransformation (Matrix transformation, Float2 point) {
 		init();
 
 		Matrix tmp_in = null;
@@ -181,7 +182,7 @@ public class RedGeometry implements GeometryComponent {
 	Matrix tmp2_a;
 	Matrix tmp2_b;
 
-	private void init() {
+	private void init () {
 		if (tmp3_a != null) {
 			return;
 		}
@@ -195,33 +196,33 @@ public class RedGeometry implements GeometryComponent {
 	}
 
 	@Override
-	public Float2 newFloat2(FixedFloat2 dot) {
+	public Float2 newFloat2 (FixedFloat2 dot) {
 		return new RedPoint(dot);
 	}
 
 	@Override
-	public boolean isInEpsilonDistance(FixedFloat2 A, FixedFloat2 B) {
+	public boolean isInEpsilonDistance (FixedFloat2 A, FixedFloat2 B) {
 		return FloatMath.isWithinEpsilon(FloatMath.distance(A.getX(), A.getY(), B.getX(), B.getY()));
 	}
 
 	@Override
-	public boolean isInEpsilonDistanceOfZero(FixedFloat2 A) {
+	public boolean isInEpsilonDistanceOfZero (FixedFloat2 A) {
 		return FloatMath.isWithinEpsilon(FloatMath.distance(A.getX(), A.getY(), 0, 0));
 	}
 
 	@Override
-	public CanvasPosition newCanvasPosition() {
+	public CanvasPosition newCanvasPosition () {
 		return new RedPosition();
 	}
 
 	@Override
-	public void parametrize(FixedFloat2 a, double progress_from_A_to_B, FixedFloat2 b, Float2 result) {
+	public void parametrize (FixedFloat2 a, double progress_from_A_to_B, FixedFloat2 b, Float2 result) {
 		result.setX(a.getX() + (b.getX() - a.getX()) * progress_from_A_to_B);
 		result.setY(a.getY() + (b.getY() - a.getY()) * progress_from_A_to_B);
 	}
 
 	@Override
-	public void parametrize(CanvasPosition a, double progress_from_A_to_B, CanvasPosition b, CanvasPosition result) {
+	public void parametrize (CanvasPosition a, double progress_from_A_to_B, CanvasPosition b, CanvasPosition result) {
 		result.setX(a.getX() + (b.getX() - a.getX()) * progress_from_A_to_B);
 		result.setY(a.getY() + (b.getY() - a.getY()) * progress_from_A_to_B);
 		Angles.parametrize(a.getRotation(), progress_from_A_to_B, b.getRotation(), result.getRotation());
@@ -229,7 +230,7 @@ public class RedGeometry implements GeometryComponent {
 	}
 
 	@Override
-	public Rectangle newRectangle(double w, double h) {
+	public Rectangle newRectangle (double w, double h) {
 		Rectangle rect = new RedRectangle();
 		rect.setHeight(h);
 		rect.setWidth(w);
@@ -237,32 +238,32 @@ public class RedGeometry implements GeometryComponent {
 	}
 
 	@Override
-	public double distance(FixedFloat2 A, FixedFloat2 B) {
+	public double distance (FixedFloat2 A, FixedFloat2 B) {
 		return FloatMath.distance(A.getX(), A.getY(), B.getX(), B.getY());
 	}
 
 	@Override
-	public Float2 newFloat2(double x, double y) {
+	public Float2 newFloat2 (double x, double y) {
 		return new RedPoint(x, y);
 	}
 
 	@Override
-	public ClosedPolygonalChain newClosedPolygonalChain() {
+	public ClosedPolygonalChain newClosedPolygonalChain () {
 		return new RedClosedPolygonalChain();
 	}
 
 	@Override
-	public Float3 newFloat3() {
+	public Float3 newFloat3 () {
 		return new RedPoint3(0, 0, 0);
 	}
 
 	@Override
-	public Float3 newFloat3(double x, double y, double z) {
+	public Float3 newFloat3 (double x, double y, double z) {
 		return new RedPoint3(x, y, z);
 	}
 
 	@Override
-	public Rectangle setupWrapingFrame(Collection<? extends FixedFloat2> points_to_wrap, Rectangle wrapping_frame) {
+	public Rectangle setupWrapingFrame (Collection<? extends FixedFloat2> points_to_wrap, Rectangle wrapping_frame) {
 		if (points_to_wrap.size() == 0) {
 			throw new Error("Empty collection!");
 		}
@@ -287,7 +288,7 @@ public class RedGeometry implements GeometryComponent {
 	}
 
 	@Override
-	public <T extends EditableCollection<Float3>> T newFloat3(T target_list, int how_many_to_add) {
+	public <T extends EditableCollection<Float3>> T newFloat3 (T target_list, int how_many_to_add) {
 		Debug.checkNull("target_list", target_list);
 		for (int i = 0; i < how_many_to_add; i++) {
 			target_list.add(this.newFloat3());
@@ -296,7 +297,7 @@ public class RedGeometry implements GeometryComponent {
 	}
 
 	@Override
-	public <T extends EditableCollection<Float2>> T newFloat2(T target_list, int how_many_to_add) {
+	public <T extends EditableCollection<Float2>> T newFloat2 (T target_list, int how_many_to_add) {
 		Debug.checkNull("target_list", target_list);
 		for (int i = 0; i < how_many_to_add; i++) {
 			target_list.add(this.newFloat2());
@@ -305,7 +306,7 @@ public class RedGeometry implements GeometryComponent {
 	}
 
 	@Override
-	public ClosedPolygonalChain newClosedPolygonalChain(Collection<Float2> vertices) {
+	public ClosedPolygonalChain newClosedPolygonalChain (Collection<Float2> vertices) {
 		ClosedPolygonalChain chain = this.newClosedPolygonalChain();
 		chain.setSize(vertices.size());
 		for (int i = 0; i < vertices.size(); i++) {
@@ -316,26 +317,26 @@ public class RedGeometry implements GeometryComponent {
 	}
 
 	@Override
-	public List<Float3> newFloat3List(int size) {
+	public List<Float3> newFloat3List (int size) {
 		List<Float3> newList = Collections.newList();
 		return this.newFloat3(newList, size);
 	}
 
 	@Override
-	public List<Float2> newFloat2List(int size) {
+	public List<Float2> newFloat2List (int size) {
 		List<Float2> newList = Collections.newList();
 		return this.newFloat2(newList, size);
 	}
 
 	@Override
-	public void fillUpFloat2(EditableCollection<Float2> output, int desired_size) {
+	public void fillUpFloat2 (EditableCollection<Float2> output, int desired_size) {
 		for (int i = output.size(); i < desired_size; i++) {
 			output.add(this.newFloat2());
 		}
 	}
 
 	@Override
-	public void fillUpFloat3(EditableCollection<Float3> output, int desired_size) {
+	public void fillUpFloat3 (EditableCollection<Float3> output, int desired_size) {
 		for (int i = output.size(); i < desired_size; i++) {
 			output.add(this.newFloat3());
 		}

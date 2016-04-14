@@ -1,3 +1,4 @@
+
 package com.jfixby.red.filesystem.sandbox;
 
 import com.jfixby.cmns.api.file.File;
@@ -7,7 +8,7 @@ import com.jfixby.cmns.api.file.FileSystemSandBoxComponent;
 public class RedFileSystemSandBox implements FileSystemSandBoxComponent {
 
 	@Override
-	public FileSystem wrap(String sandbox_name, File root_folder) {
+	public FileSystem wrap (String sandbox_name, File root_folder) {
 		if (root_folder.isFile()) {
 			throw new Error("Bad " + root_folder);
 		}

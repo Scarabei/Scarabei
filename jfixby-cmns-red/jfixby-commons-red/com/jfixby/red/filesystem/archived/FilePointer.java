@@ -1,3 +1,4 @@
+
 package com.jfixby.red.filesystem.archived;
 
 import java.util.Date;
@@ -5,7 +6,7 @@ import java.util.Date;
 public class FilePointer {
 
 	@Override
-	public String toString() {
+	public String toString () {
 		if (isFile) {
 			return "/" + path + " size=" + size + ", offset=" + offset + ", lastModified=" + new Date(lastModified);
 		}

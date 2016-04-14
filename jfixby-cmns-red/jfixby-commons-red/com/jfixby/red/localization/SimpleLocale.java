@@ -1,3 +1,4 @@
+
 package com.jfixby.red.localization;
 
 import com.jfixby.cmns.api.collections.Collections;
@@ -7,30 +8,30 @@ import com.jfixby.cmns.api.localize.StringValueID;
 
 public class SimpleLocale implements Locale {
 
-	public String getLanguage() {
+	public String getLanguage () {
 		return language;
 	}
 
-	public SimpleLocale() {
+	public SimpleLocale () {
 	}
 
-	public int size() {
+	public int size () {
 		return mapping.size();
 	}
 
 	private String language;
 	private Map<String, String> mapping = Collections.newMap();
 
-	public SimpleLocale(SimpleLocalizationSpecs loc_specs) {
+	public SimpleLocale (SimpleLocalizationSpecs loc_specs) {
 		language = loc_specs.getLanguageName();
 	}
 
-	public void set(String parameter_name, String parameter_localized_value) {
+	public void set (String parameter_name, String parameter_localized_value) {
 		mapping.put(parameter_name, parameter_localized_value);
 	}
 
 	@Override
-	public String resolveString(String parameter_name) {
+	public String resolveString (String parameter_name) {
 		String value = mapping.get(parameter_name);
 		if (value != null) {
 			return value;
@@ -39,17 +40,16 @@ public class SimpleLocale implements Locale {
 		}
 	}
 
-	public void set(StringValueID parameter_name,
-			String parameter_localized_value) {
+	public void set (StringValueID parameter_name, String parameter_localized_value) {
 		this.set(parameter_name.toString(), parameter_localized_value);
 	}
 
 	@Override
-	public String resolveString(StringValueID parameter_name) {
+	public String resolveString (StringValueID parameter_name) {
 		return this.resolveString(parameter_name.toString());
 	}
 
-	public SimpleLocaleEntry getEntry(int i) {
+	public SimpleLocaleEntry getEntry (int i) {
 		String key = mapping.getKeyAt(i);
 		String value = mapping.getValueAt(i);
 		return new SimpleLocaleEntry(key, value);

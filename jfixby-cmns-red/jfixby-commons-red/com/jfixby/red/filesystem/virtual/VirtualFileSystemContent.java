@@ -1,3 +1,4 @@
+
 package com.jfixby.red.filesystem.virtual;
 
 import com.jfixby.cmns.api.collections.List;
@@ -7,29 +8,29 @@ public class VirtualFileSystemContent {
 
 	final private ContentNode ROOT;
 
-	public VirtualFileSystemContent() {
+	public VirtualFileSystemContent () {
 		ROOT = new ContentNode();
 	}
 
-	public boolean isFile(RelativePath relativePath) {
+	public boolean isFile (RelativePath relativePath) {
 		if (relativePath.isRoot()) {
 			return false;
 		}
 		ContentLeaf content = this.findLeaf(relativePath);
 		return content != null;
 	}
-	public long lastModified(RelativePath relativePath) {
+
+	public long lastModified (RelativePath relativePath) {
 		ContentLeaf content = this.findLeaf(relativePath);
 		return content.lastModified();
 	}
-	
 
-	public boolean isFolder(RelativePath relativePath) {
+	public boolean isFolder (RelativePath relativePath) {
 		ContentNode content = this.findNode(relativePath);
 		return content != null;
 	}
 
-	private ContentNode findNode(RelativePath relativePath) {
+	private ContentNode findNode (RelativePath relativePath) {
 		if (relativePath.isRoot()) {
 			return ROOT;
 		}
@@ -47,7 +48,7 @@ public class VirtualFileSystemContent {
 		return node_cursor;
 	}
 
-	private ContentLeaf findLeaf(RelativePath relativePath) {
+	private ContentLeaf findLeaf (RelativePath relativePath) {
 		ContentNode leaf_parent = this.findNode(relativePath.parent());
 		if (leaf_parent == null) {
 			return null;
@@ -58,7 +59,7 @@ public class VirtualFileSystemContent {
 		}
 	}
 
-	public boolean delete(RelativePath relativePath) {
+	public boolean delete (RelativePath relativePath) {
 		if (relativePath.isRoot()) {
 			this.ROOT.clearAll();
 			return false;
@@ -83,11 +84,11 @@ public class VirtualFileSystemContent {
 		return false;
 	}
 
-	public boolean exists(RelativePath relativePath) {
+	public boolean exists (RelativePath relativePath) {
 		return this.isFile(relativePath) || this.isFolder(relativePath);
 	}
 
-	public boolean mkdirs(RelativePath relativePath) {
+	public boolean mkdirs (RelativePath relativePath) {
 		if (relativePath.isRoot()) {
 			return true;
 		}
@@ -111,7 +112,7 @@ public class VirtualFileSystemContent {
 		return true;
 	}
 
-	public void rename(RelativePath relativePath, String new_name) {
+	public void rename (RelativePath relativePath, String new_name) {
 		if (relativePath.isRoot()) {
 			return;
 		}
@@ -132,7 +133,7 @@ public class VirtualFileSystemContent {
 		}
 	}
 
-	public List<String> listChildren(RelativePath relativePath) {
+	public List<String> listChildren (RelativePath relativePath) {
 		ContentNode leaf = this.findNode(relativePath);
 		if (leaf == null) {
 			return null;
@@ -141,15 +142,14 @@ public class VirtualFileSystemContent {
 		}
 	}
 
-	public ContentLeaf createFile(RelativePath relativePath) {
+	public ContentLeaf createFile (RelativePath relativePath) {
 		ContentNode leaf_parent = this.findNode(relativePath.parent());
 		String name = relativePath.steps().getLast();
 		return leaf_parent.createNewFile(name);
 	}
 
-	public ContentLeaf getContentLeaf(RelativePath relativePath) {
+	public ContentLeaf getContentLeaf (RelativePath relativePath) {
 		return this.findLeaf(relativePath);
 	}
 
-	
 }

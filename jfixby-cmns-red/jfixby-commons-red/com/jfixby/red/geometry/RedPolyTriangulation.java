@@ -1,3 +1,4 @@
+
 package com.jfixby.red.geometry;
 
 import com.jfixby.cmns.api.collections.Collections;
@@ -20,14 +21,12 @@ public class RedPolyTriangulation implements PolyTriangulation {
 	final List<Triangle> triangles = Collections.newList();
 	final List<FixedFloat2> dots = Collections.newList();
 
-	public PolyTriangulation check(List<Vertex> vertices) {
-		final boolean already_triangulated = Geometry.equalFloat2Collections(
-				vertices, this.triangulated_vertices);
+	public PolyTriangulation check (List<Vertex> vertices) {
+		final boolean already_triangulated = Geometry.equalFloat2Collections(vertices, this.triangulated_vertices);
 		if (!already_triangulated) {
 			L.d("retriangulating...");
 			// L.d("eq", vertices.equals(triangulated_vertices));
-			Geometry.setPointsCollectionSize(this.triangulated_vertices,
-					vertices.size());
+			Geometry.setPointsCollectionSize(this.triangulated_vertices, vertices.size());
 			Geometry.copyValues(vertices, this.triangulated_vertices);
 			// vertices.print("vertices");
 			// triangulated_vertices.print("triangulated_vertices");
@@ -38,25 +37,23 @@ public class RedPolyTriangulation implements PolyTriangulation {
 	}
 
 	@Override
-	public int size() {
+	public int size () {
 		return triangles.size();
 	}
 
-	private void triangulate() {
+	private void triangulate () {
 		this.triangles.clear();
 		this.dots.clear();
 		PolyGraph<Object> graph = Graphs.newPolyGraph(triangulated_vertices);
-		List<PathInGraph<Float2, Object>> cycles_list = graph
-				.extractSimpleCycles();
+		List<PathInGraph<Float2, Object>> cycles_list = graph.extractSimpleCycles();
 		for (int i = 0; i < cycles_list.size(); i++) {
 			collectTriangles(cycles_list.getElementAt(i));
 		}
 	}
 
-	private void collectTriangles(PathInGraph<Float2, Object> pathInGraph) {
+	private void collectTriangles (PathInGraph<Float2, Object> pathInGraph) {
 		List<Float2> vertices_list = pathInGraph.toVerticesList();
-		List<Triangle> triangles = SimpleTriangulator
-				.triangulate(vertices_list);
+		List<Triangle> triangles = SimpleTriangulator.triangulate(vertices_list);
 		this.triangles.addAll(triangles);
 		for (int i = 0; i < triangles.size(); i++) {
 			Triangle triangle = triangles.getElementAt(i);
@@ -67,12 +64,12 @@ public class RedPolyTriangulation implements PolyTriangulation {
 	}
 
 	@Override
-	public Triangle getTriangle(int i) {
+	public Triangle getTriangle (int i) {
 		return triangles.getElementAt(i);
 	}
 
 	@Override
-	public EditableCollection<FixedFloat2> asDots() {
+	public EditableCollection<FixedFloat2> asDots () {
 		return dots;
 	}
 }

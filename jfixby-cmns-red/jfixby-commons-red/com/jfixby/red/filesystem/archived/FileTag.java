@@ -1,3 +1,4 @@
+
 package com.jfixby.red.filesystem.archived;
 
 import com.jfixby.cmns.api.file.File;
@@ -9,11 +10,11 @@ public class FileTag {
 	public File file;
 
 	@Override
-	public String toString() {
+	public String toString () {
 		return path + "";
 	}
 
-	public FileTag(File folder, RelativePath path) {
+	public FileTag (File folder, RelativePath path) {
 		this.file = folder;
 		this.path = path;
 

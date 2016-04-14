@@ -1,3 +1,4 @@
+
 package com.jfixby.red.geometry;
 
 import com.jfixby.cmns.api.geometry.Line;
@@ -8,12 +9,12 @@ public class RedLine extends VertexMaster implements Line {
 	private RedVertex a;
 	private RedVertex b;
 
-	RedLine() {
+	RedLine () {
 		a = new RedVertex(this);
 		b = new RedVertex(this);
 	}
 
-	public RedLine(Line other) {
+	public RedLine (Line other) {
 		this();
 		this.a.set(other.A());
 		this.b.set(other.B());
@@ -21,12 +22,12 @@ public class RedLine extends VertexMaster implements Line {
 	}
 
 	@Override
-	public Vertex A() {
+	public Vertex A () {
 		return a;
 	}
 
 	@Override
-	public Vertex B() {
+	public Vertex B () {
 		return b;
 	}
 

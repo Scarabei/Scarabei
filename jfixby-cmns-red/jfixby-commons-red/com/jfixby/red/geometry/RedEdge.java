@@ -1,3 +1,4 @@
+
 package com.jfixby.red.geometry;
 
 import com.jfixby.cmns.api.geometry.Edge;
@@ -9,20 +10,20 @@ public class RedEdge implements Edge {
 	RedVertex right_vertex;
 
 	@Override
-	public Vertex getLeftVertex() {
+	public Vertex getLeftVertex () {
 		return left_vertex;
 	}
 
 	@Override
-	public Vertex getRightVertex() {
+	public Vertex getRightVertex () {
 		return right_vertex;
 	}
 
-	public void setLeftVertex(RedVertex new_vertex) {
+	public void setLeftVertex (RedVertex new_vertex) {
 		this.left_vertex = new_vertex;
 	}
 
-	public void setRightVertex(RedVertex new_vertex) {
+	public void setRightVertex (RedVertex new_vertex) {
 		this.right_vertex = new_vertex;
 	}
 

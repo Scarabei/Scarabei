@@ -1,3 +1,4 @@
+
 package com.jfixby.red.geometry;
 
 import com.jfixby.cmns.api.collections.Collection;
@@ -17,17 +18,17 @@ public class RedClosedPolygonalChain extends VertexMaster implements ClosedPolyg
 	final RedPolyTriangulation triangulation = new RedPolyTriangulation();
 
 	@Override
-	public int size() {
+	public int size () {
 		return public_vertices.size();
 	}
 
 	@Override
-	public Vertex getVertex(int index) {
+	public Vertex getVertex (int index) {
 		return public_vertices.getElementAt(index);
 	}
 
 	@Override
-	public void clear() {
+	public void clear () {
 		// vertices.clear();
 		public_vertices.clear();
 	}
@@ -49,7 +50,7 @@ public class RedClosedPolygonalChain extends VertexMaster implements ClosedPolyg
 	// }
 	//
 	@Override
-	public void addVertex(FixedFloat2 vertex) {
+	public void addVertex (FixedFloat2 vertex) {
 		int shift = this.public_vertices.size();
 		int new_size = 1 + shift;
 		this.setSize(new_size);
@@ -57,7 +58,7 @@ public class RedClosedPolygonalChain extends VertexMaster implements ClosedPolyg
 	}
 
 	@Override
-	public void setSize(int n) {
+	public void setSize (int n) {
 		if (n < 0) {
 			throw new Error("Negative size: " + n);
 		}
@@ -80,7 +81,7 @@ public class RedClosedPolygonalChain extends VertexMaster implements ClosedPolyg
 		}
 	}
 
-	private int addVertex(final int current_size) {
+	private int addVertex (final int current_size) {
 		if (current_size == 0) {
 			final RedVertex new_vertex = newVertex();
 			final RedEdge new_edge = new RedEdge();
@@ -92,8 +93,8 @@ public class RedClosedPolygonalChain extends VertexMaster implements ClosedPolyg
 			return 1;
 		}
 
-		RedVertex first = (RedVertex) this.public_vertices.getElementAt(0);
-		RedVertex last = (RedVertex) this.public_vertices.getElementAt(current_size - 1);
+		RedVertex first = (RedVertex)this.public_vertices.getElementAt(0);
+		RedVertex last = (RedVertex)this.public_vertices.getElementAt(current_size - 1);
 
 		RedVertex new_vertex = newVertex();
 		final RedEdge new_edge = new RedEdge();
@@ -114,11 +115,11 @@ public class RedClosedPolygonalChain extends VertexMaster implements ClosedPolyg
 
 	}
 
-	private int removeVertex(final int current_size) {// current_size>1;
-		RedVertex removed = (RedVertex) this.public_vertices.removeElementAt(current_size - 1);
+	private int removeVertex (final int current_size) {// current_size>1;
+		RedVertex removed = (RedVertex)this.public_vertices.removeElementAt(current_size - 1);
 
-		RedVertex first = (RedVertex) this.public_vertices.getElementAt(0);
-		RedVertex last = (RedVertex) this.public_vertices.getElementAt(current_size - 2);
+		RedVertex first = (RedVertex)this.public_vertices.getElementAt(0);
+		RedVertex last = (RedVertex)this.public_vertices.getElementAt(current_size - 2);
 
 		RedEdge edge = first.getLeftEdge();
 		edge.setLeftVertex(last);
@@ -133,27 +134,27 @@ public class RedClosedPolygonalChain extends VertexMaster implements ClosedPolyg
 		return this.public_vertices.size();
 	}
 
-	private RedVertex newVertex() {
+	private RedVertex newVertex () {
 		return new RedVertex(this);
 	}
 
 	@Override
-	public PolyTriangulation getTriangulation() {
+	public PolyTriangulation getTriangulation () {
 		return this.triangulation.check(this.public_vertices);
 	}
 
 	@Override
-	public Collection<Vertex> listVertices() {
+	public Collection<Vertex> listVertices () {
 		return this.public_vertices;
 	}
 
 	@Override
-	public void print(String tag) {
+	public void print (String tag) {
 		public_vertices.print(tag);
 	}
 
 	@Override
-	public boolean containsPoint(double point_x, double point_y) {
+	public boolean containsPoint (double point_x, double point_y) {
 		final PolyTriangulation triangles = this.getTriangulation();
 		for (int i = 0; i < triangles.size(); i++) {
 			final Triangle triangle = triangles.getTriangle(i);
@@ -165,7 +166,7 @@ public class RedClosedPolygonalChain extends VertexMaster implements ClosedPolyg
 	}
 
 	@Override
-	public void setupVertices(Collection<Float2> input) {
+	public void setupVertices (Collection<Float2> input) {
 		Debug.checkNull("input", input);
 		this.setSize(input.size());
 		for (int i = 0; i < input.size(); i++) {

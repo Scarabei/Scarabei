@@ -1,3 +1,4 @@
+
 package com.jfixby.red.math;
 
 import com.jfixby.cmns.api.log.L;
@@ -10,21 +11,21 @@ public class RedMatrix implements Matrix {
 	final private int h;
 	final double[][] matrix;
 
-	public RedMatrix(int w, int h) {
+	public RedMatrix (int w, int h) {
 		this.w = w;
 		this.h = h;
 		matrix = new double[w][h];
 	}
 
-	public void setValue(int x, int y, double Axy) {
+	public void setValue (int x, int y, double Axy) {
 		matrix[x][y] = Axy;
 	}
 
-	public double getValue(int x, int y) {
+	public double getValue (int x, int y) {
 		return matrix[x][y];
 	}
 
-	public static final RedMatrix newIdentityMatrix(int n) {
+	public static final RedMatrix newIdentityMatrix (int n) {
 		RedMatrix E = new RedMatrix(n, n);
 		for (int i = 0; i < n; i++) {
 			E.setValue(i, i, 1d);
@@ -32,7 +33,7 @@ public class RedMatrix implements Matrix {
 		return E;
 	}
 
-	public static RedMatrix newOffsetMatrix(double... offset) {
+	public static RedMatrix newOffsetMatrix (double... offset) {
 		int n = offset.length;
 		RedMatrix E = RedMatrix.newIdentityMatrix(n + 1);
 		for (int i = 0; i < n; i++) {
@@ -59,7 +60,7 @@ public class RedMatrix implements Matrix {
 	// return E;
 	// }
 
-	public static RedMatrix newScaleMatrix(double... scale) {
+	public static RedMatrix newScaleMatrix (double... scale) {
 		int n = scale.length;
 		RedMatrix E = RedMatrix.newIdentityMatrix(n);
 		for (int i = 0; i < n; i++) {
@@ -68,7 +69,7 @@ public class RedMatrix implements Matrix {
 		return E;
 	}
 
-	private static double multiply_row_column(Matrix A, int a_row_number, Matrix B, int b_column_number) {
+	private static double multiply_row_column (Matrix A, int a_row_number, Matrix B, int b_column_number) {
 		int a_width = A.getWidth();
 		int b_height = B.getHeight();
 		if (a_width != b_height) {
@@ -82,15 +83,15 @@ public class RedMatrix implements Matrix {
 		return result;
 	}
 
-	public int getWidth() {
+	public int getWidth () {
 		return w;
 	}
 
-	public int getHeight() {
+	public int getHeight () {
 		return h;
 	}
 
-	public static Matrix multiply(Matrix... matrix_list) {
+	public static Matrix multiply (Matrix... matrix_list) {
 		int n = matrix_list.length;
 		// Log.d("#" + n);
 		if (n == 2) {
@@ -107,7 +108,7 @@ public class RedMatrix implements Matrix {
 		}
 	}
 
-	static Matrix multiply2(Matrix A, Matrix B) {
+	static Matrix multiply2 (Matrix A, Matrix B) {
 		// Log.d("AxB");
 		// print("A", A);
 		// print("B", B);
@@ -140,7 +141,7 @@ public class RedMatrix implements Matrix {
 
 	}
 
-	public static Matrix multiplyAxB(Matrix A, Matrix B, Matrix result) {
+	public static Matrix multiplyAxB (Matrix A, Matrix B, Matrix result) {
 		// Log.d("AxB");
 		// print("A", A);
 		// print("B", B);
@@ -171,7 +172,7 @@ public class RedMatrix implements Matrix {
 
 	}
 
-	public void setValue(Matrix tmp) {
+	public void setValue (Matrix tmp) {
 		for (int i = 0; i < this.w; i++) {
 			for (int k = 0; k < this.h; k++) {
 				this.setValue(i, k, tmp.getValue(i, k));
@@ -179,7 +180,7 @@ public class RedMatrix implements Matrix {
 		}
 	}
 
-	private static Matrix[] sublist(Matrix[] matrix_list, int from, int to) {
+	private static Matrix[] sublist (Matrix[] matrix_list, int from, int to) {
 		int n = to - from;
 		Matrix[] matrix_sub_list = new Matrix[n];
 		for (int i = 0; i < n; i++) {
@@ -188,7 +189,7 @@ public class RedMatrix implements Matrix {
 		return matrix_sub_list;
 	}
 
-	public static void print(String matrix_name, RedMatrix matrix) {
+	public static void print (String matrix_name, RedMatrix matrix) {
 		L.d("---Matrix[" + matrix.getWidth() + "x" + matrix.getHeight() + "] <" + matrix_name + ">---");
 
 		for (int k = 0; k < matrix.getHeight(); k++) {
@@ -199,7 +200,7 @@ public class RedMatrix implements Matrix {
 
 	}
 
-	private static String matrix_row_string(RedMatrix matrix, int row) {
+	private static String matrix_row_string (RedMatrix matrix, int row) {
 		String result = "[";
 		for (int k = 0; k < matrix.getWidth();) {
 			result = result + matrix_value_to_string(matrix.getValue(k, row)) + "]";
@@ -211,19 +212,19 @@ public class RedMatrix implements Matrix {
 		return result;
 	}
 
-	private static String matrix_value_to_string(double val) {
+	private static String matrix_value_to_string (double val) {
 		// DecimalFormat df = new DecimalFormat("0.00000");
 		// return df.format(val);
 		return FloatMath.roundToDigit(val, 4) + "";
 	}
 
 	@Override
-	public void print(String string) {
+	public void print (String string) {
 		print(string, this);
 
 	}
 
-	public static Matrix inverseOf(Matrix matrix) {
+	public static Matrix inverseOf (Matrix matrix) {
 		int w = matrix.getWidth();
 		int h = matrix.getHeight();
 
@@ -255,7 +256,7 @@ public class RedMatrix implements Matrix {
 		return E;
 	}
 
-	private static void resolve_diagonal(Matrix a, Matrix e, int row) {
+	private static void resolve_diagonal (Matrix a, Matrix e, int row) {
 
 		double diagonal_element = a.getValue(row, row);
 		for (int i = 0; i < a.getWidth(); i++) {
@@ -271,7 +272,7 @@ public class RedMatrix implements Matrix {
 
 	}
 
-	private static void resolve_column_to_diagonal_form(Matrix a, Matrix e, int diaginal_position) {
+	private static void resolve_column_to_diagonal_form (Matrix a, Matrix e, int diaginal_position) {
 		double lead_element = a.getValue(diaginal_position, diaginal_position);
 		if (FloatMath.isWithinEpsilon(lead_element)) {
 			lead_element = fix_lead_element(a, e, diaginal_position);
@@ -296,7 +297,7 @@ public class RedMatrix implements Matrix {
 
 	}
 
-	private static double fix_lead_element(Matrix a, Matrix e, int column) {
+	private static double fix_lead_element (Matrix a, Matrix e, int column) {
 		int n = a.getHeight();
 		if (n == 1) {
 			throw new Error("This is not a reversable matrix.");
@@ -318,8 +319,7 @@ public class RedMatrix implements Matrix {
 		throw new Error("This is not a reversable matrix.");
 	}
 
-	private static void add_row(int source_row, int target_row, Matrix A, int from_column_and_to_the_right,
-			double multiplier) {
+	private static void add_row (int source_row, int target_row, Matrix A, int from_column_and_to_the_right, double multiplier) {
 		for (int i = from_column_and_to_the_right; i < A.getWidth(); i++) {
 			double source_value = A.getValue(i, source_row);
 			double current_value = A.getValue(i, target_row);
@@ -327,7 +327,7 @@ public class RedMatrix implements Matrix {
 		}
 	}
 
-	public static void inverse(Matrix matrix, Matrix inverseAresult) {
+	public static void inverse (Matrix matrix, Matrix inverseAresult) {
 		int w = matrix.getWidth();
 		int h = matrix.getHeight();
 
@@ -360,7 +360,7 @@ public class RedMatrix implements Matrix {
 	}
 
 	@Override
-	public void resetToIdentityMatrix() {
+	public void resetToIdentityMatrix () {
 		for (int j = 0; j < this.h; j++)
 			for (int i = 0; i < this.w; i++)
 				if (i == j) {
@@ -371,12 +371,12 @@ public class RedMatrix implements Matrix {
 	}
 
 	@Override
-	public boolean isSquare() {
+	public boolean isSquare () {
 		return this.w == this.h;
 	}
 
 	@Override
-	public void resetToZeroMatrix() {
+	public void resetToZeroMatrix () {
 		for (int j = 0; j < this.h; j++)
 			for (int i = 0; i < this.w; i++)
 				setValue(i, j, 0d);

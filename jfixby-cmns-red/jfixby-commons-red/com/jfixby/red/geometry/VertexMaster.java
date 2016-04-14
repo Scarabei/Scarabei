@@ -1,3 +1,4 @@
+
 package com.jfixby.red.geometry;
 
 import com.jfixby.cmns.api.geometry.GeometryFigure;
@@ -7,7 +8,7 @@ public class VertexMaster implements GeometryFigure {
 
 	final private RedTransform transform = new RedTransform();
 
-	public CanvasTransform getTransform() {
+	public CanvasTransform getTransform () {
 		return transform;
 	}
 

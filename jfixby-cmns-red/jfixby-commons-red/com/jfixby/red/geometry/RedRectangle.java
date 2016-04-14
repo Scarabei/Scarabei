@@ -1,3 +1,4 @@
+
 package com.jfixby.red.geometry;
 
 import com.jfixby.cmns.api.collections.Collection;
@@ -24,42 +25,42 @@ public class RedRectangle extends VertexMaster implements Rectangle {
 	final RedVertex bottom_left = new RedVertex(this);
 	final RedVertex bottom_right = new RedVertex(this);
 	final RedTransform transform = new RedTransform();
-	final List<FixedFloat2> vertices = Collections.newList((FixedFloat2) top_left, (FixedFloat2) top_right,
-			(FixedFloat2) bottom_right, (FixedFloat2) bottom_left);
+	final List<FixedFloat2> vertices = Collections.newList((FixedFloat2)top_left, (FixedFloat2)top_right,
+		(FixedFloat2)bottom_right, (FixedFloat2)bottom_left);
 
 	final RedPoint origin_relative = new RedPoint();
 
 	@Override
-	public String toString() {
-		return "Rectangle[" + width + " x " + height + "] position=" + this.getPosition() + " origin_relative="
-				+ origin_relative + " rotation=" + this.getRotation();
+	public String toString () {
+		return "Rectangle[" + width + " x " + height + "] position=" + this.getPosition() + " origin_relative=" + origin_relative
+			+ " rotation=" + this.getRotation();
 	}
 
 	private Triangle triangle_a;
 
-	public RedRectangle() {
+	public RedRectangle () {
 		super();
 		triangle_a = Geometry.newTriangle();
 	}
 
 	@Override
-	public double getWidth() {
+	public double getWidth () {
 		return width;
 	}
 
 	@Override
-	public double getHeight() {
+	public double getHeight () {
 		return height;
 	}
 
 	@Override
-	public void setSize(double width, double height) {
+	public void setSize (double width, double height) {
 		this.width = width;
 		this.height = height;
 		update();
 	}
 
-	private void update() {
+	private void update () {
 		top_left.relative().setXY(0 - origin_relative.getX(), 0 - origin_relative.getY());
 		top_right.relative().setXY(1 - origin_relative.getX(), 0 - origin_relative.getY());
 		bottom_right.relative().setXY(1 - origin_relative.getX(), 1 - origin_relative.getY());
@@ -72,78 +73,78 @@ public class RedRectangle extends VertexMaster implements Rectangle {
 
 	}
 
-	private void spread(RedVertex spread) {
+	private void spread (RedVertex spread) {
 		spread.relative().setX(spread.relative().getX() * this.width);
 		spread.relative().setY(spread.relative().getY() * this.height);
 	}
 
-	private void spread(Float2 spread) {
+	private void spread (Float2 spread) {
 		spread.setX(spread.getX() * this.width);
 		spread.setY(spread.getY() * this.height);
 	}
 
-	private void unspread(Float2 spread) {
+	private void unspread (Float2 spread) {
 		spread.setX(spread.getX() / this.width);
 		spread.setY(spread.getY() / this.height);
 	}
 
 	@Override
-	public void setWidth(double width) {
+	public void setWidth (double width) {
 		this.setSize(width, height);
 	}
 
 	@Override
-	public void setHeight(double height) {
+	public void setHeight (double height) {
 		this.setSize(width, height);
 	}
 
 	@Override
-	public Angle getRotation() {
+	public Angle getRotation () {
 		return this.getTransform().getRotation();
 	}
 
 	@Override
-	public void setRotation(Angle rotation) {
+	public void setRotation (Angle rotation) {
 		this.getTransform().setRotation(rotation);
 	}
 
 	@Override
-	public void setRotation(double rotation) {
+	public void setRotation (double rotation) {
 		this.getTransform().setRotation(rotation);
 	}
 
 	@Override
-	public void setPosition(double x, double y) {
+	public void setPosition (double x, double y) {
 		this.getTransform().setOffset(x, y);
 	}
 
 	@Override
-	public void setPositionX(double x) {
+	public void setPositionX (double x) {
 		this.getTransform().setOffsetX(x);
 	}
 
 	@Override
-	public void setPositionY(double y) {
+	public void setPositionY (double y) {
 		this.getTransform().setOffsetY(y);
 	}
 
-	public CanvasTransform getTransform() {
+	public CanvasTransform getTransform () {
 		return transform;
 
 	}
 
 	@Override
-	public double getPositionX() {
+	public double getPositionX () {
 		return this.getTransform().getOffsetX();
 	}
 
 	@Override
-	public double getPositionY() {
+	public double getPositionY () {
 		return this.getTransform().getOffsetY();
 	}
 
 	@Override
-	public Rectangle setup(Rectangle other) {
+	public Rectangle setup (Rectangle other) {
 		this.origin_relative.setXY(other.getOriginRelativeX(), other.getOriginRelativeY());
 		this.width = other.getWidth();
 		this.height = other.getHeight();
@@ -154,60 +155,59 @@ public class RedRectangle extends VertexMaster implements Rectangle {
 	}
 
 	@Override
-	public RectangleCorner getTopLeftCorner() {
+	public RectangleCorner getTopLeftCorner () {
 		return this.top_left;
 	}
 
 	@Override
-	public RectangleCorner getTopRightCorner() {
+	public RectangleCorner getTopRightCorner () {
 		return this.top_right;
 	}
 
 	@Override
-	public RectangleCorner getBottomLeftCorner() {
+	public RectangleCorner getBottomLeftCorner () {
 		return this.bottom_left;
 	}
 
 	@Override
-	public RectangleCorner getBottomRightCorner() {
+	public RectangleCorner getBottomRightCorner () {
 		return this.bottom_right;
 	}
 
 	@Override
-	public void setOriginRelative(ORIGIN_RELATIVE_HORIZONTAL orX, ORIGIN_RELATIVE_VERTICAL orY) {
+	public void setOriginRelative (ORIGIN_RELATIVE_HORIZONTAL orX, ORIGIN_RELATIVE_VERTICAL orY) {
 		this.setOriginRelative(orX.relative_value, orY.relative_value);
 	}
 
 	@Override
-	public void setOriginRelativeX(ORIGIN_RELATIVE_HORIZONTAL orX) {
+	public void setOriginRelativeX (ORIGIN_RELATIVE_HORIZONTAL orX) {
 		this.setOriginRelative(orX.relative_value, this.origin_relative.getY());
 	}
 
 	@Override
-	public void setOriginRelativeY(ORIGIN_RELATIVE_VERTICAL orY) {
+	public void setOriginRelativeY (ORIGIN_RELATIVE_VERTICAL orY) {
 		this.setOriginRelative(this.origin_relative.getX(), orY.relative_value);
 	}
 
 	@Override
-	public void setOriginRelativeX(double ORIGIN_POSITION_HORIZONTAL) {
+	public void setOriginRelativeX (double ORIGIN_POSITION_HORIZONTAL) {
 		this.setOriginRelative(ORIGIN_POSITION_HORIZONTAL, this.origin_relative.getY());
 	}
 
 	@Override
-	public void setOriginRelativeY(double ORIGIN_POSITION_VERTICAL) {
+	public void setOriginRelativeY (double ORIGIN_POSITION_VERTICAL) {
 		this.setOriginRelative(this.origin_relative.getX(), ORIGIN_POSITION_VERTICAL);
 
 	}
 
 	@Override
-	public void setOriginAbsolute(double origin_x, double origin_y) {
+	public void setOriginAbsolute (double origin_x, double origin_y) {
 		final boolean new_method = !true;
 
 		if (new_method) {
 			this.tmp.setXY(origin_x, origin_y);
 			this.toRelative(tmp);
-			this.origin_relative.setXY(this.origin_relative.getX() + this.tmp.getX(),
-					this.origin_relative.getY() + this.tmp.getY());
+			this.origin_relative.setXY(this.origin_relative.getX() + this.tmp.getX(), this.origin_relative.getY() + this.tmp.getY());
 		} else {
 			this.tmp.setXY(origin_x, origin_y);
 			// Geometry.applyTransformation(this.absolute_to_relative_matrix,
@@ -215,8 +215,7 @@ public class RedRectangle extends VertexMaster implements Rectangle {
 			this.getTransform().reverse(this.tmp);
 			unspread(this.tmp);
 
-			this.origin_relative.setXY(this.origin_relative.getX() + this.tmp.getX(),
-					this.origin_relative.getY() + this.tmp.getY());
+			this.origin_relative.setXY(this.origin_relative.getX() + this.tmp.getX(), this.origin_relative.getY() + this.tmp.getY());
 		}
 		// this.position.set(origin_x, origin_y);
 		this.setPosition(origin_x, origin_y);
@@ -228,7 +227,7 @@ public class RedRectangle extends VertexMaster implements Rectangle {
 	private CanvasPosition position = Geometry.newCanvasPosition();;
 
 	@Override
-	public void setOriginRelative(double ORIGIN_POSITION_HORIZONTAL, double ORIGIN_POSITION_VERTICAL) {
+	public void setOriginRelative (double ORIGIN_POSITION_HORIZONTAL, double ORIGIN_POSITION_VERTICAL) {
 		final boolean new_method = !true;
 		if (new_method) {
 			this.tmp.setXY(ORIGIN_POSITION_HORIZONTAL, ORIGIN_POSITION_VERTICAL);
@@ -236,11 +235,11 @@ public class RedRectangle extends VertexMaster implements Rectangle {
 			this.setPositionXY(tmp);
 		} else {
 			this.tmp.setXY(ORIGIN_POSITION_HORIZONTAL - this.origin_relative.getX(),
-					ORIGIN_POSITION_VERTICAL - this.origin_relative.getY());// relative
-																			// delta
-																			// Geometry.applyTransformation(this.retalive_to_absolute_matrix,
-																			// tmp);//
-																			// new
+				ORIGIN_POSITION_VERTICAL - this.origin_relative.getY());// relative
+			// delta
+			// Geometry.applyTransformation(this.retalive_to_absolute_matrix,
+			// tmp);//
+			// new
 			spread(tmp);
 			this.getTransform().transform(tmp);
 
@@ -253,9 +252,8 @@ public class RedRectangle extends VertexMaster implements Rectangle {
 	}
 
 	@Override
-	public void toAbsolute(Float2 temp_point) {
-		temp_point.setXY(temp_point.getX() - this.origin_relative.getX(),
-				temp_point.getY() - this.origin_relative.getY());// relative
+	public void toAbsolute (Float2 temp_point) {
+		temp_point.setXY(temp_point.getX() - this.origin_relative.getX(), temp_point.getY() - this.origin_relative.getY());// relative
 		spread(temp_point);
 		this.getTransform().transform(temp_point);
 
@@ -264,48 +262,46 @@ public class RedRectangle extends VertexMaster implements Rectangle {
 	}
 
 	@Override
-	public void toRelative(Float2 temp_point) {
+	public void toRelative (Float2 temp_point) {
 		// Geometry.applyTransformation(this.absolute_to_relative_matrix,
 		// temp_point);
 
 		this.getTransform().reverse(temp_point);
 		unspread(temp_point);
 
-		temp_point.setXY(temp_point.getX() + this.origin_relative.getX(),
-				temp_point.getY() + this.origin_relative.getY());// relative
+		temp_point.setXY(temp_point.getX() + this.origin_relative.getX(), temp_point.getY() + this.origin_relative.getY());// relative
 	}
 
 	@Override
-	public void setOriginAbsoluteX(double origin_x) {
+	public void setOriginAbsoluteX (double origin_x) {
 		this.setOriginAbsolute(origin_x, this.getPositionY());
 	}
 
 	@Override
-	public void setOriginAbsoluteY(double origin_y) {
+	public void setOriginAbsoluteY (double origin_y) {
 		this.setOriginAbsolute(this.getPositionX(), origin_y);
 	}
 
 	@Override
-	public CanvasPosition getPosition() {
+	public CanvasPosition getPosition () {
 		position.setXY(this.getPositionX(), this.getPositionY());
 		position.setRotation(this.getRotation());
 		return position;
 	}
 
 	@Override
-	public void setCanvasPosition(CanvasPosition position) {
+	public void setCanvasPosition (CanvasPosition position) {
 		this.setPosition(position.getX(), position.getY());
 		this.setRotation(position.getRotation());
 	}
 
 	/*
-	 * (non-Javadoc) This is very slow! Should fix!
-	 * https://github.com/JFixby/RedTriplane/issues/5
+	 * (non-Javadoc) This is very slow! Should fix! https://github.com/JFixby/RedTriplane/issues/5
 	 * 
 	 * @see com.jfixby.cmns.api.geometry.Rectangle#containsPoint(double, double)
 	 */
 	@Override
-	public boolean containsPoint(double canvas_x, double canvas_y) {
+	public boolean containsPoint (double canvas_x, double canvas_y) {
 
 		this.triangle_a.A().relative().set(this.top_left.transformed());
 		this.triangle_a.B().relative().set(this.top_right.transformed());
@@ -326,37 +322,37 @@ public class RedRectangle extends VertexMaster implements Rectangle {
 	}
 
 	@Override
-	public boolean containsPoint(FixedFloat2 point) {
+	public boolean containsPoint (FixedFloat2 point) {
 		return this.containsPoint(point.getX(), point.getY());
 	}
 
 	@Override
-	public double getOriginRelativeX() {
+	public double getOriginRelativeX () {
 		return this.origin_relative.getX();
 	}
 
 	@Override
-	public double getOriginRelativeY() {
+	public double getOriginRelativeY () {
 		return this.origin_relative.getY();
 	}
 
 	@Override
-	public void setPositionXY(FixedFloat2 position) {
+	public void setPositionXY (FixedFloat2 position) {
 		this.setPosition(position.getX(), position.getY());
 	}
 
 	@Override
-	public void setOriginAbsolute(FixedFloat2 tmp) {
+	public void setOriginAbsolute (FixedFloat2 tmp) {
 		this.setOriginAbsolute(tmp.getX(), tmp.getY());
 	}
 
 	@Override
-	public Collection<FixedFloat2> listVertices() {
+	public Collection<FixedFloat2> listVertices () {
 		return vertices;
 	}
 
 	@Override
-	public void reScale(double scaleX, double scaleY) {
+	public void reScale (double scaleX, double scaleY) {
 		this.setWidth(this.getWidth() * scaleX);
 		this.setHeight(this.getHeight() * scaleY);
 	}

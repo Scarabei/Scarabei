@@ -1,30 +1,31 @@
+
 package com.jfixby.red.image;
 
 import com.jfixby.cmns.api.image.ArrayGrayMapSpecs;
 
 public class RedArrayGrayMapSpecs implements ArrayGrayMapSpecs {
 
-    private int w;
-    private int h;
+	private int w;
+	private int h;
 
-    @Override
-    public void setWidth(int width) {
-	this.w = width;
-    }
+	@Override
+	public void setWidth (int width) {
+		this.w = width;
+	}
 
-    @Override
-    public void setHeight(int height) {
-	this.h = height;
-    }
+	@Override
+	public void setHeight (int height) {
+		this.h = height;
+	}
 
-    @Override
-    public int getWidth() {
-	return w;
-    }
+	@Override
+	public int getWidth () {
+		return w;
+	}
 
-    @Override
-    public int getHeight() {
-	return h;
-    }
+	@Override
+	public int getHeight () {
+		return h;
+	}
 
 }

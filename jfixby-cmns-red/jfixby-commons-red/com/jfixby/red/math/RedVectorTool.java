@@ -1,8 +1,8 @@
+
 package com.jfixby.red.math;
 
 import com.jfixby.cmns.api.math.FloatMath;
 import com.jfixby.cmns.api.math.VectorTool;
-
 
 public class RedVectorTool extends VectorTool {
 
@@ -18,8 +18,8 @@ public class RedVectorTool extends VectorTool {
 	double nY;
 
 	@Override
-	public void XYtoAR() {
-		
+	public void XYtoAR () {
+
 		R = FloatMath.norm(X, Y);
 		if (R <= EPSILON) {
 			A = dA;
@@ -51,8 +51,7 @@ public class RedVectorTool extends VectorTool {
 								A = FloatMath.aOmegaAB(nY);
 								return;
 							} else {// 2
-								A = FloatMath.VAL_PI_d_2()
-										- FloatMath.aOmegaAB(nX);
+								A = FloatMath.VAL_PI_d_2() - FloatMath.aOmegaAB(nX);
 								return;
 							}
 						} else {// 7 8
@@ -60,16 +59,14 @@ public class RedVectorTool extends VectorTool {
 								A = -FloatMath.aOmegaAB(-nY);
 								return;
 							} else {// 7
-								A = FloatMath.VAL_3PI_d_2()
-										+ FloatMath.aOmegaAB(nX);
+								A = FloatMath.VAL_3PI_d_2() + FloatMath.aOmegaAB(nX);
 								return;
 							}
 						}
 					} else { // 3 4 5 6
 						if (nY > FloatMath.VAL_0()) {// 3 4
 							if (nX > FloatMath.VAL_mk2_d_2()) {// 3
-								A = FloatMath.VAL_PI_d_2()
-										+ FloatMath.aOmegaAB(-nX);
+								A = FloatMath.VAL_PI_d_2() + FloatMath.aOmegaAB(-nX);
 								return;
 							} else {// 4
 								A = FloatMath.PI() - FloatMath.aOmegaAB(nY);
@@ -77,8 +74,7 @@ public class RedVectorTool extends VectorTool {
 							}
 						} else {// 5 6
 							if (nX > FloatMath.VAL_mk2_d_2()) {// 6
-								A = FloatMath.VAL_3PI_d_2()
-										- FloatMath.aOmegaAB(-nX);
+								A = FloatMath.VAL_3PI_d_2() - FloatMath.aOmegaAB(-nX);
 								return;
 							} else {// 5
 								A = FloatMath.PI() + FloatMath.aOmegaAB(-nY);
@@ -92,10 +88,11 @@ public class RedVectorTool extends VectorTool {
 		}
 
 	}
+
 	@Override
-	public void ARtoXY() {
-		this.X =  (this.R * FloatMath.cos(this.A));
-		this.Y =  (this.R * FloatMath.sin(this.A));
+	public void ARtoXY () {
+		this.X = (this.R * FloatMath.cos(this.A));
+		this.Y = (this.R * FloatMath.sin(this.A));
 	}
 
 }

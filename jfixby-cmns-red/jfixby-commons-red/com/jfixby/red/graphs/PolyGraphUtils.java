@@ -1,3 +1,4 @@
+
 package com.jfixby.red.graphs;
 
 import com.jfixby.cmns.api.angles.Angles;
@@ -15,7 +16,7 @@ import com.jfixby.cmns.api.math.MathTools;
 import com.jfixby.cmns.api.math.VectorTool;
 
 public class PolyGraphUtils {
-	static private <EdgeType> void removeLoopEdges(Ploy2DGraph<EdgeType> multy_graph) {
+	static private <EdgeType> void removeLoopEdges (Ploy2DGraph<EdgeType> multy_graph) {
 		final List<EdgeImpl<Float2, EdgeType>> edges_to_remove = Collections.newList();
 
 		for (int k = 0; k < multy_graph.edges.size(); k++) {
@@ -28,8 +29,8 @@ public class PolyGraphUtils {
 		multy_graph.edges.removeAll(edges_to_remove);
 	}
 
-	static public <EdgeType> boolean isDuplicatingEdge(final EdgeImpl<Float2, EdgeType> one,
-			final EdgeImpl<Float2, EdgeType> other, Ploy2DGraph<EdgeType> multy_graph) {
+	static public <EdgeType> boolean isDuplicatingEdge (final EdgeImpl<Float2, EdgeType> one,
+		final EdgeImpl<Float2, EdgeType> other, Ploy2DGraph<EdgeType> multy_graph) {
 		final VertexImpl<Float2, EdgeType> AL = one.getLeftNode();
 		final VertexImpl<Float2, EdgeType> AR = one.getRightNode();
 		final VertexImpl<Float2, EdgeType> BL = other.getLeftNode();
@@ -54,7 +55,7 @@ public class PolyGraphUtils {
 		return false;
 	}
 
-	static private <EdgeType> void findIntersections(Ploy2DGraph<EdgeType> multy_graph) {
+	static private <EdgeType> void findIntersections (Ploy2DGraph<EdgeType> multy_graph) {
 		final List<EdgeImpl<Float2, EdgeType>> edges_to_remove = Collections.newList();
 		final List<EdgeImpl<Float2, EdgeType>> edges_to_add = Collections.newList();
 		for (int i = 0; i < multy_graph.edges.size(); i++) {
@@ -84,8 +85,8 @@ public class PolyGraphUtils {
 
 	}
 
-	private static <EdgeType> VertexImpl<Float2, EdgeType> findNode(final VertexImpl<Float2, EdgeType> node,
-			final List<VertexImpl<Float2, EdgeType>> list) {
+	private static <EdgeType> VertexImpl<Float2, EdgeType> findNode (final VertexImpl<Float2, EdgeType> node,
+		final List<VertexImpl<Float2, EdgeType>> list) {
 		for (int i = 0; i < list.size(); i++) {
 			final VertexImpl<Float2, EdgeType> element = list.getElementAt(i);
 			if (element.getVertexObject().isInEpsilonDistance(node.getVertexObject())) {
@@ -95,7 +96,7 @@ public class PolyGraphUtils {
 		return null;
 	}
 
-	private static <EdgeType> VertexImpl<Float2, EdgeType> findNode(FixedFloat2 dot, Ploy2DGraph<EdgeType> graph) {
+	private static <EdgeType> VertexImpl<Float2, EdgeType> findNode (FixedFloat2 dot, Ploy2DGraph<EdgeType> graph) {
 		// final VertexImpl<Point, EdgeType> n = new VertexImpl<Point,
 		// EdgeType>(point);
 		// return findNode(n, graph.vertices);
@@ -109,7 +110,7 @@ public class PolyGraphUtils {
 		return null;
 	}
 
-	static private <EdgeType> void resolveOverlaps(Ploy2DGraph<EdgeType> multy_graph) {
+	static private <EdgeType> void resolveOverlaps (Ploy2DGraph<EdgeType> multy_graph) {
 		for (int i = 0; i < multy_graph.vertices.size(); i++) {
 			final VertexImpl<Float2, EdgeType> node = multy_graph.vertices.getElementAt(i);
 			resolveOverlaps(node, multy_graph);
@@ -118,7 +119,7 @@ public class PolyGraphUtils {
 		removeDuplicatingEdges(multy_graph);
 	}
 
-	static private <EdgeType> void resolveOverlaps(final VertexImpl<Float2, EdgeType> node, Ploy2DGraph<EdgeType> graph) {
+	static private <EdgeType> void resolveOverlaps (final VertexImpl<Float2, EdgeType> node, Ploy2DGraph<EdgeType> graph) {
 		final List<EdgeImpl<Float2, EdgeType>> edges_to_remove = Collections.newList();
 		final List<EdgeImpl<Float2, EdgeType>> edges_to_add = Collections.newList();
 		for (int i = 0; i < graph.edges.size(); i++) {
@@ -133,7 +134,7 @@ public class PolyGraphUtils {
 		graph.edges.addAll(edges_to_add);
 	}
 
-	static private <EdgeType> boolean nodeLaysOn(VertexImpl<Float2, EdgeType> node, EdgeImpl<Float2, EdgeType> edge) {
+	static private <EdgeType> boolean nodeLaysOn (VertexImpl<Float2, EdgeType> node, EdgeImpl<Float2, EdgeType> edge) {
 		double xN = 0;
 		double yN = 0;
 		double xA = 0;
@@ -144,11 +145,11 @@ public class PolyGraphUtils {
 		xN = node.getVertexObject().getX();
 		yN = node.getVertexObject().getY();
 
-		xA = ((Float2) edge.getLeftNode().getVertexObject()).getX();
-		yA = ((Float2) edge.getLeftNode().getVertexObject()).getY();
+		xA = ((Float2)edge.getLeftNode().getVertexObject()).getX();
+		yA = ((Float2)edge.getLeftNode().getVertexObject()).getY();
 
-		xB = ((Float2) edge.getRightNode().getVertexObject()).getX();
-		yB = ((Float2) edge.getRightNode().getVertexObject()).getY();
+		xB = ((Float2)edge.getRightNode().getVertexObject()).getX();
+		yB = ((Float2)edge.getRightNode().getVertexObject()).getY();
 
 		double A = FloatMath.distance(xN, yN, xA, yA);
 		double B = FloatMath.distance(xN, yN, xB, yB);
@@ -157,7 +158,7 @@ public class PolyGraphUtils {
 		return FloatMath.EPSILON() >= FloatMath.abs(AB - A - B);
 	}
 
-	public static <EdgeType> Ploy2DGraph<EdgeType> newMultiGraph(final EditableCollection<? extends FixedFloat2> input) {
+	public static <EdgeType> Ploy2DGraph<EdgeType> newMultiGraph (final EditableCollection<? extends FixedFloat2> input) {
 
 		final List<VertexImpl<Float2, EdgeType>> nodes = Collections.newList();
 		for (int i = 0; i < input.size(); i++) {
@@ -204,7 +205,7 @@ public class PolyGraphUtils {
 		return multy_graph;
 	}
 
-	static public <EdgeType> int indexOf(Ploy2DGraph<EdgeType> graph, VertexImpl<Float2, EdgeType> l) {
+	static public <EdgeType> int indexOf (Ploy2DGraph<EdgeType> graph, VertexImpl<Float2, EdgeType> l) {
 		for (int i = 0; i < graph.vertices.size(); i++) {
 			VertexImpl<Float2, EdgeType> e = graph.vertices.getElementAt(i);
 			if (e.getVertexObject().isInEpsilonDistance(l.getVertexObject())) {
@@ -214,7 +215,7 @@ public class PolyGraphUtils {
 		return -1;
 	}
 
-	static public <EdgeType> String toString(Ploy2DGraph<EdgeType> graph, EdgeImpl<Float2, EdgeType> n) {
+	static public <EdgeType> String toString (Ploy2DGraph<EdgeType> graph, EdgeImpl<Float2, EdgeType> n) {
 		if (n == null) {
 			return null;
 		}
@@ -238,8 +239,8 @@ public class PolyGraphUtils {
 		}
 	}
 
-	static private <EdgeType> VertexImpl<Float2, EdgeType> addIfNecessary(Ploy2DGraph<EdgeType> graph,
-			VertexImpl<Float2, EdgeType> intersection) {
+	static private <EdgeType> VertexImpl<Float2, EdgeType> addIfNecessary (Ploy2DGraph<EdgeType> graph,
+		VertexImpl<Float2, EdgeType> intersection) {
 		VertexImpl<Float2, EdgeType> result = findNode(intersection, graph.vertices);
 		if (result == null) {
 			graph.vertices.add(intersection);
@@ -248,9 +249,8 @@ public class PolyGraphUtils {
 		return result;
 	}
 
-	static private <EdgeType> void markEdgeForReplacment(EdgeImpl<Float2, EdgeType> edge,
-			VertexImpl<Float2, EdgeType> node, List<EdgeImpl<Float2, EdgeType>> edges_to_add,
-			List<EdgeImpl<Float2, EdgeType>> edges_to_remove) {
+	static private <EdgeType> void markEdgeForReplacment (EdgeImpl<Float2, EdgeType> edge, VertexImpl<Float2, EdgeType> node,
+		List<EdgeImpl<Float2, EdgeType>> edges_to_add, List<EdgeImpl<Float2, EdgeType>> edges_to_remove) {
 		// Log.d("node ", node, " cuts ", edge);
 		final EdgeImpl<Float2, EdgeType> new_edge_left = new EdgeImpl<Float2, EdgeType>();
 		new_edge_left.setRightNode(node);
@@ -264,24 +264,24 @@ public class PolyGraphUtils {
 		edges_to_add.add(new_edge_right);
 		edges_to_remove.add(edge);
 
-		// Log.d("     ", new_edge_left);
-		// Log.d("     ", new_edge_right);
+		// Log.d(" ", new_edge_left);
+		// Log.d(" ", new_edge_right);
 	}
 
-	static private <EdgeType> VertexImpl<Float2, EdgeType> findIntersection(final EdgeImpl<Float2, EdgeType> one,
-			final EdgeImpl<Float2, EdgeType> other) {
+	static private <EdgeType> VertexImpl<Float2, EdgeType> findIntersection (final EdgeImpl<Float2, EdgeType> one,
+		final EdgeImpl<Float2, EdgeType> other) {
 		if (one.isNeighbour(other)) {
 			return null;
 		}
 
-		double one_a_x = ((Float2) one.getLeftNode().getVertexObject()).getX();
-		double one_A_y = ((Float2) one.getLeftNode().getVertexObject()).getY();
-		double one_B_x = ((Float2) one.getRightNode().getVertexObject()).getX();
-		double one_B_y = ((Float2) one.getRightNode().getVertexObject()).getY();
-		double other_A_x = ((Float2) other.getLeftNode().getVertexObject()).getX();
-		double other_A_y = ((Float2) other.getLeftNode().getVertexObject()).getY();
-		double other_B_x = ((Float2) other.getRightNode().getVertexObject()).getX();
-		double other_B_y = ((Float2) other.getRightNode().getVertexObject()).getY();
+		double one_a_x = ((Float2)one.getLeftNode().getVertexObject()).getX();
+		double one_A_y = ((Float2)one.getLeftNode().getVertexObject()).getY();
+		double one_B_x = ((Float2)one.getRightNode().getVertexObject()).getX();
+		double one_B_y = ((Float2)one.getRightNode().getVertexObject()).getY();
+		double other_A_x = ((Float2)other.getLeftNode().getVertexObject()).getX();
+		double other_A_y = ((Float2)other.getLeftNode().getVertexObject()).getY();
+		double other_B_x = ((Float2)other.getRightNode().getVertexObject()).getX();
+		double other_B_y = ((Float2)other.getRightNode().getVertexObject()).getY();
 
 		double d = (other_B_y - other_A_y) * (one_B_x - one_a_x) - (other_B_x - other_A_x) * (one_B_y - one_A_y);
 		if (FloatMath.isWithinEpsilon(d)) {
@@ -290,8 +290,7 @@ public class PolyGraphUtils {
 
 		// i.intersectLines(x1, y1, x2, y2, x3, y3, x4, y4, intersection)
 		VertexImpl<Float2, EdgeType> node = new VertexImpl<Float2, EdgeType>(Geometry.newFloat2());
-		double ua = ((other_B_x - other_A_x) * (one_A_y - other_A_y) - (other_B_y - other_A_y) * (one_a_x - other_A_x))
-				/ d;
+		double ua = ((other_B_x - other_A_x) * (one_A_y - other_A_y) - (other_B_y - other_A_y) * (one_a_x - other_A_x)) / d;
 		node.getVertexObject().setXY(one_a_x + (one_B_x - one_a_x) * ua, one_A_y + (one_B_y - one_A_y) * ua);
 
 		if (nodeLaysOn(node, one) && nodeLaysOn(node, other)) {
@@ -300,7 +299,7 @@ public class PolyGraphUtils {
 		return null;
 	}
 
-	static private <EdgeType> void removeSingleNodes(Ploy2DGraph<EdgeType> multy_graph) {
+	static private <EdgeType> void removeSingleNodes (Ploy2DGraph<EdgeType> multy_graph) {
 		boolean remove = false;
 		do {
 			remove = false;
@@ -332,8 +331,8 @@ public class PolyGraphUtils {
 
 	}
 
-	static private <EdgeType> boolean noNewExitsFromHere(EdgeImpl<Float2, EdgeType> direction,
-			List<EdgeImpl<Float2, EdgeType>> testedExits) {
+	static private <EdgeType> boolean noNewExitsFromHere (EdgeImpl<Float2, EdgeType> direction,
+		List<EdgeImpl<Float2, EdgeType>> testedExits) {
 		for (int i = 0; i < testedExits.size(); i++) {
 			EdgeImpl<Float2, EdgeType> test = testedExits.getElementAt(i);
 			if (test.getRightNode() == direction.getRightNode() && test.getLeftNode() == direction.getLeftNode()) {
@@ -344,13 +343,13 @@ public class PolyGraphUtils {
 		return false;
 	}
 
-	static private <EdgeType> EdgeImpl<Float2, EdgeType> findNextBorderEdge(EdgeImpl<Float2, EdgeType> current) {
+	static private <EdgeType> EdgeImpl<Float2, EdgeType> findNextBorderEdge (EdgeImpl<Float2, EdgeType> current) {
 		EdgeImpl<Float2, EdgeType> next = findNextBorderEdge(current.getRightNode(), current);
 		return next;
 	}
 
-	static private <EdgeType> CustomAngle edgeDirection(final VertexImpl<Float2, EdgeType> start,
-			final VertexImpl<Float2, EdgeType> end) {
+	static private <EdgeType> CustomAngle edgeDirection (final VertexImpl<Float2, EdgeType> start,
+		final VertexImpl<Float2, EdgeType> end) {
 		final VectorTool tool = MathTools.newVectorTool();
 		tool.X = end.getVertexObject().getX() - start.getVertexObject().getX();
 		tool.Y = end.getVertexObject().getY() - start.getVertexObject().getY();
@@ -359,8 +358,8 @@ public class PolyGraphUtils {
 		return Angles.newAngle(tool.A);
 	}
 
-	static private <EdgeType> EdgeImpl<Float2, EdgeType> findNextBorderEdge(VertexImpl<Float2, EdgeType> start,
-			EdgeImpl<Float2, EdgeType> ignore) {
+	static private <EdgeType> EdgeImpl<Float2, EdgeType> findNextBorderEdge (VertexImpl<Float2, EdgeType> start,
+		EdgeImpl<Float2, EdgeType> ignore) {
 		final Set<EdgeImpl<Float2, EdgeType>> links = start.getLinks();
 		if (links.size() == 0) {
 			throw new Error("Isolated node: " + start);
@@ -372,7 +371,7 @@ public class PolyGraphUtils {
 		for (int i = 0; i < links.size(); i++) {
 			final EdgeImpl<Float2, EdgeType> other_candidate = links.getElementAt(i);
 			if (other_candidate == ignore) {
-				// Log.d("    skip", toString(other_candidate));
+				// Log.d(" skip", toString(other_candidate));
 				continue;
 				// other_candidate_angle.setValue(Angle.TWICE_PI);
 			}
@@ -390,25 +389,24 @@ public class PolyGraphUtils {
 
 			if (candidate == null) {
 				candidate = other_candidate;
-				// Log.d("    switching candidate to", toString(candidate));
+				// Log.d(" switching candidate to", toString(candidate));
 				candidate_angle.setValue(other_candidate_angle);
 				continue;
 			} else {
-				final boolean new_candidate_is_better = candidate_angle.getMagnitude() > other_candidate_angle
-						.getMagnitude();
+				final boolean new_candidate_is_better = candidate_angle.getMagnitude() > other_candidate_angle.getMagnitude();
 
-				// Log.d("    candidate_angle", candidate_angle);
-				// Log.d("    other_candidate_angle", other_candidate_angle);
+				// Log.d(" candidate_angle", candidate_angle);
+				// Log.d(" other_candidate_angle", other_candidate_angle);
 
 				if (new_candidate_is_better) {
-					// Log.d("    switching candidate from",
+					// Log.d(" switching candidate from",
 					// toString(candidate));
 					candidate = other_candidate;
-					// Log.d("                          to",
+					// Log.d(" to",
 					// toString(candidate));
 					candidate_angle.setValue(other_candidate_angle);
 				} else {
-					// Log.d("    reject candidate", toString(other_candidate));
+					// Log.d(" reject candidate", toString(other_candidate));
 				}
 			}
 		}
@@ -419,7 +417,7 @@ public class PolyGraphUtils {
 		return candidate;
 	}
 
-	static private <EdgeType> CustomAngle edgeToEdgeAngle(EdgeImpl<Float2, EdgeType> from, EdgeImpl<Float2, EdgeType> to) {
+	static private <EdgeType> CustomAngle edgeToEdgeAngle (EdgeImpl<Float2, EdgeType> from, EdgeImpl<Float2, EdgeType> to) {
 		CustomAngle direction_from = null;
 		if (from == null) {
 			direction_from = Angles.newAngle();
@@ -436,7 +434,7 @@ public class PolyGraphUtils {
 		return delta;
 	}
 
-	static private <EdgeType> VertexImpl<Float2, EdgeType> findTheMostDistantNode(Ploy2DGraph<EdgeType> multy_graph) {
+	static private <EdgeType> VertexImpl<Float2, EdgeType> findTheMostDistantNode (Ploy2DGraph<EdgeType> multy_graph) {
 		VertexImpl<Float2, EdgeType> result = multy_graph.vertices.getElementAt(0);
 		for (int i = 0; i < multy_graph.vertices.size(); i++) {
 			VertexImpl<Float2, EdgeType> element = multy_graph.vertices.getElementAt(i);
@@ -447,8 +445,8 @@ public class PolyGraphUtils {
 		return result;
 	}
 
-	static private <EdgeType> void moveTaleFromTo(List<VertexImpl<Float2, EdgeType>> from,
-			List<VertexImpl<Float2, EdgeType>> to, int index) {
+	static private <EdgeType> void moveTaleFromTo (List<VertexImpl<Float2, EdgeType>> from, List<VertexImpl<Float2, EdgeType>> to,
+		int index) {
 		int n = from.size();
 		for (int i = index; i < n; i++) {
 			VertexImpl<Float2, EdgeType> remov = from.removeElementAt(index);
@@ -456,8 +454,7 @@ public class PolyGraphUtils {
 		}
 	}
 
-	static private <EdgeType> int indexOf(List<VertexImpl<Float2, EdgeType>> unpainted_nodes,
-			VertexImpl<Float2, EdgeType> node) {
+	static private <EdgeType> int indexOf (List<VertexImpl<Float2, EdgeType>> unpainted_nodes, VertexImpl<Float2, EdgeType> node) {
 		for (int i = 0; i < unpainted_nodes.size(); i++) {
 			VertexImpl<Float2, EdgeType> e = unpainted_nodes.getElementAt(i);
 			if (e == node) {
@@ -467,12 +464,11 @@ public class PolyGraphUtils {
 		return -1;
 	}
 
-	static private <EdgeType> void visit(VertexImpl<Float2, EdgeType> node,
-			List<VertexImpl<Float2, EdgeType>> visited_nodes) {
+	static private <EdgeType> void visit (VertexImpl<Float2, EdgeType> node, List<VertexImpl<Float2, EdgeType>> visited_nodes) {
 		visited_nodes.add(node);
 	}
 
-	public static <EdgeType> List<PathInGraph<Float2, EdgeType>> extractSimpleCycles(Ploy2DGraph<EdgeType> multy_graph) {
+	public static <EdgeType> List<PathInGraph<Float2, EdgeType>> extractSimpleCycles (Ploy2DGraph<EdgeType> multy_graph) {
 		List<VertexImpl<Float2, EdgeType>> order = findBorderNodes(multy_graph);
 
 		List<VertexImpl<Float2, EdgeType>> visited_nodes = Collections.newList();
@@ -492,7 +488,7 @@ public class PolyGraphUtils {
 				visited_nodes.add(current);
 				// Log.d("visit:", toString(current));
 			} else {
-				// Log.d("  loop", toString(current));
+				// Log.d(" loop", toString(current));
 				int index = indexOf(queue, current);
 				color = Collections.newList();
 				moveTaleFromTo(queue, color, index + 1);
@@ -521,7 +517,7 @@ public class PolyGraphUtils {
 
 	}
 
-	static <EdgeType> List<VertexImpl<Float2, EdgeType>> findBorderNodes(Ploy2DGraph<EdgeType> multy_graph) {
+	static <EdgeType> List<VertexImpl<Float2, EdgeType>> findBorderNodes (Ploy2DGraph<EdgeType> multy_graph) {
 		if (multy_graph.vertices.size() < 3) {
 			return Collections.newList();
 		}
@@ -553,8 +549,8 @@ public class PolyGraphUtils {
 			// Log.d(" leaving", toString(currentNode));
 			current_direction = findNextBorderEdge(current_direction);
 			currentNode = current_direction.getRightNode();
-			// Log.d("   taking course", toString(current_direction));
-			// Log.d("     destination", toString(currentNode));
+			// Log.d(" taking course", toString(current_direction));
+			// Log.d(" destination", toString(currentNode));
 
 			if (noNewExitsFromHere(current_direction, testedExits)) {
 
@@ -577,7 +573,7 @@ public class PolyGraphUtils {
 		return visiting_order;
 	}
 
-	static public <EdgeType> void removeDuplicatingEdges(Ploy2DGraph<EdgeType> multy_graph) {
+	static public <EdgeType> void removeDuplicatingEdges (Ploy2DGraph<EdgeType> multy_graph) {
 		final List<EdgeImpl<Float2, EdgeType>> edges_to_remove = Collections.newList();
 		for (int i = 0; i < multy_graph.edges.size(); i++) {
 			final EdgeImpl<Float2, EdgeType> one = multy_graph.edges.getElementAt(i);
@@ -594,26 +590,26 @@ public class PolyGraphUtils {
 		multy_graph.edges.removeAll(edges_to_remove);
 	}
 
-	static private <EdgeType> CyclePathImpl<Float2, EdgeType> toCycleGraph(Ploy2DGraph<EdgeType> multy_graph,
-			List<VertexImpl<Float2, EdgeType>> color) {
+	static private <EdgeType> CyclePathImpl<Float2, EdgeType> toCycleGraph (Ploy2DGraph<EdgeType> multy_graph,
+		List<VertexImpl<Float2, EdgeType>> color) {
 		int n = color.size();
 		CyclePathImpl<Float2, EdgeType> cycle = new CyclePathImpl<Float2, EdgeType>();
 		cycle.setNumberOfVetices(n);
 		for (int i = 0; i < n; i++) {
 			//
 			cycle//
-			.getState(i)//
-					.getVertex().putVertexObject(Geometry.newFloat2());
+				.getState(i)//
+				.getVertex().putVertexObject(Geometry.newFloat2());
 
 			Float2 point = cycle//
-					.getState(i)//
-					.getVertex()//
-					.getVertexObject()//
+				.getState(i)//
+				.getVertex()//
+				.getVertexObject()//
 			;
 
 			point.set(//
-			color//
-			.getElementAt(i)//
+				color//
+					.getElementAt(i)//
 					.getVertexObject());
 		}
 		return cycle;

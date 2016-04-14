@@ -1,3 +1,4 @@
+
 package com.jfixby.red.collections;
 
 import java.util.ArrayList;
@@ -12,14 +13,14 @@ public class RedPool<T> implements Pool<T> {
 
 	private PoolElementsSpawner<T> spawner;
 
-	public RedPool(PoolElementsSpawner<T> spawner) {
+	public RedPool (PoolElementsSpawner<T> spawner) {
 		this.spawner = spawner;
 	}
 
 	int in_air = 0;
 
 	@Override
-	public T obtain() {
+	public T obtain () {
 		in_air++;
 		if (legacy.size() == 0) {
 			T instance = spawner.spawnNewInstance();
@@ -31,20 +32,17 @@ public class RedPool<T> implements Pool<T> {
 	}
 
 	@Override
-	public void free(T instance) {
+	public void free (T instance) {
 		in_air--;
 		legacy.add(instance);
 	}
 
 	@Override
-	public void freeAll(Collection<T> collection) {
+	public void freeAll (Collection<T> collection) {
 		for (int i = 0; i < collection.size(); i++) {
 			T t = collection.getElementAt(i);
 			this.free(t);
 		}
 	}
-
-	
-	
 
 }
