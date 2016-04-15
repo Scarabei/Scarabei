@@ -1,3 +1,4 @@
+
 package com.jfixby.red.sys;
 
 import com.jfixby.cmns.api.collections.Collection;
@@ -28,7 +29,7 @@ public class RedTask implements Task {
 	private String name;
 
 	@Override
-	public String toString() {
+	public String toString () {
 		return "Task[" + name + "]";
 	}
 
@@ -36,13 +37,13 @@ public class RedTask implements Task {
 	// return this.names.toString();
 	// }
 
-	public RedTask(String name, Job job) {
+	public RedTask (String name, Job job) {
 		jobs.add(job);
 		switcher = JUtils.newStateSwitcher(TASK_STATE.ACTIVE);
 		// listNames();
 	}
 
-	public RedTask(String name, Collection<Job> jobs) {
+	public RedTask (String name, Collection<Job> jobs) {
 		this.name = name;
 		if (name == null) {
 			this.name = super.toString();
@@ -55,7 +56,7 @@ public class RedTask implements Task {
 	boolean first_call = false;
 	Job current_job;
 
-	public void push() {
+	public void push () {
 		switcher.expectState(TASK_STATE.ACTIVE);
 		if (this.job_to_do == -1) {
 			this.job_to_do++;
@@ -95,22 +96,22 @@ public class RedTask implements Task {
 	}
 
 	@Override
-	public boolean isActive() {
+	public boolean isActive () {
 		return switcher.currentState() == TASK_STATE.ACTIVE;
 	}
 
 	@Override
-	public boolean isFailed() {
+	public boolean isFailed () {
 		return switcher.currentState() == TASK_STATE.FAILED;
 	}
 
 	@Override
-	public boolean isSuccessfullyCompleted() {
+	public boolean isSuccessfullyCompleted () {
 		return switcher.currentState() == TASK_STATE.SUCCESSFULLY_COMPLETED;
 	}
 
 	@Override
-	public TASK_STATE getState() {
+	public TASK_STATE getState () {
 		return switcher.currentState();
 	}
 

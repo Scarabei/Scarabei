@@ -1,3 +1,4 @@
+
 package com.jfixby.red.net;
 
 import com.jfixby.cmns.api.debug.Debug;
@@ -10,24 +11,24 @@ public class RedConnectionSpecs implements HttpConnectionSpecs {
 	private boolean set_agent;
 
 	@Override
-	public void setURL(HttpURL url) {
+	public void setURL (HttpURL url) {
 		Debug.checkNull("url", url);
 		this.url = url;
 
 	}
 
 	@Override
-	public void setUseAgent(boolean b) {
+	public void setUseAgent (boolean b) {
 		this.set_agent = b;
 	}
 
 	@Override
-	public HttpURL getURL() {
+	public HttpURL getURL () {
 		return url;
 	}
 
 	@Override
-	public boolean getUseAgent() {
+	public boolean getUseAgent () {
 		return set_agent;
 	}
 

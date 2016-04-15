@@ -1,3 +1,4 @@
+
 package com.jfixby.red.net;
 
 import java.io.IOException;
@@ -13,32 +14,32 @@ import com.jfixby.cmns.api.net.http.HttpURL;
 
 public class RedCallExecutor implements HttpCallExecutor {
 
-    @Override
-    public HttpCallProgress execute(HttpCall call) throws IOException {
-	boolean use_ssl = call.getUseSSL();
-	if (use_ssl) {
-	    throw new Error("Not implemented yet");
+	@Override
+	public HttpCallProgress execute (HttpCall call) throws IOException {
+		boolean use_ssl = call.getUseSSL();
+		if (use_ssl) {
+			throw new Error("Not implemented yet");
+		}
+
+		HttpURL url = call.getUrl();
+
+		HttpConnectionSpecs specs = Http.newConnectionSpecs();
+		specs.setURL(url);
+		specs.setUseAgent(true);
+		HttpConnection connection = Http.newConnection(specs);
+
+		connection.open();
+
+		HttpConnectionInputStream input_stream = connection.getInputStream();
+
+		byte[] data;
+
+		data = input_stream.readAll().toArray();
+
+		connection.close();
+
+		RedHttpCallProgress progress = new RedHttpCallProgress(connection, data);
+		return progress;
 	}
-
-	HttpURL url = call.getUrl();
-
-	HttpConnectionSpecs specs = Http.newConnectionSpecs();
-	specs.setURL(url);
-	specs.setUseAgent(true);
-	HttpConnection connection = Http.newConnection(specs);
-
-	connection.open();
-
-	HttpConnectionInputStream input_stream = connection.getInputStream();
-
-	byte[] data;
-
-	data = input_stream.readAll().toArray();
-
-	connection.close();
-
-	RedHttpCallProgress progress = new RedHttpCallProgress(connection, data);
-	return progress;
-    }
 
 }

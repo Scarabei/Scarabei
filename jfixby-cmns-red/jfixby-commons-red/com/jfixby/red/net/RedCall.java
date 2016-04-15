@@ -1,3 +1,4 @@
+
 package com.jfixby.red.net;
 
 import com.jfixby.cmns.api.collections.Collections;
@@ -16,15 +17,15 @@ public class RedCall implements HttpCall {
 	private boolean agent;
 	private boolean ssl;
 
-	public METHOD getMethod() {
+	public METHOD getMethod () {
 		return method;
 	}
 
-	public void setMethod(METHOD method) {
+	public void setMethod (METHOD method) {
 		this.method = Debug.checkNull("method", method);
 	}
 
-	public RedCall(HttpCallParams call_scecs) {
+	public RedCall (HttpCallParams call_scecs) {
 		url = call_scecs.getURL();
 		method = Debug.checkNull("method", call_scecs.getMethod());
 		agent = call_scecs.getUseAgent();
@@ -32,22 +33,22 @@ public class RedCall implements HttpCall {
 	}
 
 	@Override
-	public void addRequestHeader(String parameter_name, Object value) {
+	public void addRequestHeader (String parameter_name, Object value) {
 		map.put(parameter_name, value);
 	}
 
 	@Override
-	public HttpURL getUrl() {
+	public HttpURL getUrl () {
 		return url;
 	}
 
 	@Override
-	public boolean getUseSSL() {
+	public boolean getUseSSL () {
 		return ssl;
 	}
 
 	@Override
-	public boolean getUseAgent() {
+	public boolean getUseAgent () {
 		return agent;
 	}
 
