@@ -1,13 +1,12 @@
+
 package com.jfixby.android.api;
 
 public interface AndroidComponent {
 
+	long getMaxHeapSize ();
 
-	long getMaxHeapSize();
+	long getRecommendedHeapSize ();
 
-	long getRecommendedHeapSize();
-
-	String getApplicationPrivateDirPath();
-
+	String getApplicationPrivateDirPath ();
 
 }
