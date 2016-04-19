@@ -8,18 +8,13 @@ import com.jfixby.cmns.api.sys.Sys;
 public class RedBait implements Bait {
 
 	public final byte[] weight;
-	long delta;
 
 	@Override
 	protected void finalize () throws Throwable {
-		this.delta = System.currentTimeMillis();
+
 		super.finalize();
 		GCFisher.onBaitCaptured(this);
-		this.delta = System.currentTimeMillis() - this.delta;
-		this.delta = this.delta - this.delayPeriod;
-		if (this.delta > 0) {
-			Thread.sleep(this.delta);
-		}
+
 	}
 
 	final long bait_id;

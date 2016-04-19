@@ -22,11 +22,28 @@ public class RedGCFisher implements GCFisherComponent {
 		return info;
 	}
 
+	long delta;
+
 	@Override
 	public void onBaitCaptured (final Bait bait) {
+
+		this.delta = System.currentTimeMillis();
+
 		final String message = "GC bait captured " + bait.getInfo();
 		L.e(message);
 		// L.e(new Error(message));
+
+		this.delta = System.currentTimeMillis() - this.delta;
+		this.delta = this.delayPeriod - this.delta;
+		if (this.delta > 0) {
+			L.e("GC sleeping", this.delta);
+			try {
+				Thread.sleep(this.delta);
+			} catch (final InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+
 		GCFisher.throwBait();
 	}
 
