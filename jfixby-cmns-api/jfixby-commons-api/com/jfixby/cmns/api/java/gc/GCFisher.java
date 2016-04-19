@@ -7,10 +7,12 @@ public class GCFisher {
 
 	public static final String DefaultBaitSize = "GCFisher.DefaultBaitSize";
 
+	public static final long ANDROID_GC_DELAY = 150;// ms
+
 	static private ComponentInstaller<GCFisherComponent> componentInstaller = new ComponentInstaller<GCFisherComponent>(
 		"GCFisher");
 
-	public static final void installComponent (GCFisherComponent component_to_install) {
+	public static final void installComponent (final GCFisherComponent component_to_install) {
 		componentInstaller.installComponent(component_to_install);
 	}
 
@@ -22,16 +24,20 @@ public class GCFisher {
 		return componentInstaller.getComponent();
 	}
 
-	public static void onBaitCaptured (Bait bait) {
+	public static void onBaitCaptured (final Bait bait) {
 		invoke().onBaitCaptured(bait);
 	}
 
-	public static BaitInfo throwBait (long size_in_bytes) {
+	public static BaitInfo throwBait (final long size_in_bytes) {
 		return invoke().throwBait(size_in_bytes);
 	}
 
 	public static BaitInfo throwBait () {
 		return invoke().throwBait();
+	}
+
+	public static void setGCDelay (final long delayPeriod) {
+		invoke().setGCDelay(delayPeriod);
 	}
 
 }

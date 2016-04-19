@@ -9,4 +9,6 @@ public interface GCFisherComponent {
 
 	public void onBaitCaptured (Bait bait);
 
+	public void setGCDelay (long delayPeriod);
+
 }

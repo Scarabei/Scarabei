@@ -12,18 +12,19 @@ import com.jfixby.cmns.api.sys.settings.SystemSettings;
 public class RedGCFisher implements GCFisherComponent {
 
 	static long bait_id = -1;
+	private long delayPeriod;
 
 	@Override
-	synchronized public BaitInfo throwBait (long size_in_bytes) {
+	synchronized public BaitInfo throwBait (final long size_in_bytes) {
 		bait_id++;
-		RedBait bait = new RedBait(bait_id, size_in_bytes);
-		RedBaitInfo info = bait.getInfo();
+		final RedBait bait = new RedBait(bait_id, size_in_bytes, this.delayPeriod);
+		final RedBaitInfo info = bait.getInfo();
 		return info;
 	}
 
 	@Override
-	public void onBaitCaptured (Bait bait) {
-		String message = "GC bait captured " + bait.getInfo();
+	public void onBaitCaptured (final Bait bait) {
+		final String message = "GC bait captured " + bait.getInfo();
 		L.e(message);
 		// L.e(new Error(message));
 		GCFisher.throwBait();
@@ -32,18 +33,23 @@ public class RedGCFisher implements GCFisherComponent {
 	@Override
 	public BaitInfo throwBait () {
 
-		long DEFAULT_BAIT_SIZE = SystemSettings.getLongParameter(GCFisher.DefaultBaitSize);
+		final long DEFAULT_BAIT_SIZE = SystemSettings.getLongParameter(GCFisher.DefaultBaitSize);
 		return this.throwBait(DEFAULT_BAIT_SIZE);
 	}
 
-	private int parse (String config_line) {
+	private int parse (final String config_line) {
 		try {
-			int size = Integer.parseInt(config_line.toLowerCase().replaceAll("mb", ""));
+			final int size = Integer.parseInt(config_line.toLowerCase().replaceAll("mb", ""));
 			return size;
-		} catch (Throwable e) {
+		} catch (final Throwable e) {
 			Err.reportError("Failed to read GCFisher.DefaultBaitSize: " + config_line);
 		}
 		return 1;
+	}
+
+	@Override
+	public void setGCDelay (final long delayPeriod) {
+		this.delayPeriod = delayPeriod;
 	}
 
 }
