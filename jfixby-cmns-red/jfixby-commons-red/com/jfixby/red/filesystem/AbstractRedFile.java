@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 import com.jfixby.cmns.api.file.ChildrenList;
 import com.jfixby.cmns.api.file.File;
+import com.jfixby.cmns.api.file.FileFilter;
 import com.jfixby.cmns.api.file.FileInputStream;
 import com.jfixby.cmns.api.file.FileOutputStream;
 import com.jfixby.cmns.api.file.FileSystem;
@@ -18,7 +19,7 @@ import com.jfixby.cmns.api.util.path.RelativePath;
 public abstract class AbstractRedFile implements File {
 	@Override
 	public void checkIsFolder () {
-		checkExists();
+		this.checkExists();
 		if (!this.isFolder()) {
 			throw new Error("" + this + " is not a folder");
 		}
@@ -33,21 +34,21 @@ public abstract class AbstractRedFile implements File {
 
 	@Override
 	public void checkIsFile () {
-		checkExists();
+		this.checkExists();
 		if (!this.isFile()) {
 			throw new Error(this + " does not exist.");
 		}
 	}
 
 	@Override
-	public void writeData (Object object) throws IOException {
-		ByteArray data = IO.serialize((Serializable)object);
+	public void writeData (final Object object) throws IOException {
+		final ByteArray data = IO.serialize((Serializable)object);
 		this.writeBytes(data);
 	}
 
 	@Override
-	public File proceed (RelativePath relativePath) {
-		AbsolutePath<FileSystem> file_path = this.getAbsoluteFilePath().proceed(relativePath);
+	public File proceed (final RelativePath relativePath) {
+		final AbsolutePath<FileSystem> file_path = this.getAbsoluteFilePath().proceed(relativePath);
 		return this.getFileSystem().newFile(file_path);
 	}
 
@@ -58,9 +59,9 @@ public abstract class AbstractRedFile implements File {
 
 	@Override
 	public ChildrenList listSubFolders () {
-		FilesList listFiles = new FilesList();
-		ChildrenList children = this.listChildren();
-		for (File file : children) {
+		final FilesList listFiles = new FilesList();
+		final ChildrenList children = this.listChildren();
+		for (final File file : children) {
 			if (file.isFolder()) {
 				listFiles.add(file);
 			}
@@ -71,41 +72,46 @@ public abstract class AbstractRedFile implements File {
 
 	@Override
 	public String readToString () throws IOException {
-		FileInputStream is = this.newInputStream();
-		ByteArray data = is.readAll();
+		final FileInputStream is = this.newInputStream();
+		final ByteArray data = is.readAll();
 		is.close();
 		return JUtils.newString(data);
 	}
 
 	@Override
 	public ByteArray readBytes () throws IOException {
-		FileInputStream is = this.getFileSystem().newFileInputStream(this);
-		ByteArray bytes = is.readAll();
+		final FileInputStream is = this.getFileSystem().newFileInputStream(this);
+		final ByteArray bytes = is.readAll();
 		is.close();
 		return bytes;
 	}
 
 	@Override
-	public void writeBytes (ByteArray bytes) throws IOException {
-		FileOutputStream os = this.getFileSystem().newFileOutputStream(this);
+	public void writeBytes (final ByteArray bytes) throws IOException {
+		final FileOutputStream os = this.getFileSystem().newFileOutputStream(this);
 		os.write(bytes);
 		os.close();
 	}
 
 	@Override
-	public void writeBytes (byte[] bytes) throws IOException {
+	public ChildrenList listChildren (final FileFilter filter) {
+		return this.listChildren().filterFiles(filter);
+	}
+
+	@Override
+	public void writeBytes (final byte[] bytes) throws IOException {
 		this.writeBytes(JUtils.newByteArray(bytes));
 	}
 
 	@Override
-	public void writeString (String bytes) throws IOException {
+	public void writeString (final String bytes) throws IOException {
 		this.writeBytes(JUtils.newByteArray(bytes.getBytes()));
 	}
 
 	@Override
-	public <T> T readData (Class<T> type) throws IOException {
+	public <T> T readData (final Class<T> type) throws IOException {
 
-		ByteArray bytes = this.readBytes();
+		final ByteArray bytes = this.readBytes();
 		return IO.deserialize(type, bytes);
 	}
 

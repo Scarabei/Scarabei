@@ -23,6 +23,8 @@ public interface File {
 
 	ChildrenList listChildren ();
 
+	ChildrenList listChildren (FileFilter filter);
+
 	File child (String child_name);
 
 	boolean exists ();
