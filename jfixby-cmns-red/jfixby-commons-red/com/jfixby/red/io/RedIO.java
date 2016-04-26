@@ -3,7 +3,6 @@ package com.jfixby.red.io;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.Closeable;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -31,8 +30,8 @@ import com.jfixby.cmns.api.util.JUtils;
 public class RedIO implements IOComponent {
 
 	@Override
-	public StreamPipe newStreamPipe (InputStream input_stream, OutputStream output_stream,
-		U_StreamPipeProgressListener progress_listener) {
+	public StreamPipe newStreamPipe (final InputStream input_stream, final OutputStream output_stream,
+		final U_StreamPipeProgressListener progress_listener) {
 		return new RedStreamPipe(input_stream, output_stream, progress_listener);
 	}
 
@@ -47,41 +46,41 @@ public class RedIO implements IOComponent {
 	}
 
 	@Override
-	public Buffer readStreamToBuffer (InputStream input_stream) throws IOException {
-		ByteArray bytes = input_stream.readAll();
+	public Buffer readStreamToBuffer (final InputStream input_stream) throws IOException {
+		final ByteArray bytes = input_stream.readAll();
 
 		return new RedBuffer(bytes);
 	}
 
 	@Override
-	public Buffer newBuffer (ByteArray bytes) {
+	public Buffer newBuffer (final ByteArray bytes) {
 		return new RedBuffer(bytes);
 	}
 
 	@Override
-	public BufferInputStream newBufferInputStream (Buffer buffer) {
+	public BufferInputStream newBufferInputStream (final Buffer buffer) {
 		return new RedBufferInputStream(buffer);
 	}
 
 	@Override
-	public void writeBufferToStream (Buffer buffer, FileOutputStream os) throws IOException {
-		BufferInputStream is = this.newBufferInputStream(buffer);
-		StreamPipe pipe = this.newStreamPipe(is, os, null);
+	public void writeBufferToStream (final Buffer buffer, final FileOutputStream os) throws IOException {
+		final BufferInputStream is = this.newBufferInputStream(buffer);
+		final StreamPipe pipe = this.newStreamPipe(is, os, null);
 		pipe.transferAll();
 	}
 
 	@Override
-	public InputStream toInputStream (java.io.InputStream java_input_stream) throws IOException {
+	public InputStream toInputStream (final java.io.InputStream java_input_stream) throws IOException {
 		return new AbstractRedInputStream(java_input_stream);
 	}
 
 	@Override
-	public OutputStream toOutputStream (java.io.OutputStream java_output_stream) throws IOException {
+	public OutputStream toOutputStream (final java.io.OutputStream java_output_stream) throws IOException {
 		return new AbstractRedOutputStream(java_output_stream);
 	}
 
 	@Override
-	public int readByte (java.io.InputStream javaInputStream) throws IOException {
+	public int readByte (final java.io.InputStream javaInputStream) throws IOException {
 		return javaInputStream.read();
 	}
 
@@ -109,7 +108,7 @@ public class RedIO implements IOComponent {
 	}
 
 	@Override
-	public void writeInt (java.io.OutputStream javaOutputStream, int value) throws IOException {
+	public void writeInt (final java.io.OutputStream javaOutputStream, final int value) throws IOException {
 		javaOutputStream.write((value >> 8 * 3) & 0xff);
 		javaOutputStream.write((value >> 8 * 2) & 0xff);
 		javaOutputStream.write((value >> 8 * 1) & 0xff);
@@ -117,24 +116,17 @@ public class RedIO implements IOComponent {
 	}
 
 	@Override
-	public void writeByte (java.io.OutputStream javaOutputStream, int value) throws IOException {
+	public void writeByte (final java.io.OutputStream javaOutputStream, final int value) throws IOException {
 		javaOutputStream.write(value);
 	}
 
 	@Override
-	public void forceClose (ForceCloseable os) {
-		if (os != null) {
-			os.forceClose();
-		}
-	}
-
-	@Override
-	public GZipOutputStream newGZipStream (OutputStream os) throws IOException {
+	public GZipOutputStream newGZipStream (final OutputStream os) throws IOException {
 		return new RedGZipOutputStream(os);
 	}
 
 	@Override
-	public GZipInputStream newGZipStream (InputStream is) throws IOException {
+	public GZipInputStream newGZipStream (final InputStream is) throws IOException {
 		return new RedGZipInputStream(is);
 	}
 
@@ -147,51 +139,43 @@ public class RedIO implements IOComponent {
 	}
 
 	@Override
-	public void forceClose (Closeable os) {
-		try {
-			os.close();
-		} catch (IOException ignored) {
-		}
-	}
-
-	@Override
-	public void readBytes (java.io.InputStream javaInputStream, int[] array) throws IOException {
+	public void readBytes (final java.io.InputStream javaInputStream, final int[] array) throws IOException {
 		for (int i = 0; i < array.length; i++) {
 			array[i] = javaInputStream.read();
 		}
 	}
 
 	@Override
-	public JavaBitInputStream newBitInputStream (java.io.InputStream is) {
+	public JavaBitInputStream newBitInputStream (final java.io.InputStream is) {
 		return new RedJavaBitInputStream(is, JavaBitStreamMode.SIMPLE_BYTE);
 	}
 
 	@Override
-	public JavaBitInputStream newBitInputStream (java.io.InputStream is, JavaBitStreamMode mode) {
+	public JavaBitInputStream newBitInputStream (final java.io.InputStream is, final JavaBitStreamMode mode) {
 		return new RedJavaBitInputStream(is, mode);
 	}
 
 	@Override
-	public JavaBitOutputStream newBitOutputStream (java.io.OutputStream os, JavaBitStreamMode mode) {
+	public JavaBitOutputStream newBitOutputStream (final java.io.OutputStream os, final JavaBitStreamMode mode) {
 		return new RedJavaBitOutputStream(os, mode);
 	}
 
 	@Override
-	public JavaBitOutputStream newBitOutputStream (java.io.OutputStream os) {
+	public JavaBitOutputStream newBitOutputStream (final java.io.OutputStream os) {
 		return new RedJavaBitOutputStream(os, JavaBitStreamMode.SIMPLE_BYTE);
 	}
 
 	@Override
-	public void writeShort (java.io.OutputStream javaOutputStream, int value) throws IOException {
+	public void writeShort (final java.io.OutputStream javaOutputStream, final int value) throws IOException {
 		javaOutputStream.write((value >> 8 * 0) & 0xff);
 		javaOutputStream.write((value >> 8 * 1) & 0xff);
 
 	}
 
 	@Override
-	public ByteArray serialize (Serializable object) throws IOException {
-		ByteArrayOutputStream buff = new ByteArrayOutputStream();
-		ObjectOutputStream os = new ObjectOutputStream(buff);
+	public ByteArray serialize (final Serializable object) throws IOException {
+		final ByteArrayOutputStream buff = new ByteArrayOutputStream();
+		final ObjectOutputStream os = new ObjectOutputStream(buff);
 		os.writeObject(object);
 		os.flush();
 // os.close();
@@ -200,24 +184,24 @@ public class RedIO implements IOComponent {
 	}
 
 	@Override
-	public void serialize (Serializable object, OutputStream output_stream) throws IOException {
-		java.io.OutputStream jos = output_stream.toJavaOutputStream();
-		ObjectOutputStream os = new ObjectOutputStream(jos);
+	public void serialize (final Serializable object, final OutputStream output_stream) throws IOException {
+		final java.io.OutputStream jos = output_stream.toJavaOutputStream();
+		final ObjectOutputStream os = new ObjectOutputStream(jos);
 		os.writeObject(object);
 		os.flush();
 		jos.flush();
 	}
 
 	@Override
-	public <T> T deserialize (Class<T> type, InputStream input_stream) throws IOException {
+	public <T> T deserialize (final Class<T> type, final InputStream input_stream) throws IOException {
 		Debug.checkNull("input_stream", input_stream);
 		Debug.checkNull("type", type);
-		java.io.InputStream jis = input_stream.toJavaInputStream();
-		ObjectInputStream os = new ObjectInputStream(jis);
+		final java.io.InputStream jis = input_stream.toJavaInputStream();
+		final ObjectInputStream os = new ObjectInputStream(jis);
 		try {
-			T object = (T)os.readObject();
+			final T object = (T)os.readObject();
 			return object;
-		} catch (Throwable e) {
+		} catch (final Throwable e) {
 			throw new IOException(e);
 		} finally {
 			// forceClose(jis);
@@ -226,19 +210,43 @@ public class RedIO implements IOComponent {
 	}
 
 	@Override
-	public <T> T deserialize (Class<T> type, ByteArray bytes) throws IOException {
+	public <T> T deserialize (final Class<T> type, final ByteArray bytes) throws IOException {
 		Debug.checkNull("bytes", bytes);
 		Debug.checkNull("type", type);
-		ByteArrayInputStream jis = new ByteArrayInputStream(bytes.toArray());
-		ObjectInputStream os = new ObjectInputStream(jis);
+		final ByteArrayInputStream jis = new ByteArrayInputStream(bytes.toArray());
+		final ObjectInputStream os = new ObjectInputStream(jis);
 		try {
-			T object = (T)os.readObject();
+			final T object = (T)os.readObject();
 			return object;
-		} catch (Throwable e) {
+		} catch (final Throwable e) {
 			throw new IOException(e);
 		} finally {
-			forceClose(jis);
-			forceClose(os);
+			this.forceClose(jis);
+			this.forceClose(os);
+		}
+	}
+
+	@Override
+	public void forceClose (final java.io.OutputStream os) {
+		try {
+			os.flush();
+			os.close();
+		} catch (final IOException ignored) {
+		}
+	}
+
+	@Override
+	public void forceClose (final java.io.InputStream is) {
+		try {
+			is.close();
+		} catch (final IOException ignored) {
+		}
+	}
+
+	@Override
+	public void forceClose (final ForceCloseable os) {
+		if (os != null) {
+			os.forceClose();
 		}
 	}
 

@@ -13,31 +13,30 @@ import com.jfixby.cmns.api.util.JUtils;
 
 public class RedBufferOutputStream implements BufferOutputStream {
 
-	private ByteArrayOutputStream os;
+	private final ByteArrayOutputStream os;
 
 	public RedBufferOutputStream () {
-		os = new ByteArrayOutputStream();
+		this.os = new ByteArrayOutputStream();
 	}
 
 	@Override
-	public void write (Data data) throws IOException {
+	public void write (final Data data) throws IOException {
 		final RedData di = (RedData)data;
-		os.write(di.integer);
+		this.os.write(di.integer);
 	}
 
 	@Override
-	public void close () throws IOException {
-		os.flush();
-		os.close();
+	public void close () {
+		IO.forceClose(this.os);
 	}
 
 	@Override
 	public void flush () throws IOException {
-		os.flush();
+		this.os.flush();
 	}
 
 	@Override
-	public void write (ByteArray bytes) throws IOException {
+	public void write (final ByteArray bytes) throws IOException {
 		for (int i = 0; i < bytes.size(); i++) {
 			this.os.write(bytes.getByte(i));
 		}
@@ -52,16 +51,16 @@ public class RedBufferOutputStream implements BufferOutputStream {
 
 	@Override
 	public OutputStream toJavaOutputStream () {
-		return os;
+		return this.os;
 	}
 
 	@Override
 	public void forceClose () {
-		IO.forceClose(os);
+		IO.forceClose(this.os);
 	}
 
 	@Override
-	public void write (byte[] bytes) throws IOException {
+	public void write (final byte[] bytes) throws IOException {
 		this.write(JUtils.newByteArray(bytes));
 	}
 

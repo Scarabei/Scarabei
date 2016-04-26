@@ -1,7 +1,6 @@
 
 package com.jfixby.cmns.api.io;
 
-import java.io.Closeable;
 import java.io.IOException;
 import java.io.Serializable;
 
@@ -45,13 +44,15 @@ public interface IOComponent {
 
 	void forceClose (ForceCloseable os);
 
+	void forceClose (java.io.OutputStream os);
+
+	void forceClose (java.io.InputStream os);
+
 	GZipOutputStream newGZipStream (OutputStream os) throws IOException;
 
 	GZipInputStream newGZipStream (InputStream is) throws IOException;
 
 	void writeBytes (java.io.OutputStream javaOutputStream, int[] bytes) throws IOException;
-
-	void forceClose (Closeable os);
 
 	void readBytes (java.io.InputStream javaInputStream, int[] array) throws IOException;
 

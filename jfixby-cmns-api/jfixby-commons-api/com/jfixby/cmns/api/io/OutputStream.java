@@ -9,7 +9,7 @@ public interface OutputStream extends ForceCloseable {
 
 	void write (Data data) throws IOException;
 
-	void close () throws IOException;
+	void close ();
 
 	void flush () throws IOException;
 

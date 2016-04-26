@@ -16,14 +16,14 @@ public class AbstractRedInputStream implements FileInputStream {
 
 	// private BufferedInputStream bis;
 
-	public AbstractRedInputStream (InputStream input_stream) throws IOException {
-		is = input_stream;
+	public AbstractRedInputStream (final InputStream input_stream) throws IOException {
+		this.is = input_stream;
 		// bis = new BufferedInputStream(is, 1024 * 1024 * 4);
 	}
 
 	@Override
 	public boolean hasData () throws IOException {
-		if (is.available() > 0) {
+		if (this.is.available() > 0) {
 			return true;
 		}
 		return false;
@@ -34,44 +34,47 @@ public class AbstractRedInputStream implements FileInputStream {
 
 	@Override
 	public Data read () throws IOException {
-		data.integer = this.is.read();
-		return data;
+		this.data.integer = this.is.read();
+		return this.data;
 	}
 
 	@Override
 	public int available () throws IOException {
-		return is.available();
+		return this.is.available();
 	}
 
 	@Override
-	public void close () throws IOException {
+	public void close () {
 		// bis.close();
-		is.close();
+		IO.forceClose(this.is);
+
 	}
 
 	@Override
 	public ByteArray readAll () throws IOException {
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		byte[] buf = new byte[10 * 4096];
+		final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		final byte[] buf = new byte[10 * 4096];
 		while (true) {
-			int n = is.read(buf);
+			final int n = this.is.read(buf);
 			// L.d("n", n + " : " + (char) n);
-			if (n < 0) break;
+			if (n < 0) {
+				break;
+			}
 			baos.write(buf, 0, n);
 		}
 		// bis.close();
-		is.close();
-		byte data[] = baos.toByteArray();
+		this.is.close();
+		final byte data[] = baos.toByteArray();
 		return JUtils.newByteArray(data);
 	}
 
 	@Override
 	public InputStream toJavaInputStream () {
-		return is;
+		return this.is;
 	}
 
 	@Override
 	public void forceClose () {
-		IO.forceClose(is);
+		IO.forceClose(this.is);
 	}
 }

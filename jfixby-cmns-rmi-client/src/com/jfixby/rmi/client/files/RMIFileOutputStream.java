@@ -1,3 +1,4 @@
+
 package com.jfixby.rmi.client.files;
 
 import java.io.IOException;
@@ -15,60 +16,60 @@ import com.jfixby.cmns.api.util.path.RelativePath;
 
 public class RMIFileOutputStream implements FileOutputStream {
 
-    private BufferOutputStream os;
-    private RMIDataContainer rmiDataContainer;
-    private List<String> relativePath;
+	private final BufferOutputStream os;
+	private final RMIDataContainer rmiDataContainer;
+	private final List<String> relativePath;
 
-    public RMIFileOutputStream(RMIDataContainer rmiDataContainer, RelativePath relativePath) throws IOException {
-	this.rmiDataContainer = rmiDataContainer;
-	this.relativePath = relativePath.steps().toJavaList();
-	os = IO.newBufferOutputStream();
-	try {
-	    rmiDataContainer.lookup().ping();
-	} catch (NotBoundException e) {
-	    throw new IOException(e);
+	public RMIFileOutputStream (final RMIDataContainer rmiDataContainer, final RelativePath relativePath) throws IOException {
+		this.rmiDataContainer = rmiDataContainer;
+		this.relativePath = relativePath.steps().toJavaList();
+		this.os = IO.newBufferOutputStream();
+		try {
+			rmiDataContainer.lookup().ping();
+		} catch (final NotBoundException e) {
+			throw new IOException(e);
+		}
 	}
-    }
 
-    @Override
-    public void write(Data data) throws IOException {
-	os.write(data);
-    }
-
-    @Override
-    public void close() throws IOException {
-	os.close();
-	ByteArray data = os.getBytes();
-	try {
-	    rmiDataContainer.lookup().writeDataToFile(relativePath, data);
-	} catch (NotBoundException e) {
-	    throw new IOException(e);
+	@Override
+	public void write (final Data data) throws IOException {
+		this.os.write(data);
 	}
-    }
 
-    @Override
-    public void flush() throws IOException {
-	os.flush();
-    }
+	@Override
+	public void close () {
+		this.os.close();
+		final ByteArray data = this.os.getBytes();
+		try {
+			this.rmiDataContainer.lookup().writeDataToFile(this.relativePath, data);
+		} catch (final Exception e) {
+			e.printStackTrace();
+		}
+	}
 
-    @Override
-    public void write(ByteArray bytes) throws IOException {
-	os.write(bytes);
-    }
+	@Override
+	public void flush () throws IOException {
+		this.os.flush();
+	}
 
-    @Override
-    public OutputStream toJavaOutputStream() {
-	return os.toJavaOutputStream();
-    }
+	@Override
+	public void write (final ByteArray bytes) throws IOException {
+		this.os.write(bytes);
+	}
 
-    @Override
-    public void forceClose() {
-	IO.forceClose(os);
-    }
+	@Override
+	public OutputStream toJavaOutputStream () {
+		return this.os.toJavaOutputStream();
+	}
 
-    @Override
-    public void write(byte[] bytes) throws IOException {
-	this.write(JUtils.newByteArray(bytes));
-    }
+	@Override
+	public void forceClose () {
+		IO.forceClose(this.os);
+	}
+
+	@Override
+	public void write (final byte[] bytes) throws IOException {
+		this.write(JUtils.newByteArray(bytes));
+	}
 
 }

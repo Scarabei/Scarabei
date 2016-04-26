@@ -14,24 +14,24 @@ import com.jfixby.cmns.api.java.ByteArray;
 
 public class RedBufferInputStream implements BufferInputStream, FileInputStream {
 
-	private ByteArrayInputStream bis;
+	private final ByteArrayInputStream bis;
 	final RedData di = new RedData();
-	private Buffer buffer;
+	private final Buffer buffer;
 
-	public RedBufferInputStream (Buffer buffer) {
+	public RedBufferInputStream (final Buffer buffer) {
 		this.buffer = buffer;
-		bis = new ByteArrayInputStream(buffer.getBytes().toArray());
+		this.bis = new ByteArrayInputStream(buffer.getBytes().toArray());
 	}
 
 	@Override
 	public boolean hasData () throws IOException {
-		return bis.available() > 0;
+		return this.bis.available() > 0;
 	}
 
 	@Override
 	public Data read () throws IOException {
-		di.integer = bis.read();
-		return di;
+		this.di.integer = this.bis.read();
+		return this.di;
 	}
 
 	@Override
@@ -40,23 +40,23 @@ public class RedBufferInputStream implements BufferInputStream, FileInputStream 
 	}
 
 	@Override
-	public void close () throws IOException {
-		bis.close();
+	public void close () {
+		IO.forceClose(this.bis);
 	}
 
 	@Override
 	public ByteArray readAll () throws IOException {
-		return buffer.getBytes();
+		return this.buffer.getBytes();
 	}
 
 	@Override
 	public InputStream toJavaInputStream () {
-		return bis;
+		return this.bis;
 	}
 
 	@Override
 	public void forceClose () {
-		IO.forceClose(bis);
+		IO.forceClose(this.bis);
 	}
 
 }

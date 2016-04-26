@@ -14,55 +14,55 @@ import com.jfixby.cmns.api.util.JUtils;
 public class VirtualFileOutputStream implements FileOutputStream {
 
 	private ContentLeaf leaf;
-	private BufferOutputStream os;
+	private final BufferOutputStream os;
 
-	public VirtualFileOutputStream (VirtualFile output_file) throws IOException {
-		VirtualFile v_file = output_file;
-		leaf = v_file.getContent();
-		if (leaf == null) {
-			leaf = v_file.createFile();
-			if (leaf == null) {
+	public VirtualFileOutputStream (final VirtualFile output_file) throws IOException {
+		final VirtualFile v_file = output_file;
+		this.leaf = v_file.getContent();
+		if (this.leaf == null) {
+			this.leaf = v_file.createFile();
+			if (this.leaf == null) {
 				throw new IOException("Unable to write to the file: " + output_file);
 			}
 		}
-		os = IO.newBufferOutputStream();
+		this.os = IO.newBufferOutputStream();
 	}
 
 	@Override
 	public void forceClose () {
-		os.forceClose();
+		this.os.forceClose();
 	}
 
 	@Override
-	public void write (Data data) throws IOException {
-		os.write(data);
+	public void write (final Data data) throws IOException {
+		this.os.write(data);
 	}
 
 	@Override
-	public void write (byte[] bytes) throws IOException {
+	public void write (final byte[] bytes) throws IOException {
 		this.write(JUtils.newByteArray(bytes));
 	}
 
 	@Override
-	public void close () throws IOException {
-		os.close();
-		ByteArray data = os.getBytes();
-		leaf.setData(data);
+	public void close () {
+		this.os.close();
+		final ByteArray data = this.os.getBytes();
+		this.leaf.setData(data);
 	}
 
 	@Override
 	public void flush () throws IOException {
-		os.flush();
+		this.os.flush();
 	}
 
 	@Override
-	public void write (ByteArray bytes) throws IOException {
-		os.write(bytes);
+	public void write (final ByteArray bytes) throws IOException {
+		this.os.write(bytes);
 	}
 
 	@Override
 	public OutputStream toJavaOutputStream () {
-		return os.toJavaOutputStream();
+		return this.os.toJavaOutputStream();
 	}
 
 }

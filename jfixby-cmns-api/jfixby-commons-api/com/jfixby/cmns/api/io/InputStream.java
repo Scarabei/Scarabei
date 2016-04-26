@@ -13,7 +13,7 @@ public interface InputStream extends ForceCloseable {
 
 	int available () throws IOException;
 
-	void close () throws IOException;
+	void close ();
 
 	ByteArray readAll () throws IOException;
 
