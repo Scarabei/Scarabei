@@ -72,10 +72,7 @@ public abstract class AbstractRedFile implements File {
 
 	@Override
 	public String readToString () throws IOException {
-		final FileInputStream is = this.newInputStream();
-		final ByteArray data = is.readAll();
-		is.close();
-		return JUtils.newString(data);
+		return JUtils.newString(this.readBytes());
 	}
 
 	@Override

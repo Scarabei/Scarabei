@@ -116,8 +116,9 @@ public class WinFileSystem extends AbstractFileSystem implements LocalFileSystem
 
 	@Override
 	public String md5Hex (final File file) throws IOException {
-
-		final InputStream java_input_stream = this.newFileInputStream(file).toJavaInputStream();
+		final FileInputStream is = this.newFileInputStream(file);
+		is.open();
+		final InputStream java_input_stream = is.toJavaInputStream();
 		final String checksum = MD5.md5Stream(java_input_stream);
 		java_input_stream.close();
 		return checksum.toUpperCase();
