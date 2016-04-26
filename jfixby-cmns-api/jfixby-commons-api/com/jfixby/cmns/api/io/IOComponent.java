@@ -30,9 +30,9 @@ public interface IOComponent {
 
 	BufferInputStream newBufferInputStream (Buffer buffer);
 
-	public InputStream toInputStream (java.io.InputStream java_input_stream) throws IOException;
+	public InputStream newInputStream (InputStreamOpener inputStreamOpener) throws IOException;
 
-	public OutputStream toOutputStream (java.io.OutputStream java_output_stream) throws IOException;
+// public OutputStream toOutputStream (java.io.OutputStream java_output_stream) throws IOException;
 
 	int readByte (java.io.InputStream javaInputStream) throws IOException;
 

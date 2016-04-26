@@ -17,6 +17,7 @@ import com.jfixby.cmns.api.io.GZipInputStream;
 import com.jfixby.cmns.api.io.GZipOutputStream;
 import com.jfixby.cmns.api.io.IOComponent;
 import com.jfixby.cmns.api.io.InputStream;
+import com.jfixby.cmns.api.io.InputStreamOpener;
 import com.jfixby.cmns.api.io.JavaBitInputStream;
 import com.jfixby.cmns.api.io.JavaBitOutputStream;
 import com.jfixby.cmns.api.io.JavaBitStreamMode;
@@ -69,21 +70,21 @@ public class RedIO implements IOComponent {
 	}
 
 	@Override
-	public InputStream toInputStream (final java.io.InputStream java_input_stream) throws IOException {
+	public InputStream newInputStream (final InputStreamOpener opener) throws IOException {
 		final AbstractRedInputStream<RedJavaInputStreamOperator> stream = new AbstractRedInputStream<RedJavaInputStreamOperator>(
-			new RedJavaInputStreamOperator(java_input_stream));
+			new RedJavaInputStreamOperator(opener));
 		stream.open();
 		return stream;
 	}
 
-	@Override
-	public OutputStream toOutputStream (final java.io.OutputStream java_output_stream) throws IOException {
-
-		final AbstractRedOutputStream<RedJavaOutputStreamOperator> stream = new AbstractRedOutputStream<RedJavaOutputStreamOperator>(
-			new RedJavaOutputStreamOperator(java_output_stream));
-		stream.open();
-		return stream;
-	}
+// @Override
+// public OutputStream toOutputStream (final java.io.OutputStream java_output_stream) throws IOException {
+//
+// final AbstractRedOutputStream<RedJavaOutputStreamOperator> stream = new AbstractRedOutputStream<RedJavaOutputStreamOperator>(
+// new RedJavaOutputStreamOperator(java_output_stream));
+// stream.open();
+// return stream;
+// }
 
 	@Override
 	public int readByte (final java.io.InputStream javaInputStream) throws IOException {

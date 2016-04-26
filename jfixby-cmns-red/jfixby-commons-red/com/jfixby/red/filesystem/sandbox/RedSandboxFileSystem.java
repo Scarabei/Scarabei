@@ -2,13 +2,11 @@
 package com.jfixby.red.filesystem.sandbox;
 
 import java.io.IOException;
-import java.io.InputStream;
 
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.FileInputStream;
 import com.jfixby.cmns.api.file.FileOutputStream;
 import com.jfixby.cmns.api.file.FileSystem;
-import com.jfixby.cmns.api.md5.MD5;
 import com.jfixby.cmns.api.util.path.AbsolutePath;
 import com.jfixby.red.filesystem.AbstractFileSystem;
 
@@ -17,14 +15,14 @@ public class RedSandboxFileSystem extends AbstractFileSystem implements FileSyst
 	private File rootFolder;
 
 	public File getRootFolder () {
-		return rootFolder;
+		return this.rootFolder;
 	}
 
-	public void setRootFolder (File rootFolder) {
+	public void setRootFolder (final File rootFolder) {
 		this.rootFolder = rootFolder;
 	}
 
-	public RedSandboxFileSystem (String sandbox_name, File root_folder) {
+	public RedSandboxFileSystem (final String sandbox_name, final File root_folder) {
 		this.rootFolder = root_folder;
 		this.name = sandbox_name;
 
@@ -33,7 +31,7 @@ public class RedSandboxFileSystem extends AbstractFileSystem implements FileSyst
 	public static final String OS_SEPARATOR = "/";
 
 	@Override
-	public File newFile (AbsolutePath<FileSystem> file_path) {
+	public File newFile (final AbsolutePath<FileSystem> file_path) {
 		if (file_path == null) {
 			throw new Error("Filepath is null.");
 		}
@@ -44,7 +42,7 @@ public class RedSandboxFileSystem extends AbstractFileSystem implements FileSyst
 	}
 
 	@Override
-	public FileOutputStream newFileOutputStream (File output_file) throws IOException {
+	public FileOutputStream newFileOutputStream (final File output_file) throws IOException {
 		if (output_file == null) {
 			throw new Error("Output file is null.");
 		}
@@ -55,7 +53,7 @@ public class RedSandboxFileSystem extends AbstractFileSystem implements FileSyst
 	}
 
 	@Override
-	public FileInputStream newFileInputStream (File input_file) throws IOException {
+	public FileInputStream newFileInputStream (final File input_file) throws IOException {
 		if (input_file == null) {
 			throw new Error("Input file is null.");
 		}
@@ -72,7 +70,7 @@ public class RedSandboxFileSystem extends AbstractFileSystem implements FileSyst
 
 	private String name = "";
 
-	public static String toNativePathString (String string) {
+	public static String toNativePathString (final String string) {
 		return string;
 	}
 
@@ -82,15 +80,7 @@ public class RedSandboxFileSystem extends AbstractFileSystem implements FileSyst
 	}
 
 	public String getName () {
-		return "SandboxFileSystem <" + name + ">";
-	}
-
-	@Override
-	public String md5Hex (File file) throws IOException {
-		InputStream java_input_stream = this.newFileInputStream(file).toJavaInputStream();
-		String checksum = MD5.md5Stream(java_input_stream);
-		java_input_stream.close();
-		return checksum.toUpperCase();
+		return "SandboxFileSystem <" + this.name + ">";
 	}
 
 }
