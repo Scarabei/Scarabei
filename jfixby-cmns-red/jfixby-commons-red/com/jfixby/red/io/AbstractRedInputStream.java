@@ -10,12 +10,16 @@ import com.jfixby.cmns.api.io.Data;
 import com.jfixby.cmns.api.io.JavaInputStreamOperator;
 import com.jfixby.cmns.api.io.STREAM_STATE;
 import com.jfixby.cmns.api.java.ByteArray;
+import com.jfixby.cmns.api.sys.Sys;
+import com.jfixby.cmns.api.sys.settings.ExecutionMode;
+import com.jfixby.cmns.api.sys.settings.SystemSettings;
 import com.jfixby.cmns.api.util.JUtils;
 import com.jfixby.cmns.api.util.StateSwitcher;
 
 public class AbstractRedInputStream<T extends JavaInputStreamOperator> implements FileInputStream {
 	private final StateSwitcher<STREAM_STATE> state;
 	private final T operator;
+	private Exception source;
 
 	public T getOperator () {
 		return this.operator;
@@ -45,6 +49,9 @@ public class AbstractRedInputStream<T extends JavaInputStreamOperator> implement
 		this.operator = operator;
 		// bis = new BufferedInputStream(is, 1024 * 1024 * 4);
 		this.state = JUtils.newStateSwitcher(STREAM_STATE.CLOSED);
+		if (SystemSettings.executionModeCovers(ExecutionMode.EARLY_DEVELOPMENT)) {
+			this.source = new Exception();
+		}
 	}
 
 	@Override
@@ -100,6 +107,18 @@ public class AbstractRedInputStream<T extends JavaInputStreamOperator> implement
 	public InputStream toJavaInputStream () throws IOException {
 		this.state.expectState(STREAM_STATE.OPEN);
 		return this.javaStream();
+	}
+
+	@Override
+	protected void finalize () throws Throwable {
+		super.finalize();
+		if (this.state.currentState() != STREAM_STATE.CLOSED) {
+			System.out.println("Stream leak detected: " + this + " state=" + this.state);
+			if (SystemSettings.executionModeCovers(ExecutionMode.EARLY_DEVELOPMENT)) {
+				this.source.printStackTrace(System.out);
+				Sys.exit();
+			}
+		}
 	}
 
 }
