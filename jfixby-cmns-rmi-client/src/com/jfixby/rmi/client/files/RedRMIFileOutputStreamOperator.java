@@ -25,8 +25,9 @@ public class RedRMIFileOutputStreamOperator implements JavaOutputStreamOperator 
 	@Override
 	public void closeStream () {
 		this.os.close();
+		final ByteArray data = this.os.getBytes();
 		try {
-			final ByteArray data = this.os.getBytes();
+
 			this.rmiDataContainer.lookup().writeDataToFile(this.relativePath, data);
 		} catch (final Exception e) {
 			e.printStackTrace();

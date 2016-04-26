@@ -24,6 +24,7 @@ public class RedVirtualFileOutputStreamOperator implements JavaOutputStreamOpera
 		this.os.close();
 		final ByteArray data = this.os.getBytes();
 		this.leaf.setData(data);
+		this.os = null;
 	}
 
 	@Override

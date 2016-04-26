@@ -21,6 +21,7 @@ public class JavaFileInputStreamOperator implements JavaInputStreamOperator {
 	@Override
 	public void closeStream () {
 		IO.forceClose(this.is);
+		this.is = null;
 	}
 
 	@Override

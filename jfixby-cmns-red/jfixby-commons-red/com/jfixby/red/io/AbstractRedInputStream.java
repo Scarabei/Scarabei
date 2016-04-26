@@ -5,12 +5,13 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.file.FileInputStream;
 import com.jfixby.cmns.api.io.Data;
 import com.jfixby.cmns.api.io.JavaInputStreamOperator;
 import com.jfixby.cmns.api.io.STREAM_STATE;
 import com.jfixby.cmns.api.java.ByteArray;
-import com.jfixby.cmns.api.sys.Sys;
+import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.sys.settings.ExecutionMode;
 import com.jfixby.cmns.api.sys.settings.SystemSettings;
 import com.jfixby.cmns.api.util.JUtils;
@@ -42,7 +43,10 @@ public class AbstractRedInputStream<T extends JavaInputStreamOperator> implement
 	public void close () {
 		this.state.expectState(STREAM_STATE.OPEN);
 		this.state.switchState(STREAM_STATE.CLOSED);
-		this.operator.closeStream();
+		try {
+			this.operator.closeStream();
+		} catch (final Throwable e) {
+		}
 	}
 
 	public AbstractRedInputStream (final T operator) {
@@ -113,11 +117,13 @@ public class AbstractRedInputStream<T extends JavaInputStreamOperator> implement
 	protected void finalize () throws Throwable {
 		super.finalize();
 		if (this.state.currentState() != STREAM_STATE.CLOSED) {
-			System.out.println("Stream leak detected: " + this + " state=" + this.state);
+			final String msg = "Stream leak detected: " + this + " state=" + this.state;
+			L.e(msg);
 			if (SystemSettings.executionModeCovers(ExecutionMode.EARLY_DEVELOPMENT)) {
-				this.source.printStackTrace(System.out);
-				Sys.exit();
+// this.source.printStackTrace(System.out);
+				Err.reportError(new Error(msg, this.source));
 			}
+			this.close();
 		}
 	}
 

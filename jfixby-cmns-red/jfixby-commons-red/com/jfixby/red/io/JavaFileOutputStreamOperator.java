@@ -21,6 +21,7 @@ public class JavaFileOutputStreamOperator implements JavaOutputStreamOperator {
 	@Override
 	public void closeStream () {
 		IO.forceClose(this.os);
+		this.os = null;
 	}
 
 	@Override
