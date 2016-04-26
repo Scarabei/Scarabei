@@ -120,7 +120,8 @@ public class WinFileSystem extends AbstractFileSystem implements LocalFileSystem
 		is.open();
 		final InputStream java_input_stream = is.toJavaInputStream();
 		final String checksum = MD5.md5Stream(java_input_stream);
-		java_input_stream.close();
+// java_input_stream.close();
+		is.close();
 		return checksum.toUpperCase();
 	}
 

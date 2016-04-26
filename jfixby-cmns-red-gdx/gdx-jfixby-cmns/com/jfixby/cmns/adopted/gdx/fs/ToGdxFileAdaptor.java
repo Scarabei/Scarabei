@@ -3,6 +3,7 @@ package com.jfixby.cmns.adopted.gdx.fs;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.FileFilter;
 import java.io.FilenameFilter;
 import java.io.IOException;
@@ -20,6 +21,7 @@ import com.badlogic.gdx.utils.StreamUtils;
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.FileInputStream;
 import com.jfixby.cmns.api.file.FileSystem;
+import com.jfixby.cmns.api.java.ByteArray;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.util.path.AbsolutePath;
 
@@ -79,7 +81,9 @@ public class ToGdxFileAdaptor extends FileHandle {
 			FileInputStream is;
 			is = filesystem.newFileInputStream(this.fixby_file);
 			is.open();
-			return is.toJavaInputStream();
+			final ByteArray data = is.readAll();
+			is.close();
+			return new ByteArrayInputStream(data.toArray());
 		} catch (final IOException e) {
 			e.printStackTrace();
 			throw new Error();
