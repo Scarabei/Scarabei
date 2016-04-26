@@ -7,6 +7,8 @@ import com.jfixby.cmns.api.java.ByteArray;
 
 public interface OutputStream extends ForceCloseable {
 
+	public STREAM_STATE getState ();
+
 	void write (Data data) throws IOException;
 
 	void close ();

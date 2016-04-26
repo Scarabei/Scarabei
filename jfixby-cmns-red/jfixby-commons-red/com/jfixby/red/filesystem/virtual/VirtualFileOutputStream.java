@@ -8,11 +8,13 @@ import com.jfixby.cmns.api.file.FileOutputStream;
 import com.jfixby.cmns.api.io.BufferOutputStream;
 import com.jfixby.cmns.api.io.Data;
 import com.jfixby.cmns.api.io.IO;
+import com.jfixby.cmns.api.io.STREAM_STATE;
 import com.jfixby.cmns.api.java.ByteArray;
 import com.jfixby.cmns.api.util.JUtils;
+import com.jfixby.cmns.api.util.StateSwitcher;
 
 public class VirtualFileOutputStream implements FileOutputStream {
-
+	private final StateSwitcher<STREAM_STATE> state;
 	private ContentLeaf leaf;
 	private final BufferOutputStream os;
 
@@ -26,6 +28,7 @@ public class VirtualFileOutputStream implements FileOutputStream {
 			}
 		}
 		this.os = IO.newBufferOutputStream();
+		this.state = JUtils.newStateSwitcher(STREAM_STATE.OPEN);
 	}
 
 	@Override
@@ -48,6 +51,8 @@ public class VirtualFileOutputStream implements FileOutputStream {
 		this.os.close();
 		final ByteArray data = this.os.getBytes();
 		this.leaf.setData(data);
+		this.state.expectState(STREAM_STATE.OPEN);
+		this.state.switchState(STREAM_STATE.CLOSED);
 	}
 
 	@Override
@@ -63,6 +68,11 @@ public class VirtualFileOutputStream implements FileOutputStream {
 	@Override
 	public OutputStream toJavaOutputStream () {
 		return this.os.toJavaOutputStream();
+	}
+
+	@Override
+	public STREAM_STATE getState () {
+		return this.state.currentState();
 	}
 
 }

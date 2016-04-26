@@ -15,6 +15,8 @@ public interface InputStream extends ForceCloseable {
 
 	void close ();
 
+	public STREAM_STATE getState ();
+
 	ByteArray readAll () throws IOException;
 
 	java.io.InputStream toJavaInputStream ();

@@ -10,8 +10,10 @@ import com.jfixby.cmns.api.file.FileOutputStream;
 import com.jfixby.cmns.api.io.BufferOutputStream;
 import com.jfixby.cmns.api.io.Data;
 import com.jfixby.cmns.api.io.IO;
+import com.jfixby.cmns.api.io.STREAM_STATE;
 import com.jfixby.cmns.api.java.ByteArray;
 import com.jfixby.cmns.api.util.JUtils;
+import com.jfixby.cmns.api.util.StateSwitcher;
 import com.jfixby.cmns.api.util.path.RelativePath;
 
 public class RMIFileOutputStream implements FileOutputStream {
@@ -19,11 +21,13 @@ public class RMIFileOutputStream implements FileOutputStream {
 	private final BufferOutputStream os;
 	private final RMIDataContainer rmiDataContainer;
 	private final List<String> relativePath;
+	private final StateSwitcher<STREAM_STATE> state;
 
 	public RMIFileOutputStream (final RMIDataContainer rmiDataContainer, final RelativePath relativePath) throws IOException {
 		this.rmiDataContainer = rmiDataContainer;
 		this.relativePath = relativePath.steps().toJavaList();
 		this.os = IO.newBufferOutputStream();
+		this.state = JUtils.newStateSwitcher(STREAM_STATE.OPEN);
 		try {
 			rmiDataContainer.lookup().ping();
 		} catch (final NotBoundException e) {
@@ -40,6 +44,8 @@ public class RMIFileOutputStream implements FileOutputStream {
 	public void close () {
 		this.os.close();
 		final ByteArray data = this.os.getBytes();
+		this.state.expectState(STREAM_STATE.OPEN);
+		this.state.switchState(STREAM_STATE.CLOSED);
 		try {
 			this.rmiDataContainer.lookup().writeDataToFile(this.relativePath, data);
 		} catch (final Exception e) {
@@ -70,6 +76,11 @@ public class RMIFileOutputStream implements FileOutputStream {
 	@Override
 	public void write (final byte[] bytes) throws IOException {
 		this.write(JUtils.newByteArray(bytes));
+	}
+
+	@Override
+	public STREAM_STATE getState () {
+		return this.state.currentState();
 	}
 
 }

@@ -7,14 +7,18 @@ import java.io.OutputStream;
 import com.jfixby.cmns.api.file.FileOutputStream;
 import com.jfixby.cmns.api.io.Data;
 import com.jfixby.cmns.api.io.IO;
+import com.jfixby.cmns.api.io.STREAM_STATE;
 import com.jfixby.cmns.api.java.ByteArray;
 import com.jfixby.cmns.api.util.JUtils;
+import com.jfixby.cmns.api.util.StateSwitcher;
 
 public class AbstractRedOutputStream implements FileOutputStream {
 	private final OutputStream os;
+	private final StateSwitcher<STREAM_STATE> state;
 
 	public AbstractRedOutputStream (final OutputStream os) {
 		this.os = os;
+		this.state = JUtils.newStateSwitcher(STREAM_STATE.OPEN);
 	}
 
 	@Override
@@ -26,6 +30,8 @@ public class AbstractRedOutputStream implements FileOutputStream {
 	@Override
 	public void close () {
 		IO.forceClose(this.os);
+		this.state.expectState(STREAM_STATE.OPEN);
+		this.state.switchState(STREAM_STATE.CLOSED);
 	}
 
 	@Override
@@ -55,5 +61,10 @@ public class AbstractRedOutputStream implements FileOutputStream {
 	@Override
 	public void write (final byte[] bytes) throws IOException {
 		this.write(JUtils.newByteArray(bytes));
+	}
+
+	@Override
+	public STREAM_STATE getState () {
+		return this.state.currentState();
 	}
 }

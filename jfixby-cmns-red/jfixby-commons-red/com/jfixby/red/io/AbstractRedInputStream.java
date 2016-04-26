@@ -8,17 +8,21 @@ import java.io.InputStream;
 import com.jfixby.cmns.api.file.FileInputStream;
 import com.jfixby.cmns.api.io.Data;
 import com.jfixby.cmns.api.io.IO;
+import com.jfixby.cmns.api.io.STREAM_STATE;
 import com.jfixby.cmns.api.java.ByteArray;
 import com.jfixby.cmns.api.util.JUtils;
+import com.jfixby.cmns.api.util.StateSwitcher;
 
 public class AbstractRedInputStream implements FileInputStream {
 	InputStream is;
+	private final StateSwitcher<STREAM_STATE> state;
 
 	// private BufferedInputStream bis;
 
 	public AbstractRedInputStream (final InputStream input_stream) throws IOException {
 		this.is = input_stream;
 		// bis = new BufferedInputStream(is, 1024 * 1024 * 4);
+		this.state = JUtils.newStateSwitcher(STREAM_STATE.OPEN);
 	}
 
 	@Override
@@ -47,7 +51,8 @@ public class AbstractRedInputStream implements FileInputStream {
 	public void close () {
 		// bis.close();
 		IO.forceClose(this.is);
-
+		this.state.expectState(STREAM_STATE.OPEN);
+		this.state.switchState(STREAM_STATE.CLOSED);
 	}
 
 	@Override
@@ -76,5 +81,10 @@ public class AbstractRedInputStream implements FileInputStream {
 	@Override
 	public void forceClose () {
 		IO.forceClose(this.is);
+	}
+
+	@Override
+	public STREAM_STATE getState () {
+		return this.state.currentState();
 	}
 }
