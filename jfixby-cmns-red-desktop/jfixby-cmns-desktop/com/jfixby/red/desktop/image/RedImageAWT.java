@@ -39,6 +39,7 @@ public class RedImageAWT implements ImageAWTComponent {
 	public BufferedImage readFromFile (final File image_file) throws IOException {
 		Debug.checkNull("image_file", image_file);
 		final FileInputStream is = image_file.newInputStream();
+		is.open();
 		final BufferedImage bad_image = this.readFromStream(is);
 		if (bad_image == null) {
 			L.d("Failed to read image", image_file);
@@ -68,6 +69,7 @@ public class RedImageAWT implements ImageAWTComponent {
 		Debug.checkNull("file_type", file_type);
 
 		final FileOutputStream os = file.newOutputStream();
+		os.open();
 		this.writeToStream(java_image, os, file_type, image_mode);
 		os.close();
 	}
@@ -185,6 +187,7 @@ public class RedImageAWT implements ImageAWTComponent {
 	@Override
 	public ArrayColorMap readAWTColorMap (final File image_file) throws IOException {
 		final FileInputStream is = image_file.newInputStream();
+		is.open();
 		final java.io.InputStream java_is = is.toJavaInputStream();
 		final ArrayColorMap map = this.readAWTColorMap(java_is);
 		java_is.close();

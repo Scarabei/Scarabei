@@ -7,27 +7,50 @@ import java.io.InputStream;
 
 import com.jfixby.cmns.api.file.FileInputStream;
 import com.jfixby.cmns.api.io.Data;
-import com.jfixby.cmns.api.io.IO;
+import com.jfixby.cmns.api.io.JavaInputStreamOperator;
 import com.jfixby.cmns.api.io.STREAM_STATE;
 import com.jfixby.cmns.api.java.ByteArray;
 import com.jfixby.cmns.api.util.JUtils;
 import com.jfixby.cmns.api.util.StateSwitcher;
 
-public class AbstractRedInputStream implements FileInputStream {
-	InputStream is;
+public class AbstractRedInputStream<T extends JavaInputStreamOperator> implements FileInputStream {
 	private final StateSwitcher<STREAM_STATE> state;
+	private final T operator;
+
+	public T getOperator () {
+		return this.operator;
+	}
 
 	// private BufferedInputStream bis;
 
-	public AbstractRedInputStream (final InputStream input_stream) throws IOException {
-		this.is = input_stream;
+	@Override
+	public STREAM_STATE getState () {
+		return this.state.currentState();
+	}
+
+	@Override
+	public void open () {
+		this.state.expectState(STREAM_STATE.CLOSED);
+		this.state.switchState(STREAM_STATE.OPEN);
+	}
+
+	@Override
+	public void close () {
+		this.state.expectState(STREAM_STATE.OPEN);
+		this.state.switchState(STREAM_STATE.CLOSED);
+		this.operator.closeStream();
+	}
+
+	public AbstractRedInputStream (final T operator) {
+		this.operator = operator;
 		// bis = new BufferedInputStream(is, 1024 * 1024 * 4);
-		this.state = JUtils.newStateSwitcher(STREAM_STATE.OPEN);
+		this.state = JUtils.newStateSwitcher(STREAM_STATE.CLOSED);
 	}
 
 	@Override
 	public boolean hasData () throws IOException {
-		if (this.is.available() > 0) {
+		this.state.expectState(STREAM_STATE.OPEN);
+		if (this.javaStream().available() > 0) {
 			return true;
 		}
 		return false;
@@ -38,29 +61,29 @@ public class AbstractRedInputStream implements FileInputStream {
 
 	@Override
 	public Data read () throws IOException {
-		this.data.integer = this.is.read();
+		this.state.expectState(STREAM_STATE.OPEN);
+		this.data.integer = this.javaStream().read();
 		return this.data;
+	}
+
+	private InputStream javaStream () throws IOException {
+		this.state.expectState(STREAM_STATE.OPEN);
+		return this.operator.getJavaStream();
 	}
 
 	@Override
 	public int available () throws IOException {
-		return this.is.available();
-	}
-
-	@Override
-	public void close () {
-		// bis.close();
-		IO.forceClose(this.is);
 		this.state.expectState(STREAM_STATE.OPEN);
-		this.state.switchState(STREAM_STATE.CLOSED);
+		return this.javaStream().available();
 	}
 
 	@Override
 	public ByteArray readAll () throws IOException {
+		this.state.expectState(STREAM_STATE.OPEN);
 		final ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		final byte[] buf = new byte[10 * 4096];
 		while (true) {
-			final int n = this.is.read(buf);
+			final int n = this.javaStream().read(buf);
 			// L.d("n", n + " : " + (char) n);
 			if (n < 0) {
 				break;
@@ -68,18 +91,15 @@ public class AbstractRedInputStream implements FileInputStream {
 			baos.write(buf, 0, n);
 		}
 		// bis.close();
-		this.is.close();
+// this.javaStream().close();
 		final byte data[] = baos.toByteArray();
 		return JUtils.newByteArray(data);
 	}
 
 	@Override
-	public InputStream toJavaInputStream () {
-		return this.is;
+	public InputStream toJavaInputStream () throws IOException {
+		this.state.expectState(STREAM_STATE.OPEN);
+		return this.javaStream();
 	}
 
-	@Override
-	public STREAM_STATE getState () {
-		return this.state.currentState();
-	}
 }

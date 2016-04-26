@@ -81,6 +81,7 @@ public abstract class AbstractRedFile implements File {
 	@Override
 	public ByteArray readBytes () throws IOException {
 		final FileInputStream is = this.getFileSystem().newFileInputStream(this);
+		is.open();
 		final ByteArray bytes = is.readAll();
 		is.close();
 		return bytes;
@@ -89,6 +90,7 @@ public abstract class AbstractRedFile implements File {
 	@Override
 	public void writeBytes (final ByteArray bytes) throws IOException {
 		final FileOutputStream os = this.getFileSystem().newFileOutputStream(this);
+		os.open();
 		os.write(bytes);
 		os.close();
 	}

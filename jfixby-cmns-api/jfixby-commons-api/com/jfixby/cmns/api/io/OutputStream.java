@@ -7,8 +7,6 @@ import com.jfixby.cmns.api.java.ByteArray;
 
 public interface OutputStream extends Stream {
 
-	public STREAM_STATE getState ();
-
 	void write (Data data) throws IOException;
 
 	void flush () throws IOException;
@@ -17,6 +15,6 @@ public interface OutputStream extends Stream {
 
 	void write (byte[] bytes) throws IOException;
 
-	java.io.OutputStream toJavaOutputStream ();
+	java.io.OutputStream toJavaOutputStream () throws IOException;
 
 }

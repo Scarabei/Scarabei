@@ -70,12 +70,19 @@ public class RedIO implements IOComponent {
 
 	@Override
 	public InputStream toInputStream (final java.io.InputStream java_input_stream) throws IOException {
-		return new AbstractRedInputStream(java_input_stream);
+		final AbstractRedInputStream<RedJavaInputStreamOperator> stream = new AbstractRedInputStream<RedJavaInputStreamOperator>(
+			new RedJavaInputStreamOperator(java_input_stream));
+		stream.open();
+		return stream;
 	}
 
 	@Override
 	public OutputStream toOutputStream (final java.io.OutputStream java_output_stream) throws IOException {
-		return new AbstractRedOutputStream(java_output_stream);
+
+		final AbstractRedOutputStream<RedJavaOutputStreamOperator> stream = new AbstractRedOutputStream<RedJavaOutputStreamOperator>(
+			new RedJavaOutputStreamOperator(java_output_stream));
+		stream.open();
+		return stream;
 	}
 
 	@Override

@@ -26,35 +26,36 @@ public class RedFileSystemPacker implements FileSystemPackerComponent {
 	}
 
 	@Override
-	public PackedFileSystem unpack (FileSystemUnpackingSpecs unpacking_spec) throws IOException {
-		File archive = Debug.checkNull("DataFile", unpacking_spec.getDataFile());
-		FileInputStream is = archive.newInputStream();
-		InputStream jis = is.toJavaInputStream();
-		int schema_name_len = jis.read();
+	public PackedFileSystem unpack (final FileSystemUnpackingSpecs unpacking_spec) throws IOException {
+		final File archive = Debug.checkNull("DataFile", unpacking_spec.getDataFile());
+		final FileInputStream is = archive.newInputStream();
+		is.open();
+		final InputStream jis = is.toJavaInputStream();
+		final int schema_name_len = jis.read();
 		// L.d("schema_name_len", schema_name_len);
-		skip(END_LINE.length(), jis);
-		byte[] name_array = new byte[schema_name_len];
+		this.skip(END_LINE.length(), jis);
+		final byte[] name_array = new byte[schema_name_len];
 		jis.read(name_array);
-		String schema_name = JUtils.newString(name_array);
+		final String schema_name = JUtils.newString(name_array);
 
 		// L.d("shema_name", schema_name);
 
-		CompressionMethod method = this.findMethod(schema_name);
+		final CompressionMethod method = this.findMethod(schema_name);
 
 		if (method == null) {
 			throw new Error("CompressionMethod [" + schema_name + "] not found.");
 		}
 
-		skip(END_LINE.length(), jis);
+		this.skip(END_LINE.length(), jis);
 
-		CompressionSchema schema = method.readSchema(is);
+		final CompressionSchema schema = method.readSchema(is);
 		jis.close();
-		PackedFileSystem packed_file_system = new RedPackedFileSystem(schema, archive);
+		final PackedFileSystem packed_file_system = new RedPackedFileSystem(schema, archive);
 
 		return packed_file_system;
 	}
 
-	private void skip (int k, InputStream jis) throws IOException {
+	private void skip (final int k, final InputStream jis) throws IOException {
 		for (int i = k; i > 0; i--) {
 			jis.read();
 		}
@@ -66,23 +67,23 @@ public class RedFileSystemPacker implements FileSystemPackerComponent {
 	}
 
 	@Override
-	public void pack (FileSystemPackingSpecs packing_spec) throws IOException {
-		String schema_name = Debug.checkNull("Schema", packing_spec.getCompressionSchemaName());
-		OutputStream os = Debug.checkNull("OutputStream", packing_spec.getOutputStream());
-		Iterable<File> input = Debug.checkNull("TargetFolder", packing_spec.listFiles());
+	public void pack (final FileSystemPackingSpecs packing_spec) throws IOException {
+		final String schema_name = Debug.checkNull("Schema", packing_spec.getCompressionSchemaName());
+		final OutputStream os = Debug.checkNull("OutputStream", packing_spec.getOutputStream());
+		final Iterable<File> input = Debug.checkNull("TargetFolder", packing_spec.listFiles());
 
-		CompressionMethod schema = this.findMethod(schema_name);
+		final CompressionMethod schema = this.findMethod(schema_name);
 
 		if (schema == null) {
 			throw new Error("CompressionMethod [" + schema_name + "] not found.");
 		}
 
-		java.io.OutputStream jos = os.toJavaOutputStream();
-		byte schema_len = (byte)schema_name.length();
+		final java.io.OutputStream jos = os.toJavaOutputStream();
+		final byte schema_len = (byte)schema_name.length();
 		jos.write(schema_len);
 		endLine(jos);
 
-		byte[] bytes = schema_name.getBytes();
+		final byte[] bytes = schema_name.getBytes();
 		Debug.checkTrue(bytes.length == schema_len);
 		jos.write(bytes);
 		endLine(jos);
@@ -93,22 +94,22 @@ public class RedFileSystemPacker implements FileSystemPackerComponent {
 
 	public static final String END_LINE = "#";// " ←\n"
 
-	public static void endLine (java.io.OutputStream jos) throws IOException {
+	public static void endLine (final java.io.OutputStream jos) throws IOException {
 		jos.write(END_LINE.getBytes());
 	}
 
-	private CompressionMethod findMethod (String schema_name) {
-		return methods.get(schema_name);
+	private CompressionMethod findMethod (final String schema_name) {
+		return this.methods.get(schema_name);
 	}
 
 	@Override
-	public void installCompressionMethod (CompressionMethod schema) {
-		String schema_name = schema.getName();
-		CompressionMethod schema_stored = methods.get(schema_name);
+	public void installCompressionMethod (final CompressionMethod schema) {
+		final String schema_name = schema.getName();
+		final CompressionMethod schema_stored = this.methods.get(schema_name);
 		if (schema_stored != null) {
 			throw new Error("CompressionMethod [" + schema_name + "] is already installed: " + schema_stored);
 		}
-		methods.put(schema_name, schema);
+		this.methods.put(schema_name, schema);
 	}
 
 	final Map<String, CompressionMethod> methods = Collections.newMap();

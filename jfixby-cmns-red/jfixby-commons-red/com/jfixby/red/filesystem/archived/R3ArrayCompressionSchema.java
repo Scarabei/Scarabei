@@ -18,23 +18,23 @@ import com.jfixby.cmns.api.util.path.RelativePath;
 
 public class R3ArrayCompressionSchema implements CompressionSchema {
 
-	private FilePointers pointers;
+	private final FilePointers pointers;
 	final Map<RelativePath, FilePointer> registry = Collections.newMap();
 	final Map<RelativePath, ArrayList<String>> folders = Collections.newMap();
 
-	public R3ArrayCompressionSchema (FilePointers pointers) {
+	public R3ArrayCompressionSchema (final FilePointers pointers) {
 
 		this.pointers = pointers;
 		for (int i = 0; i < pointers.list.size(); i++) {
-			FilePointer pointer = pointers.list.get(i);
-			RelativePath key = JUtils.newRelativePath(pointer.path);
-			registry.put(key, pointer);
+			final FilePointer pointer = pointers.list.get(i);
+			final RelativePath key = JUtils.newRelativePath(pointer.path);
+			this.registry.put(key, pointer);
 			if (key.size() > 0) {
-				RelativePath parent_folder = key.parent();
-				ArrayList<String> parent_children_list = folders.get(parent_folder);
+				final RelativePath parent_folder = key.parent();
+				ArrayList<String> parent_children_list = this.folders.get(parent_folder);
 				if (parent_children_list == null) {
 					parent_children_list = new ArrayList<String>();
-					folders.put(parent_folder, parent_children_list);
+					this.folders.put(parent_folder, parent_children_list);
 				}
 				parent_children_list.add(key.getLastStep());
 			}
@@ -42,45 +42,46 @@ public class R3ArrayCompressionSchema implements CompressionSchema {
 	}
 
 	@Override
-	public void print (String tag) {
-		registry.print(tag);
+	public void print (final String tag) {
+		this.registry.print(tag);
 	}
 
 	@Override
-	public boolean isFile (RelativePath relativePath) {
-		return chechNull(registry.get(relativePath), relativePath).isFile;
+	public boolean isFile (final RelativePath relativePath) {
+		return this.chechNull(this.registry.get(relativePath), relativePath).isFile;
 	}
 
 	@Override
-	public long lastModified (RelativePath relativePath) {
-		return chechNull(registry.get(relativePath), relativePath).lastModified;
+	public long lastModified (final RelativePath relativePath) {
+		return this.chechNull(this.registry.get(relativePath), relativePath).lastModified;
 	}
 
 	@Override
-	public boolean isFolder (RelativePath relativePath) {
-		return !chechNull(registry.get(relativePath), relativePath).isFile;
+	public boolean isFolder (final RelativePath relativePath) {
+		return !this.chechNull(this.registry.get(relativePath), relativePath).isFile;
 	}
 
 	@Override
-	public Iterable<String> listChildren (RelativePath relativePath) {
-		return folders.get(relativePath);
+	public Iterable<String> listChildren (final RelativePath relativePath) {
+		return this.folders.get(relativePath);
 	}
 
 	long header_skip = -1;
 
 	@Override
-	public FileData readFileData (RelativePath relativePath, File archive) throws IOException {
+	public FileData readFileData (final RelativePath relativePath, File archive) throws IOException {
 		archive = Debug.checkNull("archive", archive);
 		if (this.header_skip == -1) {
-			setup_header_skip(archive);
+			this.setup_header_skip(archive);
 		}
 		// header_skip = 100;
-		FileInputStream is = archive.newInputStream();
-		InputStream jis = is.toJavaInputStream();
-		skip(header_skip, jis);
-		L.d("header_skip", header_skip);
+		final FileInputStream is = archive.newInputStream();
+		is.open();
+		final InputStream jis = is.toJavaInputStream();
+		this.skip(this.header_skip, jis);
+		L.d("header_skip", this.header_skip);
 
-		FilePointer pointer = registry.get(relativePath);
+		final FilePointer pointer = this.registry.get(relativePath);
 
 		if (pointer == null) {
 			throw new IOException("File not found " + relativePath + " in archive " + archive);
@@ -88,87 +89,88 @@ public class R3ArrayCompressionSchema implements CompressionSchema {
 		if (!pointer.isFile) {
 			throw new IOException("File not found " + relativePath + " in archive " + archive);
 		}
-		skip(pointer.offset, jis);
-		byte[] bytes = new byte[(int)pointer.size];
+		this.skip(pointer.offset, jis);
+		final byte[] bytes = new byte[(int)pointer.size];
 		jis.read(bytes);
 
 		return new ContentLeaf(JUtils.newByteArray(bytes), pointer);
 
 	}
 
-	private FilePointer chechNull (FilePointer filePointer, RelativePath relativePath) {
+	private FilePointer chechNull (final FilePointer filePointer, final RelativePath relativePath) {
 		if (filePointer != null) {
 			return filePointer;
 		}
-		registry.print("Failed to read: " + relativePath);
+		this.registry.print("Failed to read: " + relativePath);
 		throw new Error("Failed to read: " + relativePath);
 	}
 
 	public static final String END_LINE = "#";// " ←\n"
 
-	private void setup_header_skip (File archive) throws IOException {
+	private void setup_header_skip (final File archive) throws IOException {
 		this.header_skip = 0;
-		FileInputStream is = archive.newInputStream();
-		InputStream jis = is.toJavaInputStream();
+		final FileInputStream is = archive.newInputStream();
+		is.open();
+		final InputStream jis = is.toJavaInputStream();
 
-		int schema_name_len = jis.read();
-		header_skip = header_skip + 1;
+		final int schema_name_len = jis.read();
+		this.header_skip = this.header_skip + 1;
 
-		skip(END_LINE.length(), jis);
-		header_skip = header_skip + END_LINE.length();
+		this.skip(END_LINE.length(), jis);
+		this.header_skip = this.header_skip + END_LINE.length();
 		//
-		skip(schema_name_len, jis);
-		header_skip = header_skip + schema_name_len;
+		this.skip(schema_name_len, jis);
+		this.header_skip = this.header_skip + schema_name_len;
 
-		skip(END_LINE.length(), jis);
-		header_skip = header_skip + END_LINE.length();
+		this.skip(END_LINE.length(), jis);
+		this.header_skip = this.header_skip + END_LINE.length();
 		//
 		// //
-		long schema_len = readLong(jis);
+		final long schema_len = this.readLong(jis);
 		L.d("schema_len", schema_len);
 		// //
-		header_skip = header_skip + 8;
+		this.header_skip = this.header_skip + 8;
 		// // //
-		skip(END_LINE.length(), jis);
-		header_skip = header_skip + END_LINE.length();
+		this.skip(END_LINE.length(), jis);
+		this.header_skip = this.header_skip + END_LINE.length();
 		// //
-		skip(schema_len, jis);
-		header_skip = header_skip + schema_len;
+		this.skip(schema_len, jis);
+		this.header_skip = this.header_skip + schema_len;
 
-		skip(END_LINE.length(), jis);
-		header_skip = header_skip + END_LINE.length();
+		this.skip(END_LINE.length(), jis);
+		this.header_skip = this.header_skip + END_LINE.length();
 		//
-		header_skip = header_skip + "data:".length();
+		this.header_skip = this.header_skip + "data:".length();
 
-		header_skip = header_skip + 8;
+		this.header_skip = this.header_skip + 8;
 
-		skip(END_LINE.length(), jis);
-		header_skip = header_skip + END_LINE.length();
+		this.skip(END_LINE.length(), jis);
+		this.header_skip = this.header_skip + END_LINE.length();
 
 		jis.close();
 		is.close();
 
 	}
 
-	private long readLong (InputStream jis) throws IOException {
-		byte[] tmp = new byte[8];
+	private long readLong (final InputStream jis) throws IOException {
+		final byte[] tmp = new byte[8];
 		jis.read(tmp);
-		return byteArrayToLong(tmp);
+		return this.byteArrayToLong(tmp);
 	}
 
-	private long byteArrayToLong (byte[] tmp) {
-		long b7 = tmp[0] << 8 * 7;
-		long b6 = tmp[1] << 8 * 6;
-		long b5 = tmp[2] << 8 * 5;
-		long b4 = tmp[3] << 8 * 4;
-		long b3 = tmp[4] << 8 * 3;
-		long b2 = tmp[5] << 8 * 2;
-		long b1 = tmp[6] << 8 * 1;
-		long b0 = tmp[7] << 8 * 0;
+	private long byteArrayToLong (final byte[] tmp) {
+		final long b7 = tmp[0] << 8 * 7;
+		final long b6 = tmp[1] << 8 * 6;
+		final long b5 = tmp[2] << 8 * 5;
+		final long b4 = tmp[3] << 8 * 4;
+		final long b3 = tmp[4] << 8 * 3;
+		final long b2 = tmp[5] << 8 * 2;
+		final long b1 = tmp[6] << 8 * 1;
+		final long b0 = tmp[7] << 8 * 0;
 		return b0 | b1 | b2 | b3 | b4 | b5 | b6 | b7;
 	}
 
-	private void skip (final long k, InputStream jis) throws IOException {
+	private void skip (final long k, final InputStream jis) throws IOException {
 		for (long i = k; i > 0; i--) {
 			jis.read();
 		}

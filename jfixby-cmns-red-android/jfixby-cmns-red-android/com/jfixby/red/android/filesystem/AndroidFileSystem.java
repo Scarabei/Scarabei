@@ -19,6 +19,8 @@ import com.jfixby.cmns.api.util.JUtils;
 import com.jfixby.cmns.api.util.path.AbsolutePath;
 import com.jfixby.cmns.api.util.path.RelativePath;
 import com.jfixby.red.filesystem.AbstractFileSystem;
+import com.jfixby.red.io.JavaFileInputStream;
+import com.jfixby.red.io.JavaFileOutputStream;
 
 public class AndroidFileSystem extends AbstractFileSystem implements LocalFileSystemComponent {
 
@@ -26,35 +28,35 @@ public class AndroidFileSystem extends AbstractFileSystem implements LocalFileSy
 
 	public AndroidFileSystem () {
 		L.d("System.getProperty(user.dir)", System.getProperty("user.dir"));
-		application_home_path_string = Android.getApplicationPrivateDir();
+		this.application_home_path_string = Android.getApplicationPrivateDir();
 	}
 
 	public static final String OS_SEPARATOR = "/";
 
 	@Override
-	public AndroidFile newFile (java.io.File file) {
-		return newFile(resolve(file));
+	public AndroidFile newFile (final java.io.File file) {
+		return this.newFile(this.resolve(file));
 	}
 
 	private AbsolutePath<FileSystem> resolve (java.io.File file) {
 		Debug.checkNull("file", file);
 		file = file.getAbsoluteFile();
-		String path_string = file.getAbsolutePath();
-		List<String> steps = Collections.newList(path_string.split(OS_SEPARATOR));
-		RelativePath relative = JUtils.newRelativePath(steps);
-		AbsolutePath<FileSystem> path = JUtils.newAbsolutePath((FileSystem)this, relative);
+		final String path_string = file.getAbsolutePath();
+		final List<String> steps = Collections.newList(path_string.split(OS_SEPARATOR));
+		final RelativePath relative = JUtils.newRelativePath(steps);
+		final AbsolutePath<FileSystem> path = JUtils.newAbsolutePath((FileSystem)this, relative);
 		return path;
 	}
 
 	//
 	@Override
-	public AndroidFile newFile (String java_file_path) {
-		java.io.File f = new java.io.File(Debug.checkNull("java_file_path", java_file_path));
-		return newFile(f);
+	public AndroidFile newFile (final String java_file_path) {
+		final java.io.File f = new java.io.File(Debug.checkNull("java_file_path", java_file_path));
+		return this.newFile(f);
 	}
 
 	@Override
-	public AndroidFile newFile (AbsolutePath<FileSystem> file_path) {
+	public AndroidFile newFile (final AbsolutePath<FileSystem> file_path) {
 		if (file_path == null) {
 			throw new Error("Filepath is null.");
 		}
@@ -63,22 +65,22 @@ public class AndroidFileSystem extends AbstractFileSystem implements LocalFileSy
 			L.e("FileSystem", file_path.getMountPoint());
 			throw new Error("Path does not belong to this filesystem: " + this);
 		}
-		return new AndroidFile(file_path, (AndroidFileSystem)this);
+		return new AndroidFile(file_path, this);
 	}
 
 	@Override
-	public FileOutputStream newFileOutputStream (File output_file) throws IOException {
+	public FileOutputStream newFileOutputStream (final File output_file) throws IOException {
 		if (output_file == null) {
 			throw new Error("Output file is null.");
 		}
 		if (output_file.getFileSystem() != this) {
 			throw new Error("Output file does not belong to this filesystem: " + output_file);
 		}
-		return new AndroidFileOutputStream((AndroidFile)output_file);
+		return new JavaFileOutputStream(((AndroidFile)output_file).toJavaFile());
 	}
 
 	@Override
-	public FileInputStream newFileInputStream (File input_file) throws IOException {
+	public FileInputStream newFileInputStream (final File input_file) throws IOException {
 		if (input_file == null) {
 			throw new Error("Input file is null.");
 		}
@@ -86,7 +88,7 @@ public class AndroidFileSystem extends AbstractFileSystem implements LocalFileSy
 			throw new Error("Input file does not belong to this filesystem: " + input_file);
 		}
 
-		return new AndroidFileInputStream((AndroidFile)input_file);
+		return new JavaFileInputStream(((AndroidFile)input_file).toJavaFile());
 	}
 
 	@Override
@@ -100,34 +102,34 @@ public class AndroidFileSystem extends AbstractFileSystem implements LocalFileSy
 	}
 
 	@Override
-	public String md5Hex (File file) throws IOException {
+	public String md5Hex (final File file) throws IOException {
 
-		InputStream java_input_stream = this.newFileInputStream(file).toJavaInputStream();
-		String checksum = MD5.md5Stream(java_input_stream);
+		final InputStream java_input_stream = this.newFileInputStream(file).toJavaInputStream();
+		final String checksum = MD5.md5Stream(java_input_stream);
 		java_input_stream.close();
 		return checksum.toUpperCase();
 	}
 
 	@Override
 	public File ApplicationHome () {
-		return this.newFile(application_home_path_string);
+		return this.newFile(this.application_home_path_string);
 	}
 
 	@Override
-	public java.io.File toJavaFile (File file) {
+	public java.io.File toJavaFile (final File file) {
 		Debug.checkNull("file", file);
-		AbsolutePath<FileSystem> file_path = file.getAbsoluteFilePath();
+		final AbsolutePath<FileSystem> file_path = file.getAbsoluteFilePath();
 		if (file_path.getMountPoint() != this) {
 			L.e("file_path", file_path);
 			L.e("FileSystem", file_path.getMountPoint());
 			throw new Error("Path does not belong to this filesystem: " + this);
 		}
-		AndroidFile win_f = (AndroidFile)file;
+		final AndroidFile win_f = (AndroidFile)file;
 		return win_f.getJavaFile();
 	}
 
 	@Override
-	public String toAbsolutePathString (AbsolutePath<FileSystem> file_path) {
+	public String toAbsolutePathString (final AbsolutePath<FileSystem> file_path) {
 		if (file_path == null) {
 			throw new Error("Filepath is null.");
 		}
@@ -136,13 +138,13 @@ public class AndroidFileSystem extends AbstractFileSystem implements LocalFileSy
 			L.e("FileSystem", file_path.getMountPoint());
 			throw new Error("Path does not belong to this filesystem: " + this);
 		}
-		return new AndroidFile(file_path, (AndroidFileSystem)this).getAbsoluteWindowsPathString();
+		return new AndroidFile(file_path, this).getAbsoluteWindowsPathString();
 	}
 
 	@Override
 	public File WorkspaceFolder () {
-		String application_home_path_string = System.getProperty("user.dir");
-		java.io.File workspace_mount_point = (new java.io.File(application_home_path_string)).getParentFile();
+		final String application_home_path_string = System.getProperty("user.dir");
+		final java.io.File workspace_mount_point = (new java.io.File(application_home_path_string)).getParentFile();
 		return this.newFile(workspace_mount_point);
 	}
 

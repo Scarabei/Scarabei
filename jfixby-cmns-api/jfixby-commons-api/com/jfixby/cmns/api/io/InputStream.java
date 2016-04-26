@@ -13,10 +13,8 @@ public interface InputStream extends Stream {
 
 	int available () throws IOException;
 
-	public STREAM_STATE getState ();
-
 	ByteArray readAll () throws IOException;
 
-	java.io.InputStream toJavaInputStream ();
+	java.io.InputStream toJavaInputStream () throws IOException;;
 
 }
