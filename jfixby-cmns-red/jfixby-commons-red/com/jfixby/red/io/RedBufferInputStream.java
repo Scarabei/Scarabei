@@ -62,11 +62,6 @@ public class RedBufferInputStream implements BufferInputStream, FileInputStream 
 	}
 
 	@Override
-	public void forceClose () {
-		IO.forceClose(this.bis);
-	}
-
-	@Override
 	public STREAM_STATE getState () {
 		return this.state.currentState();
 	}

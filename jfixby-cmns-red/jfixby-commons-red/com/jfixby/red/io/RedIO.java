@@ -13,7 +13,6 @@ import com.jfixby.cmns.api.file.FileOutputStream;
 import com.jfixby.cmns.api.io.Buffer;
 import com.jfixby.cmns.api.io.BufferInputStream;
 import com.jfixby.cmns.api.io.BufferOutputStream;
-import com.jfixby.cmns.api.io.ForceCloseable;
 import com.jfixby.cmns.api.io.GZipInputStream;
 import com.jfixby.cmns.api.io.GZipOutputStream;
 import com.jfixby.cmns.api.io.IOComponent;
@@ -230,6 +229,11 @@ public class RedIO implements IOComponent {
 	public void forceClose (final java.io.OutputStream os) {
 		try {
 			os.flush();
+
+		} catch (final IOException ignored) {
+		}
+		try {
+
 			os.close();
 		} catch (final IOException ignored) {
 		}
@@ -240,13 +244,6 @@ public class RedIO implements IOComponent {
 		try {
 			is.close();
 		} catch (final IOException ignored) {
-		}
-	}
-
-	@Override
-	public void forceClose (final ForceCloseable os) {
-		if (os != null) {
-			os.forceClose();
 		}
 	}
 

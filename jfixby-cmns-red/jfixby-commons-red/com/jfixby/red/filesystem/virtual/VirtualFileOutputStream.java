@@ -32,11 +32,6 @@ public class VirtualFileOutputStream implements FileOutputStream {
 	}
 
 	@Override
-	public void forceClose () {
-		this.os.forceClose();
-	}
-
-	@Override
 	public void write (final Data data) throws IOException {
 		this.os.write(data);
 	}

@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import com.jfixby.cmns.api.java.ByteArray;
 
-public interface InputStream extends ForceCloseable {
+public interface InputStream {
 
 	boolean hasData () throws IOException;
 

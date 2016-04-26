@@ -69,11 +69,6 @@ public class RMIFileOutputStream implements FileOutputStream {
 	}
 
 	@Override
-	public void forceClose () {
-		IO.forceClose(this.os);
-	}
-
-	@Override
 	public void write (final byte[] bytes) throws IOException {
 		this.write(JUtils.newByteArray(bytes));
 	}

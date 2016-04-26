@@ -61,11 +61,6 @@ public class RedBufferOutputStream implements BufferOutputStream {
 	}
 
 	@Override
-	public void forceClose () {
-		IO.forceClose(this.os);
-	}
-
-	@Override
 	public void write (final byte[] bytes) throws IOException {
 		this.write(JUtils.newByteArray(bytes));
 	}

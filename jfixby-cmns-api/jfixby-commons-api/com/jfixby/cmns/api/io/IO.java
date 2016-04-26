@@ -68,10 +68,6 @@ public class IO {
 		component().writeByte(javaOutputStream, value);
 	}
 
-	public static void forceClose (final ForceCloseable os) {
-		component().forceClose(os);
-	}
-
 	public static void forceClose (final java.io.OutputStream os) {
 		component().forceClose(os);
 	}

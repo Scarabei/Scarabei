@@ -79,11 +79,6 @@ public class AbstractRedInputStream implements FileInputStream {
 	}
 
 	@Override
-	public void forceClose () {
-		IO.forceClose(this.is);
-	}
-
-	@Override
 	public STREAM_STATE getState () {
 		return this.state.currentState();
 	}

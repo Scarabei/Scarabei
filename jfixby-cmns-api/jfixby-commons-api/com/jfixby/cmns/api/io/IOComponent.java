@@ -42,8 +42,6 @@ public interface IOComponent {
 
 	public void writeByte (java.io.OutputStream javaOutputStream, int value) throws IOException;
 
-	void forceClose (ForceCloseable os);
-
 	void forceClose (java.io.OutputStream os);
 
 	void forceClose (java.io.InputStream os);

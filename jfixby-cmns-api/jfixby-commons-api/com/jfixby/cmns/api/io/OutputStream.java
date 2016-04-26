@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import com.jfixby.cmns.api.java.ByteArray;
 
-public interface OutputStream extends ForceCloseable {
+public interface OutputStream {
 
 	public STREAM_STATE getState ();
 
