@@ -16,9 +16,9 @@ public interface FileSystem extends MountPoint {
 
 	File newFile (AbsolutePath<FileSystem> file_path);
 
-	FileOutputStream newFileOutputStream (File output_file) throws IOException;
+	FileOutputStream newFileOutputStream (File output_file);
 
-	FileInputStream newFileInputStream (File input_file) throws IOException;
+	FileInputStream newFileInputStream (File input_file);
 
 	String nativeSeparator ();
 

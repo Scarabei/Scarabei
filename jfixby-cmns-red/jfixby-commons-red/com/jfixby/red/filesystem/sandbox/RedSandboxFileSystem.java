@@ -1,8 +1,6 @@
 
 package com.jfixby.red.filesystem.sandbox;
 
-import java.io.IOException;
-
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.FileInputStream;
 import com.jfixby.cmns.api.file.FileOutputStream;
@@ -42,7 +40,7 @@ public class RedSandboxFileSystem extends AbstractFileSystem implements FileSyst
 	}
 
 	@Override
-	public FileOutputStream newFileOutputStream (final File output_file) throws IOException {
+	public FileOutputStream newFileOutputStream (final File output_file) {
 		if (output_file == null) {
 			throw new Error("Output file is null.");
 		}
@@ -53,7 +51,7 @@ public class RedSandboxFileSystem extends AbstractFileSystem implements FileSyst
 	}
 
 	@Override
-	public FileInputStream newFileInputStream (final File input_file) throws IOException {
+	public FileInputStream newFileInputStream (final File input_file) {
 		if (input_file == null) {
 			throw new Error("Input file is null.");
 		}

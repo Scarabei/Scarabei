@@ -44,9 +44,9 @@ public interface File {
 
 	String nameWithoutExtension ();
 
-	FileInputStream newInputStream () throws IOException;
+	FileInputStream newInputStream ();
 
-	FileOutputStream newOutputStream () throws IOException;
+	FileOutputStream newOutputStream ();
 
 	String readToString () throws IOException;
 

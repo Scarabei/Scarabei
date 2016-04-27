@@ -1,7 +1,6 @@
 
 package com.jfixby.rmi.client.files;
 
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -40,7 +39,7 @@ public class RMIFileSystem extends AbstractFileSystem implements FileSystem {
 	}
 
 	@Override
-	public FileOutputStream newFileOutputStream (final File output_file) throws IOException {
+	public FileOutputStream newFileOutputStream (final File output_file) {
 		if (output_file == null) {
 			throw new Error("Output file is null.");
 		}
@@ -53,7 +52,7 @@ public class RMIFileSystem extends AbstractFileSystem implements FileSystem {
 	}
 
 	@Override
-	public FileInputStream newFileInputStream (final File input_file) throws IOException {
+	public FileInputStream newFileInputStream (final File input_file) {
 		if (input_file == null) {
 			throw new Error("Input file is null.");
 		}

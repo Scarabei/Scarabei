@@ -8,4 +8,6 @@ public interface ErrorComponent {
 	void reportError (String message);
 
 	void reportError (Throwable e);
+
+	void reportError (String message, Throwable e);
 }

@@ -1,13 +1,10 @@
 
 package com.jfixby.red.filesystem.virtual;
 
-import java.io.IOException;
-
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.FileInputStream;
 import com.jfixby.cmns.api.file.FileOutputStream;
 import com.jfixby.cmns.api.file.FileSystem;
-import com.jfixby.cmns.api.io.IO;
 import com.jfixby.cmns.api.util.path.AbsolutePath;
 import com.jfixby.red.filesystem.AbstractFileSystem;
 
@@ -29,7 +26,7 @@ public class VirtualFileSystem extends AbstractFileSystem implements FileSystem 
 	}
 
 	@Override
-	public FileOutputStream newFileOutputStream (final File output_file) throws IOException {
+	public FileOutputStream newFileOutputStream (final File output_file) {
 		if (output_file == null) {
 			throw new Error("Output file is null.");
 		}
@@ -40,19 +37,15 @@ public class VirtualFileSystem extends AbstractFileSystem implements FileSystem 
 	}
 
 	@Override
-	public FileInputStream newFileInputStream (final File input_file) throws IOException {
+	public FileInputStream newFileInputStream (final File input_file) {
 		if (input_file == null) {
 			throw new Error("Input file is null.");
 		}
 		if (input_file.getFileSystem() != this) {
 			throw new Error("Input file does not belong to this filesystem: " + input_file);
 		}
-		final VirtualFile v_file = (VirtualFile)input_file;
-		final ContentLeaf leaf = v_file.getContent();
-		if (leaf == null) {
-			throw new IOException("File not found: " + input_file);
-		}
-		return (FileInputStream)IO.newBufferInputStream(IO.newBuffer(leaf.getData()));
+
+		return new VirtualFileInputStream((VirtualFile)input_file);
 	}
 
 	@Override

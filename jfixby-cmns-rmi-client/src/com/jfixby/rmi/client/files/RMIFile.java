@@ -1,8 +1,6 @@
 
 package com.jfixby.rmi.client.files;
 
-import java.io.IOException;
-
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.file.ChildrenList;
 import com.jfixby.cmns.api.file.File;
@@ -154,16 +152,6 @@ public class RMIFile extends AbstractRedFile implements File {
 	}
 
 	@Override
-	public FileInputStream newInputStream () throws IOException {
-		return this.absolute_path.getMountPoint().newFileInputStream(this);
-	}
-
-	@Override
-	public FileOutputStream newOutputStream () throws IOException {
-		return this.absolute_path.getMountPoint().newFileOutputStream(this);
-	}
-
-	@Override
 	public long getSize () {
 		if (this.isFile()) {
 			// return this.getContent().getData().length;
@@ -191,12 +179,12 @@ public class RMIFile extends AbstractRedFile implements File {
 		return content.lastModified(this.absolute_path.getRelativePath());
 	}
 
-	public FileInputStream getInputStream () throws IOException {
+	public FileInputStream getInputStream () {
 		final RMIDataContainer content = this.virtualFileSystem.getContent();
 		return content.getInputStream(this.absolute_path.getRelativePath());
 	}
 
-	public FileOutputStream getOutputStream () throws IOException {
+	public FileOutputStream getOutputStream () {
 		final RMIDataContainer content = this.virtualFileSystem.getContent();
 		return content.getOutputStream(this.absolute_path.getRelativePath());
 	}

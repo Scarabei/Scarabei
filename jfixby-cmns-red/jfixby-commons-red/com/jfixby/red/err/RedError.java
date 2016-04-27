@@ -9,12 +9,12 @@ import com.jfixby.cmns.api.sys.settings.SystemSettings;
 public class RedError implements ErrorComponent {
 
 	@Override
-	public void reportWarning (String message) {
+	public void reportWarning (final String message) {
 		L.e(message);
 	}
 
 	@Override
-	public void reportError (String message) {
+	public void reportError (final String message) {
 		if (SystemSettings.executionModeCovers(ExecutionMode.EARLY_DEVELOPMENT)) {
 			throw new Error(message);
 		} else {
@@ -23,9 +23,19 @@ public class RedError implements ErrorComponent {
 	}
 
 	@Override
-	public void reportError (Throwable e) {
+	public void reportError (final Throwable e) {
 		if (SystemSettings.executionModeCovers(ExecutionMode.EARLY_DEVELOPMENT)) {
 			throw new Error(e);
+		} else {
+			L.e(e);
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void reportError (final String message, final Throwable e) {
+		if (SystemSettings.executionModeCovers(ExecutionMode.EARLY_DEVELOPMENT)) {
+			throw new Error(message, e);
 		} else {
 			L.e(e);
 			e.printStackTrace();

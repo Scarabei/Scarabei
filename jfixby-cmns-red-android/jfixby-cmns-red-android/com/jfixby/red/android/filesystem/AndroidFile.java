@@ -1,14 +1,10 @@
 
 package com.jfixby.red.android.filesystem;
 
-import java.io.IOException;
-
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.file.ChildrenList;
 import com.jfixby.cmns.api.file.File;
-import com.jfixby.cmns.api.file.FileInputStream;
-import com.jfixby.cmns.api.file.FileOutputStream;
 import com.jfixby.cmns.api.file.FileSystem;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.util.path.AbsolutePath;
@@ -179,16 +175,6 @@ public class AndroidFile extends AbstractRedFile implements File {
 
 	public String toAbsolutePathString () {
 		return this.getAbsoluteWindowsPathString();
-	}
-
-	@Override
-	public FileInputStream newInputStream () throws IOException {
-		return this.absolute_path.getMountPoint().newFileInputStream(this);
-	}
-
-	@Override
-	public FileOutputStream newOutputStream () throws IOException {
-		return this.absolute_path.getMountPoint().newFileOutputStream(this);
 	}
 
 	public java.io.File getJavaFile () {

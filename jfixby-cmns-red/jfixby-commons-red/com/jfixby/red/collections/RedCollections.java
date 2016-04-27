@@ -32,8 +32,8 @@ public abstract class RedCollections implements CollectionsComponent {
 	// }
 
 	@Override
-	public <T> List<T> newList (T[] array) {
-		List<T> result = newList();
+	public <T> List<T> newList (final T[] array) {
+		final List<T> result = this.newList();
 		result.addAllArrayElements(array);
 		return result;
 	}
@@ -45,22 +45,22 @@ public abstract class RedCollections implements CollectionsComponent {
 
 	@Override
 	public <T> Set<T> newSet () {
-		Set<T> result = new RedSet<T>();
+		final Set<T> result = new RedSet<T>();
 		return result;
 	}
 
 	@Override
-	public <T> Set<T> newSet (T[] array) {
-		List<T> tmp = newList();
+	public <T> Set<T> newSet (final T[] array) {
+		final List<T> tmp = this.newList();
 		tmp.addAllArrayElements(array);
-		Set<T> result = new RedSet<T>();
+		final Set<T> result = new RedSet<T>();
 		result.addAll(tmp);
 		return result;
 	}
 
 	@Override
-	public <T> List<T> newList (com.jfixby.cmns.api.collections.Collection<? extends T> array) {
-		List<T> list = this.newList();
+	public <T> List<T> newList (final com.jfixby.cmns.api.collections.Collection<? extends T> array) {
+		final List<T> list = this.newList();
 		list.addAll(array);
 		return list;
 	}
@@ -72,38 +72,38 @@ public abstract class RedCollections implements CollectionsComponent {
 	}
 
 	@Override
-	public <T> Set<T> newSet (java.util.Collection<? extends T> collection) {
-		Set<T> result = new RedSet<T>();
+	public <T> Set<T> newSet (final java.util.Collection<? extends T> collection) {
+		final Set<T> result = new RedSet<T>();
 		result.addJavaCollection(collection);
 		// result.addAllArrayElements(array);
 		return result;
 	}
 
 	@Override
-	public <T> Set<T> newSet (Collection<? extends T> collection) {
-		Set<T> result = new RedSet<T>();
+	public <T> Set<T> newSet (final Collection<? extends T> collection) {
+		final Set<T> result = new RedSet<T>();
 		result.addAll(collection);
 		// result.addAllArrayElements(array);
 		return result;
 	}
 
 	@Override
-	public <T> List<T> newList (java.util.Collection<? extends T> java_colletion) {
-		List<T> list = this.newList();
+	public <T> List<T> newList (final java.util.Collection<? extends T> java_colletion) {
+		final List<T> list = this.newList();
 		list.addJavaCollection(java_colletion);
 		return list;
 	}
 
 	@Override
-	public <K, V> Map<K, V> newMap (Mapping<? extends K, ? extends V> map) {
-		Map<K, V> red_map = newMap();
+	public <K, V> Map<K, V> newMap (final Mapping<? extends K, ? extends V> map) {
+		final Map<K, V> red_map = this.newMap();
 		red_map.putAll(map);
 		return red_map;
 	}
 
 	@Override
-	public <K, V> Map<K, V> newMap (java.util.Map<? extends K, ? extends V> java_map) {
-		Map<K, V> red_map = newMap();
+	public <K, V> Map<K, V> newMap (final java.util.Map<? extends K, ? extends V> java_map) {
+		final Map<K, V> red_map = this.newMap();
 		red_map.putJavaMap(java_map);
 		return red_map;
 	}
@@ -114,22 +114,22 @@ public abstract class RedCollections implements CollectionsComponent {
 	}
 
 	@Override
-	public <T> Pool<T> newPool (PoolElementsSpawner<T> spawner) {
+	public <T> Pool<T> newPool (final PoolElementsSpawner<T> spawner) {
 		return new RedPool<T>(spawner);
 	}
 
 	@Override
-	public <T> void scanCollection (Collection<? extends T> collection, CollectionScanner<T> scanner) {
+	public <T> void scanCollection (final Collection<T> collection, final CollectionScanner<? super T> scanner) {
 		for (int i = 0; i < collection.size(); i++) {
-			T element = collection.getElementAt(i);
+			final T element = collection.getElementAt(i);
 			scanner.scanElement(element, i);
 		}
 	}
 
 	@Override
-	public <T> List<T> filter (Collection<? extends T> source, CollectionFilter<? super T> filter) {
-		List<T> result = Collections.newList();
-		for (T t : source) {
+	public <T> List<T> filter (final Collection<? extends T> source, final CollectionFilter<? super T> filter) {
+		final List<T> result = Collections.newList();
+		for (final T t : source) {
 			if (filter.fits(t)) {
 				result.add(t);
 			}
@@ -154,7 +154,7 @@ public abstract class RedCollections implements CollectionsComponent {
 	}
 
 	@Override
-	public boolean beginsWith (Collection<?> list, Collection<?> with) {
+	public boolean beginsWith (final Collection<?> list, final Collection<?> with) {
 		Debug.checkNull("list", list);
 		Debug.checkNull("with", with);
 		if (list.size() < with.size()) {
@@ -168,8 +168,8 @@ public abstract class RedCollections implements CollectionsComponent {
 		// with.print("b");
 
 		for (int i = 0; i < with.size(); i++) {
-			Object a = with.getElementAt(i);
-			Object b = list.getElementAt(i);
+			final Object a = with.getElementAt(i);
+			final Object b = list.getElementAt(i);
 			if (!Objects.equals(a, b)) {
 				// L.d("false", a + " != " + b);
 				return false;
@@ -181,26 +181,26 @@ public abstract class RedCollections implements CollectionsComponent {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public <Q, P, Cp extends EditableCollection<P>> Cp castCollection (Collection<Q> input, Cp output) {
-		for (Q i : input) {
-			P p = (P)i;
+	public <Q, P, Cp extends EditableCollection<P>> Cp castCollection (final Collection<Q> input, final Cp output) {
+		for (final Q i : input) {
+			final P p = (P)i;
 			output.add(p);
 		}
 		return output;
 	}
 
 	@Override
-	public <Q, P> List<P> castCollection (Collection<Q> input) {
-		List<P> list = Collections.newList();
+	public <Q, P> List<P> castCollection (final Collection<Q> input) {
+		final List<P> list = Collections.newList();
 		return this.castCollection(input, list);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public <A, B, X, Y, Mp extends Map<A, B>> Mp castMap (Mapping<X, Y> input, Mp output) {
-		for (X iK : input.keys()) {
-			A oK = (A)iK;
-			B oV = (B)input.get(iK);
+	public <A, B, X, Y, Mp extends Map<A, B>> Mp castMap (final Mapping<X, Y> input, final Mp output) {
+		for (final X iK : input.keys()) {
+			final A oK = (A)iK;
+			final B oV = (B)input.get(iK);
 			output.put(oK, oV);
 		}
 		return output;
@@ -208,14 +208,14 @@ public abstract class RedCollections implements CollectionsComponent {
 	}
 
 	@Override
-	public <A, B, X, Y> Map<A, B> castMap (Mapping<X, Y> input) {
+	public <A, B, X, Y> Map<A, B> castMap (final Mapping<X, Y> input) {
 		final Map<A, B> map = Collections.newMap();
 		return this.castMap(input, map);
 	}
 
 	@Override
 	public <T> void arrayCopy (final Collection<? extends T> source, final int source_index,
-		EditableCollection<? super T> destination, final int number_of_elements) {
+		final EditableCollection<? super T> destination, final int number_of_elements) {
 		for (int i = source_index; i < source_index + number_of_elements; i++) {
 			destination.add(source.getElementAt(i));
 		}
@@ -227,8 +227,8 @@ public abstract class RedCollections implements CollectionsComponent {
 	}
 
 	@Override
-	public <T> List<T> newList (Iterable<? extends T> java_colletion) {
-		List<T> list = this.newList();
+	public <T> List<T> newList (final Iterable<? extends T> java_colletion) {
+		final List<T> list = this.newList();
 		list.addAll(java_colletion);
 		return list;
 	}
@@ -236,10 +236,10 @@ public abstract class RedCollections implements CollectionsComponent {
 	@Override
 	public <A, B> void convertCollection (final Collection<A> input, final EditableCollection<B> output,
 		final CollectionConverter<A, B> converter) {
-		CollectionScanner<A> scanner = new CollectionScanner<A>() {
+		final CollectionScanner<A> scanner = new CollectionScanner<A>() {
 			@Override
-			public void scanElement (A element, int index) {
-				B converted = converter.convert(element);
+			public void scanElement (final A element, final int index) {
+				final B converted = converter.convert(element);
 				output.add(converted);
 			}
 		};

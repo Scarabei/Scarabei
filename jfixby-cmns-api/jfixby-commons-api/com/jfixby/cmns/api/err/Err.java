@@ -8,7 +8,7 @@ public class Err {
 	private static final ErrorComponent DEFAULT = new DefaultErrorComponent();
 	static private ComponentInstaller<ErrorComponent> componentInstaller = new ComponentInstaller<ErrorComponent>("Error");
 
-	public static final void installComponent (ErrorComponent component_to_install) {
+	public static final void installComponent (final ErrorComponent component_to_install) {
 		componentInstaller.installComponent(component_to_install);
 	}
 
@@ -23,16 +23,20 @@ public class Err {
 		return componentInstaller.getComponent();
 	}
 
-	public static void reportWarning (String message) {
+	public static void reportWarning (final String message) {
 		invoke().reportWarning(message);
 	}
 
-	public static void reportError (String message) {
+	public static void reportError (final String message) {
 		invoke().reportError(message);
 	}
 
-	public static void reportError (Throwable e) {
+	public static void reportError (final Throwable e) {
 		invoke().reportError(e);
+	}
+
+	public static void reportError (final String message, final Throwable e) {
+		invoke().reportError(message, e);
 	}
 
 }

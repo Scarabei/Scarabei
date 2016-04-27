@@ -8,7 +8,7 @@ public class Collections {
 	static private ComponentInstaller<CollectionsComponent> componentInstaller = new ComponentInstaller<CollectionsComponent>(
 		"Collections");
 
-	public static final void installComponent (CollectionsComponent component_to_install) {
+	public static final void installComponent (final CollectionsComponent component_to_install) {
 		componentInstaller.installComponent(component_to_install);
 	}
 
@@ -24,19 +24,19 @@ public class Collections {
 		return invoke().newList();
 	}
 
-	public static final <T> List<T> newList (T... array) {
+	public static final <T> List<T> newList (final T... array) {
 		return invoke().newList(array);
 	}
 
-	public static final <T> List<T> newList (Collection<? extends T> collection) {
+	public static final <T> List<T> newList (final Collection<? extends T> collection) {
 		return invoke().newList(collection);
 	}
 
-	public static final <T> List<T> newList (java.util.Collection<? extends T> java_colletion) {
+	public static final <T> List<T> newList (final java.util.Collection<? extends T> java_colletion) {
 		return invoke().newList(java_colletion);
 	}
 
-	public static final <T> List<T> newList (Iterable<? extends T> java_colletion) {
+	public static final <T> List<T> newList (final Iterable<? extends T> java_colletion) {
 		return invoke().newList(java_colletion);
 	}
 
@@ -44,11 +44,11 @@ public class Collections {
 		return invoke().newMap();
 	}
 
-	public static final <K, V> Map<K, V> newMap (java.util.Map<K, V> java_map) {
+	public static final <K, V> Map<K, V> newMap (final java.util.Map<K, V> java_map) {
 		return invoke().newMap(java_map);
 	}
 
-	public static final <K, V> Map<K, V> newMap (Mapping<? extends K, ? extends V> other_map) {
+	public static final <K, V> Map<K, V> newMap (final Mapping<? extends K, ? extends V> other_map) {
 		return invoke().newMap(other_map);
 	}
 
@@ -56,15 +56,15 @@ public class Collections {
 		return invoke().newSet();
 	}
 
-	public static <T> Set<T> newSet (T... array) {
+	public static <T> Set<T> newSet (final T... array) {
 		return invoke().newSet(array);
 	}
 
-	public static <T> Set<T> newSet (java.util.Collection<T> java_colletion) {
+	public static <T> Set<T> newSet (final java.util.Collection<T> java_colletion) {
 		return invoke().newSet(java_colletion);
 	}
 
-	public static final <T> Set<T> newSet (List<T> array) {
+	public static final <T> Set<T> newSet (final List<T> array) {
 		return invoke().newSet(array);
 	}
 
@@ -76,44 +76,44 @@ public class Collections {
 		return invoke().newQueue();
 	}
 
-	public static <T> Pool<T> newPool (PoolElementsSpawner<T> spawner) {
+	public static <T> Pool<T> newPool (final PoolElementsSpawner<T> spawner) {
 		return invoke().newPool(spawner);
 	}
 
-	public static <T> void scanCollection (Collection<? extends T> collection, CollectionScanner<T> scanner) {
+	public static <T> void scanCollection (final Collection<T> collection, final CollectionScanner<? super T> scanner) {
 		invoke().scanCollection(collection, scanner);
 	}
 
-	public static boolean equalLists (List<?> A, List<?> B) {
+	public static boolean equalLists (final List<?> A, final List<?> B) {
 		return invoke().equalLists(A, B);
 	}
 
-	public static boolean listBeginsWith (Collection<?> list, Collection<?> with) {
+	public static boolean listBeginsWith (final Collection<?> list, final Collection<?> with) {
 		return invoke().beginsWith(list, with);
 	}
 
-	static public <Q, P, Cp extends EditableCollection<P>> Cp castCollection (Collection<Q> input, Cp output) {
+	static public <Q, P, Cp extends EditableCollection<P>> Cp castCollection (final Collection<Q> input, final Cp output) {
 		return invoke().castCollection(input, output);
 	}
 
-	static public <Q, P> List<P> castCollection (Collection<Q> input) {
+	static public <Q, P> List<P> castCollection (final Collection<Q> input) {
 		return invoke().castCollection(input);
 	}
 
-	public static <A, B, X, Y, Mp extends Map<A, B>> Mp castMap (Mapping<X, Y> input, Mp output) {
+	public static <A, B, X, Y, Mp extends Map<A, B>> Mp castMap (final Mapping<X, Y> input, final Mp output) {
 		return invoke().castMap(input, output);
 	}
 
-	public static <A, B, X, Y> Map<A, B> castMap (Mapping<X, Y> input) {
+	public static <A, B, X, Y> Map<A, B> castMap (final Mapping<X, Y> input) {
 		return invoke().castMap(input);
 	}
 
-	public static <T> void arrayCopy (Collection<? extends T> source, int source_index, EditableCollection<? super T> destination,
-		int number_of_elements) {
+	public static <T> void arrayCopy (final Collection<? extends T> source, final int source_index,
+		final EditableCollection<? super T> destination, final int number_of_elements) {
 		invoke().arrayCopy(source, source_index, destination, number_of_elements);
 	}
 
-	public static <T> List<T> filter (Collection<? extends T> source, CollectionFilter<? super T> filter) {
+	public static <T> List<T> filter (final Collection<? extends T> source, final CollectionFilter<? super T> filter) {
 		return invoke().filter(source, filter);
 	}
 

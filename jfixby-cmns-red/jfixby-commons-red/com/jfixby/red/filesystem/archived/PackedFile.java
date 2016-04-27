@@ -7,8 +7,6 @@ import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.file.ChildrenList;
 import com.jfixby.cmns.api.file.File;
-import com.jfixby.cmns.api.file.FileInputStream;
-import com.jfixby.cmns.api.file.FileOutputStream;
 import com.jfixby.cmns.api.file.FileSystem;
 import com.jfixby.cmns.api.file.packing.FileData;
 import com.jfixby.cmns.api.log.L;
@@ -169,16 +167,6 @@ public class PackedFile extends AbstractRedFile implements File {
 	public FileData getContent () throws IOException {
 		final PackedFileSystemContent content = this.virtualFileSystem.getContent();
 		return content.getContentLeaf(this.relativePath);
-	}
-
-	@Override
-	public FileInputStream newInputStream () throws IOException {
-		return this.absolute_path.getMountPoint().newFileInputStream(this);
-	}
-
-	@Override
-	public FileOutputStream newOutputStream () throws IOException {
-		return this.absolute_path.getMountPoint().newFileOutputStream(this);
 	}
 
 	@Override

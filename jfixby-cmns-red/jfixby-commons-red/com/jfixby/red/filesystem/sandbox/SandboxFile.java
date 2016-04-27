@@ -160,13 +160,14 @@ public class SandboxFile extends AbstractRedFile implements File {
 	}
 
 	@Override
-	public FileInputStream newInputStream () throws IOException {
+	public FileInputStream newInputStream () {
+// super.newInputStream();
 		final File unprotected_file = this.getUnprotectedFile();
 		return unprotected_file.newInputStream();
 	}
 
 	@Override
-	public FileOutputStream newOutputStream () throws IOException {
+	public FileOutputStream newOutputStream () {
 		final File unprotected_file = this.getUnprotectedFile();
 		return unprotected_file.newOutputStream();
 	}

@@ -1,13 +1,9 @@
 
 package com.jfixby.red.filesystem.virtual;
 
-import java.io.IOException;
-
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.file.ChildrenList;
 import com.jfixby.cmns.api.file.File;
-import com.jfixby.cmns.api.file.FileInputStream;
-import com.jfixby.cmns.api.file.FileOutputStream;
 import com.jfixby.cmns.api.file.FileSystem;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.util.path.AbsolutePath;
@@ -167,16 +163,6 @@ public class VirtualFile extends AbstractRedFile implements File {
 	public ContentLeaf getContent () {
 		final VirtualFileSystemContent content = this.virtualFileSystem.getContent();
 		return content.getContentLeaf(this.relativePath);
-	}
-
-	@Override
-	public FileInputStream newInputStream () throws IOException {
-		return this.absolute_path.getMountPoint().newFileInputStream(this);
-	}
-
-	@Override
-	public FileOutputStream newOutputStream () throws IOException {
-		return this.absolute_path.getMountPoint().newFileOutputStream(this);
 	}
 
 	@Override

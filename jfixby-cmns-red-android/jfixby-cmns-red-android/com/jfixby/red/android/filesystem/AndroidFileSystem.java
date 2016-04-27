@@ -1,26 +1,20 @@
 
 package com.jfixby.red.android.filesystem;
 
-import java.io.IOException;
-
 import com.jfixby.android.api.Android;
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.file.File;
-import com.jfixby.cmns.api.file.FileInputStream;
-import com.jfixby.cmns.api.file.FileOutputStream;
 import com.jfixby.cmns.api.file.FileSystem;
 import com.jfixby.cmns.api.file.LocalFileSystemComponent;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.util.JUtils;
 import com.jfixby.cmns.api.util.path.AbsolutePath;
 import com.jfixby.cmns.api.util.path.RelativePath;
-import com.jfixby.red.filesystem.AbstractFileSystem;
-import com.jfixby.red.io.JavaFileInputStream;
-import com.jfixby.red.io.JavaFileOutputStream;
+import com.jfixby.red.filesystem.AbstractLocalFileSystem;
 
-public class AndroidFileSystem extends AbstractFileSystem implements LocalFileSystemComponent {
+public class AndroidFileSystem extends AbstractLocalFileSystem implements LocalFileSystemComponent {
 
 	String application_home_path_string = System.getProperty("user.dir");
 
@@ -64,29 +58,6 @@ public class AndroidFileSystem extends AbstractFileSystem implements LocalFileSy
 			throw new Error("Path does not belong to this filesystem: " + this);
 		}
 		return new AndroidFile(file_path, this);
-	}
-
-	@Override
-	public FileOutputStream newFileOutputStream (final File output_file) throws IOException {
-		if (output_file == null) {
-			throw new Error("Output file is null.");
-		}
-		if (output_file.getFileSystem() != this) {
-			throw new Error("Output file does not belong to this filesystem: " + output_file);
-		}
-		return new JavaFileOutputStream(((AndroidFile)output_file).toJavaFile());
-	}
-
-	@Override
-	public FileInputStream newFileInputStream (final File input_file) throws IOException {
-		if (input_file == null) {
-			throw new Error("Input file is null.");
-		}
-		if (input_file.getFileSystem() != this) {
-			throw new Error("Input file does not belong to this filesystem: " + input_file);
-		}
-
-		return new JavaFileInputStream(((AndroidFile)input_file).toJavaFile());
 	}
 
 	@Override
