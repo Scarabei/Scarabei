@@ -1,6 +1,7 @@
 
 package com.jfixby.red.io;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -12,7 +13,7 @@ import com.jfixby.cmns.api.io.JavaInputStreamOperator;
 public class JavaFileInputStreamOperator implements JavaInputStreamOperator {
 
 	private final File file;
-	private FileInputStream is;
+	private InputStream is;
 
 	public JavaFileInputStreamOperator (final File file) {
 		this.file = file;
@@ -28,6 +29,7 @@ public class JavaFileInputStreamOperator implements JavaInputStreamOperator {
 	public InputStream getJavaStream () throws IOException {
 		if (this.is == null) {
 			this.is = new FileInputStream(this.file);
+			this.is = new BufferedInputStream(this.is);
 		}
 		return this.is;
 	}

@@ -17,52 +17,57 @@ import com.jfixby.red.filesystem.FilesList;
 
 public class SandboxFile extends AbstractRedFile implements File {
 
-	private RedSandboxFileSystem sandbox;
-	private AbsolutePath<FileSystem> absolute_path;
-	private RelativePath relativePath;
-	private AbsolutePath<FileSystem> unprotected_path;
+	private final RedSandboxFileSystem sandbox;
+	private final AbsolutePath<FileSystem> absolute_path;
+	private final RelativePath relativePath;
+	private final AbsolutePath<FileSystem> unprotected_path;
 
-	public SandboxFile (RedSandboxFileSystem sandbox, AbsolutePath<FileSystem> file_path) {
+	public SandboxFile (final RedSandboxFileSystem sandbox, final AbsolutePath<FileSystem> file_path) {
 		this.sandbox = sandbox;
 		this.absolute_path = file_path;
 		this.relativePath = file_path.getRelativePath();
-		this.unprotected_path = sandbox.getRootFolder().getAbsoluteFilePath().proceed(relativePath);
+		this.unprotected_path = sandbox.getRootFolder().getAbsoluteFilePath().proceed(this.relativePath);
 	}
 
 	private File getUnprotectedFile () {
-		File unprotected_file = unprotected_path.getMountPoint().newFile(unprotected_path);
+		final File unprotected_file = this.unprotected_path.getMountPoint().newFile(this.unprotected_path);
 		return unprotected_file;
 	}
 
 	@Override
 	public AbsolutePath<FileSystem> getAbsoluteFilePath () {
-		return absolute_path;
+		return this.absolute_path;
 	}
 
 	@Override
 	public boolean delete () {
-		File unprotected_file = getUnprotectedFile();
+		final File unprotected_file = this.getUnprotectedFile();
 		return unprotected_file.delete();
 	}
 
 	@Override
 	public boolean isFolder () {
-		File unprotected_file = getUnprotectedFile();
+		final File unprotected_file = this.getUnprotectedFile();
 		return unprotected_file.isFolder();
 	}
 
 	@Override
+	final public FileHash calculateHash () throws IOException {
+		return this.getUnprotectedFile().calculateHash();
+	}
+
+	@Override
 	public boolean isFile () {
-		File unprotected_file = getUnprotectedFile();
+		final File unprotected_file = this.getUnprotectedFile();
 		return unprotected_file.isFile();
 	}
 
 	@Override
 	public void clearFolder () {
 		if (this.isFolder()) {
-			ChildrenList children = listChildren();
+			final ChildrenList children = this.listChildren();
 			for (int i = 0; i < children.size(); i++) {
-				File child = children.getElementAt(i);
+				final File child = children.getElementAt(i);
 				// WinFile file = new WinFile(child);
 				// File child = this.sandbox.newFile(child_path);
 
@@ -70,33 +75,33 @@ public class SandboxFile extends AbstractRedFile implements File {
 				// L.d("deleting", child.getAbsoluteFilePath());
 			}
 		} else {
-			L.e("Unable to clear", absolute_path);
+			L.e("Unable to clear", this.absolute_path);
 			L.e("       this is not a folder.");
 		}
 	}
 
 	@Override
 	public String toString () {
-		return "File [" + absolute_path + "]";
+		return "File [" + this.absolute_path + "]";
 	}
 
 	@Override
 	public ChildrenList listChildren () {
-		File unprotected_file = getUnprotectedFile();
+		final File unprotected_file = this.getUnprotectedFile();
 
 		if (!unprotected_file.exists()) {
-			throw new Error("File does not exist: " + absolute_path);
+			throw new Error("File does not exist: " + this.absolute_path);
 		}
 		if (unprotected_file.isFolder()) {
 
-			ChildrenList unprotected_children = unprotected_file.listChildren();
+			final ChildrenList unprotected_children = unprotected_file.listChildren();
 
 			// List<String> files = content.listChildren(relativePath);
 
-			FilesList listFiles = new FilesList();
+			final FilesList listFiles = new FilesList();
 			for (int i = 0; i < unprotected_children.size(); i++) {
-				String file_i = unprotected_children.getElementAt(i).getName();
-				AbsolutePath<FileSystem> absolute_file = absolute_path.child(file_i);
+				final String file_i = unprotected_children.getElementAt(i).getName();
+				final AbsolutePath<FileSystem> absolute_file = this.absolute_path.child(file_i);
 				listFiles.add(absolute_file.getMountPoint().newFile(absolute_file));
 			}
 			// L.d("listFiles", listFiles);
@@ -109,25 +114,25 @@ public class SandboxFile extends AbstractRedFile implements File {
 	}
 
 	@Override
-	public File child (String child_name) {
+	public File child (final String child_name) {
 		return new SandboxFile(this.getFileSystem(), this.getAbsoluteFilePath().child(child_name));
 	}
 
 	@Override
 	public boolean exists () {
-		File unprotected_file = getUnprotectedFile();
+		final File unprotected_file = this.getUnprotectedFile();
 		return unprotected_file.exists();
 	}
 
 	@Override
 	public boolean makeFolder () {
-		File unprotected_file = getUnprotectedFile();
+		final File unprotected_file = this.getUnprotectedFile();
 		return unprotected_file.makeFolder();
 	}
 
 	@Override
-	public boolean rename (String new_name) {
-		File unprotected_file = getUnprotectedFile();
+	public boolean rename (final String new_name) {
+		final File unprotected_file = this.getUnprotectedFile();
 		return unprotected_file.rename(new_name);
 	}
 
@@ -146,34 +151,30 @@ public class SandboxFile extends AbstractRedFile implements File {
 
 	@Override
 	public String nameWithoutExtension () {
-		String name = getName();
-		int dotIndex = name.lastIndexOf('.');
-		if (dotIndex == -1) return name;
+		final String name = this.getName();
+		final int dotIndex = name.lastIndexOf('.');
+		if (dotIndex == -1) {
+			return name;
+		}
 		return name.substring(0, dotIndex);
 	}
 
 	@Override
-	public FileHash calculateHash () throws IOException {
-		File unprotected_file = getUnprotectedFile();
-		return unprotected_file.calculateHash();
-	}
-
-	@Override
 	public FileInputStream newInputStream () throws IOException {
-		File unprotected_file = getUnprotectedFile();
+		final File unprotected_file = this.getUnprotectedFile();
 		return unprotected_file.newInputStream();
 	}
 
 	@Override
 	public FileOutputStream newOutputStream () throws IOException {
-		File unprotected_file = getUnprotectedFile();
+		final File unprotected_file = this.getUnprotectedFile();
 		return unprotected_file.newOutputStream();
 	}
 
 	@Override
 	public long getSize () {
 		if (this.isFile()) {
-			File unprotected_file = getUnprotectedFile();
+			final File unprotected_file = this.getUnprotectedFile();
 			return unprotected_file.getSize();
 		} else {
 			return 0;
@@ -182,7 +183,7 @@ public class SandboxFile extends AbstractRedFile implements File {
 
 	@Override
 	public java.io.File toJavaFile () {
-		File unprotected_file = getUnprotectedFile();
+		final File unprotected_file = this.getUnprotectedFile();
 		return unprotected_file.toJavaFile();
 	}
 
@@ -193,7 +194,7 @@ public class SandboxFile extends AbstractRedFile implements File {
 
 	@Override
 	public long lastModified () {
-		File unprotected_file = getUnprotectedFile();
+		final File unprotected_file = this.getUnprotectedFile();
 		return unprotected_file.lastModified();
 	}
 

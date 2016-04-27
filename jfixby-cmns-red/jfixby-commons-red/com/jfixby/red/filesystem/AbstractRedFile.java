@@ -7,6 +7,7 @@ import java.io.Serializable;
 import com.jfixby.cmns.api.file.ChildrenList;
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.FileFilter;
+import com.jfixby.cmns.api.file.FileHash;
 import com.jfixby.cmns.api.file.FileInputStream;
 import com.jfixby.cmns.api.file.FileOutputStream;
 import com.jfixby.cmns.api.file.FileSystem;
@@ -112,6 +113,11 @@ public abstract class AbstractRedFile implements File {
 
 		final ByteArray bytes = this.readBytes();
 		return IO.deserialize(type, bytes);
+	}
+
+	@Override
+	public FileHash calculateHash () throws IOException {
+		return new RedFileHash(((AbstractFileSystem)this.getFileSystem()).md5Hex(this));
 	}
 
 }

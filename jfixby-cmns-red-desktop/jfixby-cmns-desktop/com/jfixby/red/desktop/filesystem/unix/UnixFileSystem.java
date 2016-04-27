@@ -2,7 +2,6 @@
 package com.jfixby.red.desktop.filesystem.unix;
 
 import java.io.IOException;
-import java.io.InputStream;
 
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
@@ -13,7 +12,6 @@ import com.jfixby.cmns.api.file.FileOutputStream;
 import com.jfixby.cmns.api.file.FileSystem;
 import com.jfixby.cmns.api.file.LocalFileSystemComponent;
 import com.jfixby.cmns.api.log.L;
-import com.jfixby.cmns.api.md5.MD5;
 import com.jfixby.cmns.api.util.JUtils;
 import com.jfixby.cmns.api.util.path.AbsolutePath;
 import com.jfixby.cmns.api.util.path.RelativePath;
@@ -99,15 +97,6 @@ public class UnixFileSystem extends AbstractFileSystem implements LocalFileSyste
 	@Override
 	public String toString () {
 		return "UnixFileSystem";
-	}
-
-	@Override
-	public String md5Hex (final File file) throws IOException {
-
-		final InputStream java_input_stream = this.newFileInputStream(file).toJavaInputStream();
-		final String checksum = MD5.md5Stream(java_input_stream);
-		java_input_stream.close();
-		return checksum.toUpperCase();
 	}
 
 	@Override

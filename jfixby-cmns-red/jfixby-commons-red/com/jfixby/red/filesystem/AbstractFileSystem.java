@@ -9,8 +9,10 @@ import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.FileInputStream;
 import com.jfixby.cmns.api.file.FileOutputStream;
 import com.jfixby.cmns.api.file.FileSystem;
+import com.jfixby.cmns.api.io.InputStream;
 import com.jfixby.cmns.api.java.ByteArray;
 import com.jfixby.cmns.api.log.L;
+import com.jfixby.cmns.api.md5.MD5;
 import com.jfixby.cmns.api.util.JUtils;
 import com.jfixby.cmns.api.util.path.AbsolutePath;
 
@@ -20,39 +22,47 @@ public abstract class AbstractFileSystem implements FileSystem {
 
 	@Override
 	public File ROOT () {
-		if (ROOT == null) {
-			ROOT = this.newFile(JUtils.newAbsolutePath((FileSystem)this));
+		if (this.ROOT == null) {
+			this.ROOT = this.newFile(JUtils.newAbsolutePath((FileSystem)this));
 		}
-		return ROOT;
+		return this.ROOT;
 	}
 
-	abstract public String md5Hex (File file) throws IOException;
+// abstract public String md5Hex (File file) throws IOException;
+
+	final public String md5Hex (final File file) throws IOException {
+		final InputStream input_stream = this.newFileInputStream(file);
+		input_stream.open();
+		final String checksum = MD5.md5Stream(input_stream);
+		input_stream.close();
+		return checksum.toUpperCase();
+	}
 
 	@Override
-	public void copyFileToFolder (File file_to_copy, File to_folder) throws IOException {
+	public void copyFileToFolder (final File file_to_copy, final File to_folder) throws IOException {
 		if (!file_to_copy.exists()) {
 			throw new Error("The file or folder does not exist: " + file_to_copy);
 		}
-		FileSystem target_file_system = to_folder.getFileSystem();
+		final FileSystem target_file_system = to_folder.getFileSystem();
 		// FileSystem input_file_system = file_to_copy.getFileSystem();
 		if (file_to_copy.isFolder()) {
 			L.d("copying folder", file_to_copy);
-			String shortName = file_to_copy.getName();
-			File target_folder = target_file_system.newFile(to_folder.child(shortName).getAbsoluteFilePath());
+			final String shortName = file_to_copy.getName();
+			final File target_folder = target_file_system.newFile(to_folder.child(shortName).getAbsoluteFilePath());
 			L.d("            to", target_folder);
 
 			target_folder.makeFolder();
-			Collection<File> from_folder_content_list = file_to_copy.listChildren();
+			final Collection<File> from_folder_content_list = file_to_copy.listChildren();
 			for (int i = 0; i < from_folder_content_list.size(); i++) {
-				File child_file_to_copy = from_folder_content_list.getElementAt(i);
-				copyFileToFolder(child_file_to_copy, target_folder);
+				final File child_file_to_copy = from_folder_content_list.getElementAt(i);
+				this.copyFileToFolder(child_file_to_copy, target_folder);
 			}
 			return;
 		}
 		if (file_to_copy.isFile()) {
 			L.d("copying file", file_to_copy.getAbsoluteFilePath());
-			String shortName = file_to_copy.getName();
-			File target_output_file = target_file_system.newFile(to_folder.child(shortName).getAbsoluteFilePath());
+			final String shortName = file_to_copy.getName();
+			final File target_output_file = target_file_system.newFile(to_folder.child(shortName).getAbsoluteFilePath());
 			this.copyFileToFile(file_to_copy, target_output_file);
 
 		}
@@ -60,7 +70,7 @@ public abstract class AbstractFileSystem implements FileSystem {
 	}
 
 	@Override
-	public void copyFolderContentsToFolder (File forlder_from, File folder_to) throws IOException {
+	public void copyFolderContentsToFolder (final File forlder_from, final File folder_to) throws IOException {
 		if (!forlder_from.exists()) {
 			throw new Error("The folder does not exist: " + forlder_from);
 		}
@@ -69,46 +79,46 @@ public abstract class AbstractFileSystem implements FileSystem {
 		}
 
 		folder_to.makeFolder();
-		ChildrenList children = forlder_from.listChildren();
+		final ChildrenList children = forlder_from.listChildren();
 		for (int i = 0; i < children.size(); i++) {
-			File file_to_copy = (children.getElementAt(i));
+			final File file_to_copy = (children.getElementAt(i));
 			this.copyFileToFolder(file_to_copy, folder_to);
 		}
 	}
 
 	@Override
-	public void copyFilesTo (Collection<File> files_list, File to_folder) throws IOException {
+	public void copyFilesTo (final Collection<File> files_list, final File to_folder) throws IOException {
 		for (int i = 0; i < files_list.size(); i++) {
-			File file_to_copy = files_list.getElementAt(i);
+			final File file_to_copy = files_list.getElementAt(i);
 			this.copyFileToFolder(file_to_copy, to_folder);
 		}
 	}
 
 	@Override
-	public String readFileToString (AbsolutePath<FileSystem> file_path) throws IOException {
-		File file = this.newFile(file_path);
-		FileInputStream is = this.newFileInputStream(file);
-		ByteArray data = is.readAll();
+	public String readFileToString (final AbsolutePath<FileSystem> file_path) throws IOException {
+		final File file = this.newFile(file_path);
+		final FileInputStream is = this.newFileInputStream(file);
+		final ByteArray data = is.readAll();
 		is.close();
 		return JUtils.newString(data);
 	}
 
 	@Override
-	public void writeDataToFile (AbsolutePath<FileSystem> file_path, ByteArray bytes) throws IOException {
-		File file = this.newFile(file_path);
-		FileOutputStream fos = this.newFileOutputStream(file);
+	public void writeDataToFile (final AbsolutePath<FileSystem> file_path, final ByteArray bytes) throws IOException {
+		final File file = this.newFile(file_path);
+		final FileOutputStream fos = this.newFileOutputStream(file);
 		fos.write(bytes);
 		fos.flush();
 		fos.close();
 	}
 
 	@Override
-	public void writeStringToFile (String string_data, AbsolutePath<FileSystem> file_path) throws IOException {
-		writeDataToFile(file_path, JUtils.newByteArray(string_data.getBytes()));
+	public void writeStringToFile (final String string_data, final AbsolutePath<FileSystem> file_path) throws IOException {
+		this.writeDataToFile(file_path, JUtils.newByteArray(string_data.getBytes()));
 	}
 
 	@Override
-	public void copyFileToFile (File input_file, File output_file) throws IOException {
+	public void copyFileToFile (final File input_file, final File output_file) throws IOException {
 		if (!input_file.exists()) {
 			throw new IOException("File not found: " + input_file);
 		}

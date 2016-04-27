@@ -7,7 +7,6 @@ import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.file.ChildrenList;
 import com.jfixby.cmns.api.file.File;
-import com.jfixby.cmns.api.file.FileHash;
 import com.jfixby.cmns.api.file.FileInputStream;
 import com.jfixby.cmns.api.file.FileOutputStream;
 import com.jfixby.cmns.api.file.FileSystem;
@@ -16,7 +15,6 @@ import com.jfixby.cmns.api.util.path.AbsolutePath;
 import com.jfixby.cmns.api.util.path.RelativePath;
 import com.jfixby.red.filesystem.AbstractRedFile;
 import com.jfixby.red.filesystem.FilesList;
-import com.jfixby.red.filesystem.RedFileHash;
 
 public class AndroidFile extends AbstractRedFile implements File {
 
@@ -181,11 +179,6 @@ public class AndroidFile extends AbstractRedFile implements File {
 
 	public String toAbsolutePathString () {
 		return this.getAbsoluteWindowsPathString();
-	}
-
-	@Override
-	public FileHash calculateHash () throws IOException {
-		return new RedFileHash(this.fs.md5Hex(this));
 	}
 
 	@Override
