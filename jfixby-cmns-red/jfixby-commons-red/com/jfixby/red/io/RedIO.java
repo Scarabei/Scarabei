@@ -22,6 +22,7 @@ import com.jfixby.cmns.api.io.JavaBitInputStream;
 import com.jfixby.cmns.api.io.JavaBitOutputStream;
 import com.jfixby.cmns.api.io.JavaBitStreamMode;
 import com.jfixby.cmns.api.io.OutputStream;
+import com.jfixby.cmns.api.io.OutputStreamOpener;
 import com.jfixby.cmns.api.io.StreamPipe;
 import com.jfixby.cmns.api.io.U_StreamPipeProgressListener;
 import com.jfixby.cmns.api.java.ByteArray;
@@ -70,9 +71,17 @@ public class RedIO implements IOComponent {
 	}
 
 	@Override
-	public InputStream newInputStream (final InputStreamOpener opener) throws IOException {
+	public InputStream newInputStream (final InputStreamOpener opener) {
 		final AbstractRedInputStream<RedJavaInputStreamOperator> stream = new AbstractRedInputStream<RedJavaInputStreamOperator>(
 			new RedJavaInputStreamOperator(opener));
+		stream.open();
+		return stream;
+	}
+
+	@Override
+	public OutputStream newOutputStream (final OutputStreamOpener opener) {
+		final AbstractRedOutputStream<RedJavaOutputStreamOperator> stream = new AbstractRedOutputStream<RedJavaOutputStreamOperator>(
+			new RedJavaOutputStreamOperator(opener));
 		stream.open();
 		return stream;
 	}

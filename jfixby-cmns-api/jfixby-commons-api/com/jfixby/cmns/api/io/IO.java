@@ -23,13 +23,13 @@ public class IO {
 		return componentInstaller.getComponent();
 	}
 
-	public static InputStream newInputStream (final InputStreamOpener inputStreamOpener) throws IOException {
+	public static InputStream newInputStream (final InputStreamOpener inputStreamOpener) {
 		return component().newInputStream(inputStreamOpener);
 	}
 
-// public static OutputStream toOutputStream (final java.io.OutputStream java_output_stream) throws IOException {
-// return component().toOutputStream(java_output_stream);
-// }
+	public static OutputStream newOutputStream (final OutputStreamOpener outputStreamOpener) {
+		return component().newOutputStream(outputStreamOpener);
+	}
 
 	public static Buffer newBuffer (final ByteArray bytes) {
 		return component().newBuffer(bytes);

@@ -30,8 +30,6 @@ public interface IOComponent {
 
 	BufferInputStream newBufferInputStream (Buffer buffer);
 
-	public InputStream newInputStream (InputStreamOpener inputStreamOpener) throws IOException;
-
 // public OutputStream toOutputStream (java.io.OutputStream java_output_stream) throws IOException;
 
 	int readByte (java.io.InputStream javaInputStream) throws IOException;
@@ -67,5 +65,9 @@ public interface IOComponent {
 	int readShort (java.io.InputStream javaInputStream) throws IOException;
 
 	ByteArray serialize (java.io.Serializable object) throws IOException;
+
+	public OutputStream newOutputStream (OutputStreamOpener opener);
+
+	public InputStream newInputStream (InputStreamOpener opener);
 
 }
