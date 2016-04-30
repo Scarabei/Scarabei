@@ -1,12 +1,12 @@
 package com.jfixby.red.desktop.test;
 
 import com.jfixby.cmns.api.log.L;
-import com.jfixby.red.desktop.DesktopAssembler;
+import com.jfixby.red.desktop.DesktopSetup;
 
 public class PrimeSearch {
 
 	static final public void main(String[] args) {
-		DesktopAssembler.setup();
+		DesktopSetup.deploy();
 		long N = 1000;
 
 		// L.d("array size", N * 1.0f / 1024 / 1024 / 1024 + " GB");

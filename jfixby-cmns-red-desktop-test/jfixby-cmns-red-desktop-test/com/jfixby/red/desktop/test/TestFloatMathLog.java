@@ -3,12 +3,12 @@ package com.jfixby.red.desktop.test;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.math.FloatMath;
 import com.jfixby.cmns.api.math.IntegerMath;
-import com.jfixby.red.desktop.DesktopAssembler;
+import com.jfixby.red.desktop.DesktopSetup;
 
 public class TestFloatMathLog {
 
 	public static void main(String[] args) {
-		DesktopAssembler.setup();
+		DesktopSetup.deploy();
 		{
 			long value = IntegerMath.power(2L, 10);
 			L.d("value", value);

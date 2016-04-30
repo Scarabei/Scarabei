@@ -46,9 +46,9 @@ import com.jfixby.red.sys.RedSystemSettings;
 import com.jfixby.red.sys.RedTaskManager;
 import com.jfixby.red.util.RedJUtils;
 
-public class DesktopAssembler {
+public class DesktopSetup {
 
-	public static final void setup () {
+	public static final void deploy () {
 		L.installComponent(new DesktopLogger());
 		JUtils.installComponent(new RedJUtils());
 		Collections.installComponent(new DesktopCollections());

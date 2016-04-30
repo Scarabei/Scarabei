@@ -5,13 +5,13 @@ import org.junit.Test;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.util.BinaryCode;
 import com.jfixby.cmns.api.util.JUtils;
-import com.jfixby.red.desktop.DesktopAssembler;
+import com.jfixby.red.desktop.DesktopSetup;
 
 public class BitsTest {
 
     @Test
     public void test() {
-	DesktopAssembler.setup();
+	DesktopSetup.deploy();
 	for (int i = 0; i < 32 + 0 * 256 * 256; i++) {
 	    BinaryCode bitform = JUtils.binaryCodeOf(i, 4);
 	    L.d(i + "", bitform + " vs " + Integer.toBinaryString(i));

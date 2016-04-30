@@ -2,12 +2,12 @@ package com.jfixby.red.desktop.test;
 
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.math.FloatMath;
-import com.jfixby.red.desktop.DesktopAssembler;
+import com.jfixby.red.desktop.DesktopSetup;
 
 public class TestFloatMathRound {
 
 	public static void main(String[] args) {
-		DesktopAssembler.setup();
+		DesktopSetup.deploy();
 		{
 			double value = 0.33;
 			L.d("double", value);

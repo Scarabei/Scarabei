@@ -10,7 +10,7 @@ import org.junit.Test;
 import com.jfixby.cmns.adopted.gdx.json.RedJson;
 import com.jfixby.cmns.api.json.Json;
 import com.jfixby.cmns.api.log.L;
-import com.jfixby.red.desktop.DesktopAssembler;
+import com.jfixby.red.desktop.DesktopSetup;
 
 public class GdxJsonTest {
 
@@ -23,7 +23,7 @@ public class GdxJsonTest {
 
 	@Test
 	public void test () {
-		DesktopAssembler.setup();
+		DesktopSetup.deploy();
 		Json.installComponent(new RedJson());
 
 		L.d("GdxJsonTest");

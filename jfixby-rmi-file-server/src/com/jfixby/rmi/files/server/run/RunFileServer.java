@@ -9,7 +9,7 @@ import com.jfixby.cmns.api.java.ByteArray;
 import com.jfixby.cmns.api.json.Json;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.util.JUtils;
-import com.jfixby.red.desktop.DesktopAssembler;
+import com.jfixby.red.desktop.DesktopSetup;
 import com.jfixby.red.desktop.filesystem.unix.UnixFileSystem;
 import com.jfixby.rmi.server.files.RMIFileSystemFactory;
 import com.jfixby.rmi.server.files.RMIFileSystemServer;
@@ -18,7 +18,7 @@ import com.jfixby.rmi.server.files.RMIFileSystemServerConfig;
 public class RunFileServer {
 
     public static void main(String[] args) throws IOException {
-	DesktopAssembler.setup();
+	DesktopSetup.deploy();
 
 	LocalFileSystem.deInstallCurrentComponent();
 	LocalFileSystem.installComponent(new UnixFileSystem());

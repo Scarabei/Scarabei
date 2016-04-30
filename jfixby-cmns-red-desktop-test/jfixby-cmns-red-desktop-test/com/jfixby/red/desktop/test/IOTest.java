@@ -12,7 +12,7 @@ import com.jfixby.cmns.api.file.packing.FileSystemPackingSpecs;
 import com.jfixby.cmns.api.io.OutputStream;
 import com.jfixby.cmns.api.json.Json;
 import com.jfixby.cmns.api.log.L;
-import com.jfixby.red.desktop.DesktopAssembler;
+import com.jfixby.red.desktop.DesktopSetup;
 import com.jfixby.red.filesystem.archived.R3ArrayCompressionMethod;
 import com.jfixby.red.filesystem.archived.RedFileSystemPacker;
 
@@ -20,7 +20,7 @@ public class IOTest {
 
 	public static void main(String[] args) throws IOException {
 
-		DesktopAssembler.setup();
+		DesktopSetup.deploy();
 		Json.installComponent(new RedJson());
 		FileSystemPacker.installComponent(new RedFileSystemPacker());
 		CompressionMethod schema = new R3ArrayCompressionMethod();

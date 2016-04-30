@@ -5,13 +5,13 @@ import org.junit.Test;
 
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.math.IntegerMath;
-import com.jfixby.red.desktop.DesktopAssembler;
+import com.jfixby.red.desktop.DesktopSetup;
 
 public class RightPowerOfTwoTest {
 
     @Test
     public void test() {
-	DesktopAssembler.setup();
+	DesktopSetup.deploy();
 	int n = 10;
 	for (int pot = 0; pot < n; pot++) {
 	    long potvalueleft = pot(pot);

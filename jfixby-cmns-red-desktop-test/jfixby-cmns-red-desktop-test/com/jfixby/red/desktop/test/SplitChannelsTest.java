@@ -18,12 +18,12 @@ import com.jfixby.cmns.api.io.GZipInputStream;
 import com.jfixby.cmns.api.io.GZipOutputStream;
 import com.jfixby.cmns.api.io.IO;
 import com.jfixby.cmns.api.log.L;
-import com.jfixby.red.desktop.DesktopAssembler;
+import com.jfixby.red.desktop.DesktopSetup;
 
 public class SplitChannelsTest {
 
     public static void main(String[] args) throws IOException {
-	DesktopAssembler.setup();
+	DesktopSetup.deploy();
 
 	File home = LocalFileSystem.ApplicationHome();
 	File input_folder = home.child("input");
