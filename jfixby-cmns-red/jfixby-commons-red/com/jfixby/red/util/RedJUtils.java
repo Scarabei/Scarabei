@@ -6,6 +6,7 @@ import java.io.UnsupportedEncodingException;
 import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
+import com.jfixby.cmns.api.collections.Map;
 import com.jfixby.cmns.api.collections.Set;
 import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.java.ByteArray;
@@ -21,14 +22,14 @@ import com.jfixby.cmns.api.util.path.RelativePath;
 
 public class RedJUtils implements UtilsComponent {
 	@Override
-	public List<String> split (String input_string, String splitter) {
+	public List<String> split (final String input_string, final String splitter) {
 		Debug.checkNull("input_string", input_string);
 		Debug.checkNull("splitter", splitter);
 		return Collections.newList(input_string.split(splitter));
 	}
 
 	@Override
-	public <T extends MountPoint> AbsolutePath<T> newAbsolutePath (T mount_point) {
+	public <T extends MountPoint> AbsolutePath<T> newAbsolutePath (final T mount_point) {
 		return new RedAbsolutePath<T>(mount_point, new RedRelativePath(RedRelativePath.E));
 	}
 
@@ -38,46 +39,46 @@ public class RedJUtils implements UtilsComponent {
 	}
 
 	@Override
-	public RelativePath newRelativePath (String path_string) {
+	public RelativePath newRelativePath (final String path_string) {
 		return new RedRelativePath(path_string);
 	}
 
 	@Override
-	public <T extends MountPoint> AbsolutePath<T> newAbsolutePath (T mount_point, RelativePath relative) {
+	public <T extends MountPoint> AbsolutePath<T> newAbsolutePath (final T mount_point, final RelativePath relative) {
 		return new RedAbsolutePath<T>(mount_point, relative);
 	}
 
 	@Override
-	public RelativePath newRelativePath (List<String> steps_list) {
+	public RelativePath newRelativePath (final List<String> steps_list) {
 		return new RedRelativePath(steps_list);
 	}
 
 	@Override
-	public <T> StateSwitcher<T> newStateSwitcher (T default_state) {
+	public <T> StateSwitcher<T> newStateSwitcher (final T default_state) {
 		return new RedStateSwitcher<T>(default_state);
 	}
 
 	@Override
-	public RelativePath newRelativePath (java.util.List<String> steps_list) {
+	public RelativePath newRelativePath (final java.util.List<String> steps_list) {
 		return this.newRelativePath(Collections.newList(steps_list));
 	}
 
 	@Override
-	public String newString (ByteArray data) {
+	public String newString (final ByteArray data) {
 		return this.newString(data.toArray());
 	}
 
 	@Override
-	public <T> Set<T> intersectCollections (Collection<T> listA, Collection<T> listB) {
-		Set<T> intersection = Collections.newSet();
+	public <T> Set<T> intersectCollections (final Collection<T> listA, final Collection<T> listB) {
+		final Set<T> intersection = Collections.newSet();
 		for (int i = 0; i < listA.size(); i++) {
-			T a = listA.getElementAt(i);
+			final T a = listA.getElementAt(i);
 			if (listB.contains(a)) {
 				intersection.add(a);
 			}
 		}
 		for (int i = 0; i < listB.size(); i++) {
-			T b = listB.getElementAt(i);
+			final T b = listB.getElementAt(i);
 			if (listA.contains(b)) {
 				intersection.add(b);
 			}
@@ -86,9 +87,9 @@ public class RedJUtils implements UtilsComponent {
 	}
 
 	@Override
-	public String truncated (String data, int begin_char, int end_char) {
-		int beginIndex = (int)IntegerMath.max(begin_char, 0);
-		int endIndex = (int)IntegerMath.min(end_char, data.length());
+	public String truncated (final String data, final int begin_char, final int end_char) {
+		final int beginIndex = (int)IntegerMath.max(begin_char, 0);
+		final int endIndex = (int)IntegerMath.min(end_char, data.length());
 		return data.substring(beginIndex, endIndex);
 	}
 
@@ -111,9 +112,9 @@ public class RedJUtils implements UtilsComponent {
 	@Override
 	public BinaryCode binaryCodeOf (final int bits, final int numberOfBits) {
 		if (numberOfBits <= 8) {
-			return cache.get(bits, numberOfBits);
+			return this.cache.get(bits, numberOfBits);
 		}
-		return newBinaryCode().append(bits, numberOfBits);
+		return this.newBinaryCode().append(bits, numberOfBits);
 	}
 
 	@Override
@@ -122,38 +123,46 @@ public class RedJUtils implements UtilsComponent {
 	}
 
 	@Override
-	public ByteArray newByteArray (int size) {
+	public ByteArray newByteArray (final int size) {
 		return new RedByteArray(size);
 	}
 
 	@Override
-	public ByteArray newByteArray (byte[] bytes) {
+	public ByteArray newByteArray (final byte[] bytes) {
 		return new RedByteArray(bytes);
 	}
 
 	@Override
-	public String newString (char[] chars) {
+	public String newString (final char[] chars) {
 		return new String(chars);
 	}
 
 	@Override
-	public String newString (byte[] bytes) {
+	public String newString (final byte[] bytes) {
 		return this.newString(bytes, "UTF-8");
 	}
 
 	@Override
-	public String newString (byte[] bytes, String encoding) {
+	public String newString (final byte[] bytes, final String encoding) {
 		try {
 			return new String(bytes, encoding);
-		} catch (UnsupportedEncodingException e) {
+		} catch (final UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
 
 	@Override
-	public String newString (ByteArray bytes, String encoding) {
+	public String newString (final ByteArray bytes, final String encoding) {
 		return this.newString(bytes.toArray(), encoding);
+	}
+
+	@Override
+	public String replaceAll (String input, final Map<String, String> termsMapping) {
+		for (int i = 0; i < termsMapping.size(); i++) {
+			input = input.replaceAll(termsMapping.getKeyAt(i), termsMapping.getValueAt(i));
+		}
+		return input;
 	}
 
 }

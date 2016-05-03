@@ -77,6 +77,11 @@ public abstract class AbstractRedFile implements File {
 	}
 
 	@Override
+	public String readToString (final String encoding) throws IOException {
+		return JUtils.newString(this.readBytes(), encoding);
+	}
+
+	@Override
 	public ByteArray readBytes () throws IOException {
 		final FileInputStream is = this.getFileSystem().newFileInputStream(this);
 		is.open();

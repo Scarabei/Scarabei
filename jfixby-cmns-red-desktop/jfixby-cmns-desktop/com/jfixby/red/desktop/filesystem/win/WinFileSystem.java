@@ -110,7 +110,7 @@ public class WinFileSystem extends AbstractLocalFileSystem implements LocalFileS
 			L.e("FileSystem", file_path.getMountPoint());
 			throw new Error("Path does not belong to this filesystem: " + this);
 		}
-		return new WinFile(file_path, this).getAbsoluteWindowsPathString();
+		return new WinFile(file_path, this).getAbsolutePathString();
 	}
 
 	@Override

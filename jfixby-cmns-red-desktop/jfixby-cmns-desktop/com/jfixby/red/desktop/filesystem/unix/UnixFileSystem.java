@@ -96,7 +96,7 @@ public class UnixFileSystem extends AbstractLocalFileSystem implements LocalFile
 			L.e("FileSystem", file_path.getMountPoint());
 			throw new Error("Path does not belong to this filesystem: " + this);
 		}
-		return new UnixFile(file_path, this).getAbsoluteWindowsPathString();
+		return new UnixFile(file_path, this).getAbsolutePathString();
 	}
 
 	@Override

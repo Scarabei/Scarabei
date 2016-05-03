@@ -4,11 +4,15 @@ package com.jfixby.red.filesystem;
 import java.io.IOException;
 
 import com.jfixby.cmns.api.collections.Collection;
+import com.jfixby.cmns.api.debug.Debug;
+import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.file.ChildrenList;
 import com.jfixby.cmns.api.file.File;
+import com.jfixby.cmns.api.file.FileConverter;
 import com.jfixby.cmns.api.file.FileInputStream;
 import com.jfixby.cmns.api.file.FileOutputStream;
 import com.jfixby.cmns.api.file.FileSystem;
+import com.jfixby.cmns.api.file.FolderConverter;
 import com.jfixby.cmns.api.io.InputStream;
 import com.jfixby.cmns.api.java.ByteArray;
 import com.jfixby.cmns.api.log.L;
@@ -40,49 +44,48 @@ public abstract class AbstractFileSystem implements FileSystem {
 
 	@Override
 	public void copyFileToFolder (final File file_to_copy, final File to_folder) throws IOException {
-		if (!file_to_copy.exists()) {
-			throw new Error("The file or folder does not exist: " + file_to_copy);
-		}
-		final FileSystem target_file_system = to_folder.getFileSystem();
-		// FileSystem input_file_system = file_to_copy.getFileSystem();
+		Debug.checkTrue("The file or folder does not exist: " + file_to_copy, file_to_copy.exists());
 		if (file_to_copy.isFolder()) {
-			L.d("copying folder", file_to_copy);
-			final String shortName = file_to_copy.getName();
-			final File target_folder = target_file_system.newFile(to_folder.child(shortName).getAbsoluteFilePath());
-			L.d("            to", target_folder);
 
-			target_folder.makeFolder();
-			final Collection<File> from_folder_content_list = file_to_copy.listChildren();
-			for (int i = 0; i < from_folder_content_list.size(); i++) {
-				final File child_file_to_copy = from_folder_content_list.getElementAt(i);
-				this.copyFileToFolder(child_file_to_copy, target_folder);
+			final String shortName = file_to_copy.getName();
+			final File target_folder = to_folder.child(shortName);
+
+			final boolean continueCopying = true;
+
+			if (continueCopying) {
+				L.d("copying folder", file_to_copy);
+				L.d("            to", target_folder);
+				this.copyFolderContentsToFolder(file_to_copy, target_folder);
+
 			}
-			return;
-		}
-		if (file_to_copy.isFile()) {
-			L.d("copying file", file_to_copy.getAbsoluteFilePath());
-			final String shortName = file_to_copy.getName();
-			final File target_output_file = target_file_system.newFile(to_folder.child(shortName).getAbsoluteFilePath());
-			this.copyFileToFile(file_to_copy, target_output_file);
 
+		} else if (file_to_copy.isFile()) {
+
+			final String shortName = file_to_copy.getName();
+			final File target_output_file = to_folder.child(shortName);
+
+			final boolean continueCopying = true;
+			if (continueCopying) {
+				L.d("copying file", file_to_copy.getAbsoluteFilePath());
+				this.copyFileToFile(file_to_copy, target_output_file);
+			}
+
+		} else {
+			Err.reportError("Weirdo file: " + file_to_copy);
 		}
 
 	}
 
 	@Override
-	public void copyFolderContentsToFolder (final File forlder_from, final File folder_to) throws IOException {
-		if (!forlder_from.exists()) {
-			throw new Error("The folder does not exist: " + forlder_from);
-		}
-		if (forlder_from.isFile()) {
-			throw new Error("This is not a folder: " + forlder_from);
-		}
+	public void copyFolderContentsToFolder (final File input_folder, final File ouput_folder) throws IOException {
+		Debug.checkTrue("The folder does not exist: " + input_folder, input_folder.exists());
+		Debug.checkTrue("This is not a folder: " + input_folder, input_folder.exists());
 
-		folder_to.makeFolder();
-		final ChildrenList children = forlder_from.listChildren();
+		ouput_folder.makeFolder();
+		final ChildrenList children = input_folder.listChildren();
 		for (int i = 0; i < children.size(); i++) {
 			final File file_to_copy = (children.getElementAt(i));
-			this.copyFileToFolder(file_to_copy, folder_to);
+			this.copyFileToFolder(file_to_copy, ouput_folder);
 		}
 	}
 
@@ -129,14 +132,8 @@ public abstract class AbstractFileSystem implements FileSystem {
 		if (input_file.isFile()) {
 			L.d("copying file", input_file);
 			L.d("          to", output_file.getAbsoluteFilePath());
-			// DebugTimer timer = Debug.newTimer();
-			// timer.reset();
 			final ByteArray data = input_file.readBytes();
-			// timer.printTimeAbove(30, "readBytes");
-			// timer.reset();
 			output_file.writeBytes(data);
-			// timer.printTimeAbove(30, "writeBytes");
-
 			return;
 		}
 	}
@@ -145,5 +142,66 @@ public abstract class AbstractFileSystem implements FileSystem {
 	public boolean isReadOnlyFileSystem () {
 		return false;
 	}
+
+	@Override
+	public void convertFolderToFolder (final File input_folder, final File ouput_folder, final FolderConverter folderConverter,
+		final FileConverter fileConverter) throws IOException {
+
+		Debug.checkTrue("The folder does not exist: " + input_folder, input_folder.exists());
+		Debug.checkTrue("This is not a folder: " + input_folder, input_folder.exists());
+
+		ouput_folder.makeFolder();
+		final ChildrenList children = input_folder.listChildren();
+		for (int i = 0; i < children.size(); i++) {
+			final File file_to_copy = (children.getElementAt(i));
+			this.convertFile(file_to_copy, ouput_folder, folderConverter, fileConverter);
+		}
+
+	}
+
+	@Override
+	public void convertFile (final File fileToConvert, final File targetFolder, final FolderConverter folderConverter,
+		final FileConverter fileConverter) throws IOException {
+
+		Debug.checkTrue("The file or folder does not exist: " + fileToConvert, fileToConvert.exists());
+
+		final String shortName = fileToConvert.getName();
+		final File target = targetFolder.child(shortName);
+
+		if (fileToConvert.isFolder()) {
+			if (folderConverter != null) {
+				final boolean keep_running = folderConverter.convert(fileToConvert, target);
+				if (keep_running) {
+					this.convertFolderToFolder(fileToConvert, target, folderConverter, fileConverter);
+				}
+			}
+		} else if (fileToConvert.isFile()) {
+			if (fileConverter != null) {
+				fileConverter.convert(fileToConvert, target);
+			}
+		} else {
+			Err.reportError("Weirdo file: " + fileToConvert);
+		}
+
+	}
+
+	final FileConverter COPY_FILE = new FileConverter() {
+
+		@Override
+		public boolean convert (final File inputFile, final File outputFile) throws IOException {
+			AbstractFileSystem.this.copyFileToFile(inputFile, outputFile);
+			return true;
+		}
+	};
+	final FolderConverter COPY_FOLDER = new FolderConverter() {
+
+		@Override
+		public boolean convert (final File inputFolder, final File outputfolder) throws IOException {
+			final ChildrenList children = inputFolder.listChildren();
+			outputfolder.makeFolder();
+			AbstractFileSystem.this.copyFilesTo(children, outputfolder);
+			return true;
+		}
+	};
 
 }

@@ -38,4 +38,10 @@ public interface FileSystem extends MountPoint {
 
 	boolean isReadOnlyFileSystem ();
 
+	void convertFolderToFolder (File input_folder, File ouput_folder, FolderConverter folderConverter, FileConverter fileConverter)
+		throws IOException;
+
+	void convertFile (File fileToConvert, File targetFolder, FolderConverter folderConverter, FileConverter fileConverter)
+		throws IOException;
+
 }

@@ -3,6 +3,7 @@ package com.jfixby.cmns.api.util;
 
 import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.List;
+import com.jfixby.cmns.api.collections.Map;
 import com.jfixby.cmns.api.collections.Set;
 import com.jfixby.cmns.api.java.ByteArray;
 import com.jfixby.cmns.api.util.path.AbsolutePath;
@@ -50,5 +51,7 @@ public interface UtilsComponent {
 	String newString (byte[] bytes, String encoding);
 
 	String newString (ByteArray bytes, String encoding);
+
+	String replaceAll (String input, Map<String, String> termsMapping);
 
 }

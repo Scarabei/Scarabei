@@ -5,45 +5,48 @@ import java.util.Iterator;
 
 import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.CollectionFilter;
+import com.jfixby.cmns.api.collections.CollectionScanner;
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.file.ChildrenList;
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.FileFilter;
+import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.math.IntegerMath;
 
 public class FilesList implements ChildrenList {
 	final List<File> internal_list = Collections.newList();
 
 	@Override
-	public List<File> filter (CollectionFilter<? super File> filter) {
+	public List<File> filter (final CollectionFilter<? super File> filter) {
 		return this.internal_list.filter(filter);
 	}
 
-	public void add (File absolute_file) {
-		internal_list.add(absolute_file);
+	public void add (final File absolute_file) {
+		this.internal_list.add(absolute_file);
 	}
 
 	@Override
 	public Iterator<File> iterator () {
-		return internal_list.iterator();
+		return this.internal_list.iterator();
 	}
 
-	public void addAllArrayElements (File[] array) {
-		internal_list.addAllArrayElements(array);
+	public void addAllArrayElements (final File[] array) {
+		this.internal_list.addAllArrayElements(array);
 	}
 
-	public boolean contains (Object element) {
-		return internal_list.contains(element);
+	@Override
+	public boolean contains (final Object element) {
+		return this.internal_list.contains(element);
 	}
 
-	public boolean remove (Object element) {
-		return internal_list.remove(element);
+	public boolean remove (final Object element) {
+		return this.internal_list.remove(element);
 	}
 
 	@Override
 	public int size () {
-		return internal_list.size();
+		return this.internal_list.size();
 	}
 
 	// @Override
@@ -51,16 +54,16 @@ public class FilesList implements ChildrenList {
 	// return internal_list.getElementAt(i);
 	// }
 
-	public void addAll (List<? extends File> list) {
+	public void addAll (final List<? extends File> list) {
 		this.internal_list.addAll(list);
 	}
 
 	@Override
-	public File findChild (String short_file_name) {
+	public File findChild (final String short_file_name) {
 		for (int i = 0; i < this.internal_list.size(); i++) {
-			File element = this.internal_list.getElementAt(i);
+			final File element = this.internal_list.getElementAt(i);
 			if (true) {
-				String element_short_file_name = element.getName();
+				final String element_short_file_name = element.getName();
 				if (element_short_file_name.equals(short_file_name)) {
 					return element;
 				}
@@ -71,16 +74,16 @@ public class FilesList implements ChildrenList {
 
 	@Override
 	public String toString () {
-		return "FilesList" + internal_list + "";
+		return "FilesList" + this.internal_list + "";
 	}
 
 	@Override
 	public void print () {
-		internal_list.print("FilesList");
+		this.internal_list.print("FilesList");
 	}
 
 	@Override
-	public ChildrenList filterFiles (FileFilter filter) {
+	public ChildrenList filterFiles (final FileFilter filter) {
 		final FilesList result = new FilesList();
 		for (int i = 0; i < this.size(); i++) {
 			final File child = this.getElementAt(i);
@@ -94,43 +97,43 @@ public class FilesList implements ChildrenList {
 	@Override
 	public java.util.List<File> toJavaList () {
 		// TODO Auto-generated method stub
-		return internal_list.toJavaList();
+		return this.internal_list.toJavaList();
 	}
 
 	@Override
-	public File getElementAt (long i) {
+	public File getElementAt (final long i) {
 		// TODO Auto-generated method stub
-		return internal_list.getElementAt(i);
+		return this.internal_list.getElementAt(i);
 	}
 
 	@Override
 	public File getLast () {
 		// TODO Auto-generated method stub
-		return internal_list.getLast();
+		return this.internal_list.getLast();
 	}
 
 	@Override
 	public List<File> toList () {
 		// TODO Auto-generated method stub
-		return internal_list.toList();
+		return this.internal_list.toList();
 	}
 
 	@Override
 	public boolean isEmpty () {
 		// TODO Auto-generated method stub
-		return internal_list.isEmpty();
+		return this.internal_list.isEmpty();
 	}
 
 	@Override
-	public void print (String tag) {
-		internal_list.print(tag);
+	public void print (final String tag) {
+		this.internal_list.print(tag);
 
 	}
 
 	@Override
-	public void print (String tag, int from_index, int to_index) {
-		List<File> l = Collections.newList();
-		int N = this.size();
+	public void print (final String tag, final int from_index, final int to_index) {
+		final List<File> l = Collections.newList();
+		final int N = this.size();
 		int a = 0;
 		int b = N;
 		a = (int)IntegerMath.limit(0, from_index, N);
@@ -141,14 +144,14 @@ public class FilesList implements ChildrenList {
 			d = -1;
 		}
 		for (int i = a; i < b; i = i + d) {
-			File element = this.getElementAt(i);
+			final File element = this.getElementAt(i);
 			l.add(element);
 		}
 		l.print(tag);
 	}
 
 	@Override
-	public boolean beginsWith (Collection<File> steps) {
+	public boolean beginsWith (final Collection<File> steps) {
 		return this.internal_list.beginsWith(steps);
 	}
 
@@ -156,8 +159,19 @@ public class FilesList implements ChildrenList {
 	public ChildrenList filterByExtension (final String extention) {
 		return this.filterFiles(new FileFilter() {
 			@Override
-			public boolean fits (File file) {
+			public boolean fits (final File file) {
 				return file.getName().toLowerCase().endsWith(extention.toLowerCase());
+			}
+		});
+	}
+
+	@Override
+	public void deleteAll () {
+		Collections.scanCollection(this, new CollectionScanner<File>() {
+			@Override
+			public void scanElement (final File file, final int i) {
+				L.d("deleting", file);
+				file.delete();
 			}
 		});
 	}

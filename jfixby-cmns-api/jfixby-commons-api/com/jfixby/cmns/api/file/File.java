@@ -50,6 +50,8 @@ public interface File {
 
 	String readToString () throws IOException;
 
+	String readToString (String encoding) throws IOException;
+
 	ByteArray readBytes () throws IOException;
 
 	void writeBytes (ByteArray bytes) throws IOException;

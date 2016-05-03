@@ -12,4 +12,6 @@ public interface ChildrenList extends Collection<File> {
 	ChildrenList filterByExtension (String extension);
 
 	void print ();
+
+	void deleteAll ();
 }
