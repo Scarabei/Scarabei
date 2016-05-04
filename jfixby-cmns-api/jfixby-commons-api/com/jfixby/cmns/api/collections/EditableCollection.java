@@ -21,13 +21,13 @@ public interface EditableCollection<T> extends Collection<T> {
 
 	public T removeLast ();
 
-	public void addJavaCollection (java.util.Collection<? extends T> java_collection);
+	public EditableCollection<T> addJavaCollection (java.util.Collection<? extends T> java_collection);
 
 	public void addAllArrayElements (T[] array);
 
-	public void addAll (Collection<? extends T> list);
+	public EditableCollection<T> addAll (Collection<? extends T> list);
 
-	public void addAll (Iterable<? extends T> list);
+	public EditableCollection<T> addAll (Iterable<? extends T> list);
 
 	public void removeAll (Collection<? extends Object> list);
 

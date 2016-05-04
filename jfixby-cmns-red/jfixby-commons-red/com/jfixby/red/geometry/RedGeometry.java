@@ -47,7 +47,7 @@ public class RedGeometry implements GeometryComponent {
 		result.setHeight(other.getHeight());
 		result.setOriginRelativeX(other.getOriginRelativeX());
 		result.setOriginRelativeY(other.getOriginRelativeY());
-		result.setCanvasPosition(other.getPosition());
+		result.setPosition(other.getPosition());
 		return result;
 	}
 

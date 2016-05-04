@@ -64,9 +64,9 @@ public interface Rectangle extends GeometryFigure {
 
 	CanvasPosition getPosition ();
 
-	void setCanvasPosition (CanvasPosition position);
+	void setPosition (CanvasPosition position);
 
-	void setPositionXY (FixedFloat2 position);
+	void setPosition (FixedFloat2 position);
 
 	boolean containsPoint (double canvas_x, double canvas_y);
 

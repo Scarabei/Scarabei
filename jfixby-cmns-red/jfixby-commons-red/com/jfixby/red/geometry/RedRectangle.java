@@ -232,7 +232,7 @@ public class RedRectangle extends VertexMaster implements Rectangle {
 		if (new_method) {
 			this.tmp.setXY(ORIGIN_POSITION_HORIZONTAL, ORIGIN_POSITION_VERTICAL);
 			this.toAbsolute(tmp);
-			this.setPositionXY(tmp);
+			this.setPosition(tmp);
 		} else {
 			this.tmp.setXY(ORIGIN_POSITION_HORIZONTAL - this.origin_relative.getX(),
 				ORIGIN_POSITION_VERTICAL - this.origin_relative.getY());// relative
@@ -245,7 +245,7 @@ public class RedRectangle extends VertexMaster implements Rectangle {
 
 			// world
 			// position
-			this.setPositionXY(tmp);
+			this.setPosition(tmp);
 		}
 		this.origin_relative.setXY(ORIGIN_POSITION_HORIZONTAL, ORIGIN_POSITION_VERTICAL);
 		this.update();
@@ -290,7 +290,7 @@ public class RedRectangle extends VertexMaster implements Rectangle {
 	}
 
 	@Override
-	public void setCanvasPosition (CanvasPosition position) {
+	public void setPosition (CanvasPosition position) {
 		this.setPosition(position.getX(), position.getY());
 		this.setRotation(position.getRotation());
 	}
@@ -337,7 +337,7 @@ public class RedRectangle extends VertexMaster implements Rectangle {
 	}
 
 	@Override
-	public void setPositionXY (FixedFloat2 position) {
+	public void setPosition (FixedFloat2 position) {
 		this.setPosition(position.getX(), position.getY());
 	}
 

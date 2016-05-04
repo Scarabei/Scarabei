@@ -17,9 +17,9 @@ import com.jfixby.cmns.api.color.Colors;
 
 public class RedColorsSet implements ColorSet {
 
-	private ColorDistance distance;
+	private final ColorDistance distance;
 
-	public RedColorsSet (ColorDistance distance) {
+	public RedColorsSet (final ColorDistance distance) {
 		this.distance = distance;
 	}
 
@@ -27,20 +27,20 @@ public class RedColorsSet implements ColorSet {
 
 	@Override
 	public int size () {
-		return colors.size();
+		return this.colors.size();
 	}
 
 	@Override
-	public Color getElementAt (long i) {
-		return colors.getElementAt(i);
+	public Color getElementAt (final long i) {
+		return this.colors.getElementAt(i);
 	}
 
 	@Override
-	public Color findClosest (Color original) {
+	public Color findClosest (final Color original) {
 		if (this.colors.size() == 0) {
 			throw new Error("ColorsSet is empty.");
 		}
-		Color closest = colors.getElementAt(0);// assuming size >0;
+		Color closest = this.colors.getElementAt(0);// assuming size >0;
 		float current_distance = Colors.distanceRGB().measure(original, closest);
 
 		for (int i = 1; i < this.colors.size(); i++) {
@@ -48,7 +48,7 @@ public class RedColorsSet implements ColorSet {
 				return closest;
 			}
 			final Color candidate_i = this.colors.getElementAt(i);
-			float new_distance = distance.measure(candidate_i, original);
+			final float new_distance = this.distance.measure(candidate_i, original);
 			if (new_distance < current_distance) {
 				current_distance = new_distance;
 				closest = candidate_i;
@@ -59,128 +59,131 @@ public class RedColorsSet implements ColorSet {
 	}
 
 	@Override
-	public void print (String tag) {
+	public void print (final String tag) {
 		this.colors.print(tag);
 	}
 
 	@Override
 	public void sort () {
-		colors.sort();
+		this.colors.sort();
 	}
 
 	@Override
-	public boolean remove (Object element) {
-		return colors.remove(element);
+	public boolean remove (final Object element) {
+		return this.colors.remove(element);
 	}
 
 	@Override
 	public void clear () {
-		colors.clear();
+		this.colors.clear();
 	}
 
 	@Override
-	public boolean add (Color element) {
-		return colors.add(element);
+	public boolean add (final Color element) {
+		return this.colors.add(element);
 	}
 
 	@Override
-	public int indexOf (Object element) {
-		return colors.indexOf(element);
+	public int indexOf (final Object element) {
+		return this.colors.indexOf(element);
 	}
 
 	@Override
 	public void reverse () {
-		colors.reverse();
+		this.colors.reverse();
 	}
 
 	@Override
-	public Color removeElementAt (long i) {
-		return colors.removeElementAt(i);
+	public Color removeElementAt (final long i) {
+		return this.colors.removeElementAt(i);
 	}
 
 	@Override
 	public Color removeLast () {
-		return colors.removeLast();
+		return this.colors.removeLast();
 	}
 
 	@Override
-	public void addJavaCollection (Collection<? extends Color> java_collection) {
-		colors.addJavaCollection(java_collection);
+	public RedColorsSet addJavaCollection (final Collection<? extends Color> java_collection) {
+		this.colors.addJavaCollection(java_collection);
+		return this;
 	}
 
 	@Override
-	public void addAllArrayElements (Color[] array) {
-		colors.addAllArrayElements(array);
+	public void addAllArrayElements (final Color[] array) {
+		this.colors.addAllArrayElements(array);
 	}
 
 	@Override
-	public void addAll (com.jfixby.cmns.api.collections.Collection<? extends Color> list) {
-		colors.addAll(list);
+	public RedColorsSet addAll (final com.jfixby.cmns.api.collections.Collection<? extends Color> list) {
+		this.colors.addAll(list);
+		return this;
 	}
 
 	@Override
-	public void addAll (Iterable<? extends Color> list) {
-		colors.addAll(list);
+	public RedColorsSet addAll (final Iterable<? extends Color> list) {
+		this.colors.addAll(list);
+		return this;
 	}
 
 	@Override
-	public void removeAll (com.jfixby.cmns.api.collections.Collection<? extends Object> list) {
-		colors.removeAll(list);
+	public void removeAll (final com.jfixby.cmns.api.collections.Collection<? extends Object> list) {
+		this.colors.removeAll(list);
 	}
 
 	@Override
-	public void sort (Comparator<? super Color> comparator) {
-		colors.sort(comparator);
+	public void sort (final Comparator<? super Color> comparator) {
+		this.colors.sort(comparator);
 	}
 
 	@Override
-	public EditableCollection<Color> splitAt (int index) {
-		return colors.splitAt(index);
+	public EditableCollection<Color> splitAt (final int index) {
+		return this.colors.splitAt(index);
 	}
 
 	@Override
-	public boolean contains (Object element) {
-		return colors.contains(element);
+	public boolean contains (final Object element) {
+		return this.colors.contains(element);
 	}
 
 	@Override
 	public List<Color> toJavaList () {
-		return colors.toJavaList();
+		return this.colors.toJavaList();
 	}
 
 	@Override
 	public Iterator<Color> iterator () {
-		return colors.iterator();
+		return this.colors.iterator();
 	}
 
 	@Override
 	public Color getLast () {
-		return colors.getLast();
+		return this.colors.getLast();
 	}
 
 	@Override
 	public com.jfixby.cmns.api.collections.List<Color> toList () {
-		return colors.toList();
+		return this.colors.toList();
 	}
 
 	@Override
 	public boolean isEmpty () {
-		return colors.isEmpty();
+		return this.colors.isEmpty();
 	}
 
 	@Override
-	public void print (String tag, int from_index, int to_index) {
-		colors.print(tag, from_index, to_index);
+	public void print (final String tag, final int from_index, final int to_index) {
+		this.colors.print(tag, from_index, to_index);
 	}
 
 	@Override
-	public boolean beginsWith (com.jfixby.cmns.api.collections.Collection<Color> steps) {
-		return colors.beginsWith(steps);
+	public boolean beginsWith (final com.jfixby.cmns.api.collections.Collection<Color> steps) {
+		return this.colors.beginsWith(steps);
 	}
 
 	@Override
-	public com.jfixby.cmns.api.collections.List<Color> filter (CollectionFilter<? super Color> filter) {
-		return colors.filter(filter);
+	public com.jfixby.cmns.api.collections.List<Color> filter (final CollectionFilter<? super Color> filter) {
+		return this.colors.filter(filter);
 	}
 
 }

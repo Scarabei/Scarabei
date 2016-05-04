@@ -12,7 +12,6 @@ import com.jfixby.cmns.api.file.ChildrenList;
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.FileFilter;
 import com.jfixby.cmns.api.log.L;
-import com.jfixby.cmns.api.math.IntegerMath;
 
 public class FilesList implements ChildrenList {
 	final List<File> internal_list = Collections.newList();
@@ -132,22 +131,7 @@ public class FilesList implements ChildrenList {
 
 	@Override
 	public void print (final String tag, final int from_index, final int to_index) {
-		final List<File> l = Collections.newList();
-		final int N = this.size();
-		int a = 0;
-		int b = N;
-		a = (int)IntegerMath.limit(0, from_index, N);
-		b = (int)IntegerMath.limit(0, to_index, N);
-
-		int d = 1;
-		if (a > b) {
-			d = -1;
-		}
-		for (int i = a; i < b; i = i + d) {
-			final File element = this.getElementAt(i);
-			l.add(element);
-		}
-		l.print(tag);
+		this.internal_list.print(tag, from_index, to_index);
 	}
 
 	@Override
