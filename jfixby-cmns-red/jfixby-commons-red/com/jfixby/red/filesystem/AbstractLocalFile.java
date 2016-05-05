@@ -122,7 +122,7 @@ public abstract class AbstractLocalFile<T extends AbstractLocalFileSystem> exten
 	final public ChildrenList listChildren () {
 		final java.io.File file = new java.io.File(this.getAbsolutePathString());
 		if (!file.exists()) {
-			throw new Error("File does not exist: " + this.absolute_path);
+			throw new Error("File does not exist: " + this.getAbsolutePathString());
 		}
 		if (file.isDirectory()) {
 			final String[] list = file.list();

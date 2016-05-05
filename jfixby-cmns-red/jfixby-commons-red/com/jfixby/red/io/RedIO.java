@@ -235,6 +235,7 @@ public class RedIO implements IOComponent {
 			final T object = (T)os.readObject();
 			return object;
 		} catch (final Throwable e) {
+			e.printStackTrace();
 			throw new IOException(e);
 		} finally {
 			this.forceClose(jis);

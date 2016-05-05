@@ -1,6 +1,8 @@
 
 package com.jfixby.android.api;
 
+import com.jfixby.android.api.camera.AndroidCameraSetup;
+
 public interface AndroidComponent {
 
 	long getMaxHeapSize ();
@@ -8,5 +10,7 @@ public interface AndroidComponent {
 	long getRecommendedHeapSize ();
 
 	String getApplicationPrivateDirPath ();
+
+	AndroidCameraSetup getCameraSetup ();
 
 }

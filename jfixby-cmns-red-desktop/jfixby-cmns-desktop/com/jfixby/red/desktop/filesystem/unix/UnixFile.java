@@ -20,7 +20,11 @@ public class UnixFile extends AbstractLocalFile<UnixFileSystem> implements File 
 		if (relative.length() > 0) {
 			relative = UnixFileSystem.OS_SEPARATOR + relative;
 		}
-		return mount_point_path_string + relative;
+		final String result = mount_point_path_string + relative;
+		if (result.equals("")) {
+			return "/";
+		}
+		return result;
 	}
 
 	public static String toNativePathString (final String string) {

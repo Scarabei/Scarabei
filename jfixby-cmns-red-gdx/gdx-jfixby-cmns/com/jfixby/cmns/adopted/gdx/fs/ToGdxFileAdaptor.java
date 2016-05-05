@@ -42,11 +42,7 @@ public class ToGdxFileAdaptor extends FileHandle {
 
 	@Override
 	public OutputStream write (final boolean append) {
-		if (append) {
-			this.err("write");
-		} else {
-			this.err("write");
-		}
+		this.err("write");
 		return super.write(append);
 	}
 
