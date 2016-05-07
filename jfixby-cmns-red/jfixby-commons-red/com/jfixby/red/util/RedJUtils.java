@@ -14,6 +14,7 @@ import com.jfixby.cmns.api.lang.RedByteArray;
 import com.jfixby.cmns.api.math.IntegerMath;
 import com.jfixby.cmns.api.util.BinaryCode;
 import com.jfixby.cmns.api.util.EditableBinaryCode;
+import com.jfixby.cmns.api.util.ProgressIndicator;
 import com.jfixby.cmns.api.util.StateSwitcher;
 import com.jfixby.cmns.api.util.UtilsComponent;
 import com.jfixby.cmns.api.util.path.AbsolutePath;
@@ -163,6 +164,11 @@ public class RedJUtils implements UtilsComponent {
 			input = input.replaceAll(termsMapping.getKeyAt(i), termsMapping.getValueAt(i));
 		}
 		return input;
+	}
+
+	@Override
+	public ProgressIndicator newProgressIndicator () {
+		return new RedProgressIndicator();
 	}
 
 }

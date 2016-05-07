@@ -54,4 +54,6 @@ public interface UtilsComponent {
 
 	String replaceAll (String input, Map<String, String> termsMapping);
 
+	ProgressIndicator newProgressIndicator ();
+
 }

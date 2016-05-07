@@ -111,4 +111,8 @@ public class JUtils {
 		return invoke().replaceAll(input, termsMapping);
 	}
 
+	public static ProgressIndicator newProgressIndicator () {
+		return invoke().newProgressIndicator();
+	}
+
 }
