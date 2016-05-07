@@ -24,15 +24,16 @@ public interface Rectangle extends GeometryFigure {
 
 	void setOriginAbsoluteY (double origin_y);
 
-	void setOriginRelative (ORIGIN_RELATIVE_HORIZONTAL orX, ORIGIN_RELATIVE_VERTICAL orY);
+	void setOriginRelative (ORIGIN_RELATIVE_HORIZONTAL ORIGIN_RELATIVE_HORIZONTAL,
+		ORIGIN_RELATIVE_VERTICAL ORIGIN_RELATIVE_VERTICAL);
 
-	void setOriginRelativeX (ORIGIN_RELATIVE_HORIZONTAL orX);
+	void setOriginRelativeX (ORIGIN_RELATIVE_HORIZONTAL ORIGIN_RELATIVE_HORIZONTAL);
 
-	void setOriginRelativeY (ORIGIN_RELATIVE_VERTICAL orY);
+	void setOriginRelativeY (ORIGIN_RELATIVE_VERTICAL ORIGIN_RELATIVE_VERTICAL);
 
-	void setOriginRelative (double ORIGIN_POSITION_HORIZONTAL, double ORIGIN_POSITION_VERTICAL);
+	void setOriginRelative (double ORIGIN_RELATIVE_HORIZONTAL, double ORIGIN_POSITION_VERTICAL);
 
-	void setOriginRelativeX (double ORIGIN_POSITION_HORIZONTAL);
+	void setOriginRelativeX (double ORIGIN_RELATIVE_HORIZONTAL);
 
 	void setOriginRelativeY (double ORIGIN_POSITION_VERTICAL);
 
