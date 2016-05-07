@@ -86,4 +86,6 @@ public interface Rectangle extends GeometryFigure {
 
 	void reScale (double scaleX, double scaleY);
 
+	void setPosition ();
+
 }

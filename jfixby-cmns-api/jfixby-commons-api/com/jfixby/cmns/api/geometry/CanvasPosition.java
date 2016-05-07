@@ -15,4 +15,6 @@ public interface CanvasPosition extends Float2 {
 
 	public void setPosition (CanvasPosition other);
 
+	public void setPosition ();
+
 }

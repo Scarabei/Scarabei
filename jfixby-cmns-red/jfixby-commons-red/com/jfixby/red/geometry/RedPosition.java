@@ -11,23 +11,29 @@ public class RedPosition extends RedPoint implements CanvasPosition {
 
 	@Override
 	public CustomAngle getRotation () {
-		return rotation;
+		return this.rotation;
 	}
 
 	@Override
-	public void setRotation (Angle rotation) {
+	public void setRotation (final Angle rotation) {
 		this.rotation.setValue(rotation);
 	}
 
 	@Override
-	public void setRotation (double rotation) {
+	public void setRotation (final double rotation) {
 		this.rotation.setValue(rotation);
 	}
 
 	@Override
-	public void setPosition (CanvasPosition other) {
+	public void setPosition (final CanvasPosition other) {
 		this.set(other);
 		this.setRotation(other.getRotation());
+	}
+
+	@Override
+	public void setPosition () {
+		this.setXY(0, 0);
+		this.setRotation(0);
 	}
 
 }
