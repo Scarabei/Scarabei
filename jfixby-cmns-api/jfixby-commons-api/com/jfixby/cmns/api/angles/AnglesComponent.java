@@ -32,4 +32,6 @@ public interface AnglesComponent {
 
 	void parametrize (Angle a, double progress_from_A_to_B, Angle b, CustomAngle result);
 
+	CustomAngle g270 ();
+
 }

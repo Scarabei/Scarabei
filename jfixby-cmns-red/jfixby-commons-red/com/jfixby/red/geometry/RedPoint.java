@@ -4,6 +4,7 @@ package com.jfixby.red.geometry;
 import com.jfixby.cmns.api.floatn.FixedFloat2;
 import com.jfixby.cmns.api.floatn.Float2;
 import com.jfixby.cmns.api.geometry.Geometry;
+import com.jfixby.cmns.api.math.FloatMath;
 
 public class RedPoint implements Float2, FixedFloat2 {
 
@@ -12,27 +13,37 @@ public class RedPoint implements Float2, FixedFloat2 {
 		final int prime = 31;
 		int result = 1;
 		long temp;
-		temp = Double.doubleToLongBits(x);
+		temp = Double.doubleToLongBits(this.x);
 		result = prime * result + (int)(temp ^ (temp >>> 32));
-		temp = Double.doubleToLongBits(y);
+		temp = Double.doubleToLongBits(this.y);
 		result = prime * result + (int)(temp ^ (temp >>> 32));
 		return result;
 	}
 
 	@Override
-	public boolean equals (Object obj) {
-		if (this == obj) return true;
-		if (obj == null) return false;
-		if (getClass() != obj.getClass()) return false;
-		RedPoint other = (RedPoint)obj;
-		if (Double.doubleToLongBits(x) != Double.doubleToLongBits(other.x)) return false;
-		if (Double.doubleToLongBits(y) != Double.doubleToLongBits(other.y)) return false;
+	public boolean equals (final Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (this.getClass() != obj.getClass()) {
+			return false;
+		}
+		final RedPoint other = (RedPoint)obj;
+		if (Double.doubleToLongBits(this.x) != Double.doubleToLongBits(other.x)) {
+			return false;
+		}
+		if (Double.doubleToLongBits(this.y) != Double.doubleToLongBits(other.y)) {
+			return false;
+		}
 		return true;
 	}
 
 	@Override
 	public String toString () {
-		return "(" + x + ", " + y + ")";
+		return "(" + this.x + ", " + this.y + ")";
 	}
 
 	double x;
@@ -41,46 +52,46 @@ public class RedPoint implements Float2, FixedFloat2 {
 	public RedPoint () {
 	}
 
-	public RedPoint (FixedFloat2 dot) {
+	public RedPoint (final FixedFloat2 dot) {
 		this();
 		this.set(dot);
 	}
 
-	public RedPoint (double x, double y) {
+	public RedPoint (final double x, final double y) {
 		this.setXY(x, y);
 	}
 
 	@Override
-	public Float2 setXY (double x, double y) {
+	public Float2 setXY (final double x, final double y) {
 		this.x = x;
 		this.y = y;
 		return this;
 	}
 
 	@Override
-	public Float2 setX (double x) {
+	public Float2 setX (final double x) {
 		this.x = x;
 		return this;
 	}
 
 	@Override
-	public Float2 setY (double y) {
+	public Float2 setY (final double y) {
 		this.y = y;
 		return this;
 	}
 
 	@Override
 	public double getX () {
-		return x;
+		return this.x;
 	}
 
 	@Override
 	public double getY () {
-		return y;
+		return this.y;
 	}
 
 	@Override
-	public Float2 set (FixedFloat2 other) {
+	public Float2 set (final FixedFloat2 other) {
 		this.setXY(other.getX(), other.getY());
 		return this;
 	}
@@ -93,30 +104,30 @@ public class RedPoint implements Float2, FixedFloat2 {
 
 	@Override
 	public Float2 add (final FixedFloat2 offset) {
-		this.setXY(x + offset.getX(), y + offset.getY());
+		this.setXY(this.x + offset.getX(), this.y + offset.getY());
 		return this;
 	}
 
 	@Override
-	public Float2 addX (double delta) {
-		this.setXY(x + delta, y);
+	public Float2 addX (final double delta) {
+		this.setXY(this.x + delta, this.y);
 		return this;
 	}
 
 	@Override
-	public Float2 addY (double delta) {
-		this.setXY(x, y + delta);
+	public Float2 addY (final double delta) {
+		this.setXY(this.x, this.y + delta);
 		return this;
 	}
 
 	@Override
-	public Float2 add (double deltaX, double deltaY) {
-		this.setXY(x + deltaX, y + deltaY);
+	public Float2 add (final double deltaX, final double deltaY) {
+		this.setXY(this.x + deltaX, this.y + deltaY);
 		return this;
 	}
 
 	@Override
-	public boolean isInEpsilonDistance (FixedFloat2 other) {
+	public boolean isInEpsilonDistance (final FixedFloat2 other) {
 		return Geometry.isInEpsilonDistance(this, other);
 	}
 
@@ -126,30 +137,47 @@ public class RedPoint implements Float2, FixedFloat2 {
 	}
 
 	@Override
-	public double distanceTo (FixedFloat2 other) {
+	public double norm () {
+		return FloatMath.distance(this.x, this.y, 0, 0);
+	}
+
+	@Override
+	public double distanceTo (final FixedFloat2 other) {
 		return Geometry.distance(this, other);
 	}
 
 	@Override
-	public Float2 scaleXY (double factor) {
+	public Float2 scaleXY (final double factor) {
 		return this.setXY(this.getX() * factor, factor * this.getY());
 	}
 
 	@Override
-	public Float2 scaleXY (double x, double y) {
+	public Float2 scaleXY (final double x, final double y) {
 		this.x = this.x * x;
 		this.y = this.y * y;
 		return this;
 	}
 
 	@Override
-	public Float2 scaleXY (Float2 other) {
+	public Float2 scaleXY (final Float2 other) {
 		return this.scaleXY(other.getX(), other.getY());
 	}
 
 	@Override
-	public double product (Float2 other) {
+	public double product (final Float2 other) {
 		return this.x * other.getX() + this.y * other.getY();
+	}
+
+	@Override
+	public void setLinearSum (final FixedFloat2 a, final double alpha, final FixedFloat2 b, final double betta) {
+		this.x = a.getX() * alpha + b.getX() * betta;
+		this.y = a.getY() * alpha + b.getY() * betta;
+	}
+
+	@Override
+	public void subtract (final FixedFloat2 position) {
+		this.x = this.x - position.getX();
+		this.y = this.y - position.getY();
 	}
 
 }

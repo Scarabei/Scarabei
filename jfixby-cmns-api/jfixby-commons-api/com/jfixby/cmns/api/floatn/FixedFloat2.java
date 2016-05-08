@@ -2,6 +2,7 @@
 package com.jfixby.cmns.api.floatn;
 
 public interface FixedFloat2 {
+	public double norm ();
 
 	double getX ();
 

@@ -29,4 +29,8 @@ public interface Float2 extends FixedFloat2 {
 
 	double product (Float2 other);
 
+	void setLinearSum (FixedFloat2 a, double alpha, FixedFloat2 b, double betta);
+
+	void subtract (FixedFloat2 position);
+
 }

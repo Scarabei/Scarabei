@@ -23,7 +23,7 @@ public class RedAngles implements AnglesComponent {
 	}
 
 	@Override
-	public CustomAngle newAngle (double a) {
+	public CustomAngle newAngle (final double a) {
 		return new RedAngle(a);
 	}
 
@@ -33,7 +33,7 @@ public class RedAngles implements AnglesComponent {
 	}
 
 	@Override
-	public CustomAngle subtract (CustomAngle a, CustomAngle b, CustomAngle result_of_a_subtract_b) {
+	public CustomAngle subtract (final CustomAngle a, final CustomAngle b, final CustomAngle result_of_a_subtract_b) {
 		return RedAngle.subtract(a, b, result_of_a_subtract_b);
 	}
 
@@ -63,12 +63,17 @@ public class RedAngles implements AnglesComponent {
 	}
 
 	@Override
-	public void parametrize (Angle a, double progress_from_A_to_B, Angle b, CustomAngle result) {
+	public CustomAngle g270 () {
+		return new RedAngle(Math.PI * 1.5);
+	}
+
+	@Override
+	public void parametrize (final Angle a, final double progress_from_A_to_B, final Angle b, final CustomAngle result) {
 		result.setValue(a.toRadians() + (b.toRadians() - a.toRadians()) * progress_from_A_to_B);
 	}
 
 	@Override
-	public CustomAngle newAngle (Angle a) {
+	public CustomAngle newAngle (final Angle a) {
 		return this.newAngle().setValue(a);
 	}
 

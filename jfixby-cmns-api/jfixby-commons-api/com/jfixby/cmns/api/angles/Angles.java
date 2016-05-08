@@ -9,7 +9,7 @@ public class Angles {
 
 	static private ComponentInstaller<AnglesComponent> componentInstaller = new ComponentInstaller<AnglesComponent>("Angles");
 
-	public static final void installComponent (AnglesComponent component_to_install) {
+	public static final void installComponent (final AnglesComponent component_to_install) {
 		componentInstaller.installComponent(component_to_install);
 	}
 
@@ -25,11 +25,11 @@ public class Angles {
 		return invoke().newAngle();
 	}
 
-	public static final CustomAngle newAngle (double a) {
+	public static final CustomAngle newAngle (final double a) {
 		return invoke().newAngle(a);
 	}
 
-	public static final CustomAngle newAngle (Angle a) {
+	public static final CustomAngle newAngle (final Angle a) {
 		return invoke().newAngle(a);
 	}
 
@@ -45,7 +45,7 @@ public class Angles {
 		return invoke().PI_twice();
 	}
 
-	public static CustomAngle subtract (CustomAngle A, CustomAngle B, CustomAngle A_minus_B_result) {
+	public static CustomAngle subtract (final CustomAngle A, final CustomAngle B, final CustomAngle A_minus_B_result) {
 		return invoke().subtract(A, B, A_minus_B_result);
 	}
 
@@ -69,7 +69,11 @@ public class Angles {
 		return invoke().g180();
 	}
 
-	public static void parametrize (Angle A, double progress_from_A_to_B, Angle B, CustomAngle result) {
+	public static void parametrize (final Angle A, final double progress_from_A_to_B, final Angle B, final CustomAngle result) {
 		invoke().parametrize(A, progress_from_A_to_B, B, result);
+	}
+
+	public static CustomAngle g270 () {
+		return invoke().g270();
 	}
 }
