@@ -28,8 +28,8 @@ public class Android {
 		return invoke().getRecommendedHeapSize();
 	}
 
-	public static String getApplicationPrivateDir () {
-		return invoke().getApplicationPrivateDirPath();
+	public static String getApplicationPrivateDirPathString () {
+		return invoke().getApplicationPrivateDirPathString();
 	}
 
 	public static AndroidCameraSetup getCameraSetup () {
