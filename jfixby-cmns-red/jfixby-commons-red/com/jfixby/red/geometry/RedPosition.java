@@ -2,6 +2,7 @@
 package com.jfixby.red.geometry;
 
 import com.jfixby.cmns.api.angles.Angles;
+import com.jfixby.cmns.api.floatn.FixedFloat2;
 import com.jfixby.cmns.api.geometry.CanvasPosition;
 import com.jfixby.cmns.api.math.Angle;
 import com.jfixby.cmns.api.math.CustomAngle;
@@ -34,6 +35,11 @@ public class RedPosition extends RedPoint implements CanvasPosition {
 	public void setPosition () {
 		this.setXY(0, 0);
 		this.setRotation(0);
+	}
+
+	@Override
+	public void setPosition (final FixedFloat2 other) {
+		this.set(other);
 	}
 
 }
