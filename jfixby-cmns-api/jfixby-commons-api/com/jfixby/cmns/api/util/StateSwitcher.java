@@ -17,4 +17,6 @@ public interface StateSwitcher<T> {
 
 	void setThrowErrorOnUnexpectedState (boolean b);
 
+	boolean stateIs (T state);
+
 }

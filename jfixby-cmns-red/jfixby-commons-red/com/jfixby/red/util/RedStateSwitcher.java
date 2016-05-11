@@ -10,8 +10,8 @@ public class RedStateSwitcher<T> implements StateSwitcher<T> {
 	T state;
 	private String debug_name;
 
-	public RedStateSwitcher (T default_state) {
-		debug_name = "StateSwitcher<?>";
+	public RedStateSwitcher (final T default_state) {
+		this.debug_name = "StateSwitcher<?>";
 		this.switchState(default_state);
 	}
 
@@ -20,18 +20,18 @@ public class RedStateSwitcher<T> implements StateSwitcher<T> {
 	@Override
 	public EvaluationResult expectState (final T expected_state) {
 		if (!this.state.equals(expected_state)) {
-			String message = "Wrong state=" + this.state + ", expected: " + expected_state;
-			if (throw_error) {
+			final String message = "Wrong state=" + this.state + ", expected: " + expected_state;
+			if (this.throw_error) {
 				Err.reportError(message);
 			} else {
-				result.setErrorFlag(true);
-				result.setErrorMessage(message);
-				return result;
+				this.result.setErrorFlag(true);
+				this.result.setErrorMessage(message);
+				return this.result;
 			}
 		}
 		this.result.setErrorFlag(false);
 		this.result.setErrorMessage(null);
-		return result;
+		return this.result;
 	}
 
 	@Override
@@ -39,7 +39,7 @@ public class RedStateSwitcher<T> implements StateSwitcher<T> {
 		if (next_state == null) {
 			Err.reportError("Null state detected");
 		}
-		if (debug) {
+		if (this.debug) {
 			L.d(this.debug_name + ": " + this.state + " -", next_state);
 		}
 		this.state = next_state;
@@ -59,12 +59,12 @@ public class RedStateSwitcher<T> implements StateSwitcher<T> {
 
 	@Override
 	public void setDebugFlag (final boolean b) {
-		debug = b;
+		this.debug = b;
 	}
 
 	@Override
 	public String toString () {
-		return "<" + state + ">";
+		return "<" + this.state + ">";
 	}
 
 	boolean throw_error = true;
@@ -77,18 +77,23 @@ public class RedStateSwitcher<T> implements StateSwitcher<T> {
 	@Override
 	public EvaluationResult doesNotExpectState (final T unexpected_state) {
 		if (this.state.equals(unexpected_state)) {
-			String message = "Unexpected state=" + this.state;
-			if (throw_error) {
+			final String message = "Unexpected state=" + this.state;
+			if (this.throw_error) {
 				Err.reportError(message);
 			} else {
-				result.setErrorFlag(true);
-				result.setErrorMessage(message);
-				return result;
+				this.result.setErrorFlag(true);
+				this.result.setErrorMessage(message);
+				return this.result;
 			}
 		}
 		this.result.setErrorFlag(false);
 		this.result.setErrorMessage(null);
-		return result;
+		return this.result;
+	}
+
+	@Override
+	public boolean stateIs (final T state) {
+		return this.currentState() == state;
 	}
 
 }
