@@ -11,52 +11,53 @@ public abstract class AlpaeroLogger implements LoggerComponent {
 	public abstract String arrayToString (int indent, Object[] array);
 
 	@Override
-	public void d (String string, Object object) {
+	public void d (final Object string, final Object object) {
+		final String tag = string + "";
 		if (object instanceof Object[]) {
-			System_out_println(string + " > " + arrayToString(string.length() + 3, (Object[])object));
+			this.System_out_println(string + " > " + this.arrayToString(tag.length() + 3, (Object[])object));
 			return;
 		}
 		if (object instanceof byte[]) {
-			System_out_println(string + " > " + JUtils.newString((byte[])object));
+			this.System_out_println(string + " > " + JUtils.newString((byte[])object));
 			return;
 		}
 		if (object instanceof Collection) {
-			System_out_println(string + " > " + listToString(string.length() + 3, (Collection<?>)object));
+			this.System_out_println(string + " > " + this.listToString(tag.length() + 3, (Collection<?>)object));
 			return;
 		}
 		if (object instanceof Mapping) {
-			System_out_println(string + " > " + mapToString(string.length() + 3, (Mapping<?, ?>)object));
+			this.System_out_println(string + " > " + this.mapToString(tag.length() + 3, (Mapping<?, ?>)object));
 			return;
 		}
-		System_out_println(string + " > " + object);
+		this.System_out_println(string + " > " + object);
 	}
 
-	private String listToString (int indent, Collection<?> array) {
-		StringBuilder string = new StringBuilder();
-		String canonocal_name = "Collection[]";
+	private String listToString (final int indent, final Collection<?> array) {
+		final StringBuilder string = new StringBuilder();
+		final String canonocal_name = "Collection[]";
 		final int n = array.size();
 		if (n == 0) {
 			return canonocal_name;
 		}
 
 		string.append(canonocal_name.substring(0, canonocal_name.length() - 1) + n + "]\n");
-		String indent_str = indent(indent);
+		final String indent_str = this.indent(indent);
 		for (int i = 0; i < n; i++) {
 			string.append(indent_str + "(" + i + ") " + array.getElementAt(i) + "\n");
 		}
 		return string.toString();
 	}
 
-	private String mapToString (int indent, Mapping<?, ?> array) {
-		StringBuilder string = new StringBuilder();
-		String canonocal_name = "Map[]";
+	private String mapToString (final int indent, final Mapping<?, ?> array) {
+		final StringBuilder string = new StringBuilder();
+		final String canonocal_name = "Map[]";
 		final int n = array.size();
 		if (n == 0) {
 			return canonocal_name;
 		}
 
 		string.append(canonocal_name.substring(0, canonocal_name.length() - 1) + n + "]\n");
-		String indent_str = indent(indent);
+		final String indent_str = this.indent(indent);
 		for (int i = 0; i < n; i++) {
 			string.append(indent_str + "(" + i + ") " + array.getKeyAt(i) + " :-> " + array.getValueAt(i) + "\n");
 		}
@@ -72,7 +73,7 @@ public abstract class AlpaeroLogger implements LoggerComponent {
 		return string.toString();
 	}
 
-	public String indent (int indent) {
+	public String indent (final int indent) {
 		String r = "";
 		for (int i = 0; i < indent; i++) {
 			r = r + " ";
@@ -81,18 +82,18 @@ public abstract class AlpaeroLogger implements LoggerComponent {
 	}
 
 	@Override
-	public void d (Object string) {
-		System_out_println(string);
+	public void d (final Object string) {
+		this.System_out_println(string);
 	}
 
 	@Override
-	public void e (String string, Object object) {
-		System_err_println(string + " > " + object);
+	public void e (final Object string, final Object object) {
+		this.System_err_println(string + " > " + object);
 	}
 
 	@Override
-	public void e (Object string) {
-		System_err_println(string);
+	public void e (final Object string) {
+		this.System_err_println(string);
 	}
 
 	public abstract void System_err_println (Object string);
@@ -105,12 +106,12 @@ public abstract class AlpaeroLogger implements LoggerComponent {
 
 	public abstract void System_out_print (Object string);
 
-	public void d (String string, Object... objects_list) {
-		System_out_println(string + " > " + buld_list(objects_list));
+	public void d (final String string, final Object... objects_list) {
+		this.System_out_println(string + " > " + this.buld_list(objects_list));
 
 	}
 
-	private String buld_list (Object[] objects_list) {
+	private String buld_list (final Object[] objects_list) {
 		String result = "";
 		for (int i = 0; i < objects_list.length; i++) {
 			if (i == 0) {
@@ -124,12 +125,12 @@ public abstract class AlpaeroLogger implements LoggerComponent {
 
 	private final char[] HEXDIGITS = "0123456789abcdef".toCharArray();
 
-	public String toHexString (byte[] bytes) {
-		StringBuilder sb = new StringBuilder(bytes.length * 3);
+	public String toHexString (final byte[] bytes) {
+		final StringBuilder sb = new StringBuilder(bytes.length * 3);
 		for (int b : bytes) {
 			b &= 0xff;
-			sb.append(HEXDIGITS[b >> 4]);
-			sb.append(HEXDIGITS[b & 15]);
+			sb.append(this.HEXDIGITS[b >> 4]);
+			sb.append(this.HEXDIGITS[b & 15]);
 			sb.append(' ');
 		}
 		return "(" + bytes.length + ") " + sb.toString();
@@ -137,16 +138,16 @@ public abstract class AlpaeroLogger implements LoggerComponent {
 
 	@Override
 	public void d () {
-		System_out_println();
+		this.System_out_println();
 	}
 
 	@Override
 	public void e () {
-		System_err_println();
+		this.System_err_println();
 	}
 
 	@Override
-	public void d_addChars (Object msg) {
-		System_out_print(msg);
+	public void d_addChars (final Object msg) {
+		this.System_out_print(msg);
 	}
 }

@@ -7,7 +7,7 @@ public class Logger {
 
 	static private ComponentInstaller<LoggerComponent> componentInstaller = new ComponentInstaller<LoggerComponent>("Logger");
 
-	public static final void installComponent (LoggerComponent component_to_install) {
+	public static final void installComponent (final LoggerComponent component_to_install) {
 		componentInstaller.installComponent(component_to_install);
 	}
 
@@ -19,19 +19,19 @@ public class Logger {
 		return componentInstaller.getComponent();
 	}
 
-	public static void d (Object msg) {
+	public static void d (final Object msg) {
 		invoke().d(msg);
 	}
 
-	public static void d (String tag, Object msg) {
+	public static void d (final Object tag, final Object msg) {
 		invoke().d(tag, msg);
 	}
 
-	public static void e (Object msg) {
+	public static void e (final Object msg) {
 		invoke().e(msg);
 	}
 
-	public static void e (String tag, Object msg) {
+	public static void e (final Object tag, final Object msg) {
 		invoke().e(tag, msg);
 	}
 
@@ -43,11 +43,11 @@ public class Logger {
 		invoke().e();
 	}
 
-	public static void d_addChars (Object msg) {
+	public static void d_addChars (final Object msg) {
 		invoke().d_addChars(msg);
 	}
 
-	public static String toString (Object[] doubles) {
+	public static String toString (final Object[] doubles) {
 		return invoke().toString(doubles);
 	}
 

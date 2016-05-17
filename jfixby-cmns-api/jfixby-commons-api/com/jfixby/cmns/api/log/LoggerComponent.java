@@ -5,11 +5,11 @@ public interface LoggerComponent {
 
 	void d (Object msg);
 
-	void d (String tag, Object msg);
+	void d (Object tag, Object msg);
 
 	void e (Object msg);
 
-	void e (String tag, Object msg);
+	void e (Object tag, Object msg);
 
 	void d ();
 
