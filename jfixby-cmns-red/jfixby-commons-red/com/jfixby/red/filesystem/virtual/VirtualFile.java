@@ -13,11 +13,11 @@ import com.jfixby.red.filesystem.FilesList;
 
 public class VirtualFile extends AbstractRedFile implements File {
 
-	private final VirtualFileSystem virtualFileSystem;
+	private final InMemoryFileSystem virtualFileSystem;
 	private AbsolutePath<FileSystem> absolute_path;
 	private RelativePath relativePath;
 
-	public VirtualFile (final VirtualFileSystem virtualFileSystem, final AbsolutePath<FileSystem> file_path) {
+	public VirtualFile (final InMemoryFileSystem virtualFileSystem, final AbsolutePath<FileSystem> file_path) {
 		this.virtualFileSystem = virtualFileSystem;
 		this.absolute_path = file_path;
 		this.relativePath = file_path.getRelativePath();
@@ -135,7 +135,7 @@ public class VirtualFile extends AbstractRedFile implements File {
 	}
 
 	@Override
-	public VirtualFileSystem getFileSystem () {
+	public InMemoryFileSystem getFileSystem () {
 		return this.virtualFileSystem;
 	}
 

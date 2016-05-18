@@ -8,7 +8,7 @@ import com.jfixby.cmns.api.file.FileSystem;
 import com.jfixby.cmns.api.util.path.AbsolutePath;
 import com.jfixby.red.filesystem.AbstractFileSystem;
 
-public class VirtualFileSystem extends AbstractFileSystem implements FileSystem {
+public class InMemoryFileSystem extends AbstractFileSystem implements FileSystem {
 
 	public static final String OS_SEPARATOR = "/";
 
