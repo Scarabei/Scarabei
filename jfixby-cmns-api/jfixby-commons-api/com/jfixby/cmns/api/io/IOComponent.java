@@ -70,4 +70,6 @@ public interface IOComponent {
 
 	public InputStream newInputStream (InputStreamOpener opener);
 
+	LazyInputStream newLazyInputStream (InputStream input_stream);
+
 }

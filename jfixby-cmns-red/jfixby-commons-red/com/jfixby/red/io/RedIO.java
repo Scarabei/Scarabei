@@ -21,6 +21,7 @@ import com.jfixby.cmns.api.io.InputStreamOpener;
 import com.jfixby.cmns.api.io.JavaBitInputStream;
 import com.jfixby.cmns.api.io.JavaBitOutputStream;
 import com.jfixby.cmns.api.io.JavaBitStreamMode;
+import com.jfixby.cmns.api.io.LazyInputStream;
 import com.jfixby.cmns.api.io.OutputStream;
 import com.jfixby.cmns.api.io.OutputStreamOpener;
 import com.jfixby.cmns.api.io.StreamPipe;
@@ -263,6 +264,11 @@ public class RedIO implements IOComponent {
 			is.close();
 		} catch (final IOException ignored) {
 		}
+	}
+
+	@Override
+	public LazyInputStream newLazyInputStream (final InputStream input_stream) {
+		return new RedLazyInputStream(input_stream);
 	}
 
 }

@@ -4,7 +4,6 @@ package com.jfixby.cmns.api.io;
 import java.io.IOException;
 
 import com.jfixby.cmns.api.ComponentInstaller;
-import com.jfixby.cmns.api.file.FileInputStream;
 import com.jfixby.cmns.api.java.ByteArray;
 
 public class IO {
@@ -39,7 +38,7 @@ public class IO {
 		return component().newBufferInputStream(buffer);
 	}
 
-	public static Buffer readStreamToBuffer (final FileInputStream is) throws IOException {
+	public static Buffer readStreamToBuffer (final InputStream is) throws IOException {
 		return component().readStreamToBuffer(is);
 	}
 
@@ -50,6 +49,10 @@ public class IO {
 
 	public static BufferOutputStream newBufferOutputStream () {
 		return component().newBufferOutputStream();
+	}
+
+	public static LazyInputStream newLazyInputStream (final InputStream input_stream) {
+		return component().newLazyInputStream(input_stream);
 	}
 
 	public static int readByte (final java.io.InputStream javaInputStream) throws IOException {
