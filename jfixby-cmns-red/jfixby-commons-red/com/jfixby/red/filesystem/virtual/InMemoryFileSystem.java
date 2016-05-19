@@ -12,7 +12,7 @@ public class InMemoryFileSystem extends AbstractFileSystem implements FileSystem
 
 	public static final String OS_SEPARATOR = "/";
 
-	final private VirtualFileSystemContent content = new VirtualFileSystemContent();
+	final private InMemoryFileSystemContent content = new InMemoryFileSystemContent();
 
 	@Override
 	public VirtualFile newFile (final AbsolutePath<FileSystem> file_path) {
@@ -64,7 +64,7 @@ public class InMemoryFileSystem extends AbstractFileSystem implements FileSystem
 		return this.name;
 	}
 
-	public VirtualFileSystemContent getContent () {
+	public InMemoryFileSystemContent getContent () {
 		return this.content;
 	}
 

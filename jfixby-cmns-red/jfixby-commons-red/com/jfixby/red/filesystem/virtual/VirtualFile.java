@@ -33,7 +33,7 @@ public class VirtualFile extends AbstractRedFile implements File {
 		if (this.isFolder()) {
 			this.clearFolder();
 		}
-		final VirtualFileSystemContent content = this.virtualFileSystem.getContent();
+		final InMemoryFileSystemContent content = this.virtualFileSystem.getContent();
 		// L.d("deleting", this.absolute_path);
 		;
 		return content.delete(this.absolute_path.getRelativePath());
@@ -42,13 +42,13 @@ public class VirtualFile extends AbstractRedFile implements File {
 
 	@Override
 	public boolean isFolder () {
-		final VirtualFileSystemContent content = this.virtualFileSystem.getContent();
+		final InMemoryFileSystemContent content = this.virtualFileSystem.getContent();
 		return content.isFolder(this.absolute_path.getRelativePath());
 	}
 
 	@Override
 	public boolean isFile () {
-		final VirtualFileSystemContent content = this.virtualFileSystem.getContent();
+		final InMemoryFileSystemContent content = this.virtualFileSystem.getContent();
 		return content.isFile(this.absolute_path.getRelativePath());
 	}
 
@@ -75,7 +75,7 @@ public class VirtualFile extends AbstractRedFile implements File {
 
 	@Override
 	public ChildrenList listChildren () {
-		final VirtualFileSystemContent content = this.virtualFileSystem.getContent();
+		final InMemoryFileSystemContent content = this.virtualFileSystem.getContent();
 
 		if (!content.exists(this.relativePath)) {
 			throw new Error("File does not exist: " + this.absolute_path);
@@ -107,19 +107,19 @@ public class VirtualFile extends AbstractRedFile implements File {
 
 	@Override
 	public boolean exists () {
-		final VirtualFileSystemContent content = this.virtualFileSystem.getContent();
+		final InMemoryFileSystemContent content = this.virtualFileSystem.getContent();
 		return content.exists(this.absolute_path.getRelativePath());
 	}
 
 	@Override
 	public boolean makeFolder () {
-		final VirtualFileSystemContent content = this.virtualFileSystem.getContent();
+		final InMemoryFileSystemContent content = this.virtualFileSystem.getContent();
 		return content.mkdirs(this.absolute_path.getRelativePath());
 	}
 
 	@Override
 	public boolean rename (final String new_name) {
-		final VirtualFileSystemContent content = this.virtualFileSystem.getContent();
+		final InMemoryFileSystemContent content = this.virtualFileSystem.getContent();
 		content.rename(this.absolute_path.getRelativePath(), new_name);
 		this.absolute_path = this.absolute_path.parent().child(new_name);
 		this.relativePath = this.absolute_path.getRelativePath();
@@ -153,7 +153,7 @@ public class VirtualFile extends AbstractRedFile implements File {
 		if (this.relativePath.isRoot()) {
 			return null;
 		}
-		final VirtualFileSystemContent content = this.virtualFileSystem.getContent();
+		final InMemoryFileSystemContent content = this.virtualFileSystem.getContent();
 		if (!content.mkdirs(this.relativePath.parent())) {
 			return null;
 		}
@@ -161,7 +161,7 @@ public class VirtualFile extends AbstractRedFile implements File {
 	}
 
 	public ContentLeaf getContent () {
-		final VirtualFileSystemContent content = this.virtualFileSystem.getContent();
+		final InMemoryFileSystemContent content = this.virtualFileSystem.getContent();
 		return content.getContentLeaf(this.relativePath);
 	}
 
@@ -186,7 +186,7 @@ public class VirtualFile extends AbstractRedFile implements File {
 
 	@Override
 	public long lastModified () {
-		final VirtualFileSystemContent content = this.virtualFileSystem.getContent();
+		final InMemoryFileSystemContent content = this.virtualFileSystem.getContent();
 		return content.lastModified(this.absolute_path.getRelativePath());
 	}
 

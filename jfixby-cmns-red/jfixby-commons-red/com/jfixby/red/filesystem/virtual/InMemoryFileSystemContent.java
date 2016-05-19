@@ -4,11 +4,11 @@ package com.jfixby.red.filesystem.virtual;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.util.path.RelativePath;
 
-public class VirtualFileSystemContent {
+public class InMemoryFileSystemContent {
 
 	final private ContentNode ROOT;
 
-	public VirtualFileSystemContent () {
+	public InMemoryFileSystemContent () {
 		ROOT = new ContentNode();
 	}
 
