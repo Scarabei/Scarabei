@@ -11,13 +11,13 @@ import com.jfixby.cmns.api.util.path.RelativePath;
 import com.jfixby.red.filesystem.AbstractRedFile;
 import com.jfixby.red.filesystem.FilesList;
 
-public class VirtualFile extends AbstractRedFile implements File {
+public class InMemoryFile extends AbstractRedFile implements File {
 
 	private final InMemoryFileSystem virtualFileSystem;
 	private AbsolutePath<FileSystem> absolute_path;
 	private RelativePath relativePath;
 
-	public VirtualFile (final InMemoryFileSystem virtualFileSystem, final AbsolutePath<FileSystem> file_path) {
+	public InMemoryFile (final InMemoryFileSystem virtualFileSystem, final AbsolutePath<FileSystem> file_path) {
 		this.virtualFileSystem = virtualFileSystem;
 		this.absolute_path = file_path;
 		this.relativePath = file_path.getRelativePath();
@@ -102,7 +102,7 @@ public class VirtualFile extends AbstractRedFile implements File {
 
 	@Override
 	public File child (final String child_name) {
-		return new VirtualFile(this.getFileSystem(), this.absolute_path.child(child_name));
+		return new InMemoryFile(this.getFileSystem(), this.absolute_path.child(child_name));
 	}
 
 	@Override
@@ -181,7 +181,7 @@ public class VirtualFile extends AbstractRedFile implements File {
 
 	@Override
 	public File parent () {
-		return new VirtualFile(this.virtualFileSystem, this.absolute_path.parent());
+		return new InMemoryFile(this.virtualFileSystem, this.absolute_path.parent());
 	}
 
 	@Override

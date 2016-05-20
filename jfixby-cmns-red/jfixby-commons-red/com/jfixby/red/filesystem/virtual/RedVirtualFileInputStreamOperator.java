@@ -11,10 +11,10 @@ import com.jfixby.cmns.api.java.ByteArray;
 
 public class RedVirtualFileInputStreamOperator implements JavaInputStreamOperator {
 
-	private final VirtualFile v_file;
+	private final InMemoryFile v_file;
 	private InputStream is;
 
-	public RedVirtualFileInputStreamOperator (final VirtualFile input_file) {
+	public RedVirtualFileInputStreamOperator (final InMemoryFile input_file) {
 		this.v_file = input_file;
 	}
 

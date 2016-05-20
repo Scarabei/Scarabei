@@ -7,7 +7,7 @@ import com.jfixby.red.io.AbstractRedOutputStream;
 public class VirtualFileOutputStream extends AbstractRedOutputStream<RedVirtualFileOutputStreamOperator>
 	implements FileOutputStream {
 
-	public VirtualFileOutputStream (final VirtualFile output_file) {
+	public VirtualFileOutputStream (final InMemoryFile output_file) {
 		super(new RedVirtualFileOutputStreamOperator(output_file));
 	}
 

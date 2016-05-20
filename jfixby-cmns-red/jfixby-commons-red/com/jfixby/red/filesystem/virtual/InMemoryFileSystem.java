@@ -15,14 +15,14 @@ public class InMemoryFileSystem extends AbstractFileSystem implements FileSystem
 	final private InMemoryFileSystemContent content = new InMemoryFileSystemContent();
 
 	@Override
-	public VirtualFile newFile (final AbsolutePath<FileSystem> file_path) {
+	public InMemoryFile newFile (final AbsolutePath<FileSystem> file_path) {
 		if (file_path == null) {
 			throw new Error("Filepath is null.");
 		}
 		if (file_path.getMountPoint() != this) {
 			throw new Error("Path does not belong to this filesystem: " + file_path);
 		}
-		return new VirtualFile(this, file_path);
+		return new InMemoryFile(this, file_path);
 	}
 
 	@Override
@@ -33,7 +33,7 @@ public class InMemoryFileSystem extends AbstractFileSystem implements FileSystem
 		if (output_file.getFileSystem() != this) {
 			throw new Error("Output file does not belong to this filesystem: " + output_file);
 		}
-		return new VirtualFileOutputStream((VirtualFile)output_file);
+		return new VirtualFileOutputStream((InMemoryFile)output_file);
 	}
 
 	@Override
@@ -45,7 +45,7 @@ public class InMemoryFileSystem extends AbstractFileSystem implements FileSystem
 			throw new Error("Input file does not belong to this filesystem: " + input_file);
 		}
 
-		return new VirtualFileInputStream((VirtualFile)input_file);
+		return new VirtualFileInputStream((InMemoryFile)input_file);
 	}
 
 	@Override

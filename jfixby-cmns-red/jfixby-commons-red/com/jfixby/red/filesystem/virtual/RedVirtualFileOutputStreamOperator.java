@@ -12,9 +12,9 @@ import com.jfixby.cmns.api.java.ByteArray;
 public class RedVirtualFileOutputStreamOperator implements JavaOutputStreamOperator {
 	private ContentLeaf leaf;
 	private BufferOutputStream os;
-	private final VirtualFile v_file;
+	private final InMemoryFile v_file;
 
-	public RedVirtualFileOutputStreamOperator (final VirtualFile output_file) {
+	public RedVirtualFileOutputStreamOperator (final InMemoryFile output_file) {
 		this.v_file = output_file;
 
 	}
