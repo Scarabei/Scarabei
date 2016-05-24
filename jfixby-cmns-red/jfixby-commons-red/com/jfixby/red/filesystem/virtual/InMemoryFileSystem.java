@@ -45,7 +45,7 @@ public class InMemoryFileSystem extends AbstractFileSystem implements FileSystem
 			throw new Error("Input file does not belong to this filesystem: " + input_file);
 		}
 
-		return new VirtualFileInputStream((InMemoryFile)input_file);
+		return new InMemoryFileInputStream((InMemoryFile)input_file);
 	}
 
 	@Override
