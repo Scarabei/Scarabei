@@ -9,12 +9,12 @@ import com.jfixby.cmns.api.io.IO;
 import com.jfixby.cmns.api.io.JavaInputStreamOperator;
 import com.jfixby.cmns.api.java.ByteArray;
 
-public class RedVirtualFileInputStreamOperator implements JavaInputStreamOperator {
+public class RedInMemoryFileInputStreamOperator implements JavaInputStreamOperator {
 
 	private final InMemoryFile v_file;
 	private InputStream is;
 
-	public RedVirtualFileInputStreamOperator (final InMemoryFile input_file) {
+	public RedInMemoryFileInputStreamOperator (final InMemoryFile input_file) {
 		this.v_file = input_file;
 	}
 
