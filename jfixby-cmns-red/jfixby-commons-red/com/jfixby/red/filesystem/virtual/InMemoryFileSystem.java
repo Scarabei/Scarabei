@@ -33,7 +33,7 @@ public class InMemoryFileSystem extends AbstractFileSystem implements FileSystem
 		if (output_file.getFileSystem() != this) {
 			throw new Error("Output file does not belong to this filesystem: " + output_file);
 		}
-		return new VirtualFileOutputStream((InMemoryFile)output_file);
+		return new InMemoryFileOutputStream((InMemoryFile)output_file);
 	}
 
 	@Override
