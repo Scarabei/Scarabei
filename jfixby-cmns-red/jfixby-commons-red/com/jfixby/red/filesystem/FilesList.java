@@ -77,11 +77,6 @@ public class FilesList implements ChildrenList {
 	}
 
 	@Override
-	public void print () {
-		this.internal_list.print("FilesList");
-	}
-
-	@Override
 	public ChildrenList filterFiles (final FileFilter filter) {
 		final FilesList result = new FilesList();
 		for (int i = 0; i < this.size(); i++) {

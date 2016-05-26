@@ -1,3 +1,4 @@
+
 package com.jfixby.rmi.test;
 
 import java.io.IOException;
@@ -19,27 +20,27 @@ import com.jfixby.rmi.client.files.RMIFileSystem;
 import com.jfixby.rmi.client.files.RMIFileSystemConfig;
 
 public class RMIFileSystemClientTest {
-	public static void main(String[] args) throws IOException {
+	public static void main (final String[] args) throws IOException {
 		L.installComponent(new DesktopLogger());
 		JUtils.installComponent(new RedJUtils());
 		Collections.installComponent(new DesktopCollections());
-		
+
 		IO.installComponent(new RedIO());
 		Err.installComponent(new RedError());
 		Debug.installComponent(new RedDebug());
 
-		RMIFileSystemConfig config = new RMIFileSystemConfig();
+		final RMIFileSystemConfig config = new RMIFileSystemConfig();
 		config.setRemoteHost("127.0.0.1");
 		config.setRemotePort(16000);
 		config.setRemoteBox("remote-filesystem");
 
-		RMIFileSystem remote_file_system = new RMIFileSystem(config);
+		final RMIFileSystem remote_file_system = new RMIFileSystem(config);
 		remote_file_system.ping();
 
 		remote_file_system.ROOT().listChildren().print("scan root");
-		File A = remote_file_system.ROOT().child("a");
-		File B = remote_file_system.ROOT().child("b");
-		A.listChildren().print();
+		final File A = remote_file_system.ROOT().child("a");
+		final File B = remote_file_system.ROOT().child("b");
+		A.listChildren().print("A");
 
 		remote_file_system.copyFolderContentsToFolder(A, B);
 
