@@ -3,7 +3,9 @@ package com.jfixby.red.io;
 
 import java.io.File;
 
-public class JavaFileInputStream extends AbstractRedInputStream<JavaFileInputStreamOperator> {
+import com.jfixby.cmns.api.file.FileInputStream;
+
+public class JavaFileInputStream extends AbstractRedInputStream<JavaFileInputStreamOperator> implements FileInputStream {
 
 	private final File file;
 
@@ -18,6 +20,11 @@ public class JavaFileInputStream extends AbstractRedInputStream<JavaFileInputStr
 	@Override
 	public String toString () {
 		return "JavaFileInputStream=" + this.file + "";
+	}
+
+	@Override
+	public long getFileSize () {
+		return this.file.length();
 	}
 
 }

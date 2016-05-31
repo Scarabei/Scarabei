@@ -3,11 +3,10 @@ package com.jfixby.red.io;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 
 import com.jfixby.cmns.api.err.Err;
-import com.jfixby.cmns.api.file.FileInputStream;
 import com.jfixby.cmns.api.io.Data;
+import com.jfixby.cmns.api.io.InputStream;
 import com.jfixby.cmns.api.io.JavaInputStreamOperator;
 import com.jfixby.cmns.api.io.STREAM_STATE;
 import com.jfixby.cmns.api.java.ByteArray;
@@ -17,7 +16,7 @@ import com.jfixby.cmns.api.sys.settings.SystemSettings;
 import com.jfixby.cmns.api.util.JUtils;
 import com.jfixby.cmns.api.util.StateSwitcher;
 
-public class AbstractRedInputStream<T extends JavaInputStreamOperator> implements FileInputStream {
+public class AbstractRedInputStream<T extends JavaInputStreamOperator> implements InputStream {
 	private final StateSwitcher<STREAM_STATE> state;
 	private final T operator;
 	private Exception source;
@@ -77,7 +76,7 @@ public class AbstractRedInputStream<T extends JavaInputStreamOperator> implement
 		return this.data;
 	}
 
-	private InputStream javaStream () throws IOException {
+	private java.io.InputStream javaStream () throws IOException {
 		this.state.expectState(STREAM_STATE.OPEN);
 		return this.operator.getJavaStream();
 	}
@@ -108,7 +107,7 @@ public class AbstractRedInputStream<T extends JavaInputStreamOperator> implement
 	}
 
 	@Override
-	public InputStream toJavaInputStream () throws IOException {
+	public java.io.InputStream toJavaInputStream () throws IOException {
 		this.state.expectState(STREAM_STATE.OPEN);
 		return this.javaStream();
 	}
