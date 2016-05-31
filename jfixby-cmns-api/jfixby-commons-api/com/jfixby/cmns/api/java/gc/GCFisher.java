@@ -7,7 +7,7 @@ public class GCFisher {
 
 	public static final String DefaultBaitSize = "GCFisher.DefaultBaitSize";
 
-	public static final long ANDROID_GC_DELAY = 150;// ms
+	public static final long AVERAGE_ANDROID_GC_DELAY = 150;// ms
 
 	static private ComponentInstaller<GCFisherComponent> componentInstaller = new ComponentInstaller<GCFisherComponent>(
 		"GCFisher");
