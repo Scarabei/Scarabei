@@ -9,7 +9,7 @@ import com.jfixby.cmns.api.color.Colors;
 import com.jfixby.cmns.api.color.CustomColor;
 import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.log.L;
-import com.jfixby.red.util.md5.AlpaeroMD5;
+import com.jfixby.red.util.md5.RSADataSecurityIncMD5;
 
 public class RedColor implements Color, CustomColor, ColorConstant {
 
@@ -151,7 +151,7 @@ public class RedColor implements Color, CustomColor, ColorConstant {
 		byte b2 = (byte)(255f * G);
 		byte b3 = (byte)(255f * B);
 		byte[] val = new byte[] {b0, b1, b2, b3};
-		String hex = AlpaeroMD5.encodeHexString(val);
+		String hex = RSADataSecurityIncMD5.encodeHexString(val);
 		return hex;
 	}
 
@@ -161,7 +161,7 @@ public class RedColor implements Color, CustomColor, ColorConstant {
 		byte b2 = (byte)(255f * G);
 		byte b3 = (byte)(255f * B);
 		byte[] val = new byte[] {b1, b2, b3};
-		String hex = AlpaeroMD5.encodeHexString(val);
+		String hex = RSADataSecurityIncMD5.encodeHexString(val);
 
 		return hex;
 	}

@@ -47,7 +47,7 @@ import com.jfixby.cmns.api.io.InputStream;
 import com.jfixby.cmns.api.md5.MD5Component;
 import com.jfixby.cmns.api.util.JUtils;
 
-public final class AlpaeroMD5 extends RedMD5 implements MD5Component {
+public final class RSADataSecurityIncMD5 extends RedMD5 implements MD5Component {
 
 	private int state0, state1, state2, state3;
 	private long count;
@@ -57,7 +57,7 @@ public final class AlpaeroMD5 extends RedMD5 implements MD5Component {
 	private static final byte[] padding = new byte[] {(byte)128, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-	public AlpaeroMD5 () {
+	public RSADataSecurityIncMD5 () {
 		this.reset();
 	}
 
