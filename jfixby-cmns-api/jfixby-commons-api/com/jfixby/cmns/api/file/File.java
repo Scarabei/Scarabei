@@ -36,6 +36,8 @@ public interface File {
 	 */
 	public boolean extensionIs (String postfix);
 
+	public String getExtension ();
+
 	boolean rename (String new_name);
 
 	String getName ();
