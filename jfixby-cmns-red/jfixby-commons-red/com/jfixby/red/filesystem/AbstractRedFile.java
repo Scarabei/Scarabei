@@ -4,6 +4,7 @@ package com.jfixby.red.filesystem;
 import java.io.IOException;
 import java.io.Serializable;
 
+import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.file.ChildrenList;
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.FileFilter;
@@ -137,6 +138,19 @@ public abstract class AbstractRedFile implements File {
 	@Override
 	public FileOutputStream newOutputStream () {
 		return this.getFileSystem().newFileOutputStream(this);
+	}
+
+	@Override
+	public String getExtension () {
+		final String name = this.getName().toLowerCase();
+		final String ext = name.substring(name.lastIndexOf('.'));
+		return ext;
+	}
+
+	@Override
+	public void copyTo (final String newFileName) throws IOException {
+		final File outputFile = this.parent().child(Debug.checkNull("newFileName", newFileName));
+		this.getFileSystem().copyFileToFile(this, outputFile);
 	}
 
 }

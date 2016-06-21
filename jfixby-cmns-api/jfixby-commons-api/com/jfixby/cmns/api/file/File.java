@@ -84,4 +84,6 @@ public interface File {
 
 	<T> T readData (Class<T> type) throws IOException;
 
+	void copyTo (String newFileName) throws IOException;
+
 }
