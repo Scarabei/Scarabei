@@ -1,3 +1,4 @@
+
 package com.jfixby.red.desktop.test;
 
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ public class PerformanceTest {
 	private static long current_time;
 	static byte[] b = new byte[1024 * 1024 * 500000000];
 
-	public static void main(String[] args) {
+	public static void main (String[] args) {
 		// DesktopAssembler.setup();
 
 		check(b);
@@ -23,7 +24,7 @@ public class PerformanceTest {
 		}
 	}
 
-	private static void runTestA() {
+	private static void runTestA () {
 		log("BeginTest");
 		for (int t = 0; t < TESTS; t++) {
 			setupList();
@@ -38,7 +39,7 @@ public class PerformanceTest {
 
 	static final int TESTS = 10;
 
-	private static void runTestB() {
+	private static void runTestB () {
 		log("BeginTest");
 		for (int t = 0; t < TESTS; t++) {
 			setupList();
@@ -51,7 +52,7 @@ public class PerformanceTest {
 		log("EndTest");
 	}
 
-	private static void disposeList() {
+	private static void disposeList () {
 		list = null;
 		value = null;
 	}
@@ -61,7 +62,7 @@ public class PerformanceTest {
 
 	private static Object value;
 
-	private static void setupList() {
+	private static void setupList () {
 
 		list = new ArrayList<Object>();
 		for (int i = 0; i < N; i++) {
@@ -72,18 +73,18 @@ public class PerformanceTest {
 		}
 	}
 
-	private static void testA() {
+	private static void testA () {
 		for (int k = 0; k < KKK; k++)
 			for (final Object o : list) {
 				check(o);
 			}
 	}
 
-	private static void check(final Object o) {
+	private static void check (final Object o) {
 		value = o;
 	}
 
-	private static void testB() {
+	private static void testB () {
 		for (int k = 0; k < KKK; k++) {
 			int i = 0;
 			final int size = list.size();
@@ -100,16 +101,16 @@ public class PerformanceTest {
 	static long end_time = 0;
 	private static long diff;
 
-	private static void printResult(String test_tag, final long end_time, final long begin_time) {
+	private static void printResult (String test_tag, final long end_time, final long begin_time) {
 		diff = end_time - begin_time;
 		log(test_tag, diff);
 	}
 
-	private static void log(String test_tag, Object message) {
+	private static void log (String test_tag, Object message) {
 		log(test_tag + " > " + message);
 	}
 
-	private static void log(Object message) {
+	private static void log (Object message) {
 		System.out.println("" + message);
 	}
 

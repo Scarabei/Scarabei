@@ -1,3 +1,4 @@
+
 package com.jfixby.red.desktop.test;
 
 import java.awt.image.BufferedImage;
@@ -22,66 +23,66 @@ import com.jfixby.red.desktop.DesktopSetup;
 
 public class SplitChannelsTest {
 
-    public static void main(String[] args) throws IOException {
-	DesktopSetup.deploy();
+	public static void main (String[] args) throws IOException {
+		DesktopSetup.deploy();
 
-	File home = LocalFileSystem.ApplicationHome();
-	File input_folder = home.child("input");
-	File output_folder = home.child("output");
+		File home = LocalFileSystem.ApplicationHome();
+		File input_folder = home.child("input");
+		File output_folder = home.child("output");
 
-	ChildrenList pngs = input_folder.listChildren().filterFiles(file -> file.extensionIs("png"));
-	for (int i = 0; i < pngs.size(); i++) {
-	    File pngFile = pngs.getElementAt(i);
+		ChildrenList pngs = input_folder.listChildren().filterFiles(file -> file.extensionIs("png"));
+		for (int i = 0; i < pngs.size(); i++) {
+			File pngFile = pngs.getElementAt(i);
 
-	    File outputFile = output_folder.child(pngFile.nameWithoutExtension() + "-alpha.zipng");
+			File outputFile = output_folder.child(pngFile.nameWithoutExtension() + "-alpha.zipng");
 
-	    L.d("writing", outputFile);
-	    splitAndSaveAlphaChannel(pngFile, outputFile);
+			L.d("writing", outputFile);
+			splitAndSaveAlphaChannel(pngFile, outputFile);
+		}
+
 	}
 
-    }
+	private static void splitAndSaveAlphaChannel (File inputFile, File outputFile) throws IOException {
+		BufferedImage awtImage = ImageAWT.readFromFile(inputFile);
+		EditableColorMap colorMap = ImageAWT.newAWTColorMap(awtImage);
+		EditableGrayMap alpha = colorMap.getAlpha();
 
-    private static void splitAndSaveAlphaChannel(File inputFile, File outputFile) throws IOException {
-	BufferedImage awtImage = ImageAWT.readFromFile(inputFile);
-	EditableColorMap colorMap = ImageAWT.newAWTColorMap(awtImage);
-	EditableGrayMap alpha = colorMap.getAlpha();
+		ColorMapSpecs spces = ImageProcessing.newColorMapSpecs();
+		spces.setColorMapDimentions(colorMap.getWidth(), colorMap.getHeight());
+		spces.setRed(alpha);
+		spces.setGreen(alpha);
+		spces.setBlue(alpha);
+		ColorMap outputColorMap = ImageProcessing.newColorMap(spces);
+		// BufferedImage resultingImage =
+		// ImageAWT.toAWTImage(outputColorMap);
+		BufferedImage resultingImage = ImageAWT.toAWTImage(outputColorMap.getRed());
 
-	ColorMapSpecs spces = ImageProcessing.newColorMapSpecs();
-	spces.setColorMapDimentions(colorMap.getWidth(), colorMap.getHeight());
-	spces.setRed(alpha);
-	spces.setGreen(alpha);
-	spces.setBlue(alpha);
-	ColorMap outputColorMap = ImageProcessing.newColorMap(spces);
-	// BufferedImage resultingImage =
-	// ImageAWT.toAWTImage(outputColorMap);
-	BufferedImage resultingImage = ImageAWT.toAWTImage(outputColorMap.getRed());
+		// L.d("writing", alphaChannelFile);
+		FileOutputStream fileStream = outputFile.newOutputStream();
+		GZipOutputStream zip = IO.newGZipStream(fileStream);
 
-	// L.d("writing", alphaChannelFile);
-	FileOutputStream fileStream = outputFile.newOutputStream();
-	GZipOutputStream zip = IO.newGZipStream(fileStream);
+		ImageAWT.writeToStream(resultingImage, zip, "png", BufferedImage.TYPE_BYTE_GRAY);
 
-	ImageAWT.writeToStream(resultingImage, zip, "png", BufferedImage.TYPE_BYTE_GRAY);
+		File testFile = outputFile.parent().child(outputFile.getName() + ".png");
+		ImageAWT.writeToFile(resultingImage, testFile, "png", BufferedImage.TYPE_BYTE_GRAY);
 
-	File testFile = outputFile.parent().child(outputFile.getName() + ".png");
-	ImageAWT.writeToFile(resultingImage, testFile, "png", BufferedImage.TYPE_BYTE_GRAY);
+		zip.flush();
+		zip.close();
+		fileStream.flush();
+		fileStream.close();
 
-	zip.flush();
-	zip.close();
-	fileStream.flush();
-	fileStream.close();
+		restoreCheck(outputFile);
 
-	restoreCheck(outputFile);
+	}
 
-    }
-
-    private static void restoreCheck(File outputFile) throws IOException {
-	File restoredFile = outputFile.parent().child(outputFile.getName() + "-restored.png");
-	FileInputStream fileStream = outputFile.newInputStream();
-	GZipInputStream zip = IO.newGZipStream(fileStream);
-	BufferedImage restoredImage = ImageAWT.readFromStream(zip);
-	fileStream.close();
-	zip.close();
-	ImageAWT.writeToFile(restoredImage, restoredFile, "png", BufferedImage.TYPE_BYTE_GRAY);
-    }
+	private static void restoreCheck (File outputFile) throws IOException {
+		File restoredFile = outputFile.parent().child(outputFile.getName() + "-restored.png");
+		FileInputStream fileStream = outputFile.newInputStream();
+		GZipInputStream zip = IO.newGZipStream(fileStream);
+		BufferedImage restoredImage = ImageAWT.readFromStream(zip);
+		fileStream.close();
+		zip.close();
+		ImageAWT.writeToFile(restoredImage, restoredFile, "png", BufferedImage.TYPE_BYTE_GRAY);
+	}
 
 }

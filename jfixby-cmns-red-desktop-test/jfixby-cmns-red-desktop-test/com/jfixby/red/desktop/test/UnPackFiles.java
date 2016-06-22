@@ -1,3 +1,4 @@
+
 package com.jfixby.red.desktop.test;
 
 import java.io.IOException;
@@ -15,7 +16,7 @@ import com.jfixby.red.filesystem.archived.RedFileSystemPacker;
 
 public class UnPackFiles {
 
-	public static void main(String[] args) throws IOException {
+	public static void main (String[] args) throws IOException {
 
 		DesktopSetup.deploy();
 		Json.installComponent(new RedJson());

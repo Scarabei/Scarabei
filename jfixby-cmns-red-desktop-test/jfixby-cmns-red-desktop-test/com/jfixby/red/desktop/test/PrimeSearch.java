@@ -1,3 +1,4 @@
+
 package com.jfixby.red.desktop.test;
 
 import com.jfixby.cmns.api.log.L;
@@ -5,7 +6,7 @@ import com.jfixby.red.desktop.DesktopSetup;
 
 public class PrimeSearch {
 
-	static final public void main(String[] args) {
+	static final public void main (String[] args) {
 		DesktopSetup.deploy();
 		long N = 1000;
 
@@ -21,7 +22,7 @@ public class PrimeSearch {
 				prime++;
 				long val = 2 * i;
 				for (long k = 2; val < N;) {
-					array.set((int) val, NOT_PRIME);
+					array.set((int)val, NOT_PRIME);
 					k++;
 					val = i * k;
 				}

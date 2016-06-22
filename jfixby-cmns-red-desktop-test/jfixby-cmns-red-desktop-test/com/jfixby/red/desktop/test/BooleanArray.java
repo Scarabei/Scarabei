@@ -1,5 +1,5 @@
-package com.jfixby.red.desktop.test;
 
+package com.jfixby.red.desktop.test;
 
 public class BooleanArray {
 
@@ -8,25 +8,25 @@ public class BooleanArray {
 	private int actual_size;
 	private int size;
 
-	public BooleanArray(long n) {
-		size = (int) n;
-		actual_size = 1 + (int) (n / SECTION_SIZE);
+	public BooleanArray (long n) {
+		size = (int)n;
+		actual_size = 1 + (int)(n / SECTION_SIZE);
 		array = new int[actual_size];
 	}
 
-	public boolean get(int i) {
+	public boolean get (int i) {
 		final int k = i / SECTION_SIZE;
 		final int offset = i % SECTION_SIZE;
 
 		final int val = array[k];
 
-		final int result = (int) ((val >> offset) & 0x1);
+		final int result = (int)((val >> offset) & 0x1);
 
-//		L.d("get", Integer.toBinaryString(array[k]));
+// L.d("get", Integer.toBinaryString(array[k]));
 		return result == 1;
 	}
 
-	public void set(int i, boolean flag) {
+	public void set (int i, boolean flag) {
 		int bit = 1;
 		if (!flag) {
 			bit = 0;
@@ -35,15 +35,15 @@ public class BooleanArray {
 		final int offset = i % SECTION_SIZE;
 		final int val = array[k];
 		final int app = (bit << offset);
-//		L.d("app " + i, Integer.toBinaryString(app));
+// L.d("app " + i, Integer.toBinaryString(app));
 		final int result = app | val;
 		array[k] = result;
-//		L.d("set " + i, Integer.toBinaryString(array[k]));
+// L.d("set " + i, Integer.toBinaryString(array[k]));
 	}
 
 	@Override
-	public String toString() {
-		StringBuilder  buffer = new StringBuilder ();
+	public String toString () {
+		StringBuilder buffer = new StringBuilder();
 
 		buffer.append("[");
 		// for (int i = 0; i < this.size; i++) {

@@ -1,3 +1,4 @@
+
 package com.jfixby.red.desktop.test;
 
 import com.jfixby.cmns.api.log.L;
@@ -7,7 +8,7 @@ import com.jfixby.red.desktop.DesktopSetup;
 
 public class TestFloatMathLog {
 
-	public static void main(String[] args) {
+	public static void main (String[] args) {
 		DesktopSetup.deploy();
 		{
 			long value = IntegerMath.power(2L, 10);

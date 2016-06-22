@@ -1,3 +1,4 @@
+
 package com.jfixby.red.desktop.test;
 
 import java.io.IOException;
@@ -8,7 +9,7 @@ import com.jfixby.red.desktop.DesktopSetup;
 
 public class GenFile {
 
-	public static void main(String[] args) throws IOException {
+	public static void main (String[] args) throws IOException {
 		DesktopSetup.deploy();
 		File test_file = LocalFileSystem.ApplicationHome().child("testFile.101M");
 		test_file.writeBytes(new byte[1024 * 1024 * 101]);
