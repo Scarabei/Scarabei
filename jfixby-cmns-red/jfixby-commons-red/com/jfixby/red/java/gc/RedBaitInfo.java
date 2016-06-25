@@ -16,7 +16,7 @@ public class RedBaitInfo implements BaitInfo {
 	}
 
 	private final long timestamp;
-	private final long bait_id;
+	private final String bait_id;
 	private final long size;
 	private final boolean isReinforcable;
 
@@ -25,6 +25,7 @@ public class RedBaitInfo implements BaitInfo {
 		this.bait_id = redBait.bait_id;
 		this.size = redBait.size;
 		this.isReinforcable = redBait.isReinforcable;
+
 	}
 
 	@Override

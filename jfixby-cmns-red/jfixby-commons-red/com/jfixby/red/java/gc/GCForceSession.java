@@ -1,0 +1,91 @@
+
+package com.jfixby.red.java.gc;
+
+import com.jfixby.cmns.api.collections.Collections;
+import com.jfixby.cmns.api.collections.List;
+import com.jfixby.cmns.api.java.gc.BaitInfo;
+import com.jfixby.cmns.api.log.L;
+import com.jfixby.cmns.api.util.JUtils;
+import com.jfixby.cmns.api.util.StateSwitcher;
+
+public class GCForceSession {
+	long session_id;
+
+	private final long timestamp;
+
+	public GCForceSession () {
+		super();
+		this.timestamp = System.currentTimeMillis();
+		this.session_id = this.ID();
+	}
+
+	static long freeSessionID = -1;
+
+	private long ID () {
+		freeSessionID++;
+		return freeSessionID;
+	}
+
+	public StateSwitcher<GCForceSessionState> state = JUtils.newStateSwitcher(GCForceSessionState.NEW);
+	final List<RedBaitInfo> activeBaits = Collections.newList();
+
+	private long thrown;
+	private long collected;
+
+	public void begin () {
+		this.state.expectState(GCForceSessionState.NEW);
+		this.state.switchState(GCForceSessionState.ACTIVE);
+		L.d("Open GC-session", this.session_id);
+	}
+
+	public boolean isActive () {
+		return this.state.stateIs(GCForceSessionState.ACTIVE);
+	}
+
+	public void onCapture (final BaitInfo bait) {
+		if (!this.activeBaits.contains(bait)) {
+			L.e("Alien bait", bait);
+			return;
+		}
+		this.activeBaits.remove(bait);
+		this.collected++;
+
+		final String message = "[CAPTURE] " + bait + " Left: " + this.onAir();
+		L.d("", message);
+
+	}
+
+	private long onAir () {
+		return this.activeBaits.size();
+	}
+
+// if (this.activeBaits.size() == 0) {
+// this.state.expectState(GCForceSessionState.ACTIVE);
+// this.state.switchState(GCForceSessionState.CLOSED);
+// L.d("Close GC-session", this.session_id);
+// }
+	long free_bait_id = -1;
+
+	public RedBaitInfo push (final long size_in_bytes, final boolean isReinforcable) {
+		this.state.expectState(GCForceSessionState.ACTIVE);
+		if (this.state.stateIs(GCForceSessionState.ACTIVE)) {
+			return this.throwBait(size_in_bytes, isReinforcable);
+		}
+		return null;
+	}
+
+	RedBaitInfo throwBait (final long size_in_bytes, final boolean isReinforcable) {
+		this.free_bait_id++;
+		final RedBait bait = new RedBait(this.session_id + ":" + this.free_bait_id, size_in_bytes, isReinforcable);
+		final RedBaitInfo info = bait.getInfo();
+		this.thrown++;
+		this.activeBaits.add(info);
+
+		final String message = "[THROW] " + info + " On Air: " + this.onAir();
+		L.d("", message);
+
+		return info;
+
+	}
+
+}

@@ -11,23 +11,19 @@ public class RedBait implements Bait {
 
 	@Override
 	protected void finalize () throws Throwable {
-
 		super.finalize();
-		GCFisher.onBaitCaptured(this.info);
-
+		GCFisher.invoke().onBaitCapturedByGC(this.info);
 	}
 
-	final long bait_id;
+	final String bait_id;
 	final long timestamp;
 	private final RedBaitInfo info;
 	long size;
-	private final long delayPeriod;
 	final boolean isReinforcable;
 
-	public RedBait (final long bait_id, final long size_in_bytes, final long delayPeriod, final boolean isReinforcable) {
+	public RedBait (final String bait_id, final long size_in_bytes, final boolean isReinforcable) {
 		this.bait_id = bait_id;
 		this.isReinforcable = isReinforcable;
-		this.delayPeriod = delayPeriod;
 		this.timestamp = Sys.SystemTime().currentTimeMillis();
 		this.size = (int)size_in_bytes;
 		if (this.size < 0) {
@@ -35,6 +31,7 @@ public class RedBait implements Bait {
 		}
 		this.info = new RedBaitInfo(this);
 		this.weight = new byte[(int)this.size];
+
 	}
 
 	@Override

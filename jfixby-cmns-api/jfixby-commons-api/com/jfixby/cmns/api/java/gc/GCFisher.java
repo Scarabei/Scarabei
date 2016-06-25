@@ -25,16 +25,8 @@ public class GCFisher {
 		return componentInstaller.getComponent();
 	}
 
-	public static void onBaitCaptured (final BaitInfo bait) {
-		invoke().onBaitCaptured(bait);
-	}
-
 	public static BaitInfo throwBait (final long size_in_bytes, final boolean isReinforcable) {
 		return invoke().throwBait(size_in_bytes, isReinforcable);
-	}
-
-	public static void setGCDelay (final long delayPeriod) {
-		invoke().setGCDelay(delayPeriod);
 	}
 
 	public static void forceGC (final long bait_size_in_bytes) {
