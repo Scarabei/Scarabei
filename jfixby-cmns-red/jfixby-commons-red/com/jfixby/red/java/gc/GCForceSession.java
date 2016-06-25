@@ -38,18 +38,19 @@ public class GCForceSession {
 		L.d("Open GC-session", this.session_id);
 	}
 
-	public boolean isActive () {
-		return this.state.stateIs(GCForceSessionState.ACTIVE);
-	}
+	long lastCapture = -1;
+
+	private boolean GCCallDetected = false;
 
 	public void onCapture (final BaitInfo bait) {
+		this.GCCallDetected = true;
 		if (!this.activeBaits.contains(bait)) {
 			L.e("Alien bait", bait);
 			return;
 		}
 		this.activeBaits.remove(bait);
 		this.collected++;
-
+		this.lastCapture = System.currentTimeMillis();
 		final String message = "[CAPTURE] " + bait + " Left: " + this.onAir();
 		L.d("", message);
 
@@ -59,22 +60,23 @@ public class GCForceSession {
 		return this.activeBaits.size();
 	}
 
-// if (this.activeBaits.size() == 0) {
-// this.state.expectState(GCForceSessionState.ACTIVE);
-// this.state.switchState(GCForceSessionState.CLOSED);
-// L.d("Close GC-session", this.session_id);
-// }
 	long free_bait_id = -1;
 
-	public RedBaitInfo push (final long size_in_bytes, final boolean isReinforcable) {
+	public boolean push (final long size_in_bytes, final boolean isReinforcable) {
 		this.state.expectState(GCForceSessionState.ACTIVE);
-		if (this.state.stateIs(GCForceSessionState.ACTIVE)) {
-			return this.throwBait(size_in_bytes, isReinforcable);
+		if (this.GCCallDetected) {
+			return false;
+		} else {
+			this.throwBait(size_in_bytes, isReinforcable);
+			return true;
 		}
-		return null;
 	}
 
-	RedBaitInfo throwBait (final long size_in_bytes, final boolean isReinforcable) {
+	final RedBaitInfo throwBait (final long size_in_bytes, final boolean isReinforcable) {
+		// final long DEFAULT_BAIT_SIZE = SystemSettings.getLongParameter(GCFisher.DefaultBaitSize);
+		// return this.throwBait(DEFAULT_BAIT_SIZE);
+
+		this.state.expectState(GCForceSessionState.ACTIVE);
 		this.free_bait_id++;
 		final RedBait bait = new RedBait(this.session_id + ":" + this.free_bait_id, size_in_bytes, isReinforcable);
 		final RedBaitInfo info = bait.getInfo();
@@ -86,6 +88,12 @@ public class GCForceSession {
 
 		return info;
 
+	}
+
+	public void end () {
+		this.state.expectState(GCForceSessionState.ACTIVE);
+		this.state.switchState(GCForceSessionState.CLOSED);
+		L.d("Close GC-session", this.session_id);
 	}
 
 }

@@ -16,8 +16,8 @@ public class GCFisherTest {
 		{
 // final Object o = new byte[1024 * 1024];
 		}
-		GCFisher.forceGC(GCFisher.MB * 10);
-		GCFisher.forceGC(GCFisher.MB * 10);
+		GCFisher.forceGC(1);
+
 		final MemoryStatistics after = GCFisher.getMemoryStatistics();
 		after.print("after");
 
