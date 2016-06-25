@@ -13,7 +13,7 @@ import com.jfixby.cmns.api.util.StateSwitcher;
 
 public class RedTask implements Task {
 
-	private List<Job> jobs = Collections.newList();
+	private final List<Job> jobs = Collections.newList();
 	// private List<String> names = JUtils.newList();
 
 	// private void listNames() {
@@ -25,31 +25,31 @@ public class RedTask implements Task {
 
 	int job_to_do = -1;
 
-	private StateSwitcher<TASK_STATE> switcher;
+	private final StateSwitcher<TASK_STATE> switcher;
 	private String name;
 
 	@Override
 	public String toString () {
-		return "Task[" + name + "]";
+		return "Task[" + this.name + "]";
 	}
 
 	// private String job_name() {
 	// return this.names.toString();
 	// }
 
-	public RedTask (String name, Job job) {
-		jobs.add(job);
-		switcher = JUtils.newStateSwitcher(TASK_STATE.ACTIVE);
+	public RedTask (final String name, final Job job) {
+		this.jobs.add(job);
+		this.switcher = JUtils.newStateSwitcher(TASK_STATE.ACTIVE);
 		// listNames();
 	}
 
-	public RedTask (String name, Collection<Job> jobs) {
+	public RedTask (final String name, final Collection<Job> jobs) {
 		this.name = name;
 		if (name == null) {
 			this.name = super.toString();
 		}
 		this.jobs.addAll(jobs);
-		switcher = JUtils.newStateSwitcher(TASK_STATE.ACTIVE);
+		this.switcher = JUtils.newStateSwitcher(TASK_STATE.ACTIVE);
 		// listNames();
 	}
 
@@ -57,7 +57,7 @@ public class RedTask implements Task {
 	Job current_job;
 
 	public void push () {
-		switcher.expectState(TASK_STATE.ACTIVE);
+		this.switcher.expectState(TASK_STATE.ACTIVE);
 		if (this.job_to_do == -1) {
 			this.job_to_do++;
 			this.first_call = true;
@@ -68,18 +68,18 @@ public class RedTask implements Task {
 			try {
 				this.current_job.doStart();
 				this.first_call = false;
-			} catch (Throwable e) {
+			} catch (final Throwable e) {
 				e.printStackTrace();
-				switcher.switchState(TASK_STATE.FAILED);
+				this.switcher.switchState(TASK_STATE.FAILED);
 				return;
 			}
 		}
 
 		try {
-			this.current_job.doDo();
-		} catch (Throwable e) {
+			this.current_job.doPush();
+		} catch (final Throwable e) {
 			Err.reportError(e);
-			switcher.switchState(TASK_STATE.FAILED);
+			this.switcher.switchState(TASK_STATE.FAILED);
 			return;
 		}
 
@@ -89,7 +89,7 @@ public class RedTask implements Task {
 		}
 		if (this.job_to_do >= this.jobs.size()) {
 			// L.d("task done", this);
-			switcher.switchState(TASK_STATE.SUCCESSFULLY_COMPLETED);
+			this.switcher.switchState(TASK_STATE.SUCCESSFULLY_COMPLETED);
 			return;
 		}
 
@@ -97,22 +97,22 @@ public class RedTask implements Task {
 
 	@Override
 	public boolean isActive () {
-		return switcher.currentState() == TASK_STATE.ACTIVE;
+		return this.switcher.currentState() == TASK_STATE.ACTIVE;
 	}
 
 	@Override
 	public boolean isFailed () {
-		return switcher.currentState() == TASK_STATE.FAILED;
+		return this.switcher.currentState() == TASK_STATE.FAILED;
 	}
 
 	@Override
 	public boolean isSuccessfullyCompleted () {
-		return switcher.currentState() == TASK_STATE.SUCCESSFULLY_COMPLETED;
+		return this.switcher.currentState() == TASK_STATE.SUCCESSFULLY_COMPLETED;
 	}
 
 	@Override
 	public TASK_STATE getState () {
-		return switcher.currentState();
+		return this.switcher.currentState();
 	}
 
 }

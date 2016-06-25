@@ -142,8 +142,15 @@ public abstract class AbstractRedFile implements File {
 
 	@Override
 	public String getExtension () {
+		if (this.isFolder()) {
+			return null;
+		}
 		final String name = this.getName().toLowerCase();
-		final String ext = name.substring(name.lastIndexOf('.'));
+		final int index = name.lastIndexOf('.');
+		if (index < 0) {
+			return null;
+		}
+		final String ext = name.substring(index + 1);
 		return ext;
 	}
 
