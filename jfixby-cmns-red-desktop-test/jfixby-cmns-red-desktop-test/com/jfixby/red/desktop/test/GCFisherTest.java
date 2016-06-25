@@ -12,11 +12,10 @@ public class GCFisherTest {
 		DesktopSetup.deploy();
 		final MemoryStatistics before = GCFisher.getMemoryStatistics();
 		before.print("before");
-
-		{
-// final Object o = new byte[1024 * 1024];
+		for (int i = 0; i < 10; i++) {
+			final Object o = new byte[1024 * 1024];
 		}
-		GCFisher.forceGC(1);
+		GCFisher.forceGC(GCFisher.MB / 10);
 
 		final MemoryStatistics after = GCFisher.getMemoryStatistics();
 		after.print("after");

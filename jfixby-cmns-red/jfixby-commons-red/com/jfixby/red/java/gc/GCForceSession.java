@@ -35,7 +35,7 @@ public class GCForceSession {
 	public void begin () {
 		this.state.expectState(GCForceSessionState.NEW);
 		this.state.switchState(GCForceSessionState.ACTIVE);
-		L.d("Open GC-session", this.session_id);
+// L.d("Open GC-session", this.session_id);
 	}
 
 	long lastCapture = -1;
@@ -52,7 +52,7 @@ public class GCForceSession {
 		this.collected++;
 		this.lastCapture = System.currentTimeMillis();
 		final String message = "[CAPTURE] " + bait + " Left: " + this.onAir();
-		L.d("", message);
+// L.d("", message);
 
 	}
 
@@ -64,6 +64,7 @@ public class GCForceSession {
 
 	public boolean push (final long size_in_bytes, final boolean isReinforcable) {
 		this.state.expectState(GCForceSessionState.ACTIVE);
+
 		if (this.GCCallDetected) {
 			return false;
 		} else {
@@ -84,7 +85,7 @@ public class GCForceSession {
 		this.activeBaits.add(info);
 
 		final String message = "[THROW] " + info + " On Air: " + this.onAir();
-		L.d("", message);
+// L.d("", message);
 
 		return info;
 
@@ -93,7 +94,7 @@ public class GCForceSession {
 	public void end () {
 		this.state.expectState(GCForceSessionState.ACTIVE);
 		this.state.switchState(GCForceSessionState.CLOSED);
-		L.d("Close GC-session", this.session_id);
+// L.d("Close GC-session", this.session_id);
 	}
 
 }
