@@ -17,12 +17,12 @@ public class RedBaitInfo implements BaitInfo {
 
 	private final long timestamp;
 	private final long bait_id;
-	private final int size;
+	private final long size;
 
 	public RedBaitInfo (final RedBait redBait) {
 		this.timestamp = redBait.timestamp;
 		this.bait_id = redBait.bait_id;
-		this.size = redBait.BAIT_SIZE;
+		this.size = redBait.getSize();
 	}
 
 }

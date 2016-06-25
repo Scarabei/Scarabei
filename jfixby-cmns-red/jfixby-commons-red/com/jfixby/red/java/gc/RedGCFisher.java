@@ -7,7 +7,6 @@ import com.jfixby.cmns.api.java.gc.BaitInfo;
 import com.jfixby.cmns.api.java.gc.GCFisher;
 import com.jfixby.cmns.api.java.gc.GCFisherComponent;
 import com.jfixby.cmns.api.log.L;
-import com.jfixby.cmns.api.sys.settings.SystemSettings;
 
 public class RedGCFisher implements GCFisherComponent {
 
@@ -15,11 +14,14 @@ public class RedGCFisher implements GCFisherComponent {
 	private long delayPeriod;
 
 	@Override
-	synchronized public BaitInfo throwBait (final long size_in_bytes) {
+	synchronized public BaitInfo throwBait (final long size_in_bytes, final boolean isReinforcable) {
 		bait_id++;
-		final RedBait bait = new RedBait(bait_id, size_in_bytes, this.delayPeriod);
+		final RedBait bait = new RedBait(bait_id, size_in_bytes, this.delayPeriod, isReinforcable);
 		final RedBaitInfo info = bait.getInfo();
 		return info;
+
+// final long DEFAULT_BAIT_SIZE = SystemSettings.getLongParameter(GCFisher.DefaultBaitSize);
+// return this.throwBait(DEFAULT_BAIT_SIZE);
 	}
 
 	long delta;
@@ -43,15 +45,9 @@ public class RedGCFisher implements GCFisherComponent {
 				e.printStackTrace();
 			}
 		}
-
-		GCFisher.throwBait();
-	}
-
-	@Override
-	public BaitInfo throwBait () {
-
-		final long DEFAULT_BAIT_SIZE = SystemSettings.getLongParameter(GCFisher.DefaultBaitSize);
-		return this.throwBait(DEFAULT_BAIT_SIZE);
+		if (bait.isReinforcable()) {
+			GCFisher.throwBait(bait.getSize(), bait.isReinforcable());
+		}
 	}
 
 	private int parse (final String config_line) {
@@ -67,6 +63,10 @@ public class RedGCFisher implements GCFisherComponent {
 	@Override
 	public void setGCDelay (final long delayPeriod) {
 		this.delayPeriod = delayPeriod;
+	}
+
+	@Override
+	public void forceGC () {
 	}
 
 }

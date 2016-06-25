@@ -5,4 +5,8 @@ public interface Bait {
 
 	BaitInfo getInfo ();
 
+	boolean isReinforcable ();
+
+	long getSize ();
+
 }

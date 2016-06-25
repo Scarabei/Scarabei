@@ -28,16 +28,16 @@ public class GCFisher {
 		invoke().onBaitCaptured(bait);
 	}
 
-	public static BaitInfo throwBait (final long size_in_bytes) {
-		return invoke().throwBait(size_in_bytes);
-	}
-
-	public static BaitInfo throwBait () {
-		return invoke().throwBait();
+	public static BaitInfo throwBait (final long size_in_bytes, final boolean isReinforcable) {
+		return invoke().throwBait(size_in_bytes, isReinforcable);
 	}
 
 	public static void setGCDelay (final long delayPeriod) {
 		invoke().setGCDelay(delayPeriod);
+	}
+
+	public static void forceGC () {
+		invoke().forceGC();
 	}
 
 }
