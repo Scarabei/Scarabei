@@ -13,7 +13,7 @@ public class RedBait implements Bait {
 	protected void finalize () throws Throwable {
 
 		super.finalize();
-		GCFisher.onBaitCaptured(this);
+		GCFisher.onBaitCaptured(this.info);
 
 	}
 
@@ -22,7 +22,7 @@ public class RedBait implements Bait {
 	private final RedBaitInfo info;
 	long size;
 	private final long delayPeriod;
-	private final boolean isReinforcable;
+	final boolean isReinforcable;
 
 	public RedBait (final long bait_id, final long size_in_bytes, final long delayPeriod, final boolean isReinforcable) {
 		this.bait_id = bait_id;
@@ -40,16 +40,6 @@ public class RedBait implements Bait {
 	@Override
 	public RedBaitInfo getInfo () {
 		return this.info;
-	}
-
-	@Override
-	public boolean isReinforcable () {
-		return this.isReinforcable;
-	}
-
-	@Override
-	public long getSize () {
-		return this.size;
 	}
 
 }

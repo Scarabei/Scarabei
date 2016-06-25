@@ -14,6 +14,7 @@ import com.jfixby.cmns.api.geometry.Geometry;
 import com.jfixby.cmns.api.graphs.Graphs;
 import com.jfixby.cmns.api.image.ImageProcessing;
 import com.jfixby.cmns.api.io.IO;
+import com.jfixby.cmns.api.java.gc.GCFisher;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.math.FloatMath;
 import com.jfixby.cmns.api.math.IntegerMath;
@@ -38,6 +39,7 @@ import com.jfixby.red.geometry.RedGeometry;
 import com.jfixby.red.graphs.RedGraphs;
 import com.jfixby.red.image.RedImageProcessing;
 import com.jfixby.red.io.RedIO;
+import com.jfixby.red.java.gc.RedGCFisher;
 import com.jfixby.red.math.RedAngles;
 import com.jfixby.red.math.RedIntegerMath;
 import com.jfixby.red.math.RedMathTools;
@@ -66,7 +68,7 @@ public class DesktopSetup {
 		MathTools.installComponent(new RedMathTools());
 		Err.installComponent(new RedError());
 		Debug.installComponent(new RedDebug());
-
+		GCFisher.installComponent(new RedGCFisher());
 		// --
 
 		LocalFileSystem.installComponent(new WinFileSystem());
