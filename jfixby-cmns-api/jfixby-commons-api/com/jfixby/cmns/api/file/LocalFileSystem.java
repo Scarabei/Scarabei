@@ -87,4 +87,8 @@ public class LocalFileSystem {
 		return invoke().ROOT();
 	}
 
+	public static void copyFileToFile (final File inputFile, final File outputFile) throws IOException {
+		invoke().copyFileToFile(inputFile, outputFile);
+	}
+
 }

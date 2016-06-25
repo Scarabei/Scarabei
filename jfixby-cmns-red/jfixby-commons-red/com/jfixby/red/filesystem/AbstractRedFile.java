@@ -155,9 +155,10 @@ public abstract class AbstractRedFile implements File {
 	}
 
 	@Override
-	public void copyTo (final String newFileName) throws IOException {
+	public File copyTo (final String newFileName) throws IOException {
 		final File outputFile = this.parent().child(Debug.checkNull("newFileName", newFileName));
 		this.getFileSystem().copyFileToFile(this, outputFile);
+		return outputFile;
 	}
 
 }
