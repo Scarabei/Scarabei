@@ -7,8 +7,8 @@ import com.jfixby.red.io.AbstractRedOutputStream;
 public class InMemoryFileOutputStream extends AbstractRedOutputStream<RedInMemoryFileOutputStreamOperator>
 	implements FileOutputStream {
 
-	public InMemoryFileOutputStream (final InMemoryFile output_file) {
-		super(new RedInMemoryFileOutputStreamOperator(output_file));
+	public InMemoryFileOutputStream (final InMemoryFile output_file, final boolean append) {
+		super(new RedInMemoryFileOutputStreamOperator(output_file, append));
 	}
 
 }

@@ -47,7 +47,18 @@ public class RedSandboxFileSystem extends AbstractFileSystem implements FileSyst
 		if (output_file.getFileSystem() != this) {
 			throw new Error("Output file does not belong to this filesystem: " + output_file);
 		}
-		return output_file.newOutputStream();
+		return output_file.newOutputStream(false);
+	}
+
+	@Override
+	public FileOutputStream newFileOutputStream (final File output_file, final boolean append) {
+		if (output_file == null) {
+			throw new Error("Output file is null.");
+		}
+		if (output_file.getFileSystem() != this) {
+			throw new Error("Output file does not belong to this filesystem: " + output_file);
+		}
+		return output_file.newOutputStream(append);
 	}
 
 	@Override

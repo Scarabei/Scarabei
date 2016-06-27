@@ -49,6 +49,7 @@ public class AbstractRedOutputStream<T extends JavaOutputStreamOperator> impleme
 	public void open () {
 		this.state.expectState(STREAM_STATE.CLOSED);
 		this.state.switchState(STREAM_STATE.OPEN);
+
 	}
 
 	@Override

@@ -15,10 +15,13 @@ public class RedRMIFileOutputStreamOperator implements JavaOutputStreamOperator 
 	final RMIDataContainer rmiDataContainer;
 	private final java.util.List<String> relativePath;
 	private BufferOutputStream os;
+	private final boolean append;
 
-	public RedRMIFileOutputStreamOperator (final RMIDataContainer rmiDataContainer, final RelativePath relativePath) {
+	public RedRMIFileOutputStreamOperator (final RMIDataContainer rmiDataContainer, final RelativePath relativePath,
+		final boolean append) {
 		this.rmiDataContainer = rmiDataContainer;
 		this.relativePath = relativePath.steps().toJavaList();
+		this.append = append;
 
 	}
 
@@ -28,7 +31,7 @@ public class RedRMIFileOutputStreamOperator implements JavaOutputStreamOperator 
 		final ByteArray data = this.os.getBytes();
 		try {
 
-			this.rmiDataContainer.lookup().writeDataToFile(this.relativePath, data);
+			this.rmiDataContainer.lookup().writeDataToFile(this.relativePath, data, this.append);
 		} catch (final Exception e) {
 			e.printStackTrace();
 		}

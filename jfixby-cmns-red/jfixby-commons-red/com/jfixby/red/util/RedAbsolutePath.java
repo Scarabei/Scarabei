@@ -13,30 +13,44 @@ class RedAbsolutePath<T extends MountPoint> implements AbsolutePath<T> {
 	public int hashCode () {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((mount_point == null) ? 0 : mount_point.hashCode());
-		result = prime * result + ((relative == null) ? 0 : relative.hashCode());
+		result = prime * result + ((this.mount_point == null) ? 0 : this.mount_point.hashCode());
+		result = prime * result + ((this.relative == null) ? 0 : this.relative.hashCode());
 		return result;
 	}
 
 	@Override
-	public boolean equals (Object obj) {
-		if (this == obj) return true;
-		if (obj == null) return false;
-		if (getClass() != obj.getClass()) return false;
-		RedAbsolutePath<?> other = (RedAbsolutePath<?>)obj;
-		if (mount_point == null) {
-			if (other.mount_point != null) return false;
-		} else if (!mount_point.equals(other.mount_point)) return false;
-		if (relative == null) {
-			if (other.relative != null) return false;
-		} else if (!relative.equals(other.relative)) return false;
+	public boolean equals (final Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (this.getClass() != obj.getClass()) {
+			return false;
+		}
+		final RedAbsolutePath<?> other = (RedAbsolutePath<?>)obj;
+		if (this.mount_point == null) {
+			if (other.mount_point != null) {
+				return false;
+			}
+		} else if (!this.mount_point.equals(other.mount_point)) {
+			return false;
+		}
+		if (this.relative == null) {
+			if (other.relative != null) {
+				return false;
+			}
+		} else if (!this.relative.equals(other.relative)) {
+			return false;
+		}
 		return true;
 	}
 
-	private T mount_point;
-	private RedRelativePath relative;
+	private final T mount_point;
+	private final RedRelativePath relative;
 
-	public RedAbsolutePath (T mount_point, RelativePath relative) {
+	public RedAbsolutePath (final T mount_point, final RelativePath relative) {
 		this.mount_point = mount_point;
 		this.relative = (RedRelativePath)relative;
 		if (mount_point == null) {
@@ -49,7 +63,7 @@ class RedAbsolutePath<T extends MountPoint> implements AbsolutePath<T> {
 
 	@Override
 	public T getMountPoint () {
-		return mount_point;
+		return this.mount_point;
 	}
 
 	@Override
@@ -59,7 +73,7 @@ class RedAbsolutePath<T extends MountPoint> implements AbsolutePath<T> {
 
 	@Override
 	public String getName () {
-		List<String> steps = this.relative.stepsList();
+		final List<String> steps = this.relative.stepsList();
 		if (steps.size() == 0) {
 			throw new Error("This is root!");
 		}
@@ -67,9 +81,10 @@ class RedAbsolutePath<T extends MountPoint> implements AbsolutePath<T> {
 	}
 
 	@Override
-	public AbsolutePath<T> child (String child_name) {
-		RelativePath child_relative = JUtils.newRelativePath(relative.getPathString() + RelativePath.SEPARATOR + child_name);
-		AbsolutePath<T> result = JUtils.newAbsolutePath(mount_point, child_relative);
+	public AbsolutePath<T> child (final String child_name) {
+		final RelativePath child_relative = JUtils
+			.newRelativePath(this.relative.getPathString() + RelativePath.SEPARATOR + child_name);
+		final AbsolutePath<T> result = JUtils.newAbsolutePath(this.mount_point, child_relative);
 		return result;
 	}
 
@@ -80,19 +95,27 @@ class RedAbsolutePath<T extends MountPoint> implements AbsolutePath<T> {
 
 	@Override
 	public AbsolutePath<T> parent () {
-		RelativePath parent = this.relative.parent();
-		AbsolutePath<T> result = JUtils.newAbsolutePath(mount_point, parent);
+		final RelativePath parent = this.relative.parent();
+		final AbsolutePath<T> result = JUtils.newAbsolutePath(this.mount_point, parent);
 		return result;
 	}
 
 	@Override
-	public AbsolutePath<T> proceed (RelativePath relative) {
-		RelativePath incremented = this.relative.proceed(relative);
-		return JUtils.newAbsolutePath(mount_point, incremented);
+	public AbsolutePath<T> proceed (final RelativePath relative) {
+		final RelativePath incremented = this.relative.proceed(relative);
+		return JUtils.newAbsolutePath(this.mount_point, incremented);
 	}
 
 	@Override
 	public boolean isRoot () {
 		return this.relative.isRoot();
+	}
+
+	@Override
+	public boolean beginsWith (final AbsolutePath<? extends T> other) {
+		if (!this.mount_point.equals(other.getMountPoint())) {
+			return false;
+		}
+		return this.relative.beginsWith(other.getRelativePath());
 	}
 }

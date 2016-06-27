@@ -7,8 +7,8 @@ import com.jfixby.red.io.AbstractRedOutputStream;
 
 public class RMIFileOutputStream extends AbstractRedOutputStream<RedRMIFileOutputStreamOperator> implements FileOutputStream {
 
-	public RMIFileOutputStream (final RMIDataContainer rmiDataContainer, final RelativePath relativePath) {
-		super(new RedRMIFileOutputStreamOperator(rmiDataContainer, relativePath));
+	public RMIFileOutputStream (final RMIDataContainer rmiDataContainer, final RelativePath relativePath, final boolean append) {
+		super(new RedRMIFileOutputStreamOperator(rmiDataContainer, relativePath, append));
 	}
 
 }

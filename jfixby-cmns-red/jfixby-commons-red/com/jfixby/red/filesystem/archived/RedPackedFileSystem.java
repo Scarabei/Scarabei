@@ -37,6 +37,11 @@ public class RedPackedFileSystem extends AbstractFileSystem implements FileSyste
 	}
 
 	@Override
+	public FileOutputStream newFileOutputStream (final File output_file, final boolean append) {
+		throw new Error("Not supported (yet?)");
+	}
+
+	@Override
 	public FileInputStream newFileInputStream (final File input_file) {
 		throw new Error("Not supported (yet?)");
 // final PackedFile v_file = (PackedFile)input_file;

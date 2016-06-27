@@ -50,6 +50,8 @@ public interface File {
 
 	FileOutputStream newOutputStream ();
 
+	FileOutputStream newOutputStream (boolean append);
+
 	String readToString () throws IOException;
 
 	String readToString (String encoding) throws IOException;
@@ -57,6 +59,8 @@ public interface File {
 	ByteArray readBytes () throws IOException;
 
 	void writeBytes (ByteArray bytes) throws IOException;
+
+	void writeBytes (ByteArray bytes, boolean append) throws IOException;
 
 	void writeBytes (byte[] bytes) throws IOException;
 

@@ -11,10 +11,15 @@ import com.jfixby.red.io.JavaFileOutputStream;
 public abstract class AbstractLocalFileSystem extends AbstractFileSystem {
 
 	@Override
-	final public FileOutputStream newFileOutputStream (final File output_file) {
+	final public FileOutputStream newFileOutputStream (final File output_file, final boolean append) {
 		Debug.checkNull("File", output_file);
 		Debug.checkTrue("File belongs to this filesystem?", output_file.getFileSystem() == this);
 		return new JavaFileOutputStream(output_file.toJavaFile());
+	}
+
+	@Override
+	final public FileOutputStream newFileOutputStream (final File output_file) {
+		return this.newFileOutputStream(output_file, false);
 	}
 
 	@Override

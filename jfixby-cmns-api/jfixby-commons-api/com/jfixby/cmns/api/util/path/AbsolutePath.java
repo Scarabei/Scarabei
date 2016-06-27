@@ -17,4 +17,6 @@ public interface AbsolutePath<T extends MountPoint> {
 
 	public boolean isRoot ();
 
+	public boolean beginsWith (AbsolutePath<? extends T> rootPath);
+
 }

@@ -48,7 +48,20 @@ public class RMIFileSystem extends AbstractFileSystem implements FileSystem {
 		}
 		// return new RMIFileOutputStream((RMIFile) output_file);
 		final RMIFile v_file = (RMIFile)output_file;
-		return v_file.getOutputStream();
+		return v_file.getOutputStream(false);
+	}
+
+	@Override
+	public FileOutputStream newFileOutputStream (final File output_file, final boolean append) {
+		if (output_file == null) {
+			throw new Error("Output file is null.");
+		}
+		if (output_file.getFileSystem() != this) {
+			throw new Error("Output file does not belong to this filesystem: " + output_file);
+		}
+		// return new RMIFileOutputStream((RMIFile) output_file);
+		final RMIFile v_file = (RMIFile)output_file;
+		return v_file.getOutputStream(append);
 	}
 
 	@Override

@@ -108,8 +108,8 @@ public class RMIDataContainer extends RMIClient<RMIFilesDataContainer> {
 		return new RMIFileInputStream(this, relativePath);
 	}
 
-	public RMIFileOutputStream getOutputStream (final RelativePath relativePath) {
-		return new RMIFileOutputStream(this, relativePath);
+	public RMIFileOutputStream getOutputStream (final RelativePath relativePath, final boolean append) {
+		return new RMIFileOutputStream(this, relativePath, append);
 	}
 
 }

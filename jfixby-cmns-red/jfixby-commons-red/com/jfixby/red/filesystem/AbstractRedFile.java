@@ -19,6 +19,28 @@ import com.jfixby.cmns.api.util.path.AbsolutePath;
 import com.jfixby.cmns.api.util.path.RelativePath;
 
 public abstract class AbstractRedFile implements File {
+
+	@Override
+	public int hashCode () {
+		return this.getAbsoluteFilePath().hashCode();
+	}
+
+	@Override
+	public boolean equals (final Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (this.getClass() != obj.getClass()) {
+			return false;
+		}
+		final AbstractRedFile other = (AbstractRedFile)obj;
+
+		return this.getAbsoluteFilePath().equals(other.getAbsoluteFilePath());
+	}
+
 	@Override
 	public void checkIsFolder () {
 		this.checkExists();
@@ -93,7 +115,12 @@ public abstract class AbstractRedFile implements File {
 
 	@Override
 	public void writeBytes (final ByteArray bytes) throws IOException {
-		final FileOutputStream os = this.getFileSystem().newFileOutputStream(this);
+		this.writeBytes(bytes, false);
+	}
+
+	@Override
+	public void writeBytes (final ByteArray bytes, final boolean append) throws IOException {
+		final FileOutputStream os = this.getFileSystem().newFileOutputStream(this, append);
 		os.open();
 		os.write(bytes);
 		os.close();
@@ -138,6 +165,11 @@ public abstract class AbstractRedFile implements File {
 	@Override
 	public FileOutputStream newOutputStream () {
 		return this.getFileSystem().newFileOutputStream(this);
+	}
+
+	@Override
+	public FileOutputStream newOutputStream (final boolean append) {
+		return this.getFileSystem().newFileOutputStream(this, append);
 	}
 
 	@Override

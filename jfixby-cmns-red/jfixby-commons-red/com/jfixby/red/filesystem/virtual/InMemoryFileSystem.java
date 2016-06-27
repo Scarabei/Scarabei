@@ -33,7 +33,18 @@ public class InMemoryFileSystem extends AbstractFileSystem implements FileSystem
 		if (output_file.getFileSystem() != this) {
 			throw new Error("Output file does not belong to this filesystem: " + output_file);
 		}
-		return new InMemoryFileOutputStream((InMemoryFile)output_file);
+		return new InMemoryFileOutputStream((InMemoryFile)output_file, false);
+	}
+
+	@Override
+	public FileOutputStream newFileOutputStream (final File output_file, final boolean append) {
+		if (output_file == null) {
+			throw new Error("Output file is null.");
+		}
+		if (output_file.getFileSystem() != this) {
+			throw new Error("Output file does not belong to this filesystem: " + output_file);
+		}
+		return new InMemoryFileOutputStream((InMemoryFile)output_file, append);
 	}
 
 	@Override

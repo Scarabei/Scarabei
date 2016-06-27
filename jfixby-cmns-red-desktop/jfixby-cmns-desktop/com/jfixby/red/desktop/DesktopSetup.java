@@ -19,6 +19,7 @@ import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.math.FloatMath;
 import com.jfixby.cmns.api.math.IntegerMath;
 import com.jfixby.cmns.api.math.MathTools;
+import com.jfixby.cmns.api.md5.MD5;
 import com.jfixby.cmns.api.net.http.Http;
 import com.jfixby.cmns.api.sys.Sys;
 import com.jfixby.cmns.api.sys.settings.SystemSettings;
@@ -47,6 +48,7 @@ import com.jfixby.red.name.RedAssetsNamespace;
 import com.jfixby.red.sys.RedSystemSettings;
 import com.jfixby.red.sys.RedTaskManager;
 import com.jfixby.red.util.RedJUtils;
+import com.jfixby.red.util.md5.RSADataSecurityIncMD5;
 
 public class DesktopSetup {
 
@@ -69,6 +71,7 @@ public class DesktopSetup {
 		Err.installComponent(new RedError());
 		Debug.installComponent(new RedDebug());
 		GCFisher.installComponent(new RedGCFisher());
+		MD5.installComponent(new RSADataSecurityIncMD5());
 		// --
 
 		LocalFileSystem.installComponent(new WinFileSystem());

@@ -13,10 +13,11 @@ public class RedInMemoryFileOutputStreamOperator implements JavaOutputStreamOper
 	private ContentLeaf leaf;
 	private BufferOutputStream os;
 	private final InMemoryFile v_file;
+	private final boolean append;
 
-	public RedInMemoryFileOutputStreamOperator (final InMemoryFile output_file) {
+	public RedInMemoryFileOutputStreamOperator (final InMemoryFile output_file, final boolean append) {
 		this.v_file = output_file;
-
+		this.append = append;
 	}
 
 	@Override
@@ -38,6 +39,11 @@ public class RedInMemoryFileOutputStreamOperator implements JavaOutputStreamOper
 				}
 			}
 			this.os = IO.newBufferOutputStream();
+			this.os.open();
+			if (this.append) {
+				this.os.write(this.leaf.getData());
+// this.leaf.setData(null);
+			}
 		}
 		return this.os.toJavaOutputStream();
 	}

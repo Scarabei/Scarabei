@@ -184,9 +184,9 @@ public class RMIFile extends AbstractRedFile implements File {
 		return content.getInputStream(this.absolute_path.getRelativePath());
 	}
 
-	public FileOutputStream getOutputStream () {
+	public FileOutputStream getOutputStream (final boolean append) {
 		final RMIDataContainer content = this.virtualFileSystem.getContent();
-		return content.getOutputStream(this.absolute_path.getRelativePath());
+		return content.getOutputStream(this.absolute_path.getRelativePath(), append);
 	}
 
 }
