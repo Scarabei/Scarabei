@@ -57,7 +57,7 @@ public class RedPackedFileSystem extends AbstractFileSystem implements FileSyste
 		return OS_SEPARATOR;
 	}
 
-	final private String name = "VirtualFileSystem";
+	final private String name = "PackedFileSystem";
 
 	public static String toNativePathString (final String string) {
 		return string;

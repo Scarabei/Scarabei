@@ -64,7 +64,7 @@ public class InMemoryFileSystem extends AbstractFileSystem implements FileSystem
 		return OS_SEPARATOR;
 	}
 
-	final private String name = "VirtualFileSystem";
+	final private String name = "InMemoryFileSystem";
 
 	public static String toNativePathString (final String string) {
 		return string;
