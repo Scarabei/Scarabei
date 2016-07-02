@@ -35,37 +35,47 @@ public final class RedAssetID implements AssetID {
 
 	@Override
 	public String toString () {
-		return (value.toString()).replaceAll(RelativePath.SEPARATOR, AssetID.SEPARATOR);
+		return (this.value.toString()).replaceAll(RelativePath.SEPARATOR, AssetID.SEPARATOR);
 	}
 
 	@Override
 	public int hashCode () {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((value == null) ? 0 : value.hashCode());
+		result = prime * result + ((this.value == null) ? 0 : this.value.hashCode());
 		return result;
 	}
 
 	@Override
-	public boolean equals (Object obj) {
-		if (this == obj) return true;
-		if (obj == null) return false;
-		if (getClass() != obj.getClass()) return false;
-		RedAssetID other = (RedAssetID)obj;
-		if (value == null) {
-			if (other.value != null) return false;
-		} else if (!value.equals(other.value)) return false;
+	public boolean equals (final Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (this.getClass() != obj.getClass()) {
+			return false;
+		}
+		final RedAssetID other = (RedAssetID)obj;
+		if (this.value == null) {
+			if (other.value != null) {
+				return false;
+			}
+		} else if (!this.value.equals(other.value)) {
+			return false;
+		}
 		return true;
 	}
 
 	@Override
-	public AssetID child (String string) {
-		return new RedAssetID(value.child(string));
+	public AssetID child (final String string) {
+		return new RedAssetID(this.value.child(string));
 	}
 
 	@Override
 	public AssetID parent () {
-		return new RedAssetID(value.parent());
+		return new RedAssetID(this.value.parent());
 	}
 
 	@Override
@@ -74,12 +84,12 @@ public final class RedAssetID implements AssetID {
 	}
 
 	@Override
-	public boolean includes (AssetID other) {
+	public boolean includes (final AssetID other) {
 		Debug.checkNull("other", other);
 		if (this.equals(other)) {
 			return true;
 		}
-		RedAssetID red_other = (RedAssetID)other;
+		final RedAssetID red_other = (RedAssetID)other;
 		final boolean yes = red_other.value.beginsWith(this.value);
 		// if (yes) {
 		// L.d("+ " + this, other);
@@ -90,9 +100,10 @@ public final class RedAssetID implements AssetID {
 	}
 
 	@Override
-	public AssetID child (AssetID subpackage) {
-		RedAssetID red_subpackage = (RedAssetID)subpackage;
-		RelativePath new_path = this.value.proceed(red_subpackage.value);
+	public AssetID child (final AssetID subpackage) {
+		final RedAssetID red_subpackage = (RedAssetID)subpackage;
+		final RelativePath new_path = this.value.proceed(red_subpackage.value);
 		return new RedAssetID(new_path);
 	}
+
 }
