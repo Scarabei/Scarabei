@@ -12,6 +12,7 @@ public final class RedAssetID implements AssetID {
 		super();
 		Debug.checkNull("AssetID String", value);
 		Debug.checkEmpty("AssetID String", value);
+		Debug.checkTrue("Input value contains space: <" + value + "> at " + value.indexOf(' '), value.indexOf(' ') == -1);
 		// Debug.checkEmpty("value", value.replaceAll("\\\\.", ""));
 		this.value = JUtils.newRelativePath(value.replaceAll("\\" + AssetID.SEPARATOR, RelativePath.SEPARATOR));
 		// L.d();
