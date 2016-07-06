@@ -20,19 +20,19 @@ public class RedHashMap<K, V> implements Map<K, V> {
 	final RedSet<K> keys_list = new RedSet<K>();
 
 	@Override
-	public void put (K key, V value) {
-		hash_map.put(key, value);
-		keys_list.add(key);
+	public void put (final K key, final V value) {
+		this.hash_map.put(key, value);
+		this.keys_list.add(key);
 	}
 
 	@Override
-	public boolean containsKey (Object key) {
+	public boolean containsKey (final Object key) {
 		return this.hash_map.containsKey(key);
 
 	}
 
 	@Override
-	public V get (Object key) {
+	public V get (final Object key) {
 		return this.hash_map.get(key);
 	}
 
@@ -43,7 +43,7 @@ public class RedHashMap<K, V> implements Map<K, V> {
 	}
 
 	@Override
-	public void print (String tag) {
+	public void print (final String tag) {
 		L.d(tag, this);
 	}
 
@@ -53,25 +53,35 @@ public class RedHashMap<K, V> implements Map<K, V> {
 	public int hashCode () {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((hash_map == null) ? 0 : hash_map.hashCode());
+		result = prime * result + ((this.hash_map == null) ? 0 : this.hash_map.hashCode());
 		return result;
 	}
 
 	@Override
-	public boolean equals (Object obj) {
-		if (this == obj) return true;
-		if (obj == null) return false;
-		if (getClass() != obj.getClass()) return false;
-		RedHashMap<?, ?> other = (RedHashMap<?, ?>)obj;
-		if (hash_map == null) {
-			if (other.hash_map != null) return false;
-		} else if (!hash_map.equals(other.hash_map)) return false;
+	public boolean equals (final Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (this.getClass() != obj.getClass()) {
+			return false;
+		}
+		final RedHashMap<?, ?> other = (RedHashMap<?, ?>)obj;
+		if (this.hash_map == null) {
+			if (other.hash_map != null) {
+				return false;
+			}
+		} else if (!this.hash_map.equals(other.hash_map)) {
+			return false;
+		}
 		return true;
 	}
 
 	@Override
 	public String toString () {
-		return hash_map.toString();
+		return this.hash_map.toString();
 	}
 
 	@Override
@@ -80,27 +90,27 @@ public class RedHashMap<K, V> implements Map<K, V> {
 	}
 
 	@Override
-	public void putAll (Mapping<? extends K, ? extends V> other_map) {
+	public void putAll (final Mapping<? extends K, ? extends V> other_map) {
 		for (int i = 0; i < other_map.size(); i++) {
-			K key = other_map.getKeyAt(i);
-			V vlaue = other_map.getValueAt(i);
+			final K key = other_map.getKeyAt(i);
+			final V vlaue = other_map.getValueAt(i);
 			this.put(key, vlaue);
 		}
 	}
 
 	@Override
-	public K getKeyAt (long i) {
+	public K getKeyAt (final long i) {
 		return this.keys_list.getElementAt(i);
 	}
 
 	@Override
-	public V getValueAt (long i) {
-		K key = keys_list.getElementAt(i);
+	public V getValueAt (final long i) {
+		final K key = this.keys_list.getElementAt(i);
 		return this.get(key);
 	}
 
 	@Override
-	public V remove (Object key) {
+	public V remove (final Object key) {
 		this.keys_list.remove(key);
 		return this.hash_map.remove(key);
 	}
@@ -112,7 +122,11 @@ public class RedHashMap<K, V> implements Map<K, V> {
 
 	@Override
 	public List<V> values () {
-		return Collections.newList(this.hash_map.values());
+		final List<V> result = Collections.newList();
+		for (int i = 0; i < this.size(); i++) {
+			result.add(this.getValueAt(i));
+		}
+		return result;
 	}
 
 	@Override
@@ -121,28 +135,28 @@ public class RedHashMap<K, V> implements Map<K, V> {
 	}
 
 	@Override
-	public void putJavaMap (java.util.Map<? extends K, ? extends V> java_map) {
-		Iterator<? extends K> i = java_map.keySet().iterator();
+	public void putJavaMap (final java.util.Map<? extends K, ? extends V> java_map) {
+		final Iterator<? extends K> i = java_map.keySet().iterator();
 		while (i.hasNext()) {
-			K key = i.next();
-			V value = java_map.get(key);
-			put(key, value);
+			final K key = i.next();
+			final V value = java_map.get(key);
+			this.put(key, value);
 		}
 	}
 
 	@Override
 	public java.util.Map<K, V> toJavaMap () {
-		HashMap<K, V> result = new HashMap<K, V>();
+		final HashMap<K, V> result = new HashMap<K, V>();
 		result.putAll(this.hash_map);
 		return result;
 	}
 
 	@Override
-	public void removeAll (Collection<?> keys) {
+	public void removeAll (final Collection<?> keys) {
 		this.keys_list.removeAll(keys);
-		Iterator<?> i = keys.iterator();
+		final Iterator<?> i = keys.iterator();
 		while (i.hasNext()) {
-			Object key = i.next();
+			final Object key = i.next();
 			this.hash_map.remove(key);
 		}
 	}
@@ -153,12 +167,12 @@ public class RedHashMap<K, V> implements Map<K, V> {
 	}
 
 	@Override
-	public void sortKeys (Comparator<? super K> keysComparator) {
+	public void sortKeys (final Comparator<? super K> keysComparator) {
 		this.keys_list.sort(keysComparator);
 	}
 
 	@Override
-	public EditableCollection<K> cutToSize (int max_size) {
+	public EditableCollection<K> cutToSize (final int max_size) {
 		if (max_size < 0) {
 			Err.reportError("Negative target size: " + max_size);
 		}
@@ -171,7 +185,7 @@ public class RedHashMap<K, V> implements Map<K, V> {
 
 		final Iterator<?> i = to_remove.iterator();
 		while (i.hasNext()) {
-			Object key = i.next();
+			final Object key = i.next();
 			this.hash_map.remove(key);
 		}
 
