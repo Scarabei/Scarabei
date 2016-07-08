@@ -28,6 +28,7 @@ public class JavaFileOutputStreamOperator implements JavaOutputStreamOperator {
 	@Override
 	public OutputStream getJavaStream () throws IOException {
 		if (this.os == null) {
+			this.file.getParentFile().mkdirs();
 			this.os = new FileOutputStream(this.file);
 			this.os = new BufferedOutputStream(this.os);
 		}
