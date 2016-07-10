@@ -14,9 +14,11 @@ public class JavaFileOutputStreamOperator implements JavaOutputStreamOperator {
 
 	private final File file;
 	private OutputStream os;
+	private final boolean append;
 
-	public JavaFileOutputStreamOperator (final File file) {
+	public JavaFileOutputStreamOperator (final File file, final boolean append) {
 		this.file = file;
+		this.append = append;
 	}
 
 	@Override
@@ -29,7 +31,7 @@ public class JavaFileOutputStreamOperator implements JavaOutputStreamOperator {
 	public OutputStream getJavaStream () throws IOException {
 		if (this.os == null) {
 			this.file.getParentFile().mkdirs();
-			this.os = new FileOutputStream(this.file);
+			this.os = new FileOutputStream(this.file, this.append);
 			this.os = new BufferedOutputStream(this.os);
 		}
 		return this.os;

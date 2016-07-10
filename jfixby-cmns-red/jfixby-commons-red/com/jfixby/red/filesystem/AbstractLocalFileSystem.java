@@ -14,7 +14,7 @@ public abstract class AbstractLocalFileSystem extends AbstractFileSystem {
 	final public FileOutputStream newFileOutputStream (final File output_file, final boolean append) {
 		Debug.checkNull("File", output_file);
 		Debug.checkTrue("File belongs to this filesystem?", output_file.getFileSystem() == this);
-		return new JavaFileOutputStream(output_file.toJavaFile());
+		return new JavaFileOutputStream(output_file.toJavaFile(), append);
 	}
 
 	@Override
