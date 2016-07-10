@@ -37,4 +37,19 @@ public class RedInMemoryFileInputStreamOperator implements JavaInputStreamOperat
 		return this.is;
 	}
 
+	@Override
+	public boolean isReadAllSupported () {
+		return true;
+	}
+
+	@Override
+	public ByteArray readAll () throws IOException {
+		final ContentLeaf leaf = this.v_file.getContent();
+		if (leaf == null) {
+			throw new IOException("File not found: " + this.v_file);
+		}
+		final ByteArray data = leaf.getData();
+		return data;
+	}
+
 }

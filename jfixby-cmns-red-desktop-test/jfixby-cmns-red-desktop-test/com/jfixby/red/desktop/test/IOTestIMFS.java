@@ -14,7 +14,7 @@ import com.jfixby.red.filesystem.virtual.InMemoryFileSystem;
 
 public class IOTestIMFS {
 
-	private static final int MB = 1024 * 1024;
+	private static final long MB = 1024 * 1024;
 
 	public static void main (final String[] args) throws IOException {
 		DesktopSetup.deploy();
@@ -24,12 +24,12 @@ public class IOTestIMFS {
 		final File ssdFolder = LocalFileSystem.ApplicationHome().child("test");
 		final File imfFolder = IMFS.ROOT().child("test");
 
-		final File testFolder = ssdFolder;
+		final File testFolder = imfFolder;
 
 		final DebugTimer testTimer = Debug.newTimer();
 		double total = 0;
 
-		final int NUMBER_OF_TESTS = 50;
+		final int NUMBER_OF_TESTS = 4;
 
 		for (int i = 0; i < NUMBER_OF_TESTS; i++) {
 
@@ -43,11 +43,13 @@ public class IOTestIMFS {
 			}
 // L.d("file size", msg);
 			testTimer.reset();
-			testFolder.child("file").writeBytes(TEST_DATA);
+			testFolder.child("file")//
+				.writeBytes(TEST_DATA);
 			L.d("test " + i + ", write, size, " + msg + ", time, " + testTimer.getTime());
 			total = total + testTimer.getTime();
 			testTimer.reset();
-			testFolder.child("file").readBytes();
+			testFolder.child("file")//
+				.readBytes();
 			L.d("test " + i + ", read, size, " + msg + ", time, " + testTimer.getTime());
 			total = total + testTimer.getTime();
 		}
@@ -57,7 +59,11 @@ public class IOTestIMFS {
 
 	private static byte[] newTestData (final int i, final int NUMBER_OF_TESTS) {
 		final float param = i * 1f / NUMBER_OF_TESTS;
-		final int mb = (int)(MB * 100 * param * param * param * param);
+		final int mb = (int)(MB * 1000 * param + 1);
+		if (mb <= 0) {
+			L.d("mb", mb);
+			L.d("param", param);
+		}
 		final byte[] data = new byte[mb];
 		final Random random = new Random(i);
 		random.nextBytes(data);

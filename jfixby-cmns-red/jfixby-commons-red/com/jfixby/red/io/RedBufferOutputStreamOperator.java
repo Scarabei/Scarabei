@@ -28,7 +28,7 @@ public class RedBufferOutputStreamOperator implements JavaOutputStreamOperator {
 	@Override
 	public OutputStream getJavaStream () {
 		if (this.os == null) {
-			this.os = new ByteArrayOutputStream();
+			this.os = new ByteArrayOutputStream(1024 * 4);
 		}
 		return this.os;
 	}

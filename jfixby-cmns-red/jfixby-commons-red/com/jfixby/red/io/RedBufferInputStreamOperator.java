@@ -2,11 +2,13 @@
 package com.jfixby.red.io;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 
 import com.jfixby.cmns.api.io.Buffer;
 import com.jfixby.cmns.api.io.IO;
 import com.jfixby.cmns.api.io.JavaInputStreamOperator;
+import com.jfixby.cmns.api.java.ByteArray;
 
 public class RedBufferInputStreamOperator implements JavaInputStreamOperator {
 
@@ -29,6 +31,16 @@ public class RedBufferInputStreamOperator implements JavaInputStreamOperator {
 			this.bis = new ByteArrayInputStream(this.buffer.getBytes().toArray());
 		}
 		return this.bis;
+	}
+
+	@Override
+	public boolean isReadAllSupported () {
+		return true;
+	}
+
+	@Override
+	public ByteArray readAll () throws IOException {
+		return this.buffer.getBytes();
 	}
 
 }

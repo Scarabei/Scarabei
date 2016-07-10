@@ -7,6 +7,7 @@ import java.io.InputStream;
 import com.jfixby.cmns.api.io.IO;
 import com.jfixby.cmns.api.io.InputStreamOpener;
 import com.jfixby.cmns.api.io.JavaInputStreamOperator;
+import com.jfixby.cmns.api.java.ByteArray;
 
 public class RedJavaInputStreamOperator implements JavaInputStreamOperator {
 
@@ -29,6 +30,16 @@ public class RedJavaInputStreamOperator implements JavaInputStreamOperator {
 			this.java_input_stream = this.opener.open();
 		}
 		return this.java_input_stream;
+	}
+
+	@Override
+	public boolean isReadAllSupported () {
+		return false;
+	}
+
+	@Override
+	public ByteArray readAll () throws IOException {
+		return null;
 	}
 
 }

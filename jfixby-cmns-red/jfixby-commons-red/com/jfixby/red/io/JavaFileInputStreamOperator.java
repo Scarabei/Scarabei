@@ -9,6 +9,7 @@ import java.io.InputStream;
 
 import com.jfixby.cmns.api.io.IO;
 import com.jfixby.cmns.api.io.JavaInputStreamOperator;
+import com.jfixby.cmns.api.java.ByteArray;
 
 public class JavaFileInputStreamOperator implements JavaInputStreamOperator {
 
@@ -32,6 +33,16 @@ public class JavaFileInputStreamOperator implements JavaInputStreamOperator {
 			this.is = new BufferedInputStream(this.is);
 		}
 		return this.is;
+	}
+
+	@Override
+	public boolean isReadAllSupported () {
+		return false;
+	}
+
+	@Override
+	public ByteArray readAll () throws IOException {
+		return null;
 	}
 
 }

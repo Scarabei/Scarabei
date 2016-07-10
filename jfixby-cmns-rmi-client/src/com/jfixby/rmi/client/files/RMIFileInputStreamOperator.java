@@ -44,4 +44,19 @@ public class RMIFileInputStreamOperator implements JavaInputStreamOperator {
 
 	}
 
+	@Override
+	public boolean isReadAllSupported () {
+		return true;
+	}
+
+	@Override
+	public ByteArray readAll () throws IOException {
+		try {
+			final ByteArray data = this.rmiDataContainer.lookup().readDataFromFile(this.relativePath.steps().toJavaList());
+			return data;
+		} catch (MalformedURLException | RemoteException | NotBoundException e) {
+			throw new IOException(e);
+		}
+	}
+
 }

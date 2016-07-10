@@ -90,6 +90,11 @@ public class AbstractRedInputStream<T extends JavaInputStreamOperator> implement
 	@Override
 	public ByteArray readAll () throws IOException {
 		this.state.expectState(STREAM_STATE.OPEN);
+		final JavaInputStreamOperator op = this.operator;
+		if (op.isReadAllSupported()) {
+			return op.readAll();
+		}
+
 		final ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		final byte[] buf = new byte[10 * 4096];
 		while (true) {

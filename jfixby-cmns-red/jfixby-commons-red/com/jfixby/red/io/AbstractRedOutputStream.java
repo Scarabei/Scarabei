@@ -71,11 +71,8 @@ public class AbstractRedOutputStream<T extends JavaOutputStreamOperator> impleme
 	@Override
 	public void write (final ByteArray bytes) throws IOException {
 		this.state.expectState(STREAM_STATE.OPEN);
-		for (int i = 0; i < bytes.size(); i++) {
-			this.javaStream().write(bytes.getByte(i));
-		}
+		this.javaStream().write(bytes.toArray());
 		this.javaStream().flush();
-		// this.os.flush();
 	}
 
 	@Override
