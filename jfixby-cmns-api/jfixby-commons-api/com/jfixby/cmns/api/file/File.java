@@ -72,6 +72,8 @@ public interface File {
 
 	void writeString (String data) throws IOException;
 
+	void writeString (String string, boolean append) throws IOException;
+
 	long lastModified ();
 
 	void checkIsFolder ();

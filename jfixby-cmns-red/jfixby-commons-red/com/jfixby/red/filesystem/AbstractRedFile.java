@@ -133,12 +133,17 @@ public abstract class AbstractRedFile implements File {
 
 	@Override
 	public void writeBytes (final byte[] bytes) throws IOException {
-		this.writeBytes(JUtils.newByteArray(bytes));
+		this.writeBytes(JUtils.newByteArray(bytes), false);
 	}
 
 	@Override
 	public void writeString (final String bytes) throws IOException {
-		this.writeBytes(JUtils.newByteArray(bytes.getBytes()));
+		this.writeBytes(JUtils.newByteArray(bytes.getBytes()), false);
+	}
+
+	@Override
+	public void writeString (final String bytes, final boolean append) throws IOException {
+		this.writeBytes(JUtils.newByteArray(bytes.getBytes()), append);
 	}
 
 	@Override
