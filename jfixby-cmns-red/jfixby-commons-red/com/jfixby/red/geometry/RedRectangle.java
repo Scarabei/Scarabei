@@ -301,24 +301,39 @@ public class RedRectangle extends VertexMaster implements Rectangle {
 	 *
 	 * @see com.jfixby.cmns.api.geometry.Rectangle#containsPoint(double, double)
 	 */
+
 	@Override
 	public boolean containsPoint (final double canvas_x, final double canvas_y) {
-
-		this.triangle_a.A().relative().set(this.top_left.transformed());
-		this.triangle_a.B().relative().set(this.top_right.transformed());
-		this.triangle_a.C().relative().set(this.bottom_right.transformed());
-
-		if (this.triangle_a.containsPoint(canvas_x, canvas_y)) {
-			return true;
+		this.tmp.setXY(canvas_x, canvas_y);
+		this.toRelative(this.tmp);
+		if (this.tmp.getX() > 1) {
+			return false;
+		}
+		if (this.tmp.getX() < 0) {
+			return false;
+		}
+		if (this.tmp.getY() > 1) {
+			return false;
+		}
+		if (this.tmp.getY() < 0) {
+			return false;
 		}
 
-		this.triangle_a.B().relative().set(this.bottom_left.transformed());
-
-		if (this.triangle_a.containsPoint(canvas_x, canvas_y)) {
-			return true;
-		}
-
-		return false;
+// this.triangle_a.A().relative().set(this.top_left.transformed());
+// this.triangle_a.B().relative().set(this.top_right.transformed());
+// this.triangle_a.C().relative().set(this.bottom_right.transformed());
+//
+// if (this.triangle_a.containsPoint(canvas_x, canvas_y)) {
+// return true;
+// }
+//
+// this.triangle_a.B().relative().set(this.bottom_left.transformed());
+//
+// if (this.triangle_a.containsPoint(canvas_x, canvas_y)) {
+// return true;
+// }
+//
+		return true;
 
 	}
 
@@ -361,6 +376,11 @@ public class RedRectangle extends VertexMaster implements Rectangle {
 	@Override
 	public void setPosition () {
 		this.position.setPosition();
+	}
+
+	@Override
+	public void setSize (final Rectangle rectangle) {
+		this.setSize(rectangle.getWidth(), rectangle.getHeight());
 	}
 
 }

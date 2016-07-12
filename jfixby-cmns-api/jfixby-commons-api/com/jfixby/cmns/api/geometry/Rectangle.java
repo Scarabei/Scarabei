@@ -89,4 +89,6 @@ public interface Rectangle extends GeometryFigure {
 
 	void setPosition ();
 
+	void setSize (Rectangle rectangle);
+
 }
