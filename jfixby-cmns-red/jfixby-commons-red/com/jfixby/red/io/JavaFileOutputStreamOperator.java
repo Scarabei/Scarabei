@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 
 import com.jfixby.cmns.api.io.IO;
@@ -49,10 +50,13 @@ public class JavaFileOutputStreamOperator implements JavaOutputStreamOperator {
 	@Override
 	public void writeAll (final ByteArray bytes) throws IOException {
 		this.file.getParentFile().mkdirs();
-		if (this.append) {
-			Files.write(this.file.toPath(), bytes.toArray(), StandardOpenOption.APPEND);
+		final Path path = this.file.toPath();
+
+		if (this.append & this.file.exists()) {
+			Files.write(path, bytes.toArray(), StandardOpenOption.APPEND);
 		} else {
-			Files.write(this.file.toPath(), bytes.toArray(), StandardOpenOption.WRITE);
+			this.file.createNewFile();
+			Files.write(path, bytes.toArray(), StandardOpenOption.WRITE);
 		}
 	}
 
