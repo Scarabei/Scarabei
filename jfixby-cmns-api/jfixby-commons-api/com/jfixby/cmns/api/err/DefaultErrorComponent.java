@@ -23,4 +23,9 @@ public class DefaultErrorComponent implements ErrorComponent {
 		throw new Error(message, e);
 	}
 
+	@Override
+	public void reportNotImplementedYet () {
+		this.reportError(new NotImplementedYetException());
+	}
+
 }

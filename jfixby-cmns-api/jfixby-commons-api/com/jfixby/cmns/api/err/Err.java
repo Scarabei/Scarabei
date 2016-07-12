@@ -39,4 +39,8 @@ public class Err {
 		invoke().reportError(message, e);
 	}
 
+	public static void reportNotImplementedYet () {
+		invoke().reportNotImplementedYet();
+	}
+
 }

@@ -2,6 +2,7 @@
 package com.jfixby.red.err;
 
 import com.jfixby.cmns.api.err.ErrorComponent;
+import com.jfixby.cmns.api.err.NotImplementedYetException;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.sys.settings.ExecutionMode;
 import com.jfixby.cmns.api.sys.settings.SystemSettings;
@@ -40,6 +41,11 @@ public class RedError implements ErrorComponent {
 			L.e(e);
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void reportNotImplementedYet () {
+		this.reportError(new NotImplementedYetException());
 	}
 
 }

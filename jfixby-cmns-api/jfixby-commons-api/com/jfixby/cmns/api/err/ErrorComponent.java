@@ -10,4 +10,6 @@ public interface ErrorComponent {
 	void reportError (Throwable e);
 
 	void reportError (String message, Throwable e);
+
+	void reportNotImplementedYet ();
 }
