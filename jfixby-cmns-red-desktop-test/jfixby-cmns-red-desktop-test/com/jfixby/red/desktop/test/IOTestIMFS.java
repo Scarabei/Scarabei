@@ -24,7 +24,7 @@ public class IOTestIMFS {
 		final File ssdFolder = LocalFileSystem.ApplicationHome().child("test");
 		final File imfFolder = IMFS.ROOT().child("test");
 
-		final File testFolder = imfFolder;
+		final File testFolder = ssdFolder;
 
 		final DebugTimer testTimer = Debug.newTimer();
 		double total = 0;
