@@ -71,6 +71,11 @@ public class AbstractRedOutputStream<T extends JavaOutputStreamOperator> impleme
 	@Override
 	public void write (final ByteArray bytes) throws IOException {
 		this.state.expectState(STREAM_STATE.OPEN);
+		final JavaOutputStreamOperator op = this.operator;
+		if (op.isBulkWriteSupported()) {
+			op.writeAll(bytes);
+			return;
+		}
 		this.javaStream().write(bytes.toArray());
 		this.javaStream().flush();
 	}

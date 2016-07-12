@@ -51,4 +51,18 @@ public class RedRMIFileOutputStreamOperator implements JavaOutputStreamOperator 
 		return this.os.toJavaOutputStream();
 	}
 
+	@Override
+	public boolean isBulkWriteSupported () {
+		return false;
+	}
+
+	@Override
+	public void writeAll (final ByteArray bytes) throws IOException {
+		try {
+			this.rmiDataContainer.lookup().writeDataToFile(this.relativePath, bytes, this.append);
+		} catch (final Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 }

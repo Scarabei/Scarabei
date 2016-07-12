@@ -2,6 +2,7 @@
 package com.jfixby.red.io;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 
 import com.jfixby.cmns.api.io.IO;
@@ -31,6 +32,16 @@ public class RedBufferOutputStreamOperator implements JavaOutputStreamOperator {
 			this.os = new ByteArrayOutputStream(1024 * 4);
 		}
 		return this.os;
+	}
+
+	@Override
+	public boolean isBulkWriteSupported () {
+		return true;
+	}
+
+	@Override
+	public void writeAll (final ByteArray bytes) throws IOException {
+		this.data = bytes.toArray();
 	}
 
 }

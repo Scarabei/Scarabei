@@ -7,6 +7,7 @@ import java.io.OutputStream;
 import com.jfixby.cmns.api.io.IO;
 import com.jfixby.cmns.api.io.JavaOutputStreamOperator;
 import com.jfixby.cmns.api.io.OutputStreamOpener;
+import com.jfixby.cmns.api.java.ByteArray;
 
 public class RedJavaOutputStreamOperator implements JavaOutputStreamOperator {
 
@@ -29,6 +30,16 @@ public class RedJavaOutputStreamOperator implements JavaOutputStreamOperator {
 			this.java_Output_stream = this.opener.open();
 		}
 		return this.java_Output_stream;
+	}
+
+	@Override
+	public boolean isBulkWriteSupported () {
+		return true;
+	}
+
+	@Override
+	public void writeAll (final ByteArray bytes) throws IOException {
+		this.java_Output_stream.write(bytes.toArray());
 	}
 
 }

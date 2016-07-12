@@ -1,10 +1,12 @@
 
 package com.jfixby.red.io;
 
+import java.io.IOException;
 import java.io.OutputStream;
 
 import com.jfixby.cmns.api.io.GZipOutputStream;
 import com.jfixby.cmns.api.io.JavaOutputStreamOperator;
+import com.jfixby.cmns.api.java.ByteArray;
 
 public class RedGZipOutputStreamOperator implements JavaOutputStreamOperator {
 
@@ -29,6 +31,15 @@ public class RedGZipOutputStreamOperator implements JavaOutputStreamOperator {
 // this.os = new ByteArrayOutputStream();
 // }
 // return this.os;
+	}
+
+	@Override
+	public boolean isBulkWriteSupported () {
+		return false;
+	}
+
+	@Override
+	public void writeAll (final ByteArray bytes) throws IOException {
 	}
 
 }

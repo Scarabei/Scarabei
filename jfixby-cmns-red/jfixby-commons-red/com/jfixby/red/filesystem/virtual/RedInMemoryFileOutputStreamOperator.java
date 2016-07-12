@@ -48,4 +48,21 @@ public class RedInMemoryFileOutputStreamOperator implements JavaOutputStreamOper
 		return this.os.toJavaOutputStream();
 	}
 
+	@Override
+	public boolean isBulkWriteSupported () {
+		return true;
+	}
+
+	@Override
+	public void writeAll (final ByteArray bytes) throws IOException {
+		this.leaf = this.v_file.getContent();
+		if (this.leaf == null) {
+			this.leaf = this.v_file.createFile();
+			if (this.leaf == null) {
+				throw new IOException("Unable to write to the file: " + this.v_file);
+			}
+		}
+		this.leaf.setData(bytes);
+	}
+
 }

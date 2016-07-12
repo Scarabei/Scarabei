@@ -6,9 +6,12 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
 
 import com.jfixby.cmns.api.io.IO;
 import com.jfixby.cmns.api.io.JavaOutputStreamOperator;
+import com.jfixby.cmns.api.java.ByteArray;
 
 public class JavaFileOutputStreamOperator implements JavaOutputStreamOperator {
 
@@ -29,12 +32,28 @@ public class JavaFileOutputStreamOperator implements JavaOutputStreamOperator {
 
 	@Override
 	public OutputStream getJavaStream () throws IOException {
+		this.file.getParentFile().mkdirs();
 		if (this.os == null) {
-			this.file.getParentFile().mkdirs();
+
 			this.os = new FileOutputStream(this.file, this.append);
 			this.os = new BufferedOutputStream(this.os);
 		}
 		return this.os;
+	}
+
+	@Override
+	public boolean isBulkWriteSupported () {
+		return true;
+	}
+
+	@Override
+	public void writeAll (final ByteArray bytes) throws IOException {
+		this.file.getParentFile().mkdirs();
+		if (this.append) {
+			Files.write(this.file.toPath(), bytes.toArray(), StandardOpenOption.APPEND);
+		} else {
+			Files.write(this.file.toPath(), bytes.toArray(), StandardOpenOption.WRITE);
+		}
 	}
 
 }
