@@ -7,27 +7,27 @@ public class RedByteArray implements ByteArray {
 
 	final private byte[] bytes;
 
-	public RedByteArray (byte[] bytes) {
+	public RedByteArray (final byte[] bytes) {
 		this.bytes = bytes;
 	}
 
-	public RedByteArray (int size) {
+	public RedByteArray (final int size) {
 		this.bytes = new byte[size];
 	}
 
 	@Override
 	public byte[] toArray () {
-		return bytes;
+		return this.bytes;
 	}
 
 	@Override
 	public long size () {
-		return bytes.length;
+		return this.bytes.length;
 	}
 
 	@Override
-	public int getByte (int i) {
-		return bytes[i];
+	public int getByte (final int i) {
+		return this.bytes[i];
 	}
 
 }

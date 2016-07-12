@@ -246,13 +246,14 @@ public class RedIO implements IOComponent {
 
 	@Override
 	public void forceClose (final java.io.OutputStream os) {
+		if (os == null) {
+			return;
+		}
 		try {
 			os.flush();
-
 		} catch (final IOException ignored) {
 		}
 		try {
-
 			os.close();
 		} catch (final IOException ignored) {
 		}
@@ -260,6 +261,9 @@ public class RedIO implements IOComponent {
 
 	@Override
 	public void forceClose (final java.io.InputStream is) {
+		if (is == null) {
+			return;
+		}
 		try {
 			is.close();
 		} catch (final IOException ignored) {
