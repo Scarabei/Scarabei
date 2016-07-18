@@ -15,7 +15,7 @@ public abstract class AlpaeroLogger implements LoggerComponent {
 		for (int i = 0; i < objects.length; i++) {
 			this.System_out_print(objects[i] + " ");
 		}
-		this.System_err_println();
+		this.System_out_println();
 	}
 
 	@Override
