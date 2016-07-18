@@ -32,7 +32,9 @@ public class RedRectangle extends VertexMaster implements Rectangle {
 
 	@Override
 	public String toString () {
-		return "Rectangle[" + this.width + " x " + this.height + "] position=" + this.getPosition() + " origin_relative="
+		return "Rectangle[" + this.width + " x " + this.height + "] position=" + //
+			this.getPosition()//
+			+ " origin_relative="//
 			+ this.origin_relative + " rotation=" + this.getRotation();
 	}
 
@@ -296,12 +298,6 @@ public class RedRectangle extends VertexMaster implements Rectangle {
 		this.setRotation(position.getRotation());
 	}
 
-	/*
-	 * (non-Javadoc) This is very slow! Should fix! https://github.com/JFixby/RedTriplane/issues/5
-	 *
-	 * @see com.jfixby.cmns.api.geometry.Rectangle#containsPoint(double, double)
-	 */
-
 	@Override
 	public boolean containsPoint (final double canvas_x, final double canvas_y) {
 		this.tmp.setXY(canvas_x, canvas_y);
@@ -319,20 +315,6 @@ public class RedRectangle extends VertexMaster implements Rectangle {
 			return false;
 		}
 
-// this.triangle_a.A().relative().set(this.top_left.transformed());
-// this.triangle_a.B().relative().set(this.top_right.transformed());
-// this.triangle_a.C().relative().set(this.bottom_right.transformed());
-//
-// if (this.triangle_a.containsPoint(canvas_x, canvas_y)) {
-// return true;
-// }
-//
-// this.triangle_a.B().relative().set(this.bottom_left.transformed());
-//
-// if (this.triangle_a.containsPoint(canvas_x, canvas_y)) {
-// return true;
-// }
-//
 		return true;
 
 	}

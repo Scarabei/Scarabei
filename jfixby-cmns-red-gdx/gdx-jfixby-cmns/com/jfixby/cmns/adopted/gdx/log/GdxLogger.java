@@ -16,6 +16,14 @@ public class GdxLogger implements LoggerComponent {
 	}
 
 	@Override
+	public void d (final Object... objects) {
+		for (int i = 0; i < objects.length; i++) {
+			this.System_out_print(objects[i] + " ");
+		}
+		this.System_err_println();
+	}
+
+	@Override
 	public void d (final Object string, final Object object) {
 		final String tag = string + "";
 		if (object instanceof Object[]) {

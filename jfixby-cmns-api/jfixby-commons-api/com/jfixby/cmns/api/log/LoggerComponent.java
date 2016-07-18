@@ -5,6 +5,8 @@ public interface LoggerComponent {
 
 	void d (Object msg);
 
+	void d (Object... msg);
+
 	void d (Object tag, Object msg);
 
 	void e (Object msg);

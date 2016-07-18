@@ -27,6 +27,10 @@ public class Logger {
 		invoke().d(tag, msg);
 	}
 
+	public static void d (final Object... msg) {
+		invoke().d(msg);
+	}
+
 	public static void e (final Object msg) {
 		invoke().e(msg);
 	}
