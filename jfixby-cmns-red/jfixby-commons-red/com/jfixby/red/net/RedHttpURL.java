@@ -2,6 +2,7 @@
 package com.jfixby.red.net;
 
 import com.jfixby.cmns.api.debug.Debug;
+import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.net.http.Host;
 import com.jfixby.cmns.api.net.http.HttpURL;
 import com.jfixby.cmns.api.util.path.AbsolutePath;
@@ -15,7 +16,7 @@ public class RedHttpURL implements HttpURL {
 		Debug.checkEmpty("url_string", url_string);
 		Debug.checkNull("url_string", url_string);
 		this.url_string = url_string;
-
+		Err.reportError("Not implemented yet! Needs url parsing.");
 	}
 
 	@Override
