@@ -1,3 +1,4 @@
+
 package com.jfixby.red.desktop.net;
 
 import com.jfixby.cmns.api.net.http.HttpCall;
@@ -10,43 +11,44 @@ import com.jfixby.cmns.api.net.http.HttpURL;
 import com.jfixby.red.net.RedCall;
 import com.jfixby.red.net.RedCallExecutor;
 import com.jfixby.red.net.RedHttpCallParams;
+import com.jfixby.red.net.RedHttpURL;
 
 public class HttpDesktopComponent implements HttpComponent {
 
 	@Override
-	public HttpURL newURL(String url_string) {
-		return new UrlImpl(url_string);
+	public HttpURL newURL (final String url_string) {
+		return new RedHttpURL(url_string);
 	}
 
 	@Override
-	public HttpConnection newConnection(HttpURL url) {
+	public HttpConnection newConnection (final HttpURL url) {
 		return new DesktopHttpConnection(url, false);
 	}
 
 	@Override
-	public HttpConnectionSpecs newConnectionSpecs() {
+	public HttpConnectionSpecs newConnectionSpecs () {
 		return new DesktopHttpConnectionSpecs();
 	}
 
 	@Override
-	public HttpConnection newConnection(HttpConnectionSpecs specs) {
-		HttpURL url = specs.getURL();
-		boolean use_agent = specs.getUseAgent();
+	public HttpConnection newConnection (final HttpConnectionSpecs specs) {
+		final HttpURL url = specs.getURL();
+		final boolean use_agent = specs.getUseAgent();
 		return new DesktopHttpConnection(url, use_agent);
 	}
 
 	@Override
-	public HttpCallParams newCallParams() {
+	public HttpCallParams newCallParams () {
 		return new RedHttpCallParams();
 	}
 
 	@Override
-	public HttpCallExecutor newCallExecutor() {
+	public HttpCallExecutor newCallExecutor () {
 		return new RedCallExecutor();
 	}
 
 	@Override
-	public HttpCall newCall(HttpCallParams call_scecs) {
+	public HttpCall newCall (final HttpCallParams call_scecs) {
 		return new RedCall(call_scecs);
 	}
 
