@@ -11,10 +11,10 @@ class RedRelativePath implements RelativePath {
 
 	final private List<String> path_steps = Collections.newList();
 
-	public RedRelativePath (String relative_path_string) {
+	public RedRelativePath (final String relative_path_string) {
 		Debug.checkNull("relative_path_string", relative_path_string);
-		String[] parts_array = relative_path_string.split(RelativePath.SEPARATOR);
-		List<String> parts_list = Collections.newList(parts_array);
+		final String[] parts_array = relative_path_string.split(RelativePath.SEPARATOR);
+		final List<String> parts_list = Collections.newList(parts_array);
 		while (parts_list.contains(E)) {
 			parts_list.remove(E);
 		}
@@ -22,7 +22,7 @@ class RedRelativePath implements RelativePath {
 
 	}
 
-	public RedRelativePath (List<String> path_steps) {
+	public RedRelativePath (final List<String> path_steps) {
 		this.path_steps.addAll(path_steps);
 	}
 
@@ -35,12 +35,12 @@ class RedRelativePath implements RelativePath {
 			// return RelativePath.SEPARATOR;
 			return E;
 		}
-		StringBuilder builder = new StringBuilder();
+		final StringBuilder builder = new StringBuilder();
 		for (int i = 0; i < n; i++) {
 			if (i == 0) {
-				builder.append(path_steps.getElementAt(i));
+				builder.append(this.path_steps.getElementAt(i));
 			} else {
-				builder.append(RelativePath.SEPARATOR).append(path_steps.getElementAt(i));
+				builder.append(RelativePath.SEPARATOR).append(this.path_steps.getElementAt(i));
 			}
 		}
 		return builder.toString();
@@ -48,7 +48,7 @@ class RedRelativePath implements RelativePath {
 
 	@Override
 	public RelativePath parent () {
-		List<String> path_steps = Collections.newList();
+		final List<String> path_steps = Collections.newList();
 		path_steps.addAll(this.path_steps);
 		if (this.isRoot()) {
 			throw new Error("This is already a root path. No parent available.");
@@ -68,8 +68,8 @@ class RedRelativePath implements RelativePath {
 	}
 
 	@Override
-	public RelativePath child (String name) {
-		List<String> path_steps = Collections.newList();
+	public RelativePath child (final String name) {
+		final List<String> path_steps = Collections.newList();
 		path_steps.addAll(this.path_steps);
 		path_steps.add(name);
 		return new RedRelativePath(path_steps);
@@ -77,7 +77,7 @@ class RedRelativePath implements RelativePath {
 
 	@Override
 	public String toString () {
-		return getPathString();
+		return this.getPathString();
 	}
 
 	@Override
@@ -94,18 +94,26 @@ class RedRelativePath implements RelativePath {
 	public int hashCode () {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((path_steps == null) ? 0 : path_steps.hashCode());
+		result = prime * result + ((this.path_steps == null) ? 0 : this.path_steps.hashCode());
 		return result;
 	}
 
 	@Override
-	public boolean equals (Object obj) {
-		if (this == obj) return true;
-		if (obj == null) return false;
-		if (getClass() != obj.getClass()) return false;
+	public boolean equals (final Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (this.getClass() != obj.getClass()) {
+			return false;
+		}
 		final RedRelativePath other = (RedRelativePath)obj;
-		if (path_steps == null) {
-			if (other.path_steps != null) return false;
+		if (this.path_steps == null) {
+			if (other.path_steps != null) {
+				return false;
+			}
 		} else {
 			if (!Collections.component().equalLists(this.path_steps, other.path_steps)) {
 				return false;
@@ -116,7 +124,7 @@ class RedRelativePath implements RelativePath {
 	}
 
 	@Override
-	public boolean beginsWith (RelativePath other) {
+	public boolean beginsWith (final RelativePath other) {
 		Debug.checkNull("other", other);
 		if (this.equals(other)) {
 			return true;
@@ -125,17 +133,38 @@ class RedRelativePath implements RelativePath {
 	}
 
 	@Override
-	public RelativePath proceed (RelativePath value) {
+	public RelativePath proceed (final RelativePath value) {
 		Debug.checkNull(value);
-		List<String> steps = this.steps();
+		final List<String> steps = this.steps();
 		steps.addAll(value.steps());
-		RelativePath incremented = JUtils.newRelativePath(steps);
+		final RelativePath incremented = JUtils.newRelativePath(steps);
 		return incremented;
 	}
 
 	@Override
 	public int size () {
 		return this.steps().size();
+	}
+
+	@Override
+	public String nameWithoutExtension () {
+		final String name = this.getLastStep();
+		final int dotIndex = name.lastIndexOf('.');
+		if (dotIndex == -1) {
+			return name;
+		}
+		return name.substring(0, dotIndex);
+	}
+
+	@Override
+	public String getExtension () {
+		final String name = this.getLastStep().toLowerCase();
+		final int index = name.lastIndexOf('.');
+		if (index < 0) {
+			return null;
+		}
+		final String ext = name.substring(index + 1);
+		return ext;
 	}
 
 }

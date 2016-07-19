@@ -13,6 +13,10 @@ public interface RelativePath {
 
 	RelativePath parent ();
 
+	String nameWithoutExtension ();
+
+	public String getExtension ();
+
 	public boolean isRoot ();
 
 	RelativePath child (String name);
