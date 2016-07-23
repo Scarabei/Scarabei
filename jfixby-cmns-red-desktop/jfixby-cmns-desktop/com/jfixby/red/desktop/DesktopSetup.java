@@ -21,6 +21,7 @@ import com.jfixby.cmns.api.math.IntegerMath;
 import com.jfixby.cmns.api.math.MathTools;
 import com.jfixby.cmns.api.md5.MD5;
 import com.jfixby.cmns.api.net.http.Http;
+import com.jfixby.cmns.api.random.Random;
 import com.jfixby.cmns.api.sys.Sys;
 import com.jfixby.cmns.api.sys.settings.SystemSettings;
 import com.jfixby.cmns.api.taskman.TaskManager;
@@ -45,6 +46,7 @@ import com.jfixby.red.math.RedAngles;
 import com.jfixby.red.math.RedIntegerMath;
 import com.jfixby.red.math.RedMathTools;
 import com.jfixby.red.name.RedAssetsNamespace;
+import com.jfixby.red.random.RedRandom;
 import com.jfixby.red.sys.RedSystemSettings;
 import com.jfixby.red.sys.RedTaskManager;
 import com.jfixby.red.util.RedJUtils;
@@ -72,6 +74,7 @@ public class DesktopSetup {
 		Debug.installComponent(new RedDebug());
 		GCFisher.installComponent(new RedGCFisher());
 		MD5.installComponent(new RSADataSecurityIncMD5());
+		Random.installComponent(new RedRandom());
 		// --
 
 		LocalFileSystem.installComponent(new WinFileSystem());

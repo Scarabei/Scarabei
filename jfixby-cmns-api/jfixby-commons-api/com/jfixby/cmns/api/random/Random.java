@@ -7,7 +7,7 @@ public class Random {
 
 	static private ComponentInstaller<RandomComponent> componentInstaller = new ComponentInstaller<RandomComponent>("Random");
 
-	public static final void installComponent (RandomComponent component_to_install) {
+	public static final void installComponent (final RandomComponent component_to_install) {
 		componentInstaller.installComponent(component_to_install);
 	}
 
@@ -17,6 +17,18 @@ public class Random {
 
 	public static final RandomComponent component () {
 		return componentInstaller.getComponent();
+	}
+
+	public static int newInt (final int min, final int max) {
+		return invoke().newInt(min, max);
+	}
+
+	public static double newDouble (final double min, final double max) {
+		return invoke().newDouble(min, max);
+	}
+
+	public static boolean newCoin () {
+		return invoke().newCoin();
 	}
 
 }
