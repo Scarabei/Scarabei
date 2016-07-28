@@ -30,4 +30,14 @@ public class RedRandom implements RandomComponent {
 		return this.newDouble(0, 1) >= 0.5;
 	}
 
+	@Override
+	public int newInt32 () {
+		return this.random.nextInt();
+	}
+
+	@Override
+	public void setSeed (final long seed) {
+		this.random.setSeed(seed);
+	}
+
 }

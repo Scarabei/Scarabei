@@ -9,4 +9,8 @@ public interface RandomComponent {
 
 	boolean newCoin ();
 
+	int newInt32 ();
+
+	void setSeed (long seed);
+
 }

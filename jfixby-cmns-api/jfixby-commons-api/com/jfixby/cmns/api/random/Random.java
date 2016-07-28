@@ -31,4 +31,12 @@ public class Random {
 		return invoke().newCoin();
 	}
 
+	public static int newInt32 () {
+		return invoke().newInt32();
+	}
+
+	public static void setSeed (final long seed) {
+		invoke().setSeed(seed);
+	}
+
 }
