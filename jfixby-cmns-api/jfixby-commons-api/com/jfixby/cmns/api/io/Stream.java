@@ -7,4 +7,8 @@ public interface Stream {
 	public STREAM_STATE getState ();
 
 	void open ();
+
+	public void setPedanticMode ();
+
+	public boolean isInPedanticMode ();
 }
