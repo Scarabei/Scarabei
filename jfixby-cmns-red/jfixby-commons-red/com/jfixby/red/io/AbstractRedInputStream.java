@@ -131,4 +131,16 @@ public class AbstractRedInputStream<T extends JavaInputStreamOperator> implement
 		}
 	}
 
+	boolean pedanticMode = true;
+
+	@Override
+	public void setPedanticMode (final boolean pedanticMode) {
+		this.pedanticMode = pedanticMode;
+	}
+
+	@Override
+	public boolean isInPedanticMode () {
+		return this.pedanticMode;
+	}
+
 }

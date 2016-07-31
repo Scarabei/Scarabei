@@ -54,4 +54,16 @@ public class HttpDesktopConnectionInputStream implements HttpConnectionInputStre
 	public void open () {
 	}
 
+	boolean pedanticMode = true;
+
+	@Override
+	public void setPedanticMode (final boolean pedanticMode) {
+		this.pedanticMode = pedanticMode;
+	}
+
+	@Override
+	public boolean isInPedanticMode () {
+		return this.pedanticMode;
+	}
+
 }

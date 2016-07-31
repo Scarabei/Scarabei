@@ -22,6 +22,18 @@ public class AbstractRedOutputStream<T extends JavaOutputStreamOperator> impleme
 	private final T operator;
 	private Exception source;
 
+	boolean pedanticMode = true;
+
+	@Override
+	public void setPedanticMode (final boolean pedanticMode) {
+		this.pedanticMode = pedanticMode;
+	}
+
+	@Override
+	public boolean isInPedanticMode () {
+		return this.pedanticMode;
+	}
+
 	public AbstractRedOutputStream (final T operator) {
 		this.operator = operator;
 		this.state = JUtils.newStateSwitcher(STREAM_STATE.CLOSED);
