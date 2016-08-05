@@ -22,6 +22,9 @@ public class RedInMemoryFileOutputStreamOperator implements JavaOutputStreamOper
 
 	@Override
 	public void closeStream () {
+		if (this.os == null) {
+			return;
+		}
 		this.os.close();
 		final ByteArray data = this.os.getBytes();
 		this.leaf.setData(data);
