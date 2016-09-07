@@ -56,9 +56,4 @@ public interface CollectionsComponent {
 
 	public <T> Histogramm<T> newHistogramm ();
 
-	// public <T> λFunction<Collection<T>, Collection<T>>
-	// MERGE_SORT(Comparator<? super T> comparator);
-	//
-	// public <T> λFunction<Collection<T>, Collection<T>> MERGE_SORT();
-
 }

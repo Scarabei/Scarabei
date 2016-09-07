@@ -121,4 +121,9 @@ public class Collections {
 		return invoke().newHistogramm();
 	}
 
+	public static <A, B> void convertCollection (final Collection<A> input, final EditableCollection<B> output,
+		final CollectionConverter<A, B> converter) {
+		invoke().convertCollection(input, output, converter);
+	}
+
 }
