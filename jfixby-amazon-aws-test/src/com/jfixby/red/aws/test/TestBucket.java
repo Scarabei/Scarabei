@@ -24,7 +24,7 @@ public class TestBucket {
 		final ListObjectsRequest request = new ListObjectsRequest().withBucketName("jfix.by");
 
 		final String prefix = "/";
-		request.withPrefix("");
+		request.withPrefix("wp-content/");
 		request.setDelimiter("/");
 
 		final ObjectListing objectListing = s3.listObjects(request);

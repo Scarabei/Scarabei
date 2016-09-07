@@ -3,7 +3,9 @@ package com.jfixby.amazon.aws.s3;
 
 import java.io.IOException;
 
+import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
+import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.file.ChildrenList;
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.FileSystem;
@@ -18,34 +20,12 @@ public class S3File extends AbstractRedFile implements File {
 	final private AbsolutePath<FileSystem> absolute_path;
 	private final AWSS3FileSystem fs;
 	private final RelativePath relative;
-// private S3ObjectInfo objectInfo;
+	private S3ObjectInfo objectInfo;
 
 	public S3File (final AbsolutePath<FileSystem> output_file_path, final AWSS3FileSystem file_system) {
 		this.absolute_path = output_file_path;
 		this.fs = file_system;
 		this.relative = this.absolute_path.getRelativePath();
-		if (this.fs.index_is_loaded) {
-			final Boolean isFile = this.fs.index().isFile(this.relative);
-			final S3ObjectInfo objectInfo = file_system.getObjectInfo(this.relative);
-
-			if (isFile == null) {
-				if (objectInfo.exists()) {
-					this.throwOutdated(output_file_path);
-				}
-			} else {
-				if (isFile == true) {
-					if (!objectInfo.exists()) {
-						this.throwOutdated(output_file_path);
-					}
-				}
-			}
-
-		}
-	}
-
-	private void throwOutdated (final AbsolutePath<FileSystem> output_file_path) {
-		this.fs.index().print("index");
-		throw new Error("Index is outdated: " + output_file_path);
 	}
 
 	@Override
@@ -53,36 +33,28 @@ public class S3File extends AbstractRedFile implements File {
 		return this.absolute_path;
 	}
 
-	String getGdxInternalPathString () {
-		return AWSS3FileSystem.toS3Key(this.absolute_path.getRelativePath());
-	}
-
 	@Override
 	public boolean isFile () {
-		final Boolean isFile = this.fs.index().isFile(this.relative);
-		if (isFile == null) {
+		if (this.relative.isRoot()) {
 			return false;
 		}
-		return isFile;
+		return this.info().isFile();
 	}
 
 	@Override
 	public boolean isFolder () {
-		final Boolean isFile = this.fs.index().isFile(this.relative);
-		if (isFile == null) {
-			return false;
+		if (this.relative.isRoot()) {
+			return true;
 		}
-		return !isFile;
+		return this.info().isFolder();
 	}
 
 	@Override
 	public boolean exists () {
-		final Boolean isFile = this.fs.index().isFile(this.relative);
-		if (isFile == null) {
-			return false;
+		if (this.relative.isRoot()) {
+			return true;
 		}
-		// return isFile != null;
-		return isFile || true;
+		return this.info() != null;
 	}
 
 	@Override
@@ -121,18 +93,16 @@ public class S3File extends AbstractRedFile implements File {
 			throw new Error("File does not exist: " + this.absolute_path);
 		}
 		if (this.isFolder()) {
-			final List<String> my_steps = this.relative.steps();
 			final FilesList listFiles = new FilesList();
-			for (int i = 0; i < this.fs.index().size(); i++) {
-				final RelativePath path = this.fs.index().getKeyAt(i);
-				final List<String> candidate_steps = path.steps();
-				if (my_steps.size() + 1 == candidate_steps.size()) {
-					if (path.parent().equals(this.relative)) {
-						final AbsolutePath<FileSystem> absolute_file = this.absolute_path.child(candidate_steps.getLast());
-						listFiles.add(absolute_file.getMountPoint().newFile(absolute_file));
-					}
-				}
-			}
+			final List<String> subfolders = this.info().listSubfolders();
+			final List<String> files = this.info().listFiles();
+
+			Collections.scanCollection(subfolders,
+				(folderName, index) -> listFiles.add(this.fs.newFile(this.getAbsoluteFilePath().child(folderName))));
+
+			Collections.scanCollection(files,
+				(fileName, index) -> listFiles.add(this.fs.newFile(this.getAbsoluteFilePath().child(fileName))));
+
 			return listFiles;
 		} else {
 			throw new Error("This is not a folder: " + this.absolute_path);
@@ -146,7 +116,7 @@ public class S3File extends AbstractRedFile implements File {
 
 	@Override
 	public String toString () {
-		return "@GdxAssetsFileSystem:>" + RelativePath.SEPARATOR + this.absolute_path.getRelativePath();
+		return "@" + this.fs.toString() + ":>" + RelativePath.SEPARATOR + this.absolute_path.getRelativePath();
 	}
 
 	@Override
@@ -156,7 +126,6 @@ public class S3File extends AbstractRedFile implements File {
 
 	@Override
 	public String getName () {
-		// java.io.File f = new java.io.File(this.getGdxInternalPathString());
 		return this.absolute_path.getRelativePath().getLastStep();
 	}
 
@@ -167,17 +136,12 @@ public class S3File extends AbstractRedFile implements File {
 
 	@Override
 	public String nameWithoutExtension () {
-		final java.io.File file = new java.io.File(this.getGdxInternalPathString());
-		final String name = file.getName();
+		final String name = this.getName();
 		final int dotIndex = name.lastIndexOf('.');
 		if (dotIndex == -1) {
 			return name;
 		}
 		return name.substring(0, dotIndex);
-	}
-
-	public String toAbsolutePathString () {
-		return this.getGdxInternalPathString();
 	}
 
 	@Override
@@ -192,16 +156,13 @@ public class S3File extends AbstractRedFile implements File {
 
 	@Override
 	public long getSize () {
-		return this.toFileHandle().length();
+		return this.info().length();
 	}
 
 	@Override
 	public java.io.File toJavaFile () {
-		// FileHandle file =
-		// Gdx.files.internal(this.getGdxInternalPathString());
-		// java.io.File f = file.file();
-		// return f;
-		throw new Error("Method is not supported: toJavaFile()");
+		Err.reportError("Method is not supported: toJavaFile()");
+		return null;
 	}
 
 	@Override
@@ -211,15 +172,14 @@ public class S3File extends AbstractRedFile implements File {
 
 	@Override
 	public long lastModified () {
-		return this.toFileHandle().lastModified();
+		return this.info().lastModified();
 	}
 
-	public S3ObjectInfo toFileHandle () {
-		final S3ObjectInfo objectInfo = this.fs.getObjectInfo(this.relative);
-		if (objectInfo == null) {
-			this.throwOutdated(this.absolute_path);
+	public S3ObjectInfo info () {
+		if (this.objectInfo == null) {
+			this.objectInfo = this.fs.retrieveInfo(this.relative);
 		}
-		return objectInfo;
+		return this.objectInfo;
 	}
 
 }

@@ -16,7 +16,8 @@ public class ListFiles {
 
 		final AWSS3FileSystem fileSystem = new AWSS3FileSystem(specs);
 
-		fileSystem.ROOT().listChildren().print("fileSystem");
+		fileSystem.ROOT().child("wp-content").child("uploads").listChildren()//
+			.print("fileSystem");
 
 	}
 

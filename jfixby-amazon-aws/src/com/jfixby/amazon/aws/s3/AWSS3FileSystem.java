@@ -8,13 +8,11 @@ import com.amazonaws.services.s3.model.S3ObjectSummary;
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.debug.Debug;
-import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.FileInputStream;
 import com.jfixby.cmns.api.file.FileOutputStream;
 import com.jfixby.cmns.api.file.FileSystem;
 import com.jfixby.cmns.api.log.L;
-import com.jfixby.cmns.api.sys.Sys;
 import com.jfixby.cmns.api.util.JUtils;
 import com.jfixby.cmns.api.util.path.AbsolutePath;
 import com.jfixby.cmns.api.util.path.RelativePath;
@@ -23,64 +21,13 @@ import com.jfixby.red.filesystem.AbstractFileSystem;
 public class AWSS3FileSystem extends AbstractFileSystem implements FileSystem {
 
 	private final String bucketName;
-
 	private final AmazonS3Client s3;
+	final private String toString;
 
 	public AWSS3FileSystem (final AWSS3FileSystemConfig specs) {
 		this.bucketName = Debug.checkNull("getBucketName()", specs.getBucketName());
-
 		this.s3 = new AmazonS3Client();
-
-// ByteArray data;
-//
-// {
-// final RelativePath INDEX_PATH = JUtils.newRelativePath(GdxAssetsFileSystemIndex.INDEX_FILE_NAME);
-// final FileHandle gdx_file = Gdx.files.internal(INDEX_PATH.toString());
-// if (!gdx_file.exists()) {
-// throw new Error("GdxFileSystemIndex is corrupted. File not found: " + GdxAssetsFileSystemIndex.INDEX_FILE_NAME
-// + " at " + gdx_file);
-// }
-//
-// data = JUtils.newByteArray(gdx_file.readBytes());
-// // byte[] bytes = Base64.decode(gdx_string);
-// // data = JUtils.newString(bytes);
-// // L.d("data", data);
-// }
-// try {
-// this.index_data = IO.deserialize(GdxAssetsFileSystemIndex.class, data);
-// } catch (final IOException e) {
-// e.printStackTrace();
-// Err.reportError(e);
-// }
-// // index_data.print();
-// for (int i = 0; i < this.index_data.index.size(); i++) {
-// final GdxAssetsFileSystemIndexEntry entry = this.index_data.index.get(i);
-// // L.d("importing", entry.path);
-// final RelativePath path = JUtils.newRelativePath(entry.path);
-// String file_name = internalFileName(path);
-// if (GdxAssetsFileSystemIndex.INDEX_FILE_NAME.equals(entry.path)) {
-// file_name = path.toString();
-// }
-// this.index.put(path, entry.is_file);
-// final FileHandle gdx_file = Gdx.files.internal(file_name);
-// if (entry.is_file && !gdx_file.exists()) {
-// L.d("entry.is_file", entry.is_file);
-// L.d(" gdx_file", gdx_file);
-// L.d(" exists", gdx_file.exists());
-// throw new Error("GdxFileSystemIndex is corrupted. File not found: " + gdx_file);
-// }
-// }
-// index.print("index");
-
-		this.index_is_loaded = false;
-
-		// L.d("loading GdxAssetsFileSystem index:");
-		// index.keys().print("");
-
-	}
-
-	public static String toS3Key (final RelativePath path) {
-		return S3FileSystemIndex.toS3Key(path);
+		this.toString = "S3BucketFileSystem[" + this.bucketName + "]";
 	}
 
 	public static final String OS_SEPARATOR = "/";
@@ -125,59 +72,114 @@ public class AWSS3FileSystem extends AbstractFileSystem implements FileSystem {
 		return OS_SEPARATOR;
 	}
 
-	final private String string_path = "S3BucketFileSystem";
-
 	@Override
 	public String toString () {
-		return this.string_path;
-	}
-
-	public S3FileSystemIndex getIndex () {
-		return this.index;
+		return this.toString;
 	}
 
 	@Override
 	public boolean isReadOnlyFileSystem () {
-		return true;
-	}
-
-	public S3ObjectInfo getObjectInfo (final RelativePath relative) {
-		return this.index.getObjectInfo(relative);
-	}
-
-	public S3FileSystemIndex index () {
-		if (this.index == null) {
-			final boolean rebuiltIndex = this.rebuildIndex();
-			if (!rebuiltIndex) {
-				Err.reportError("Failed to rebuild index!");
-			}
-		}
-		return this.index;
-	}
-
-	private boolean rebuildIndex () {
-
-		this.index = new S3FileSystemIndex();
-
-		this.request(JUtils.newRelativePath());
-
-		Sys.exit();
-
 		return false;
 	}
 
-	private void request (final RelativePath target) {
-		final ListObjectsRequest request = new ListObjectsRequest().withBucketName(this.bucketName);
-		final String prefix = "" + target.toString();
-		request.withPrefix(prefix);
+	public String getBucketName () {
+		return this.bucketName;
+	}
 
-		final ObjectListing objectListing = this.s3.listObjects(request);
-		final List<S3ObjectSummary> list = Collections.newList(objectListing.getObjectSummaries());
-		for (final S3ObjectSummary objectSummary : list) {
-			final S3ObjectInfo registered = this.index.addObjectToIndex(objectSummary);
+	public AmazonS3Client getAmazonS3Client () {
+		return this.s3;
+	}
+
+	public S3ObjectInfo retrieveInfo (final RelativePath relative) {
+		if (relative.isRoot()) {
+			return this.retrieveRootInfo();
 		}
-		this.index.print("list");
 
+		final S3ObjectInfo parentInfo = this.retrieveFolderInfo(relative.parent());
+		final boolean isFolder = parentInfo.listSubfolders().contains(relative.getLastStep());
+		final boolean isFile = parentInfo.listFiles().contains(relative.getLastStep());
+		final boolean exists = isFolder || isFile;
+
+		if (!exists) {
+			return null;
+		}
+
+		if (isFolder) {
+			return this.retrieveFolderInfo(relative);
+		}
+
+		return this.retrieveFileInfo(relative);
+
+	}
+
+	private S3ObjectInfo retrieveFileInfo (final RelativePath relative) {
+		final ListObjectsRequest request = new ListObjectsRequest().withBucketName(this.bucketName);
+		request.withPrefix(relative.toString());
+		request.setDelimiter(RelativePath.SEPARATOR);
+		final ObjectListing objectListing = this.s3.listObjects(request);
+		final S3ObjectInfo info = new S3ObjectInfo(objectListing.getObjectSummaries().get(0));
+		return info;
+	}
+
+	private S3ObjectInfo retrieveFolderInfo (final RelativePath relative) {
+		if (relative.isRoot()) {
+			return this.retrieveRootInfo();
+		}
+		final S3ObjectInfo info = new S3ObjectInfo();
+		final ListObjectsRequest request = new ListObjectsRequest().withBucketName(this.bucketName);
+		final String prefix = relative.toString() + RelativePath.SEPARATOR;
+// L.d("prefix", prefix);
+		request.withPrefix(prefix);
+		request.setDelimiter(RelativePath.SEPARATOR);
+		final ObjectListing objectListing = this.s3.listObjects(request);
+
+		final List<String> prefixes = Collections.newList(objectListing.getCommonPrefixes());
+// prefixes.print("prefixes:" + relative);
+
+//
+		final List<S3ObjectSummary> summs = Collections.newList(objectListing.getObjectSummaries());
+// summs.print("summs");
+		final List<String> files = Collections.newList();
+// final List<String> prefixes = Collections.newList();
+
+		Collections.scanCollection(summs, (summ, i) -> {
+			final String key = summ.getKey();
+			final RelativePath keyPath = JUtils.newRelativePath(key);
+			if (keyPath.equals(relative)) {
+				return;
+			}
+			if (key.endsWith(RelativePath.SEPARATOR)) {
+				prefixes.add(key);
+			} else {
+				files.add(key);
+			}
+		});
+		info.addSubFolders(prefixes);
+		info.addFiles(files);
+// files.print("files:" + relative);
+
+// info.print(relative + "");
+		return info;
+	}
+
+	private S3ObjectInfo retrieveRootInfo () {
+		final S3ObjectInfo info = new S3ObjectInfo();
+		final ListObjectsRequest request = new ListObjectsRequest().withBucketName(this.bucketName);
+		request.withPrefix("");
+		request.setDelimiter(RelativePath.SEPARATOR);
+		final ObjectListing objectListing = this.s3.listObjects(request);
+// for (final S3ObjectSummary sum : objectListing.getObjectSummaries()) {
+// L.d("", sum.getKey());
+// }
+
+		final List<String> prefixes = Collections.newList(objectListing.getCommonPrefixes());
+		info.addSubFolders(prefixes);
+		final List<S3ObjectSummary> summs = Collections.newList(objectListing.getObjectSummaries());
+		final List<String> files = Collections.newList();
+		Collections.convertCollection(summs, files, S3ObjectSummary -> new S3ObjectInfo(S3ObjectSummary).path.getLastStep());
+		info.addFiles(files);
+// info.print("root");
+		return info;
 	}
 
 }
