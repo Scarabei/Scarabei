@@ -26,7 +26,7 @@ public class S3FileFileInputStreamOperator implements JavaInputStreamOperator {
 	@Override
 	public InputStream getJavaStream () throws IOException {
 		if (this.bis == null) {
-			this.bis = new ByteArrayInputStream(this.file.info().readBytes());
+			this.bis = new ByteArrayInputStream(this.file.info().readBytes(this.file.getFileSystem()));
 		}
 		return this.bis;
 	}
@@ -38,7 +38,7 @@ public class S3FileFileInputStreamOperator implements JavaInputStreamOperator {
 
 	@Override
 	public ByteArray readAll () throws IOException {
-		return JUtils.newByteArray(this.file.info().readBytes());
+		return JUtils.newByteArray(this.file.info().readBytes(this.file.getFileSystem()));
 	}
 
 }

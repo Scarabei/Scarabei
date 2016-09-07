@@ -64,9 +64,7 @@ public class S3File extends AbstractRedFile implements File {
 
 	@Override
 	public boolean makeFolder () {
-		// java.io.File f = new java.io.File(this.getGdxInternalPathString());
-		// return f.mkdirs();
-		throw new Error("Read-only file system!");
+		return this.fs.createS3Folder(this.relative);
 	}
 
 	@Override
@@ -146,7 +144,7 @@ public class S3File extends AbstractRedFile implements File {
 
 	@Override
 	public void writeBytes (final ByteArray bytes) throws IOException {
-		throw new IOException("Read-only file system: " + this.getFileSystem());
+		this.fs.writeData(this.relative, bytes);
 	}
 
 	@Override

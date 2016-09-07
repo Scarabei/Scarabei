@@ -1,10 +1,11 @@
 
 package com.jfixby.amazon.aws.s3;
 
+import java.io.IOException;
+
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
-import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.util.JUtils;
 import com.jfixby.cmns.api.util.path.RelativePath;
@@ -43,9 +44,8 @@ public class S3ObjectInfo {
 		return this.lastModified;
 	}
 
-	public byte[] readBytes () {
-		Err.reportNotImplementedYet();
-		return null;
+	public byte[] readBytes (final AWSS3FileSystem awss3FileSystem) throws IOException {
+		return awss3FileSystem.readData(this.s3Key);
 	}
 
 	public boolean isFile () {
@@ -77,15 +77,17 @@ public class S3ObjectInfo {
 	public void addSubFolders (final List<String> subfolders) {
 		for (final String name : subfolders) {
 			final List<String> steps = JUtils.split(name, RelativePath.SEPARATOR);
-
 			final String properName = steps.getLast();
-// L.d(name, properName);
 			this.subfolders.add(properName);
 		}
 	}
 
 	public void addFiles (final List<String> files) {
-		this.files.addAll(files);
+		for (final String name : files) {
+			final List<String> steps = JUtils.split(name, RelativePath.SEPARATOR);
+			final String properName = steps.getLast();
+			this.files.add(properName);
+		}
 	}
 
 	public void print (final String tag) {

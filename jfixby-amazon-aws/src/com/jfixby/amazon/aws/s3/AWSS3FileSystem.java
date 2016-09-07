@@ -1,17 +1,31 @@
 
 package com.jfixby.amazon.aws.s3;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+
 import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.ListObjectsRequest;
 import com.amazonaws.services.s3.model.ObjectListing;
+import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.services.s3.model.PutObjectResult;
+import com.amazonaws.services.s3.model.S3Object;
+import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.debug.Debug;
+import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.FileInputStream;
 import com.jfixby.cmns.api.file.FileOutputStream;
 import com.jfixby.cmns.api.file.FileSystem;
+import com.jfixby.cmns.api.io.IO;
+import com.jfixby.cmns.api.io.InputStream;
+import com.jfixby.cmns.api.io.InputStreamOpener;
+import com.jfixby.cmns.api.java.ByteArray;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.util.JUtils;
 import com.jfixby.cmns.api.util.path.AbsolutePath;
@@ -125,20 +139,32 @@ public class AWSS3FileSystem extends AbstractFileSystem implements FileSystem {
 		if (relative.isRoot()) {
 			return this.retrieveRootInfo();
 		}
-		final S3ObjectInfo info = new S3ObjectInfo();
+		final S3ObjectInfo info;
+
 		final ListObjectsRequest request = new ListObjectsRequest().withBucketName(this.bucketName);
 		final String prefix = relative.toString() + RelativePath.SEPARATOR;
+
 // L.d("prefix", prefix);
 		request.withPrefix(prefix);
 		request.setDelimiter(RelativePath.SEPARATOR);
 		final ObjectListing objectListing = this.s3.listObjects(request);
 
 		final List<String> prefixes = Collections.newList(objectListing.getCommonPrefixes());
-// prefixes.print("prefixes:" + relative);
+//
 
 //
 		final List<S3ObjectSummary> summs = Collections.newList(objectListing.getObjectSummaries());
-// summs.print("summs");
+//
+
+		if (summs.size() == 0) {
+			prefixes.print("prefixes:" + prefix);
+			summs.print("summs");
+			Err.reportError("Failed to read folder: " + prefix);
+		}
+
+		info = new S3ObjectInfo(summs.getElementAt(0));
+// Sys.exit();
+
 		final List<String> files = Collections.newList();
 // final List<String> prefixes = Collections.newList();
 
@@ -180,6 +206,74 @@ public class AWSS3FileSystem extends AbstractFileSystem implements FileSystem {
 		info.addFiles(files);
 // info.print("root");
 		return info;
+	}
+
+	boolean createS3Folder (final RelativePath relative) {
+		if (relative.isRoot()) {
+			return true;
+		}
+		RelativePath current = JUtils.newRelativePath();
+		final List<String> steps = relative.steps();
+		for (int i = 0; i < steps.size(); i++) {
+			current = current.child(steps.getElementAt(i));
+			this.makeFolder(current + RelativePath.SEPARATOR);
+		}
+		return true;
+	}
+
+	void makeFolder (final String s3Key) {
+		L.d("makeFolder", s3Key);
+
+		// create meta-data for your folder and set content-length to 0
+		final ObjectMetadata metadata = new ObjectMetadata();
+		metadata.setContentLength(0);
+		// create empty content
+		final ByteArrayInputStream emptyContent = new ByteArrayInputStream(new byte[0]);
+		// create a PutObjectRequest passing the folder name suffixed by /
+		final PutObjectRequest putObjectRequest = new PutObjectRequest(this.bucketName, s3Key, emptyContent, metadata);
+		// send request to S3 to create folder
+		final PutObjectResult result = this.s3.putObject(putObjectRequest);
+
+	}
+
+	void writeData (final RelativePath relative, final ByteArray bytes) {
+
+		final String s3Key = relative.toString();
+
+		L.d("writeData", s3Key);
+
+		// create meta-data for your folder and set content-length to 0
+		final ObjectMetadata metadata = new ObjectMetadata();
+		metadata.setContentLength(bytes.size());
+// create empty content
+		final ByteArrayInputStream emptyContent = new ByteArrayInputStream(bytes.toArray());
+		// create a PutObjectRequest passing the folder name suffixed by /
+		final PutObjectRequest putObjectRequest = new PutObjectRequest(this.bucketName, s3Key, emptyContent, metadata);
+		// send request to S3 to create folder
+		final PutObjectResult result = this.s3.putObject(putObjectRequest);
+
+	}
+
+	public byte[] readData (final String s3Key) throws IOException {
+
+		final String bucketName = this.bucketName;
+		final AmazonS3Client s3 = this.s3;
+
+		final InputStreamOpener opener = new InputStreamOpener() {
+			@Override
+			public java.io.InputStream open () throws IOException {
+				final GetObjectRequest request = new GetObjectRequest(bucketName, s3Key);
+				final S3Object object = s3.getObject(request);
+				final S3ObjectInputStream is = object.getObjectContent();
+				return is;
+			}
+		};
+
+		final InputStream stream = IO.newInputStream(opener);
+		stream.open();
+		final ByteArray data = stream.readAll();
+		stream.close();
+		return data.toArray();
 	}
 
 }
