@@ -7,7 +7,6 @@ import java.io.IOException;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.ListObjectsRequest;
-import com.amazonaws.services.s3.model.ObjectListing;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectResult;
@@ -158,8 +157,8 @@ public class AWSS3FileSystem extends AbstractFileSystem implements FileSystem {
 		final ListObjectsRequest request = new ListObjectsRequest().withBucketName(this.bucketName);
 		request.withPrefix(relative.toString());
 		request.setDelimiter(RelativePath.SEPARATOR);
-		final ObjectListing objectListing = this.s3.listObjects(request);
-		final S3ObjectInfo info = new S3ObjectInfo(objectListing.getObjectSummaries().get(0));
+		final ObjectListingResult objectListing = this.listObjects(request);
+		final S3ObjectInfo info = new S3ObjectInfo(objectListing.getObjectSummaries().getElementAt(0));
 		return info;
 	}
 
@@ -177,9 +176,9 @@ public class AWSS3FileSystem extends AbstractFileSystem implements FileSystem {
 		if (directFlag == DIRECT_CHILDREN) {
 			request.setDelimiter(RelativePath.SEPARATOR);
 
-			final ObjectListing objectListing = this.s3.listObjects(request);
-			final List<String> prefixes = Collections.newList(objectListing.getCommonPrefixes());
-			final List<S3ObjectSummary> summs = Collections.newList(objectListing.getObjectSummaries());
+			final ObjectListingResult objectListing = this.listObjects(request);
+			final List<String> prefixes = objectListing.getCommonPrefixes();
+			final List<S3ObjectSummary> summs = objectListing.getObjectSummaries();
 			if (summs.size() == 0) {
 				L.e("  folder info not found", prefix);
 				info = new S3ObjectInfo(prefix);
@@ -204,8 +203,9 @@ public class AWSS3FileSystem extends AbstractFileSystem implements FileSystem {
 			info.addDirectChildFiles(files);
 			return info;
 		} else {
-			final ObjectListing objectListing = this.s3.listObjects(request);
-			final List<S3ObjectSummary> summs = Collections.newList(objectListing.getObjectSummaries());
+			final ObjectListingResult objectListing = this.listObjects(request);
+			final List<String> prefixes = objectListing.getCommonPrefixes();
+			final List<S3ObjectSummary> summs = objectListing.getObjectSummaries();
 
 			if (summs.size() == 0) {
 				L.e("  folder info not found", prefix);
@@ -228,7 +228,7 @@ public class AWSS3FileSystem extends AbstractFileSystem implements FileSystem {
 		if (directFlag == DIRECT_CHILDREN) {
 			request.setDelimiter(RelativePath.SEPARATOR);
 
-			final ObjectListing objectListing = this.s3.listObjects(request);
+			final ObjectListingResult objectListing = this.listObjects(request);
 			final List<String> prefixes = Collections.newList(objectListing.getCommonPrefixes());
 			final List<S3ObjectSummary> summs = Collections.newList(objectListing.getObjectSummaries());
 			final List<String> files = Collections.newList();
@@ -237,7 +237,7 @@ public class AWSS3FileSystem extends AbstractFileSystem implements FileSystem {
 			info.addDirectChildFiles(files);
 			return info;
 		} else {
-			final ObjectListing objectListing = this.s3.listObjects(request);
+			final ObjectListingResult objectListing = this.listObjects(request);
 			final List<S3ObjectSummary> summs = Collections.newList(objectListing.getObjectSummaries());
 			info.addAllChildren(summs);
 // info.print("all for root");
@@ -245,6 +245,10 @@ public class AWSS3FileSystem extends AbstractFileSystem implements FileSystem {
 
 		}
 
+	}
+
+	private ObjectListingResult listObjects (final ListObjectsRequest request) {
+		return new ObjectListingResult(this.s3, request);
 	}
 
 	boolean createS3Folder (final RelativePath relative) {
