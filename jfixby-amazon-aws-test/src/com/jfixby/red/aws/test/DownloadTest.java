@@ -23,7 +23,9 @@ public class DownloadTest {
 
 		S3.copyFolderContentsToFolder(remote, local);
 
-		local.listDirectChildren().print("output");
+		local.listDirectChildren().print("output direct");
+
+		local.listAllChildren().print("output all");
 
 	}
 
