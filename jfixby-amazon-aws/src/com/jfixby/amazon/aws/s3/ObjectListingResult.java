@@ -26,7 +26,6 @@ public class ObjectListingResult {
 		this.prefixList.addAll(objects.getCommonPrefixes());
 
 		while (objects.isTruncated()) {
-
 			objects = this.s3.listNextBatchOfObjects(objects);
 			this.keyList.addAll(objects.getObjectSummaries());
 			this.prefixList.addAll(objects.getCommonPrefixes());
