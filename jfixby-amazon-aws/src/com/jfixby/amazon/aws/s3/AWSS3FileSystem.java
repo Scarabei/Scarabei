@@ -61,12 +61,14 @@ public class AWSS3FileSystem extends AbstractFileSystem implements FileSystem {
 
 	@Override
 	public FileOutputStream newFileOutputStream (final File output_file) {
-		throw new Error("Read-only file system!");
+		return this.newFileOutputStream(output_file, false);
 	}
 
 	@Override
 	public FileOutputStream newFileOutputStream (final File output_file, final boolean append) {
-		throw new Error("Read-only file system!");
+		Debug.checkNull("File", output_file);
+		Debug.checkTrue("File belongs to this filesystem?", output_file.getFileSystem() == this);
+		return new S3FileOutputStream((S3File)output_file, append);
 	}
 
 	@Override

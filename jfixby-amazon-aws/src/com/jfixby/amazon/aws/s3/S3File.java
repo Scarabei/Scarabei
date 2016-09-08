@@ -170,11 +170,6 @@ public class S3File extends AbstractRedFile implements File {
 	}
 
 	@Override
-	public void writeString (final String bytes) throws IOException {
-		throw new IOException("Read-only file system: " + this.getFileSystem());
-	}
-
-	@Override
 	public long getSize () {
 		return this.info().length();
 	}
