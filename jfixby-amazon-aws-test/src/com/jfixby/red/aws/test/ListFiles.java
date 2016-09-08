@@ -12,7 +12,7 @@ public class ListFiles {
 
 		final AWSS3FileSystemConfig specs = new AWSS3FileSystemConfig();
 
-		specs.setBucketName("jfix.by");
+		specs.setBucketName("jfix.by");// amzfs
 
 		final AWSS3FileSystem fileSystem = new AWSS3FileSystem(specs);
 

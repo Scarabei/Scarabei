@@ -14,11 +14,28 @@ import com.jfixby.cmns.api.file.FileOutputStream;
 import com.jfixby.cmns.api.file.FileSystem;
 import com.jfixby.cmns.api.io.IO;
 import com.jfixby.cmns.api.java.ByteArray;
+import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.util.JUtils;
 import com.jfixby.cmns.api.util.path.AbsolutePath;
 import com.jfixby.cmns.api.util.path.RelativePath;
 
 public abstract class AbstractRedFile implements File {
+
+	@Override
+	final public void clearFolder () {
+		if (this.isFolder()) {
+			final ChildrenList children = this.listAllChildren();
+			for (int i = 0; i < children.size(); i++) {
+				// WinFile file = new WinFile(child);
+				final File child = children.getElementAt(i);
+				child.delete();
+				// L.d("deleting", child.getAbsoluteFilePath());
+			}
+		} else {
+			L.e("Unable to clear", this.getAbsoluteFilePath());
+			L.e("       this is not a folder.");
+		}
+	}
 
 	@Override
 	public int hashCode () {

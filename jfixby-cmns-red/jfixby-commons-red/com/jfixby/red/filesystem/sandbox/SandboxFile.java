@@ -9,7 +9,6 @@ import com.jfixby.cmns.api.file.FileHash;
 import com.jfixby.cmns.api.file.FileInputStream;
 import com.jfixby.cmns.api.file.FileOutputStream;
 import com.jfixby.cmns.api.file.FileSystem;
-import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.util.path.AbsolutePath;
 import com.jfixby.cmns.api.util.path.RelativePath;
 import com.jfixby.red.filesystem.AbstractRedFile;
@@ -60,24 +59,6 @@ public class SandboxFile extends AbstractRedFile implements File {
 	public boolean isFile () {
 		final File unprotected_file = this.getUnprotectedFile();
 		return unprotected_file.isFile();
-	}
-
-	@Override
-	public void clearFolder () {
-		if (this.isFolder()) {
-			final ChildrenList children = this.listChildren();
-			for (int i = 0; i < children.size(); i++) {
-				final File child = children.getElementAt(i);
-				// WinFile file = new WinFile(child);
-				// File child = this.sandbox.newFile(child_path);
-
-				child.delete();
-				// L.d("deleting", child.getAbsoluteFilePath());
-			}
-		} else {
-			L.e("Unable to clear", this.absolute_path);
-			L.e("       this is not a folder.");
-		}
 	}
 
 	@Override

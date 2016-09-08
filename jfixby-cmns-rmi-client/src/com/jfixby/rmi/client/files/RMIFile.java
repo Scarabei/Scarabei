@@ -7,7 +7,6 @@ import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.FileInputStream;
 import com.jfixby.cmns.api.file.FileOutputStream;
 import com.jfixby.cmns.api.file.FileSystem;
-import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.util.path.AbsolutePath;
 import com.jfixby.cmns.api.util.path.RelativePath;
 import com.jfixby.red.filesystem.AbstractRedFile;
@@ -52,22 +51,6 @@ public class RMIFile extends AbstractRedFile implements File {
 	public boolean isFile () {
 		final RMIDataContainer content = this.virtualFileSystem.getContent();
 		return content.isFile(this.absolute_path.getRelativePath());
-	}
-
-	@Override
-	public void clearFolder () {
-		if (this.isFolder()) {
-			final ChildrenList children = this.listChildren();
-			for (int i = 0; i < children.size(); i++) {
-				final File child = children.getElementAt(i);
-
-				child.delete();
-				// L.d("deleting", child.getAbsoluteFilePath());
-			}
-		} else {
-			L.e("Unable to clear", this.absolute_path);
-			L.e("       this is not a folder.");
-		}
 	}
 
 	@Override

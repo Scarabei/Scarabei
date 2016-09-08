@@ -66,7 +66,7 @@ public abstract class AbstractFileSystem implements FileSystem {
 
 			final boolean continueCopying = true;
 			if (continueCopying) {
-				L.d("copying file", file_to_copy.getAbsoluteFilePath());
+// L.d("copying file", file_to_copy.getAbsoluteFilePath());
 				this.copyFileToFile(file_to_copy, target_output_file);
 			}
 
@@ -83,6 +83,7 @@ public abstract class AbstractFileSystem implements FileSystem {
 
 		ouput_folder.makeFolder();
 		final ChildrenList children = input_folder.listChildren();
+// children.print("children");
 		for (int i = 0; i < children.size(); i++) {
 			final File file_to_copy = (children.getElementAt(i));
 			this.copyFileToFolder(file_to_copy, ouput_folder);

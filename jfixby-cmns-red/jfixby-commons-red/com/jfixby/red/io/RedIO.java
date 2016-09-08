@@ -75,7 +75,7 @@ public class RedIO implements IOComponent {
 	public InputStream newInputStream (final InputStreamOpener opener) {
 		final AbstractRedInputStream<RedJavaInputStreamOperator> stream = new AbstractRedInputStream<RedJavaInputStreamOperator>(
 			new RedJavaInputStreamOperator(opener));
-		stream.open();
+// stream.open();
 		return stream;
 	}
 
@@ -83,7 +83,7 @@ public class RedIO implements IOComponent {
 	public OutputStream newOutputStream (final OutputStreamOpener opener) {
 		final AbstractRedOutputStream<RedJavaOutputStreamOperator> stream = new AbstractRedOutputStream<RedJavaOutputStreamOperator>(
 			new RedJavaOutputStreamOperator(opener));
-		stream.open();
+// stream.open();
 		return stream;
 	}
 

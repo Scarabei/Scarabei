@@ -8,12 +8,15 @@ import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.file.ChildrenList;
 import com.jfixby.cmns.api.file.File;
+import com.jfixby.cmns.api.file.FileHash;
 import com.jfixby.cmns.api.file.FileSystem;
 import com.jfixby.cmns.api.java.ByteArray;
+import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.util.path.AbsolutePath;
 import com.jfixby.cmns.api.util.path.RelativePath;
 import com.jfixby.red.filesystem.AbstractRedFile;
 import com.jfixby.red.filesystem.FilesList;
+import com.jfixby.red.filesystem.RedFileHash;
 
 public class S3File extends AbstractRedFile implements File {
 
@@ -69,14 +72,14 @@ public class S3File extends AbstractRedFile implements File {
 
 	@Override
 	public boolean delete () {
-		// if (this.isFolder()) {
-		// this.clearFolder();
-		// }
-		// java.io.File f = new java.io.File(getGdxInternalPathString());
-		//
-		// L.d("deleting", f);
-		// f.delete();
-		throw new Error("Read-only file system!");
+		if (this.isFolder()) {
+			this.clearFolder();
+			this.fs.deleteS3Folder(this.relative);
+		} else {
+			this.fs.deleteS3File(this.relative);
+		}
+		L.d("delete", this);
+		return true;
 	}
 
 	public static String toNativePathString (final String string) {
@@ -105,11 +108,6 @@ public class S3File extends AbstractRedFile implements File {
 		} else {
 			throw new Error("This is not a folder: " + this.absolute_path);
 		}
-	}
-
-	@Override
-	public void clearFolder () {
-		throw new Error("Read-only file system!");
 	}
 
 	@Override
@@ -171,6 +169,11 @@ public class S3File extends AbstractRedFile implements File {
 	@Override
 	public long lastModified () {
 		return this.info().lastModified();
+	}
+
+	@Override
+	public FileHash calculateHash () throws IOException {
+		return new RedFileHash(this.info().md5());
 	}
 
 	public S3ObjectInfo info () {

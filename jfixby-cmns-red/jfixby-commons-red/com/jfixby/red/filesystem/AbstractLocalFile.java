@@ -6,7 +6,6 @@ import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.file.ChildrenList;
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.FileSystem;
-import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.util.path.AbsolutePath;
 
 public abstract class AbstractLocalFile<T extends AbstractLocalFileSystem> extends AbstractRedFile {
@@ -148,22 +147,6 @@ public abstract class AbstractLocalFile<T extends AbstractLocalFileSystem> exten
 			return listFiles;
 		} else {
 			throw new Error("This is not a folder: " + this.absolute_path);
-		}
-	}
-
-	@Override
-	final public void clearFolder () {
-		if (this.isFolder()) {
-			final ChildrenList children = this.listChildren();
-			for (int i = 0; i < children.size(); i++) {
-				// WinFile file = new WinFile(child);
-				final File child = children.getElementAt(i);
-				child.delete();
-				// L.d("deleting", child.getAbsoluteFilePath());
-			}
-		} else {
-			L.e("Unable to clear", this.absolute_path);
-			L.e("       this is not a folder.");
 		}
 	}
 

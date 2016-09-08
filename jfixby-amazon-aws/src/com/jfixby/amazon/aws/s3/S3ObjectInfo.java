@@ -19,6 +19,7 @@ public class S3ObjectInfo {
 	RelativePath path;
 	final List<String> subfolders = Collections.newList();
 	final List<String> files = Collections.newList();
+	private String md5;
 
 	public S3ObjectInfo (final S3ObjectSummary objectSummary) {
 		this.s3Key = objectSummary.getKey();
@@ -26,6 +27,7 @@ public class S3ObjectInfo {
 		this.size = objectSummary.getSize();
 		this.lastModified = objectSummary.getLastModified().getTime();
 		this.path = JUtils.newRelativePath(this.s3Key);
+		this.md5 = objectSummary.getETag().toUpperCase();
 	}
 
 	S3ObjectInfo () {
@@ -94,6 +96,10 @@ public class S3ObjectInfo {
 		L.d(tag, this);
 		this.subfolders.print("subfolders");
 		this.files.print("files     ");
+	}
+
+	public String md5 () {
+		return this.md5;
 	}
 
 }

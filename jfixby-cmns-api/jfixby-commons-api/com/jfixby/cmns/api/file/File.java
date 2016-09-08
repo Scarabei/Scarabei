@@ -25,6 +25,8 @@ public interface File {
 
 	ChildrenList listChildren (FileFilter filter);
 
+	public ChildrenList listAllChildren ();
+
 	File child (String child_name);
 
 	boolean exists ();

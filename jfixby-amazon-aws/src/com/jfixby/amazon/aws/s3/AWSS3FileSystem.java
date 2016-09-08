@@ -276,4 +276,14 @@ public class AWSS3FileSystem extends AbstractFileSystem implements FileSystem {
 		return data.toArray();
 	}
 
+	void deleteS3File (final RelativePath relative) {
+
+		this.s3.deleteObject(this.bucketName, relative.toString());
+	}
+
+	void deleteS3Folder (final RelativePath relative) {
+
+		this.s3.deleteObject(this.bucketName, relative + RelativePath.SEPARATOR);
+	}
+
 }
