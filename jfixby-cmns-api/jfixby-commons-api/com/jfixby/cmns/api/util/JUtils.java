@@ -39,7 +39,7 @@ public class JUtils {
 		return invoke().newAbsolutePath(mount_point);
 	}
 
-	public static final RelativePath newRelativePath (final List<String> steps_list) {
+	public static final RelativePath newRelativePath (final Collection<String> steps_list) {
 		return invoke().newRelativePath(steps_list);
 	}
 

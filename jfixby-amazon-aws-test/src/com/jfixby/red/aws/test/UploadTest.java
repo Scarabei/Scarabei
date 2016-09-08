@@ -10,7 +10,7 @@ import com.jfixby.cmns.api.file.LocalFileSystem;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.red.desktop.DesktopSetup;
 
-public class CopyTest {
+public class UploadTest {
 
 	public static void main (final String[] args) throws IOException {
 		DesktopSetup.deploy();

@@ -1,6 +1,7 @@
 
 package com.jfixby.red.util;
 
+import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.debug.Debug;
@@ -22,7 +23,7 @@ class RedRelativePath implements RelativePath {
 
 	}
 
-	public RedRelativePath (final List<String> path_steps) {
+	public RedRelativePath (final Collection<String> path_steps) {
 		this.path_steps.addAll(path_steps);
 	}
 
@@ -165,6 +166,11 @@ class RedRelativePath implements RelativePath {
 		}
 		final String ext = name.substring(index + 1);
 		return ext;
+	}
+
+	@Override
+	public RelativePath splitAt (final int step) {
+		return JUtils.newRelativePath(Collections.newList(this.stepsList()).splitAt(step));
 	}
 
 }

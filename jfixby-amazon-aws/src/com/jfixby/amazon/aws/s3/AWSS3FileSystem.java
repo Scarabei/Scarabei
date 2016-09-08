@@ -17,6 +17,7 @@ import com.amazonaws.services.s3.model.S3ObjectSummary;
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.debug.Debug;
+import com.jfixby.cmns.api.file.ChildrenList;
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.FileInputStream;
 import com.jfixby.cmns.api.file.FileOutputStream;
@@ -321,8 +322,71 @@ public class AWSS3FileSystem extends AbstractFileSystem implements FileSystem {
 	}
 
 	void deleteS3Object (final String s3Key) {
-		L.d("delete s3 key", s3Key);
+		L.d("delete S3Key", s3Key);
 		this.s3.deleteObject(this.bucketName, s3Key);
+	}
+
+	@Override
+	public void copyFolderContentsToFolder (final File input_folder, final File ouput_folder) throws IOException {
+		if (this == input_folder.getFileSystem()) {
+
+			Debug.checkTrue("The folder does not exist: " + input_folder, input_folder.exists());
+			Debug.checkTrue("This is not a folder: " + input_folder, input_folder.exists());
+			final RelativePath start = input_folder.getAbsoluteFilePath().getRelativePath();
+
+			final S3ObjectInfo allKeys = this.listAllS3Keys(start);
+			final List<S3ObjectInfo> children = allKeys.allChildren;
+			// children.print("task");
+			for (int i = 0; i < children.size(); i++) {
+				final S3ObjectInfo infoToCopy = children.getElementAt(i);
+				final boolean isFolder = infoToCopy.s3Key.endsWith(RelativePath.SEPARATOR);
+				final RelativePath file_to_copy_relative = JUtils.newRelativePath(infoToCopy.s3Key);
+				final RelativePath relative = file_to_copy_relative.splitAt(start.size());
+				final File target_file = ouput_folder.proceed(relative);
+				final File input_file = input_folder.proceed(file_to_copy_relative);
+				L.d("copying", input_file);
+				L.d("     to", target_file);
+
+				if (isFolder) {
+					target_file.makeFolder();
+				} else {
+					final byte[] bytes = this.readData(infoToCopy.s3Key);
+					target_file.writeBytes(bytes);
+				}
+			}
+
+			return;
+		}
+
+		if (this == ouput_folder.getFileSystem()) {
+
+			Debug.checkTrue("The folder does not exist: " + input_folder, input_folder.exists());
+			Debug.checkTrue("This is not a folder: " + input_folder, input_folder.exists());
+			final RelativePath start = input_folder.getAbsoluteFilePath().getRelativePath();
+			final ChildrenList children = input_folder.listAllChildren();
+			// children.print("task");
+			for (int i = 0; i < children.size(); i++) {
+				final File file_to_copy = children.getElementAt(i);
+				final RelativePath relative = file_to_copy.getAbsoluteFilePath().getRelativePath().splitAt(start.size());
+				final File target_folder = ouput_folder.proceed(relative);
+
+				L.d("copying", file_to_copy);
+				L.d("     to", target_folder);
+
+				// children.print("task");
+				if (file_to_copy.isFile()) {
+					this.writeData(relative, file_to_copy.readBytes());
+				}
+				if (file_to_copy.isFolder()) {
+					this.makeFolder(relative + RelativePath.SEPARATOR);
+				}
+			}
+
+			return;
+		}
+
+		super.copyFolderContentsToFolder(input_folder, ouput_folder);
+
 	}
 
 }

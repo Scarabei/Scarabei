@@ -50,7 +50,7 @@ public class RedJUtils implements UtilsComponent {
 	}
 
 	@Override
-	public RelativePath newRelativePath (final List<String> steps_list) {
+	public RelativePath newRelativePath (final Collection<String> steps_list) {
 		return new RedRelativePath(steps_list);
 	}
 

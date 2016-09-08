@@ -91,7 +91,7 @@ public abstract class AbstractFileSystem implements FileSystem {
 	}
 
 	@Override
-	public void copyFilesTo (final Collection<File> files_list, final File to_folder) throws IOException {
+	final public void copyFilesTo (final Collection<File> files_list, final File to_folder) throws IOException {
 		for (int i = 0; i < files_list.size(); i++) {
 			final File file_to_copy = files_list.getElementAt(i);
 			this.copyFileToFolder(file_to_copy, to_folder);

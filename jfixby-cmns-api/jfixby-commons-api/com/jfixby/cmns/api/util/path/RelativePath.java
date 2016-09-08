@@ -31,4 +31,6 @@ public interface RelativePath {
 
 	int size ();
 
+	RelativePath splitAt (int step);
+
 }

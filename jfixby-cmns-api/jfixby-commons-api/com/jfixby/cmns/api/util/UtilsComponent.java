@@ -14,7 +14,7 @@ public interface UtilsComponent {
 
 	RelativePath newRelativePath (String path_string);
 
-	RelativePath newRelativePath (List<String> steps_list);
+	RelativePath newRelativePath (Collection<String> steps_list);
 
 	RelativePath newRelativePath (java.util.List<String> steps_list);
 
