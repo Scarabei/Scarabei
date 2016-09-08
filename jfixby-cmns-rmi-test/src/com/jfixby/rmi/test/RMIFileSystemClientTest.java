@@ -37,10 +37,10 @@ public class RMIFileSystemClientTest {
 		final RMIFileSystem remote_file_system = new RMIFileSystem(config);
 		remote_file_system.ping();
 
-		remote_file_system.ROOT().listChildren().print("scan root");
+		remote_file_system.ROOT().listDirectChildren().print("scan root");
 		final File A = remote_file_system.ROOT().child("a");
 		final File B = remote_file_system.ROOT().child("b");
-		A.listChildren().print("A");
+		A.listDirectChildren().print("A");
 
 		remote_file_system.copyFolderContentsToFolder(A, B);
 

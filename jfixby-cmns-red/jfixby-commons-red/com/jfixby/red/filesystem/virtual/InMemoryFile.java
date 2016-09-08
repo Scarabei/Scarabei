@@ -2,6 +2,7 @@
 package com.jfixby.red.filesystem.virtual;
 
 import com.jfixby.cmns.api.collections.List;
+import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.file.ChildrenList;
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.FileSystem;
@@ -25,6 +26,12 @@ public class InMemoryFile extends AbstractRedFile implements File {
 	@Override
 	public AbsolutePath<FileSystem> getAbsoluteFilePath () {
 		return this.absolute_path;
+	}
+
+	@Override
+	public ChildrenList listAllChildren () {
+		Err.reportNotImplementedYet();
+		return null;
 	}
 
 	@Override
@@ -57,7 +64,7 @@ public class InMemoryFile extends AbstractRedFile implements File {
 	}
 
 	@Override
-	public ChildrenList listChildren () {
+	public ChildrenList listDirectChildren () {
 		final InMemoryFileSystemContent content = this.virtualFileSystem.getContent();
 
 		if (!content.exists(this.relativePath)) {

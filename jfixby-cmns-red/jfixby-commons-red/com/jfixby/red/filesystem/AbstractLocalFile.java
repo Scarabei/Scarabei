@@ -3,9 +3,10 @@ package com.jfixby.red.filesystem;
 
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
-import com.jfixby.cmns.api.file.ChildrenList;
+import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.FileSystem;
+import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.util.path.AbsolutePath;
 
 public abstract class AbstractLocalFile<T extends AbstractLocalFileSystem> extends AbstractRedFile {
@@ -117,36 +118,65 @@ public abstract class AbstractLocalFile<T extends AbstractLocalFileSystem> exten
 		return f.exists();
 	}
 
+	static final boolean DIRECT_CHILDREN = true;
+	static final boolean ALL_CHILDREN = !DIRECT_CHILDREN;
+
 	@Override
-	final public ChildrenList listChildren () {
-		final java.io.File file = new java.io.File(this.getAbsolutePathString());
-		if (!file.exists()) {
-			throw new Error("File does not exist: " + this.getAbsolutePathString());
-		}
-		if (file.isDirectory()) {
-			final String[] list = file.list();
+	final public FilesList listDirectChildren () {
+		final List<AbstractLocalFile<T>> filesQueue = Collections.newList();
+		filesQueue.add(this);
+		final FilesList result = new FilesList();
+		collectChildren(filesQueue, result, DIRECT_CHILDREN);
 
-			final List<String> files = Collections.newList(list);
-			final FilesList listFiles = new FilesList();
-			for (int i = 0; i < files.size(); i++) {
-				final String file_i = files.getElementAt(i);
-				//
-				// String parent =
-				// absolute_path.getRelativePath().getPathString();
-				// RelativePath relative = RedTriplane.Java().newRelativePath(
-				// parent + RelativePath.SEPARATOR + file_i);
-				// AbsolutePath absolute_file = new WinAbsolutePath(
-				// (WinMountPoint) absolute_path.getMountPoint(), relative);
+		return result;
 
-				final AbsolutePath<FileSystem> absolute_file = this.absolute_path.child(file_i);
-				listFiles.add(absolute_file.getMountPoint().newFile(absolute_file));
+	}
+
+	@Override
+	final public FilesList listAllChildren () {
+		final List<AbstractLocalFile<T>> filesQueue = Collections.newList();
+		filesQueue.add(this);
+		final FilesList result = new FilesList();
+		collectChildren(filesQueue, result, ALL_CHILDREN);
+
+		return result;
+
+	}
+
+	static private <T extends AbstractLocalFileSystem> void collectChildren (final List<AbstractLocalFile<T>> filesQueue,
+		final FilesList result, final boolean directFlag) {
+		while (filesQueue.size() > 0) {
+			final AbstractLocalFile<T> nextfile = filesQueue.removeElementAt(0);
+			final java.io.File file = new java.io.File(nextfile.getAbsolutePathString());
+			if (!file.exists()) {
+				Err.reportError("File does not exist: " + nextfile.getAbsolutePathString());
 			}
-			// L.d("listFiles", listFiles);
 
-			//
-			return listFiles;
-		} else {
-			throw new Error("This is not a folder: " + this.absolute_path);
+			if (file.isDirectory()) {
+				final String[] list = file.list();
+				if (list == null) {
+					L.e("list() is null", file);
+					continue;
+				}
+				final List<String> files = Collections.newList(list);
+
+				for (int i = 0; i < files.size(); i++) {
+					final String file_i = files.getElementAt(i);
+					final AbsolutePath<FileSystem> absolute_file = nextfile.absolute_path.child(file_i);
+					final T fs = (T)absolute_file.getMountPoint();
+					final AbstractLocalFile<T> child = (AbstractLocalFile<T>)fs.newFile(absolute_file);
+					result.add(child);
+					if (directFlag == ALL_CHILDREN) {
+						if (child.isFolder()) {
+							filesQueue.add(child);
+						}
+					}
+				}
+
+			} else {
+				Err.reportError("This is not a folder: " + nextfile.absolute_path);
+			}
+
 		}
 	}
 

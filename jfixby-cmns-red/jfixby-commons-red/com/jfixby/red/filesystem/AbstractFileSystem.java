@@ -82,7 +82,7 @@ public abstract class AbstractFileSystem implements FileSystem {
 		Debug.checkTrue("This is not a folder: " + input_folder, input_folder.exists());
 
 		ouput_folder.makeFolder();
-		final ChildrenList children = input_folder.listChildren();
+		final ChildrenList children = input_folder.listDirectChildren();
 // children.print("children");
 		for (int i = 0; i < children.size(); i++) {
 			final File file_to_copy = (children.getElementAt(i));
@@ -152,7 +152,7 @@ public abstract class AbstractFileSystem implements FileSystem {
 		Debug.checkTrue("This is not a folder: " + input_folder, input_folder.exists());
 
 		ouput_folder.makeFolder();
-		final ChildrenList children = input_folder.listChildren();
+		final ChildrenList children = input_folder.listDirectChildren();
 		for (int i = 0; i < children.size(); i++) {
 			final File file_to_copy = (children.getElementAt(i));
 			this.convertFile(file_to_copy, ouput_folder, folderConverter, fileConverter);
@@ -198,7 +198,7 @@ public abstract class AbstractFileSystem implements FileSystem {
 
 		@Override
 		public boolean convert (final File inputFolder, final File outputfolder) throws IOException {
-			final ChildrenList children = inputFolder.listChildren();
+			final ChildrenList children = inputFolder.listDirectChildren();
 			outputfolder.makeFolder();
 			AbstractFileSystem.this.copyFilesTo(children, outputfolder);
 			return true;

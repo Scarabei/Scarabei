@@ -1,0 +1,25 @@
+
+package com.jfixby.red.desktop.test;
+
+import com.jfixby.cmns.api.file.LocalFileSystem;
+import com.jfixby.cmns.api.file.LocalFileSystemComponent;
+import com.jfixby.red.desktop.DesktopSetup;
+
+public class ListFiles {
+
+	public static void main (final String[] args) {
+		DesktopSetup.deploy();
+
+		final LocalFileSystemComponent fileSystem = LocalFileSystem.invoke();
+
+		fileSystem.ROOT().listDirectChildren().print("root");
+
+		fileSystem.ROOT().child("[SHIT]").listDirectChildren()//
+			.print("root" + " direct");
+
+		fileSystem.ROOT().child("[SHIT]").listAllChildren()//
+			.print("root" + " all");
+
+	}
+
+}

@@ -116,7 +116,7 @@ public class R3ArrayCompressionMethod implements CompressionMethod {
 		}
 		FileTag info = new FileTag(folder, path);
 		list.addInfo(info);
-		absrobCollection(folder.listChildren(), path, list);
+		absrobCollection(folder.listDirectChildren(), path, list);
 	}
 
 	private void absrobCollection (Iterable<File> input, RelativePath path, TagsList list) {

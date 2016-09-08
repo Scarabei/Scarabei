@@ -24,7 +24,7 @@ public class CopyTest {
 
 		S3.copyFolderContentsToFolder(local, remote);
 
-		remote.listChildren().print("remote");
+		remote.listDirectChildren().print("remote");
 
 		L.d("remote.png", remote.child("sprite2.png").calculateHash());
 		L.d("sprite2.png", local.child("sprite2.png").calculateHash());

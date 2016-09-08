@@ -30,7 +30,7 @@ public class SplitChannelsTest {
 		File input_folder = home.child("input");
 		File output_folder = home.child("output");
 
-		ChildrenList pngs = input_folder.listChildren().filterFiles(file -> file.extensionIs("png"));
+		ChildrenList pngs = input_folder.listDirectChildren().filterFiles(file -> file.extensionIs("png"));
 		for (int i = 0; i < pngs.size(); i++) {
 			File pngFile = pngs.getElementAt(i);
 

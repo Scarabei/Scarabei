@@ -25,7 +25,7 @@ public class TestBucket {
 
 		final String prefix = "/";
 		request.withPrefix("wp-content");
-		request.setDelimiter("/");
+		request.setDelimiter("");
 
 		final ObjectListing objectListing = s3.listObjects(request);
 		final List<String> prefixes = Collections.newList(objectListing.getCommonPrefixes());

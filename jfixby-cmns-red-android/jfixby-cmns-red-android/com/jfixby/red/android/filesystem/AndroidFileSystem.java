@@ -98,7 +98,8 @@ public class AndroidFileSystem extends AbstractLocalFileSystem implements LocalF
 			L.e("FileSystem", file_path.getMountPoint());
 			throw new Error("Path does not belong to this filesystem: " + this);
 		}
-		return new AndroidFile(file_path, this).getAbsoluteWindowsPathString();
+// return new AndroidFile(file_path, this).getAbsoluteWindowsPathString();
+		return new AndroidFile(file_path, this).getAbsolutePathString();
 	}
 
 	@Override

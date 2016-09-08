@@ -29,7 +29,7 @@ public class PackFiles {
 		final File folder_to_pack = LocalFileSystem.ApplicationHome().child("input");
 		final File folder_compressed = LocalFileSystem.ApplicationHome().child("compressed");
 		final FileSystemPackingSpecs packing_specs = FileSystemPacker.newPackingSpecs();
-		packing_specs.setFilesList(folder_to_pack.listChildren());
+		packing_specs.setFilesList(folder_to_pack.listDirectChildren());
 		final File archive_file = folder_compressed.child("compressed-file-system.r3dat");
 		final OutputStream os = archive_file.newOutputStream();
 		packing_specs.setOutputStream(os);

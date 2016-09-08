@@ -22,9 +22,9 @@ import com.jfixby.cmns.api.util.path.RelativePath;
 public abstract class AbstractRedFile implements File {
 
 	@Override
-	final public void clearFolder () {
+	public void clearFolder () {
 		if (this.isFolder()) {
-			final ChildrenList children = this.listAllChildren();
+			final ChildrenList children = this.listDirectChildren();
 			for (int i = 0; i < children.size(); i++) {
 				// WinFile file = new WinFile(child);
 				final File child = children.getElementAt(i);
@@ -101,7 +101,7 @@ public abstract class AbstractRedFile implements File {
 	@Override
 	public ChildrenList listSubFolders () {
 		final FilesList listFiles = new FilesList();
-		final ChildrenList children = this.listChildren();
+		final ChildrenList children = this.listDirectChildren();
 		for (final File file : children) {
 			if (file.isFolder()) {
 				listFiles.add(file);
@@ -145,7 +145,7 @@ public abstract class AbstractRedFile implements File {
 
 	@Override
 	public ChildrenList listChildren (final FileFilter filter) {
-		return this.listChildren().filterFiles(filter);
+		return this.listDirectChildren().filterFiles(filter);
 	}
 
 	@Override

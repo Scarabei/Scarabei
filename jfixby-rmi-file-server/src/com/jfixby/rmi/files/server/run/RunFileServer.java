@@ -41,7 +41,7 @@ public class RunFileServer {
 		server_config.setMailBoxName(config.box_name);
 		final File server_root = LocalFileSystem.newFile(config.server_root_path_string);
 		L.d("Starting RMI file server at " + server_root);
-		server_root.listChildren().print("server_root");
+		server_root.listDirectChildren().print("server_root");
 
 		server_config.setServerRootFolder(server_root);
 

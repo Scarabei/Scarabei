@@ -21,7 +21,7 @@ public interface File {
 
 	public FileHash calculateHash () throws IOException;
 
-	ChildrenList listChildren ();
+	ChildrenList listDirectChildren ();
 
 	ChildrenList listChildren (FileFilter filter);
 

@@ -23,7 +23,7 @@ public class DownloadTest {
 
 		S3.copyFolderContentsToFolder(remote, local);
 
-		local.listChildren().print("output");
+		local.listDirectChildren().print("output");
 
 	}
 

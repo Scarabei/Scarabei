@@ -17,9 +17,12 @@ public class S3ObjectInfo {
 	long size;
 	long lastModified;
 	RelativePath path;
-	final List<String> subfolders = Collections.newList();
-	final List<String> files = Collections.newList();
+	final List<String> directSubfolders = Collections.newList();
+	final List<String> directChildFiles = Collections.newList();
+	final List<S3ObjectInfo> allChildren = Collections.newList();
+
 	private String md5;
+	public boolean isPresentInS3Bucket = true;
 
 	public S3ObjectInfo (final S3ObjectSummary objectSummary) {
 		this.s3Key = objectSummary.getKey();
@@ -31,11 +34,22 @@ public class S3ObjectInfo {
 	}
 
 	S3ObjectInfo () {
-		this.s3Key = "";
+		this("");
+	}
+
+	S3ObjectInfo (final String prefix) {
+		this.s3Key = prefix;
 		this.isFolder = true;
 		this.size = 0;
 		this.lastModified = 0;
-		this.path = JUtils.newRelativePath();
+		this.path = JUtils.newRelativePath(prefix);
+	}
+
+	public void addAllChildren (final List<S3ObjectSummary> summs) {
+		for (final S3ObjectSummary c : summs) {
+			final S3ObjectInfo child = new S3ObjectInfo(c);
+			this.allChildren.add(child);
+		}
 	}
 
 	public long length () {
@@ -68,34 +82,36 @@ public class S3ObjectInfo {
 		return this.isFolder;
 	}
 
-	public List<String> listSubfolders () {
-		return this.subfolders;
+	public List<String> listDirectSubfolders () {
+		return this.directSubfolders;
 	}
 
-	public List<String> listFiles () {
-		return this.files;
+	public List<String> listDirectChildFiles () {
+		return this.directChildFiles;
 	}
 
-	public void addSubFolders (final List<String> subfolders) {
+	public void addDirectSubfolders (final List<String> subfolders) {
 		for (final String name : subfolders) {
 			final List<String> steps = JUtils.split(name, RelativePath.SEPARATOR);
 			final String properName = steps.getLast();
-			this.subfolders.add(properName);
+			this.directSubfolders.add(properName);
 		}
 	}
 
-	public void addFiles (final List<String> files) {
+	public void addDirectChildFiles (final List<String> files) {
 		for (final String name : files) {
 			final List<String> steps = JUtils.split(name, RelativePath.SEPARATOR);
 			final String properName = steps.getLast();
-			this.files.add(properName);
+			this.directChildFiles.add(properName);
 		}
 	}
 
 	public void print (final String tag) {
 		L.d(tag, this);
-		this.subfolders.print("subfolders");
-		this.files.print("files     ");
+		this.directSubfolders.print("subfolders");
+		this.directChildFiles.print("files     ");
+		this.allChildren.print("children  ");
+
 	}
 
 	public String md5 () {

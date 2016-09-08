@@ -47,7 +47,7 @@ public class RedImageAWT implements ImageAWTComponent {
 			L.d("      hash", image_file.calculateHash());
 			L.d("      size", image_file.getSize());
 			final File parent = image_file.getFileSystem().newFile(image_file.getAbsoluteFilePath().parent());
-			parent.listChildren().print("files");
+			parent.listDirectChildren().print("files");
 			throw new IOException("Failed to read image: " + image_file);
 		}
 		is.close();

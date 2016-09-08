@@ -3,6 +3,7 @@ package com.jfixby.red.filesystem.sandbox;
 
 import java.io.IOException;
 
+import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.file.ChildrenList;
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.FileHash;
@@ -67,7 +68,7 @@ public class SandboxFile extends AbstractRedFile implements File {
 	}
 
 	@Override
-	public ChildrenList listChildren () {
+	public ChildrenList listDirectChildren () {
 		final File unprotected_file = this.getUnprotectedFile();
 
 		if (!unprotected_file.exists()) {
@@ -75,7 +76,7 @@ public class SandboxFile extends AbstractRedFile implements File {
 		}
 		if (unprotected_file.isFolder()) {
 
-			final ChildrenList unprotected_children = unprotected_file.listChildren();
+			final ChildrenList unprotected_children = unprotected_file.listDirectChildren();
 
 			// List<String> files = content.listChildren(relativePath);
 
@@ -92,6 +93,12 @@ public class SandboxFile extends AbstractRedFile implements File {
 		} else {
 			throw new Error("This is not a folder: " + this.absolute_path);
 		}
+	}
+
+	@Override
+	public ChildrenList listAllChildren () {
+		Err.reportNotImplementedYet();
+		return null;
 	}
 
 	@Override

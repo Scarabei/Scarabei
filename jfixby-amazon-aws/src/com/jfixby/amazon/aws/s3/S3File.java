@@ -12,6 +12,7 @@ import com.jfixby.cmns.api.file.FileHash;
 import com.jfixby.cmns.api.file.FileSystem;
 import com.jfixby.cmns.api.java.ByteArray;
 import com.jfixby.cmns.api.log.L;
+import com.jfixby.cmns.api.util.JUtils;
 import com.jfixby.cmns.api.util.path.AbsolutePath;
 import com.jfixby.cmns.api.util.path.RelativePath;
 import com.jfixby.red.filesystem.AbstractRedFile;
@@ -23,7 +24,7 @@ public class S3File extends AbstractRedFile implements File {
 	final private AbsolutePath<FileSystem> absolute_path;
 	private final AWSS3FileSystem fs;
 	private final RelativePath relative;
-	private S3ObjectInfo objectInfo;
+// private S3ObjectInfo objectInfo;
 
 	public S3File (final AbsolutePath<FileSystem> output_file_path, final AWSS3FileSystem file_system) {
 		this.absolute_path = output_file_path;
@@ -73,6 +74,7 @@ public class S3File extends AbstractRedFile implements File {
 	@Override
 	public boolean delete () {
 		if (this.isFolder()) {
+
 			this.clearFolder();
 			this.fs.deleteS3Folder(this.relative);
 		} else {
@@ -87,7 +89,7 @@ public class S3File extends AbstractRedFile implements File {
 	}
 
 	@Override
-	public ChildrenList listChildren () {
+	public ChildrenList listDirectChildren () {
 // final FileHandle file = Gdx.files.internal(this.getGdxInternalPathString());
 
 		if (!this.exists()) {
@@ -95,8 +97,8 @@ public class S3File extends AbstractRedFile implements File {
 		}
 		if (this.isFolder()) {
 			final FilesList listFiles = new FilesList();
-			final List<String> subfolders = this.info().listSubfolders();
-			final List<String> files = this.info().listFiles();
+			final List<String> subfolders = this.info().listDirectSubfolders();
+			final List<String> files = this.info().listDirectChildFiles();
 
 			Collections.scanCollection(subfolders,
 				(folderName, index) -> listFiles.add(this.fs.newFile(this.getAbsoluteFilePath().child(folderName))));
@@ -141,6 +143,28 @@ public class S3File extends AbstractRedFile implements File {
 	}
 
 	@Override
+	public FilesList listAllChildren () {
+		final S3ObjectInfo info = this.fs.listAllS3Keys(this.relative);
+		final FilesList result = new FilesList();
+
+		Collections.scanCollection(info.allChildren,
+			(e, i) -> result.add(this.fs.newFile(JUtils.newAbsolutePath(this.fs, e.path))));
+
+		return result;
+	}
+
+	@Override
+	final public void clearFolder () {
+		if (this.isFolder()) {
+			final S3ObjectInfo info = this.fs.listAllS3Keys(this.relative);
+			Collections.scanCollection(info.allChildren, (e, i) -> this.fs.deleteS3Object(e.s3Key));
+		} else {
+			L.e("Unable to clear", this.getAbsoluteFilePath());
+			L.e("       this is not a folder.");
+		}
+	}
+
+	@Override
 	public void writeBytes (final ByteArray bytes) throws IOException {
 		this.fs.writeData(this.relative, bytes);
 	}
@@ -177,10 +201,7 @@ public class S3File extends AbstractRedFile implements File {
 	}
 
 	public S3ObjectInfo info () {
-		if (this.objectInfo == null) {
-			this.objectInfo = this.fs.retrieveInfo(this.relative);
-		}
-		return this.objectInfo;
+		return this.fs.retrieveInfo(this.relative);
 	}
 
 }

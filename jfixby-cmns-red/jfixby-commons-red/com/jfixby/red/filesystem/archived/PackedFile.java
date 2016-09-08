@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
+import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.file.ChildrenList;
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.FileSystem;
@@ -44,6 +45,12 @@ public class PackedFile extends AbstractRedFile implements File {
 	}
 
 	@Override
+	public ChildrenList listAllChildren () {
+		Err.reportNotImplementedYet();
+		return null;
+	}
+
+	@Override
 	public boolean isFolder () {
 		final PackedFileSystemContent content = this.virtualFileSystem.getContent();
 		return content.isFolder(this.absolute_path.getRelativePath());
@@ -61,7 +68,7 @@ public class PackedFile extends AbstractRedFile implements File {
 	}
 
 	@Override
-	public ChildrenList listChildren () {
+	public ChildrenList listDirectChildren () {
 		final PackedFileSystemContent content = this.virtualFileSystem.getContent();
 
 		if (!content.exists(this.relativePath)) {

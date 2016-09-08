@@ -17,7 +17,6 @@ import com.amazonaws.services.s3.model.S3ObjectSummary;
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.debug.Debug;
-import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.FileInputStream;
 import com.jfixby.cmns.api.file.FileOutputStream;
@@ -104,26 +103,52 @@ public class AWSS3FileSystem extends AbstractFileSystem implements FileSystem {
 		return this.s3;
 	}
 
+	static final boolean DIRECT_CHILDREN = true;
+	static final boolean ALL_CHILDREN = !DIRECT_CHILDREN;
+
+	public S3ObjectInfo listAllS3Keys (final RelativePath relative) {
+		return this.retrieveInfo(relative, ALL_CHILDREN);
+	}
+
 	public S3ObjectInfo retrieveInfo (final RelativePath relative) {
+		return this.retrieveInfo(relative, DIRECT_CHILDREN);
+	}
+
+	public S3ObjectInfo retrieveInfo (final RelativePath relative, final boolean directFlag) {
 		if (relative.isRoot()) {
-			return this.retrieveRootInfo();
+			return this.retrieveRootInfo(directFlag);
 		}
+		if (directFlag == DIRECT_CHILDREN) {
+			final S3ObjectInfo parentInfo = this.retrieveFolderInfo(relative.parent(), directFlag);
+			final boolean isFolder = parentInfo.listDirectSubfolders().contains(relative.getLastStep());
+			final boolean isFile = parentInfo.listDirectChildFiles().contains(relative.getLastStep());
+			final boolean exists = isFolder || isFile;
 
-		final S3ObjectInfo parentInfo = this.retrieveFolderInfo(relative.parent());
-		final boolean isFolder = parentInfo.listSubfolders().contains(relative.getLastStep());
-		final boolean isFile = parentInfo.listFiles().contains(relative.getLastStep());
-		final boolean exists = isFolder || isFile;
+			if (!exists) {
+				return null;
+			}
 
-		if (!exists) {
-			return null;
+			if (isFolder) {
+				return this.retrieveFolderInfo(relative, directFlag);
+			}
+
+			return this.retrieveFileInfo(relative);
+		} else {
+			final S3ObjectInfo parentInfo = this.retrieveFolderInfo(relative.parent(), DIRECT_CHILDREN);
+			final boolean isFolder = parentInfo.listDirectSubfolders().contains(relative.getLastStep());
+			final boolean isFile = parentInfo.listDirectChildFiles().contains(relative.getLastStep());
+			final boolean exists = isFolder || isFile;
+
+			if (!exists) {
+				return null;
+			}
+
+			if (isFolder) {
+				return this.retrieveFolderInfo(relative, directFlag);
+			}
+
+			return this.retrieveFileInfo(relative);
 		}
-
-		if (isFolder) {
-			return this.retrieveFolderInfo(relative);
-		}
-
-		return this.retrieveFileInfo(relative);
-
 	}
 
 	private S3ObjectInfo retrieveFileInfo (final RelativePath relative) {
@@ -135,9 +160,9 @@ public class AWSS3FileSystem extends AbstractFileSystem implements FileSystem {
 		return info;
 	}
 
-	private S3ObjectInfo retrieveFolderInfo (final RelativePath relative) {
+	private S3ObjectInfo retrieveFolderInfo (final RelativePath relative, final boolean directFlag) {
 		if (relative.isRoot()) {
-			return this.retrieveRootInfo();
+			return this.retrieveRootInfo(directFlag);
 		}
 		final S3ObjectInfo info;
 
@@ -146,66 +171,77 @@ public class AWSS3FileSystem extends AbstractFileSystem implements FileSystem {
 
 // L.d("prefix", prefix);
 		request.withPrefix(prefix);
-		request.setDelimiter(RelativePath.SEPARATOR);
-		final ObjectListing objectListing = this.s3.listObjects(request);
+		if (directFlag == DIRECT_CHILDREN) {
+			request.setDelimiter(RelativePath.SEPARATOR);
 
-		final List<String> prefixes = Collections.newList(objectListing.getCommonPrefixes());
-//
-
-//
-		final List<S3ObjectSummary> summs = Collections.newList(objectListing.getObjectSummaries());
-//
-
-		if (summs.size() == 0) {
-			prefixes.print("prefixes:" + prefix);
-			summs.print("summs");
-			Err.reportError("Failed to read folder: " + prefix);
-		}
-
-		info = new S3ObjectInfo(summs.getElementAt(0));
-// Sys.exit();
-
-		final List<String> files = Collections.newList();
-// final List<String> prefixes = Collections.newList();
-
-		Collections.scanCollection(summs, (summ, i) -> {
-			final String key = summ.getKey();
-			final RelativePath keyPath = JUtils.newRelativePath(key);
-			if (keyPath.equals(relative)) {
-				return;
-			}
-			if (key.endsWith(RelativePath.SEPARATOR)) {
-				prefixes.add(key);
+			final ObjectListing objectListing = this.s3.listObjects(request);
+			final List<String> prefixes = Collections.newList(objectListing.getCommonPrefixes());
+			final List<S3ObjectSummary> summs = Collections.newList(objectListing.getObjectSummaries());
+			if (summs.size() == 0) {
+				L.e("  folder info not found", prefix);
+				info = new S3ObjectInfo(prefix);
+				info.isPresentInS3Bucket = false;
 			} else {
-				files.add(key);
+				info = new S3ObjectInfo(summs.getElementAt(0));
 			}
-		});
-		info.addSubFolders(prefixes);
-		info.addFiles(files);
-// files.print("files:" + relative);
+			final List<String> files = Collections.newList();
+			Collections.scanCollection(summs, (summ, i) -> {
+				final String key = summ.getKey();
+				final RelativePath keyPath = JUtils.newRelativePath(key);
+				if (keyPath.equals(relative)) {
+					return;
+				}
+				if (key.endsWith(RelativePath.SEPARATOR)) {
+					prefixes.add(key);
+				} else {
+					files.add(key);
+				}
+			});
+			info.addDirectSubfolders(prefixes);
+			info.addDirectChildFiles(files);
+			return info;
+		} else {
+			final ObjectListing objectListing = this.s3.listObjects(request);
+			final List<S3ObjectSummary> summs = Collections.newList(objectListing.getObjectSummaries());
 
-// info.print(relative + "");
-		return info;
+			if (summs.size() == 0) {
+				L.e("  folder info not found", prefix);
+				info = new S3ObjectInfo(prefix);
+			} else {
+				info = new S3ObjectInfo(summs.getElementAt(0));
+				summs.removeElementAt(0);
+			}
+
+			info.addAllChildren(summs);
+// info.print("all for " + relative);
+			return info;
+		}
 	}
 
-	private S3ObjectInfo retrieveRootInfo () {
+	private S3ObjectInfo retrieveRootInfo (final boolean directFlag) {
 		final S3ObjectInfo info = new S3ObjectInfo();
 		final ListObjectsRequest request = new ListObjectsRequest().withBucketName(this.bucketName);
 		request.withPrefix("");
-		request.setDelimiter(RelativePath.SEPARATOR);
-		final ObjectListing objectListing = this.s3.listObjects(request);
-// for (final S3ObjectSummary sum : objectListing.getObjectSummaries()) {
-// L.d("", sum.getKey());
-// }
+		if (directFlag == DIRECT_CHILDREN) {
+			request.setDelimiter(RelativePath.SEPARATOR);
 
-		final List<String> prefixes = Collections.newList(objectListing.getCommonPrefixes());
-		info.addSubFolders(prefixes);
-		final List<S3ObjectSummary> summs = Collections.newList(objectListing.getObjectSummaries());
-		final List<String> files = Collections.newList();
-		Collections.convertCollection(summs, files, S3ObjectSummary -> new S3ObjectInfo(S3ObjectSummary).path.getLastStep());
-		info.addFiles(files);
-// info.print("root");
-		return info;
+			final ObjectListing objectListing = this.s3.listObjects(request);
+			final List<String> prefixes = Collections.newList(objectListing.getCommonPrefixes());
+			final List<S3ObjectSummary> summs = Collections.newList(objectListing.getObjectSummaries());
+			final List<String> files = Collections.newList();
+			Collections.convertCollection(summs, files, S3ObjectSummary -> new S3ObjectInfo(S3ObjectSummary).path.getLastStep());
+			info.addDirectSubfolders(prefixes);
+			info.addDirectChildFiles(files);
+			return info;
+		} else {
+			final ObjectListing objectListing = this.s3.listObjects(request);
+			final List<S3ObjectSummary> summs = Collections.newList(objectListing.getObjectSummaries());
+			info.addAllChildren(summs);
+// info.print("all for root");
+			return info;
+
+		}
+
 	}
 
 	boolean createS3Folder (final RelativePath relative) {
@@ -277,13 +313,16 @@ public class AWSS3FileSystem extends AbstractFileSystem implements FileSystem {
 	}
 
 	void deleteS3File (final RelativePath relative) {
-
-		this.s3.deleteObject(this.bucketName, relative.toString());
+		this.deleteS3Object(relative.toString());
 	}
 
 	void deleteS3Folder (final RelativePath relative) {
+		this.deleteS3Object(relative.toString() + RelativePath.SEPARATOR);
+	}
 
-		this.s3.deleteObject(this.bucketName, relative + RelativePath.SEPARATOR);
+	void deleteS3Object (final String s3Key) {
+		L.d("delete s3 key", s3Key);
+		this.s3.deleteObject(this.bucketName, s3Key);
 	}
 
 }

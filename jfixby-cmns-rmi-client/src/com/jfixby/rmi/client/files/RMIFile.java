@@ -2,6 +2,7 @@
 package com.jfixby.rmi.client.files;
 
 import com.jfixby.cmns.api.collections.List;
+import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.file.ChildrenList;
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.FileInputStream;
@@ -42,6 +43,12 @@ public class RMIFile extends AbstractRedFile implements File {
 	}
 
 	@Override
+	public ChildrenList listAllChildren () {
+		Err.reportNotImplementedYet();
+		return null;
+	}
+
+	@Override
 	public boolean isFolder () {
 		final RMIDataContainer content = this.virtualFileSystem.getContent();
 		return content.isFolder(this.absolute_path.getRelativePath());
@@ -59,7 +66,7 @@ public class RMIFile extends AbstractRedFile implements File {
 	}
 
 	@Override
-	public ChildrenList listChildren () {
+	public ChildrenList listDirectChildren () {
 		final RMIDataContainer content = this.virtualFileSystem.getContent();
 
 		if (!content.exists(this.relativePath)) {
