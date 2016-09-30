@@ -76,14 +76,6 @@ public abstract class AlpaeroLogger implements LoggerComponent {
 			string.append(indent_str + "(" + i + ") " + array.getKeyAt(i) + " :-> " + array.getValueAt(i) + "\n");
 		}
 
-		// d("---Map[" + name + "]-----------------------");
-		// for (Iterator<?> i = m.keySet().iterator(); i.hasNext();) {
-		// Object key = i.next();
-		// Object value = m.get(key);
-		// d(" " + key + " = " + value);
-		// }
-		// d("---End----------------------------");
-
 		return string.toString();
 	}
 

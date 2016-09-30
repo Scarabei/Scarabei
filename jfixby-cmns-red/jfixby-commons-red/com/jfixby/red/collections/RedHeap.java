@@ -4,6 +4,7 @@ package com.jfixby.red.collections;
 import java.util.ArrayList;
 import java.util.Comparator;
 
+import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.Heap;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.util.JUtils;
@@ -33,7 +34,6 @@ final public class RedHeap<T> implements Heap<T> {
 		swap(this.array, 0, this.size() - 1);
 		final T element = this.array.remove(this.size() - 1);
 		this.heapDown(0);
-// this.print("heap -" + element);
 		return element;
 	}
 
@@ -182,32 +182,10 @@ final public class RedHeap<T> implements Heap<T> {
 			this.printNode(nextPrefix, indexOfRightChild(index), NODE_PRINT_TYPE.LAST);
 		}
 		if (hasLeftChild & hasRightChild) {
-			this.printNode(nextPrefix, indexOfLeftChild(index), NODE_PRINT_TYPE.MIDDLE);
-			this.printNode(nextPrefix, indexOfRightChild(index), NODE_PRINT_TYPE.LAST);
+			this.printNode(nextPrefix, indexOfRightChild(index), NODE_PRINT_TYPE.MIDDLE);
+			this.printNode(nextPrefix, indexOfLeftChild(index), NODE_PRINT_TYPE.LAST);
 		}
 
-	}
-
-	private int indexOf (final T element) {
-		int index = 0;
-		while (true) {
-			if (index >= this.size()) {
-				return -1;
-			}
-			final T current = this.array.get(index);
-			final int compare = this.comparator.compare(current, element);
-			if (compare == 0) {
-				return index;
-			}
-			if (compare > 0) {
-				index = indexOfRightChild(index);
-				continue;
-			}
-			if (compare < 0) {
-				index = indexOfLeftChild(index);
-				continue;
-			}
-		}
 	}
 
 	@Override
@@ -234,6 +212,13 @@ final public class RedHeap<T> implements Heap<T> {
 
 	final public static int indexOfRightChild (final int nodID) {
 		return nodID * 2 + 2;
+	}
+
+	@Override
+	public void addAll (final Collection<? extends T> other) {
+		for (int i = 0; i < other.size(); i++) {
+			this.add(other.getElementAt(i));
+		}
 	}
 
 }

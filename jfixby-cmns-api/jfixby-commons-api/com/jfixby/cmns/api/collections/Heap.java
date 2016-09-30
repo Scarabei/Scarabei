@@ -11,6 +11,8 @@ public interface Heap<T> {
 
 	public void addAll (final T... elements);
 
+	public void addAll (Collection<? extends T> other);
+
 	public T peek ();
 
 	public T remove ();
