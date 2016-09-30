@@ -23,7 +23,7 @@ public class RedQueue<T> implements Queue<T> {
 	}
 
 	@Override
-	public void push (T element) {
+	public void enqueue (T element) {
 		queue.add(element);
 	}
 
@@ -33,12 +33,12 @@ public class RedQueue<T> implements Queue<T> {
 	}
 
 	@Override
-	public T pop () {
+	public T dequeue () {
 		return queue.removeElementAt(0);
 	}
 
 	@Override
-	public void pushAll (Collection<T> elements) {
+	public void enqueueAll (Collection<T> elements) {
 		queue.addAll(elements);
 	}
 

@@ -171,4 +171,13 @@ public class RedJUtils implements UtilsComponent {
 		return new RedProgressIndicator();
 	}
 
+	@Override
+	public String prefix (final String string, final int offset) {
+		final StringBuilder b = new StringBuilder();
+		for (int i = 0; i < offset; i++) {
+			b.append(string);
+		}
+		return b.toString();
+	}
+
 }

@@ -1,6 +1,8 @@
 
 package com.jfixby.red.log;
 
+import java.util.Arrays;
+
 import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.Mapping;
 import com.jfixby.cmns.api.log.LoggerComponent;
@@ -27,6 +29,10 @@ public abstract class AlpaeroLogger implements LoggerComponent {
 		}
 		if (object instanceof byte[]) {
 			this.System_out_println(string + " > " + JUtils.newString((byte[])object));
+			return;
+		}
+		if (object instanceof int[]) {
+			this.System_out_println(string + " > " + Arrays.toString((int[])object));
 			return;
 		}
 		if (object instanceof Collection) {

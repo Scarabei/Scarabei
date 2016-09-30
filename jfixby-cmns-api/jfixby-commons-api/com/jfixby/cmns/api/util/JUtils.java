@@ -115,4 +115,8 @@ public class JUtils {
 		return invoke().newProgressIndicator();
 	}
 
+	public static String prefix (final String string, final int offset) {
+		return invoke().prefix(string, offset);
+	}
+
 }

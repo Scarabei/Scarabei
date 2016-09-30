@@ -26,6 +26,7 @@ public class DownloadLogs {
 		local.listDirectChildren().print("output direct");
 
 		local.listAllChildren().print("output all");
+		remote.clearFolder();
 
 	}
 

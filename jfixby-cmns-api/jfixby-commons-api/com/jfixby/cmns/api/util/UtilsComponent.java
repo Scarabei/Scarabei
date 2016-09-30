@@ -56,4 +56,6 @@ public interface UtilsComponent {
 
 	ProgressIndicator newProgressIndicator ();
 
+	String prefix (String string, int offset);
+
 }

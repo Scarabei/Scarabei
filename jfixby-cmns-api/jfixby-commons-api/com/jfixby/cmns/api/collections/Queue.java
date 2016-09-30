@@ -3,13 +3,13 @@ package com.jfixby.cmns.api.collections;
 
 public interface Queue<T> extends Collection<T> {
 
-	void push (T element);
+	void enqueue (T element);
 
-	void pushAll (Collection<T> elements);
+	void enqueueAll (Collection<T> elements);
 
 	boolean hasMore ();
 
-	T pop ();
+	T dequeue ();
 
 	void clear ();
 

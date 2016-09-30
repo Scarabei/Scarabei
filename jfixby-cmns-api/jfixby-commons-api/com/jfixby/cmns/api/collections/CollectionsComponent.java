@@ -1,6 +1,8 @@
 
 package com.jfixby.cmns.api.collections;
 
+import java.util.Comparator;
+
 public interface CollectionsComponent {
 
 	<T> List<T> newList ();
@@ -29,8 +31,6 @@ public interface CollectionsComponent {
 
 	public <T> ZxZ_Functuion<T> newZxZ_Function ();
 
-	public <T> Queue<T> newQueue ();
-
 	public <T> Pool<T> newPool (PoolElementsSpawner<T> spawner);
 
 	public <T> void scanCollection (Collection<T> collection, CollectionScanner<? super T> scanner);
@@ -55,5 +55,11 @@ public interface CollectionsComponent {
 	public <T> List<T> filter (Collection<? extends T> source, CollectionFilter<? super T> filter);
 
 	public <T> Histogramm<T> newHistogramm ();
+
+	public <T> Queue<T> newQueue ();
+
+	public <T> PriorityQueue<T> newPriorityQueue (Comparator<T> priorityComparator);
+
+	public <T> Heap<T> newHeap (Comparator<? super T> comparator);
 
 }

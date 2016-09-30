@@ -1,6 +1,7 @@
 
 package com.jfixby.red.collections;
 
+import java.util.Comparator;
 import java.util.Objects;
 
 import com.jfixby.cmns.api.collections.Collection;
@@ -10,12 +11,14 @@ import com.jfixby.cmns.api.collections.CollectionScanner;
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.CollectionsComponent;
 import com.jfixby.cmns.api.collections.EditableCollection;
+import com.jfixby.cmns.api.collections.Heap;
 import com.jfixby.cmns.api.collections.Histogramm;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.collections.Map;
 import com.jfixby.cmns.api.collections.Mapping;
 import com.jfixby.cmns.api.collections.Pool;
 import com.jfixby.cmns.api.collections.PoolElementsSpawner;
+import com.jfixby.cmns.api.collections.PriorityQueue;
 import com.jfixby.cmns.api.collections.Queue;
 import com.jfixby.cmns.api.collections.Set;
 import com.jfixby.cmns.api.collections.ZxZ_Functuion;
@@ -114,6 +117,11 @@ public abstract class RedCollections implements CollectionsComponent {
 	}
 
 	@Override
+	public <T> PriorityQueue<T> newPriorityQueue (final Comparator<T> priorityComparator) {
+		return new RedPriorityQueue<T>();
+	}
+
+	@Override
 	public <T> Pool<T> newPool (final PoolElementsSpawner<T> spawner) {
 		return new RedPool<T>(spawner);
 	}
@@ -124,6 +132,11 @@ public abstract class RedCollections implements CollectionsComponent {
 			final T element = collection.getElementAt(i);
 			scanner.scanElement(element, i);
 		}
+	}
+
+	@Override
+	public <T> Heap<T> newHeap (final Comparator<? super T> comparator) {
+		return new RedHeap<T>(comparator);
 	}
 
 	@Override

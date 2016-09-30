@@ -2,6 +2,7 @@
 package com.jfixby.red.desktop;
 
 import com.jfixby.cmns.api.angles.Angles;
+import com.jfixby.cmns.api.arrays.Arrays;
 import com.jfixby.cmns.api.assets.Names;
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.color.Colors;
@@ -26,6 +27,7 @@ import com.jfixby.cmns.api.sys.Sys;
 import com.jfixby.cmns.api.sys.settings.SystemSettings;
 import com.jfixby.cmns.api.taskman.TaskManager;
 import com.jfixby.cmns.api.util.JUtils;
+import com.jfixby.red.arrays.RedArrays;
 import com.jfixby.red.color.RedColors;
 import com.jfixby.red.debug.RedDebug;
 import com.jfixby.red.desktop.collections.DesktopCollections;
@@ -75,6 +77,7 @@ public class DesktopSetup {
 		GCFisher.installComponent(new RedGCFisher());
 		MD5.installComponent(new RSADataSecurityIncMD5());
 		Random.installComponent(new RedRandom());
+		Arrays.installComponent(new RedArrays());
 		// --
 
 		LocalFileSystem.installComponent(new WinFileSystem());

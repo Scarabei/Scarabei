@@ -1,6 +1,8 @@
 
 package com.jfixby.cmns.api.collections;
 
+import java.util.Comparator;
+
 import com.jfixby.cmns.api.ComponentInstaller;
 
 public class Collections {
@@ -72,8 +74,16 @@ public class Collections {
 		return invoke().newZxZ_Function();
 	}
 
+	public static <T> Heap<T> newHeap (final Comparator<? super T> comparator) {
+		return invoke().newHeap(comparator);
+	}
+
 	public static <T> Queue<T> newQueue () {
 		return invoke().newQueue();
+	}
+
+	public static <T> PriorityQueue<T> newPriorityQueue (final Comparator<T> priorityComparator) {
+		return invoke().newPriorityQueue(priorityComparator);
 	}
 
 	public static <T> Pool<T> newPool (final PoolElementsSpawner<T> spawner) {
