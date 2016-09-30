@@ -3,19 +3,17 @@ package com.jfixby.cmns.api.collections;
 
 public interface Heap<T> {
 
-	void clear ();
+	public void clear ();
 
-	int size ();
+	public int size ();
 
-	void add (final T element);
+	public void add (final T element);
 
-	void addAll (final T... elements);
+	public void addAll (final T... elements);
 
-	void remove (final T element);
+	public T peek ();
 
-	public T top ();
-
-	T removeTop ();
+	public T remove ();
 
 	public void print (String tag);
 

@@ -6,7 +6,6 @@ import java.util.Comparator;
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.Heap;
 import com.jfixby.cmns.api.collections.List;
-import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.util.JUtils;
 
@@ -31,10 +30,12 @@ public class RedHeap<T> implements Heap<T> {
 	}
 
 	@Override
-	public T removeTop () {
-		final T top = this.top();
-		this.remove(top);
-		return top;
+	public T remove () {
+		swap(this.array, 0, this.size() - 1);
+		final T element = this.array.removeElementAt(this.size() - 1);
+		this.heapDown(0);
+// this.print("heap -" + element);
+		return element;
 	}
 
 	@Override
@@ -48,36 +49,98 @@ public class RedHeap<T> implements Heap<T> {
 	public void add (final T element) {
 		this.array.add(element);
 		this.heapUp(this.size() - 1);
-		this.print("heap +" + element);
+// this.print("heap +" + element);
 	}
 
-	private void heapUp (final int nodeIndex) {
-		if (nodeIndex == 0) {
+	private void heapUp (final int childIndex) {
+		if (childIndex == 0) {
 			return;
 		}
-		final int parentIndex = indexOfParent(nodeIndex);
+		final int parentIndex = indexOfParent(childIndex);
 
 		final T parent = this.array.getElementAt(parentIndex);
-		final T node = this.array.getElementAt(nodeIndex);
+		final T child = this.array.getElementAt(childIndex);
 
-		if (this.comparator.compare(node, parent) > 0) {
-			swap(this.array, parentIndex, nodeIndex);
+		if (this.comparator.compare(child, parent) > 0) {
+			swap(this.array, parentIndex, childIndex);
 			this.heapUp(parentIndex);
 		}
 
 	}
 
-	@Override
-	public void remove (final T element) {
-		Debug.component().checkNull("argument is null", element);
-		final int index = this.indexOf(element);
-		if (index < 0) {
+	private void heapDown (final int nodeIndex) {
+		if (nodeIndex >= this.size()) {
 			return;
 		}
-		swap(this.array, index, this.size() - 1);
-		this.array.remove(this.size() - 1);
-		this.heapUp(index);
+		final T parent = this.array.getElementAt(nodeIndex);
+
+		final int leftIndex = indexOfLeftChild(nodeIndex);
+		final int rightIndex = indexOfRightChild(nodeIndex);
+
+		final boolean hasLeftChild = leftIndex < this.size();
+		final boolean hasRightChild = rightIndex < this.size();
+
+		if (!hasLeftChild && !hasRightChild) {
+			return;
+		}
+
+		final int parentIndex = nodeIndex;
+
+		int childIndex;
+
+		if (hasLeftChild && hasRightChild) {
+			final T leftChild = this.array.getElementAt(leftIndex);
+			final T rightChild = this.array.getElementAt(rightIndex);
+
+			if (this.comparator.compare(leftChild, rightChild) > 0) {
+				childIndex = leftIndex;
+
+				final T child = this.array.getElementAt(childIndex);
+				if (this.comparator.compare(child, parent) > 0) {
+					swap(this.array, parentIndex, childIndex);
+					this.heapDown(childIndex);
+					return;
+				}
+
+			} // else
+			{
+				childIndex = rightIndex;
+				final T child = this.array.getElementAt(childIndex);
+				if (this.comparator.compare(child, parent) > 0) {
+					swap(this.array, parentIndex, childIndex);
+					this.heapDown(childIndex);
+					return;
+				}
+			}
+
+			return;
+		}
+
+		if (hasLeftChild) {
+			childIndex = leftIndex;
+		} else {// if (hasRightChild) {
+			childIndex = rightIndex;
+		}
+
+		final T child = this.array.getElementAt(childIndex);
+		if (this.comparator.compare(child, parent) > 0) {
+			swap(this.array, parentIndex, childIndex);
+			this.heapDown(childIndex);
+		}
+
 	}
+
+// @Override
+// public void remove (final T element) {
+// Debug.component().checkNull("argument is null", element);
+// final int index = this.indexOf(element);
+// if (index < 0) {
+// return;
+// }
+// swap(this.array, index, this.size() - 1);
+// this.array.removeElementAt(this.size() - 1);
+// this.heapUp(index);
+// }
 
 	enum NODE_PRINT_TYPE {
 		ROOT, MIDDLE, LAST
@@ -149,7 +212,7 @@ public class RedHeap<T> implements Heap<T> {
 	}
 
 	@Override
-	public T top () {
+	public T peek () {
 		if (this.size() == 0) {
 			return null;
 		}
