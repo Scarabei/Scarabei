@@ -14,7 +14,7 @@ public class RedQueue<T> implements Queue<T> {
 	final List<T> queue = Collections.newList();
 
 	@Override
-	public List<T> filter (CollectionFilter<? super T> filter) {
+	public List<T> filter (final CollectionFilter<? super T> filter) {
 		return this.queue.filter(filter);
 	}
 
@@ -23,83 +23,88 @@ public class RedQueue<T> implements Queue<T> {
 	}
 
 	@Override
-	public void enqueue (T element) {
-		queue.add(element);
+	public boolean containsAll (final Collection<?> list) {
+		return this.queue.containsAll(list);
+	}
+
+	@Override
+	public void enqueue (final T element) {
+		this.queue.add(element);
 	}
 
 	@Override
 	public boolean hasMore () {
-		return queue.size() > 0;
+		return this.queue.size() > 0;
 	}
 
 	@Override
 	public T dequeue () {
-		return queue.removeElementAt(0);
+		return this.queue.removeElementAt(0);
 	}
 
 	@Override
-	public void enqueueAll (Collection<T> elements) {
-		queue.addAll(elements);
+	public void enqueueAll (final Collection<T> elements) {
+		this.queue.addAll(elements);
 	}
 
 	@Override
 	public int size () {
-		return queue.size();
+		return this.queue.size();
 	}
 
 	@Override
-	public boolean contains (Object element) {
-		return queue.contains(element);
+	public boolean contains (final Object element) {
+		return this.queue.contains(element);
 	}
 
 	@Override
 	public java.util.List<T> toJavaList () {
-		return queue.toJavaList();
+		return this.queue.toJavaList();
 	}
 
 	@Override
-	public T getElementAt (long i) {
-		return queue.getElementAt(i);
+	public T getElementAt (final long i) {
+		return this.queue.getElementAt(i);
 	}
 
 	@Override
 	public Iterator<T> iterator () {
-		return queue.iterator();
+		return this.queue.iterator();
 	}
 
 	@Override
 	public T getLast () {
-		return queue.getLast();
+		return this.queue.getLast();
 	}
 
 	@Override
 	public List<T> toList () {
-		return queue.toList();
+		return this.queue.toList();
 	}
 
 	@Override
 	public boolean isEmpty () {
-		return queue.isEmpty();
+		return this.queue.isEmpty();
 	}
 
 	@Override
-	public void print (String tag) {
-		queue.print(tag);
+	public void print (final String tag) {
+		this.queue.print(tag);
 	}
 
 	@Override
-	public void print (String tag, int from_index, int to_index) {
-		queue.print(tag, from_index, to_index);
+	public void print (final String tag, final int from_index, final int to_index) {
+		this.queue.print(tag, from_index, to_index);
 	}
 
 	@Override
-	public boolean beginsWith (Collection<T> steps) {
-		return queue.beginsWith(steps);
+	public boolean beginsWith (final Collection<T> steps) {
+		return this.queue.beginsWith(steps);
 	}
 
 	@Override
 	public void clear () {
-		queue.clear();
+		this.queue.clear();
 	}
 
 }

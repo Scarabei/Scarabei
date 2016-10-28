@@ -12,6 +12,7 @@ public interface Collection<T> extends Iterable<T> {
 
 	public T getElementAt (long i);
 
+	@Override
 	public Iterator<T> iterator ();
 
 	public T getLast ();
@@ -27,5 +28,7 @@ public interface Collection<T> extends Iterable<T> {
 	public boolean beginsWith (Collection<T> steps);
 
 	public List<T> filter (CollectionFilter<? super T> filter);
+
+	public boolean containsAll (Collection<?> other);
 
 }

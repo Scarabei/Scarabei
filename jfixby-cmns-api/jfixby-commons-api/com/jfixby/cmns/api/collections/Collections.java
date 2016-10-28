@@ -62,11 +62,11 @@ public class Collections {
 		return invoke().newSet(array);
 	}
 
-	public static <T> Set<T> newSet (final java.util.Collection<T> java_colletion) {
+	public static <T> Set<T> newSet (final java.util.Collection<? extends T> java_colletion) {
 		return invoke().newSet(java_colletion);
 	}
 
-	public static final <T> Set<T> newSet (final List<T> array) {
+	public static final <T> Set<T> newSet (final Collection<? extends T> array) {
 		return invoke().newSet(array);
 	}
 

@@ -60,7 +60,7 @@ final public class RedHeap<T> implements Heap<T> {
 		final T parent = this.array.get(parentIndex);
 		final T child = this.array.get(childIndex);
 
-		if (this.comparator.compare(child, parent) > 0) {
+		if (this.comparator.compare(child, parent) >= 0) {
 			swap(this.array, parentIndex, childIndex);
 			this.heapUp(parentIndex);
 		}

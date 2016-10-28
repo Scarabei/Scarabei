@@ -39,6 +39,16 @@ public class FilesList implements ChildrenList {
 		return this.internal_list.contains(element);
 	}
 
+	@Override
+	public boolean containsAll (final Collection<?> list) {
+		for (int i = 0; i < list.size(); i++) {
+			if (!this.contains(list.getElementAt(i))) {
+				return false;
+			}
+		}
+		return true;
+	}
+
 	public boolean remove (final Object element) {
 		return this.internal_list.remove(element);
 	}

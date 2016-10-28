@@ -35,6 +35,16 @@ public abstract class RedList<T> implements List<T> {
 	}
 
 	@Override
+	public boolean containsAll (final Collection<?> list) {
+		for (int i = 0; i < list.size(); i++) {
+			if (!this.contains(list.getElementAt(i))) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	@Override
 	public boolean remove (final Object element) {
 		return this.legacy.remove(element);
 	}
@@ -174,6 +184,11 @@ public abstract class RedList<T> implements List<T> {
 	@Override
 	public void insertElementAt (final T element, final int iindex) {
 		this.legacy.add(iindex, element);
+	}
+
+	@Override
+	public void insertAllAt (final Collection<? extends T> aj, final int index) {
+		this.legacy.addAll(index, aj.toJavaList());
 	}
 
 	@Override

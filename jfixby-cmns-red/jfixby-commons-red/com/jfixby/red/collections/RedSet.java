@@ -19,6 +19,16 @@ public class RedSet<T> implements Set<T> {
 	final List<T> content_list = Collections.newList();
 	final HashSet<T> content_set = new HashSet<T>();
 
+	@Override
+	public boolean containsAll (final Collection<?> list) {
+		for (int i = 0; i < list.size(); i++) {
+			if (!this.contains(list.getElementAt(i))) {
+				return false;
+			}
+		}
+		return true;
+	}
+
 	public RedSet () {
 		super();
 	}

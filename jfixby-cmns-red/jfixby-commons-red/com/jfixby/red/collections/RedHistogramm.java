@@ -17,23 +17,33 @@ public class RedHistogramm<T> implements Histogramm<T> {
 	long max = 0;
 	final private CollectionScanner<T> max_scanner = new CollectionScanner<T>() {
 		@Override
-		public void scanElement (T element, int index) {
-			max = max(getNumberAt(index), max);
+		public void scanElement (final T element, final int index) {
+			RedHistogramm.this.max = max(RedHistogramm.this.getNumberAt(index), RedHistogramm.this.max);
 		}
 	};
 
 	@Override
-	public void add (T value) {
-		RedHistogrammValue num = storage.get(value);
-		if (num == null) {
-			num = new RedHistogrammValue(this);
-			storage.put(value, num);
+	public boolean containsAll (final Collection<?> list) {
+		for (int i = 0; i < list.size(); i++) {
+			if (!this.contains(list.getElementAt(i))) {
+				return false;
+			}
 		}
-		num.value = num.value + 1;
-		max = max(max, num.value);
+		return true;
 	}
 
-	final static private long max (long a, long b) {
+	@Override
+	public void add (final T value) {
+		RedHistogrammValue num = this.storage.get(value);
+		if (num == null) {
+			num = new RedHistogrammValue(this);
+			this.storage.put(value, num);
+		}
+		num.value = num.value + 1;
+		this.max = max(this.max, num.value);
+	}
+
+	final static private long max (final long a, final long b) {
 		if (a > b) {
 			return a;
 		}
@@ -41,8 +51,8 @@ public class RedHistogramm<T> implements Histogramm<T> {
 	}
 
 	@Override
-	public long getNumberOf (T value) {
-		RedHistogrammValue num = storage.get(value);
+	public long getNumberOf (final T value) {
+		final RedHistogrammValue num = this.storage.get(value);
 		if (num == null) {
 			return 0;
 		}
@@ -51,38 +61,38 @@ public class RedHistogramm<T> implements Histogramm<T> {
 
 	@Override
 	public long getMax () {
-		return max;
+		return this.max;
 	}
 
 	@Override
-	public void print (String tag) {
-		storage.print(tag);
+	public void print (final String tag) {
+		this.storage.print(tag);
 	}
 
 	@Override
 	public void sortValues () {
-		storage.sortKeys();
+		this.storage.sortKeys();
 	}
 
 	@Override
-	public void addIf (T value, boolean condition) {
+	public void addIf (final T value, final boolean condition) {
 		if (condition) {
 			this.add(value);
 		}
 	}
 
 	@Override
-	public long getNumberAt (long index) {
-		return storage.getValueAt(index).value;
+	public long getNumberAt (final long index) {
+		return this.storage.getValueAt(index).value;
 	}
 
 	@Override
 	public int size () {
-		return storage.size();
+		return this.storage.size();
 	}
 
 	@Override
-	public T getValueAt (long index) {
+	public T getValueAt (final long index) {
 		return this.storage.getKeyAt(index);
 	}
 
@@ -90,15 +100,15 @@ public class RedHistogramm<T> implements Histogramm<T> {
 	public void sortNumbers () {
 		final Comparator<T> comparator = new Comparator<T>() {
 			@Override
-			public int compare (T o1, T o2) {
-				return -Long.compare(storage.get(o1).value, storage.get(o2).value);
+			public int compare (final T o1, final T o2) {
+				return -Long.compare(RedHistogramm.this.storage.get(o1).value, RedHistogramm.this.storage.get(o2).value);
 			}
 		};
-		storage.sortKeys(comparator);
+		this.storage.sortKeys(comparator);
 	}
 
 	@Override
-	public boolean contains (Object element) {
+	public boolean contains (final Object element) {
 		return this.storage.keys().contains(element);
 	}
 
@@ -108,7 +118,7 @@ public class RedHistogramm<T> implements Histogramm<T> {
 	}
 
 	@Override
-	public T getElementAt (long i) {
+	public T getElementAt (final long i) {
 		return this.storage.getKeyAt(i);
 	}
 
@@ -133,29 +143,29 @@ public class RedHistogramm<T> implements Histogramm<T> {
 	}
 
 	@Override
-	public void print (String tag, int from_index, int to_index) {
+	public void print (final String tag, final int from_index, final int to_index) {
 		this.storage.keys().print(tag, from_index, to_index);
 	}
 
 	@Override
-	public boolean beginsWith (Collection<T> steps) {
+	public boolean beginsWith (final Collection<T> steps) {
 		return this.storage.keys().beginsWith(steps);
 	}
 
 	@Override
-	public List<T> filter (CollectionFilter<? super T> filter) {
+	public List<T> filter (final CollectionFilter<? super T> filter) {
 		return this.storage.keys().filter(filter);
 	}
 
 	@Override
-	public void cutToSize (int max_size) {
+	public void cutToSize (final int max_size) {
 		this.storage.cutToSize(max_size);
 		this.getMaxAgain();
 	}
 
 	private void getMaxAgain () {
 		this.max = 0;
-		Collections.scanCollection(this, max_scanner);
+		Collections.scanCollection(this, this.max_scanner);
 	}
 
 	public float presence (final long value) {

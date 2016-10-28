@@ -1,11 +1,11 @@
 
 package com.jfixby.red.color;
 
-import java.util.Collection;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
+import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.CollectionFilter;
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.EditableCollection;
@@ -21,6 +21,16 @@ public class RedColorsSet implements ColorSet {
 
 	public RedColorsSet (final ColorDistance distance) {
 		this.distance = distance;
+	}
+
+	@Override
+	public boolean containsAll (final Collection<?> list) {
+		for (int i = 0; i < list.size(); i++) {
+			if (!this.contains(list.getElementAt(i))) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	final Set<Color> colors = Collections.newSet();
@@ -104,7 +114,7 @@ public class RedColorsSet implements ColorSet {
 	}
 
 	@Override
-	public RedColorsSet addJavaCollection (final Collection<? extends Color> java_collection) {
+	public RedColorsSet addJavaCollection (final java.util.Collection<? extends Color> java_collection) {
 		this.colors.addJavaCollection(java_collection);
 		return this;
 	}
