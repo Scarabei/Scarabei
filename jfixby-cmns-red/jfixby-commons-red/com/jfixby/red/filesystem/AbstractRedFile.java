@@ -95,7 +95,9 @@ public abstract class AbstractRedFile implements File {
 
 	@Override
 	public boolean extensionIs (final String postfix) {
-		return this.getName().toLowerCase().endsWith("." + postfix.toLowerCase());
+		final String name = this.getName().toLowerCase();
+		final boolean result = name.endsWith("." + postfix.toLowerCase());
+		return result;
 	}
 
 	@Override
