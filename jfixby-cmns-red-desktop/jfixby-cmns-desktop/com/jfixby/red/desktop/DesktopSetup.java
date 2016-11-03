@@ -31,6 +31,7 @@ import com.jfixby.red.arrays.RedArrays;
 import com.jfixby.red.color.RedColors;
 import com.jfixby.red.debug.RedDebug;
 import com.jfixby.red.desktop.collections.DesktopCollections;
+import com.jfixby.red.desktop.filesystem.unix.UnixFileSystem;
 import com.jfixby.red.desktop.filesystem.win.WinFileSystem;
 import com.jfixby.red.desktop.image.RedImageAWT;
 import com.jfixby.red.desktop.log.DesktopLogger;
@@ -80,7 +81,14 @@ public class DesktopSetup {
 		Arrays.installComponent(new RedArrays());
 		// --
 
-		LocalFileSystem.installComponent(new WinFileSystem());
+		if (Sys.isWindows()) {
+			LocalFileSystem.installComponent(new WinFileSystem());
+		} else if (Sys.isUnix() || Sys.isMac()) {
+			LocalFileSystem.installComponent(new UnixFileSystem());
+		} else {
+			LocalFileSystem.installComponent(new UnixFileSystem());
+		}
+
 		Http.installComponent(new HttpDesktopComponent());
 
 		ImageProcessing.installComponent(new RedImageProcessing());

@@ -36,4 +36,16 @@ public class Sys {
 		return invoke().sleep(period);
 	}
 
+	public static boolean isWindows () {
+		return invoke().isWindows();
+	}
+
+	public static boolean isUnix () {
+		return invoke().isUnix();
+	}
+
+	public static boolean isMac () {
+		return invoke().isMac();
+	}
+
 }

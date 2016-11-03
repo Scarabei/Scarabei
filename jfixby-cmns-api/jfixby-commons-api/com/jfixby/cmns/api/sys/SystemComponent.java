@@ -13,4 +13,10 @@ public interface SystemComponent {
 
 	boolean sleep (long period);
 
+	boolean isWindows ();
+
+	boolean isUnix ();
+
+	boolean isMac ();
+
 }

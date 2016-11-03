@@ -6,9 +6,6 @@ import com.jfixby.cmns.api.time.TimeStream;
 
 public abstract class RedSystem implements SystemComponent {
 
-	// private final RedSystemSettings settings = new RedSystemSettings();
-	// private final RedTaskManager taskman = new RedTaskManager();
-
 	public RedSystem () {
 
 	}
@@ -24,6 +21,21 @@ public abstract class RedSystem implements SystemComponent {
 	@Override
 	public TimeStream NoTime () {
 		return no_clock;
+	}
+
+	@Override
+	public boolean isWindows () {
+		return OSValidator.isWindows();
+	}
+
+	@Override
+	public boolean isUnix () {
+		return OSValidator.isUnix();
+	}
+
+	@Override
+	public boolean isMac () {
+		return OSValidator.isMac();
 	}
 
 }
