@@ -81,4 +81,6 @@ public interface GeometryComponent {
 
 	public void fillUpFloat3 (EditableCollection<Float3> output, int desired_size);
 
+	public ProjectionFactory getProjectionFactory ();
+
 }

@@ -112,7 +112,7 @@ public class RedImageAWT implements ImageAWTComponent {
 		return im;
 	}
 
-	static final Vector<String> palette = new Vector<String>();
+	static final Vector<String> palette = new Vector<>();
 	static String next_line_L = "\n";
 	static float delta;
 	static {
