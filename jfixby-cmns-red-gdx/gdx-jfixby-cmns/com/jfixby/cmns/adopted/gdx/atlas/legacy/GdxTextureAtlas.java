@@ -3,6 +3,7 @@ package com.jfixby.cmns.adopted.gdx.atlas.legacy;
 
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.jfixby.cmns.api.file.File;
 
 public class GdxTextureAtlas extends TextureAtlas {
 
@@ -32,6 +33,10 @@ public class GdxTextureAtlas extends TextureAtlas {
 
 	public GdxTextureAtlas (final TextureAtlasData data) {
 		super(data);
+	}
+
+	public String toString (final File rootFile) {
+		return "GdxTextureAtlas[" + rootFile.getAbsoluteFilePath().getRelativePath() + "]";
 	}
 
 }
