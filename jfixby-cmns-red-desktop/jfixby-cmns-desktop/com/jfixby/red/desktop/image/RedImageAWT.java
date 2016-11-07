@@ -14,6 +14,8 @@ import javax.imageio.ImageIO;
 import com.jfixby.cmns.api.color.Color;
 import com.jfixby.cmns.api.color.Colors;
 import com.jfixby.cmns.api.debug.Debug;
+import com.jfixby.cmns.api.desktop.GifProducer;
+import com.jfixby.cmns.api.desktop.GifProducerSpecs;
 import com.jfixby.cmns.api.desktop.ImageAWT;
 import com.jfixby.cmns.api.desktop.ImageAWTComponent;
 import com.jfixby.cmns.api.err.Err;
@@ -361,6 +363,16 @@ public class RedImageAWT implements ImageAWTComponent {
 		}
 		final Image tmp = java_image.getScaledInstance(width, height, BufferedImage.SCALE_SMOOTH);
 		return tmp;
+	}
+
+	@Override
+	public GifProducerSpecs newGifProducerSpecs () {
+		return new RedGifProducerSpecs();
+	}
+
+	@Override
+	public GifProducer newGifProducer (final GifProducerSpecs producerSpecs) {
+		return new RedGifProducer(producerSpecs);
 	}
 
 }

@@ -53,4 +53,8 @@ public interface ImageAWTComponent {
 
 	Image awtScale (Image java_image, float scaleFactor);
 
+	GifProducerSpecs newGifProducerSpecs ();
+
+	GifProducer newGifProducer (GifProducerSpecs producerSpecs);
+
 }

@@ -17,8 +17,7 @@ import com.jfixby.cmns.api.io.OutputStream;
 
 public class ImageAWT {
 
-	static private ComponentInstaller<ImageAWTComponent> componentInstaller = new ComponentInstaller<ImageAWTComponent>(
-		"ImageAWT");
+	static private ComponentInstaller<ImageAWTComponent> componentInstaller = new ComponentInstaller<>("ImageAWT");
 
 	public static final void installComponent (final ImageAWTComponent component_to_install) {
 		componentInstaller.installComponent(component_to_install);
@@ -110,6 +109,14 @@ public class ImageAWT {
 
 	public static Image awtScale (final Image java_image, final float scaleFactor) {
 		return invoke().awtScale(java_image, scaleFactor);
+	}
+
+	public static GifProducerSpecs newGifProducerSpecs () {
+		return invoke().newGifProducerSpecs();
+	}
+
+	public static GifProducer newGifProducer (final GifProducerSpecs producerSpecs) {
+		return invoke().newGifProducer(producerSpecs);
 	}
 
 }
