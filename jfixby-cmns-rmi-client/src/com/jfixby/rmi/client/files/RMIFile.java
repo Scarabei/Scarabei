@@ -1,6 +1,8 @@
 
 package com.jfixby.rmi.client.files;
 
+import java.io.IOException;
+
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.file.ChildrenList;
@@ -31,7 +33,7 @@ public class RMIFile extends AbstractRedFile implements File {
 	}
 
 	@Override
-	public boolean delete () {
+	public boolean delete () throws IOException {
 		if (this.isFolder()) {
 			this.clearFolder();
 		}
@@ -49,13 +51,13 @@ public class RMIFile extends AbstractRedFile implements File {
 	}
 
 	@Override
-	public boolean isFolder () {
+	public boolean isFolder () throws IOException {
 		final RMIDataContainer content = this.virtualFileSystem.getContent();
 		return content.isFolder(this.absolute_path.getRelativePath());
 	}
 
 	@Override
-	public boolean isFile () {
+	public boolean isFile () throws IOException {
 		final RMIDataContainer content = this.virtualFileSystem.getContent();
 		return content.isFile(this.absolute_path.getRelativePath());
 	}
@@ -66,7 +68,7 @@ public class RMIFile extends AbstractRedFile implements File {
 	}
 
 	@Override
-	public ChildrenList listDirectChildren () {
+	public ChildrenList listDirectChildren () throws IOException, Error {
 		final RMIDataContainer content = this.virtualFileSystem.getContent();
 
 		if (!content.exists(this.relativePath)) {
@@ -98,7 +100,7 @@ public class RMIFile extends AbstractRedFile implements File {
 	}
 
 	@Override
-	public boolean exists () {
+	public boolean exists () throws IOException {
 		final RMIDataContainer content = this.virtualFileSystem.getContent();
 		return content.exists(this.absolute_path.getRelativePath());
 	}
@@ -142,7 +144,7 @@ public class RMIFile extends AbstractRedFile implements File {
 	}
 
 	@Override
-	public long getSize () {
+	public long getSize () throws IOException {
 		if (this.isFile()) {
 			// return this.getContent().getData().length;
 			final RMIDataContainer content = this.virtualFileSystem.getContent();
@@ -164,7 +166,7 @@ public class RMIFile extends AbstractRedFile implements File {
 	}
 
 	@Override
-	public long lastModified () {
+	public long lastModified () throws IOException {
 		final RMIDataContainer content = this.virtualFileSystem.getContent();
 		return content.lastModified(this.absolute_path.getRelativePath());
 	}

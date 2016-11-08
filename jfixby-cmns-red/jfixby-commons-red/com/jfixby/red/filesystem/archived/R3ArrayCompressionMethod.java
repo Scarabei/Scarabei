@@ -23,24 +23,24 @@ public class R3ArrayCompressionMethod implements CompressionMethod {
 	}
 
 	@Override
-	public void pack (Iterable<File> input, OutputStream os) throws IOException {
-		java.io.OutputStream jos = os.toJavaOutputStream();
+	public void pack (final Iterable<File> input, final OutputStream os) throws IOException {
+		final java.io.OutputStream jos = os.toJavaOutputStream();
 
-		TagsList list = new TagsList();
+		final TagsList list = new TagsList();
 
-		RelativePath path = JUtils.newRelativePath();
+		final RelativePath path = JUtils.newRelativePath();
 
-		absrobCollection(input, path, list);
+		this.absrobCollection(input, path, list);
 		long offset = 0;
-		FilePointers pointers = new FilePointers();
+		final FilePointers pointers = new FilePointers();
 		{
-			FilePointer root = new FilePointer();
+			final FilePointer root = new FilePointer();
 			root.path = "";
 			root.isFile = false;
 			pointers.list.add(root);
 		}
-		for (FileTag tag : list.tags) {
-			FilePointer pointer = new FilePointer();
+		for (final FileTag tag : list.tags) {
+			final FilePointer pointer = new FilePointer();
 			pointer.path = tag.path.toString();
 			pointer.isFile = tag.file.isFile();
 			if (pointer.isFile) {
@@ -53,10 +53,10 @@ public class R3ArrayCompressionMethod implements CompressionMethod {
 			pointers.list.add(pointer);
 		}
 
-		String shema_string = Json.serializeToString(pointers).toString();
-		byte[] shema_data = shema_string.getBytes();
+		final String shema_string = Json.serializeToString(pointers).toString();
+		final byte[] shema_data = shema_string.getBytes();
 
-		writeLong(jos, shema_string.length());
+		this.writeLong(jos, shema_string.length());
 		L.d("schema_len", shema_string.length());
 		endLine(jos);
 
@@ -68,65 +68,65 @@ public class R3ArrayCompressionMethod implements CompressionMethod {
 		jos.write(shema_data);
 		endLine(jos);
 		jos.write("data:".getBytes());
-		writeLong(jos, offset);
+		this.writeLong(jos, offset);
 		endLine(jos);
-		for (FileTag tag : list.tags) {
+		for (final FileTag tag : list.tags) {
 			if (tag.file.isFile()) {
-				byte[] data = tag.file.readBytes().toArray();
+				final byte[] data = tag.file.readBytes().toArray();
 				jos.write(data);
 			}
 		}
 		jos.flush();
 	}
 
-	private void writeLong (java.io.OutputStream jos, long offset) throws IOException {
-		byte[] array = longToByteArray(offset);
+	private void writeLong (final java.io.OutputStream jos, final long offset) throws IOException {
+		final byte[] array = this.longToByteArray(offset);
 		jos.write(array);
 	}
 
-	public byte[] longToByteArray (long value) {
+	public byte[] longToByteArray (final long value) {
 		return new byte[] {(byte)(value >> 8 * 7), (byte)(value >> 8 * 6), (byte)(value >> 8 * 5), (byte)(value >> 8 * 4),
 			(byte)(value >> 8 * 3), (byte)(value >> 8 * 2), (byte)(value >> 8), (byte)value};
 	}
 
-	public static void endLine (java.io.OutputStream jos) throws IOException {
+	public static void endLine (final java.io.OutputStream jos) throws IOException {
 		jos.write(END_LINE.getBytes());
 	}
 
-	private void absorb (File file, RelativePath path, TagsList list) {
+	private void absorb (final File file, final RelativePath path, final TagsList list) throws IOException {
 		if (file.isFile()) {
-			absorbFile(file, path, list);
+			this.absorbFile(file, path, list);
 		}
 		if (file.isFolder()) {
-			absorbFolder(file, path, list);
+			this.absorbFolder(file, path, list);
 		}
 	}
 
-	private void absorbFile (File file, RelativePath path, TagsList list) {
+	private void absorbFile (final File file, final RelativePath path, final TagsList list) throws IOException {
 		if (!file.isFile()) {
-			throw new Error(file + " is not a file");
+			throw new IOException(file + " is not a file");
 		}
-		FileTag info = new FileTag(file, path);
+		final FileTag info = new FileTag(file, path);
 		list.addInfo(info);
 	}
 
-	private void absorbFolder (File folder, RelativePath path, TagsList list) {
+	private void absorbFolder (final File folder, final RelativePath path, final TagsList list) throws IOException {
 		if (!folder.isFolder()) {
 			throw new Error(folder + " is not a folder");
 		}
-		FileTag info = new FileTag(folder, path);
+		final FileTag info = new FileTag(folder, path);
 		list.addInfo(info);
-		absrobCollection(folder.listDirectChildren(), path, list);
+		this.absrobCollection(folder.listDirectChildren(), path, list);
 	}
 
-	private void absrobCollection (Iterable<File> input, RelativePath path, TagsList list) {
-		for (File file : input) {
-			RelativePath path_i = path.child(file.getName());
-			absorb(file, path_i, list);
+	private void absrobCollection (final Iterable<File> input, final RelativePath path, final TagsList list) throws IOException {
+		for (final File file : input) {
+			final RelativePath path_i = path.child(file.getName());
+			this.absorb(file, path_i, list);
 		}
 	}
 
-	private void skip (int k, java.io.InputStream jis) throws IOException {
+	private void skip (final int k, final java.io.InputStream jis) throws IOException {
 		for (int i = k; i > 0; i--) {
 			jis.read();
 		}
@@ -135,42 +135,42 @@ public class R3ArrayCompressionMethod implements CompressionMethod {
 	public static final String END_LINE = "#";// " ←\n"
 
 	@Override
-	public CompressionSchema readSchema (InputStream jis) throws IOException {
-		java.io.InputStream is = jis.toJavaInputStream();
+	public CompressionSchema readSchema (final InputStream jis) throws IOException {
+		final java.io.InputStream is = jis.toJavaInputStream();
 
-		long schema_len = this.readLong(is);
+		final long schema_len = this.readLong(is);
 		L.d("schema_len", schema_len);
-		skip(END_LINE.length(), is);
+		this.skip(END_LINE.length(), is);
 
-		byte[] shema_bytes = new byte[(int)schema_len];
+		final byte[] shema_bytes = new byte[(int)schema_len];
 		is.read(shema_bytes);
 		is.close();
-		String schema_string = JUtils.newString(shema_bytes);
+		final String schema_string = JUtils.newString(shema_bytes);
 
 		// L.d("schema_string", schema_string);
 
-		FilePointers pointers = Json.deserializeFromString(FilePointers.class, schema_string);
+		final FilePointers pointers = Json.deserializeFromString(FilePointers.class, schema_string);
 
-		R3ArrayCompressionSchema schema = new R3ArrayCompressionSchema(pointers);
+		final R3ArrayCompressionSchema schema = new R3ArrayCompressionSchema(pointers);
 
 		return schema;
 	}
 
-	private long readLong (java.io.InputStream jis) throws IOException {
-		byte[] tmp = new byte[8];
+	private long readLong (final java.io.InputStream jis) throws IOException {
+		final byte[] tmp = new byte[8];
 		jis.read(tmp);
-		return byteArrayToLong(tmp);
+		return this.byteArrayToLong(tmp);
 	}
 
-	private long byteArrayToLong (byte[] tmp) {
-		long b7 = tmp[0] << 8 * 7;
-		long b6 = tmp[1] << 8 * 6;
-		long b5 = tmp[2] << 8 * 5;
-		long b4 = tmp[3] << 8 * 4;
-		long b3 = tmp[4] << 8 * 3;
-		long b2 = tmp[5] << 8 * 2;
-		long b1 = tmp[6] << 8 * 1;
-		long b0 = tmp[7] << 8 * 0;
+	private long byteArrayToLong (final byte[] tmp) {
+		final long b7 = tmp[0] << 8 * 7;
+		final long b6 = tmp[1] << 8 * 6;
+		final long b5 = tmp[2] << 8 * 5;
+		final long b4 = tmp[3] << 8 * 4;
+		final long b3 = tmp[4] << 8 * 3;
+		final long b2 = tmp[5] << 8 * 2;
+		final long b1 = tmp[6] << 8 * 1;
+		final long b0 = tmp[7] << 8 * 0;
 		return b0 | b1 | b2 | b3 | b4 | b5 | b6 | b7;
 	}
 

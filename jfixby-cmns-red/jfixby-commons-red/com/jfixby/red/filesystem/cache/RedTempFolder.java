@@ -1,6 +1,8 @@
 
 package com.jfixby.red.filesystem.cache;
 
+import java.io.IOException;
+
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.FileSystem;
 import com.jfixby.cmns.api.file.cache.TempFolder;
@@ -8,22 +10,22 @@ import com.jfixby.cmns.api.util.path.AbsolutePath;
 
 public class RedTempFolder implements TempFolder {
 
-	private File root_folder;
+	private final File root_folder;
 
-	public RedTempFolder (File cache_folder, String tmp) {
-		AbsolutePath<FileSystem> path = cache_folder.child(tmp).getAbsoluteFilePath();
-		root_folder = path.getMountPoint().newFile(path);
-		root_folder.makeFolder();
+	public RedTempFolder (final File cache_folder, final String tmp) {
+		final AbsolutePath<FileSystem> path = cache_folder.child(tmp).getAbsoluteFilePath();
+		this.root_folder = path.getMountPoint().newFile(path);
+		this.root_folder.makeFolder();
 	}
 
 	@Override
 	public File getRoot () {
-		return root_folder;
+		return this.root_folder;
 	}
 
 	@Override
-	public void delete () {
-		root_folder.delete();
+	public void delete () throws IOException {
+		this.root_folder.delete();
 	}
 
 }

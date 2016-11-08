@@ -12,4 +12,8 @@ public interface Stream {
 	public void setPedanticMode (boolean pedanticMode);
 
 	public boolean isInPedanticMode ();
+
+	public boolean isOpen ();
+
+	public boolean isClosed ();
 }

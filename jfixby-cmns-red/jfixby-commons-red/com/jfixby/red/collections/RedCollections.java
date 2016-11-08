@@ -2,6 +2,7 @@
 package com.jfixby.red.collections;
 
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.Objects;
 
 import com.jfixby.cmns.api.collections.Collection;
@@ -127,9 +128,10 @@ public abstract class RedCollections implements CollectionsComponent {
 	}
 
 	@Override
-	public <T> void scanCollection (final Collection<T> collection, final CollectionScanner<? super T> scanner) {
-		for (int i = 0; i < collection.size(); i++) {
-			final T element = collection.getElementAt(i);
+	public <T> void scanCollection (final Iterable<T> collection, final CollectionScanner<? super T> scanner) {
+		final Iterator<T> it = collection.iterator();
+		for (int i = 0; it.hasNext(); i++) {
+			final T element = it.next();
 			scanner.scanElement(element, i);
 		}
 	}

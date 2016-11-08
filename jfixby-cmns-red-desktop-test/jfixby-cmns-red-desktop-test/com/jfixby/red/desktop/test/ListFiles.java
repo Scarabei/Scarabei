@@ -1,13 +1,15 @@
 
 package com.jfixby.red.desktop.test;
 
+import java.io.IOException;
+
 import com.jfixby.cmns.api.file.LocalFileSystem;
 import com.jfixby.cmns.api.file.LocalFileSystemComponent;
 import com.jfixby.red.desktop.DesktopSetup;
 
 public class ListFiles {
 
-	public static void main (final String[] args) {
+	public static void main (final String[] args) throws IOException {
 		DesktopSetup.deploy();
 
 		final LocalFileSystemComponent fileSystem = LocalFileSystem.invoke();

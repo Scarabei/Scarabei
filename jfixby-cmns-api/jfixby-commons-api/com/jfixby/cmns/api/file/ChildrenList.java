@@ -1,6 +1,8 @@
 
 package com.jfixby.cmns.api.file;
 
+import java.io.IOException;
+
 import com.jfixby.cmns.api.collections.Collection;
 
 public interface ChildrenList extends Collection<File> {
@@ -11,5 +13,5 @@ public interface ChildrenList extends Collection<File> {
 
 	ChildrenList filterByExtension (String extension);
 
-	void deleteAll ();
+	void deleteAll () throws IOException;
 }

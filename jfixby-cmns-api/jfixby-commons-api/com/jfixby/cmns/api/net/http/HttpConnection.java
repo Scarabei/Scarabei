@@ -8,7 +8,7 @@ public interface HttpConnection {
 
 	void open () throws MalformedURLException, IOException;
 
-	HttpConnectionInputStream getInputStream () throws IOException;
+	HttpConnectionInputStream getInputStream ();
 
 	void close ();
 

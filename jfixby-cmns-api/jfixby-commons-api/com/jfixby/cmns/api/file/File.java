@@ -11,25 +11,25 @@ public interface File {
 
 	AbsolutePath<FileSystem> getAbsoluteFilePath ();
 
-	boolean delete ();
+	boolean delete () throws IOException;
 
-	boolean isFolder ();
+	boolean isFolder () throws IOException;
 
-	boolean isFile ();
+	boolean isFile () throws IOException;
 
-	void clearFolder ();
+	void clearFolder () throws IOException;
 
 	public FileHash calculateHash () throws IOException;
 
-	ChildrenList listDirectChildren ();
+	public ChildrenList listDirectChildren () throws IOException;
 
-	ChildrenList listChildren (FileFilter filter);
+	public ChildrenList listDirectChildren (FileFilter filter) throws IOException;
 
-	public ChildrenList listAllChildren ();
+	public ChildrenList listAllChildren () throws IOException;
 
 	File child (String child_name);
 
-	boolean exists ();
+	boolean exists () throws IOException;
 
 	boolean makeFolder ();
 
@@ -38,7 +38,7 @@ public interface File {
 	 */
 	public boolean extensionIs (String postfix);
 
-	public String getExtension ();
+	public String getExtension () throws IOException;
 
 	boolean rename (String new_name);
 
@@ -66,7 +66,7 @@ public interface File {
 
 	void writeBytes (byte[] bytes) throws IOException;
 
-	long getSize ();
+	long getSize () throws IOException;
 
 	java.io.File toJavaFile ();
 
@@ -76,17 +76,17 @@ public interface File {
 
 	void writeString (String string, boolean append) throws IOException;
 
-	long lastModified ();
+	long lastModified () throws IOException;
 
-	void checkIsFolder ();
+	void checkIsFolder () throws IOException;
 
-	void checkExists ();
+	void checkExists () throws IOException;
 
-	void checkIsFile ();
+	void checkIsFile () throws IOException;
 
 	File proceed (RelativePath relative);
 
-	ChildrenList listSubFolders ();
+	ChildrenList listSubFolders () throws IOException;
 
 	void writeData (Object object) throws IOException;
 

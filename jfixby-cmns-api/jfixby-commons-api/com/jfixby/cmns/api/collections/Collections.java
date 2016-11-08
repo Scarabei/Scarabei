@@ -90,7 +90,7 @@ public class Collections {
 		return invoke().newPool(spawner);
 	}
 
-	public static <T> void scanCollection (final Collection<T> collection, final CollectionScanner<? super T> scanner) {
+	public static <T> void scanCollection (final Iterable<T> collection, final CollectionScanner<? super T> scanner) {
 		invoke().scanCollection(collection, scanner);
 	}
 

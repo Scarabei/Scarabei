@@ -1,17 +1,16 @@
 
 package com.jfixby.red.filesystem;
 
+import java.io.IOException;
 import java.util.Iterator;
 
 import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.CollectionFilter;
-import com.jfixby.cmns.api.collections.CollectionScanner;
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.file.ChildrenList;
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.FileFilter;
-import com.jfixby.cmns.api.log.L;
 
 public class FilesList implements ChildrenList {
 	final List<File> internal_list = Collections.newList();
@@ -63,7 +62,7 @@ public class FilesList implements ChildrenList {
 	// return internal_list.getElementAt(i);
 	// }
 
-	public void addAll (final List<? extends File> list) {
+	public void addAll (final Collection<? extends File> list) {
 		this.internal_list.addAll(list);
 	}
 
@@ -155,14 +154,10 @@ public class FilesList implements ChildrenList {
 	}
 
 	@Override
-	public void deleteAll () {
-		Collections.scanCollection(this, new CollectionScanner<File>() {
-			@Override
-			public void scanElement (final File file, final int i) {
-				L.d("deleting", file);
-				file.delete();
-			}
-		});
+	public void deleteAll () throws IOException {
+		for (int i = 0; i < this.size(); i++) {
+			this.getElementAt(i).delete();
+		}
 	}
 
 }

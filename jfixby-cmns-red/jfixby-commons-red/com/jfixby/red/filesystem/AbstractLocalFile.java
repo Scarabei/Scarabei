@@ -1,6 +1,8 @@
 
 package com.jfixby.red.filesystem;
 
+import java.io.IOException;
+
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.err.Err;
@@ -92,7 +94,7 @@ public abstract class AbstractLocalFile<T extends AbstractLocalFileSystem> exten
 	}
 
 	@Override
-	final public boolean delete () {
+	final public boolean delete () throws IOException {
 		if (this.isFolder()) {
 			this.clearFolder();
 		}
@@ -167,9 +169,12 @@ public abstract class AbstractLocalFile<T extends AbstractLocalFileSystem> exten
 					final AbstractLocalFile<T> child = (AbstractLocalFile<T>)fs.newFile(absolute_file);
 					result.add(child);
 					if (directFlag == ALL_CHILDREN) {
+
 						if (child.isFolder()) {
 							filesQueue.add(child);
 						}
+					} else {
+
 					}
 				}
 

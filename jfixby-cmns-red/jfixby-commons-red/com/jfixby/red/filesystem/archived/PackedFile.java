@@ -33,7 +33,7 @@ public class PackedFile extends AbstractRedFile implements File {
 	}
 
 	@Override
-	public boolean delete () {
+	public boolean delete () throws IOException {
 		if (this.isFolder()) {
 			this.clearFolder();
 		}

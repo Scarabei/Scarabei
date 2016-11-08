@@ -22,7 +22,7 @@ import com.jfixby.cmns.api.util.path.RelativePath;
 public abstract class AbstractRedFile implements File {
 
 	@Override
-	public void clearFolder () {
+	public void clearFolder () throws IOException {
 		if (this.isFolder()) {
 			final ChildrenList children = this.listDirectChildren();
 			for (int i = 0; i < children.size(); i++) {
@@ -59,25 +59,25 @@ public abstract class AbstractRedFile implements File {
 	}
 
 	@Override
-	public void checkIsFolder () {
+	public void checkIsFolder () throws IOException {
 		this.checkExists();
 		if (!this.isFolder()) {
-			throw new Error("" + this + " is not a folder");
+			throw new IOException("" + this + " is not a folder");
 		}
 	}
 
 	@Override
-	public void checkExists () {
+	public void checkExists () throws IOException {
 		if (!this.exists()) {
-			throw new Error(this + " does not exist.");
+			throw new IOException(this + " does not exist.");
 		}
 	}
 
 	@Override
-	public void checkIsFile () {
+	public void checkIsFile () throws IOException {
 		this.checkExists();
 		if (!this.isFile()) {
-			throw new Error(this + " does not exist.");
+			throw new IOException(this + " does not exist.");
 		}
 	}
 
@@ -101,7 +101,7 @@ public abstract class AbstractRedFile implements File {
 	}
 
 	@Override
-	public ChildrenList listSubFolders () {
+	public ChildrenList listSubFolders () throws IOException {
 		final FilesList listFiles = new FilesList();
 		final ChildrenList children = this.listDirectChildren();
 		for (final File file : children) {
@@ -143,11 +143,6 @@ public abstract class AbstractRedFile implements File {
 		os.open();
 		os.write(bytes);
 		os.close();
-	}
-
-	@Override
-	public ChildrenList listChildren (final FileFilter filter) {
-		return this.listDirectChildren().filterFiles(filter);
 	}
 
 	@Override
@@ -196,7 +191,7 @@ public abstract class AbstractRedFile implements File {
 	}
 
 	@Override
-	public String getExtension () {
+	public String getExtension () throws IOException {
 		if (this.isFolder()) {
 			return null;
 		}
@@ -214,6 +209,11 @@ public abstract class AbstractRedFile implements File {
 		final File outputFile = this.parent().child(Debug.checkNull("newFileName", newFileName));
 		this.getFileSystem().copyFileToFile(this, outputFile);
 		return outputFile;
+	}
+
+	@Override
+	final public ChildrenList listDirectChildren (final FileFilter filter) throws IOException {
+		return this.listDirectChildren().filterFiles(filter);
 	}
 
 }

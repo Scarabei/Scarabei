@@ -20,6 +20,7 @@ public abstract class RedMD5 implements MD5Component {
 			final ByteArray array = JUtils.newByteArray(password.getBytes());
 			final Buffer buff = IO.newBuffer(array);
 			final BufferInputStream bis = IO.newBufferInputStream(buff);
+			bis.open();
 			final String result = this.md5Stream(bis);
 			bis.close();
 			return result;

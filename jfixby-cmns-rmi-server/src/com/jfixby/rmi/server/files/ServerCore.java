@@ -61,7 +61,12 @@ class ServerCore extends UnicastRemoteObject implements RMIFilesDataContainer {
 	public boolean delete (final List<String> steps) throws RemoteException {
 		final RelativePath relative = this.toRelative(steps);
 		final File target = this.rootFolder.proceed(relative);
-		return target.delete();
+		try {
+			return target.delete();
+		} catch (final IOException e) {
+			e.printStackTrace();
+			throw new RemoteException();
+		}
 	}
 
 	private RelativePath toRelative (final List<String> steps) {
@@ -69,21 +74,21 @@ class ServerCore extends UnicastRemoteObject implements RMIFilesDataContainer {
 	}
 
 	@Override
-	public boolean isFolder (final List<String> steps) throws RemoteException {
+	public boolean isFolder (final List<String> steps) throws IOException {
 		final RelativePath relative = this.toRelative(steps);
 		final File target = this.rootFolder.proceed(relative);
 		return target.isFolder();
 	}
 
 	@Override
-	public boolean isFile (final List<String> steps) throws RemoteException {
+	public boolean isFile (final List<String> steps) throws IOException {
 		final RelativePath relative = this.toRelative(steps);
 		final File target = this.rootFolder.proceed(relative);
 		return target.isFile();
 	}
 
 	@Override
-	public boolean exists (final List<String> steps) throws RemoteException {
+	public boolean exists (final List<String> steps) throws IOException {
 		final RelativePath relative = this.toRelative(steps);
 		final File target = this.rootFolder.proceed(relative);
 		return target.exists();
@@ -111,14 +116,14 @@ class ServerCore extends UnicastRemoteObject implements RMIFilesDataContainer {
 	}
 
 	@Override
-	public long lastModified (final List<String> steps) throws RemoteException {
+	public long lastModified (final List<String> steps) throws IOException {
 		final RelativePath relative = this.toRelative(steps);
 		final File target = this.rootFolder.proceed(relative);
 		return target.lastModified();
 	}
 
 	@Override
-	public long getSize (final List<String> steps) throws RemoteException {
+	public long getSize (final List<String> steps) throws IOException {
 		final RelativePath relative = this.toRelative(steps);
 		final File target = this.rootFolder.proceed(relative);
 		return target.getSize();

@@ -1,13 +1,15 @@
 
 package com.jfixby.red.aws.test;
 
+import java.io.IOException;
+
 import com.jfixby.amazon.aws.s3.AWSS3FileSystem;
 import com.jfixby.amazon.aws.s3.AWSS3FileSystemConfig;
 import com.jfixby.red.desktop.DesktopSetup;
 
 public class ListAMZFSFiles {
 
-	public static void main (final String[] args) {
+	public static void main (final String[] args) throws IOException {
 		DesktopSetup.deploy();
 
 		final AWSS3FileSystemConfig specs = new AWSS3FileSystemConfig();

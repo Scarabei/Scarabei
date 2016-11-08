@@ -1,6 +1,7 @@
 
 package com.jfixby.rmi.client.files;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -32,7 +33,7 @@ public class RMIDataContainer extends RMIClient<RMIFilesDataContainer> {
 		return false;
 	}
 
-	public boolean isFolder (final RelativePath relativePath) {
+	public boolean isFolder (final RelativePath relativePath) throws IOException {
 		try {
 			return this.lookup().isFolder(relativePath.steps().toJavaList());
 		} catch (MalformedURLException | RemoteException | NotBoundException e) {
@@ -41,7 +42,7 @@ public class RMIDataContainer extends RMIClient<RMIFilesDataContainer> {
 		return false;
 	}
 
-	public boolean isFile (final RelativePath relativePath) {
+	public boolean isFile (final RelativePath relativePath) throws IOException {
 		try {
 			return this.lookup().isFile(relativePath.steps().toJavaList());
 		} catch (MalformedURLException | RemoteException | NotBoundException e) {
@@ -50,7 +51,7 @@ public class RMIDataContainer extends RMIClient<RMIFilesDataContainer> {
 		return false;
 	}
 
-	public boolean exists (final RelativePath relativePath) {
+	public boolean exists (final RelativePath relativePath) throws IOException {
 		try {
 			return this.lookup().exists(relativePath.steps().toJavaList());
 		} catch (MalformedURLException | RemoteException | NotBoundException e) {
@@ -86,7 +87,7 @@ public class RMIDataContainer extends RMIClient<RMIFilesDataContainer> {
 
 	}
 
-	public long lastModified (final RelativePath relativePath) {
+	public long lastModified (final RelativePath relativePath) throws IOException {
 		try {
 			return this.lookup().lastModified(relativePath.steps().toJavaList());
 		} catch (MalformedURLException | RemoteException | NotBoundException e) {
@@ -95,7 +96,7 @@ public class RMIDataContainer extends RMIClient<RMIFilesDataContainer> {
 		return -1;
 	}
 
-	public long getSize (final RelativePath relativePath) {
+	public long getSize (final RelativePath relativePath) throws IOException {
 		try {
 			return this.lookup().getSize(relativePath.steps().toJavaList());
 		} catch (MalformedURLException | RemoteException | NotBoundException e) {

@@ -1,6 +1,8 @@
 
 package com.jfixby.cmns.api.file.cache;
 
+import java.io.IOException;
+
 import com.jfixby.cmns.api.ComponentInstaller;
 import com.jfixby.cmns.api.file.File;
 
@@ -21,11 +23,11 @@ public class FileCache {
 		return componentInstaller.getComponent();
 	}
 
-	public static TempFolder createTempFolder (final File where) {
+	public static TempFolder createTempFolder (final File where) throws IOException {
 		return invoke().createTempFolder(where);
 	}
 
-	public static TempFolder createTempFolder () {
+	public static TempFolder createTempFolder () throws IOException {
 		return invoke().createTempFolder();
 	}
 

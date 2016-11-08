@@ -40,13 +40,13 @@ public class SandboxFile extends AbstractRedFile implements File {
 	}
 
 	@Override
-	public boolean delete () {
+	public boolean delete () throws IOException {
 		final File unprotected_file = this.getUnprotectedFile();
 		return unprotected_file.delete();
 	}
 
 	@Override
-	public boolean isFolder () {
+	public boolean isFolder () throws IOException {
 		final File unprotected_file = this.getUnprotectedFile();
 		return unprotected_file.isFolder();
 	}
@@ -57,7 +57,7 @@ public class SandboxFile extends AbstractRedFile implements File {
 	}
 
 	@Override
-	public boolean isFile () {
+	public boolean isFile () throws IOException {
 		final File unprotected_file = this.getUnprotectedFile();
 		return unprotected_file.isFile();
 	}
@@ -68,7 +68,7 @@ public class SandboxFile extends AbstractRedFile implements File {
 	}
 
 	@Override
-	public ChildrenList listDirectChildren () {
+	public ChildrenList listDirectChildren () throws IOException {
 		final File unprotected_file = this.getUnprotectedFile();
 
 		if (!unprotected_file.exists()) {
@@ -84,7 +84,10 @@ public class SandboxFile extends AbstractRedFile implements File {
 			for (int i = 0; i < unprotected_children.size(); i++) {
 				final String file_i = unprotected_children.getElementAt(i).getName();
 				final AbsolutePath<FileSystem> absolute_file = this.absolute_path.child(file_i);
-				listFiles.add(absolute_file.getMountPoint().newFile(absolute_file));
+				final File file = absolute_file.getMountPoint().newFile(absolute_file);
+				{
+					listFiles.add(file);
+				}
 			}
 			// L.d("listFiles", listFiles);
 
@@ -107,7 +110,7 @@ public class SandboxFile extends AbstractRedFile implements File {
 	}
 
 	@Override
-	public boolean exists () {
+	public boolean exists () throws IOException {
 		final File unprotected_file = this.getUnprotectedFile();
 		return unprotected_file.exists();
 	}
@@ -161,7 +164,7 @@ public class SandboxFile extends AbstractRedFile implements File {
 	}
 
 	@Override
-	public long getSize () {
+	public long getSize () throws IOException {
 		if (this.isFile()) {
 			final File unprotected_file = this.getUnprotectedFile();
 			return unprotected_file.getSize();
@@ -182,7 +185,7 @@ public class SandboxFile extends AbstractRedFile implements File {
 	}
 
 	@Override
-	public long lastModified () {
+	public long lastModified () throws IOException {
 		final File unprotected_file = this.getUnprotectedFile();
 		return unprotected_file.lastModified();
 	}

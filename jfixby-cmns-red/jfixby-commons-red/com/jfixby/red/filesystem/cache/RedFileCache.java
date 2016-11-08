@@ -1,6 +1,8 @@
 
 package com.jfixby.red.filesystem.cache;
 
+import java.io.IOException;
+
 import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.LocalFileSystem;
@@ -13,15 +15,15 @@ public class RedFileCache implements FileCacheComponent {
 	}
 
 	@Override
-	public TempFolder createTempFolder (File where) {
+	public TempFolder createTempFolder (final File where) throws IOException {
 		Debug.checkNull("where", where);
 		where.checkExists();
 		where.checkIsFolder();
-		String tmp = newTempFolderName(where);
+		final String tmp = newTempFolderName(where);
 		return new RedTempFolder(where, tmp);
 	}
 
-	static private String newTempFolderName (File where) {
+	static private String newTempFolderName (final File where) throws IOException {
 		String name;
 		File candidate;
 		do {
@@ -33,7 +35,7 @@ public class RedFileCache implements FileCacheComponent {
 	}
 
 	@Override
-	public TempFolder createTempFolder () {
+	public TempFolder createTempFolder () throws IOException {
 		return this.createTempFolder(LocalFileSystem.ApplicationHome());
 	}
 }

@@ -1,6 +1,8 @@
 
 package com.jfixby.red.filesystem.virtual;
 
+import java.io.IOException;
+
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.file.ChildrenList;
@@ -35,7 +37,7 @@ public class InMemoryFile extends AbstractRedFile implements File {
 	}
 
 	@Override
-	public boolean delete () {
+	public boolean delete () throws IOException {
 		if (this.isFolder()) {
 			this.clearFolder();
 		}

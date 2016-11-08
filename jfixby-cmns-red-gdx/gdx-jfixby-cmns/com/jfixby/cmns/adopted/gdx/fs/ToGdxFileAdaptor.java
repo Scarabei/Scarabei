@@ -261,7 +261,12 @@ public class ToGdxFileAdaptor extends FileHandle {
 	@Override
 	public boolean exists () {
 		this.L("exists");
-		return this.fixby_file.exists();
+		try {
+			return this.fixby_file.exists();
+		} catch (final IOException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override
@@ -290,7 +295,12 @@ public class ToGdxFileAdaptor extends FileHandle {
 
 	@Override
 	public long length () {
-		return this.fixby_file.getSize();
+		try {
+			return this.fixby_file.getSize();
+		} catch (final IOException e) {
+			e.printStackTrace();
+			return 0;
+		}
 		// err("length");
 		// return super.length();
 	}

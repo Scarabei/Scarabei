@@ -143,4 +143,13 @@ public class AbstractRedInputStream<T extends JavaInputStreamOperator> implement
 		return this.pedanticMode;
 	}
 
+	@Override
+	public boolean isOpen () {
+		return this.getState() == STREAM_STATE.OPEN;
+	}
+
+	@Override
+	public boolean isClosed () {
+		return this.getState() == STREAM_STATE.CLOSED;
+	}
 }
