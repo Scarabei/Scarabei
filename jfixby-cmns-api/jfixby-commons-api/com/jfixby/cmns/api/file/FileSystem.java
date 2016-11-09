@@ -26,7 +26,15 @@ public interface FileSystem extends MountPoint {
 
 	void copyFileToFolder (File file_to_copy, File to_folder) throws IOException;
 
+	void copyFileToFolder (File file_to_copy, File to_folder, FileConflistResolver resollver) throws IOException;
+
 	void copyFolderContentsToFolder (File forlder_from, File folder_to) throws IOException;
+
+	void copyFolderContentsToFolder (File forlder_from, File folder_to, FileConflistResolver resollver) throws IOException;
+
+	void copyFileToFile (File input_file, File output_file) throws IOException;
+
+	void copyFileToFile (File input_file, File output_file, FileConflistResolver resollver) throws IOException;
 
 	void copyFilesTo (Collection<File> files_list, File to_folder) throws IOException;
 
@@ -35,8 +43,6 @@ public interface FileSystem extends MountPoint {
 	void writeDataToFile (AbsolutePath<FileSystem> file_path, ByteArray bytes) throws IOException;
 
 	void writeStringToFile (String string_data, AbsolutePath<FileSystem> file_path) throws IOException;
-
-	void copyFileToFile (File input_file, File output_file) throws IOException;
 
 	boolean isReadOnlyFileSystem ();
 

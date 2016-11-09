@@ -8,6 +8,7 @@ import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.file.ChildrenList;
 import com.jfixby.cmns.api.file.File;
+import com.jfixby.cmns.api.file.FileConflistResolver;
 import com.jfixby.cmns.api.file.FileConverter;
 import com.jfixby.cmns.api.file.FileInputStream;
 import com.jfixby.cmns.api.file.FileOutputStream;
@@ -25,7 +26,7 @@ public abstract class AbstractFileSystem implements FileSystem {
 	private File ROOT;
 
 	@Override
-	public File ROOT () {
+	final public File ROOT () {
 		if (this.ROOT == null) {
 			this.ROOT = this.newFile(JUtils.newAbsolutePath((FileSystem)this));
 		}
@@ -43,7 +44,13 @@ public abstract class AbstractFileSystem implements FileSystem {
 	}
 
 	@Override
-	public void copyFileToFolder (final File file_to_copy, final File to_folder) throws IOException {
+	final public void copyFileToFolder (final File file_to_copy, final File to_folder) throws IOException {
+		this.copyFileToFolder(file_to_copy, to_folder, FileConflistResolver.OVERWRITE_ALL);
+	}
+
+	@Override
+	final public void copyFileToFolder (final File file_to_copy, final File to_folder, final FileConflistResolver resollver)
+		throws IOException {
 		Debug.checkTrue("The file or folder does not exist: " + file_to_copy, file_to_copy.exists());
 		if (file_to_copy.isFolder()) {
 
@@ -67,7 +74,7 @@ public abstract class AbstractFileSystem implements FileSystem {
 			final boolean continueCopying = true;
 			if (continueCopying) {
 // L.d("copying file", file_to_copy.getAbsoluteFilePath());
-				this.copyFileToFile(file_to_copy, target_output_file);
+				this.copyFileToFile(file_to_copy, target_output_file, resollver);
 			}
 
 		} else {
@@ -77,7 +84,8 @@ public abstract class AbstractFileSystem implements FileSystem {
 	}
 
 	@Override
-	public void copyFolderContentsToFolder (final File input_folder, final File ouput_folder) throws IOException {
+	public void copyFolderContentsToFolder (final File input_folder, final File ouput_folder, final FileConflistResolver resolver)
+		throws IOException {
 		Debug.checkTrue("The folder does not exist: " + input_folder, input_folder.exists());
 		Debug.checkTrue("This is not a folder: " + input_folder, input_folder.exists());
 
@@ -86,8 +94,13 @@ public abstract class AbstractFileSystem implements FileSystem {
 // children.print("children");
 		for (int i = 0; i < children.size(); i++) {
 			final File file_to_copy = (children.getElementAt(i));
-			this.copyFileToFolder(file_to_copy, ouput_folder);
+			this.copyFileToFolder(file_to_copy, ouput_folder, resolver);
 		}
+	}
+
+	@Override
+	final public void copyFolderContentsToFolder (final File input_folder, final File ouput_folder) throws IOException {
+		this.copyFolderContentsToFolder(input_folder, ouput_folder, FileConflistResolver.OVERWRITE_ALL);
 	}
 
 	@Override
@@ -99,7 +112,7 @@ public abstract class AbstractFileSystem implements FileSystem {
 	}
 
 	@Override
-	public String readFileToString (final AbsolutePath<FileSystem> file_path) throws IOException {
+	final public String readFileToString (final AbsolutePath<FileSystem> file_path) throws IOException {
 		final File file = this.newFile(file_path);
 		final FileInputStream is = this.newFileInputStream(file);
 		final ByteArray data = is.readAll();
@@ -108,7 +121,7 @@ public abstract class AbstractFileSystem implements FileSystem {
 	}
 
 	@Override
-	public void writeDataToFile (final AbsolutePath<FileSystem> file_path, final ByteArray bytes) throws IOException {
+	final public void writeDataToFile (final AbsolutePath<FileSystem> file_path, final ByteArray bytes) throws IOException {
 		final File file = this.newFile(file_path);
 		final FileOutputStream fos = this.newFileOutputStream(file);
 		fos.write(bytes);
@@ -117,12 +130,18 @@ public abstract class AbstractFileSystem implements FileSystem {
 	}
 
 	@Override
-	public void writeStringToFile (final String string_data, final AbsolutePath<FileSystem> file_path) throws IOException {
+	final public void writeStringToFile (final String string_data, final AbsolutePath<FileSystem> file_path) throws IOException {
 		this.writeDataToFile(file_path, JUtils.newByteArray(string_data.getBytes()));
 	}
 
 	@Override
-	public void copyFileToFile (final File input_file, final File output_file) throws IOException {
+	final public void copyFileToFile (final File input_file, final File output_file) throws IOException {
+		this.copyFileToFile(input_file, output_file, FileConflistResolver.OVERWRITE_ALL);
+	}
+
+	@Override
+	final public void copyFileToFile (final File input_file, final File output_file, final FileConflistResolver resollver)
+		throws IOException {
 		if (!input_file.exists()) {
 			throw new IOException("File not found: " + input_file);
 		}
@@ -131,10 +150,15 @@ public abstract class AbstractFileSystem implements FileSystem {
 			return;
 		}
 		if (input_file.isFile()) {
-			L.d("copying file", input_file);
-			L.d("          to", output_file.getAbsoluteFilePath());
-			final ByteArray data = input_file.readBytes();
-			output_file.writeBytes(data);
+			if (!output_file.exists() || resollver.overwrite(input_file, output_file)) {
+				L.d("copying file", input_file);
+				L.d("          to", output_file.getAbsoluteFilePath());
+				final ByteArray data = input_file.readBytes();
+				output_file.writeBytes(data);
+			} else {
+				L.d("   skip file", input_file);
+				L.d("         for", output_file.getAbsoluteFilePath());
+			}
 			return;
 		}
 	}
@@ -145,8 +169,8 @@ public abstract class AbstractFileSystem implements FileSystem {
 	}
 
 	@Override
-	public void convertFolderToFolder (final File input_folder, final File ouput_folder, final FolderConverter folderConverter,
-		final FileConverter fileConverter) throws IOException {
+	final public void convertFolderToFolder (final File input_folder, final File ouput_folder,
+		final FolderConverter folderConverter, final FileConverter fileConverter) throws IOException {
 
 		Debug.checkTrue("The folder does not exist: " + input_folder, input_folder.exists());
 		Debug.checkTrue("This is not a folder: " + input_folder, input_folder.exists());
@@ -161,7 +185,7 @@ public abstract class AbstractFileSystem implements FileSystem {
 	}
 
 	@Override
-	public void convertFile (final File fileToConvert, final File targetFolder, final FolderConverter folderConverter,
+	final public void convertFile (final File fileToConvert, final File targetFolder, final FolderConverter folderConverter,
 		final FileConverter fileConverter) throws IOException {
 
 		Debug.checkTrue("The file or folder does not exist: " + fileToConvert, fileToConvert.exists());

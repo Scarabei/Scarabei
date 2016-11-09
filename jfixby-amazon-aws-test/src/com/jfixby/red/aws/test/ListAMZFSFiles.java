@@ -15,7 +15,7 @@ public class ListAMZFSFiles {
 		final AWSS3FileSystemConfig specs = new AWSS3FileSystemConfig();
 
 // specs.setBucketName("jfix.by");// amzfs
-		specs.setBucketName("amzfs");// amzfs
+		specs.setBucketName("com.red-triplane.assets");// amzfs
 
 		final AWSS3FileSystem fileSystem = new AWSS3FileSystem(specs);
 

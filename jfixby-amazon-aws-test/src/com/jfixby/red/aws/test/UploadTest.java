@@ -6,6 +6,7 @@ import java.io.IOException;
 import com.jfixby.amazon.aws.s3.AWSS3FileSystem;
 import com.jfixby.amazon.aws.s3.AWSS3FileSystemConfig;
 import com.jfixby.cmns.api.file.File;
+import com.jfixby.cmns.api.file.FileHash;
 import com.jfixby.cmns.api.file.LocalFileSystem;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.red.desktop.DesktopSetup;
@@ -16,13 +17,22 @@ public class UploadTest {
 		DesktopSetup.deploy();
 
 		final AWSS3FileSystemConfig specs = new AWSS3FileSystemConfig();
-		specs.setBucketName("amzfs");//
+		specs.setBucketName("com.red-triplane.assets");//
 		final AWSS3FileSystem S3 = new AWSS3FileSystem(specs);
-		final File remote = S3.ROOT();
+		final File remote = S3.ROOT().child("test");
 
 		final File local = LocalFileSystem.ApplicationHome().child("input");
 
-		S3.copyFolderContentsToFolder(local, remote);
+		S3.copyFolderContentsToFolder(local, remote, (from, to) -> {
+			try {
+				final FileHash hashLocal = from.calculateHash();
+				final FileHash hashRemote = to.calculateHash();
+				return !hashLocal.equals(hashRemote);
+			} catch (final IOException e) {
+				e.printStackTrace();
+				return false;
+			}
+		});
 
 		remote.listDirectChildren().print("remote");
 

@@ -18,6 +18,7 @@ import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.file.ChildrenList;
 import com.jfixby.cmns.api.file.File;
+import com.jfixby.cmns.api.file.FileConflistResolver;
 import com.jfixby.cmns.api.file.FileInputStream;
 import com.jfixby.cmns.api.file.FileOutputStream;
 import com.jfixby.cmns.api.file.FileSystem;
@@ -333,7 +334,9 @@ public class AWSS3FileSystem extends AbstractFileSystem implements FileSystem {
 	}
 
 	@Override
-	public void copyFolderContentsToFolder (final File input_folder, final File ouput_folder) throws IOException {
+	public void copyFolderContentsToFolder (final File input_folder, final File ouput_folder, final FileConflistResolver resolver)
+		throws IOException {
+// super.copyFolderContentsToFolder(input_folder, ouput_folder);
 		if (this == input_folder.getFileSystem()) {
 
 			Debug.checkTrue("The folder does not exist: " + input_folder, input_folder.exists());
@@ -349,15 +352,22 @@ public class AWSS3FileSystem extends AbstractFileSystem implements FileSystem {
 				final RelativePath file_to_copy_relative = JUtils.newRelativePath(infoToCopy.s3Key);
 				final RelativePath relative = file_to_copy_relative.splitAt(start.size());
 				final File target_file = ouput_folder.proceed(relative);
-				final File input_file = input_folder.proceed(file_to_copy_relative);
-				L.d("copying", input_file);
-				L.d("     to", target_file);
+				final File input_file = input_folder.proceed(relative);
 
 				if (isFolder) {
+					L.d("copying", input_file);
+					L.d("     to", target_file);
 					target_file.makeFolder();
 				} else {
-					final byte[] bytes = this.readData(infoToCopy.s3Key);
-					target_file.writeBytes(bytes);
+					if (!target_file.exists() || resolver.overwrite(input_file, target_file)) {
+						L.d("copying", input_file);
+						L.d("     to", target_file);
+						final byte[] bytes = this.readData(infoToCopy.s3Key);
+						target_file.writeBytes(bytes);
+					} else {
+						L.d("   skip", input_file);
+						L.d("    for", target_file);
+					}
 				}
 			}
 
@@ -369,29 +379,52 @@ public class AWSS3FileSystem extends AbstractFileSystem implements FileSystem {
 			Debug.checkTrue("The folder does not exist: " + input_folder, input_folder.exists());
 			Debug.checkTrue("This is not a folder: " + input_folder, input_folder.exists());
 			final RelativePath start = input_folder.getAbsoluteFilePath().getRelativePath();
-			final ChildrenList children = input_folder.listAllChildren();
-			// children.print("task");
-			for (int i = 0; i < children.size(); i++) {
-				final File file_to_copy = children.getElementAt(i);
+// final Set<File> task = Collections.newSet();
+//// File pointer = ouput_folder;
+// do {
+// task.add(pointer);
+// pointer = pointer.parent();
+// } while (!pointer.getAbsoluteFilePath().isRoot());
+
+			final ChildrenList task = input_folder.listAllChildren();
+// task.addAll(children);
+			task.print("task");
+			ouput_folder.makeFolder();
+			for (int i = 0; i < task.size(); i++) {
+				final File file_to_copy = task.getElementAt(i);
 				final RelativePath relative = file_to_copy.getAbsoluteFilePath().getRelativePath().splitAt(start.size());
-				final File target_folder = ouput_folder.proceed(relative);
-
-				L.d("copying", file_to_copy);
-				L.d("     to", target_folder);
-
+				final File target = ouput_folder.proceed(relative);
+				final RelativePath targetRelative = target.getAbsoluteFilePath().getRelativePath();
 				// children.print("task");
-				if (file_to_copy.isFile()) {
-					this.writeData(relative, file_to_copy.readBytes());
-				}
+
 				if (file_to_copy.isFolder()) {
-					this.makeFolder(relative + RelativePath.SEPARATOR);
+					L.d("copying", file_to_copy);
+					L.d("     to", target);
+					this.makeFolder(targetRelative + RelativePath.SEPARATOR);
 				}
+				if (file_to_copy.isFile()) {
+//
+// if (!parent.exists()) {
+// parent.makeFolder();
+// }
+					if (!target.exists() || resolver.overwrite(file_to_copy, target)) {
+						L.d("copying", file_to_copy);
+						L.d("     to", target);
+						final File parent = target.parent();
+						parent.makeFolder();
+						this.writeData(targetRelative, file_to_copy.readBytes());
+					} else {
+						L.d("   skip", file_to_copy);
+						L.d("    for", target);
+					}
+				}
+
 			}
 
 			return;
 		}
 
-		super.copyFolderContentsToFolder(input_folder, ouput_folder);
+		super.copyFolderContentsToFolder(input_folder, ouput_folder, resolver);
 
 	}
 

@@ -99,6 +99,11 @@ public class HttpFileSystem extends AbstractFileSystem implements FileSystem {
 		return this.name;
 	}
 
+	@Override
+	public boolean isReadOnlyFileSystem () {
+		return true;
+	}
+
 	public String getName () {
 		return this.name;
 	}
