@@ -13,6 +13,7 @@ import com.amazonaws.services.s3.model.PutObjectResult;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
+import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.debug.Debug;
@@ -257,7 +258,7 @@ public class AWSS3FileSystem extends AbstractFileSystem implements FileSystem {
 			return true;
 		}
 		RelativePath current = JUtils.newRelativePath();
-		final List<String> steps = relative.steps();
+		final Collection<String> steps = relative.steps();
 		for (int i = 0; i < steps.size(); i++) {
 			current = current.child(steps.getElementAt(i));
 			this.makeFolder(current + RelativePath.SEPARATOR);

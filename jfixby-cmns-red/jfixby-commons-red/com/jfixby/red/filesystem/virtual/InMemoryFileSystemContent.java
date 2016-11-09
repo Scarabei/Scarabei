@@ -1,6 +1,7 @@
 
 package com.jfixby.red.filesystem.virtual;
 
+import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.util.path.RelativePath;
 
@@ -9,37 +10,37 @@ public class InMemoryFileSystemContent {
 	final private ContentNode ROOT;
 
 	public InMemoryFileSystemContent () {
-		ROOT = new ContentNode();
+		this.ROOT = new ContentNode();
 	}
 
-	public boolean isFile (RelativePath relativePath) {
+	public boolean isFile (final RelativePath relativePath) {
 		if (relativePath.isRoot()) {
 			return false;
 		}
-		ContentLeaf content = this.findLeaf(relativePath);
+		final ContentLeaf content = this.findLeaf(relativePath);
 		return content != null;
 	}
 
-	public long lastModified (RelativePath relativePath) {
-		ContentLeaf content = this.findLeaf(relativePath);
+	public long lastModified (final RelativePath relativePath) {
+		final ContentLeaf content = this.findLeaf(relativePath);
 		return content.lastModified();
 	}
 
-	public boolean isFolder (RelativePath relativePath) {
-		ContentNode content = this.findNode(relativePath);
+	public boolean isFolder (final RelativePath relativePath) {
+		final ContentNode content = this.findNode(relativePath);
 		return content != null;
 	}
 
-	private ContentNode findNode (RelativePath relativePath) {
+	private ContentNode findNode (final RelativePath relativePath) {
 		if (relativePath.isRoot()) {
-			return ROOT;
+			return this.ROOT;
 		}
-		List<String> steps = relativePath.steps();
-		ContentNode node_cursor = ROOT;
+		final Collection<String> steps = relativePath.steps();
+		ContentNode node_cursor = this.ROOT;
 		int steps_cursor = -1;
 		while (steps_cursor + 1 < steps.size()) {
 			steps_cursor++;
-			String next_step_name = steps.getElementAt(steps_cursor);
+			final String next_step_name = steps.getElementAt(steps_cursor);
 			node_cursor = node_cursor.getChildNode(next_step_name);
 			if (node_cursor == null) {
 				return null;
@@ -48,33 +49,33 @@ public class InMemoryFileSystemContent {
 		return node_cursor;
 	}
 
-	private ContentLeaf findLeaf (RelativePath relativePath) {
-		ContentNode leaf_parent = this.findNode(relativePath.parent());
+	private ContentLeaf findLeaf (final RelativePath relativePath) {
+		final ContentNode leaf_parent = this.findNode(relativePath.parent());
 		if (leaf_parent == null) {
 			return null;
 		} else {
-			String child_name = relativePath.getLastStep();
-			ContentLeaf leaf = leaf_parent.getChildLeaf(child_name);
+			final String child_name = relativePath.getLastStep();
+			final ContentLeaf leaf = leaf_parent.getChildLeaf(child_name);
 			return leaf;
 		}
 	}
 
-	public boolean delete (RelativePath relativePath) {
+	public boolean delete (final RelativePath relativePath) {
 		if (relativePath.isRoot()) {
 			this.ROOT.clearAll();
 			return false;
 		}
-		ContentNode leaf_parent = this.findNode(relativePath.parent());
+		final ContentNode leaf_parent = this.findNode(relativePath.parent());
 		if (leaf_parent == null) {
 			return false;
 		} else {
-			String child_name = relativePath.getLastStep();
-			ContentLeaf leaf = leaf_parent.getChildLeaf(child_name);
+			final String child_name = relativePath.getLastStep();
+			final ContentLeaf leaf = leaf_parent.getChildLeaf(child_name);
 			if (leaf != null) {
 				leaf_parent.removeLeaf(child_name);
 				return true;
 			} else {
-				ContentNode node = leaf_parent.getChildNode(child_name);
+				final ContentNode node = leaf_parent.getChildNode(child_name);
 				if (node != null) {
 					leaf_parent.removeNode(child_name);
 					return true;
@@ -84,22 +85,22 @@ public class InMemoryFileSystemContent {
 		return false;
 	}
 
-	public boolean exists (RelativePath relativePath) {
+	public boolean exists (final RelativePath relativePath) {
 		return this.isFile(relativePath) || this.isFolder(relativePath);
 	}
 
-	public boolean mkdirs (RelativePath relativePath) {
+	public boolean mkdirs (final RelativePath relativePath) {
 		if (relativePath.isRoot()) {
 			return true;
 		}
-		List<String> steps = relativePath.steps();
-		ContentNode node_cursor = ROOT;
+		final Collection<String> steps = relativePath.steps();
+		ContentNode node_cursor = this.ROOT;
 		ContentNode parent = null;
 		int steps_cursor = -1;
 		while (steps_cursor + 1 < steps.size()) {
 			steps_cursor++;
-			String next_step_name = steps.getElementAt(steps_cursor);
-			ContentLeaf bad_leaf = node_cursor.getChildLeaf(next_step_name);
+			final String next_step_name = steps.getElementAt(steps_cursor);
+			final ContentLeaf bad_leaf = node_cursor.getChildLeaf(next_step_name);
 			if (bad_leaf != null) {
 				return false;
 			}
@@ -112,20 +113,20 @@ public class InMemoryFileSystemContent {
 		return true;
 	}
 
-	public void rename (RelativePath relativePath, String new_name) {
+	public void rename (final RelativePath relativePath, final String new_name) {
 		if (relativePath.isRoot()) {
 			return;
 		}
-		ContentNode leaf_parent = this.findNode(relativePath.parent());
+		final ContentNode leaf_parent = this.findNode(relativePath.parent());
 		if (leaf_parent == null) {
 			return;
 		} else {
-			String child_name = relativePath.getLastStep();
-			ContentLeaf leaf = leaf_parent.getChildLeaf(child_name);
+			final String child_name = relativePath.getLastStep();
+			final ContentLeaf leaf = leaf_parent.getChildLeaf(child_name);
 			if (leaf != null) {
 				leaf_parent.renameLeaf(child_name, new_name);
 			} else {
-				ContentNode node = leaf_parent.getChildNode(child_name);
+				final ContentNode node = leaf_parent.getChildNode(child_name);
 				if (node != null) {
 					leaf_parent.renameNode(child_name, new_name);
 				}
@@ -133,8 +134,8 @@ public class InMemoryFileSystemContent {
 		}
 	}
 
-	public List<String> listChildren (RelativePath relativePath) {
-		ContentNode leaf = this.findNode(relativePath);
+	public List<String> listChildren (final RelativePath relativePath) {
+		final ContentNode leaf = this.findNode(relativePath);
 		if (leaf == null) {
 			return null;
 		} else {
@@ -142,13 +143,13 @@ public class InMemoryFileSystemContent {
 		}
 	}
 
-	public ContentLeaf createFile (RelativePath relativePath) {
-		ContentNode leaf_parent = this.findNode(relativePath.parent());
-		String name = relativePath.steps().getLast();
+	public ContentLeaf createFile (final RelativePath relativePath) {
+		final ContentNode leaf_parent = this.findNode(relativePath.parent());
+		final String name = relativePath.steps().getLast();
 		return leaf_parent.createNewFile(name);
 	}
 
-	public ContentLeaf getContentLeaf (RelativePath relativePath) {
+	public ContentLeaf getContentLeaf (final RelativePath relativePath) {
 		return this.findLeaf(relativePath);
 	}
 

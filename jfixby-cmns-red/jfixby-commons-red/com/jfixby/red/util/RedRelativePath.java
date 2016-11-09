@@ -11,6 +11,7 @@ import com.jfixby.cmns.api.util.path.RelativePath;
 class RedRelativePath implements RelativePath {
 
 	final private List<String> path_steps = Collections.newList();
+	private final String string;
 
 	public RedRelativePath (final String relative_path_string) {
 		Debug.checkNull("relative_path_string", relative_path_string);
@@ -20,18 +21,11 @@ class RedRelativePath implements RelativePath {
 			parts_list.remove(E);
 		}
 		this.path_steps.addAll(parts_list);
-
+		this.string = toString(this.path_steps);
 	}
 
-	public RedRelativePath (final Collection<String> path_steps) {
-		this.path_steps.addAll(path_steps);
-	}
-
-	final static String E = "";
-
-	@Override
-	public String getPathString () {
-		final int n = this.path_steps.size();
+	static private String toString (final Collection<String> path_steps) {
+		final int n = path_steps.size();
 		if (n == 0) {
 			// return RelativePath.SEPARATOR;
 			return E;
@@ -39,12 +33,24 @@ class RedRelativePath implements RelativePath {
 		final StringBuilder builder = new StringBuilder();
 		for (int i = 0; i < n; i++) {
 			if (i == 0) {
-				builder.append(this.path_steps.getElementAt(i));
+				builder.append(path_steps.getElementAt(i));
 			} else {
-				builder.append(RelativePath.SEPARATOR).append(this.path_steps.getElementAt(i));
+				builder.append(RelativePath.SEPARATOR).append(path_steps.getElementAt(i));
 			}
 		}
 		return builder.toString();
+	}
+
+	public RedRelativePath (final Collection<String> path_steps) {
+		this.path_steps.addAll(path_steps);
+		this.string = toString(this.path_steps);
+	}
+
+	final static String E = "";
+
+	@Override
+	public String getPathString () {
+		return this.string;
 	}
 
 	@Override
@@ -78,12 +84,12 @@ class RedRelativePath implements RelativePath {
 
 	@Override
 	public String toString () {
-		return this.getPathString();
+		return this.string;
 	}
 
 	@Override
-	public List<String> steps () {
-		return Collections.newList(this.path_steps);
+	public Collection<String> steps () {
+		return this.path_steps;
 	}
 
 	@Override
@@ -95,7 +101,7 @@ class RedRelativePath implements RelativePath {
 	public int hashCode () {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((this.path_steps == null) ? 0 : this.path_steps.hashCode());
+		result = prime * result + ((this.string == null) ? 0 : this.string.hashCode());
 		return result;
 	}
 
@@ -111,16 +117,13 @@ class RedRelativePath implements RelativePath {
 			return false;
 		}
 		final RedRelativePath other = (RedRelativePath)obj;
-		if (this.path_steps == null) {
-			if (other.path_steps != null) {
+		if (this.string == null) {
+			if (other.string != null) {
 				return false;
 			}
-		} else {
-			if (!Collections.component().equalLists(this.path_steps, other.path_steps)) {
-				return false;
-			}
+		} else if (!this.string.equals(other.string)) {
+			return false;
 		}
-
 		return true;
 	}
 
@@ -136,7 +139,7 @@ class RedRelativePath implements RelativePath {
 	@Override
 	public RelativePath proceed (final RelativePath value) {
 		Debug.checkNull(value);
-		final List<String> steps = this.steps();
+		final List<String> steps = Collections.newList(this.path_steps);
 		steps.addAll(value.steps());
 		final RelativePath incremented = JUtils.newRelativePath(steps);
 		return incremented;

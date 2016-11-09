@@ -60,9 +60,9 @@ public abstract class AbstractFileSystem implements FileSystem {
 			final boolean continueCopying = true;
 
 			if (continueCopying) {
-				L.d("copying folder", file_to_copy);
-				L.d("            to", target_folder);
-				this.copyFolderContentsToFolder(file_to_copy, target_folder);
+// L.d("copying folder", file_to_copy);
+// L.d(" to", target_folder);
+				this.copyFolderContentsToFolder(file_to_copy, target_folder, resollver);
 
 			}
 
@@ -156,8 +156,8 @@ public abstract class AbstractFileSystem implements FileSystem {
 				final ByteArray data = input_file.readBytes();
 				output_file.writeBytes(data);
 			} else {
-				L.d("   skip file", input_file);
-				L.d("         for", output_file.getAbsoluteFilePath());
+// L.d(" skip file", input_file);
+				L.d("        skip", output_file.getAbsoluteFilePath());
 			}
 			return;
 		}

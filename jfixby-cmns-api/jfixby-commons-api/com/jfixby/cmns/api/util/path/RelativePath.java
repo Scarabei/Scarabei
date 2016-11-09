@@ -1,7 +1,7 @@
 
 package com.jfixby.cmns.api.util.path;
 
-import com.jfixby.cmns.api.collections.List;
+import com.jfixby.cmns.api.collections.Collection;
 
 public interface RelativePath {
 
@@ -21,7 +21,7 @@ public interface RelativePath {
 
 	RelativePath child (String name);
 
-	public List<String> steps ();
+	public Collection<String> steps ();
 
 	String getLastStep ();
 

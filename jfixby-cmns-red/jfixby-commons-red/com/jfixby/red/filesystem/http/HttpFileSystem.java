@@ -4,6 +4,10 @@ package com.jfixby.red.filesystem.http;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
+import com.jfixby.cmns.api.collections.Collection;
+import com.jfixby.cmns.api.collections.CollectionScanner;
+import com.jfixby.cmns.api.collections.Collections;
+import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.file.File;
@@ -12,6 +16,7 @@ import com.jfixby.cmns.api.file.FileOutputStream;
 import com.jfixby.cmns.api.file.FileSystem;
 import com.jfixby.cmns.api.net.http.Http;
 import com.jfixby.cmns.api.net.http.HttpURL;
+import com.jfixby.cmns.api.util.JUtils;
 import com.jfixby.cmns.api.util.path.AbsolutePath;
 import com.jfixby.cmns.api.util.path.RelativePath;
 import com.jfixby.red.filesystem.AbstractFileSystem;
@@ -30,9 +35,22 @@ public class HttpFileSystem extends AbstractFileSystem implements FileSystem {
 	}
 
 	public HttpURL getURLFor (final AbsolutePath<FileSystem> abs) {
-		final RelativePath relative = abs.getRelativePath();
+		RelativePath relative;
+		{
+			relative = abs.getRelativePath();
+			final Collection<String> steps = relative.steps();
+			final List<String> encodedSteps = Collections.newList();
+			Collections.scanCollection(steps, new CollectionScanner<String>() {
+				@Override
+				public void scanElement (final String e, final int i) {
+					encodedSteps.add(urlEncodeString(steps.getElementAt(i)));
+				}
+			});
+			relative = JUtils.newRelativePath(encodedSteps);
+		}
+
 		final String prefix = (this.url.getURLString());
-		final String urlString = prefix + this.mid(prefix) + urlEncodeString("" + relative);
+		final String urlString = prefix + this.mid(prefix) + relative;
 		final HttpURL url = Http.newURL(urlString);
 		return url;
 	}
