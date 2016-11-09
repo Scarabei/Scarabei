@@ -15,6 +15,8 @@ import com.jfixby.cmns.api.file.FileInputStream;
 import com.jfixby.cmns.api.file.FileOutputStream;
 import com.jfixby.cmns.api.file.FileSystem;
 import com.jfixby.cmns.api.net.http.Http;
+import com.jfixby.cmns.api.net.http.HttpFileSystem;
+import com.jfixby.cmns.api.net.http.HttpFileSystemSpecs;
 import com.jfixby.cmns.api.net.http.HttpURL;
 import com.jfixby.cmns.api.util.JUtils;
 import com.jfixby.cmns.api.util.path.AbsolutePath;
@@ -22,14 +24,14 @@ import com.jfixby.cmns.api.util.path.RelativePath;
 import com.jfixby.red.filesystem.AbstractFileSystem;
 import com.jfixby.red.filesystem.http.descript.HttpFolderDescriptor;
 
-public class HttpFileSystem extends AbstractFileSystem implements FileSystem {
+public class RedHttpFileSystem extends AbstractFileSystem implements FileSystem, HttpFileSystem {
 
 	public static final String OS_SEPARATOR = "/";
 
 	private final HttpURL url;
 	final private String name;
 
-	public HttpFileSystem (final HttpFileSystemSpecs specs) {
+	public RedHttpFileSystem (final HttpFileSystemSpecs specs) {
 		this.url = Debug.checkNull("rootUrl", specs.getRootUrl());
 		this.name = "HttpFileSystem<" + this.url + ">";
 	}

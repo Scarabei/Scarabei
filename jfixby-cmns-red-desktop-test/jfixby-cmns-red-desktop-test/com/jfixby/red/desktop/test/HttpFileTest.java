@@ -11,15 +11,15 @@ import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.net.http.Http;
 import com.jfixby.cmns.api.net.http.HttpURL;
 import com.jfixby.red.desktop.DesktopSetup;
-import com.jfixby.red.filesystem.http.HttpFileSystem;
-import com.jfixby.red.filesystem.http.HttpFileSystemSpecs;
+import com.jfixby.red.filesystem.http.RedHttpFileSystem;
+import com.jfixby.red.filesystem.http.RedHttpFileSystemSpecs;
 
 public class HttpFileTest {
 
 	public static void main (final String[] args) throws IOException {
 		DesktopSetup.deploy();
 		Json.installComponent(new RedJson());
-		final HttpFileSystemSpecs specs = new HttpFileSystemSpecs();
+		final RedHttpFileSystemSpecs specs = new RedHttpFileSystemSpecs();
 
 		final String urlString = "http://localhost:8080/tinto-assets/assets";
 
@@ -34,7 +34,7 @@ public class HttpFileTest {
 
 		final String filename = "3-file.txt";
 		//
-		final HttpFileSystem fs = new HttpFileSystem(specs);
+		final RedHttpFileSystem fs = new RedHttpFileSystem(specs);
 		//
 		final File root = fs.ROOT();
 		root.isFolder();

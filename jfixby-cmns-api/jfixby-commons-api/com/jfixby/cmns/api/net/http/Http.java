@@ -7,7 +7,7 @@ public class Http {
 
 	static private ComponentInstaller<HttpComponent> componentInstaller = new ComponentInstaller<HttpComponent>("Http");
 
-	public static final void installComponent (HttpComponent component_to_install) {
+	public static final void installComponent (final HttpComponent component_to_install) {
 		componentInstaller.installComponent(component_to_install);
 	}
 
@@ -19,11 +19,11 @@ public class Http {
 		return componentInstaller.getComponent();
 	}
 
-	public static HttpURL newURL (String url_string) {
+	public static HttpURL newURL (final String url_string) {
 		return invoke().newURL(url_string);
 	}
 
-	public static HttpConnection newConnection (HttpURL url) {
+	public static HttpConnection newConnection (final HttpURL url) {
 		return invoke().newConnection(url);
 	}
 
@@ -31,7 +31,7 @@ public class Http {
 		return invoke().newConnectionSpecs();
 	}
 
-	public static HttpConnection newConnection (HttpConnectionSpecs specs) {
+	public static HttpConnection newConnection (final HttpConnectionSpecs specs) {
 		return invoke().newConnection(specs);
 	}
 
@@ -39,11 +39,19 @@ public class Http {
 		return invoke().newCallParams();
 	}
 
-	public static HttpCall newCall (HttpCallParams params) {
+	public static HttpCall newCall (final HttpCallParams params) {
 		return invoke().newCall(params);
 	}
 
 	public static HttpCallExecutor newCallExecutor () {
 		return invoke().newCallExecutor();
+	}
+
+	public static HttpFileSystemSpecs newHttpFileSystemSpecs () {
+		return invoke().newHttpFileSystemSpecs();
+	}
+
+	public static HttpFileSystem newHttpFileSystem (final HttpFileSystemSpecs specs) {
+		return invoke().newHttpFileSystem(specs);
 	}
 }

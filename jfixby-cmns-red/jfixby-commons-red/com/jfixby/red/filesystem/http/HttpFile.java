@@ -24,11 +24,11 @@ import com.jfixby.red.filesystem.http.descript.HttpFolderDescriptor;
 
 public class HttpFile extends AbstractRedFile implements File {
 
-	private final HttpFileSystem fs;
+	private final RedHttpFileSystem fs;
 	private final AbsolutePath<FileSystem> absolute_path;
 	private final RelativePath relativePath;
 
-	public HttpFile (final HttpFileSystem virtualFileSystem, final AbsolutePath<FileSystem> file_path) {
+	public HttpFile (final RedHttpFileSystem virtualFileSystem, final AbsolutePath<FileSystem> file_path) {
 		this.fs = virtualFileSystem;
 		this.absolute_path = file_path;
 		this.relativePath = file_path.getRelativePath();
@@ -177,7 +177,7 @@ public class HttpFile extends AbstractRedFile implements File {
 	}
 
 	@Override
-	public HttpFileSystem getFileSystem () {
+	public RedHttpFileSystem getFileSystem () {
 		return this.fs;
 	}
 

@@ -23,7 +23,7 @@ public class HttpFileInputStreamOperator implements JavaInputStreamOperator {
 
 	@Override
 	public InputStream getJavaStream () throws IOException {
-		final HttpFileSystem fs = this.v_file.getFileSystem();
+		final RedHttpFileSystem fs = this.v_file.getFileSystem();
 		final HttpURL url = fs.getURLFor(this.v_file.getAbsoluteFilePath());
 		final ByteArray data = HTTPOperator.readFile(url);
 		return new ByteArrayInputStream(data.toArray());
@@ -36,7 +36,7 @@ public class HttpFileInputStreamOperator implements JavaInputStreamOperator {
 
 	@Override
 	public ByteArray readAll () throws IOException {
-		final HttpFileSystem fs = this.v_file.getFileSystem();
+		final RedHttpFileSystem fs = this.v_file.getFileSystem();
 		final HttpURL url = fs.getURLFor(this.v_file.getAbsoluteFilePath());
 		final ByteArray data = HTTPOperator.readFile(url);
 		return data;

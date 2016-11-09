@@ -7,7 +7,11 @@ import com.jfixby.cmns.api.net.http.HttpCallParams;
 import com.jfixby.cmns.api.net.http.HttpComponent;
 import com.jfixby.cmns.api.net.http.HttpConnection;
 import com.jfixby.cmns.api.net.http.HttpConnectionSpecs;
+import com.jfixby.cmns.api.net.http.HttpFileSystem;
+import com.jfixby.cmns.api.net.http.HttpFileSystemSpecs;
 import com.jfixby.cmns.api.net.http.HttpURL;
+import com.jfixby.red.filesystem.http.RedHttpFileSystem;
+import com.jfixby.red.filesystem.http.RedHttpFileSystemSpecs;
 import com.jfixby.red.net.RedCall;
 import com.jfixby.red.net.RedCallExecutor;
 import com.jfixby.red.net.RedHttpCallParams;
@@ -50,6 +54,16 @@ public class HttpDesktopComponent implements HttpComponent {
 	@Override
 	public HttpCall newCall (final HttpCallParams call_scecs) {
 		return new RedCall(call_scecs);
+	}
+
+	@Override
+	public HttpFileSystemSpecs newHttpFileSystemSpecs () {
+		return new RedHttpFileSystemSpecs();
+	}
+
+	@Override
+	public HttpFileSystem newHttpFileSystem (final HttpFileSystemSpecs specs) {
+		return new RedHttpFileSystem(specs);
 	}
 
 }

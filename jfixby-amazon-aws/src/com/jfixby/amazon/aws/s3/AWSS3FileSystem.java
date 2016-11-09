@@ -267,7 +267,7 @@ public class AWSS3FileSystem extends AbstractFileSystem implements FileSystem {
 	}
 
 	void makeFolder (final String s3Key) {
-		L.d("makeFolder", s3Key);
+// L.d("makeFolder", s3Key);
 
 		// create meta-data for your folder and set content-length to 0
 		final ObjectMetadata metadata = new ObjectMetadata();
@@ -389,7 +389,7 @@ public class AWSS3FileSystem extends AbstractFileSystem implements FileSystem {
 
 			final ChildrenList task = input_folder.listAllChildren();
 // task.addAll(children);
-			task.print("task");
+// task.print("task");
 			ouput_folder.makeFolder();
 			for (int i = 0; i < task.size(); i++) {
 				final File file_to_copy = task.getElementAt(i);
@@ -399,8 +399,8 @@ public class AWSS3FileSystem extends AbstractFileSystem implements FileSystem {
 				// children.print("task");
 
 				if (file_to_copy.isFolder()) {
-					L.d("copying", file_to_copy);
-					L.d("     to", target);
+// L.d("copying", file_to_copy);
+// L.d(" to", target);
 					this.makeFolder(targetRelative + RelativePath.SEPARATOR);
 				}
 				if (file_to_copy.isFile()) {
@@ -415,8 +415,8 @@ public class AWSS3FileSystem extends AbstractFileSystem implements FileSystem {
 						parent.makeFolder();
 						this.writeData(targetRelative, file_to_copy.readBytes());
 					} else {
-						L.d("   skip", file_to_copy);
-						L.d("    for", target);
+// L.d(" skip", file_to_copy);
+						L.d("   skip", target);
 					}
 				}
 

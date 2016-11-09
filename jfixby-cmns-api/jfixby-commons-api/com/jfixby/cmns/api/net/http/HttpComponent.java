@@ -17,4 +17,8 @@ public interface HttpComponent {
 
 	HttpCall newCall (HttpCallParams params);
 
+	HttpFileSystemSpecs newHttpFileSystemSpecs ();
+
+	HttpFileSystem newHttpFileSystem (HttpFileSystemSpecs specs);
+
 }
