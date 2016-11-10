@@ -157,7 +157,7 @@ public abstract class AbstractFileSystem implements FileSystem {
 				output_file.writeBytes(data);
 			} else {
 // L.d(" skip file", input_file);
-				L.d("        skip", output_file.getAbsoluteFilePath());
+// L.d(" skip", output_file.getAbsoluteFilePath());
 			}
 			return;
 		}
