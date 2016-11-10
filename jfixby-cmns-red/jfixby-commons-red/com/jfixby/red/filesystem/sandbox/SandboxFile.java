@@ -63,11 +63,6 @@ public class SandboxFile extends AbstractRedFile implements File {
 	}
 
 	@Override
-	public String toString () {
-		return "File [" + this.absolute_path + "]";
-	}
-
-	@Override
 	public ChildrenList listDirectChildren () throws IOException {
 		final File unprotected_file = this.getUnprotectedFile();
 
@@ -116,13 +111,13 @@ public class SandboxFile extends AbstractRedFile implements File {
 	}
 
 	@Override
-	public boolean makeFolder () {
+	public boolean makeFolder () throws IOException {
 		final File unprotected_file = this.getUnprotectedFile();
 		return unprotected_file.makeFolder();
 	}
 
 	@Override
-	public boolean rename (final String new_name) {
+	public boolean rename (final String new_name) throws IOException {
 		final File unprotected_file = this.getUnprotectedFile();
 		return unprotected_file.rename(new_name);
 	}

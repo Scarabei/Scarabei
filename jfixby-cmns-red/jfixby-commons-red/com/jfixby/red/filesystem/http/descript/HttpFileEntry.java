@@ -5,6 +5,12 @@ import java.io.Serializable;
 
 public class HttpFileEntry implements Serializable {
 
+	@Override
+	public String toString () {
+		return "HttpFileEntry [name=" + this.name + ", is_file=" + this.is_file + ", is_folder=" + this.is_folder + ", size="
+			+ this.size + ", lastModified=" + this.lastModified + ", hash=" + this.hash + "]";
+	}
+
 	/**
 	 *
 	 */
@@ -14,6 +20,6 @@ public class HttpFileEntry implements Serializable {
 	public boolean is_folder;
 	public long size;
 	public long lastModified;
-	public String hash;
+	public String hash = "";
 
 }

@@ -17,7 +17,7 @@ import com.jfixby.red.filesystem.http.HTTPOperator;
 
 public class DescriptorsBuilder {
 
-	public static void rebuildDescriptors (final File file, final RebuildDescriptorsMode mode) throws IOException {
+	public static HttpFolderDescriptor rebuildDescriptors (final File file, final RebuildDescriptorsMode mode) throws IOException {
 		if (!file.isFolder()) {
 			Err.reportError("Is not folder " + file);
 		}
@@ -39,14 +39,13 @@ public class DescriptorsBuilder {
 					entry.is_folder = e.isFolder();
 					entry.lastModified = e.lastModified();
 					entry.size = e.getSize();
-
-					entry.hash = e.calculateHash().getMD5HashHexString();
-
+					if (e.isFile()) {
+						entry.hash = e.calculateHash().getMD5HashHexString();
+					}
 					desc.entries.put(entry.name, entry);
 					if (e.isFolder() && mode == RebuildDescriptorsMode.RECURSIVELY) {
-
-						rebuildDescriptors(e, RebuildDescriptorsMode.RECURSIVELY);
-
+						final HttpFolderDescriptor sublevel = rebuildDescriptors(e, RebuildDescriptorsMode.RECURSIVELY);
+						desc.children.put(entry.name, sublevel);
 					}
 				} catch (final IOException e1) {
 					Err.reportError(e1);
@@ -81,6 +80,8 @@ public class DescriptorsBuilder {
 			final String data = stringData.toString();
 			desc_file_json.writeString(data);
 		}
+
+		return desc;
 	}
 
 }

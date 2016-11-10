@@ -6,6 +6,8 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import com.jfixby.cmns.api.debug.Debug;
+import com.jfixby.cmns.api.debug.DebugTimer;
 import com.jfixby.cmns.api.io.Buffer;
 import com.jfixby.cmns.api.io.BufferInputStream;
 import com.jfixby.cmns.api.io.GZipInputStream;
@@ -66,14 +68,17 @@ public class HTTPOperator {
 
 	public static ByteArray readFile (final HttpURL url) throws IOException {
 // Sys.sleep(0);
+		final DebugTimer timer = Debug.newTimer();
+
 		Sys.sleep(SPEEP);
 		final String urlString = url(url);
 
 		final URL java_url = new URL(urlString);
 		final HttpURLConnection conn = (HttpURLConnection)java_url.openConnection();
 		open_PP(url);
+		timer.reset();
 		final int code = conn.getResponseCode();
-
+		timer.printTime("FETCHING: " + url);
 		java_url.getPath();
 		final long len = conn.getContentLengthLong();
 

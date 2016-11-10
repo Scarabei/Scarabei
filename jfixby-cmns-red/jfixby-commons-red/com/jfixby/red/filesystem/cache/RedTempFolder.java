@@ -12,7 +12,7 @@ public class RedTempFolder implements TempFolder {
 
 	private final File root_folder;
 
-	public RedTempFolder (final File cache_folder, final String tmp) {
+	public RedTempFolder (final File cache_folder, final String tmp) throws IOException {
 		final AbsolutePath<FileSystem> path = cache_folder.child(tmp).getAbsoluteFilePath();
 		this.root_folder = path.getMountPoint().newFile(path);
 		this.root_folder.makeFolder();

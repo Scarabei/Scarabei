@@ -15,7 +15,13 @@ public class Mp3Fix {
 		DesktopSetup.deploy();
 		final File folder = LocalFileSystem.newFile("D:\\[SHIT]\\audio");
 		final ChildrenList not_procesed = folder.listDirectChildren(file -> !file.extensionIs("mp3"));
-		Collections.scanCollection(not_procesed, (e, i) -> e.rename(e.nameWithoutExtension() + ".mp3"));
+		Collections.scanCollection(not_procesed, (e, i) -> {
+			try {
+				e.rename(e.nameWithoutExtension() + ".mp3");
+			} catch (final IOException e1) {
+				e1.printStackTrace();
+			}
+		});
 		not_procesed.print("renamed");
 	}
 }

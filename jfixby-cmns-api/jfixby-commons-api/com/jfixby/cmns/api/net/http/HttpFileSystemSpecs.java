@@ -7,4 +7,8 @@ public interface HttpFileSystemSpecs {
 
 	HttpURL getRootUrl ();
 
+	int getCacheSize ();
+
+	void setCacheSize (int cache);
+
 }

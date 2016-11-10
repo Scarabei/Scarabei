@@ -161,6 +161,11 @@ public abstract class AbstractRedFile implements File {
 	}
 
 	@Override
+	final public String toString () {
+		return this.getAbsoluteFilePath() + "";
+	}
+
+	@Override
 	public <T> T readData (final Class<T> type) throws IOException {
 		final ByteArray bytes = this.readBytes();
 		return IO.deserialize(type, bytes);

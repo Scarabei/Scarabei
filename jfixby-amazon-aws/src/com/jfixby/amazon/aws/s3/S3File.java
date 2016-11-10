@@ -112,10 +112,10 @@ public class S3File extends AbstractRedFile implements File {
 		}
 	}
 
-	@Override
-	public String toString () {
-		return "@" + this.fs.toString() + ":>" + RelativePath.SEPARATOR + this.absolute_path.getRelativePath();
-	}
+// @Override
+// public String toString () {
+// return "@" + this.fs.toString() + ":>" + RelativePath.SEPARATOR + this.absolute_path.getRelativePath();
+// }
 
 	@Override
 	public File child (final String child_name) {

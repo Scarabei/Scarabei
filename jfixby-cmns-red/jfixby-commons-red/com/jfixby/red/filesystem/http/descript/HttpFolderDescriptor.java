@@ -14,5 +14,6 @@ public class HttpFolderDescriptor implements Serializable {
 	public static final String HTTP_FOLDER_DESCRIPTOR_FILE_NAME = "http.folder-descriptor";
 
 	public HashMap<String, HttpFileEntry> entries = new HashMap<String, HttpFileEntry>();
+	public HashMap<String, HttpFolderDescriptor> children = new HashMap<String, HttpFolderDescriptor>();
 
 }

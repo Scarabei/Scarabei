@@ -14,6 +14,7 @@ import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.FileInputStream;
 import com.jfixby.cmns.api.file.FileOutputStream;
 import com.jfixby.cmns.api.file.FileSystem;
+import com.jfixby.cmns.api.math.IntegerMath;
 import com.jfixby.cmns.api.net.http.Http;
 import com.jfixby.cmns.api.net.http.HttpFileSystem;
 import com.jfixby.cmns.api.net.http.HttpFileSystemSpecs;
@@ -34,6 +35,9 @@ public class RedHttpFileSystem extends AbstractFileSystem implements FileSystem,
 	public RedHttpFileSystem (final HttpFileSystemSpecs specs) {
 		this.url = Debug.checkNull("rootUrl", specs.getRootUrl());
 		this.name = "HttpFileSystem<" + this.url + ">";
+		long cache_size = specs.getCacheSize();
+		cache_size = IntegerMath.limit(0, cache_size, Integer.MAX_VALUE);
+		this.httpFolderDescriptorCache.setSize(cache_size);
 	}
 
 	public HttpURL getURLFor (final AbsolutePath<FileSystem> abs) {
@@ -128,22 +132,14 @@ public class RedHttpFileSystem extends AbstractFileSystem implements FileSystem,
 		return this.name;
 	}
 
-	final HTTPFileInfoCache hTTPFileInfoCache = new HTTPFileInfoCache();
 	final HttpFolderDescriptorCache httpFolderDescriptorCache = new HttpFolderDescriptorCache();
-
-	public HTTPFileInfo getCachedInfo (final HttpURL key) {
-		return this.hTTPFileInfoCache.get(key);
-	}
-
-	public void caheValue (final HttpURL key, final HTTPFileInfo info) {
-		this.hTTPFileInfoCache.put(key, info);
-	}
 
 	public HttpFolderDescriptor getCachedDescriptor (final HttpURL key) {
 		return this.httpFolderDescriptorCache.get(key);
 	}
 
 	public void caheValue (final HttpURL key, final HttpFolderDescriptor desc) {
+// L.d("cache: " + key, desc);
 		this.httpFolderDescriptorCache.put(key, desc);
 	}
 }

@@ -95,21 +95,21 @@ class ServerCore extends UnicastRemoteObject implements RMIFilesDataContainer {
 	}
 
 	@Override
-	public String[] listChildren (final List<String> steps) throws RemoteException {
+	public String[] listChildren (final List<String> steps) throws IOException {
 		final RelativePath relative = this.toRelative(steps);
 		final File target = this.rootFolder.proceed(relative);
 		return target.toJavaFile().list();
 	}
 
 	@Override
-	public boolean mkdirs (final List<String> steps) throws RemoteException {
+	public boolean mkdirs (final List<String> steps) throws IOException {
 		final RelativePath relative = this.toRelative(steps);
 		final File target = this.rootFolder.proceed(relative);
 		return target.parent().makeFolder();
 	}
 
 	@Override
-	public boolean rename (final List<String> steps, final String new_name) throws RemoteException {
+	public boolean rename (final List<String> steps, final String new_name) throws IOException {
 		final RelativePath relative = this.toRelative(steps);
 		final File target = this.rootFolder.proceed(relative);
 		return target.rename(new_name);

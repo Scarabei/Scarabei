@@ -251,7 +251,11 @@ public class ToGdxFileAdaptor extends FileHandle {
 	@Override
 	public void mkdirs () {
 		this.L("mkdirs");
-		this.fixby_file.makeFolder();
+		try {
+			this.fixby_file.makeFolder();
+		} catch (final IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void L (final String string) {

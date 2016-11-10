@@ -58,11 +58,6 @@ public abstract class AbstractLocalFile<T extends AbstractLocalFileSystem> exten
 	}
 
 	@Override
-	final public String toString () {
-		return this.getAbsoluteFilePath() + "";
-	}
-
-	@Override
 	final public File child (final String child_name) {
 		return this.getFileSystem().newFile(this.getAbsoluteFilePath().child(child_name));
 

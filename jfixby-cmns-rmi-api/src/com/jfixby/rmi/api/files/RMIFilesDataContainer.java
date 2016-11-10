@@ -16,11 +16,11 @@ public interface RMIFilesDataContainer extends RMIFace {
 
 	boolean exists (java.util.List<String> relativePath) throws java.rmi.RemoteException, IOException;
 
-	String[] listChildren (java.util.List<String> relativePath) throws java.rmi.RemoteException;
+	String[] listChildren (java.util.List<String> relativePath) throws java.rmi.RemoteException, IOException;
 
-	boolean mkdirs (java.util.List<String> relativePath) throws java.rmi.RemoteException;
+	boolean mkdirs (java.util.List<String> relativePath) throws java.rmi.RemoteException, IOException;
 
-	boolean rename (java.util.List<String> relativePath, String new_name) throws java.rmi.RemoteException;
+	boolean rename (java.util.List<String> relativePath, String new_name) throws java.rmi.RemoteException, IOException;
 
 	long lastModified (java.util.List<String> relativePath) throws java.rmi.RemoteException, IOException;
 

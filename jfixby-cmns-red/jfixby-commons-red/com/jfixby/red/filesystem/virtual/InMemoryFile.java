@@ -61,11 +61,6 @@ public class InMemoryFile extends AbstractRedFile implements File {
 	}
 
 	@Override
-	public String toString () {
-		return "File [" + this.absolute_path + "]";
-	}
-
-	@Override
 	public ChildrenList listDirectChildren () {
 		final InMemoryFileSystemContent content = this.virtualFileSystem.getContent();
 

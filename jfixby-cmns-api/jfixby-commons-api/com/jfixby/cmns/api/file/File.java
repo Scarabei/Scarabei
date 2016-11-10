@@ -31,7 +31,7 @@ public interface File {
 
 	boolean exists () throws IOException;
 
-	boolean makeFolder ();
+	boolean makeFolder () throws IOException;
 
 	/*
 	 * Examples: .extensionIs("java"); .extensionIs("txt"); .extensionIs("jar");
@@ -40,7 +40,7 @@ public interface File {
 
 	public String getExtension () throws IOException;
 
-	boolean rename (String new_name);
+	boolean rename (String new_name) throws IOException;
 
 	String getName ();
 

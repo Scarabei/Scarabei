@@ -6,6 +6,7 @@ import java.io.IOException;
 import com.jfixby.cmns.api.collections.CollectionScanner;
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
+import com.jfixby.cmns.api.collections.Map;
 import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.file.ChildrenList;
@@ -81,11 +82,6 @@ public class HttpFile extends AbstractRedFile implements File {
 	}
 
 	@Override
-	public String toString () {
-		return "HttpFile [" + this.absolute_path + "]";
-	}
-
-	@Override
 	public ChildrenList listDirectChildren () throws IOException {
 		this.checkExists();
 		this.checkIsFolder();
@@ -93,15 +89,17 @@ public class HttpFile extends AbstractRedFile implements File {
 		final HttpFolderDescriptor desc = this.readDescriptor();
 
 		final FilesList listFiles = new FilesList();
-
+// Collections.newMap(desc.entries).print("entries");
 		Collections.scanCollection(desc.entries.keySet(), new CollectionScanner<String>() {
 			@Override
 			public void scanElement (final String key, final int i) {
 				final HttpFileEntry e = desc.entries.get(key);
 				final String child_name = e.name;
-				Debug.checkTrue("valid name", key.equals(child_name));
-				final File childFile = HttpFile.this.child(child_name);
-				listFiles.add(childFile);
+				Debug.checkTrue("invalid name: key=" + key + " child_name=" + child_name, key.equals(child_name));
+				{
+					final File childFile = HttpFile.this.child(child_name);
+					listFiles.add(childFile);
+				}
 			}
 		});
 
@@ -109,42 +107,52 @@ public class HttpFile extends AbstractRedFile implements File {
 	}
 
 	private HttpFolderDescriptor readDescriptor () throws IOException {
+		final AbsolutePath<FileSystem> path = this.getAbsoluteFilePath()
+			.child(HttpFolderDescriptor.HTTP_FOLDER_DESCRIPTOR_FILE_NAME);
 
-		final HttpURL url = this.fs
-			.getURLFor(this.getAbsoluteFilePath().child(HttpFolderDescriptor.HTTP_FOLDER_DESCRIPTOR_FILE_NAME));
-
-// final HTTPFileInfo info = this.getFileInfo(url);
-//
-// if (!info.codeIs(200)) {
-// throw new IOException("Folder decscriptor not found " + url);
-// }
-
-		final HttpFolderDescriptor desc = this.getDescriptor(url);
-
+		final HttpFolderDescriptor desc = this.getDescriptor(path);
 		return desc;
 	}
 
-	private HttpFolderDescriptor getDescriptor (final HttpURL url) throws IOException {
+	private HttpFolderDescriptor getDescriptor (final AbsolutePath<FileSystem> path) throws IOException {
+
+		final HttpURL url = this.fs.getURLFor(path);
 		HttpFolderDescriptor desc = this.fs.getCachedDescriptor(url);
 		if (desc == null) {
 			final ByteArray data = HTTPOperator.readFile(url);
 			desc = HTTPOperator.decode(data);
-			this.fs.caheValue(url, desc);
+			this.caheValue(path, url, desc);
 		}
 		return desc;
 	}
 
-// private HTTPFileInfo getFileInfo (final HttpURL url) {
-//
-// HTTPFileInfo info = this.fs.getCachedInfo(url);
-//
-// if (info == null) {
-// info = HTTPOperator.getFileInfo(url);
-// this.fs.caheValue(url, info);
-// }
-//
-// return info;
-// }
+	private void caheValue (final AbsolutePath<FileSystem> path, final HttpURL url, final HttpFolderDescriptor desc) {
+		Debug.checkNull(desc.children);
+		final Map<String, HttpFolderDescriptor> children = Collections.newMap();
+		children.putJavaMap(desc.children);
+		desc.children.clear();
+		this.fs.caheValue(url, desc);
+
+// L.d("url", url);
+// L.d("path", path);
+// children.print("children");
+// L.d();
+		for (int i = 0; i < children.size(); i++) {
+			final String key = children.getKeyAt(i);
+			final HttpFolderDescriptor val = children.get(key);
+			final AbsolutePath<FileSystem> subPath = path.parent().child(key)
+				.child(HttpFolderDescriptor.HTTP_FOLDER_DESCRIPTOR_FILE_NAME);
+			final HttpURL subUrl = this.fs.getURLFor(subPath);
+			this.caheValue(subPath, subUrl, val);
+// L.d("key", key);
+// L.d("subPath", subPath);
+// L.d("subUrl", subUrl);
+
+// final HttpURL childUrl = url.child(key);
+
+		}
+
+	}
 
 	@Override
 	public HttpFile child (final String child_name) {

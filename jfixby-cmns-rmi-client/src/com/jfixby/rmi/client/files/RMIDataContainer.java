@@ -60,7 +60,7 @@ public class RMIDataContainer extends RMIClient<RMIFilesDataContainer> {
 		return false;
 	}
 
-	public List<String> listChildren (final RelativePath relativePath) {
+	public List<String> listChildren (final RelativePath relativePath) throws IOException {
 		try {
 			return Collections.newList(this.lookup().listChildren(relativePath.steps().toJavaList()));
 		} catch (MalformedURLException | RemoteException | NotBoundException e) {
@@ -69,7 +69,7 @@ public class RMIDataContainer extends RMIClient<RMIFilesDataContainer> {
 		return null;
 	}
 
-	public boolean mkdirs (final RelativePath relativePath) {
+	public boolean mkdirs (final RelativePath relativePath) throws IOException {
 		try {
 			return this.lookup().mkdirs(relativePath.steps().toJavaList());
 		} catch (MalformedURLException | RemoteException | NotBoundException e) {
@@ -78,7 +78,7 @@ public class RMIDataContainer extends RMIClient<RMIFilesDataContainer> {
 		return false;
 	}
 
-	public void rename (final RelativePath relativePath, final String new_name) {
+	public void rename (final RelativePath relativePath, final String new_name) throws IOException {
 		try {
 			this.lookup().rename(relativePath.steps().toJavaList(), new_name);
 		} catch (MalformedURLException | RemoteException | NotBoundException e) {

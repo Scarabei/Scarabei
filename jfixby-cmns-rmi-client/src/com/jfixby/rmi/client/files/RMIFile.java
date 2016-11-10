@@ -63,11 +63,6 @@ public class RMIFile extends AbstractRedFile implements File {
 	}
 
 	@Override
-	public String toString () {
-		return "File [" + this.absolute_path + "]";
-	}
-
-	@Override
 	public ChildrenList listDirectChildren () throws IOException, Error {
 		final RMIDataContainer content = this.virtualFileSystem.getContent();
 
@@ -106,13 +101,13 @@ public class RMIFile extends AbstractRedFile implements File {
 	}
 
 	@Override
-	public boolean makeFolder () {
+	public boolean makeFolder () throws IOException {
 		final RMIDataContainer content = this.virtualFileSystem.getContent();
 		return content.mkdirs(this.absolute_path.getRelativePath());
 	}
 
 	@Override
-	public boolean rename (final String new_name) {
+	public boolean rename (final String new_name) throws IOException {
 		final RMIDataContainer content = this.virtualFileSystem.getContent();
 		content.rename(this.absolute_path.getRelativePath(), new_name);
 		this.absolute_path = this.absolute_path.parent().child(new_name);
