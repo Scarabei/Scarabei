@@ -34,4 +34,8 @@ public class HttpFolderDescriptorCache {
 	public void setSize (final long cache_size) {
 		this.max_cache_size = cache_size;
 	}
+
+	public void print () {
+		this.cache.print("cache");
+	}
 }

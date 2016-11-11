@@ -68,6 +68,7 @@ public class HTTPOperator {
 
 	public static ByteArray readFile (final HttpURL url) throws IOException {
 // Sys.sleep(0);
+
 		final DebugTimer timer = Debug.newTimer();
 
 		Sys.sleep(SPEEP);

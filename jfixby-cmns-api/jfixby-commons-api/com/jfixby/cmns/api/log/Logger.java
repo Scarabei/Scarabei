@@ -59,8 +59,8 @@ public class Logger {
 		return invoke().toString(doubles);
 	}
 
-	public static void deInstallCurrentComponent () {
-		componentInstaller.deInstallCurrentComponent();
+	public static LoggerComponent deInstallCurrentComponent () {
+		return componentInstaller.deInstallCurrentComponent();
 	}
 
 }

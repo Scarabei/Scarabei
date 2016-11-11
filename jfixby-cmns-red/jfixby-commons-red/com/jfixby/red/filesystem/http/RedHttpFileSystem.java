@@ -142,4 +142,8 @@ public class RedHttpFileSystem extends AbstractFileSystem implements FileSystem,
 // L.d("cache: " + key, desc);
 		this.httpFolderDescriptorCache.put(key, desc);
 	}
+
+	public void printCache () {
+		this.httpFolderDescriptorCache.print();
+	}
 }

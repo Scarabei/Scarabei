@@ -33,11 +33,13 @@ public class ComponentInstaller<T> {
 		return this.component;
 	}
 
-	public void deInstallCurrentComponent () {
+	public T deInstallCurrentComponent () {
 		if (this.component == null) {
 			Err.reportError("Component " + this.name + " is not installed.");
 		}
+		final T c = this.component;
 		this.component = null;
+		return c;
 	}
 
 }
