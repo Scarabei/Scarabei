@@ -21,6 +21,7 @@ public class AndroidFileSystem extends AbstractLocalFileSystem implements LocalF
 	public AndroidFileSystem () {
 		L.d("System.getProperty(user.dir)", System.getProperty("user.dir"));
 		this.application_home_path_string = Android.getApplicationPrivateDirPathString();
+		L.d("applicationPrivateDirPathString", this.application_home_path_string);
 	}
 
 	public static final String OS_SEPARATOR = "/";

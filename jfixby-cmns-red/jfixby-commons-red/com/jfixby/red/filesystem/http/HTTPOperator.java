@@ -81,7 +81,7 @@ public class HTTPOperator {
 		final int code = conn.getResponseCode();
 		timer.printTime("FETCHING: " + url);
 		java_url.getPath();
-		final long len = conn.getContentLengthLong();
+// final long len = conn.getContentLengthLong();
 
 		final InputStreamOpener inputStreamOpener = new InputStreamOpener() {
 

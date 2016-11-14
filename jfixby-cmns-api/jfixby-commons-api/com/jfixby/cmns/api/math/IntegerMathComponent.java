@@ -51,4 +51,6 @@ public interface IntegerMathComponent {
 
 	public long powerOfTwo (int power);
 
+	public int compare (long a, long b);
+
 }

@@ -1,5 +1,5 @@
 
-package com.jfixby.red.desktop.net;
+package com.jfixby.red.net.http;
 
 import com.jfixby.cmns.api.net.http.HttpCall;
 import com.jfixby.cmns.api.net.http.HttpCallExecutor;
@@ -17,7 +17,7 @@ import com.jfixby.red.net.RedCallExecutor;
 import com.jfixby.red.net.RedHttpCallParams;
 import com.jfixby.red.net.RedHttpURL;
 
-public class HttpDesktopComponent implements HttpComponent {
+public class RedDesktopComponent implements HttpComponent {
 
 	@Override
 	public HttpURL newURL (final String url_string) {
@@ -26,19 +26,19 @@ public class HttpDesktopComponent implements HttpComponent {
 
 	@Override
 	public HttpConnection newConnection (final HttpURL url) {
-		return new DesktopHttpConnection(url, false);
+		return new RedHttpConnection(url, false);
 	}
 
 	@Override
 	public HttpConnectionSpecs newConnectionSpecs () {
-		return new DesktopHttpConnectionSpecs();
+		return new RedHttpConnectionSpecs();
 	}
 
 	@Override
 	public HttpConnection newConnection (final HttpConnectionSpecs specs) {
 		final HttpURL url = specs.getURL();
 		final boolean use_agent = specs.getUseAgent();
-		return new DesktopHttpConnection(url, use_agent);
+		return new RedHttpConnection(url, use_agent);
 	}
 
 	@Override

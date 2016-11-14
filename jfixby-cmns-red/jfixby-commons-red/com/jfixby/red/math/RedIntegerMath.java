@@ -8,9 +8,10 @@ import com.jfixby.cmns.api.math.IntegerMathComponent;
 
 public class RedIntegerMath implements IntegerMathComponent {
 
-	public long limit (long left_border, long value, long right_border) {
+	@Override
+	public long limit (final long left_border, final long value, final long right_border) {
 		if (left_border > right_border) {
-			return limit(right_border, value, left_border);
+			return this.limit(right_border, value, left_border);
 		}
 		if (value < left_border) {
 			return left_border;
@@ -22,7 +23,8 @@ public class RedIntegerMath implements IntegerMathComponent {
 
 	}
 
-	public final long ZtoN (long z_number) {
+	@Override
+	public final long ZtoN (final long z_number) {
 		if (z_number < 0) {
 			return -z_number * 2 - 1;
 		} else {
@@ -30,7 +32,8 @@ public class RedIntegerMath implements IntegerMathComponent {
 		}
 	}
 
-	public final long NtoZ (long n_number) {
+	@Override
+	public final long NtoZ (final long n_number) {
 		checkIfItIsNatural(n_number);
 		if (n_number % 2 == 0) {// positive z
 			return n_number / 2;
@@ -45,29 +48,33 @@ public class RedIntegerMath implements IntegerMathComponent {
 		}
 	}
 
-	public final long ZxZtoN (long z_x, long z_y) {
-		return NxNtoN(ZtoN(z_x), ZtoN(z_y));
+	@Override
+	public final long ZxZtoN (final long z_x, final long z_y) {
+		return this.NxNtoN(this.ZtoN(z_x), this.ZtoN(z_y));
 	}
 
-	public final long NtoZxZgetX (long number) {
+	@Override
+	public final long NtoZxZgetX (final long number) {
 		checkIfItIsNatural(number);
-		final long n_x = NtoNxNgetX(number);
+		final long n_x = this.NtoNxNgetX(number);
 		// final long n_y = NtoNxNgetY(number);
-		final long z_x = NtoZ(n_x);
+		final long z_x = this.NtoZ(n_x);
 		// final long z_y = NtoZ(n_y);
 		return z_x;
 	}
 
-	public final long NtoZxZgetY (long number) {
+	@Override
+	public final long NtoZxZgetY (final long number) {
 		checkIfItIsNatural(number);
 		// final long n_x = NtoNxNgetX(number);
-		final long n_y = NtoNxNgetY(number);
+		final long n_y = this.NtoNxNgetY(number);
 		// final long z_x = NtoZ(n_x);
-		final long z_y = NtoZ(n_y);
+		final long z_y = this.NtoZ(n_y);
 		return z_y;
 	}
 
-	public final long NxNtoN (long n_x, long n_y) {
+	@Override
+	public final long NxNtoN (final long n_x, final long n_y) {
 		checkIfItIsNatural(n_x);
 		checkIfItIsNatural(n_y);
 		final long c = n_x + n_y + 1;
@@ -76,7 +83,8 @@ public class RedIntegerMath implements IntegerMathComponent {
 		return num_x_y;
 	}
 
-	public final long NtoNxNgetY (long number_xy) {
+	@Override
+	public final long NtoNxNgetY (final long number_xy) {
 		checkIfItIsNatural(number_xy);
 		if (number_xy == 0) {
 			return 0;
@@ -93,7 +101,8 @@ public class RedIntegerMath implements IntegerMathComponent {
 		return n_y;
 	}
 
-	public final long NtoNxNgetX (long number_xy) {
+	@Override
+	public final long NtoNxNgetX (final long number_xy) {
 		checkIfItIsNatural(number_xy);
 		if (number_xy == 0) {
 			return 0;
@@ -111,14 +120,16 @@ public class RedIntegerMath implements IntegerMathComponent {
 		return n_x;
 	}
 
-	public long min (long a, long b) {
+	@Override
+	public long min (final long a, final long b) {
 		if (a < b) {
 			return a;
 		}
 		return b;
 	}
 
-	public long max (long a, long b) {
+	@Override
+	public long max (final long a, final long b) {
 		if (a < b) {
 			return b;
 		}
@@ -126,22 +137,22 @@ public class RedIntegerMath implements IntegerMathComponent {
 	}
 
 	@Override
-	public int composeInteger (byte byte1, byte byte2, byte byte3, byte byte4) {
-		final int B1 = setByteToInt(byte1, 3);
-		final int B2 = setByteToInt(byte1, 2);
-		final int B3 = setByteToInt(byte1, 1);
-		final int B4 = setByteToInt(byte1, 0);
+	public int composeInteger (final byte byte1, final byte byte2, final byte byte3, final byte byte4) {
+		final int B1 = this.setByteToInt(byte1, 3);
+		final int B2 = this.setByteToInt(byte1, 2);
+		final int B3 = this.setByteToInt(byte1, 1);
+		final int B4 = this.setByteToInt(byte1, 0);
 		final int result = B1 | B2 | B3 | B4;
 		return result;
 	}
 
-	private int setByteToInt (byte byte_value, int byte_position) {
-		int result = (((int)(byte_value) << (8 * byte_position)) & int_mask(byte_position));
+	private int setByteToInt (final byte byte_value, final int byte_position) {
+		final int result = (((byte_value) << (8 * byte_position)) & int_mask(byte_position));
 		return result;
 	}
 
-	private long setByteToLong (byte byte_value, int byte_position) {
-		long result = (((int)(byte_value) << (8 * byte_position)) & long_mask(byte_position));
+	private long setByteToLong (final byte byte_value, final int byte_position) {
+		final long result = (((byte_value) << (8 * byte_position)) & long_mask(byte_position));
 		return result;
 	}
 
@@ -163,42 +174,43 @@ public class RedIntegerMath implements IntegerMathComponent {
 		LONG_MASKS[7] = 0xff00000000000000L;
 	}
 
-	static final private int int_mask (int byte_position) {
+	static final private int int_mask (final int byte_position) {
 		return INT_MASKS[byte_position];
 	}
 
-	static final private long long_mask (int byte_position) {
+	static final private long long_mask (final int byte_position) {
 		return LONG_MASKS[byte_position];
 	}
 
 	@Override
-	public long composeInteger (byte byte1, byte byte2, byte byte3, byte byte4, byte byte5, byte byte6, byte byte7, byte byte8) {
-		final long B1 = setByteToLong(byte1, 7);
-		final long B2 = setByteToLong(byte1, 6);
-		final long B3 = setByteToLong(byte1, 5);
-		final long B4 = setByteToLong(byte1, 4);
-		final long B5 = setByteToLong(byte1, 3);
-		final long B6 = setByteToLong(byte1, 2);
-		final long B7 = setByteToLong(byte1, 1);
-		final long B8 = setByteToLong(byte1, 0);
+	public long composeInteger (final byte byte1, final byte byte2, final byte byte3, final byte byte4, final byte byte5,
+		final byte byte6, final byte byte7, final byte byte8) {
+		final long B1 = this.setByteToLong(byte1, 7);
+		final long B2 = this.setByteToLong(byte1, 6);
+		final long B3 = this.setByteToLong(byte1, 5);
+		final long B4 = this.setByteToLong(byte1, 4);
+		final long B5 = this.setByteToLong(byte1, 3);
+		final long B6 = this.setByteToLong(byte1, 2);
+		final long B7 = this.setByteToLong(byte1, 1);
+		final long B8 = this.setByteToLong(byte1, 0);
 		final long result = B1 | B2 | B3 | B4 | B5 | B6 | B7 | B8;
 		return result;
 	}
 
 	@Override
-	public int decomposeInteger (int input_alue, int byte_position) {
-		int byte_value = ((input_alue >> (8 * byte_position)) & 0x000000ff);
+	public int decomposeInteger (final int input_alue, final int byte_position) {
+		final int byte_value = ((input_alue >> (8 * byte_position)) & 0x000000ff);
 		return byte_value;
 	}
 
 	@Override
-	public int decomposeInteger (long input_alue, int byte_position) {
-		int byte_value = (int)((input_alue >> (8 * byte_position)) & 0x00000000000000ffL);
+	public int decomposeInteger (final long input_alue, final int byte_position) {
+		final int byte_value = (int)((input_alue >> (8 * byte_position)) & 0x00000000000000ffL);
 		return byte_value;
 	}
 
 	@Override
-	public int index (boolean b) {
+	public int index (final boolean b) {
 		if (b) {
 			return 1;
 		}
@@ -206,7 +218,7 @@ public class RedIntegerMath implements IntegerMathComponent {
 	}
 
 	@Override
-	public long power (long a, int n) {
+	public long power (final long a, final int n) {
 		return FloatMath.round(StrictMath.pow(a, n));
 	}
 
@@ -216,17 +228,17 @@ public class RedIntegerMath implements IntegerMathComponent {
 	}
 
 	@Override
-	public Int2 newInt2 (long cell_x, long cell_y) {
+	public Int2 newInt2 (final long cell_x, final long cell_y) {
 		return new RedInt2(cell_x, cell_y);
 	}
 
 	@Override
-	public Int2 newInt2 (Int2 original, long offset_x, long offset_y) {
+	public Int2 newInt2 (final Int2 original, final long offset_x, final long offset_y) {
 		return new RedInt2(original.getX() + offset_x, original.getY() + offset_y);
 	}
 
 	@Override
-	public long abs (long value) {
+	public long abs (final long value) {
 		if (value > 0) {
 			return value;
 		}
@@ -234,7 +246,7 @@ public class RedIntegerMath implements IntegerMathComponent {
 	}
 
 	@Override
-	public boolean isPowerOfTwo (long x) {
+	public boolean isPowerOfTwo (final long x) {
 		return x > 0 && (x & x - 1) == 0;
 	}
 
@@ -263,6 +275,11 @@ public class RedIntegerMath implements IntegerMathComponent {
 			result = result << 1;
 		}
 		return result;
+	}
+
+	@Override
+	public int compare (final long a, final long b) {
+		return Long.valueOf(a).compareTo(Long.valueOf(b));
 	}
 
 }

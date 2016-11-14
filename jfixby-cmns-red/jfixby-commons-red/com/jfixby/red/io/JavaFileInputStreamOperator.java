@@ -6,12 +6,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
 
+import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.io.IO;
 import com.jfixby.cmns.api.io.JavaInputStreamOperator;
 import com.jfixby.cmns.api.java.ByteArray;
-import com.jfixby.cmns.api.util.JUtils;
 
 public class JavaFileInputStreamOperator implements JavaInputStreamOperator {
 
@@ -40,16 +39,13 @@ public class JavaFileInputStreamOperator implements JavaInputStreamOperator {
 
 	@Override
 	public boolean isReadAllSupported () {
-		if (this.file.length() < SIZE_LIMIT) {
-			return true;
-		}
 		return false;
 	}
 
 	@Override
 	public ByteArray readAll () throws IOException {
-		final byte[] data = Files.readAllBytes(this.file.toPath());
-		return JUtils.newByteArray(data);
+		Err.reportNotImplementedYet();
+		return null;
 	}
 
 }

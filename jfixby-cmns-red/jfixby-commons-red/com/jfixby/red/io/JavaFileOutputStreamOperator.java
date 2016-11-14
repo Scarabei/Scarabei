@@ -6,10 +6,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
 
+import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.io.IO;
 import com.jfixby.cmns.api.io.JavaOutputStreamOperator;
 import com.jfixby.cmns.api.java.ByteArray;
@@ -44,22 +42,12 @@ public class JavaFileOutputStreamOperator implements JavaOutputStreamOperator {
 
 	@Override
 	public boolean isBulkWriteSupported () {
-		return true;
+		return false;
 	}
 
 	@Override
 	public void writeAll (final ByteArray bytes) throws IOException {
-		this.file.getParentFile().mkdirs();
-		final Path path = this.file.toPath();
-// final String test = JUtils.newString(bytes);
-// L.d("test", test);
-		if (this.append & this.file.exists()) {
-			Files.write(path, bytes.toArray(), StandardOpenOption.APPEND);
-		} else {
-// this.file.createNewFile();
-			this.file.delete();
-			Files.write(path, bytes.toArray(), StandardOpenOption.CREATE_NEW);
-		}
+		Err.reportNotImplementedYet();
 	}
 
 }

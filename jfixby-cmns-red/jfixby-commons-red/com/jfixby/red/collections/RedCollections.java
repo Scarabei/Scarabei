@@ -3,7 +3,6 @@ package com.jfixby.red.collections;
 
 import java.util.Comparator;
 import java.util.Iterator;
-import java.util.Objects;
 
 import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.CollectionConverter;
@@ -185,7 +184,8 @@ public abstract class RedCollections implements CollectionsComponent {
 		for (int i = 0; i < with.size(); i++) {
 			final Object a = with.getElementAt(i);
 			final Object b = list.getElementAt(i);
-			if (!Objects.equals(a, b)) {
+// if (!Objects.equals(a, b)) {
+			if (!JUtils.equalObjects(a, b)) {
 				// L.d("false", a + " != " + b);
 				return false;
 			}

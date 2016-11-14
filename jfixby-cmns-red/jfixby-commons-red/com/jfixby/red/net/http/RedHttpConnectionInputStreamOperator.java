@@ -1,5 +1,5 @@
 
-package com.jfixby.red.desktop.net;
+package com.jfixby.red.net.http;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,12 +9,12 @@ import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.io.JavaInputStreamOperator;
 import com.jfixby.cmns.api.java.ByteArray;
 
-public class HttpDesktopConnectionInputStreamOperator implements JavaInputStreamOperator {
+public class RedHttpConnectionInputStreamOperator implements JavaInputStreamOperator {
 
 	private InputStream java_input_stream;
 	private final URLConnection java_connection;
 
-	public HttpDesktopConnectionInputStreamOperator (final URLConnection java_connection) {
+	public RedHttpConnectionInputStreamOperator (final URLConnection java_connection) {
 		this.java_connection = java_connection;
 	}
 

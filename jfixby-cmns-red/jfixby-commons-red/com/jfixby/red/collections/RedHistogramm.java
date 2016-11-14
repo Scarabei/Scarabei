@@ -11,6 +11,7 @@ import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.Histogramm;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.collections.Map;
+import com.jfixby.cmns.api.math.IntegerMath;
 
 public class RedHistogramm<T> implements Histogramm<T> {
 	final Map<T, RedHistogrammValue> storage = Collections.newMap();
@@ -101,7 +102,7 @@ public class RedHistogramm<T> implements Histogramm<T> {
 		final Comparator<T> comparator = new Comparator<T>() {
 			@Override
 			public int compare (final T o1, final T o2) {
-				return -Long.compare(RedHistogramm.this.storage.get(o1).value, RedHistogramm.this.storage.get(o2).value);
+				return -IntegerMath.compare(RedHistogramm.this.storage.get(o1).value, RedHistogramm.this.storage.get(o2).value);
 			}
 		};
 		this.storage.sortKeys(comparator);

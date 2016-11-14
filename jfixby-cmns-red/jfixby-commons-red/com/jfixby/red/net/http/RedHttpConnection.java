@@ -1,5 +1,5 @@
 
-package com.jfixby.red.desktop.net;
+package com.jfixby.red.net.http;
 
 import java.io.IOException;
 import java.net.URL;
@@ -9,16 +9,16 @@ import com.jfixby.cmns.api.net.http.HttpConnection;
 import com.jfixby.cmns.api.net.http.HttpConnectionInputStream;
 import com.jfixby.cmns.api.net.http.HttpURL;
 
-public class DesktopHttpConnection implements HttpConnection {
+public class RedHttpConnection implements HttpConnection {
 
 	private final HttpURL url;
 	private final boolean use_agent;
 
 	private URLConnection java_connection;
 	private URL java_url;
-	private HttpDesktopConnectionInputStream red_input_stream;
+	private RedHttpConnectionInputStream red_input_stream;
 
-	public DesktopHttpConnection (final HttpURL url, final boolean use_agent) {
+	public RedHttpConnection (final HttpURL url, final boolean use_agent) {
 		this.url = url;
 		this.use_agent = use_agent;
 	}
@@ -39,7 +39,7 @@ public class DesktopHttpConnection implements HttpConnection {
 	@Override
 	public HttpConnectionInputStream getInputStream () {
 		if (this.red_input_stream == null) {
-			this.red_input_stream = new HttpDesktopConnectionInputStream(this.java_connection);
+			this.red_input_stream = new RedHttpConnectionInputStream(this.java_connection);
 		}
 		return this.red_input_stream;
 	}
