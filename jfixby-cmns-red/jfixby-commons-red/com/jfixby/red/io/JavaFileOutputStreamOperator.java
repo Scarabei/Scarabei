@@ -51,12 +51,14 @@ public class JavaFileOutputStreamOperator implements JavaOutputStreamOperator {
 	public void writeAll (final ByteArray bytes) throws IOException {
 		this.file.getParentFile().mkdirs();
 		final Path path = this.file.toPath();
-
+// final String test = JUtils.newString(bytes);
+// L.d("test", test);
 		if (this.append & this.file.exists()) {
 			Files.write(path, bytes.toArray(), StandardOpenOption.APPEND);
 		} else {
-			this.file.createNewFile();
-			Files.write(path, bytes.toArray(), StandardOpenOption.WRITE);
+// this.file.createNewFile();
+			this.file.delete();
+			Files.write(path, bytes.toArray(), StandardOpenOption.CREATE_NEW);
 		}
 	}
 
