@@ -136,4 +136,9 @@ public class Collections {
 		invoke().convertCollection(input, output, converter);
 	}
 
+	public static <T, A extends EditableCollection<T>> A intersect (final Collection<? extends T> c1,
+		final Collection<? extends T> c2, final A target) {
+		return invoke().intersect(c1, c2, target);
+	}
+
 }

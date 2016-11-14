@@ -261,4 +261,17 @@ public abstract class RedCollections implements CollectionsComponent {
 		this.scanCollection(input, scanner);
 	}
 
+	@Override
+	public <T, A extends EditableCollection<T>> A intersect (final Collection<? extends T> c1, final Collection<? extends T> c2,
+		final A target) {
+		for (int i = 0; i < c1.size(); i++) {
+			final T e = c1.getElementAt(i);
+			if (c2.contains(e)) {
+				target.add(e);
+			}
+		}
+
+		return target;
+	}
+
 }

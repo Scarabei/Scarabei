@@ -62,4 +62,7 @@ public interface CollectionsComponent {
 
 	public <T> Heap<T> newHeap (Comparator<? super T> comparator);
 
+	public <T, A extends EditableCollection<T>> A intersect (final Collection<? extends T> c1, final Collection<? extends T> c2,
+		final A target);
+
 }

@@ -14,7 +14,6 @@ import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.FileHash;
 import com.jfixby.cmns.api.file.FileSystem;
 import com.jfixby.cmns.api.java.ByteArray;
-import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.net.http.HttpURL;
 import com.jfixby.cmns.api.util.path.AbsolutePath;
 import com.jfixby.cmns.api.util.path.RelativePath;
@@ -128,8 +127,8 @@ public class HttpFile extends AbstractRedFile implements File {
 		final HttpURL url = this.fs.getURLFor(path);
 		HttpFolderDescriptor desc = this.fs.getCachedDescriptor(url);
 		if (desc == null) {
-			L.d("not found", url);
-			this.fs.printCache();
+// L.d("not found", url);
+// this.fs.printCache();
 			final ByteArray data = HTTPOperator.readFile(url);
 			desc = HTTPOperator.decode(data);
 			this.caheValue(path, url, desc);
