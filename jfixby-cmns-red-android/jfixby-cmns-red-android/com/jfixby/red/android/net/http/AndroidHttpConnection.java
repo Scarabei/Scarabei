@@ -4,10 +4,17 @@ package com.jfixby.red.android.net.http;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocketFactory;
 
 import com.jfixby.cmns.api.net.http.HttpConnection;
 import com.jfixby.cmns.api.net.http.HttpConnectionInputStream;
 import com.jfixby.cmns.api.net.http.HttpURL;
+import com.jfixby.red.android.net.http.sslfix.NoSSLv3SocketFactory;
 
 public class AndroidHttpConnection implements HttpConnection {
 
@@ -27,7 +34,27 @@ public class AndroidHttpConnection implements HttpConnection {
 	public void open () throws IOException {
 		this.java_url = new java.net.URL(this.url.getURLString());
 
+		SSLContext sslcontext;
+		try {
+			sslcontext = SSLContext.getInstance("TLSv1");
+
+			sslcontext.init(null, null, null);
+
+			final SSLSocketFactory NoSSLv3Factory = new NoSSLv3SocketFactory(sslcontext.getSocketFactory());
+
+			HttpsURLConnection.setDefaultSSLSocketFactory(NoSSLv3Factory);
+
+		} catch (final NoSuchAlgorithmException e) {
+// e.printStackTrace();
+			throw new IOException(e);
+		} catch (final KeyManagementException e) {
+// e.printStackTrace();
+			throw new IOException(e);
+		}
 		this.java_connection = this.java_url.openConnection();
+		this.java_connection.connect();
+// this.java_connection = this.java_url.openConnection();
+// l_connection.connect();
 		if (this.use_agent) {
 			this.java_connection.addRequestProperty("User-Agent",
 				"Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36");
