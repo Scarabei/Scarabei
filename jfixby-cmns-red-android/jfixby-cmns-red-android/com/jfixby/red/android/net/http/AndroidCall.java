@@ -1,5 +1,5 @@
 
-package com.jfixby.red.net;
+package com.jfixby.red.android.net.http;
 
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.Map;
@@ -9,7 +9,7 @@ import com.jfixby.cmns.api.net.http.HttpCallParams;
 import com.jfixby.cmns.api.net.http.HttpURL;
 import com.jfixby.cmns.api.net.http.METHOD;
 
-public class RedCall implements HttpCall {
+public class AndroidCall implements HttpCall {
 
 	final Map<String, Object> map = Collections.newMap();
 	private HttpURL url;
@@ -25,7 +25,7 @@ public class RedCall implements HttpCall {
 		this.method = Debug.checkNull("method", method);
 	}
 
-	public RedCall (HttpCallParams call_scecs) {
+	public AndroidCall (HttpCallParams call_scecs) {
 		url = call_scecs.getURL();
 		method = Debug.checkNull("method", call_scecs.getMethod());
 		agent = call_scecs.getUseAgent();

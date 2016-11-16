@@ -1,5 +1,5 @@
 
-package com.jfixby.red.net;
+package com.jfixby.red.desktop.net.http;
 
 import java.io.IOException;
 
@@ -12,7 +12,7 @@ import com.jfixby.cmns.api.net.http.HttpConnectionInputStream;
 import com.jfixby.cmns.api.net.http.HttpConnectionSpecs;
 import com.jfixby.cmns.api.net.http.HttpURL;
 
-public class RedCallExecutor implements HttpCallExecutor {
+public class DesktopCallExecutor implements HttpCallExecutor {
 
 	@Override
 	public HttpCallProgress execute (final HttpCall call) throws IOException {
@@ -38,7 +38,7 @@ public class RedCallExecutor implements HttpCallExecutor {
 
 		connection.close();
 
-		final RedHttpCallProgress progress = new RedHttpCallProgress(connection, data);
+		final DesktopHttpCallProgress progress = new DesktopHttpCallProgress(connection, data);
 		return progress;
 	}
 

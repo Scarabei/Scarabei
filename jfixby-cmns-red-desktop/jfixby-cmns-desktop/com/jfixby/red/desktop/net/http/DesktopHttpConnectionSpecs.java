@@ -1,9 +1,9 @@
-package com.jfixby.red.net.http;
+package com.jfixby.red.desktop.net.http;
 
 import com.jfixby.cmns.api.net.http.HttpConnectionSpecs;
 import com.jfixby.cmns.api.net.http.HttpURL;
 
-public class RedHttpConnectionSpecs implements HttpConnectionSpecs {
+public class DesktopHttpConnectionSpecs implements HttpConnectionSpecs {
 
 	private HttpURL url;
 	private boolean agent;

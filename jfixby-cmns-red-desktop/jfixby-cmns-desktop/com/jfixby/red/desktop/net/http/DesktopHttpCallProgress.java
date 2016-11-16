@@ -1,5 +1,5 @@
 
-package com.jfixby.red.net;
+package com.jfixby.red.desktop.net.http;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -10,12 +10,12 @@ import com.jfixby.cmns.api.net.http.HttpCallProgress;
 import com.jfixby.cmns.api.net.http.HttpConnection;
 import com.jfixby.cmns.api.util.JUtils;
 
-public class RedHttpCallProgress implements HttpCallProgress {
+public class DesktopHttpCallProgress implements HttpCallProgress {
 
 	private HttpConnection connection;
 	private byte[] data;
 
-	public RedHttpCallProgress (HttpConnection connection, byte[] data) {
+	public DesktopHttpCallProgress (HttpConnection connection, byte[] data) {
 		this.connection = connection;
 		this.data = data;
 

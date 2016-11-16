@@ -36,6 +36,7 @@ import com.jfixby.red.desktop.filesystem.win.WinFileSystem;
 import com.jfixby.red.desktop.image.RedImageAWT;
 import com.jfixby.red.desktop.log.DesktopLogger;
 import com.jfixby.red.desktop.math.DesktopFloatMath;
+import com.jfixby.red.desktop.net.http.DesktopHttp;
 import com.jfixby.red.desktop.sys.DesktopSystem;
 import com.jfixby.red.err.RedError;
 import com.jfixby.red.filesystem.cache.RedFileCache;
@@ -48,7 +49,6 @@ import com.jfixby.red.math.RedAngles;
 import com.jfixby.red.math.RedIntegerMath;
 import com.jfixby.red.math.RedMathTools;
 import com.jfixby.red.name.RedAssetsNamespace;
-import com.jfixby.red.net.http.RedDesktopComponent;
 import com.jfixby.red.random.RedRandom;
 import com.jfixby.red.sys.RedSystemSettings;
 import com.jfixby.red.sys.RedTaskManager;
@@ -90,7 +90,7 @@ public class DesktopSetup {
 			LocalFileSystem.installComponent(new UnixFileSystem());
 		}
 
-		Http.installComponent(new RedDesktopComponent());
+		Http.installComponent(new DesktopHttp());
 
 		ImageProcessing.installComponent(new RedImageProcessing());
 		ImageAWT.installComponent(new RedImageAWT());

@@ -1,5 +1,5 @@
 
-package com.jfixby.red.net.http;
+package com.jfixby.red.android.net.http;
 
 import java.io.IOException;
 import java.net.URL;
@@ -9,16 +9,16 @@ import com.jfixby.cmns.api.net.http.HttpConnection;
 import com.jfixby.cmns.api.net.http.HttpConnectionInputStream;
 import com.jfixby.cmns.api.net.http.HttpURL;
 
-public class RedHttpConnection implements HttpConnection {
+public class AndroidHttpConnection implements HttpConnection {
 
 	private final HttpURL url;
 	private final boolean use_agent;
 
 	private URLConnection java_connection;
 	private URL java_url;
-	private RedHttpConnectionInputStream red_input_stream;
+	private AndroidHttpConnectionInputStream red_input_stream;
 
-	public RedHttpConnection (final HttpURL url, final boolean use_agent) {
+	public AndroidHttpConnection (final HttpURL url, final boolean use_agent) {
 		this.url = url;
 		this.use_agent = use_agent;
 	}
@@ -39,7 +39,7 @@ public class RedHttpConnection implements HttpConnection {
 	@Override
 	public HttpConnectionInputStream getInputStream () {
 		if (this.red_input_stream == null) {
-			this.red_input_stream = new RedHttpConnectionInputStream(this.java_connection);
+			this.red_input_stream = new AndroidHttpConnectionInputStream(this.java_connection);
 		}
 		return this.red_input_stream;
 	}

@@ -36,6 +36,7 @@ import com.jfixby.red.android.filesystem.AndroidFileSystem;
 import com.jfixby.red.android.log.AndroidLogger;
 import com.jfixby.red.android.math.AndroidFloatMath;
 import com.jfixby.red.android.memory.AndroidMemoryManager;
+import com.jfixby.red.android.net.http.AndroidHttp;
 import com.jfixby.red.android.sys.AndroidSystem;
 import com.jfixby.red.arrays.RedArrays;
 import com.jfixby.red.color.RedColors;
@@ -51,7 +52,6 @@ import com.jfixby.red.math.RedAngles;
 import com.jfixby.red.math.RedIntegerMath;
 import com.jfixby.red.math.RedMathTools;
 import com.jfixby.red.name.RedAssetsNamespace;
-import com.jfixby.red.net.http.RedDesktopComponent;
 import com.jfixby.red.random.RedRandom;
 import com.jfixby.red.sys.RedSystemSettings;
 import com.jfixby.red.sys.RedTaskManager;
@@ -98,7 +98,7 @@ public class AndroidSetup {
 			LocalFileSystem.installComponent(new AndroidFileSystem());
 		}
 
-		Http.installComponent(new RedDesktopComponent());
+		Http.installComponent(new AndroidHttp());
 
 		ImageProcessing.installComponent(new RedImageProcessing());
 		FileCache.installComponent(new RedFileCache());
