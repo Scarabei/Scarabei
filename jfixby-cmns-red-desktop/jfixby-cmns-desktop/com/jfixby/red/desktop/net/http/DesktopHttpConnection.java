@@ -2,8 +2,8 @@
 package com.jfixby.red.desktop.net.http;
 
 import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
 
 import com.jfixby.cmns.api.net.http.HttpConnection;
 import com.jfixby.cmns.api.net.http.HttpConnectionInputStream;
@@ -14,9 +14,10 @@ public class DesktopHttpConnection implements HttpConnection {
 	private final HttpURL url;
 	private final boolean use_agent;
 
-	private URLConnection java_connection;
+	private HttpURLConnection java_connection;
 	private URL java_url;
 	private DesktopHttpConnectionInputStream red_input_stream;
+	private int code = -1;
 
 	public DesktopHttpConnection (final HttpURL url, final boolean use_agent) {
 		this.url = url;
@@ -27,7 +28,8 @@ public class DesktopHttpConnection implements HttpConnection {
 	public void open () throws IOException {
 		this.java_url = new java.net.URL(this.url.getURLString());
 
-		this.java_connection = this.java_url.openConnection();
+		this.java_connection = (HttpURLConnection)this.java_url.openConnection();
+		this.code = this.java_connection.getResponseCode();
 		if (this.use_agent) {
 			this.java_connection.addRequestProperty("User-Agent",
 				"Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36");
@@ -52,6 +54,11 @@ public class DesktopHttpConnection implements HttpConnection {
 		if (this.red_input_stream.isOpen()) {
 			this.red_input_stream.close();
 		}
+	}
+
+	@Override
+	public int getResponseCode () {
+		return this.code;
 	}
 
 }

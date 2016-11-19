@@ -2,8 +2,8 @@
 package com.jfixby.red.android.net.http;
 
 import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 
@@ -21,9 +21,10 @@ public class AndroidHttpConnection implements HttpConnection {
 	private final HttpURL url;
 	private final boolean use_agent;
 
-	private URLConnection java_connection;
+	private HttpURLConnection java_connection;
 	private URL java_url;
 	private AndroidHttpConnectionInputStream red_input_stream;
+	private int code = -1;
 
 	public AndroidHttpConnection (final HttpURL url, final boolean use_agent) {
 		this.url = url;
@@ -51,7 +52,8 @@ public class AndroidHttpConnection implements HttpConnection {
 // e.printStackTrace();
 			throw new IOException(e);
 		}
-		this.java_connection = this.java_url.openConnection();
+		this.java_connection = (HttpURLConnection)this.java_url.openConnection();
+		this.code = this.java_connection.getResponseCode();
 		this.java_connection.connect();
 // this.java_connection = this.java_url.openConnection();
 // l_connection.connect();
@@ -79,6 +81,11 @@ public class AndroidHttpConnection implements HttpConnection {
 		if (this.red_input_stream.isOpen()) {
 			this.red_input_stream.close();
 		}
+	}
+
+	@Override
+	public int getResponseCode () {
+		return this.code;
 	}
 
 }

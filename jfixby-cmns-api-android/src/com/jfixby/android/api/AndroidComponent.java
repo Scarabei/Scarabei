@@ -2,6 +2,7 @@
 package com.jfixby.android.api;
 
 import com.jfixby.android.api.camera.AndroidCameraSetup;
+import com.jfixby.cmns.api.file.File;
 
 public interface AndroidComponent {
 
@@ -12,5 +13,9 @@ public interface AndroidComponent {
 	String getApplicationPrivateDirPathString ();
 
 	AndroidCameraSetup getCameraSetup ();
+
+	File getPrivateFolder ();
+
+	File getCacheFolder ();
 
 }

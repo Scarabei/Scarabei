@@ -12,6 +12,7 @@ import com.jfixby.cmns.api.io.GZipOutputStream;
 import com.jfixby.cmns.api.io.IO;
 import com.jfixby.cmns.api.io.OutputStream;
 import com.jfixby.cmns.api.java.ByteArray;
+import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.net.http.Http;
 import com.jfixby.cmns.api.net.http.HttpConnection;
 import com.jfixby.cmns.api.net.http.HttpConnectionInputStream;
@@ -26,6 +27,7 @@ public class HTTPOperator {
 
 	public static ByteArray readFile (final HttpURL url) throws IOException {
 
+		L.d("FETCHING: " + url);
 		final HttpConnection conn = Http.newConnection(url);
 		final DebugTimer timer = Debug.newTimer();
 		timer.reset();
@@ -37,7 +39,7 @@ public class HTTPOperator {
 		is.close();
 		conn.close();
 
-		timer.printTime("FETCHING: " + url);
+		timer.printTime("          ");
 
 		return data;
 

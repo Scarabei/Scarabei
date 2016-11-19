@@ -12,4 +12,6 @@ public interface HttpConnection {
 
 	void close ();
 
+	int getResponseCode ();
+
 }

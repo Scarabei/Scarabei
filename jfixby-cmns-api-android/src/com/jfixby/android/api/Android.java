@@ -3,6 +3,7 @@ package com.jfixby.android.api;
 
 import com.jfixby.android.api.camera.AndroidCameraSetup;
 import com.jfixby.cmns.api.ComponentInstaller;
+import com.jfixby.cmns.api.file.File;
 
 public class Android {
 
@@ -35,6 +36,14 @@ public class Android {
 	public static AndroidCameraSetup getCameraSetup () {
 		return invoke().getCameraSetup();
 
+	}
+
+	public static File getPrivateFolder () {
+		return invoke().getPrivateFolder();
+	}
+
+	public static File getCacheFolder () {
+		return invoke().getCacheFolder();
 	}
 
 }
