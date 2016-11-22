@@ -11,6 +11,10 @@ public class Logger {
 		componentInstaller.installComponent(component_to_install);
 	}
 
+	public static LoggerComponent deInstallCurrentComponent () {
+		return componentInstaller.deInstallCurrentComponent();
+	}
+
 	public static final LoggerComponent invoke () {
 		return componentInstaller.invokeComponent();
 	}
@@ -57,10 +61,6 @@ public class Logger {
 
 	public static String toString (final Object[] doubles) {
 		return invoke().toString(doubles);
-	}
-
-	public static LoggerComponent deInstallCurrentComponent () {
-		return componentInstaller.deInstallCurrentComponent();
 	}
 
 }

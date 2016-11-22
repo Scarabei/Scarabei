@@ -2,6 +2,6 @@
 package com.jfixby.red.filesystem.http.descript;
 
 public enum RebuildDescriptorsMode {
-	RECURSIVELY
+	NO_OUTPUT, ROOT_ONLY, FOR_EACH
 
 }
