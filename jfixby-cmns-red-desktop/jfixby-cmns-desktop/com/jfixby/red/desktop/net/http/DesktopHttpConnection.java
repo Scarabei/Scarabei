@@ -5,8 +5,10 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import com.jfixby.cmns.api.io.IO;
 import com.jfixby.cmns.api.net.http.HttpConnection;
 import com.jfixby.cmns.api.net.http.HttpConnectionInputStream;
+import com.jfixby.cmns.api.net.http.HttpConnectionOutputStream;
 import com.jfixby.cmns.api.net.http.HttpURL;
 
 public class DesktopHttpConnection implements HttpConnection {
@@ -17,6 +19,7 @@ public class DesktopHttpConnection implements HttpConnection {
 	private HttpURLConnection java_connection;
 	private URL java_url;
 	private DesktopHttpConnectionInputStream red_input_stream;
+	private DesktopHttpConnectionOutputStream red_output_stream;
 	private int code = -1;
 
 	public DesktopHttpConnection (final HttpURL url, final boolean use_agent) {
@@ -47,13 +50,17 @@ public class DesktopHttpConnection implements HttpConnection {
 	}
 
 	@Override
+	public HttpConnectionOutputStream getOutputStream () {
+		if (this.red_output_stream == null) {
+			this.red_output_stream = new DesktopHttpConnectionOutputStream(this.java_connection);
+		}
+		return this.red_output_stream;
+	}
+
+	@Override
 	public void close () {
-		if (this.red_input_stream == null) {
-			return;
-		}
-		if (this.red_input_stream.isOpen()) {
-			this.red_input_stream.close();
-		}
+		IO.forceClose(this.red_output_stream);
+		IO.forceClose(this.red_input_stream);
 	}
 
 	@Override

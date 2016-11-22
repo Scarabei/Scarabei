@@ -79,6 +79,14 @@ public class IO {
 		component().forceClose(is);
 	}
 
+	public static void forceClose (final OutputStream os) {
+		component().forceClose(os);
+	}
+
+	public static void forceClose (final InputStream is) {
+		component().forceClose(is);
+	}
+
 	public static GZipOutputStream newGZipStream (final OutputStream os) throws IOException {
 		return component().newGZipStream(os);
 	}

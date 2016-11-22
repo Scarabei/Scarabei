@@ -1,22 +1,30 @@
 
 package com.jfixby.cmns.api.net.message;
 
-public interface Message {
+import java.util.LinkedHashMap;
 
-	// void setHeader(String header) throws MQTransportException;
+import com.jfixby.cmns.api.log.L;
 
-	void print () throws MQTransportException;
+public final class Message implements java.io.Serializable {
+	private static final long serialVersionUID = -7864576801100184653L;
 
-	void setStringProperty (String name, String value) throws MQTransportException;
+	public Message (final String header) {
+		this.header = header;
+	}
 
-	String getStringProperty (String paremeter_name) throws MQTransportException;
+	public Message () {
 
-	//
-	// String getHeader() throws MQTransportException;
-	//
-	// String getParameter(String paremeter_name) throws MQTransportException;
-	//
-	// void setParameter(String paremeter_name, String paremeter_value)
-	// throws MQTransportException;
+	}
+
+	public String header;
+	public LinkedHashMap<String, String> values = new LinkedHashMap<String, String>();
+	public LinkedHashMap<String, java.io.Serializable> attachments = new LinkedHashMap<String, java.io.Serializable>();
+
+	public void print () {
+		L.d("---Message[" + this.header + "]------------------------");
+		L.d(this.values);
+		L.d(this.attachments);
+
+	}
 
 }

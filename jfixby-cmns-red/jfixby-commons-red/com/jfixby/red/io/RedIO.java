@@ -275,4 +275,18 @@ public class RedIO implements IOComponent {
 		return new RedLazyInputStream(input_stream);
 	}
 
+	@Override
+	public void forceClose (final OutputStream os) {
+		if (os != null) {
+			os.close();
+		}
+	}
+
+	@Override
+	public void forceClose (final InputStream is) {
+		if (is != null) {
+			is.close();
+		}
+	}
+
 }

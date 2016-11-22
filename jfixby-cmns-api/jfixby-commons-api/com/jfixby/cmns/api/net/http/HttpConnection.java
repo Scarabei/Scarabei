@@ -14,4 +14,6 @@ public interface HttpConnection {
 
 	int getResponseCode ();
 
+	HttpConnectionOutputStream getOutputStream ();
+
 }

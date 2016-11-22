@@ -11,8 +11,10 @@ import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 
+import com.jfixby.cmns.api.io.IO;
 import com.jfixby.cmns.api.net.http.HttpConnection;
 import com.jfixby.cmns.api.net.http.HttpConnectionInputStream;
+import com.jfixby.cmns.api.net.http.HttpConnectionOutputStream;
 import com.jfixby.cmns.api.net.http.HttpURL;
 import com.jfixby.red.android.net.http.sslfix.NoSSLv3SocketFactory;
 
@@ -25,6 +27,7 @@ public class AndroidHttpConnection implements HttpConnection {
 	private URL java_url;
 	private AndroidHttpConnectionInputStream red_input_stream;
 	private int code = -1;
+	private AndroidHttpConnectionOutputStream red_output_stream;
 
 	public AndroidHttpConnection (final HttpURL url, final boolean use_agent) {
 		this.url = url;
@@ -74,13 +77,17 @@ public class AndroidHttpConnection implements HttpConnection {
 	}
 
 	@Override
+	public HttpConnectionOutputStream getOutputStream () {
+		if (this.red_output_stream == null) {
+			this.red_output_stream = new AndroidHttpConnectionOutputStream(this.java_connection);
+		}
+		return this.red_output_stream;
+	}
+
+	@Override
 	public void close () {
-		if (this.red_input_stream == null) {
-			return;
-		}
-		if (this.red_input_stream.isOpen()) {
-			this.red_input_stream.close();
-		}
+		IO.forceClose(this.red_output_stream);
+		IO.forceClose(this.red_input_stream);
 	}
 
 	@Override

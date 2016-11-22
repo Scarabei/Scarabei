@@ -72,4 +72,8 @@ public interface IOComponent {
 
 	LazyInputStream newLazyInputStream (InputStream input_stream);
 
+	void forceClose (OutputStream os);
+
+	void forceClose (InputStream is);
+
 }
