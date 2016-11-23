@@ -18,4 +18,14 @@ public interface AndroidComponent {
 
 	File getCacheFolder ();
 
+	DisplayMetrics getDisplayMetrics ();
+
+	String getBrand ();
+
+	String getModel ();
+
+	String getHost ();
+
+	String getVersionRelease ();
+
 }

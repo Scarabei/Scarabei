@@ -101,10 +101,12 @@ public abstract class RedLogger implements LoggerComponent {
 
 		string.append(canonocal_name.substring(0, canonocal_name.length() - 1) + n + "]\n");
 		final String indent_str = this.indent(indent);
-		for (final Iterator<?> i = array.keySet().iterator(); i.hasNext();) {
-			final Object key = i.next();
+		int i = 0;
+		for (final Iterator<?> I = array.keySet().iterator(); I.hasNext();) {
+			final Object key = I.next();
 			final Object value = array.get(key);
 			string.append(indent_str + "(" + i + ") " + key + " :-> " + value + "\n");
+			i++;
 		}
 
 		return string.toString();

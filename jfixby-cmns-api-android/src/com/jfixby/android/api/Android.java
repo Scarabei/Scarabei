@@ -46,4 +46,24 @@ public class Android {
 		return invoke().getCacheFolder();
 	}
 
+	public static DisplayMetrics getDisplayMetrics () {
+		return invoke().getDisplayMetrics();
+	}
+
+	public static String getBrand () {
+		return invoke().getBrand();
+	}
+
+	public static String getModel () {
+		return invoke().getModel();
+	}
+
+	public static String getHost () {
+		return invoke().getHost();
+	}
+
+	public static String getVersionRelease () {
+		return invoke().getVersionRelease();
+	}
+
 }

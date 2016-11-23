@@ -2,8 +2,8 @@
 package com.jfixby.red.collections;
 
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 
 import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.Collections;
@@ -16,7 +16,7 @@ import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.log.L;
 
 public class RedHashMap<K, V> implements Map<K, V> {
-	final HashMap<K, V> hash_map = new HashMap<K, V>();
+	final LinkedHashMap<K, V> hash_map = new LinkedHashMap<K, V>();
 	final RedSet<K> keys_list = new RedSet<K>();
 
 	@Override
@@ -146,7 +146,7 @@ public class RedHashMap<K, V> implements Map<K, V> {
 
 	@Override
 	public java.util.Map<K, V> toJavaMap () {
-		final HashMap<K, V> result = new HashMap<K, V>();
+		final LinkedHashMap<K, V> result = new LinkedHashMap<K, V>();
 		result.putAll(this.hash_map);
 		return result;
 	}
