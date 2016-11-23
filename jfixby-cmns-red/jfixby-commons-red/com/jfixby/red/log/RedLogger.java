@@ -2,6 +2,7 @@
 package com.jfixby.red.log;
 
 import java.util.Arrays;
+import java.util.Iterator;
 
 import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.Mapping;
@@ -23,27 +24,38 @@ public abstract class RedLogger implements LoggerComponent {
 	@Override
 	public void d (final Object string, final Object object) {
 		final String tag = string + "";
+
+		this.System_out_println(string + " > " + this.toString(tag.length() + 3, object));
+	}
+
+	private String toString (final int indent, final Object object) {
+
 		if (object instanceof Object[]) {
-			this.System_out_println(string + " > " + this.arrayToString(tag.length() + 3, (Object[])object));
-			return;
+			return this.arrayToString(indent, (Object[])object);
+
 		}
 		if (object instanceof byte[]) {
-			this.System_out_println(string + " > " + JUtils.newString((byte[])object));
-			return;
+			return JUtils.newString((byte[])object);
+
 		}
 		if (object instanceof int[]) {
-			this.System_out_println(string + " > " + Arrays.toString((int[])object));
-			return;
+			return Arrays.toString((int[])object);
+
 		}
 		if (object instanceof Collection) {
-			this.System_out_println(string + " > " + this.listToString(tag.length() + 3, (Collection<?>)object));
-			return;
+			return this.listToString(indent, (Collection<?>)object);
+
 		}
 		if (object instanceof Mapping) {
-			this.System_out_println(string + " > " + this.mapToString(tag.length() + 3, (Mapping<?, ?>)object));
-			return;
+			return this.mapToString(indent, (Mapping<?, ?>)object);
+
 		}
-		this.System_out_println(string + " > " + object);
+		if (object instanceof java.util.Map) {
+			return this.mapToString(indent, (java.util.Map<?, ?>)object);
+
+		}
+
+		return "" + object;
 	}
 
 	private String listToString (final int indent, final Collection<?> array) {
@@ -79,6 +91,25 @@ public abstract class RedLogger implements LoggerComponent {
 		return string.toString();
 	}
 
+	private String mapToString (final int indent, final java.util.Map<?, ?> array) {
+		final StringBuilder string = new StringBuilder();
+		final String canonocal_name = "Map[]";
+		final int n = array.size();
+		if (n == 0) {
+			return canonocal_name;
+		}
+
+		string.append(canonocal_name.substring(0, canonocal_name.length() - 1) + n + "]\n");
+		final String indent_str = this.indent(indent);
+		for (final Iterator<?> i = array.keySet().iterator(); i.hasNext();) {
+			final Object key = i.next();
+			final Object value = array.get(key);
+			string.append(indent_str + "(" + i + ") " + key + " :-> " + value + "\n");
+		}
+
+		return string.toString();
+	}
+
 	public String indent (final int indent) {
 		String r = "";
 		for (int i = 0; i < indent; i++) {
@@ -88,18 +119,18 @@ public abstract class RedLogger implements LoggerComponent {
 	}
 
 	@Override
-	public void d (final Object string) {
-		this.System_out_println(string);
+	public void d (final Object object) {
+		this.System_out_println(this.toString(0, object));
 	}
 
 	@Override
 	public void e (final Object string, final Object object) {
-		this.System_err_println(string + " > " + object);
+		this.System_err_println(string + " > " + this.toString(0, object));
 	}
 
 	@Override
-	public void e (final Object string) {
-		this.System_err_println(string);
+	public void e (final Object object) {
+		this.System_err_println(this.toString(0, object));
 	}
 
 	public abstract void System_err_println (Object string);

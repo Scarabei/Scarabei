@@ -22,8 +22,8 @@ public final class Message implements java.io.Serializable {
 
 	public void print () {
 		L.d("---Message[" + this.header + "]------------------------");
-		L.d(this.values);
-		L.d(this.attachments);
+		L.d("     values", this.values);
+		L.d("attachments", this.attachments);
 
 	}
 
