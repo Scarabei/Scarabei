@@ -9,22 +9,27 @@ public class RedData implements Data {
 
 	@Override
 	public String toString () {
-		return "0x" + Integer.toHexString(integer).toUpperCase();
+		return "0x" + Integer.toHexString(this.integer).toUpperCase();
 	}
 
 	@Override
 	public char toChar () {
-		return (char)integer;
+		return (char)this.integer;
 	}
 
 	@Override
 	public boolean isEndOfStream () {
-		return integer == -1;
+		return this.integer == -1;
 	}
 
 	@Override
 	public boolean isEndOfLine () {
-		return integer == 10;
+		return this.integer == 10;
+	}
+
+	@Override
+	public int toInt () {
+		return this.integer;
 	}
 
 }

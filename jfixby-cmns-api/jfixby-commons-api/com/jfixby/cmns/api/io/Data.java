@@ -9,4 +9,6 @@ public interface Data {
 
 	boolean isEndOfLine ();
 
+	int toInt ();
+
 }

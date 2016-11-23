@@ -151,4 +151,8 @@ public class IO {
 		return component().decompress(data);
 	}
 
+	public static ByteArray readMax (final InputStream is, final long maxBytesToRead) throws IOException {
+		return component().readMax(is, maxBytesToRead);
+	}
+
 }

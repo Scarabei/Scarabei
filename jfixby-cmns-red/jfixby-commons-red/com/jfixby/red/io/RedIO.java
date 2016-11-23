@@ -13,6 +13,7 @@ import com.jfixby.cmns.api.file.FileOutputStream;
 import com.jfixby.cmns.api.io.Buffer;
 import com.jfixby.cmns.api.io.BufferInputStream;
 import com.jfixby.cmns.api.io.BufferOutputStream;
+import com.jfixby.cmns.api.io.Data;
 import com.jfixby.cmns.api.io.GZipInputStream;
 import com.jfixby.cmns.api.io.GZipOutputStream;
 import com.jfixby.cmns.api.io.IOComponent;
@@ -339,6 +340,26 @@ public class RedIO implements IOComponent {
 		}
 
 		return null;
+	}
+
+	@Override
+	public ByteArray readMax (final InputStream is, final long maxBytesToRead) throws IOException {
+		final ByteArrayOutputStream bis = new ByteArrayOutputStream();
+		long read = 0;
+		while (true) {
+			final Data value = is.read();
+			if (value.isEndOfStream()) {
+				break;
+			}
+			bis.write(value.toInt());
+			read++;
+			if (read >= maxBytesToRead) {
+				break;
+			}
+		}
+		bis.close();
+		final byte[] bytes = bis.toByteArray();
+		return JUtils.newByteArray(bytes);
 	}
 
 }

@@ -80,4 +80,6 @@ public interface IOComponent {
 
 	ByteArray decompress (ByteArray data);
 
+	ByteArray readMax (InputStream is, long maxBytesToRead) throws IOException;
+
 }
