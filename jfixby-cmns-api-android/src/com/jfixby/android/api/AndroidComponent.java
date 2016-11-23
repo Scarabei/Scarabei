@@ -3,6 +3,7 @@ package com.jfixby.android.api;
 
 import com.jfixby.android.api.camera.AndroidCameraSetup;
 import com.jfixby.cmns.api.file.File;
+import com.jfixby.cmns.api.sys.SystemInfo;
 
 public interface AndroidComponent {
 
@@ -29,5 +30,13 @@ public interface AndroidComponent {
 	String getVersionRelease ();
 
 	AppVersion getAppVersion ();
+
+	SystemInfo getSystemInfo ();
+
+	String getSerial ();
+
+	String getFingerPrint ();
+
+	String getManufacturer ();
 
 }

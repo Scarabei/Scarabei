@@ -48,4 +48,8 @@ public class Sys {
 		return invoke().isMac();
 	}
 
+	public static SystemInfo getSystemInfo () {
+		return invoke().getSystemInfo();
+	}
+
 }

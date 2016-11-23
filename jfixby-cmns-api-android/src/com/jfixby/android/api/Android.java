@@ -4,6 +4,7 @@ package com.jfixby.android.api;
 import com.jfixby.android.api.camera.AndroidCameraSetup;
 import com.jfixby.cmns.api.ComponentInstaller;
 import com.jfixby.cmns.api.file.File;
+import com.jfixby.cmns.api.sys.SystemInfo;
 
 public class Android {
 
@@ -68,6 +69,10 @@ public class Android {
 
 	public static AppVersion getAppVersion () {
 		return invoke().getAppVersion();
+	}
+
+	public static SystemInfo getSystemInfo () {
+		return invoke().getSystemInfo();
 	}
 
 }

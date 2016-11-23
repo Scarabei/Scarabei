@@ -19,4 +19,6 @@ public interface SystemComponent {
 
 	boolean isMac ();
 
+	SystemInfo getSystemInfo ();
+
 }
