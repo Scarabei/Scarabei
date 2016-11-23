@@ -34,7 +34,7 @@ public class RedJavaOutputStreamOperator implements JavaOutputStreamOperator {
 
 	@Override
 	public boolean isBulkWriteSupported () {
-		return true;
+		return false;
 	}
 
 	@Override

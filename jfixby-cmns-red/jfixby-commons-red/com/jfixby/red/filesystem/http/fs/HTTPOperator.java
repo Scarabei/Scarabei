@@ -1,5 +1,5 @@
 
-package com.jfixby.red.filesystem.http;
+package com.jfixby.red.filesystem.http.fs;
 
 import java.io.IOException;
 

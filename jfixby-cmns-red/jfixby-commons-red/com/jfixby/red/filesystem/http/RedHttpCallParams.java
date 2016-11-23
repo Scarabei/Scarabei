@@ -1,11 +1,11 @@
 
-package com.jfixby.red.android.net.http;
+package com.jfixby.red.filesystem.http;
 
 import com.jfixby.cmns.api.net.http.HttpCallParams;
 import com.jfixby.cmns.api.net.http.HttpURL;
 import com.jfixby.cmns.api.net.http.METHOD;
 
-public class AndroidHttpCallParams implements HttpCallParams {
+public class RedHttpCallParams implements HttpCallParams {
 
 	private HttpURL url;
 	private boolean set_agent;

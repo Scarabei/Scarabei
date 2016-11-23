@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.zip.GZIPOutputStream;
 
+import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.io.IO;
 import com.jfixby.cmns.api.io.JavaOutputStreamOperator;
 import com.jfixby.cmns.api.java.ByteArray;
@@ -40,12 +41,12 @@ public class RedGZipOutputStreamOperator implements JavaOutputStreamOperator {
 
 	@Override
 	public boolean isBulkWriteSupported () {
-		return true;
+		return false;
 	}
 
 	@Override
 	public void writeAll (final ByteArray bytes) throws IOException {
-		this.os.write(bytes.toArray());
+		Err.reportError("not supported");
 	}
 
 }

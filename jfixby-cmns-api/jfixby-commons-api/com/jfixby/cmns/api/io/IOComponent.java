@@ -76,4 +76,8 @@ public interface IOComponent {
 
 	void forceClose (InputStream is);
 
+	ByteArray compress (ByteArray data);
+
+	ByteArray decompress (ByteArray data);
+
 }

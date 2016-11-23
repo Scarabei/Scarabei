@@ -278,15 +278,67 @@ public class RedIO implements IOComponent {
 	@Override
 	public void forceClose (final OutputStream os) {
 		if (os != null) {
-			os.close();
+			if (os.isOpen()) {
+				os.close();
+			}
 		}
 	}
 
 	@Override
 	public void forceClose (final InputStream is) {
 		if (is != null) {
-			is.close();
+			if (is.isOpen()) {
+				is.close();
+			}
 		}
+	}
+
+	@Override
+	public ByteArray compress (final ByteArray data) {
+		Debug.checkNull("data", data);
+		try {
+			final BufferOutputStream os = this.newBufferOutputStream();
+			os.open();
+			{
+				final GZipOutputStream gzip = this.newGZipStream(os);
+				gzip.open();
+
+				gzip.write(data);
+				gzip.flush();
+				gzip.close();
+			}
+			os.flush();
+			os.close();
+			return os.getBytes();
+		} catch (final IOException e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
+	@Override
+	public ByteArray decompress (final ByteArray data) {
+		Debug.checkNull("data", data);
+		try {
+			final Buffer buffer = this.newBuffer(data);
+			ByteArray result = null;
+			final BufferInputStream os = this.newBufferInputStream(buffer);
+			os.open();
+			{
+				final GZipInputStream gzip = this.newGZipStream(os);
+				gzip.open();
+				result = gzip.readAll();
+				gzip.close();
+			}
+
+			os.close();
+			return result;
+		} catch (final IOException e) {
+			e.printStackTrace();
+		}
+
+		return null;
 	}
 
 }

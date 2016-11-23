@@ -143,4 +143,12 @@ public class IO {
 		return component().deserialize(type, bytes);
 	}
 
+	public static ByteArray compress (final ByteArray data) {
+		return component().compress(data);
+	}
+
+	public static ByteArray decompress (final ByteArray data) {
+		return component().decompress(data);
+	}
+
 }

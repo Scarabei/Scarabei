@@ -1,5 +1,5 @@
 
-package com.jfixby.red.filesystem.http;
+package com.jfixby.red.filesystem.http.fs;
 
 import java.io.IOException;
 
@@ -23,13 +23,13 @@ import com.jfixby.red.filesystem.RedFileHash;
 import com.jfixby.red.filesystem.http.descript.HttpFileEntry;
 import com.jfixby.red.filesystem.http.descript.HttpFolderDescriptor;
 
-public class HttpFile extends AbstractRedFile implements File {
+public class RedHttpFile extends AbstractRedFile implements File {
 
 	private final RedHttpFileSystem fs;
 	private final AbsolutePath<FileSystem> absolute_path;
 	private final RelativePath relativePath;
 
-	public HttpFile (final RedHttpFileSystem virtualFileSystem, final AbsolutePath<FileSystem> file_path) {
+	public RedHttpFile (final RedHttpFileSystem virtualFileSystem, final AbsolutePath<FileSystem> file_path) {
 		this.fs = virtualFileSystem;
 		this.absolute_path = file_path;
 		this.relativePath = file_path.getRelativePath();
@@ -42,7 +42,7 @@ public class HttpFile extends AbstractRedFile implements File {
 
 	@Override
 	public ChildrenList listAllChildren () throws IOException {
-		final List<HttpFile> filesQueue = Collections.newList();
+		final List<RedHttpFile> filesQueue = Collections.newList();
 		filesQueue.add(this);
 		final FilesList result = new FilesList();
 		final ChildrenList children = this.listDirectChildren();
@@ -105,7 +105,7 @@ public class HttpFile extends AbstractRedFile implements File {
 				final String child_name = e.name;
 				Debug.checkTrue("invalid name: key=" + key + " child_name=" + child_name, key.equals(child_name));
 				{
-					final File childFile = HttpFile.this.child(child_name);
+					final File childFile = RedHttpFile.this.child(child_name);
 					listFiles.add(childFile);
 				}
 			}
@@ -165,8 +165,8 @@ public class HttpFile extends AbstractRedFile implements File {
 	}
 
 	@Override
-	public HttpFile child (final String child_name) {
-		return new HttpFile(this.getFileSystem(), this.absolute_path.child(child_name));
+	public RedHttpFile child (final String child_name) {
+		return new RedHttpFile(this.getFileSystem(), this.absolute_path.child(child_name));
 	}
 
 	@Override
@@ -235,8 +235,8 @@ public class HttpFile extends AbstractRedFile implements File {
 	}
 
 	@Override
-	public HttpFile parent () {
-		return new HttpFile(this.fs, this.absolute_path.parent());
+	public RedHttpFile parent () {
+		return new RedHttpFile(this.fs, this.absolute_path.parent());
 	}
 
 	@Override

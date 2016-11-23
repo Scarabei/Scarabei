@@ -1,66 +1,27 @@
 
 package com.jfixby.red.android.net.http;
 
-import com.jfixby.cmns.api.net.http.HttpCall;
-import com.jfixby.cmns.api.net.http.HttpCallExecutor;
-import com.jfixby.cmns.api.net.http.HttpCallParams;
-import com.jfixby.cmns.api.net.http.HttpComponent;
-import com.jfixby.cmns.api.net.http.HttpConnection;
-import com.jfixby.cmns.api.net.http.HttpConnectionSpecs;
-import com.jfixby.cmns.api.net.http.HttpFileSystem;
-import com.jfixby.cmns.api.net.http.HttpFileSystemSpecs;
-import com.jfixby.cmns.api.net.http.HttpURL;
-import com.jfixby.red.filesystem.http.RedHttpFileSystem;
-import com.jfixby.red.filesystem.http.RedHttpFileSystemSpecs;
-import com.jfixby.red.net.RedHttpURL;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocketFactory;
 
-public class AndroidHttp implements HttpComponent {
+import com.jfixby.cmns.api.err.Err;
+import com.jfixby.red.android.net.http.sslfix.NoSSLv3SocketFactory;
+import com.jfixby.red.filesystem.http.RedHttp;
 
-	@Override
-	public HttpURL newURL (final String url_string) {
-		return new RedHttpURL(url_string);
+public class AndroidHttp extends RedHttp {
+	public AndroidHttp () {
+		try {
+
+			final SSLContext sslcontext = SSLContext.getInstance("TLSv1");
+			sslcontext.init(null, null, null);
+
+			final SSLSocketFactory NoSSLv3Factory = new NoSSLv3SocketFactory(sslcontext.getSocketFactory());
+			HttpsURLConnection.setDefaultSSLSocketFactory(NoSSLv3Factory);
+
+		} catch (final Exception e) {
+			e.printStackTrace();
+			Err.reportError(e);
+		}
 	}
-
-	@Override
-	public HttpConnection newConnection (final HttpURL url) {
-		return new AndroidHttpConnection(url, false);
-	}
-
-	@Override
-	public HttpConnectionSpecs newConnectionSpecs () {
-		return new AndroidHttpConnectionSpecs();
-	}
-
-	@Override
-	public HttpConnection newConnection (final HttpConnectionSpecs specs) {
-		final HttpURL url = specs.getURL();
-		final boolean use_agent = specs.getUseAgent();
-		return new AndroidHttpConnection(url, use_agent);
-	}
-
-	@Override
-	public HttpCallParams newCallParams () {
-		return new AndroidHttpCallParams();
-	}
-
-	@Override
-	public HttpCallExecutor newCallExecutor () {
-		return new AndroidCallExecutor();
-	}
-
-	@Override
-	public HttpCall newCall (final HttpCallParams call_scecs) {
-		return new AndroidCall(call_scecs);
-	}
-
-	@Override
-	public HttpFileSystemSpecs newHttpFileSystemSpecs () {
-		return new RedHttpFileSystemSpecs();
-	}
-
-	@Override
-	public HttpFileSystem newHttpFileSystem (final HttpFileSystemSpecs specs) {
-		return new RedHttpFileSystem(specs);
-	}
-
 }

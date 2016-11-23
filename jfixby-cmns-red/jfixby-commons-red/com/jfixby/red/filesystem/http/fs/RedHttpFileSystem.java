@@ -1,5 +1,5 @@
 
-package com.jfixby.red.filesystem.http;
+package com.jfixby.red.filesystem.http.fs;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -75,14 +75,14 @@ public class RedHttpFileSystem extends AbstractFileSystem implements FileSystem,
 	}
 
 	@Override
-	public HttpFile newFile (final AbsolutePath<FileSystem> file_path) {
+	public RedHttpFile newFile (final AbsolutePath<FileSystem> file_path) {
 		if (file_path == null) {
 			throw new Error("Filepath is null.");
 		}
 		if (file_path.getMountPoint() != this) {
 			throw new Error("Path does not belong to this filesystem: " + file_path);
 		}
-		return new HttpFile(this, file_path);
+		return new RedHttpFile(this, file_path);
 	}
 
 	@Override
@@ -106,7 +106,7 @@ public class RedHttpFileSystem extends AbstractFileSystem implements FileSystem,
 			throw new Error("Input file does not belong to this filesystem: " + input_file);
 		}
 
-		return new HttpFileInputStream((HttpFile)input_file);
+		return new RedHttpFileInputStream((RedHttpFile)input_file);
 	}
 
 	@Override

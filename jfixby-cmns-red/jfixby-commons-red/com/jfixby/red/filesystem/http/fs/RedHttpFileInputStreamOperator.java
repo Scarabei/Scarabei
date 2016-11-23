@@ -1,5 +1,5 @@
 
-package com.jfixby.red.filesystem.http;
+package com.jfixby.red.filesystem.http.fs;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -9,11 +9,11 @@ import com.jfixby.cmns.api.io.JavaInputStreamOperator;
 import com.jfixby.cmns.api.java.ByteArray;
 import com.jfixby.cmns.api.net.http.HttpURL;
 
-public class HttpFileInputStreamOperator implements JavaInputStreamOperator {
+public class RedHttpFileInputStreamOperator implements JavaInputStreamOperator {
 
-	private final HttpFile v_file;
+	private final RedHttpFile v_file;
 
-	public HttpFileInputStreamOperator (final HttpFile input_file) {
+	public RedHttpFileInputStreamOperator (final RedHttpFile input_file) {
 		this.v_file = input_file;
 	}
 

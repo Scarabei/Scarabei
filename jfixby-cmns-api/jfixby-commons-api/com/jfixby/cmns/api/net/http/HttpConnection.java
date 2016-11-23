@@ -12,7 +12,7 @@ public interface HttpConnection {
 
 	void close ();
 
-	int getResponseCode ();
+	int getResponseCode () throws IOException;
 
 	HttpConnectionOutputStream getOutputStream ();
 

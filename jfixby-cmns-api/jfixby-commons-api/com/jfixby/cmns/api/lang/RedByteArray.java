@@ -1,6 +1,7 @@
 
 package com.jfixby.cmns.api.lang;
 
+import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.java.ByteArray;
 
 public class RedByteArray implements ByteArray {
@@ -8,6 +9,7 @@ public class RedByteArray implements ByteArray {
 	final private byte[] bytes;
 
 	public RedByteArray (final byte[] bytes) {
+		Debug.checkNull("bytes", bytes);
 		this.bytes = bytes;
 	}
 

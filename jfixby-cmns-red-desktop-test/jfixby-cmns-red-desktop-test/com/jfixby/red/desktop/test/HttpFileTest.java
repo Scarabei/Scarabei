@@ -11,8 +11,8 @@ import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.net.http.Http;
 import com.jfixby.cmns.api.net.http.HttpURL;
 import com.jfixby.red.desktop.DesktopSetup;
-import com.jfixby.red.filesystem.http.RedHttpFileSystem;
-import com.jfixby.red.filesystem.http.RedHttpFileSystemSpecs;
+import com.jfixby.red.filesystem.http.fs.RedHttpFileSystem;
+import com.jfixby.red.filesystem.http.fs.RedHttpFileSystemSpecs;
 
 public class HttpFileTest {
 

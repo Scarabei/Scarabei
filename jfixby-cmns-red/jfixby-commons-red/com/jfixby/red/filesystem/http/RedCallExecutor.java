@@ -1,5 +1,5 @@
 
-package com.jfixby.red.desktop.net.http;
+package com.jfixby.red.filesystem.http;
 
 import java.io.IOException;
 
@@ -12,7 +12,7 @@ import com.jfixby.cmns.api.net.http.HttpConnectionInputStream;
 import com.jfixby.cmns.api.net.http.HttpConnectionSpecs;
 import com.jfixby.cmns.api.net.http.HttpURL;
 
-public class DesktopCallExecutor implements HttpCallExecutor {
+public class RedCallExecutor implements HttpCallExecutor {
 
 	@Override
 	public HttpCallProgress execute (final HttpCall call) throws IOException {
@@ -26,8 +26,9 @@ public class DesktopCallExecutor implements HttpCallExecutor {
 		final HttpConnectionSpecs specs = Http.newConnectionSpecs();
 		specs.setURL(url);
 		specs.setUseAgent(true);
+		specs.addRequesrProperties(call.listRequestHeaders());
 		final HttpConnection connection = Http.newConnection(specs);
-
+// final connection.se
 		connection.open();
 
 		final HttpConnectionInputStream input_stream = connection.getInputStream();
@@ -38,7 +39,7 @@ public class DesktopCallExecutor implements HttpCallExecutor {
 
 		connection.close();
 
-		final DesktopHttpCallProgress progress = new DesktopHttpCallProgress(connection, data);
+		final RedHttpCallProgress progress = new RedHttpCallProgress(connection, data);
 		return progress;
 	}
 
