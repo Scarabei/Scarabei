@@ -1,5 +1,5 @@
 
-package com.jfixby.cmns.api.db;
+package com.jfixby.cmns.db.api;
 
 public interface DBComponent {
 

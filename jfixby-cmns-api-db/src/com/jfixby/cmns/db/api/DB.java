@@ -1,5 +1,5 @@
 
-package com.jfixby.cmns.api.db;
+package com.jfixby.cmns.db.api;
 
 import com.jfixby.cmns.api.ComponentInstaller;
 
