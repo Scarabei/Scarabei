@@ -5,4 +5,5 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/jfixby-cmns-api"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/jfixby-cmns-db-api"/>
 	<classpathentry kind="output" path="bin"/>
+	<classpathentry kind="lib" path="/libs/mysql/mysql-connector-java-5.1.40-bin.jar"/>
 </classpath>

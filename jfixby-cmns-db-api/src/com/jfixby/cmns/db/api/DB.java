@@ -19,7 +19,4 @@ public class DB {
 		return componentInstaller.getComponent();
 	}
 
-	public static TestConnectionResult testConnection () {
-		return invoke().testConnection();
-	}
 }
