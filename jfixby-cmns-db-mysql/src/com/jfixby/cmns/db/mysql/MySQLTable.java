@@ -10,7 +10,6 @@ import java.sql.Statement;
 import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
-import com.jfixby.cmns.api.log.L;
 
 public class MySQLTable {
 
@@ -64,22 +63,27 @@ public class MySQLTable {
 	public void addEntry (final MySQLEntry entry) throws SQLException {
 		this.schema.loadIfNotLoaded();
 		final Collection<String> colums = this.schema.getColumns();
-// colums.print("colums");
 
-// final String schemaString = this.schemaString(Collections.newList("regID", "c", "d"));
-		final String schemaString = this.schemaString(Collections.newList(colums));
+		final List<String> keys = Collections.newList();
 
-// final String stm = "INSERT INTO " + this.sql_table_name + "" + schemaString + " " + "VALUES" + ;
-		final String table_name = this.sql_table_name;
-		final String stm = "INSERT INTO " + table_name + " " + schemaString + " VALUES " + this.QString(colums.size());
-		L.d(stm);
-		final PreparedStatement statement = this.connection().prepareStatement(stm);
-		for (int i = 0; i < entry.values.size(); i++) {
+		for (int i = 0; i < colums.size(); i++) {
 			final String key = colums.getElementAt(i);
-			statement.setString(i + 1, entry.values.get(key));
-// if (i == 1) {
-// break;
-// }
+			final String value = entry.values.get(key);
+			if (value != null) {
+				keys.add(key);
+			}
+		}
+		final String schemaString = this.schemaString(keys);
+
+		final String table_name = this.sql_table_name;
+		final String stm = "INSERT INTO " + table_name + " " + schemaString + " VALUES " + this.QString(keys.size());
+// L.d(stm);
+
+		final PreparedStatement statement = this.connection().prepareStatement(stm);
+		for (int i = 0; i < keys.size(); i++) {
+			final String key = keys.getElementAt(i);
+			final String value = entry.values.get(key);
+			statement.setString(i + 1, value);
 		}
 
 		statement.executeUpdate();
@@ -118,6 +122,12 @@ public class MySQLTable {
 			}
 			b.append(", ");
 		}
+	}
+
+	public void clear () throws SQLException {
+		final String request = "TRUNCATE " + this.sql_table_name;
+		final PreparedStatement statement = this.connection().prepareStatement(request);
+		statement.executeUpdate();
 	}
 
 }
