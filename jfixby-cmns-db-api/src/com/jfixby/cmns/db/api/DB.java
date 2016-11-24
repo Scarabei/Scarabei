@@ -18,4 +18,8 @@ public class DB {
 	public static final DBComponent component () {
 		return componentInstaller.getComponent();
 	}
+
+	public static TestConnectionResult testConnection () {
+		return invoke().testConnection();
+	}
 }
