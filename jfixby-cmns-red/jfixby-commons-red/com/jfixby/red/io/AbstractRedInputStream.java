@@ -10,7 +10,6 @@ import com.jfixby.cmns.api.io.InputStream;
 import com.jfixby.cmns.api.io.JavaInputStreamOperator;
 import com.jfixby.cmns.api.io.STREAM_STATE;
 import com.jfixby.cmns.api.java.ByteArray;
-import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.sys.settings.ExecutionMode;
 import com.jfixby.cmns.api.sys.settings.SystemSettings;
 import com.jfixby.cmns.api.util.JUtils;
@@ -122,25 +121,10 @@ public class AbstractRedInputStream<T extends JavaInputStreamOperator> implement
 		super.finalize();
 		if (this.state.currentState() != STREAM_STATE.CLOSED) {
 			final String msg = "Stream leak detected: " + this + " state=" + this.state;
-			L.e(msg);
-			if (SystemSettings.executionModeCovers(ExecutionMode.EARLY_DEVELOPMENT)) {
-// this.source.printStackTrace(System.out);
-				Err.reportError(new Error(msg, this.source));
-			}
+			System.err.println(msg);
+			Err.reportGCLeak(msg);
 			this.close();
 		}
-	}
-
-	boolean pedanticMode = true;
-
-	@Override
-	public void setPedanticMode (final boolean pedanticMode) {
-		this.pedanticMode = pedanticMode;
-	}
-
-	@Override
-	public boolean isInPedanticMode () {
-		return this.pedanticMode;
 	}
 
 	@Override

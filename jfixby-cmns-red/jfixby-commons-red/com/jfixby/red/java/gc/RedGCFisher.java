@@ -5,6 +5,7 @@ import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.java.gc.BaitInfo;
 import com.jfixby.cmns.api.java.gc.GCFisherComponent;
 import com.jfixby.cmns.api.java.gc.MemoryStatistics;
+import com.jfixby.cmns.api.log.L;
 
 public class RedGCFisher implements GCFisherComponent {
 
@@ -27,6 +28,7 @@ public class RedGCFisher implements GCFisherComponent {
 		while (pushing) {
 			pushing = this.currentSession.push(bait_size_in_bytes, false);
 		}
+		L.d("GC");
 
 	}
 

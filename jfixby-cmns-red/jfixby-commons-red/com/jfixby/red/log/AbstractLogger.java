@@ -9,7 +9,7 @@ import com.jfixby.cmns.api.collections.Mapping;
 import com.jfixby.cmns.api.log.LoggerComponent;
 import com.jfixby.cmns.api.util.JUtils;
 
-public abstract class RedLogger implements LoggerComponent {
+public abstract class AbstractLogger implements LoggerComponent {
 
 	public abstract String arrayToString (int indent, Object[] array);
 

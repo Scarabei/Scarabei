@@ -34,7 +34,6 @@ import com.jfixby.red.desktop.collections.DesktopCollections;
 import com.jfixby.red.desktop.filesystem.unix.UnixFileSystem;
 import com.jfixby.red.desktop.filesystem.win.WinFileSystem;
 import com.jfixby.red.desktop.image.RedImageAWT;
-import com.jfixby.red.desktop.log.DesktopLogger;
 import com.jfixby.red.desktop.math.DesktopFloatMath;
 import com.jfixby.red.desktop.net.http.DesktopHttp;
 import com.jfixby.red.desktop.sys.DesktopSystem;
@@ -45,6 +44,7 @@ import com.jfixby.red.graphs.RedGraphs;
 import com.jfixby.red.image.RedImageProcessing;
 import com.jfixby.red.io.RedIO;
 import com.jfixby.red.java.gc.RedGCFisher;
+import com.jfixby.red.log.SimpleLogger;
 import com.jfixby.red.math.RedAngles;
 import com.jfixby.red.math.RedIntegerMath;
 import com.jfixby.red.math.RedMathTools;
@@ -58,7 +58,7 @@ import com.jfixby.red.util.md5.RSADataSecurityIncMD5;
 public class DesktopSetup {
 
 	public static final void deploy () {
-		L.installComponent(new DesktopLogger());
+		L.installComponent(new SimpleLogger());
 		JUtils.installComponent(new RedJUtils());
 		Collections.installComponent(new DesktopCollections());
 		FloatMath.installComponent(new DesktopFloatMath());

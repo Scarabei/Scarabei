@@ -1,9 +1,7 @@
 
-package com.jfixby.red.android.log;
+package com.jfixby.red.log;
 
-import com.jfixby.red.log.RedLogger;
-
-public class AndroidLogger extends RedLogger {
+public class SimpleLogger extends AbstractLogger {
 	@Override
 	public String arrayToString (final int indent, final Object[] array) {
 

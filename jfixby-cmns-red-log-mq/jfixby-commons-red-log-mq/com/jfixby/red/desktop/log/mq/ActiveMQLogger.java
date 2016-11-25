@@ -1,9 +1,9 @@
 package com.jfixby.red.desktop.log.mq;
 
 import com.jfixby.cmns.api.log.LoggerComponent;
-import com.jfixby.red.log.RedLogger;
+import com.jfixby.red.log.AbstractLogger;
 
-public class ActiveMQLogger extends RedLogger implements LoggerComponent {
+public class ActiveMQLogger extends AbstractLogger implements LoggerComponent {
 	private MQPipe mq_pipe;
 
 	@Override

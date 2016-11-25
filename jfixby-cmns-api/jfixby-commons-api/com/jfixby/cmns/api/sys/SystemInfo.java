@@ -1,11 +1,11 @@
 
 package com.jfixby.cmns.api.sys;
 
-import com.jfixby.cmns.api.collections.Mapping;
+import com.jfixby.cmns.api.collections.Map;
 
 public interface SystemInfo {
 
-	Mapping<String, String> listParameters ();
+	Map<String, String> listParameters ();
 
 	void putValue (String key, Object value);
 

@@ -3,7 +3,6 @@ package com.jfixby.red.sys;
 
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.Map;
-import com.jfixby.cmns.api.collections.Mapping;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.sys.SystemInfo;
 
@@ -11,7 +10,7 @@ public class RedDeviceInfo implements SystemInfo {
 	final Map<String, String> params = Collections.newMap();
 
 	@Override
-	public Mapping<String, String> listParameters () {
+	public Map<String, String> listParameters () {
 		return this.params;
 	}
 

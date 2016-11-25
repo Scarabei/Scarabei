@@ -28,4 +28,9 @@ public class DefaultErrorComponent implements ErrorComponent {
 		this.reportError(new NotImplementedYetException());
 	}
 
+	@Override
+	public void reportGCLeak (final String msg) {
+		System.err.println(msg);
+	}
+
 }

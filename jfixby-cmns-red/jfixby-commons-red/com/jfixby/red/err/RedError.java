@@ -15,6 +15,11 @@ public class RedError implements ErrorComponent {
 	}
 
 	@Override
+	public void reportGCLeak (final String message) {
+		L.e(message);
+	}
+
+	@Override
 	public void reportError (final String message) {
 		if (SystemSettings.executionModeCovers(ExecutionMode.EARLY_DEVELOPMENT)) {
 			throw new Error(message);

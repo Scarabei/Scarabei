@@ -13,9 +13,9 @@ import com.jfixby.cmns.api.util.JUtils;
 import com.jfixby.red.debug.RedDebug;
 import com.jfixby.red.desktop.collections.DesktopCollections;
 import com.jfixby.red.desktop.filesystem.unix.UnixFileSystem;
-import com.jfixby.red.desktop.log.DesktopLogger;
 import com.jfixby.red.err.RedError;
 import com.jfixby.red.io.RedIO;
+import com.jfixby.red.log.SimpleLogger;
 import com.jfixby.red.util.RedJUtils;
 import com.jfixby.rmi.server.files.RMIFileSystemFactory;
 import com.jfixby.rmi.server.files.RMIFileSystemServer;
@@ -24,7 +24,7 @@ import com.jfixby.rmi.server.files.RMIFileSystemServerConfig;
 public class RMIFileSystemServerTest {
 
 	public static void main(String[] args) throws IOException {
-		L.installComponent(new DesktopLogger());
+		L.installComponent(new SimpleLogger());
 		JUtils.installComponent(new RedJUtils());
 		Collections.installComponent(new DesktopCollections());
 		
