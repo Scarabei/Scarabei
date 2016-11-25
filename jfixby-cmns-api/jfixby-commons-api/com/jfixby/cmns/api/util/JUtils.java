@@ -5,6 +5,7 @@ import com.jfixby.cmns.api.ComponentInstaller;
 import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.collections.Map;
+import com.jfixby.cmns.api.collections.Sequence;
 import com.jfixby.cmns.api.collections.Set;
 import com.jfixby.cmns.api.java.ByteArray;
 import com.jfixby.cmns.api.util.path.AbsolutePath;
@@ -117,6 +118,11 @@ public class JUtils {
 
 	public static String prefix (final String string, final int offset) {
 		return invoke().prefix(string, offset);
+	}
+
+	public static String wrapSequence (final Sequence<String> seq, final int size, final String bracketLeft,
+		final String bracketRight) {
+		return invoke().wrapSequence(seq, size, bracketLeft, bracketRight);
 	}
 
 }

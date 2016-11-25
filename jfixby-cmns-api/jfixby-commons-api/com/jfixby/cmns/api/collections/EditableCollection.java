@@ -13,8 +13,6 @@ public interface EditableCollection<T> extends Collection<T> {
 
 	public boolean add (T element);
 
-	public int indexOf (Object element);
-
 	public void reverse ();
 
 	public T removeElementAt (long i);

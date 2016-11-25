@@ -1,12 +1,12 @@
 
 package com.jfixby.red.name;
 
-import com.jfixby.cmns.api.assets.AssetID;
+import com.jfixby.cmns.api.assets.ID;
 import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.util.JUtils;
 import com.jfixby.cmns.api.util.path.RelativePath;
 
-public final class RedAssetID implements AssetID {
+public final class RedAssetID implements ID {
 
 	public RedAssetID (final String value) {
 		super();
@@ -14,7 +14,7 @@ public final class RedAssetID implements AssetID {
 		Debug.checkEmpty("AssetID String", value);
 		Debug.checkTrue("Input value contains space: <" + value + "> at " + value.indexOf(' '), value.indexOf(' ') == -1);
 		// Debug.checkEmpty("value", value.replaceAll("\\\\.", ""));
-		this.value = JUtils.newRelativePath(value.replaceAll("\\" + AssetID.SEPARATOR, RelativePath.SEPARATOR));
+		this.value = JUtils.newRelativePath(value.replaceAll("\\" + ID.SEPARATOR, RelativePath.SEPARATOR));
 		// L.d();
 		// L.d("string value", value);
 		// L.d(" value", this.value);
@@ -36,7 +36,7 @@ public final class RedAssetID implements AssetID {
 
 	@Override
 	public String toString () {
-		return (this.value.toString()).replaceAll(RelativePath.SEPARATOR, AssetID.SEPARATOR);
+		return (this.value.toString()).replaceAll(RelativePath.SEPARATOR, ID.SEPARATOR);
 	}
 
 	@Override
@@ -70,12 +70,12 @@ public final class RedAssetID implements AssetID {
 	}
 
 	@Override
-	public AssetID child (final String string) {
+	public ID child (final String string) {
 		return new RedAssetID(this.value.child(string));
 	}
 
 	@Override
-	public AssetID parent () {
+	public ID parent () {
 		return new RedAssetID(this.value.parent());
 	}
 
@@ -85,7 +85,7 @@ public final class RedAssetID implements AssetID {
 	}
 
 	@Override
-	public boolean includes (final AssetID other) {
+	public boolean includes (final ID other) {
 		Debug.checkNull("other", other);
 		if (this.equals(other)) {
 			return true;
@@ -101,7 +101,7 @@ public final class RedAssetID implements AssetID {
 	}
 
 	@Override
-	public AssetID child (final AssetID subpackage) {
+	public ID child (final ID subpackage) {
 		final RedAssetID red_subpackage = (RedAssetID)subpackage;
 		final RelativePath new_path = this.value.proceed(red_subpackage.value);
 		return new RedAssetID(new_path);

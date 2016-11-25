@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 import com.jfixby.cmns.api.debug.Debug;
+import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.log.L;
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
@@ -58,6 +59,9 @@ public class MySQLConnection {
 	}
 
 	public Connection getConnection () {
+		if (this.mysql_connection == null) {
+			Err.reportError("Not connected");
+		}
 		return this.mysql_connection;
 	}
 

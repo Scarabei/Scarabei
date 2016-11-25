@@ -1,14 +1,18 @@
 
 package com.jfixby.cmns.api.assets;
 
+import com.jfixby.cmns.api.collections.Collection;
+
 public interface AssetsNamespaceComponent {
 
-	AssetID newAssetId (String asset_id_string);
+	ID newID (String asset_id_string);
 
 	String SEPARATOR ();
 
 	<T> NamespaceRegistry<T> newRegistry ();
 
-	AssetID ROOT ();
+	ID ROOT ();
+
+	ID newID (Collection<String> list);
 
 }

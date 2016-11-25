@@ -7,6 +7,7 @@ import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.collections.Map;
+import com.jfixby.cmns.api.collections.Sequence;
 import com.jfixby.cmns.api.collections.Set;
 import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.java.ByteArray;
@@ -178,6 +179,24 @@ public class RedJUtils implements UtilsComponent {
 			b.append(string);
 		}
 		return b.toString();
+	}
+
+	@Override
+	public String wrapSequence (final Sequence<String> seq, final int size, final String bracketLeft,
+		final String bracketRight) {
+		final int iMax = size - 1;
+		if (iMax == -1) {
+			return bracketLeft + bracketRight;
+		}
+		final StringBuilder b = new StringBuilder();
+		b.append(bracketLeft);
+		for (int i = 0;; i++) {
+			b.append(seq.getElementAt(i));
+			if (i == iMax) {
+				return b.append(bracketRight).toString();
+			}
+			b.append(", ");
+		}
 	}
 
 }

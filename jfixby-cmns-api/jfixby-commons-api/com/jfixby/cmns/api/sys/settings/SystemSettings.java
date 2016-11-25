@@ -2,7 +2,7 @@
 package com.jfixby.cmns.api.sys.settings;
 
 import com.jfixby.cmns.api.ComponentInstaller;
-import com.jfixby.cmns.api.assets.AssetID;
+import com.jfixby.cmns.api.assets.ID;
 
 public class SystemSettings {
 
@@ -45,11 +45,11 @@ public class SystemSettings {
 		invoke().setStringParameter(parameter_name, parameter_value);
 	}
 
-	public static void setSystemAssetID (String parameter_name, AssetID parameter_value) {
+	public static void setSystemAssetID (String parameter_name, ID parameter_value) {
 		invoke().setSystemAssetID(parameter_name, parameter_value);
 	}
 
-	public static AssetID getSystemAssetID (String parameter_name) {
+	public static ID getSystemAssetID (String parameter_name) {
 		return invoke().getSystemAssetID(parameter_name);
 	}
 

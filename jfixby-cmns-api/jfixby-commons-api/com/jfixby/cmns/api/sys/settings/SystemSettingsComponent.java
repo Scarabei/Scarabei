@@ -1,7 +1,7 @@
 
 package com.jfixby.cmns.api.sys.settings;
 
-import com.jfixby.cmns.api.assets.AssetID;
+import com.jfixby.cmns.api.assets.ID;
 
 public interface SystemSettingsComponent {
 
@@ -15,9 +15,9 @@ public interface SystemSettingsComponent {
 
 	void setStringParameter (String parameter_name, String parameter_value);
 
-	void setSystemAssetID (String parameter_name, AssetID parameter_value);
+	void setSystemAssetID (String parameter_name, ID parameter_value);
 
-	AssetID getSystemAssetID (String parameter_name);
+	ID getSystemAssetID (String parameter_name);
 
 	void printSystemParameters ();
 

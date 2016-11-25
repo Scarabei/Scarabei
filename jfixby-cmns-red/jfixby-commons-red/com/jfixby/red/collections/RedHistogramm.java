@@ -134,6 +134,11 @@ public class RedHistogramm<T> implements Histogramm<T> {
 	}
 
 	@Override
+	public int indexOf (final Object element) {
+		return this.storage.keys().indexOf(element);
+	}
+
+	@Override
 	public com.jfixby.cmns.api.collections.List<T> toList () {
 		return this.storage.keys().toList();
 	}

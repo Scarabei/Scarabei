@@ -3,6 +3,7 @@ package com.jfixby.cmns.db.mysql;
 
 import java.sql.SQLException;
 
+import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.db.api.DBComponent;
 
 public class MySQL implements DBComponent {
@@ -28,6 +29,9 @@ public class MySQL implements DBComponent {
 	}
 
 	public MySQLConnection connection () {
+		if (this.connection == null) {
+			Err.reportError("not connected");
+		}
 		return this.connection;
 	}
 

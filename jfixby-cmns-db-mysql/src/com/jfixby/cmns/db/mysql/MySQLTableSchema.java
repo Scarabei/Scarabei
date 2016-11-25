@@ -12,7 +12,7 @@ import com.jfixby.cmns.api.collections.List;
 public class MySQLTableSchema {
 
 	private final MySQLTable mySQLTable;
-	final List<String> columns = Collections.newList();
+	private final List<String> columns = Collections.newList();
 	private boolean loaded = false;
 
 	public MySQLTableSchema (final MySQLTable mySQLTable) {
@@ -30,7 +30,8 @@ public class MySQLTableSchema {
 		this.loaded = true;
 	}
 
-	public Collection<String> getColumns () {
+	public Collection<String> getColumns () throws SQLException {
+		this.loadIfNotLoaded();
 		return this.columns;
 	}
 

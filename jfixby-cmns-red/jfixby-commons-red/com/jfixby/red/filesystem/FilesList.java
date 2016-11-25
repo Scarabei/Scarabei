@@ -160,4 +160,9 @@ public class FilesList implements ChildrenList {
 		}
 	}
 
+	@Override
+	public int indexOf (final Object element) {
+		return this.internal_list.indexOf(element);
+	}
+
 }

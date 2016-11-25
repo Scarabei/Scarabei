@@ -10,6 +10,8 @@ import java.sql.Statement;
 import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
+import com.jfixby.cmns.api.debug.Debug;
+import com.jfixby.cmns.api.util.JUtils;
 
 public class MySQLTable {
 
@@ -24,11 +26,18 @@ public class MySQLTable {
 	}
 
 	public List<MySQLEntry> listAll () throws SQLException {
-		final List<MySQLEntry> entries = Collections.newList();
+
 		final Connection connection = this.connection();
 		final Statement statement = connection.createStatement();
 		final String request = "SELECT * FROM " + this.sql_table_name;
 		final ResultSet result = statement.executeQuery(request);
+
+		return this.collectResult(result);
+	}
+
+	private List<MySQLEntry> collectResult (final ResultSet result) throws SQLException {
+		final List<MySQLEntry> entries = Collections.newList();
+
 		while (result.next()) {
 			final MySQLEntry entry = this.readEntry(result, this.schema);
 			entries.add(entry);
@@ -43,7 +52,7 @@ public class MySQLTable {
 
 	private MySQLEntry readEntry (final ResultSet result, final MySQLTableSchema schema) throws SQLException {
 		final MySQLEntry entry = new MySQLEntry();
-		final int N = schema.columns.size();
+		final int N = schema.getColumns().size();
 		for (int i = 0; i < N; i++) {
 			final String key = schema.getColumns().getElementAt(i);
 			final String value = result.getString(i + 1);
@@ -61,22 +70,10 @@ public class MySQLTable {
 	}
 
 	public void addEntry (final MySQLEntry entry) throws SQLException {
-		this.schema.loadIfNotLoaded();
-		final Collection<String> colums = this.schema.getColumns();
-
-		final List<String> keys = Collections.newList();
-
-		for (int i = 0; i < colums.size(); i++) {
-			final String key = colums.getElementAt(i);
-			final String value = entry.values.get(key);
-			if (value != null) {
-				keys.add(key);
-			}
-		}
-		final String schemaString = this.schemaString(keys);
 
 		final String table_name = this.sql_table_name;
-		final String stm = "INSERT INTO " + table_name + " " + schemaString + " VALUES " + this.QString(keys.size());
+		final List<String> keys = Collections.newList();
+		final String stm = "INSERT INTO " + table_name + " " + this.paramString(entry, keys, "(", ")");
 // L.d(stm);
 
 		final PreparedStatement statement = this.connection().prepareStatement(stm);
@@ -86,48 +83,42 @@ public class MySQLTable {
 			statement.setString(i + 1, value);
 		}
 
-		statement.executeUpdate();
+		statement.execute();
 	}
 
-	private String QString (final int size) {
-		final int iMax = size - 1;
-		if (iMax == -1) {
-			return "()";
-		}
+	private String paramString (final MySQLEntry entry, final List<String> keys, final String bracketLeft,
+		final String bracketRight) throws SQLException {
+		this.schema.loadIfNotLoaded();
+		final Collection<String> colums = this.schema.getColumns();
 
-		final StringBuilder b = new StringBuilder();
-		b.append('(');
-		for (int i = 0;; i++) {
-			b.append("?");
-			if (i == iMax) {
-				return b.append(')').toString();
+		for (int i = 0; i < colums.size(); i++) {
+			final String key = colums.getElementAt(i);
+			final String value = entry.values.get(key);
+			if (value != null) {
+				keys.add(key);
 			}
-			b.append(", ");
 		}
+		final String schemaString = JUtils.wrapSequence(keys, keys.size(), bracketLeft, bracketRight);
+
+		return schemaString + " VALUES " + JUtils.wrapSequence( (i) -> "?", keys.size(), "(", ")");
 	}
 
-	private String schemaString (final Collection<String> colums) {
-
-		final int iMax = colums.size() - 1;
-		if (iMax == -1) {
-			return "()";
-		}
-
-		final StringBuilder b = new StringBuilder();
-		b.append('(');
-		for (int i = 0;; i++) {
-			b.append(colums.getElementAt(i));
-			if (i == iMax) {
-				return b.append(')').toString();
-			}
-			b.append(", ");
-		}
+	public Collection<MySQLEntry> findEntries (final String key, final String value) throws SQLException {
+		Debug.checkNull("key", key);
+		Debug.checkNull("value", value);
+		final String table_name = this.sql_table_name;
+		final String stm = "SELECT * FROM " + table_name + " WHERE " + key + " = ?";
+		final PreparedStatement statement = this.connection()//
+			.prepareStatement(stm);
+		statement.setString(1, value);
+		final ResultSet result = statement.executeQuery();
+		return this.collectResult(result);
 	}
 
 	public void clear () throws SQLException {
 		final String request = "TRUNCATE " + this.sql_table_name;
 		final PreparedStatement statement = this.connection().prepareStatement(request);
-		statement.executeUpdate();
+		statement.execute();
 	}
 
 }

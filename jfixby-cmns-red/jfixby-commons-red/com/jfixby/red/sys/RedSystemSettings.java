@@ -1,7 +1,7 @@
 
 package com.jfixby.red.sys;
 
-import com.jfixby.cmns.api.assets.AssetID;
+import com.jfixby.cmns.api.assets.ID;
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.Map;
 import com.jfixby.cmns.api.debug.Debug;
@@ -14,7 +14,7 @@ public class RedSystemSettings implements SystemSettingsComponent {
 	final Map<String, Boolean> flags = Collections.newMap();
 	final Map<String, Long> longs = Collections.newMap();
 	final Map<String, String> strings = Collections.newMap();
-	final Map<String, AssetID> assets = Collections.newMap();
+	final Map<String, ID> assets = Collections.newMap();
 
 	public void printSystemParameters () {
 		L.d("---[SystemSettings]-----------------------------------");
@@ -58,12 +58,12 @@ public class RedSystemSettings implements SystemSettingsComponent {
 		strings.put(parameter_name, parameter_value);
 	}
 
-	public void setSystemAssetID (String parameter_name, AssetID parameter_value) {
+	public void setSystemAssetID (String parameter_name, ID parameter_value) {
 		assets.put(parameter_name, parameter_value);
 	}
 
-	public AssetID getSystemAssetID (String parameter_name) {
-		AssetID value = assets.get(parameter_name);
+	public ID getSystemAssetID (String parameter_name) {
+		ID value = assets.get(parameter_name);
 		if (value == null) {
 			L.d("Parameter not found", parameter_name);
 			return null;

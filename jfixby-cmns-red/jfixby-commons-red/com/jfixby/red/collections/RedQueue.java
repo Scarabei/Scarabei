@@ -107,4 +107,9 @@ public class RedQueue<T> implements Queue<T> {
 		this.queue.clear();
 	}
 
+	@Override
+	public int indexOf (final Object element) {
+		return this.queue.indexOf(element);
+	}
+
 }

@@ -1,19 +1,12 @@
 
 package com.jfixby.cmns.api.collections;
 
-import java.util.Iterator;
-
-public interface Collection<T> extends Iterable<T> {
+public interface Collection<T> extends Iterable<T>, Sequence<T> {
 	public int size ();
 
 	public boolean contains (Object element);
 
 	public java.util.List<T> toJavaList ();
-
-	public T getElementAt (long i);
-
-	@Override
-	public Iterator<T> iterator ();
 
 	public T getLast ();
 
@@ -30,5 +23,7 @@ public interface Collection<T> extends Iterable<T> {
 	public List<T> filter (CollectionFilter<? super T> filter);
 
 	public boolean containsAll (Collection<?> other);
+
+	public int indexOf (Object element);
 
 }

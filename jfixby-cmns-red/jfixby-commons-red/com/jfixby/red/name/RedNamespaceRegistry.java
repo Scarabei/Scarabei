@@ -4,7 +4,7 @@ package com.jfixby.red.name;
 import java.util.Comparator;
 import java.util.Iterator;
 
-import com.jfixby.cmns.api.assets.AssetID;
+import com.jfixby.cmns.api.assets.ID;
 import com.jfixby.cmns.api.assets.NamespaceRegistry;
 import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.Collections;
@@ -16,10 +16,10 @@ import com.jfixby.cmns.api.collections.Set;
 
 public class RedNamespaceRegistry<T> implements NamespaceRegistry<T> {
 
-	final Map<AssetID, Set<T>> map = Collections.newMap();
+	final Map<ID, Set<T>> map = Collections.newMap();
 
 	@Override
-	public void put (AssetID object_name, Collection<T> value) {
+	public void put (ID object_name, Collection<T> value) {
 		Set<T> collection = find(object_name);
 		collection.addAll(value);
 	}
@@ -35,8 +35,8 @@ public class RedNamespaceRegistry<T> implements NamespaceRegistry<T> {
 	}
 
 	@Override
-	public void putAll (Mapping<? extends AssetID, ? extends Collection<T>> other_map) {
-		for (AssetID key : other_map.keys()) {
+	public void putAll (Mapping<? extends ID, ? extends Collection<T>> other_map) {
+		for (ID key : other_map.keys()) {
 			Collection<T> value = other_map.get(key);
 			this.put(key, value);
 		}
@@ -44,8 +44,8 @@ public class RedNamespaceRegistry<T> implements NamespaceRegistry<T> {
 	}
 
 	@Override
-	public void putJavaMap (java.util.Map<? extends AssetID, ? extends Collection<T>> java_map) {
-		for (AssetID key : java_map.keySet()) {
+	public void putJavaMap (java.util.Map<? extends ID, ? extends Collection<T>> java_map) {
+		for (ID key : java_map.keySet()) {
 			Collection<T> value = java_map.get(key);
 			this.put(key, value);
 		}
@@ -69,7 +69,7 @@ public class RedNamespaceRegistry<T> implements NamespaceRegistry<T> {
 			return result;
 		}
 
-		AssetID id = (AssetID)key;
+		ID id = (ID)key;
 		String last = id.getLastStep();
 		if ("*".equals(last)) {
 			id = id.parent();
@@ -80,10 +80,10 @@ public class RedNamespaceRegistry<T> implements NamespaceRegistry<T> {
 
 	}
 
-	private Collection<T> wildcardGet (AssetID id) {
+	private Collection<T> wildcardGet (ID id) {
 		List<T> result = Collections.newList();
 		for (int i = 0; i < this.map.size(); i++) {
-			final AssetID k = this.map.keys().getElementAt(i);
+			final ID k = this.map.keys().getElementAt(i);
 			if (id.includes(k)) {
 				Collection<T> vals = this.map.get(k);
 				result.addAll(vals);
@@ -104,7 +104,7 @@ public class RedNamespaceRegistry<T> implements NamespaceRegistry<T> {
 	}
 
 	@Override
-	public AssetID getKeyAt (long i) {
+	public ID getKeyAt (long i) {
 		return map.getKeyAt(i);
 	}
 
@@ -114,7 +114,7 @@ public class RedNamespaceRegistry<T> implements NamespaceRegistry<T> {
 	}
 
 	@Override
-	public Iterator<AssetID> keysIterator () {
+	public Iterator<ID> keysIterator () {
 		return map.keysIterator();
 	}
 
@@ -124,24 +124,24 @@ public class RedNamespaceRegistry<T> implements NamespaceRegistry<T> {
 	}
 
 	@Override
-	public Collection<AssetID> keys () {
+	public Collection<ID> keys () {
 		return map.keys();
 	}
 
 	@Override
-	public java.util.Map<AssetID, Collection<T>> toJavaMap () {
-		Map<AssetID, Collection<T>> map_t = Collections.castMap(map);
+	public java.util.Map<ID, Collection<T>> toJavaMap () {
+		Map<ID, Collection<T>> map_t = Collections.castMap(map);
 		return map_t.toJavaMap();
 	}
 
 	@Override
-	public void put (AssetID object_name, T object) {
+	public void put (ID object_name, T object) {
 		Set<T> collection = find(object_name);
 		collection.add(object);
 
 	}
 
-	private Set<T> find (AssetID object_name) {
+	private Set<T> find (ID object_name) {
 		Set<T> collection = map.get(object_name);
 		if (collection == null) {
 			collection = Collections.newSet();
@@ -166,12 +166,12 @@ public class RedNamespaceRegistry<T> implements NamespaceRegistry<T> {
 	}
 
 	@Override
-	public void sortKeys (Comparator<? super AssetID> keysComparator) {
+	public void sortKeys (Comparator<? super ID> keysComparator) {
 		map.sortKeys(keysComparator);
 	}
 
 	@Override
-	public EditableCollection<AssetID> cutToSize (int max_size) {
+	public EditableCollection<ID> cutToSize (int max_size) {
 		return this.map.cutToSize(max_size);
 	}
 
