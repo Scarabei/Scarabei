@@ -6,18 +6,20 @@ import java.sql.SQLException;
 import com.jfixby.cmns.db.api.DBComponent;
 
 public class MySQL implements DBComponent {
-	String url;
+	String serverName;
 	String login;
 	String password;
 	private final MySQLConnection connection;
 	private final String dbName;
+	private final boolean useSSL;
 
 	public MySQL (final MySQLConfig config) {
-		this.url = config.getDBUrlString();
+		this.serverName = config.getServerName();
 		this.login = config.getLogin();
 		this.password = config.getPassword();
-		this.connection = new MySQLConnection(this.url, this.login, this.password);
-		this.dbName = this.url.substring(this.url.lastIndexOf("/") + 1, this.url.length());
+		this.dbName = config.getDBName();
+		this.useSSL = config.useSSL();
+		this.connection = new MySQLConnection(this.serverName, this.login, this.password, this.dbName, this.useSSL);
 
 	}
 

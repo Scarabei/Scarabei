@@ -2,35 +2,47 @@
 package com.jfixby.cmns.db.mysql;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.log.L;
+import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
 public class MySQLConnection {
 
-	private final String url_db_string;
+	private final String serverName;
 	private final String login;
 	private final String password;
-
+	private final String dbName;
 	private Connection mysql_connection;
+	private final boolean useSSL;
 
-	public MySQLConnection (final String url, final String login, final String password) {
-		this.url_db_string = Debug.checkNull("url", url);
+	public MySQLConnection (final String serverName, final String login, final String password, final String dbName,
+		final boolean useSSL) {
+		this.serverName = Debug.checkNull("serverName", serverName);
 		this.login = Debug.checkNull("login", login);
 		this.password = Debug.checkNull("password", password);
+		this.dbName = Debug.checkNull("dbName", dbName);
+		this.useSSL = useSSL;
 	}
 
 	@Override
 	public String toString () {
-		return "MySQLConnection [url=" + this.url_db_string + ", login=" + this.login + "]";
+		return "MySQLConnection [serverName=" + this.serverName + ", login=" + this.login + "]";
 	}
 
 	public boolean connect () throws SQLException {
 
-		L.d("connecting", this.url_db_string);
-		this.mysql_connection = DriverManager.getConnection(this.url_db_string, this.login, this.password);
+		L.d("connecting", this.serverName);
+
+		final MysqlDataSource dataSource = new MysqlDataSource();
+		dataSource.setUser(this.login);
+		dataSource.setPassword(this.password);
+		dataSource.setServerName(this.serverName);
+		dataSource.setUseSSL(this.useSSL);
+		dataSource.setDatabaseName(this.dbName);
+
+		this.mysql_connection = dataSource.getConnection();
 
 		L.d("connecting", "OK");
 		return true;

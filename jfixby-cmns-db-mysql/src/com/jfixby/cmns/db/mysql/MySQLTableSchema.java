@@ -42,4 +42,8 @@ public class MySQLTableSchema {
 		return this;
 	}
 
+	public void print () {
+		this.columns.print("schema");
+	}
+
 }

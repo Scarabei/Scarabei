@@ -5,10 +5,12 @@ public class MySQLConfig {
 
 	private String dbLogin;
 	private String dbPassword;
-	private String dbUrlString;
+	private String server;
+	private String dbName;
+	private boolean useSSL;
 
-	public void setDBUrlString (final String dbUrlString) {
-		this.dbUrlString = dbUrlString;
+	public void setServerName (final String server) {
+		this.server = server;
 	}
 
 	public void setLogin (final String dbLogin) {
@@ -19,8 +21,8 @@ public class MySQLConfig {
 		this.dbPassword = dbPassword;
 	}
 
-	public String getDBUrlString () {
-		return this.dbUrlString;
+	public String getServerName () {
+		return this.server;
 	}
 
 	public String getLogin () {
@@ -29,6 +31,22 @@ public class MySQLConfig {
 
 	public String getPassword () {
 		return this.dbPassword;
+	}
+
+	public String getDBName () {
+		return this.dbName;
+	}
+
+	public void setDBName (final String dbName) {
+		this.dbName = dbName;
+	}
+
+	public boolean useSSL () {
+		return this.useSSL;
+	}
+
+	public void setUseSSL (final boolean b) {
+		this.useSSL = b;
 	}
 
 }
