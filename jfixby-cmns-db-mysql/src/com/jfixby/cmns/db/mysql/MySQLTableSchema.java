@@ -47,4 +47,13 @@ public class MySQLTableSchema {
 		this.columns.print("schema");
 	}
 
+	public int indexOf (final String key) throws SQLException {
+		final int result = this.columns.indexOf(key);
+		if (result == -1) {
+			this.print();
+			throw new SQLException("key not found " + key);
+		}
+		return result;
+	}
+
 }
