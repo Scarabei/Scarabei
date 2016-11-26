@@ -1,6 +1,7 @@
 
 package com.jfixby.red.math;
 
+import com.jfixby.cmns.api.math.Average;
 import com.jfixby.cmns.api.math.FloatMathComponent;
 
 public abstract class RedFloatMath implements FloatMathComponent {
@@ -418,6 +419,11 @@ public abstract class RedFloatMath implements FloatMathComponent {
 	@Override
 	public float limit (final float left_border, final float value, final float right_border) {
 		return (float)this.limit((double)left_border, (double)value, (double)right_border);
+	}
+
+	@Override
+	public Average newAverage (final int max_num_of_values) {
+		return new RedAverage(max_num_of_values);
 	}
 
 }

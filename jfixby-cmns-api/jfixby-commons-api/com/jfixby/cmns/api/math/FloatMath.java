@@ -199,4 +199,8 @@ public class FloatMath {
 	public static boolean isIntegerInEpsilonNeighbourhood (final double value, final double epsilon) {
 		return invoke().isIntegerInEpsilonNeighbourhood(value, epsilon);
 	}
+
+	public static Average newAverage (final int max_num_of_values) {
+		return invoke().newAverage(max_num_of_values);
+	}
 }

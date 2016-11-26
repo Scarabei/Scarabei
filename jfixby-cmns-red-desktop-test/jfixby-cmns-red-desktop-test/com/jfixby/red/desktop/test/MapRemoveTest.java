@@ -20,7 +20,7 @@ public class MapRemoveTest {
 		final Map<ID, List<Object>> map = Collections.newMap();
 		final int N = 10;
 		for (int i = 0; i < N; i++) {
-			final ID key = Names.newAssetID(i + "");
+			final ID key = Names.newID(i + "");
 			final List<Object> value = Collections.newList();
 			map.put(key, value);
 		}
@@ -29,7 +29,7 @@ public class MapRemoveTest {
 		int k = -10;
 		while (map.size() > 0) {
 			k++;
-			final ID key = Names.newAssetID(k + "");
+			final ID key = Names.newID(k + "");
 			map.remove(key);
 		}
 

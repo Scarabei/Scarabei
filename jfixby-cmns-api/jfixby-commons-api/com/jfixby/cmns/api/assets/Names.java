@@ -21,7 +21,7 @@ public class Names {
 		return componentInstaller.getComponent();
 	}
 
-	public static ID newAssetID (final String asset_id_string) {
+	public static ID newID (final String asset_id_string) {
 		return invoke().newID(asset_id_string);
 	}
 
@@ -37,7 +37,7 @@ public class Names {
 		return invoke().ROOT();
 	}
 
-	public static ID newAssetID (final Collection<String> list) {
+	public static ID newID (final Collection<String> list) {
 		return invoke().newID(list);
 	}
 

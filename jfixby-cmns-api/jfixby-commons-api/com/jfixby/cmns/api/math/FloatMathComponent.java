@@ -93,4 +93,6 @@ public interface FloatMathComponent {
 
 	public boolean isIntegerInEpsilonNeighbourhood (double value, double epsilon);
 
+	public Average newAverage (int max_num_of_values);
+
 }
