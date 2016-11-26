@@ -31,7 +31,7 @@ public class DescriptorsBuilder {
 		final HttpFolderDescriptor desc = new HttpFolderDescriptor();
 		Collections.scanCollection(children, new CollectionScanner<File>() {
 			@Override
-			public void scanElement (final File e, final int i) {
+			public void scanElement (final File e, final long i) {
 				if (e.getName().startsWith(HttpFolderDescriptor.HTTP_FOLDER_DESCRIPTOR_FILE_NAME)) {
 					return;
 				}

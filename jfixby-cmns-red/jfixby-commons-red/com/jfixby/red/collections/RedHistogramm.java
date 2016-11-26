@@ -18,7 +18,7 @@ public class RedHistogramm<T> implements Histogramm<T> {
 	long max = 0;
 	final private CollectionScanner<T> max_scanner = new CollectionScanner<T>() {
 		@Override
-		public void scanElement (final T element, final int index) {
+		public void scanElement (final T element, final long index) {
 			RedHistogramm.this.max = max(RedHistogramm.this.getNumberAt(index), RedHistogramm.this.max);
 		}
 	};

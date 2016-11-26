@@ -48,7 +48,7 @@ public class RedHttpFileSystem extends AbstractFileSystem implements FileSystem,
 			final List<String> encodedSteps = Collections.newList();
 			Collections.scanCollection(steps, new CollectionScanner<String>() {
 				@Override
-				public void scanElement (final String e, final int i) {
+				public void scanElement (final String e, final long i) {
 					encodedSteps.add(urlEncodeString(steps.getElementAt(i)));
 				}
 			});

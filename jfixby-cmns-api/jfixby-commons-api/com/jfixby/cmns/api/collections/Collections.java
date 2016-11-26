@@ -94,6 +94,11 @@ public class Collections {
 		invoke().scanCollection(collection, scanner);
 	}
 
+	public static <T> void scanCollection (final Sequence<T> collection, final long fromIndex, final long toIndex,
+		final CollectionScanner<? super T> scanner) {
+		invoke().scanCollection(collection, fromIndex, toIndex, scanner);
+	}
+
 	public static boolean equalLists (final List<?> A, final List<?> B) {
 		return invoke().equalLists(A, B);
 	}

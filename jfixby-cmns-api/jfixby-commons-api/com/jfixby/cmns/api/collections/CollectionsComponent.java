@@ -35,6 +35,9 @@ public interface CollectionsComponent {
 
 	public <T> void scanCollection (Iterable<T> collection, CollectionScanner<? super T> scanner);
 
+	public <T> void scanCollection (final Sequence<T> collection, final long fromIndex, final long toIndex,
+		final CollectionScanner<? super T> scanner);
+
 	public <A, B> void convertCollection (Collection<A> input, EditableCollection<B> output, CollectionConverter<A, B> converter);
 
 	boolean equalLists (List<?> a, List<?> b);

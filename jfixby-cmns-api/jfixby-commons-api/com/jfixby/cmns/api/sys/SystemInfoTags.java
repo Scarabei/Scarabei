@@ -9,7 +9,10 @@ public class SystemInfoTags {
 
 	public static class Java {
 		public static final String Version = "java.version";
+	}
 
+	public static class Net {
+		public static final String client_ip = "net.client_ip";
 	}
 
 	public static class Desktop {

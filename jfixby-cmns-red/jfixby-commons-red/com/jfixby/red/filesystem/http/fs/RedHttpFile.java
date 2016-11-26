@@ -100,7 +100,7 @@ public class RedHttpFile extends AbstractRedFile implements File {
 // Collections.newMap(desc.entries).print("entries");
 		Collections.scanCollection(desc.entries.keySet(), new CollectionScanner<String>() {
 			@Override
-			public void scanElement (final String key, final int i) {
+			public void scanElement (final String key, final long i) {
 				final HttpFileEntry e = desc.entries.get(key);
 				final String child_name = e.name;
 				Debug.checkTrue("invalid name: key=" + key + " child_name=" + child_name, key.equals(child_name));

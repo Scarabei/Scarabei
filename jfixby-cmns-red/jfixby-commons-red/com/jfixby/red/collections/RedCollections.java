@@ -20,6 +20,7 @@ import com.jfixby.cmns.api.collections.Pool;
 import com.jfixby.cmns.api.collections.PoolElementsSpawner;
 import com.jfixby.cmns.api.collections.PriorityQueue;
 import com.jfixby.cmns.api.collections.Queue;
+import com.jfixby.cmns.api.collections.Sequence;
 import com.jfixby.cmns.api.collections.Set;
 import com.jfixby.cmns.api.collections.ZxZ_Functuion;
 import com.jfixby.cmns.api.debug.Debug;
@@ -253,7 +254,7 @@ public abstract class RedCollections implements CollectionsComponent {
 		final CollectionConverter<A, B> converter) {
 		final CollectionScanner<A> scanner = new CollectionScanner<A>() {
 			@Override
-			public void scanElement (final A element, final int index) {
+			public void scanElement (final A element, final long index) {
 				final B converted = converter.convert(element);
 				output.add(converted);
 			}
@@ -272,6 +273,15 @@ public abstract class RedCollections implements CollectionsComponent {
 		}
 
 		return target;
+	}
+
+	@Override
+	public <T> void scanCollection (final Sequence<T> collection, final long fromIndex, final long toIndex,
+		final CollectionScanner<? super T> scanner) {
+		for (long i = fromIndex; i < toIndex; i++) {
+			final T element = collection.getElementAt(i);
+			scanner.scanElement(element, i);
+		}
 	}
 
 }
