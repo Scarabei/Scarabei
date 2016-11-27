@@ -8,6 +8,7 @@ public class MySQLConfig {
 	private String server;
 	private String dbName;
 	private boolean useSSL;
+	private int connectionDrainTime = 60;
 
 	public void setServerName (final String server) {
 		this.server = server;
@@ -47,6 +48,14 @@ public class MySQLConfig {
 
 	public void setUseSSL (final boolean b) {
 		this.useSSL = b;
+	}
+
+	public void setConnectionDrainTime (final int seconds) {
+		this.connectionDrainTime = seconds;
+	}
+
+	public int getConnectionDrainTime () {
+		return this.connectionDrainTime;
 	}
 
 }

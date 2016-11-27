@@ -47,7 +47,7 @@ public class MySQLTable {
 		return entries;
 	}
 
-	Connection connection () {
+	Connection connection () throws SQLException {
 		return this.db.connection().getConnection();
 	}
 

@@ -5,6 +5,7 @@ import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.debug.Debug;
+import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.util.JUtils;
 import com.jfixby.cmns.api.util.path.RelativePath;
 
@@ -174,6 +175,12 @@ class RedRelativePath implements RelativePath {
 	@Override
 	public RelativePath splitAt (final int step) {
 		return JUtils.newRelativePath(Collections.newList(this.stepsList()).splitAt(step));
+	}
+
+	@Override
+	public RelativePath removeStep (final int index) {
+		Err.reportNotImplementedYet();
+		return JUtils.newRelativePath(this.steps().toList().removeElementAt(index));
 	}
 
 }

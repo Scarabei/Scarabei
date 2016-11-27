@@ -5,7 +5,7 @@ public interface AppVersion {
 
 	String getName ();
 
-	String getCode ();
+	int getCode ();
 
 	String getPackageName ();
 

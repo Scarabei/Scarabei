@@ -33,4 +33,6 @@ public interface RelativePath {
 
 	RelativePath splitAt (int step);
 
+	RelativePath removeStep (int index);
+
 }

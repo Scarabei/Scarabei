@@ -13,6 +13,7 @@ public class MySQL implements DBComponent {
 	private final MySQLConnection connection;
 	private final String dbName;
 	private final boolean useSSL;
+	private final int connectionDrainTime;
 
 	public MySQL (final MySQLConfig config) {
 		this.serverName = config.getServerName();
@@ -20,7 +21,9 @@ public class MySQL implements DBComponent {
 		this.password = config.getPassword();
 		this.dbName = config.getDBName();
 		this.useSSL = config.useSSL();
-		this.connection = new MySQLConnection(this.serverName, this.login, this.password, this.dbName, this.useSSL);
+		this.connectionDrainTime = config.getConnectionDrainTime();
+		this.connection = new MySQLConnection(this.serverName, this.login, this.password, this.dbName, this.useSSL,
+			this.connectionDrainTime);
 
 	}
 
@@ -36,11 +39,11 @@ public class MySQL implements DBComponent {
 	}
 
 	public void connect () throws SQLException {
-		this.connection.connect();
+		this.connection.open();
 	}
 
 	public void disconnect () {
-		this.connection.disconnect();
+		this.connection.close();
 	}
 
 	public MySQLTable getTable (final String name) {
