@@ -43,6 +43,7 @@ public class MySQLConnectionDrainer extends Thread {
 		this.mysql_connection = dataSource.getConnection();
 		L.d("connecting", "OK");
 		this.isRetired = false;
+		this.updateCloseTime();
 	}
 
 	public void retire () {
@@ -99,6 +100,7 @@ public class MySQLConnectionDrainer extends Thread {
 				e.printStackTrace();
 			}
 		}
+		this.mysql_connection = null;
 	}
 
 }

@@ -64,7 +64,7 @@ public class MySQLConnection {
 			} catch (final SQLException e) {
 				this.connectionDrainer.dispose();
 				this.connectionDrainer = null;
-				this.state.switchState(CONNECTON_STATE.CLOSED);
+// this.state.switchState(CONNECTON_STATE.CLOSED);
 				throw e;
 			}
 			this.connectionDrainer.start();
