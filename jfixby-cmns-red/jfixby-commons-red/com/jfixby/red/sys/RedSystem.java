@@ -38,4 +38,26 @@ public abstract class RedSystem implements SystemComponent {
 		return OSValidator.isMac();
 	}
 
+	@Override
+	final public void yeld () {
+		Thread.yield();
+	}
+
+	@Override
+	final public boolean sleep (final long period) {
+		try {
+			Thread.sleep(period);
+			return true;
+		} catch (final InterruptedException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	@Override
+	final public void exit () {
+		System.out.println("EXIT");
+		System.exit(0);
+	}
+
 }

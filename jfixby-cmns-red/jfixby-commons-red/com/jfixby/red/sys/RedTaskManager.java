@@ -9,6 +9,7 @@ import com.jfixby.cmns.api.taskman.Job;
 import com.jfixby.cmns.api.taskman.SysExecutor;
 import com.jfixby.cmns.api.taskman.Task;
 import com.jfixby.cmns.api.taskman.TaskManagerComponent;
+import com.jfixby.cmns.api.taskman.TaskSpecs;
 
 public class RedTaskManager implements TaskManagerComponent {
 	private final RedSystemExecutor executor = new RedSystemExecutor(this);
@@ -63,6 +64,13 @@ public class RedTaskManager implements TaskManagerComponent {
 		return this.newTask(null, jobs);
 	}
 
+	@Override
+	public Task newTask (final TaskSpecs specs) {
+		final RedTask task = new RedTask(specs);
+		this.new_tasks.add(task);
+		return task;
+	}
+
 	public void push () {
 
 		this.active_tasks.addAll(this.new_tasks);
@@ -92,4 +100,10 @@ public class RedTaskManager implements TaskManagerComponent {
 			// this.active_tasks.print("active tasks");
 		}
 	}
+
+	@Override
+	public TaskSpecs newTaskSpecs () {
+		return new RedTaskSpecs();
+	}
+
 }

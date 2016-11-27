@@ -21,4 +21,6 @@ public interface SystemComponent {
 
 	SystemInfo getSystemInfo ();
 
+	void yeld ();
+
 }

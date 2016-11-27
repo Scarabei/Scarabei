@@ -10,6 +10,7 @@ import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
 public class MySQLConnectionDrainer extends Thread {
 
+	private static final long MINUTE = 60_000;
 	private final long delta;
 	long closeConnectionAt = 0;
 	private boolean isRetired = true;
@@ -27,7 +28,11 @@ public class MySQLConnectionDrainer extends Thread {
 	public MySQLConnectionDrainer (final MySQLConnection mySQLConnection) {
 		this.lock = mySQLConnection.lock;
 		this.mySQLConnection = mySQLConnection;
-		this.delta = (mySQLConnection.connectionDrainTime * 1000L);
+		{
+			/** Ugly hack. Should be replaced with readers-writer lock. */
+			this.delta = Math.max(mySQLConnection.connectionDrainTime * 1000L, 1 * MINUTE);
+		}
+
 		this.drainerID = this.drainerIDs();
 
 	}
@@ -83,7 +88,7 @@ public class MySQLConnectionDrainer extends Thread {
 
 	@Override
 	public String toString () {
-		return "MySQLConnectionDrainer[" + this.drainerID + "]";
+		return "MySQLConnectionDrainer[" + this.drainerID + "] delta=" + this.delta;
 	}
 
 	public Connection getSQLConnection () {

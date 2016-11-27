@@ -52,4 +52,8 @@ public class Sys {
 		return invoke().getSystemInfo();
 	}
 
+	public static void yeld () {
+		invoke().yeld();
+	}
+
 }

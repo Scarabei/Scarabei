@@ -17,4 +17,8 @@ public interface TaskManagerComponent {
 
 	Task newTask (Collection<Job> jobs_sequence);
 
+	TaskSpecs newTaskSpecs ();
+
+	Task newTask (TaskSpecs specs);
+
 }

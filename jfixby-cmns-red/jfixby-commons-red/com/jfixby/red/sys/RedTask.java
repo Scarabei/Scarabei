@@ -5,42 +5,32 @@ import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.err.Err;
+import com.jfixby.cmns.api.sys.Sys;
 import com.jfixby.cmns.api.taskman.Job;
 import com.jfixby.cmns.api.taskman.TASK_STATE;
 import com.jfixby.cmns.api.taskman.Task;
+import com.jfixby.cmns.api.taskman.TaskSpecs;
 import com.jfixby.cmns.api.util.JUtils;
 import com.jfixby.cmns.api.util.StateSwitcher;
 
-public class RedTask implements Task {
+public class RedTask implements Task, Runnable {
 
 	private final List<Job> jobs = Collections.newList();
-	// private List<String> names = JUtils.newList();
-
-	// private void listNames() {
-	// for (int i = 0; i < this.jobs.size(); i++) {
-	// Job job = this.jobs.getElementAt(i);
-	// names.add(job.toString());
-	// }
-	// }
 
 	int job_to_do = -1;
 
 	private final StateSwitcher<TASK_STATE> switcher;
 	private String name;
 
+	final private boolean runInSeparatedThread;
+
 	@Override
 	public String toString () {
 		return "Task[" + this.name + "]";
 	}
 
-	// private String job_name() {
-	// return this.names.toString();
-	// }
-
 	public RedTask (final String name, final Job job) {
-		this.jobs.add(job);
-		this.switcher = JUtils.newStateSwitcher(TASK_STATE.ACTIVE);
-		// listNames();
+		this(name, Collections.newList(job));
 	}
 
 	public RedTask (final String name, final Collection<Job> jobs) {
@@ -50,13 +40,54 @@ public class RedTask implements Task {
 		}
 		this.jobs.addAll(jobs);
 		this.switcher = JUtils.newStateSwitcher(TASK_STATE.ACTIVE);
+		this.runInSeparatedThread = false;
+		this.t = null;
 		// listNames();
+	}
+
+	public RedTask (final TaskSpecs specs) {
+		this.name = specs.getName();
+		if (this.name == null) {
+			this.name = super.toString();
+		}
+		this.runInSeparatedThread = specs.runInSeparatedThread();
+
+		this.jobs.addAll(specs.listJobs());
+
+		this.switcher = JUtils.newStateSwitcher(TASK_STATE.ACTIVE);
+
+		if (this.runInSeparatedThread) {
+			this.t = new Thread(this.runner);
+			this.startThread();
+		} else {
+			this.t = null;
+		}
+	}
+
+	private final Runnable runner = this;
+	final Thread t;
+
+	private void startThread () {
+
 	}
 
 	boolean first_call = false;
 	Job current_job;
 
 	public void push () {
+		if (!this.runInSeparatedThread) {
+			this.pushTask();
+		} else {
+			Sys.yeld();
+		}
+	}
+
+	@Override
+	public void run () {
+		this.pushTask();
+	}
+
+	private void pushTask () {
 		this.switcher.expectState(TASK_STATE.ACTIVE);
 		if (this.job_to_do == -1) {
 			this.job_to_do++;

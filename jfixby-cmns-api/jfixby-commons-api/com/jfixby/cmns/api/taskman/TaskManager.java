@@ -9,7 +9,7 @@ public class TaskManager {
 	static private ComponentInstaller<TaskManagerComponent> componentInstaller = new ComponentInstaller<TaskManagerComponent>(
 		"TaskManager");
 
-	public static final void installComponent (TaskManagerComponent component_to_install) {
+	public static final void installComponent (final TaskManagerComponent component_to_install) {
 		componentInstaller.installComponent(component_to_install);
 	}
 
@@ -21,20 +21,28 @@ public class TaskManager {
 		return componentInstaller.getComponent();
 	}
 
-	public static Task newTask (String task_name, Collection<Job> jobs_sequence) {
+	public static Task newTask (final String task_name, final Collection<Job> jobs_sequence) {
 		return invoke().newTask(task_name, jobs_sequence);
 	}
 
-	public static Task newTask (String task_name, Job... jobs_sequence) {
+	public static Task newTask (final String task_name, final Job... jobs_sequence) {
 		return invoke().newTask(task_name, jobs_sequence);
 	}
 
-	public static Task newTask (Collection<Job> jobs_sequence) {
+	public static Task newTask (final Collection<Job> jobs_sequence) {
 		return invoke().newTask(jobs_sequence);
 	}
 
-	public static Task newTask (Job... jobs_sequence) {
+	public static Task newTask (final Job... jobs_sequence) {
 		return invoke().newTask(jobs_sequence);
+	}
+
+	public static TaskSpecs newTaskSpecs () {
+		return invoke().newTaskSpecs();
+	}
+
+	public static Task newTask (final TaskSpecs specs) {
+		return invoke().newTask(specs);
 	}
 
 }
