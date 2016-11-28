@@ -1,6 +1,7 @@
 
 package com.jfixby.cmns.db.mysql;
 
+import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,7 +22,8 @@ public class MySQLTableSchema {
 
 	void load () throws SQLException {
 		// --- LISTING DATABASE COLUMN NAMES ---
-		final DatabaseMetaData meta = this.mySQLTable.connection().getMetaData();
+		final Connection connection = this.mySQLTable.connection();
+		final DatabaseMetaData meta = connection.getMetaData();
 		final ResultSet resultSet = meta.getColumns(this.mySQLTable.db.getDBName(), null, this.mySQLTable.sql_table_name, "%");
 		while (resultSet.next()) {
 			this.columns.add(resultSet.getString(4));

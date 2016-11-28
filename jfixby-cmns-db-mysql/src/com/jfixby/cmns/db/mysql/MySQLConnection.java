@@ -5,12 +5,12 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 import com.jfixby.cmns.api.debug.Debug;
-import com.jfixby.cmns.api.err.Err;
+import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.util.JUtils;
 import com.jfixby.cmns.api.util.StateSwitcher;
+import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
-public class MySQLConnection {
-
+public abstract class MySQLConnection {
 	final String serverName;
 	final String login;
 	final String password;
@@ -20,9 +20,7 @@ public class MySQLConnection {
 	public final int connectionDrainTime;
 	MySQLConnectionDrainer connectionDrainer = null;
 
-	public final Object lock = new Object();
-
-	private final StateSwitcher<CONNECTON_STATE> state;
+	final StateSwitcher<CONNECTON_STATE> state;
 
 	public MySQLConnection (final String serverName, final String login, final String password, final String dbName,
 		final boolean useSSL, final int connectionDrainTime) {
@@ -35,63 +33,41 @@ public class MySQLConnection {
 		this.state = JUtils.newStateSwitcher(CONNECTON_STATE.CLOSED);
 	}
 
-	public boolean open () {
-		synchronized (this.lock) {
-			this.state.expectState(CONNECTON_STATE.CLOSED);
-			this.state.switchState(CONNECTON_STATE.OPEN);
-			Debug.checkTrue(this.connectionDrainer == null);
-			return true;
-		}
-	}
+	public boolean open () throws SQLException {
+		this.state.expectState(CONNECTON_STATE.CLOSED);
+		this.state.switchState(CONNECTON_STATE.OPEN);
 
-	public Connection getConnection () throws SQLException {
-		synchronized (this.lock) {
-			if (this.state.stateIs(CONNECTON_STATE.CLOSED)) {
-				Err.reportError("connection is closed");
-				return null;
-			}
-
-			if (this.state.stateIs(CONNECTON_STATE.LIVE)) {
-				this.connectionDrainer.updateCloseTime();
-				return this.connectionDrainer.getSQLConnection();
-			}
-
-			this.state.expectState(CONNECTON_STATE.OPEN);
-			Debug.checkTrue(this.connectionDrainer == null);
-			this.connectionDrainer = new MySQLConnectionDrainer(this);
-			try {
-				this.connectionDrainer.connect();
-			} catch (final SQLException e) {
-				this.connectionDrainer.dispose();
-				this.connectionDrainer = null;
-// this.state.switchState(CONNECTON_STATE.CLOSED);
-				throw e;
-			}
-			this.connectionDrainer.start();
-			this.state.switchState(CONNECTON_STATE.LIVE);
-			return this.connectionDrainer.getSQLConnection();
-		}
+		L.d("connecting", this.serverName);
+		final MysqlDataSource dataSource = new MysqlDataSource();
+		dataSource.setUser(this.login);
+		dataSource.setPassword(this.password);
+		dataSource.setServerName(this.serverName);
+		dataSource.setUseSSL(this.useSSL);
+		dataSource.setDatabaseName(this.dbName);
+		this.mysql_connection = dataSource.getConnection();
+		L.d("connecting", "OK");
+		return true;
 	}
 
 	public void close () {
-		synchronized (this.lock) {
-			if (this.state.stateIs(CONNECTON_STATE.CLOSED)) {
-				Debug.checkTrue(this.connectionDrainer == null);
-				return;
-			}
-			if (this.state.stateIs(CONNECTON_STATE.OPEN)) {
-				Debug.checkTrue(this.connectionDrainer == null);
-				this.state.switchState(CONNECTON_STATE.CLOSED);
-				return;
-			}
-			if (this.state.stateIs(CONNECTON_STATE.LIVE)) {
-				Debug.checkNull(this.connectionDrainer);
-				this.connectionDrainer.retire();
-				this.connectionDrainer = null;
-				this.state.switchState(CONNECTON_STATE.CLOSED);
-				return;
+		this.state.expectState(CONNECTON_STATE.OPEN);
+		this.state.switchState(CONNECTON_STATE.CLOSED);
+		if (this.mysql_connection != null) {
+			try {
+				if (!this.mysql_connection.isClosed()) {
+					this.mysql_connection.close();
+				}
+			} catch (final SQLException e) {
+				e.printStackTrace();
 			}
 		}
+		this.mysql_connection = null;
+	}
+
+	private Connection mysql_connection;
+
+	public Connection getConnection () throws SQLException {
+		return this.mysql_connection;
 	}
 
 	@Override

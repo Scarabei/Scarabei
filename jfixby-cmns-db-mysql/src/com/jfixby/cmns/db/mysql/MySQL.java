@@ -22,7 +22,7 @@ public class MySQL implements DBComponent {
 		this.dbName = config.getDBName();
 		this.useSSL = config.useSSL();
 		this.connectionDrainTime = config.getConnectionDrainTime();
-		this.connection = new MySQLConnection(this.serverName, this.login, this.password, this.dbName, this.useSSL,
+		this.connection = new MySQLConnectionNormall(this.serverName, this.login, this.password, this.dbName, this.useSSL,
 			this.connectionDrainTime);
 
 	}

@@ -18,19 +18,19 @@ public class MySQLConnectionDrainer extends Thread {
 	static long drainerIDs = 0;
 	private Connection mysql_connection;
 	private final Object lock;
-	private final MySQLConnection mySQLConnection;
+	private final MySQLConnectionDrained mySQLConnection;
 
 	private synchronized long drainerIDs () {
 		drainerIDs++;
 		return drainerIDs;
 	}
 
-	public MySQLConnectionDrainer (final MySQLConnection mySQLConnection) {
+	public MySQLConnectionDrainer (final MySQLConnectionDrained mySQLConnection) {
 		this.lock = mySQLConnection.lock;
 		this.mySQLConnection = mySQLConnection;
 		{
 			/** Ugly hack. Should be replaced with readers-writer lock. */
-			this.delta = Math.max(mySQLConnection.connectionDrainTime * 1000L, 1 * MINUTE);
+			this.delta = Math.max(mySQLConnection.connectionDrainTime * 1000L, 0);
 		}
 
 		this.drainerID = this.drainerIDs();
@@ -73,10 +73,12 @@ public class MySQLConnectionDrainer extends Thread {
 				if (currentTime >= this.closeConnectionAt) {
 					L.d("connection drainer done", this);
 					this.dispose();
+					this.mySQLConnection.state.expectState(CONNECTON_STATE.LIVE);
+					this.mySQLConnection.state.switchState(CONNECTON_STATE.OPEN);
 					return;
 				}
 			}
-			Sys.sleep(1000);
+			Sys.sleep(5000);
 		}
 	}
 
@@ -106,6 +108,7 @@ public class MySQLConnectionDrainer extends Thread {
 			}
 		}
 		this.mysql_connection = null;
+
 	}
 
 }
