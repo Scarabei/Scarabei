@@ -11,6 +11,7 @@ public class RedFolderSupportingIndexBuilderParams implements FolderSupportingIn
 	private boolean ignoreHashSum;
 	private boolean noOutput;
 	private boolean debug;
+	private boolean recoursive = true;
 
 	public RedFolderSupportingIndexBuilderParams (
 		final RedFolderSupportingIndexBuilderParams redFolderSupportingIndexBuilderParams) {
@@ -77,6 +78,16 @@ public class RedFolderSupportingIndexBuilderParams implements FolderSupportingIn
 	@Override
 	public boolean noOutput () {
 		return this.noOutput;
+	}
+
+	@Override
+	public void setRecoursive (final boolean recoursive) {
+		this.recoursive = recoursive;
+	}
+
+	@Override
+	public boolean recoursive () {
+		return this.recoursive;
 	}
 
 }

@@ -25,4 +25,8 @@ public interface FolderSupportingIndexBuilderParams {
 
 	boolean noOutput ();
 
+	void setRecoursive (boolean recoursive);
+
+	boolean recoursive ();
+
 }

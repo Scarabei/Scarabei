@@ -62,8 +62,10 @@ public class RedFolderSupportingIndexBuilder {
 						paramsNext.setIgnoreHashSum(params.ignoreHashSum());
 						paramsNext.setDebug(params.getDebug());
 
-						final FolderSupportingIndex sublevel = RedFolderSupportingIndexBuilder.this.rebuild(paramsNext);
-						desc.children.put(entry.name, sublevel);
+						if (params.recoursive()) {
+							final FolderSupportingIndex sublevel = rebuild(paramsNext);
+							desc.children.put(entry.name, sublevel);
+						}
 					}
 				} catch (final IOException e1) {
 					Err.reportError(e1);
