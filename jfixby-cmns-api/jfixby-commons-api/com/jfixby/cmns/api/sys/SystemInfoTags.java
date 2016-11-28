@@ -20,6 +20,7 @@ public class SystemInfoTags {
 			public static final String WIDTH = "desktop.screen.width";
 			public static final String HEIGHT = "desktop.screen.height";
 		}
+
 	}
 
 }

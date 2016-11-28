@@ -33,6 +33,7 @@ import com.jfixby.cmns.api.taskman.TaskManager;
 import com.jfixby.cmns.api.util.JUtils;
 import com.jfixby.red.android.collections.AndroidCollections;
 import com.jfixby.red.android.filesystem.AndroidFileSystem;
+import com.jfixby.red.android.log.AndroidLogger;
 import com.jfixby.red.android.math.AndroidFloatMath;
 import com.jfixby.red.android.memory.AndroidMemoryManager;
 import com.jfixby.red.android.net.http.AndroidHttp;
@@ -47,7 +48,6 @@ import com.jfixby.red.graphs.RedGraphs;
 import com.jfixby.red.image.RedImageProcessing;
 import com.jfixby.red.io.RedIO;
 import com.jfixby.red.java.gc.RedGCFisher;
-import com.jfixby.red.log.SimpleLogger;
 import com.jfixby.red.math.RedAngles;
 import com.jfixby.red.math.RedIntegerMath;
 import com.jfixby.red.math.RedMathTools;
@@ -61,7 +61,7 @@ import com.jfixby.red.util.md5.RSADataSecurityIncMD5;
 public class AndroidSetup {
 
 	public static final void deploy (final AndroidComponent android) {
-		L.installComponent(new SimpleLogger());
+		L.installComponent(new AndroidLogger());
 		JUtils.installComponent(new RedJUtils());
 		Collections.installComponent(new AndroidCollections());
 		FloatMath.installComponent(new AndroidFloatMath());
@@ -94,7 +94,6 @@ public class AndroidSetup {
 		SimpleTriangulator.installComponent(new GdxSimpleTriangulator());
 
 		{
-
 			LocalFileSystem.installComponent(new AndroidFileSystem());
 		}
 

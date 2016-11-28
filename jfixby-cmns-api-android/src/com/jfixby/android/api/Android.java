@@ -67,7 +67,7 @@ public class Android {
 		return invoke().getVersionRelease();
 	}
 
-	public static AppVersion getAppVersion () {
+	public static AndroidAppVersion getAppVersion () {
 		return invoke().getAppVersion();
 	}
 

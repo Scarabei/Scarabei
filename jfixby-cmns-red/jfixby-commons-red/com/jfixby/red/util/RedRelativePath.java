@@ -5,7 +5,6 @@ import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.debug.Debug;
-import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.util.JUtils;
 import com.jfixby.cmns.api.util.path.RelativePath;
 
@@ -169,6 +168,7 @@ class RedRelativePath implements RelativePath {
 			return null;
 		}
 		final String ext = name.substring(index + 1);
+
 		return ext;
 	}
 
@@ -179,8 +179,9 @@ class RedRelativePath implements RelativePath {
 
 	@Override
 	public RelativePath removeStep (final int index) {
-		Err.reportNotImplementedYet();
-		return JUtils.newRelativePath(this.steps().toList().removeElementAt(index));
+		final List<String> newPath = this.steps().toList();
+		newPath.removeElementAt(index);
+		return JUtils.newRelativePath(newPath);
 	}
 
 }

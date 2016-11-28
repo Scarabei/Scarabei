@@ -1,5 +1,5 @@
 
-package com.jfixby.red.filesystem.http.descript;
+package com.jfixby.red.filesystem.fsi;
 
 import java.io.IOException;
 
@@ -9,33 +9,36 @@ import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.file.ChildrenList;
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.FileOutputStream;
+import com.jfixby.cmns.api.file.FolderSupportingIndex;
+import com.jfixby.cmns.api.file.FolderSupportingIndexBuilderParams;
+import com.jfixby.cmns.api.file.FolderSupportingIndexEntry;
 import com.jfixby.cmns.api.java.ByteArray;
 import com.jfixby.cmns.api.json.Json;
 import com.jfixby.cmns.api.json.JsonString;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.red.filesystem.http.fs.HTTPOperator;
 
-public class DescriptorsBuilder {
+public class RedFileDescriptorsBuilder {
 
-	public static HttpFolderDescriptor rebuildDescriptors (final DescriptorsBuilderParams params) throws IOException {
-		final File file = params.file;
+	public FolderSupportingIndex rebuildDescriptors (final FolderSupportingIndexBuilderParams params) throws IOException {
+		final File file = params.getTarget();
 
 		if (!file.isFolder()) {
 			Err.reportError("Is not folder " + file);
 		}
-		if (params.printProcessingFiles) {
+		if (params.getDebug()) {
 			L.d(file);
 		}
 		final ChildrenList children = file.listDirectChildren();
 // children.print("children");
-		final HttpFolderDescriptor desc = new HttpFolderDescriptor();
+		final FolderSupportingIndex desc = new FolderSupportingIndex();
 		Collections.scanCollection(children, new CollectionScanner<File>() {
 			@Override
 			public void scanElement (final File e, final long i) {
-				if (e.getName().startsWith(HttpFolderDescriptor.HTTP_FOLDER_DESCRIPTOR_FILE_NAME)) {
+				if (e.getName().startsWith(FolderSupportingIndex.FILE_NAME)) {
 					return;
 				}
-				final HttpFileEntry entry = new HttpFileEntry();
+				final FolderSupportingIndexEntry entry = new FolderSupportingIndexEntry();
 				try {
 					entry.name = e.getName();
 
@@ -43,22 +46,23 @@ public class DescriptorsBuilder {
 					entry.is_folder = e.isFolder();
 					entry.lastModified = e.lastModified();
 					entry.size = e.getSize();
-					if (!params.ignoreHashSum && e.isFile()) {
+					if (!params.ignoreHashSum() && e.isFile()) {
 						entry.hash = e.calculateHash().getMD5HashHexString();
 					}
 					desc.entries.put(entry.name, entry);
 					if (e.isFolder()) {
-						final DescriptorsBuilderParams paramsNext = new DescriptorsBuilderParams();
-						paramsNext.file = e;
-						if (params.rootOnly) {
-							paramsNext.noOutput = true;
+						final FolderSupportingIndexBuilderParams paramsNext = params.copy();
+						paramsNext.setTarget(e);
+						if (params.rebuidOnlyForRoot()) {
+							paramsNext.setNoOutput(true);
 						} else {
-							paramsNext.noOutput = params.noOutput;
+							paramsNext.setNoOutput(params.noOutput());
+// paramsNext.noOutput = params.noOutput;
 						}
-						paramsNext.ignoreHashSum = params.ignoreHashSum;
-						paramsNext.printProcessingFiles = params.printProcessingFiles;
+						paramsNext.setIgnoreHashSum(params.ignoreHashSum());
+						paramsNext.setDebug(params.getDebug());
 
-						final HttpFolderDescriptor sublevel = rebuildDescriptors(paramsNext);
+						final FolderSupportingIndex sublevel = RedFileDescriptorsBuilder.this.rebuildDescriptors(paramsNext);
 						desc.children.put(entry.name, sublevel);
 					}
 				} catch (final IOException e1) {
@@ -67,10 +71,10 @@ public class DescriptorsBuilder {
 
 			}
 		});
-		if (!params.noOutput) {
-			HttpFolderDescriptor deckCheck = null;
+		if (!params.getDebug()) {
+			FolderSupportingIndex deckCheck = null;
 			{
-				final File desc_file = file.child(HttpFolderDescriptor.HTTP_FOLDER_DESCRIPTOR_FILE_NAME);
+				final File desc_file = file.child(FolderSupportingIndex.FILE_NAME);
 				L.d("writing", desc_file);
 
 				final FileOutputStream os = desc_file.newOutputStream();
@@ -82,7 +86,7 @@ public class DescriptorsBuilder {
 				deckCheck = HTTPOperator.decode(dataCheck);
 			}
 			{
-				final File desc_file_json = file.child(HttpFolderDescriptor.HTTP_FOLDER_DESCRIPTOR_FILE_NAME + ".json");
+				final File desc_file_json = file.child(FolderSupportingIndex.FILE_NAME + ".json");
 				L.d("writing", desc_file_json);
 				final JsonString stringData = Json.serializeToString(desc);
 				final JsonString testStringData = Json.serializeToString(deckCheck);

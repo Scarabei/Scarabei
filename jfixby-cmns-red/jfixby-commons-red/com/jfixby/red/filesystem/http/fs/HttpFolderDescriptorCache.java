@@ -3,18 +3,18 @@ package com.jfixby.red.filesystem.http.fs;
 
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.Map;
+import com.jfixby.cmns.api.file.FolderSupportingIndex;
 import com.jfixby.cmns.api.net.http.HttpURL;
-import com.jfixby.red.filesystem.http.descript.HttpFolderDescriptor;
 
 public class HttpFolderDescriptorCache {
 
 	long max_cache_size = 100;
-	final Map<Object, HttpFolderDescriptor> cache = Collections.newMap();
+	final Map<Object, FolderSupportingIndex> cache = Collections.newMap();
 
-	public HttpFolderDescriptor get (final HttpURL key) {
+	public FolderSupportingIndex get (final HttpURL key) {
 // this.cache.print("key");
 
-		final HttpFolderDescriptor result = this.cache.get(key);
+		final FolderSupportingIndex result = this.cache.get(key);
 		if (result == null) {
 
 		}
@@ -22,7 +22,7 @@ public class HttpFolderDescriptorCache {
 
 	}
 
-	public void put (final HttpURL key, final HttpFolderDescriptor info) {
+	public void put (final HttpURL key, final FolderSupportingIndex info) {
 		this.cache.put(key, info);
 
 		if (this.cache.size() > this.max_cache_size) {

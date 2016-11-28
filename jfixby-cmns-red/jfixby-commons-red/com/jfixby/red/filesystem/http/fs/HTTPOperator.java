@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.debug.DebugTimer;
+import com.jfixby.cmns.api.file.FolderSupportingIndex;
 import com.jfixby.cmns.api.io.Buffer;
 import com.jfixby.cmns.api.io.BufferInputStream;
 import com.jfixby.cmns.api.io.GZipInputStream;
@@ -17,7 +18,6 @@ import com.jfixby.cmns.api.net.http.Http;
 import com.jfixby.cmns.api.net.http.HttpConnection;
 import com.jfixby.cmns.api.net.http.HttpConnectionInputStream;
 import com.jfixby.cmns.api.net.http.HttpURL;
-import com.jfixby.red.filesystem.http.descript.HttpFolderDescriptor;
 
 public class HTTPOperator {
 
@@ -45,14 +45,14 @@ public class HTTPOperator {
 
 	}
 
-	public static void encode (final HttpFolderDescriptor desc, final OutputStream os) throws IOException {
+	public static void encode (final FolderSupportingIndex desc, final OutputStream os) throws IOException {
 		final GZipOutputStream gzip = IO.newGZipStream(os);
 		gzip.open();
 		IO.serialize(desc, gzip);
 		gzip.close();
 	}
 
-	public static HttpFolderDescriptor decode (final ByteArray data) throws IOException {
+	public static FolderSupportingIndex decode (final ByteArray data) throws IOException {
 
 // final String raw_json = JUtils.newString(data);
 // final HttpFolderDescriptor desc = Json.deserializeFromString(HttpFolderDescriptor.class, raw_json);
@@ -62,7 +62,7 @@ public class HTTPOperator {
 		final GZipInputStream gzip = IO.newGZipStream(is);
 		is.open();
 		gzip.open();
-		final HttpFolderDescriptor desc = IO.deserialize(HttpFolderDescriptor.class, gzip);
+		final FolderSupportingIndex desc = IO.deserialize(FolderSupportingIndex.class, gzip);
 		gzip.close();
 		is.close();
 		return desc;

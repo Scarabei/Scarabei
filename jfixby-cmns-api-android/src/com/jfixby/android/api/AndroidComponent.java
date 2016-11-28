@@ -29,7 +29,7 @@ public interface AndroidComponent {
 
 	String getVersionRelease ();
 
-	AppVersion getAppVersion ();
+	AndroidAppVersion getAppVersion ();
 
 	SystemInfo getSystemInfo ();
 

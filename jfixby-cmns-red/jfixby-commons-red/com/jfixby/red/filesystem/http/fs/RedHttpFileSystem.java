@@ -14,6 +14,7 @@ import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.FileInputStream;
 import com.jfixby.cmns.api.file.FileOutputStream;
 import com.jfixby.cmns.api.file.FileSystem;
+import com.jfixby.cmns.api.file.FolderSupportingIndex;
 import com.jfixby.cmns.api.math.IntegerMath;
 import com.jfixby.cmns.api.net.http.Http;
 import com.jfixby.cmns.api.net.http.HttpFileSystem;
@@ -23,7 +24,6 @@ import com.jfixby.cmns.api.util.JUtils;
 import com.jfixby.cmns.api.util.path.AbsolutePath;
 import com.jfixby.cmns.api.util.path.RelativePath;
 import com.jfixby.red.filesystem.AbstractFileSystem;
-import com.jfixby.red.filesystem.http.descript.HttpFolderDescriptor;
 
 public class RedHttpFileSystem extends AbstractFileSystem implements FileSystem, HttpFileSystem {
 
@@ -134,11 +134,11 @@ public class RedHttpFileSystem extends AbstractFileSystem implements FileSystem,
 
 	final HttpFolderDescriptorCache httpFolderDescriptorCache = new HttpFolderDescriptorCache();
 
-	public HttpFolderDescriptor getCachedDescriptor (final HttpURL key) {
+	public FolderSupportingIndex getCachedDescriptor (final HttpURL key) {
 		return this.httpFolderDescriptorCache.get(key);
 	}
 
-	public void caheValue (final HttpURL key, final HttpFolderDescriptor desc) {
+	public void caheValue (final HttpURL key, final FolderSupportingIndex desc) {
 // L.d("cache: " + key, desc);
 		this.httpFolderDescriptorCache.put(key, desc);
 	}

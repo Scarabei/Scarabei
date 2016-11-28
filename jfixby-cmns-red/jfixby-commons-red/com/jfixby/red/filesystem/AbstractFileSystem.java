@@ -14,12 +14,14 @@ import com.jfixby.cmns.api.file.FileInputStream;
 import com.jfixby.cmns.api.file.FileOutputStream;
 import com.jfixby.cmns.api.file.FileSystem;
 import com.jfixby.cmns.api.file.FolderConverter;
+import com.jfixby.cmns.api.file.FolderSupportingIndexBuilderParams;
 import com.jfixby.cmns.api.io.InputStream;
 import com.jfixby.cmns.api.java.ByteArray;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.md5.MD5;
 import com.jfixby.cmns.api.util.JUtils;
 import com.jfixby.cmns.api.util.path.AbsolutePath;
+import com.jfixby.red.filesystem.fsi.RedFolderSupportingIndexBuilderParams;
 
 public abstract class AbstractFileSystem implements FileSystem {
 
@@ -228,5 +230,15 @@ public abstract class AbstractFileSystem implements FileSystem {
 			return true;
 		}
 	};
+
+	@Override
+	public void rebuildFolderSupportingIndexes (final FolderSupportingIndexBuilderParams params) {
+
+	}
+
+	@Override
+	public FolderSupportingIndexBuilderParams newFolderSupportingIndexBuilderParams () {
+		return new RedFolderSupportingIndexBuilderParams();
+	}
 
 }

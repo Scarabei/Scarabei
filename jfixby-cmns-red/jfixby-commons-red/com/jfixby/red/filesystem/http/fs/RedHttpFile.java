@@ -13,6 +13,8 @@ import com.jfixby.cmns.api.file.ChildrenList;
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.FileHash;
 import com.jfixby.cmns.api.file.FileSystem;
+import com.jfixby.cmns.api.file.FolderSupportingIndexEntry;
+import com.jfixby.cmns.api.file.FolderSupportingIndex;
 import com.jfixby.cmns.api.java.ByteArray;
 import com.jfixby.cmns.api.net.http.HttpURL;
 import com.jfixby.cmns.api.util.path.AbsolutePath;
@@ -20,8 +22,6 @@ import com.jfixby.cmns.api.util.path.RelativePath;
 import com.jfixby.red.filesystem.AbstractRedFile;
 import com.jfixby.red.filesystem.FilesList;
 import com.jfixby.red.filesystem.RedFileHash;
-import com.jfixby.red.filesystem.http.descript.HttpFileEntry;
-import com.jfixby.red.filesystem.http.descript.HttpFolderDescriptor;
 
 public class RedHttpFile extends AbstractRedFile implements File {
 
@@ -61,8 +61,8 @@ public class RedHttpFile extends AbstractRedFile implements File {
 		if (this.absolute_path.isRoot()) {
 			return true;
 		}
-		final HttpFolderDescriptor desc = this.parent().readDescriptor();
-		final HttpFileEntry value = desc.entries.get(this.getName());
+		final FolderSupportingIndex desc = this.parent().readDescriptor();
+		final FolderSupportingIndexEntry value = desc.entries.get(this.getName());
 		if (value == null) {
 			return false;
 		}
@@ -74,8 +74,8 @@ public class RedHttpFile extends AbstractRedFile implements File {
 		if (this.absolute_path.isRoot()) {
 			return !true;
 		}
-		final HttpFolderDescriptor desc = this.parent().readDescriptor();
-		final HttpFileEntry value = desc.entries.get(this.getName());
+		final FolderSupportingIndex desc = this.parent().readDescriptor();
+		final FolderSupportingIndexEntry value = desc.entries.get(this.getName());
 		if (value == null) {
 			return false;
 		}
@@ -94,14 +94,14 @@ public class RedHttpFile extends AbstractRedFile implements File {
 		this.checkExists();
 		this.checkIsFolder();
 
-		final HttpFolderDescriptor desc = this.readDescriptor();
+		final FolderSupportingIndex desc = this.readDescriptor();
 
 		final FilesList listFiles = new FilesList();
 // Collections.newMap(desc.entries).print("entries");
 		Collections.scanCollection(desc.entries.keySet(), new CollectionScanner<String>() {
 			@Override
 			public void scanElement (final String key, final long i) {
-				final HttpFileEntry e = desc.entries.get(key);
+				final FolderSupportingIndexEntry e = desc.entries.get(key);
 				final String child_name = e.name;
 				Debug.checkTrue("invalid name: key=" + key + " child_name=" + child_name, key.equals(child_name));
 				{
@@ -114,18 +114,18 @@ public class RedHttpFile extends AbstractRedFile implements File {
 		return listFiles;
 	}
 
-	private HttpFolderDescriptor readDescriptor () throws IOException {
+	private FolderSupportingIndex readDescriptor () throws IOException {
 		final AbsolutePath<FileSystem> path = this.getAbsoluteFilePath()
-			.child(HttpFolderDescriptor.HTTP_FOLDER_DESCRIPTOR_FILE_NAME);
+			.child(FolderSupportingIndex.FILE_NAME);
 
-		final HttpFolderDescriptor desc = this.getDescriptor(path);
+		final FolderSupportingIndex desc = this.getDescriptor(path);
 		return desc;
 	}
 
-	private HttpFolderDescriptor getDescriptor (final AbsolutePath<FileSystem> path) throws IOException {
+	private FolderSupportingIndex getDescriptor (final AbsolutePath<FileSystem> path) throws IOException {
 
 		final HttpURL url = this.fs.getURLFor(path);
-		HttpFolderDescriptor desc = this.fs.getCachedDescriptor(url);
+		FolderSupportingIndex desc = this.fs.getCachedDescriptor(url);
 		if (desc == null) {
 // L.d("not found", url);
 // this.fs.printCache();
@@ -136,9 +136,9 @@ public class RedHttpFile extends AbstractRedFile implements File {
 		return desc;
 	}
 
-	private void caheValue (final AbsolutePath<FileSystem> path, final HttpURL url, final HttpFolderDescriptor desc) {
+	private void caheValue (final AbsolutePath<FileSystem> path, final HttpURL url, final FolderSupportingIndex desc) {
 		Debug.checkNull(desc.children);
-		final Map<String, HttpFolderDescriptor> children = Collections.newMap();
+		final Map<String, FolderSupportingIndex> children = Collections.newMap();
 		children.putJavaMap(desc.children);
 		desc.children.clear();
 		this.fs.caheValue(url, desc);
@@ -149,9 +149,9 @@ public class RedHttpFile extends AbstractRedFile implements File {
 // L.d();
 		for (int i = 0; i < children.size(); i++) {
 			final String key = children.getKeyAt(i);
-			final HttpFolderDescriptor val = children.get(key);
+			final FolderSupportingIndex val = children.get(key);
 			final AbsolutePath<FileSystem> subPath = path.parent().child(key)
-				.child(HttpFolderDescriptor.HTTP_FOLDER_DESCRIPTOR_FILE_NAME);
+				.child(FolderSupportingIndex.FILE_NAME);
 			final HttpURL subUrl = this.fs.getURLFor(subPath);
 			this.caheValue(subPath, subUrl, val);
 // L.d("key", key);
@@ -174,8 +174,8 @@ public class RedHttpFile extends AbstractRedFile implements File {
 		if (this.absolute_path.isRoot()) {
 			return true;
 		}
-		final HttpFolderDescriptor desc = this.parent().readDescriptor();
-		final HttpFileEntry value = desc.entries.get(this.getName());
+		final FolderSupportingIndex desc = this.parent().readDescriptor();
+		final FolderSupportingIndexEntry value = desc.entries.get(this.getName());
 		if (value == null) {
 			return false;
 		}
@@ -221,8 +221,8 @@ public class RedHttpFile extends AbstractRedFile implements File {
 	public long getSize () throws IOException {
 		if (this.isFile()) {
 
-			final HttpFolderDescriptor desc = this.parent().readDescriptor();
-			final HttpFileEntry entry = desc.entries.get(this.getName());
+			final FolderSupportingIndex desc = this.parent().readDescriptor();
+			final FolderSupportingIndexEntry entry = desc.entries.get(this.getName());
 			return entry.size;
 		} else {
 			return 0;
@@ -243,8 +243,8 @@ public class RedHttpFile extends AbstractRedFile implements File {
 	public long lastModified () {
 
 		try {
-			final HttpFolderDescriptor desc = this.parent().readDescriptor();
-			final HttpFileEntry entry = desc.entries.get(this.getName());
+			final FolderSupportingIndex desc = this.parent().readDescriptor();
+			final FolderSupportingIndexEntry entry = desc.entries.get(this.getName());
 			return entry.lastModified;
 		} catch (final IOException e) {
 			e.printStackTrace();
@@ -255,8 +255,8 @@ public class RedHttpFile extends AbstractRedFile implements File {
 
 	@Override
 	public FileHash calculateHash () throws IOException {
-		final HttpFolderDescriptor desc = this.parent().readDescriptor();
-		final HttpFileEntry entry = desc.entries.get(this.getName());
+		final FolderSupportingIndex desc = this.parent().readDescriptor();
+		final FolderSupportingIndexEntry entry = desc.entries.get(this.getName());
 		return new RedFileHash(entry.hash);
 	}
 

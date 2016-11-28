@@ -11,5 +11,4 @@ public class AndroidSystem extends RedSystem {
 	public SystemInfo getSystemInfo () {
 		return Android.getSystemInfo();
 	}
-
 }

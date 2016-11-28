@@ -6,6 +6,13 @@ import java.io.Serializable;
 import com.jfixby.cmns.api.debug.Debug;
 
 public class Version implements Serializable {
+
+	public static class Tags {
+		public static final String VersionName = "app.version.name";
+		public static final String VersionCode = "app.version.code";
+		public static final String PackageName = "app.version.package_name";
+	}
+
 	public static final String VERSION_FILE_NAME = "version.json";
 
 	private static final long serialVersionUID = 6662721574596241247L;

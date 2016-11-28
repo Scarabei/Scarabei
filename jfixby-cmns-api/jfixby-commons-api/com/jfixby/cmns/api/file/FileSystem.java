@@ -52,4 +52,8 @@ public interface FileSystem extends MountPoint {
 	void convertFile (File fileToConvert, File targetFolder, FolderConverter folderConverter, FileConverter fileConverter)
 		throws IOException;
 
+	void rebuildFolderSupportingIndexes (FolderSupportingIndexBuilderParams params);
+
+	FolderSupportingIndexBuilderParams newFolderSupportingIndexBuilderParams ();
+
 }
