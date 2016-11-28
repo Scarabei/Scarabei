@@ -1,49 +1,46 @@
 
 package com.jfixby.red.net;
 
-import java.net.MalformedURLException;
 import java.net.URL;
 
-import com.jfixby.cmns.api.debug.Debug;
-import com.jfixby.cmns.api.err.Err;
-import com.jfixby.cmns.api.net.http.Host;
 import com.jfixby.cmns.api.net.http.HttpURL;
-import com.jfixby.cmns.api.util.JUtils;
-import com.jfixby.cmns.api.util.path.AbsolutePath;
 import com.jfixby.cmns.api.util.path.RelativePath;
 
 public class RedHttpURL implements HttpURL {
 
 	// private final String url_string;
-	private URL java_url;
-	private RelativePath relativeServer;
-	private AbsolutePath<Host> abs;
-	private String rootString;
-	private RedHost host;
-	private String url_string;
+	final private RedHost host;
+	private final String url_string;
+	private final RelativePath relative;
 
-	public RedHttpURL (final String url_string) {
-		Debug.checkEmpty("url_string", url_string);
-		Debug.checkNull("url_string", url_string);
-// this.url_string = url_string;
-		try {
+	public RedHttpURL (final RedHost host, final RelativePath relative) {
+		this.host = host;
+		this.relative = relative;
+		this.url_string = this.toURLString(this);
+	}
 
-			this.java_url = new URL(url_string);
-			this.url_string = this.java_url.toString();
-			this.rootString = getURLRoot(this.java_url);
-			final String path = this.java_url.getPath();
-			this.relativeServer = JUtils.newRelativePath(path);
-			this.host = new RedHost(this.rootString);
-			this.abs = JUtils.newAbsolutePath((Host)this.host, this.relativeServer);
-		} catch (final MalformedURLException e) {
-			e.printStackTrace();
-			Err.reportError(e);
-		}
+	private String toURLString (final RedHttpURL redHttpURL) {
+		final String result = this.host.rootString + RelativePath.SEPARATOR + this.relative;
+		return result;
+	}
 
+	@Override
+	public RelativePath getRelativePath () {
+		return this.relative;
+	}
+
+	@Override
+	public HttpURL child (final String child) {
+		final RelativePath relativeNew = this.relative.child(child);
+		return new RedHttpURL(this.host, relativeNew);
 	}
 
 	public static String getURLRoot (final URL java_url) {
-		return java_url.getProtocol() + "://" + java_url.getHost() + ":" + java_url.getPort();
+		final int port = java_url.getPort();
+		if (port == -1) {
+			return java_url.getProtocol() + "://" + java_url.getHost();
+		}
+		return java_url.getProtocol() + "://" + java_url.getHost() + ":" + port;
 	}
 
 	@Override
@@ -56,45 +53,45 @@ public class RedHttpURL implements HttpURL {
 		return this.url_string;
 	}
 
-	@Override
-	public Host getMountPoint () {
-		return this.host;
-	}
-
-	@Override
-	public RelativePath getRelativePath () {
-		return this.abs.getRelativePath();
-	}
-
-	@Override
-	public AbsolutePath<Host> child (final String child_name) {
-		return this.abs.child(child_name);
-	}
-
-	@Override
-	public AbsolutePath<Host> parent () {
-		return this.abs.parent();
-	}
-
-	@Override
-	public AbsolutePath<Host> proceed (final RelativePath relative) {
-		return this.abs.proceed(relative);
-	}
-
-	@Override
-	public String getName () {
-		return this.abs.getName();
-	}
-
-	@Override
-	public boolean isRoot () {
-		return this.abs.isRoot();
-	}
-
-	@Override
-	public boolean beginsWith (final AbsolutePath<? extends Host> rootPath) {
-		return this.abs.beginsWith(rootPath);
-	}
+// @Override
+// public Host getMountPoint () {
+// return this.host;
+// }
+//
+// @Override
+// public RelativePath getRelativePath () {
+// return this.abs.getRelativePath();
+// }
+//
+// @Override
+// public AbsolutePath<Host> child (final String child_name) {
+// return this.abs.child(child_name);
+// }
+//
+// @Override
+// public AbsolutePath<Host> parent () {
+// return this.abs.parent();
+// }
+//
+// @Override
+// public AbsolutePath<Host> proceed (final RelativePath relative) {
+// return this.abs.proceed(relative);
+// }
+//
+// @Override
+// public String getName () {
+// return this.abs.getName();
+// }
+//
+// @Override
+// public boolean isRoot () {
+// return this.abs.isRoot();
+// }
+//
+// @Override
+// public boolean beginsWith (final AbsolutePath<? extends Host> rootPath) {
+// return this.abs.beginsWith(rootPath);
+// }
 
 	@Override
 	public int hashCode () {

@@ -21,7 +21,6 @@ import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.md5.MD5;
 import com.jfixby.cmns.api.util.JUtils;
 import com.jfixby.cmns.api.util.path.AbsolutePath;
-import com.jfixby.red.filesystem.fsi.RedFolderSupportingIndexBuilderParams;
 
 public abstract class AbstractFileSystem implements FileSystem {
 
@@ -232,8 +231,8 @@ public abstract class AbstractFileSystem implements FileSystem {
 	};
 
 	@Override
-	public void rebuildFolderSupportingIndexes (final FolderSupportingIndexBuilderParams params) {
-
+	public void rebuildFolderSupportingIndexes (final FolderSupportingIndexBuilderParams params) throws IOException {
+		RedFolderSupportingIndexBuilder.rebuild(params);
 	}
 
 	@Override

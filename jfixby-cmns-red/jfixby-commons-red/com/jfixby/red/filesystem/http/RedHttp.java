@@ -1,6 +1,11 @@
 
 package com.jfixby.red.filesystem.http;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import com.jfixby.cmns.api.debug.Debug;
+import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.net.http.HttpCall;
 import com.jfixby.cmns.api.net.http.HttpCallExecutor;
 import com.jfixby.cmns.api.net.http.HttpCallParams;
@@ -10,15 +15,30 @@ import com.jfixby.cmns.api.net.http.HttpConnectionSpecs;
 import com.jfixby.cmns.api.net.http.HttpFileSystem;
 import com.jfixby.cmns.api.net.http.HttpFileSystemSpecs;
 import com.jfixby.cmns.api.net.http.HttpURL;
+import com.jfixby.cmns.api.util.JUtils;
+import com.jfixby.cmns.api.util.path.RelativePath;
 import com.jfixby.red.filesystem.http.fs.RedHttpFileSystem;
 import com.jfixby.red.filesystem.http.fs.RedHttpFileSystemSpecs;
+import com.jfixby.red.net.RedHost;
 import com.jfixby.red.net.RedHttpURL;
 
 public abstract class RedHttp implements HttpComponent {
 
 	@Override
-	public HttpURL newURL (final String url_string) {
-		return new RedHttpURL(url_string);
+	public HttpURL newURL (String url_string) {
+		Debug.checkEmpty("url_string", url_string);
+		Debug.checkNull("url_string", url_string);
+		try {
+			final URL java_url = new URL(url_string);
+			url_string = java_url.toString();
+			final RelativePath relative = JUtils.newRelativePath(java_url.getPath());
+			final RedHost host = new RedHost(RedHttpURL.getURLRoot(java_url));
+			return new RedHttpURL(host, relative);
+		} catch (final MalformedURLException e) {
+			e.printStackTrace();
+			Err.reportError(e);
+		}
+		return null;
 	}
 
 	@Override

@@ -1,5 +1,5 @@
 
-package com.jfixby.red.filesystem.fsi;
+package com.jfixby.red.filesystem;
 
 import java.io.IOException;
 
@@ -18,9 +18,9 @@ import com.jfixby.cmns.api.json.JsonString;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.red.filesystem.http.fs.HTTPOperator;
 
-public class RedFileDescriptorsBuilder {
+public class RedFolderSupportingIndexBuilder {
 
-	public FolderSupportingIndex rebuildDescriptors (final FolderSupportingIndexBuilderParams params) throws IOException {
+	static public FolderSupportingIndex rebuild (final FolderSupportingIndexBuilderParams params) throws IOException {
 		final File file = params.getTarget();
 
 		if (!file.isFolder()) {
@@ -62,7 +62,7 @@ public class RedFileDescriptorsBuilder {
 						paramsNext.setIgnoreHashSum(params.ignoreHashSum());
 						paramsNext.setDebug(params.getDebug());
 
-						final FolderSupportingIndex sublevel = RedFileDescriptorsBuilder.this.rebuildDescriptors(paramsNext);
+						final FolderSupportingIndex sublevel = RedFolderSupportingIndexBuilder.this.rebuild(paramsNext);
 						desc.children.put(entry.name, sublevel);
 					}
 				} catch (final IOException e1) {
@@ -71,7 +71,7 @@ public class RedFileDescriptorsBuilder {
 
 			}
 		});
-		if (!params.getDebug()) {
+		if (!params.noOutput()) {
 			FolderSupportingIndex deckCheck = null;
 			{
 				final File desc_file = file.child(FolderSupportingIndex.FILE_NAME);

@@ -54,4 +54,5 @@ public class Http {
 	public static HttpFileSystem newHttpFileSystem (final HttpFileSystemSpecs specs) {
 		return invoke().newHttpFileSystem(specs);
 	}
+
 }

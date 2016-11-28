@@ -1,5 +1,5 @@
 
-package com.jfixby.red.filesystem.fsi;
+package com.jfixby.red.filesystem;
 
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.FolderSupportingIndexBuilderParams;
