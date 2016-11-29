@@ -22,14 +22,16 @@ public class MySQLTableSchema {
 
 	void load () throws SQLException {
 		// --- LISTING DATABASE COLUMN NAMES ---
-		final Connection connection = this.mySQLTable.connection();
-		final DatabaseMetaData meta = connection.getMetaData();
+		final MySQLConnection connection = this.mySQLTable.db.obtainConnection();
+		final Connection mysql_connection = connection.getConnection();
+		final DatabaseMetaData meta = mysql_connection.getMetaData();
 		final ResultSet resultSet = meta.getColumns(this.mySQLTable.db.getDBName(), null, this.mySQLTable.sql_table_name, "%");
 		while (resultSet.next()) {
 			this.columns.add(resultSet.getString(4));
 // log.info("Column Name of table " + tableName + " = " + );
 		}
 		this.loaded = true;
+		this.mySQLTable.db.releaseConnection(connection);
 	}
 
 	public Collection<String> getColumns () throws SQLException {
