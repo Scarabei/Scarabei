@@ -1,12 +1,19 @@
 
 package com.jfixby.cmns.api.lang;
 
+import java.util.Arrays;
+
 import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.java.ByteArray;
 
 public class RedByteArray implements ByteArray {
 
 	final private byte[] bytes;
+
+	@Override
+	public String toString () {
+		return "ByteArray(" + this.bytes.length + ") " + Arrays.toString(this.bytes) + "";
+	}
 
 	public RedByteArray (final byte[] bytes) {
 		Debug.checkNull("bytes", bytes);

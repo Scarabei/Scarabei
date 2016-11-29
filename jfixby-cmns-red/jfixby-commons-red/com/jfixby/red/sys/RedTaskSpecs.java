@@ -1,36 +1,50 @@
+
 package com.jfixby.red.sys;
 
 import com.jfixby.cmns.api.collections.Collection;
+import com.jfixby.cmns.api.collections.Collections;
+import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.taskman.Job;
 import com.jfixby.cmns.api.taskman.TaskSpecs;
 
 public class RedTaskSpecs implements TaskSpecs {
+	final List<Job> jobs = Collections.newList();
+	private boolean runInSeparatedThread = false;
+	private String name;
 
 	@Override
-	public void setName (String string) {
+	public void setName (final String string) {
+		this.name = string;
 	}
 
 	@Override
 	public String getName () {
-		return null;
+		return this.name;
 	}
 
 	@Override
-	public void setRunInSeparatedThread (boolean runInSeparatedThread) {
+	public void setRunInSeparatedThread (final boolean runInSeparatedThread) {
+		this.runInSeparatedThread = runInSeparatedThread;
 	}
 
 	@Override
 	public boolean runInSeparatedThread () {
-		return false;
+		return this.runInSeparatedThread;
 	}
 
 	@Override
-	public void addJobs (Iterable<Job> jobs) {
+	public void addJobs (final Iterable<Job> jobs) {
+		this.jobs.addAll(jobs);
 	}
 
 	@Override
 	public Collection<Job> listJobs () {
-		return null;
+		return this.jobs;
+	}
+
+	@Override
+	public void addJob (final Job job) {
+		this.jobs.add(job);
 	}
 
 }

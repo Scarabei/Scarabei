@@ -44,6 +44,8 @@ public abstract class MySQLConnection {
 		dataSource.setServerName(this.serverName);
 		dataSource.setUseSSL(this.useSSL);
 		dataSource.setDatabaseName(this.dbName);
+		dataSource.setAutoReconnect(true);
+
 		this.mysql_connection = dataSource.getConnection();
 		L.d("connecting", "OK");
 		return true;

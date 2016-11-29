@@ -17,4 +17,6 @@ public interface TaskSpecs {
 
 	Collection<Job> listJobs ();
 
+	void addJob (Job job);
+
 }
