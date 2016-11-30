@@ -13,5 +13,5 @@ public interface ErrorComponent {
 
 	void reportNotImplementedYet ();
 
-	void reportGCLeak (String msg);
+	void reportGCLeak (String msg, Object leakingObject);
 }

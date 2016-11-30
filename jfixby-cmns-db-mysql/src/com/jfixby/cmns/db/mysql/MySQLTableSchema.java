@@ -1,6 +1,7 @@
 
 package com.jfixby.cmns.db.mysql;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
@@ -20,26 +21,33 @@ public class MySQLTableSchema {
 		this.mySQLTable = mySQLTable;
 	}
 
-	void load () {
+	void load () throws IOException {
 		// --- LISTING DATABASE COLUMN NAMES ---
 		final MySQLConnection connection = this.mySQLTable.db.obtainConnection();
-		final Connection mysql_connection = connection.getConnection();
-		final DatabaseMetaData meta = mysql_connection.getMetaData();
-		final ResultSet resultSet = meta.getColumns(this.mySQLTable.db.getDBName(), null, this.mySQLTable.sql_table_name, "%");
-		while (resultSet.next()) {
-			this.columns.add(resultSet.getString(4));
+		try {
+			final Connection mysql_connection = connection.getConnection();
+			final DatabaseMetaData meta = mysql_connection.getMetaData();
+			final ResultSet resultSet = meta.getColumns(this.mySQLTable.db.getDBName(), null, this.mySQLTable.sql_table_name, "%");
+			while (resultSet.next()) {
+				this.columns.add(resultSet.getString(4));
 // log.info("Column Name of table " + tableName + " = " + );
+			}
+			this.loaded = true;
+
+		} catch (final SQLException e) {
+			e.printStackTrace();
+			throw new IOException(e);
+		} finally {
+			this.mySQLTable.db.releaseConnection(connection);
 		}
-		this.loaded = true;
-		this.mySQLTable.db.releaseConnection(connection);
 	}
 
-	public Collection<String> getColumns () {
+	public Collection<String> getColumns () throws IOException {
 		this.loadIfNotLoaded();
 		return this.columns;
 	}
 
-	public MySQLTableSchema loadIfNotLoaded () {
+	public MySQLTableSchema loadIfNotLoaded () throws IOException {
 		if (this.loaded) {
 			return this;
 		}
@@ -55,7 +63,6 @@ public class MySQLTableSchema {
 		final int result = this.columns.indexOf(key);
 		if (result == -1) {
 			this.print();
-			throw new SQLException("key not found " + key);
 		}
 		return result;
 	}

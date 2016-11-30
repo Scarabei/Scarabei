@@ -122,7 +122,7 @@ public class AbstractRedInputStream<T extends JavaInputStreamOperator> implement
 		if (this.state.currentState() != STREAM_STATE.CLOSED) {
 			final String msg = "Stream leak detected: " + this + " state=" + this.state;
 			System.err.println(msg);
-			Err.reportGCLeak(msg);
+			Err.reportGCLeak(msg, this);
 			this.close();
 		}
 	}

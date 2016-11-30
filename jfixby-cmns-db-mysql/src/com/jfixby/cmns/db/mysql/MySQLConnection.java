@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 import com.jfixby.cmns.api.debug.Debug;
+import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.log.L;
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
@@ -56,6 +57,14 @@ public class MySQLConnection {
 	@Override
 	public String toString () {
 		return "MySQLConnection[" + this.dataSource + "]";
+	}
+
+	@Override
+	protected void finalize () throws Throwable {
+		super.finalize();
+		if (this.mysql_connection != null) {
+			Err.reportGCLeak("MySQLConnection is not released", this);
+		}
 	}
 
 }

@@ -47,8 +47,8 @@ public class Err {
 		invoke().reportNotImplementedYet();
 	}
 
-	public static void reportGCLeak (final String msg) {
-		invoke().reportGCLeak(msg);
+	public static void reportGCLeak (final String msg, final Object leakingObject) {
+		invoke().reportGCLeak(msg, leakingObject);
 	}
 
 }

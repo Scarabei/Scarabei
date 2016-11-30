@@ -29,8 +29,8 @@ public class DefaultErrorComponent implements ErrorComponent {
 	}
 
 	@Override
-	public void reportGCLeak (final String msg) {
-		System.err.println(msg);
+	public void reportGCLeak (final String msg, final Object leakingObject) {
+		System.err.println(msg + " > " + leakingObject);
 	}
 
 }

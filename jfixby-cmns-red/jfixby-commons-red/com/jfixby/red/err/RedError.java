@@ -15,8 +15,8 @@ public class RedError implements ErrorComponent {
 	}
 
 	@Override
-	public void reportGCLeak (final String message) {
-		L.e(message);
+	public void reportGCLeak (final String message, final Object leakingObject) {
+		L.e(message, leakingObject);
 	}
 
 	@Override

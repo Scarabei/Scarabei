@@ -1,6 +1,8 @@
 
 package com.jfixby.cmns.db.mysql;
 
+import java.io.IOException;
+
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.Map;
 
@@ -17,7 +19,7 @@ public class MySQLEntry {
 		return "" + this.values + "";
 	}
 
-	public void set (final MySQLTableSchema schema, final int keyIndex, final String value) {
+	public void set (final MySQLTableSchema schema, final int keyIndex, final String value) throws IOException {
 		final String key = schema.getColumns().getElementAt(keyIndex);
 		this.set(key, value);
 	}
