@@ -63,4 +63,12 @@ public class Logger {
 		return invoke().toString(doubles);
 	}
 
+	public static String stackTraceToString (final Throwable e) {
+		return invoke().stackTraceToString(e);
+	}
+
+	public static String throwableToString (final Throwable e) {
+		return invoke().throwableToString(e);
+	}
+
 }

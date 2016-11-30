@@ -21,4 +21,8 @@ public interface LoggerComponent {
 
 	public String toString (Object[] array);
 
+	String stackTraceToString (Throwable e);
+
+	String throwableToString (Throwable aThrowable);
+
 }

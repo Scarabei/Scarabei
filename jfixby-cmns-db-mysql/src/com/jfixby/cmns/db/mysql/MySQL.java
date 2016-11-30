@@ -1,6 +1,9 @@
 
 package com.jfixby.cmns.db.mysql;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+
 import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.db.api.DBComponent;
@@ -42,13 +45,34 @@ public class MySQL implements DBComponent {
 	}
 
 	public MySQLConnection obtainConnection () {
-		final MySQLConnection connection = new MySQLConnection(this.dataSource);
+		final MySQLConnection connection = new MySQLConnection(this);
 		connection.open();
 		return connection;
 	}
 
 	public void releaseConnection (final MySQLConnection connection) {
 		connection.close();
+	}
+
+	synchronized Connection open () throws SQLException {
+		return this.dataSource.getConnection();
+	}
+
+	public String getUrl () {
+		return this.dataSource.getURL();
+	}
+
+	synchronized void close (final Connection mysql_connection) {
+		if (mysql_connection != null) {
+			try {
+				if (!mysql_connection.isClosed()) {
+					L.d("close connection", mysql_connection);
+					mysql_connection.close();
+				}
+			} catch (final SQLException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 }

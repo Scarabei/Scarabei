@@ -1,7 +1,7 @@
 
 package com.jfixby.red.collections;
 
-import com.jfixby.cmns.api.java.IntValue;
+import com.jfixby.cmns.api.java.Int;
 import com.jfixby.cmns.api.math.FloatMath;
 
 public class RedHistogrammValue {
@@ -32,7 +32,7 @@ public class RedHistogrammValue {
 		if (this == obj) return true;
 		if (obj == null) return false;
 		if (getClass() != obj.getClass()) return false;
-		IntValue other = (IntValue)obj;
+		Int other = (Int)obj;
 		if (value != other.value) return false;
 		return true;
 	}

@@ -1,6 +1,9 @@
 
 package com.jfixby.red.log;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.util.Arrays;
 import java.util.Iterator;
 
@@ -188,5 +191,27 @@ public abstract class AbstractLogger implements LoggerComponent {
 	@Override
 	public void d_addChars (final Object msg) {
 		this.System_out_print(msg);
+	}
+
+	public final static String SEPARATOR = System.getProperty("line.separator");
+
+	@Override
+	public String stackTraceToString (final Throwable e) {
+		// final StackTraceElement[] arr = e.getStackTrace();
+		final StringBuilder report = new StringBuilder();
+		report.append(this.throwableToString(e)).append(SEPARATOR);
+		final Throwable cause = e.getCause();
+		if (cause != null) {
+			report.append(this.throwableToString(cause));
+		}
+		return report.toString();
+	}
+
+	@Override
+	public String throwableToString (final Throwable aThrowable) {
+		final Writer result = new StringWriter();
+		final PrintWriter printWriter = new PrintWriter(result);
+		aThrowable.printStackTrace(printWriter);
+		return result.toString();
 	}
 }

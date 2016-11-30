@@ -5,6 +5,7 @@ import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.jfixby.cmns.api.collections.EditableCollection;
 import com.jfixby.cmns.api.collections.Map;
+import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.log.LoggerComponent;
 import com.jfixby.cmns.api.util.JUtils;
 
@@ -194,6 +195,18 @@ public class GdxLogger implements LoggerComponent {
 	@Override
 	public String toString (final Object[] array) {
 		return this.arrayToString(0, array);
+	}
+
+	@Override
+	public String stackTraceToString (final Throwable e) {
+		Err.reportNotImplementedYet();
+		return null;
+	}
+
+	@Override
+	public String throwableToString (final Throwable aThrowable) {
+		Err.reportNotImplementedYet();
+		return null;
 	}
 
 }

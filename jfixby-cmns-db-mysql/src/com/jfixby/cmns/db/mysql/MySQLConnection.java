@@ -8,20 +8,19 @@ import java.sql.SQLException;
 import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.log.L;
-import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
 public class MySQLConnection {
 
 	private SQLException e;
-	private final MysqlDataSource dataSource;
+	private final MySQL mySQL;
 
-	public MySQLConnection (final MysqlDataSource dataSource) {
-		this.dataSource = dataSource;
+	public MySQLConnection (final MySQL mySQL) {
+		this.mySQL = mySQL;
 	}
 
 	public boolean open () {
 		try {
-			this.mysql_connection = this.dataSource.getConnection();
+			this.mysql_connection = this.mySQL.open();
 			L.d("open connection", this);
 			return true;
 		} catch (final SQLException e) {
@@ -34,16 +33,7 @@ public class MySQLConnection {
 
 	public void close () {
 
-		if (this.mysql_connection != null) {
-			try {
-				if (!this.mysql_connection.isClosed()) {
-					L.d("close connection", this.mysql_connection);
-					this.mysql_connection.close();
-				}
-			} catch (final SQLException e) {
-				e.printStackTrace();
-			}
-		}
+		this.mySQL.close(this.mysql_connection);
 		this.mysql_connection = null;
 	}
 
@@ -59,7 +49,7 @@ public class MySQLConnection {
 
 	@Override
 	public String toString () {
-		return "MySQLConnection[" + this.dataSource.getUrl() + " : " + this.dataSource.getURL() + "]";
+		return "MySQLConnection[" + this.mySQL.getUrl() + "]";
 	}
 
 	@Override
