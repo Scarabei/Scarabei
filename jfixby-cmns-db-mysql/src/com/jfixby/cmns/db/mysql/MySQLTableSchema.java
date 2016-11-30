@@ -20,7 +20,7 @@ public class MySQLTableSchema {
 		this.mySQLTable = mySQLTable;
 	}
 
-	void load () throws SQLException {
+	void load () {
 		// --- LISTING DATABASE COLUMN NAMES ---
 		final MySQLConnection connection = this.mySQLTable.db.obtainConnection();
 		final Connection mysql_connection = connection.getConnection();
@@ -34,12 +34,12 @@ public class MySQLTableSchema {
 		this.mySQLTable.db.releaseConnection(connection);
 	}
 
-	public Collection<String> getColumns () throws SQLException {
+	public Collection<String> getColumns () {
 		this.loadIfNotLoaded();
 		return this.columns;
 	}
 
-	public MySQLTableSchema loadIfNotLoaded () throws SQLException {
+	public MySQLTableSchema loadIfNotLoaded () {
 		if (this.loaded) {
 			return this;
 		}
@@ -51,7 +51,7 @@ public class MySQLTableSchema {
 		this.columns.print("schema");
 	}
 
-	public int indexOf (final String key) throws SQLException {
+	public int indexOf (final String key) {
 		final int result = this.columns.indexOf(key);
 		if (result == -1) {
 			this.print();

@@ -4,7 +4,6 @@ package com.jfixby.cmns.db.mysql;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 
 import com.jfixby.cmns.api.collections.Collection;
@@ -26,7 +25,7 @@ public class MySQLTable {
 
 	}
 
-	public List<MySQLEntry> listAll () throws SQLException {
+	public List<MySQLEntry> listAll () {
 		final MySQLConnection connection = this.db.obtainConnection();
 
 		final Connection mysql_connection = connection.getConnection();
@@ -39,7 +38,7 @@ public class MySQLTable {
 		return resultList;
 	}
 
-	private List<MySQLEntry> collectResult (final ResultSet result) throws SQLException {
+	private List<MySQLEntry> collectResult (final ResultSet result) {
 		final List<MySQLEntry> entries = Collections.newList();
 
 		while (result.next()) {
@@ -50,7 +49,7 @@ public class MySQLTable {
 		return entries;
 	}
 
-	private MySQLEntry readEntry (final ResultSet result, final MySQLTableSchema schema) throws SQLException {
+	private MySQLEntry readEntry (final ResultSet result, final MySQLTableSchema schema) {
 		final MySQLEntry entry = new MySQLEntry();
 		final int N = schema.getColumns().size();
 		for (int i = 0; i < N; i++) {
@@ -65,12 +64,12 @@ public class MySQLTable {
 		return new MySQLEntry();
 	}
 
-	public MySQLTableSchema getSchema () throws SQLException {
+	public MySQLTableSchema getSchema () {
 		return this.schema.loadIfNotLoaded();
 	}
 
 	private String paramString (final MySQLEntry entry, final List<String> keys, final String bracketLeft,
-		final String bracketRight) throws SQLException {
+		final String bracketRight) {
 		this.schema.loadIfNotLoaded();
 		final Collection<String> colums = this.schema.getColumns();
 
@@ -86,7 +85,7 @@ public class MySQLTable {
 		return schemaString + " VALUES " + JUtils.wrapSequence( (i) -> "?", keys.size(), "(", ")");
 	}
 
-	public Collection<MySQLEntry> findEntries (final String key, final String value) throws SQLException {
+	public Collection<MySQLEntry> findEntries (final String key, final String value) {
 		Debug.checkNull("key", key);
 		Debug.checkNull("value", value);
 
@@ -104,7 +103,7 @@ public class MySQLTable {
 		return res;
 	}
 
-	public void clear () throws SQLException {
+	public void clear () {
 		L.d("clear sql table", this.sql_table_name);
 		final String request = "TRUNCATE " + this.sql_table_name;
 		final MySQLConnection connection = this.db.obtainConnection();
@@ -115,7 +114,7 @@ public class MySQLTable {
 		this.db.releaseConnection(connection);
 	}
 
-	public void replaceEntries (final List<MySQLEntry> batch) throws SQLException {
+	public void replaceEntries (final List<MySQLEntry> batch) {
 		if (batch.size() == 0) {
 			return;
 		}
@@ -139,7 +138,7 @@ public class MySQLTable {
 		this.db.releaseConnection(connection);
 	}
 
-	public void addEntries (final Collection<MySQLEntry> batch) throws SQLException {
+	public void addEntries (final Collection<MySQLEntry> batch) {
 		if (batch.size() == 0) {
 			return;
 		}
@@ -164,7 +163,7 @@ public class MySQLTable {
 		this.db.releaseConnection(connection);
 	}
 
-	public void addEntry (final MySQLEntry entry) throws SQLException {
+	public void addEntry (final MySQLEntry entry) {
 
 		final String table_name = this.sql_table_name;
 		final List<String> keys = Collections.newList();

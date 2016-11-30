@@ -20,7 +20,7 @@ public class MySQLConnection {
 	public void open () {
 		try {
 			this.mysql_connection = this.dataSource.getConnection();
-			L.d("connecting", "OK");
+			L.d("open connection", this.mysql_connection);
 		} catch (final SQLException e) {
 			this.e = e;
 			this.mysql_connection = null;
@@ -29,9 +29,11 @@ public class MySQLConnection {
 	}
 
 	public void close () {
+
 		if (this.mysql_connection != null) {
 			try {
 				if (!this.mysql_connection.isClosed()) {
+					L.d("close connection", this.mysql_connection);
 					this.mysql_connection.close();
 				}
 			} catch (final SQLException e) {
