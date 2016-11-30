@@ -1,6 +1,7 @@
 
 package com.jfixby.cmns.db.mysql;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -18,13 +19,15 @@ public class MySQLConnection {
 		this.dataSource = dataSource;
 	}
 
-	public void open () {
+	public boolean open () {
 		try {
 			this.mysql_connection = this.dataSource.getConnection();
-			L.d("open connection", this.mysql_connection);
+			L.d("open connection", this);
+			return true;
 		} catch (final SQLException e) {
 			this.e = e;
 			this.mysql_connection = null;
+			return false;
 		}
 
 	}
@@ -56,7 +59,7 @@ public class MySQLConnection {
 
 	@Override
 	public String toString () {
-		return "MySQLConnection[" + this.dataSource + "]";
+		return "MySQLConnection[" + this.dataSource.getUrl() + " : " + this.dataSource.getURL() + "]";
 	}
 
 	@Override
@@ -65,6 +68,13 @@ public class MySQLConnection {
 		if (this.mysql_connection != null) {
 			Err.reportGCLeak("MySQLConnection is not released", this);
 		}
+	}
+
+	public boolean checkIsOpen () throws IOException {
+		if (this.mysql_connection != null) {
+			return true;
+		}
+		throw new IOException("Failed to connect " + this);
 	}
 
 }

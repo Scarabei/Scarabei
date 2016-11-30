@@ -24,6 +24,7 @@ public class MySQLTableSchema {
 	void load () throws IOException {
 		// --- LISTING DATABASE COLUMN NAMES ---
 		final MySQLConnection connection = this.mySQLTable.db.obtainConnection();
+		connection.checkIsOpen();
 		try {
 			final Connection mysql_connection = connection.getConnection();
 			final DatabaseMetaData meta = mysql_connection.getMetaData();

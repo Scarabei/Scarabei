@@ -29,6 +29,7 @@ public class MySQLTable {
 
 	public List<MySQLEntry> listAll () throws IOException {
 		final MySQLConnection connection = this.db.obtainConnection();
+		connection.checkIsOpen();
 
 		try {
 			final Connection mysql_connection = connection.getConnection();
@@ -102,6 +103,7 @@ public class MySQLTable {
 		Debug.checkNull("value", value);
 
 		final MySQLConnection connection = this.db.obtainConnection();
+		connection.checkIsOpen();
 		try {
 			final Connection mysql_connection = connection.getConnection();
 
@@ -125,6 +127,7 @@ public class MySQLTable {
 		L.d("clear sql table", this.sql_table_name);
 		final String request = "TRUNCATE " + this.sql_table_name;
 		final MySQLConnection connection = this.db.obtainConnection();
+		connection.checkIsOpen();
 		try {
 			final Connection mysql_connection = connection.getConnection();
 			final PreparedStatement statement = mysql_connection.prepareStatement(request);
@@ -147,6 +150,7 @@ public class MySQLTable {
 		final List<String> keys = Collections.newList();
 		final String stm = "REPLACE " + table_name + " " + this.paramString(entry0, keys, "(", ")");
 		final MySQLConnection connection = this.db.obtainConnection();
+		connection.checkIsOpen();
 		try {
 			final Connection mysql_connection = connection.getConnection();
 			final PreparedStatement statement = mysql_connection.prepareStatement(stm);
@@ -177,6 +181,7 @@ public class MySQLTable {
 		final List<String> keys = Collections.newList();
 		final String stm = "INSERT INTO " + table_name + " " + this.paramString(entry0, keys, "(", ")");
 		final MySQLConnection connection = this.db.obtainConnection();
+		connection.checkIsOpen();
 		try {
 			final Connection mysql_connection = connection.getConnection();
 
@@ -205,6 +210,7 @@ public class MySQLTable {
 		final List<String> keys = Collections.newList();
 		final String stm = "INSERT INTO " + table_name + " " + this.paramString(entry, keys, "(", ")");
 		final MySQLConnection connection = this.db.obtainConnection();
+		connection.checkIsOpen();
 		try {
 			final Connection mysql_connection = connection.getConnection();
 
