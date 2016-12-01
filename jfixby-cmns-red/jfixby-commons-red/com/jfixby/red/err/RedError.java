@@ -53,4 +53,14 @@ public class RedError implements ErrorComponent {
 		this.reportError(new NotImplementedYetException());
 	}
 
+	@Override
+	public void reportError (final Thread t, final Throwable e) {
+		if (SystemSettings.executionModeCovers(ExecutionMode.EARLY_DEVELOPMENT)) {
+			throw new Error("Thread error: " + t, e);
+		} else {
+			L.e(e);
+			e.printStackTrace();
+		}
+	}
+
 }

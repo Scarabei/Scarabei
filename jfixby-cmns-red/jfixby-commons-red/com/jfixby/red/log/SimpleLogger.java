@@ -1,6 +1,10 @@
 
 package com.jfixby.red.log;
 
+import java.io.PrintStream;
+
+import com.jfixby.cmns.api.log.MESSAGE_MARKER;
+
 public class SimpleLogger extends AbstractLogger {
 	@Override
 	public String arrayToString (final int indent, final Object[] array) {
@@ -30,32 +34,55 @@ public class SimpleLogger extends AbstractLogger {
 	}
 
 	@Override
-	public void System_err_println (final Object string) {
-		System.err.println(string);
+	public void logLine (final MESSAGE_MARKER marker, final Object string) {
+		PrintStream stream = System.out;
+		if (marker == MESSAGE_MARKER.NORMAL) {
+			stream = System.out;
+		}
+		if (marker == MESSAGE_MARKER.ERROR) {
+			stream = System.err;
+		}
+		stream.println(string);
 	}
 
 	@Override
-	public void System_out_println (final Object string) {
-		System.out.println(string);
-	}
-
-	@Override
-	public void System_err_println () {
-		System.err.println();
-	}
-
-	@Override
-	public void System_out_println () {
-		System.out.println();
-	}
-
-	@Override
-	public void System_out_print (final Object string) {
-		System.out.print(string);
+	public void logAppend (final MESSAGE_MARKER marker, final Object string) {
+		PrintStream stream = System.out;
+		if (marker == MESSAGE_MARKER.NORMAL) {
+			stream = System.out;
+		}
+		if (marker == MESSAGE_MARKER.ERROR) {
+			stream = System.err;
+		}
+		stream.print(string);
 	}
 
 	@Override
 	public String toString (final Object[] array) {
 		return this.arrayToString(0, array);
+	}
+
+	@Override
+	public void logLine (final MESSAGE_MARKER marker) {
+		PrintStream stream = System.out;
+		if (marker == MESSAGE_MARKER.NORMAL) {
+			stream = System.out;
+		}
+		if (marker == MESSAGE_MARKER.ERROR) {
+			stream = System.err;
+		}
+		stream.println();
+	}
+
+	@Override
+	public void logAppend (final MESSAGE_MARKER marker) {
+		PrintStream stream = System.out;
+		if (marker == MESSAGE_MARKER.NORMAL) {
+			stream = System.out;
+		}
+		if (marker == MESSAGE_MARKER.ERROR) {
+			stream = System.err;
+		}
+		stream.println();
 	}
 }

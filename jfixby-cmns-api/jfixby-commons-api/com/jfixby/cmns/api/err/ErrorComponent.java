@@ -14,4 +14,6 @@ public interface ErrorComponent {
 	void reportNotImplementedYet ();
 
 	void reportGCLeak (String msg, Object leakingObject);
+
+	void reportError (Thread t, Throwable e);
 }

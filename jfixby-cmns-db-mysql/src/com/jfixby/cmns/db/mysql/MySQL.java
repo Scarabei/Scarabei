@@ -62,17 +62,18 @@ public class MySQL implements DBComponent {
 		return this.dataSource.getURL();
 	}
 
-	synchronized void close (final Connection mysql_connection) {
+	synchronized boolean close (final Connection mysql_connection) {
 		if (mysql_connection != null) {
 			try {
 				if (!mysql_connection.isClosed()) {
-					L.d("close connection", mysql_connection);
 					mysql_connection.close();
+					return true;
 				}
 			} catch (final SQLException e) {
 				e.printStackTrace();
 			}
 		}
+		return false;
 	}
 
 }

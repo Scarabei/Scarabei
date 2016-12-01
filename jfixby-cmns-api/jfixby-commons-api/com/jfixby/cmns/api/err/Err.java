@@ -5,7 +5,6 @@ import com.jfixby.cmns.api.ComponentInstaller;
 
 public class Err {
 
-	private static final ErrorComponent DEFAULT = new DefaultErrorComponent();
 	static private ComponentInstaller<ErrorComponent> componentInstaller = new ComponentInstaller<ErrorComponent>("Error");
 
 	public static final void installComponent (final ErrorComponent component_to_install) {
@@ -17,9 +16,6 @@ public class Err {
 	}
 
 	public static final ErrorComponent invoke () {
-		if (componentInstaller.getComponent() == null) {
-			return DEFAULT;
-		}
 		return componentInstaller.invokeComponent();
 	}
 
@@ -49,6 +45,10 @@ public class Err {
 
 	public static void reportGCLeak (final String msg, final Object leakingObject) {
 		invoke().reportGCLeak(msg, leakingObject);
+	}
+
+	public static void reportError (final Thread t, final Throwable e) {
+		invoke().reportError(t, e);
 	}
 
 }

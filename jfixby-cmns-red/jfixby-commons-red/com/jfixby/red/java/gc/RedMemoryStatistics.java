@@ -29,11 +29,19 @@ public class RedMemoryStatistics implements MemoryStatistics {
 	@Override
 	public void print (final String tag) {
 		L.d("MemoryStatistics[" + tag + "]");
-		L.d("     ",
-			printMem("Total", this.totalMemory) + ", " + //
-				printMem("Used", this.usedMemory) + ", " + //
-				printMem("Free", this.freeMemory) + ", " + //
-				printMem("Max", this.maxMemory));
+		L.d("     ", this.paramsToString());
+	}
+
+	private String paramsToString () {
+		return printMem("Total", this.totalMemory) + ", " + //
+			printMem("Used", this.usedMemory) + ", " + //
+			printMem("Free", this.freeMemory) + ", " + //
+			printMem("Max", this.maxMemory);
+	}
+
+	@Override
+	public String toString () {
+		return "" + this.paramsToString() + "";
 	}
 
 	static private String printMem (final String tag, final long size) {

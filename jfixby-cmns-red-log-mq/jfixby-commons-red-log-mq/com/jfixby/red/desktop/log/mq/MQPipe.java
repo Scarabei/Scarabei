@@ -1,3 +1,4 @@
+
 package com.jfixby.red.desktop.log.mq;
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.ActiveMQSession;
 
 import com.jfixby.cmns.api.log.L;
+import com.jfixby.cmns.api.log.MESSAGE_MARKER;
 
 public class MQPipe {
 
@@ -22,61 +24,45 @@ public class MQPipe {
 	final int MAX = 500;
 	private final String LOG_PROPERTY_TAG = "LOG.MESSAGE";
 
-	public void d() {
-		d("");
-	}
-
-	public void d(Object obj) {
-		System.out.println("pipe: " + obj);
-		String msg = obj + "";
-		log_messages.add(new Date() + "\n" + msg);
-		if (log_messages.size() > MAX) {
-			log_messages.remove(0);
-			log_messages.remove(0);
-			log_messages.remove(0);
-		}
-
-	}
-
 	boolean inited = false;
 	private String url;
 	private String BOX;
-	private Runnable runner = new Runnable() {
+	private final Runnable runner = new Runnable() {
 
 		@Override
-		public void run() {
-			go();
+		public void run () {
+			MQPipe.this.go();
 		}
 	};
 
 	boolean go = true;
 
-	void go() {
-		connect();
-		while (go) {
-			send();
+	void go () {
+		this.connect();
+		while (this.go) {
+			this.send();
 		}
-		disconnect();
+		this.disconnect();
 	}
 
-	private void send() {
-		if (log_messages.size() > 0) {
-			String element_to_send = log_messages.remove(0);
+	private void send () {
+		if (this.log_messages.size() > 0) {
+			final String element_to_send = this.log_messages.remove(0);
 			try {
-				Message msg = session.createMessage();
-				msg.setStringProperty(LOG_PROPERTY_TAG, element_to_send);
+				final Message msg = this.session.createMessage();
+				msg.setStringProperty(this.LOG_PROPERTY_TAG, element_to_send);
 				this.producer.send(msg);
-			} catch (JMSException e) {
+			} catch (final JMSException e) {
 				e.printStackTrace();
-				sleep(5000);
+				this.sleep(5000);
 			}
 		}
 	}
 
-	private void sleep(long period) {
+	private void sleep (final long period) {
 		try {
 			Thread.sleep(period);
-		} catch (InterruptedException e) {
+		} catch (final InterruptedException e) {
 			e.printStackTrace();
 		}
 	}
@@ -88,72 +74,91 @@ public class MQPipe {
 	ActiveMQConnectionFactory connectionFactory;
 	private long MESSAGE_EXPIRE_PERIOD;
 
-	void connect() {
+	void connect () {
 		try {
 			// Create a ConnectionFactory
-			connectionFactory = new ActiveMQConnectionFactory(url);
-			L.d("MQ is up: " + connectionFactory);
+			this.connectionFactory = new ActiveMQConnectionFactory(this.url);
+			L.d("MQ is up: " + this.connectionFactory);
 			// Create a Connection
-			connection = connectionFactory.createConnection();
-			connection.start();
+			this.connection = this.connectionFactory.createConnection();
+			this.connection.start();
 
 			// Create a Session
-			session = (ActiveMQSession) connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+			this.session = (ActiveMQSession)this.connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
 			// Create the destination (Topic or Queue)
-			Destination destination = session.createQueue(BOX);
+			final Destination destination = this.session.createQueue(this.BOX);
 
 			// Create a MessageProducer from the Session to the Topic or
 			// Queue
-			producer = session.createProducer(destination);
+			this.producer = this.session.createProducer(destination);
 			L.d("Transmitting to " + destination);
-			producer.setDeliveryMode(DeliveryMode.PERSISTENT);
-			producer.setTimeToLive(MESSAGE_EXPIRE_PERIOD);
+			this.producer.setDeliveryMode(DeliveryMode.PERSISTENT);
+			this.producer.setTimeToLive(this.MESSAGE_EXPIRE_PERIOD);
 
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			e.printStackTrace();
 		}
 
 	}
 
-	void disconnect() {
+	void disconnect () {
 		try {
-			session.close();
-			connection.close();
-		} catch (Exception e) {
+			this.session.close();
+			this.connection.close();
+		} catch (final Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	public synchronized void init(String url, String logger_box, String mq_server_file_password,
-			long MESSAGE_EXPIRE_PERIOD) {
-		if (inited) {
+	public synchronized void init (final String url, final String logger_box, final String mq_server_file_password,
+		final long MESSAGE_EXPIRE_PERIOD) {
+		if (this.inited) {
 			return;
 		}
 		this.MESSAGE_EXPIRE_PERIOD = MESSAGE_EXPIRE_PERIOD;
-		inited = true;
-		BOX = logger_box;
+		this.inited = true;
+		this.BOX = logger_box;
 		this.url = url;
 
-		String replacement = mq_server_file_password.substring(0, 5) + "******************";
+		final String replacement = mq_server_file_password.substring(0, 5) + "******************";
 
 		L.d("Starting :" + url.replaceAll(mq_server_file_password, replacement));
 
 	}
 
-	public void e() {
-		d();
-	}
-
-	public void e(Object string) {
-		d(string);
-	}
-
-	public void start() {
-		if (url == null) {
+	public void start () {
+		if (this.url == null) {
 			throw new Error("ActiveMQLogger is not initialized.");
 		}
-		Thread t = new Thread(runner);
+		final Thread t = new Thread(this.runner);
 		t.start();
+	}
+
+	private void log (final Object obj) {
+		System.out.println("pipe: " + obj);
+		final String msg = obj + "";
+		this.log_messages.add(new Date() + "\n" + msg);
+		if (this.log_messages.size() > this.MAX) {
+			this.log_messages.remove(0);
+			this.log_messages.remove(0);
+			this.log_messages.remove(0);
+		}
+	}
+
+	public void logLine (final MESSAGE_MARKER marker, final Object string) {
+		this.log(string);
+	}
+
+	public void logAppend (final MESSAGE_MARKER marker, final Object string) {
+		this.log(string);
+	}
+
+	public void logLine (final MESSAGE_MARKER marker) {
+		this.log("");
+	}
+
+	public void logAppend (final MESSAGE_MARKER marker) {
+		this.log("");
 	}
 }

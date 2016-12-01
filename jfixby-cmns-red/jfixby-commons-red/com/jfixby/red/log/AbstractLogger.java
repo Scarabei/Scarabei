@@ -10,25 +10,33 @@ import java.util.Iterator;
 import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.Mapping;
 import com.jfixby.cmns.api.log.LoggerComponent;
+import com.jfixby.cmns.api.log.MESSAGE_MARKER;
 import com.jfixby.cmns.api.util.JUtils;
 
 public abstract class AbstractLogger implements LoggerComponent {
+
+	abstract public void logLine (final MESSAGE_MARKER marker, final Object string);
+
+	abstract public void logAppend (final MESSAGE_MARKER marker, final Object string);
+
+	abstract public void logLine (final MESSAGE_MARKER marker);
+
+	abstract public void logAppend (final MESSAGE_MARKER marker);
 
 	public abstract String arrayToString (int indent, Object[] array);
 
 	@Override
 	public void d (final Object... objects) {
 		for (int i = 0; i < objects.length; i++) {
-			this.System_out_print(objects[i] + " ");
+			this.logLine(MESSAGE_MARKER.NORMAL, objects[i] + " ");
 		}
-		this.System_out_println();
+		this.logLine(MESSAGE_MARKER.NORMAL);
 	}
 
 	@Override
 	public void d (final Object string, final Object object) {
 		final String tag = string + "";
-
-		this.System_out_println(string + " > " + this.toString(tag.length() + 3, object));
+		this.logLine(MESSAGE_MARKER.NORMAL, string + " > " + this.toString(tag.length() + 3, object));
 	}
 
 	private String toString (final int indent, final Object object) {
@@ -125,31 +133,21 @@ public abstract class AbstractLogger implements LoggerComponent {
 
 	@Override
 	public void d (final Object object) {
-		this.System_out_println(this.toString(0, object));
+		this.logLine(MESSAGE_MARKER.NORMAL, this.toString(0, object));
 	}
 
 	@Override
 	public void e (final Object string, final Object object) {
-		this.System_err_println(string + " > " + this.toString(0, object));
+		this.logLine(MESSAGE_MARKER.ERROR, string + " > " + this.toString(0, object));
 	}
 
 	@Override
 	public void e (final Object object) {
-		this.System_err_println(this.toString(0, object));
+		this.logLine(MESSAGE_MARKER.ERROR, this.toString(0, object));
 	}
 
-	public abstract void System_err_println (Object string);
-
-	public abstract void System_out_println (Object string);
-
-	public abstract void System_err_println ();
-
-	public abstract void System_out_println ();
-
-	public abstract void System_out_print (Object string);
-
 	public void d (final String string, final Object... objects_list) {
-		this.System_out_println(string + " > " + this.buld_list(objects_list));
+		this.logLine(MESSAGE_MARKER.NORMAL, string + " > " + this.buld_list(objects_list));
 
 	}
 
@@ -180,17 +178,17 @@ public abstract class AbstractLogger implements LoggerComponent {
 
 	@Override
 	public void d () {
-		this.System_out_println();
+		this.logLine(MESSAGE_MARKER.NORMAL);
 	}
 
 	@Override
 	public void e () {
-		this.System_err_println();
+		this.logLine(MESSAGE_MARKER.ERROR);
 	}
 
 	@Override
 	public void d_addChars (final Object msg) {
-		this.System_out_print(msg);
+		this.logAppend(MESSAGE_MARKER.NORMAL, msg);
 	}
 
 	public final static String SEPARATOR = System.getProperty("line.separator");

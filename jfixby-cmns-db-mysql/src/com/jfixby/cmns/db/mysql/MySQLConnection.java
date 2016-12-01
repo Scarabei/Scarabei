@@ -21,7 +21,7 @@ public class MySQLConnection {
 	public boolean open () {
 		try {
 			this.mysql_connection = this.mySQL.open();
-			L.d("open connection", this);
+			L.d(" open connection", this);
 			return true;
 		} catch (final SQLException e) {
 			this.e = e;
@@ -33,7 +33,10 @@ public class MySQLConnection {
 
 	public void close () {
 
-		this.mySQL.close(this.mysql_connection);
+		if (this.mySQL.close(this.mysql_connection)) {
+			L.d("close connection", this);
+		}
+
 		this.mysql_connection = null;
 	}
 
