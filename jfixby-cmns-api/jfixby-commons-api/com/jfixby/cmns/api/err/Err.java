@@ -51,4 +51,8 @@ public class Err {
 		invoke().reportError(t, e);
 	}
 
+	public static void reportWarning (final String msg, final Throwable e) {
+		invoke().reportWarning(msg, e);
+	}
+
 }

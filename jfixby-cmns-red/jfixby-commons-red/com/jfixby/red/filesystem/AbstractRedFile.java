@@ -126,10 +126,16 @@ public abstract class AbstractRedFile implements File {
 	@Override
 	public ByteArray readBytes () throws IOException {
 		final FileInputStream is = this.getFileSystem().newFileInputStream(this);
+		final ByteArray bytes;
 		is.open();
-		final ByteArray bytes = is.readAll();
-		is.close();
-		return bytes;
+		try {
+			bytes = is.readAll();
+			return bytes;
+		} catch (final IOException e) {
+			throw e;
+		} finally {
+			is.close();
+		}
 	}
 
 	@Override
@@ -141,8 +147,13 @@ public abstract class AbstractRedFile implements File {
 	public void writeBytes (final ByteArray bytes, final boolean append) throws IOException {
 		final FileOutputStream os = this.getFileSystem().newFileOutputStream(this, append);
 		os.open();
-		os.write(bytes);
-		os.close();
+		try {
+			os.write(bytes);
+		} catch (final IOException e) {
+			throw e;
+		} finally {
+			os.close();
+		}
 	}
 
 	@Override

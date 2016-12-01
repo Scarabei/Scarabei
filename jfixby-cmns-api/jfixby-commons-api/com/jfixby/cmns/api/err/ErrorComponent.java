@@ -16,4 +16,6 @@ public interface ErrorComponent {
 	void reportGCLeak (String msg, Object leakingObject);
 
 	void reportError (Thread t, Throwable e);
+
+	void reportWarning (String msg, Throwable e);
 }
