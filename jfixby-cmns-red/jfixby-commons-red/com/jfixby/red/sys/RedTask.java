@@ -24,6 +24,8 @@ public class RedTask implements Task, Runnable {
 
 	final private boolean runInSeparatedThread;
 
+	private boolean threadStarted;
+
 	@Override
 	public String toString () {
 		return "Task[" + this.name + "]";
@@ -58,7 +60,7 @@ public class RedTask implements Task, Runnable {
 
 		if (this.runInSeparatedThread) {
 			this.t = new Thread(this.runner);
-			this.startThread();
+			this.threadStarted = false;
 		} else {
 			this.t = null;
 		}
@@ -67,10 +69,6 @@ public class RedTask implements Task, Runnable {
 	private final Runnable runner = this;
 	final Thread t;
 
-	private void startThread () {
-
-	}
-
 	boolean first_call = false;
 	Job current_job;
 
@@ -78,13 +76,20 @@ public class RedTask implements Task, Runnable {
 		if (!this.runInSeparatedThread) {
 			this.pushTask();
 		} else {
-			Sys.yeld();
+			if (!this.threadStarted) {
+				this.threadStarted = true;
+				this.t.start();
+			} else {
+				Sys.yeld();
+			}
 		}
 	}
 
 	@Override
 	public void run () {
-		this.pushTask();
+		while (this.isActive()) {
+			this.pushTask();
+		}
 	}
 
 	private void pushTask () {
