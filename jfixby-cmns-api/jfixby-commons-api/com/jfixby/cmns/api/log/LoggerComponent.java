@@ -23,6 +23,6 @@ public interface LoggerComponent {
 
 	String stackTraceToString (Throwable e);
 
-	String throwableToString (Throwable aThrowable);
+// String throwableToString (Throwable aThrowable);
 
 }

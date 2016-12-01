@@ -207,7 +207,6 @@ public abstract class AbstractLogger implements LoggerComponent {
 		return report.toString();
 	}
 
-	@Override
 	public String throwableToString (final Throwable aThrowable) {
 		final Writer result = new StringWriter();
 		final PrintWriter printWriter = new PrintWriter(result);

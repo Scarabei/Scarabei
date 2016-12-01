@@ -19,8 +19,8 @@ public class RedHttpConnectionSpecs implements HttpConnectionSpecs {
 	private boolean octetStream;
 	private boolean defaultUseCaches;
 	private boolean useCaches;
-	private int connectionTimeout;
-	private int readTimeout;
+	private long connectionTimeout;
+	private long readTimeout;
 
 	@Override
 	public void setURL (final HttpURL url) {
@@ -98,12 +98,12 @@ public class RedHttpConnectionSpecs implements HttpConnectionSpecs {
 	}
 
 	@Override
-	public void setConnectTimeout (final int connectionTimeout) {
+	public void setConnectTimeout (final long connectionTimeout) {
 		this.connectionTimeout = connectionTimeout;
 	}
 
 	@Override
-	public void setReadTimeout (final int readTimeout) {
+	public void setReadTimeout (final long readTimeout) {
 		this.readTimeout = readTimeout;
 	}
 
@@ -128,12 +128,12 @@ public class RedHttpConnectionSpecs implements HttpConnectionSpecs {
 	}
 
 	@Override
-	public int getConnectionTimeout () {
+	public long getConnectionTimeout () {
 		return this.connectionTimeout;
 	}
 
 	@Override
-	public int getReadTimeout () {
+	public long getReadTimeout () {
 		return this.readTimeout;
 	}
 

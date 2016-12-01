@@ -8,6 +8,9 @@ import com.jfixby.cmns.api.collections.Map;
 
 public class MySQLEntry {
 
+	public MySQLEntry () {
+	}
+
 	final Map<String, String> values = Collections.newMap();
 
 	void set (final String key, final String value) {

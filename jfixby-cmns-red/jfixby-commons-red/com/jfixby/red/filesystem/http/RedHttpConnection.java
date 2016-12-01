@@ -33,8 +33,8 @@ public class RedHttpConnection implements HttpConnection {
 	private boolean useCaches;
 	private boolean defaultUseCaches;
 	private boolean octetStream;
-	private int connectionTimeout;
-	private int readTimeout;
+	private long connectionTimeout;
+	private long readTimeout;
 
 	public RedHttpConnection (final HttpConnectionSpecs specs) {
 		this.url = specs.getURL();
@@ -84,8 +84,8 @@ public class RedHttpConnection implements HttpConnection {
 			this.java_connection.addRequestProperty(key, this.requestProperties.get(key));
 		}
 
-		this.java_connection.setConnectTimeout(this.connectionTimeout);
-		this.java_connection.setReadTimeout(this.readTimeout);
+		this.java_connection.setConnectTimeout((int)this.connectionTimeout);
+		this.java_connection.setReadTimeout((int)this.readTimeout);
 
 		this.java_connection.connect();
 	}

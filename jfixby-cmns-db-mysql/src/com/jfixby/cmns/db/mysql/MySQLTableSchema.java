@@ -9,20 +9,15 @@ import java.sql.SQLException;
 
 import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.Collections;
-import com.jfixby.cmns.api.collections.List;
+import com.jfixby.cmns.api.collections.Set;
 
 public class MySQLTableSchema {
 
 	private final MySQLTable mySQLTable;
-	private final List<String> columns = Collections.newList();
-	private boolean loaded = false;
+	private final Set<String> columns = Collections.newSet();
 
-	public MySQLTableSchema (final MySQLTable mySQLTable) {
+	public MySQLTableSchema (final MySQLTable mySQLTable) throws IOException {
 		this.mySQLTable = mySQLTable;
-	}
-
-	void load () throws IOException {
-		// --- LISTING DATABASE COLUMN NAMES ---
 		final MySQLConnection connection = this.mySQLTable.db.obtainConnection();
 		connection.checkIsOpen();
 		try {
@@ -33,7 +28,6 @@ public class MySQLTableSchema {
 				this.columns.add(resultSet.getString(4));
 // log.info("Column Name of table " + tableName + " = " + );
 			}
-			this.loaded = true;
 
 		} catch (final SQLException e) {
 			e.printStackTrace();
@@ -44,16 +38,7 @@ public class MySQLTableSchema {
 	}
 
 	public Collection<String> getColumns () throws IOException {
-		this.loadIfNotLoaded();
 		return this.columns;
-	}
-
-	public MySQLTableSchema loadIfNotLoaded () throws IOException {
-		if (this.loaded) {
-			return this;
-		}
-		this.load();
-		return this;
 	}
 
 	public void print () {

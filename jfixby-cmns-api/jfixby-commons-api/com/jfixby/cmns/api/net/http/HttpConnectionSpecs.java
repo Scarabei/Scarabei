@@ -35,9 +35,9 @@ public interface HttpConnectionSpecs {
 
 	void setUseCaches (boolean b);
 
-	void setConnectTimeout (int serverTimeout);
+	void setConnectTimeout (long serverTimeout);
 
-	void setReadTimeout (int serverTimeout);
+	void setReadTimeout (long serverTimeout);
 
 	METHOD getMethod ();
 
@@ -47,8 +47,8 @@ public interface HttpConnectionSpecs {
 
 	boolean octetStream ();
 
-	int getConnectionTimeout ();
+	long getConnectionTimeout ();
 
-	int getReadTimeout ();
+	long getReadTimeout ();
 
 }

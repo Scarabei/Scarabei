@@ -203,10 +203,4 @@ public class GdxLogger implements LoggerComponent {
 		return null;
 	}
 
-	@Override
-	public String throwableToString (final Throwable aThrowable) {
-		Err.reportNotImplementedYet();
-		return null;
-	}
-
 }

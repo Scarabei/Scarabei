@@ -19,7 +19,6 @@ public class MySQLTable {
 
 	final MySQL db;
 	final String sql_table_name;
-	final MySQLTableSchema schema = new MySQLTableSchema(this);
 
 	public MySQLTable (final MySQL mySQL, final String name) {
 		this.db = mySQL;
@@ -51,7 +50,8 @@ public class MySQLTable {
 
 	private List<MySQLEntry> collectResult (final ResultSet result) throws SQLException, IOException {
 		final List<MySQLEntry> entries = Collections.newList();
-		final Collection<String> columns = this.schema.getColumns();
+		final MySQLTableSchema schema = new MySQLTableSchema(this);
+		final Collection<String> columns = schema.getColumns();
 		while (result.next()) {
 			final MySQLEntry entry = this.readEntry(result, columns);
 			entries.add(entry);
@@ -62,7 +62,7 @@ public class MySQLTable {
 	}
 
 	private MySQLEntry readEntry (final ResultSet result, final Collection<String> columns) throws SQLException {
-		final MySQLEntry entry = new MySQLEntry();
+		final MySQLEntry entry = this.newMySQLEntry();
 
 		final int N = columns.size();
 		for (int i = 0; i < N; i++) {
@@ -78,13 +78,14 @@ public class MySQLTable {
 	}
 
 	public MySQLTableSchema getSchema () throws IOException {
-		return this.schema.loadIfNotLoaded();
+		final MySQLTableSchema schema = new MySQLTableSchema(this);
+		return schema;
 	}
 
 	private String paramString (final MySQLEntry entry, final List<String> keys, final String bracketLeft,
 		final String bracketRight) throws IOException {
-		this.schema.loadIfNotLoaded();
-		final Collection<String> colums = this.schema.getColumns();
+		final MySQLTableSchema schema = new MySQLTableSchema(this);
+		final Collection<String> colums = schema.getColumns();
 
 		for (int i = 0; i < colums.size(); i++) {
 			final String key = colums.getElementAt(i);

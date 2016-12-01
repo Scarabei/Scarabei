@@ -67,8 +67,8 @@ public class Logger {
 		return invoke().stackTraceToString(e);
 	}
 
-	public static String throwableToString (final Throwable e) {
-		return invoke().throwableToString(e);
-	}
+// public static String throwableToString (final Throwable e) {
+// return invoke().throwableToString(e);
+// }
 
 }
