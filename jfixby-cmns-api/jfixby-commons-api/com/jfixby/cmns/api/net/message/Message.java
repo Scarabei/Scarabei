@@ -22,9 +22,12 @@ public final class Message implements java.io.Serializable {
 
 	public void print () {
 		L.d("---Message[" + this.header + "]------------------------");
-		L.d("     values", this.values);
-		L.d("attachments", this.attachments);
-
+		if (this.values != null && this.values.size() > 0) {
+			L.d("     values", this.values);
+		}
+		if (this.attachments != null && this.attachments.size() > 0) {
+			L.d("attachments", this.attachments);
+		}
 	}
 
 }
