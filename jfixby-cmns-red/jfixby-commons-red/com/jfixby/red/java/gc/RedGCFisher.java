@@ -3,6 +3,7 @@ package com.jfixby.red.java.gc;
 
 import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.java.gc.BaitInfo;
+import com.jfixby.cmns.api.java.gc.GARBAGE_MODE;
 import com.jfixby.cmns.api.java.gc.GCFisherComponent;
 import com.jfixby.cmns.api.java.gc.MemoryStatistics;
 import com.jfixby.cmns.api.log.L;
@@ -17,6 +18,7 @@ public class RedGCFisher implements GCFisherComponent {
 	}
 
 	GCForceSession currentSession;
+	private GARBAGE_MODE mode = GARBAGE_MODE.REGULAR;
 
 	@Override
 	public void forceGC (final long bait_size_in_bytes) {
@@ -46,6 +48,22 @@ public class RedGCFisher implements GCFisherComponent {
 	@Override
 	public MemoryStatistics getMemoryStatistics () {
 		return new RedMemoryStatistics();
+	}
+
+	@Override
+	public boolean isGarbageModeFlag (final GARBAGE_MODE mode) {
+		return this.mode == mode;
+	}
+
+	@Override
+	public GARBAGE_MODE getGarbageModeFlag () {
+		return this.mode;
+	}
+
+	@Override
+	public void setGarbageModeFlag (final GARBAGE_MODE mode) {
+		Debug.checkNull("GARBAGE_PRODUCTION_MODE", mode);
+		this.mode = mode;
 	}
 
 }

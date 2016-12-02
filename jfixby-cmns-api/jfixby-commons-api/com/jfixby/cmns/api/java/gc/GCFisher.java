@@ -37,4 +37,16 @@ public class GCFisher {
 		return invoke().getMemoryStatistics();
 	}
 
+	public static boolean isGarbageModeFlag (final GARBAGE_MODE mode) {
+		return invoke().isGarbageModeFlag(mode);
+	}
+
+	public static void setGarbageModeFlag (final GARBAGE_MODE mode) {
+		invoke().setGarbageModeFlag(mode);
+	}
+
+	public static GARBAGE_MODE getGarbageModeFlag () {
+		return invoke().getGarbageModeFlag();
+	}
+
 }

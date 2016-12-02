@@ -11,4 +11,10 @@ public interface GCFisherComponent {
 
 	public MemoryStatistics getMemoryStatistics ();
 
+	public boolean isGarbageModeFlag (GARBAGE_MODE mode);
+
+	public void setGarbageModeFlag (GARBAGE_MODE mode);
+
+	GARBAGE_MODE getGarbageModeFlag ();
+
 }
