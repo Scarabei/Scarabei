@@ -23,4 +23,6 @@ public interface SystemComponent {
 
 	void yeld ();
 
+	void wait (Object lock);
+
 }

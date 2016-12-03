@@ -1,6 +1,7 @@
 
 package com.jfixby.cmns.api.util;
 
+import com.jfixby.cmns.api.assets.ID;
 import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.collections.Map;
@@ -60,5 +61,7 @@ public interface UtilsComponent {
 	String prefix (String string, int offset);
 
 	String wrapSequence (Sequence<String> seq, int size, String bracketLeft, String bracketRight);
+
+	ID nameOf (Class<?> type);
 
 }

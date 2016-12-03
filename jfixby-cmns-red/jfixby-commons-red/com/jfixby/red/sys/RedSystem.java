@@ -1,6 +1,7 @@
 
 package com.jfixby.red.sys;
 
+import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.sys.SystemComponent;
 import com.jfixby.cmns.api.time.TimeStream;
 
@@ -41,6 +42,16 @@ public abstract class RedSystem implements SystemComponent {
 	@Override
 	final public void yeld () {
 		Thread.yield();
+	}
+
+	@Override
+	final public void wait (final Object lock) {
+		Debug.checkNull("lock", lock);
+		try {
+			lock.wait();
+		} catch (final InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override

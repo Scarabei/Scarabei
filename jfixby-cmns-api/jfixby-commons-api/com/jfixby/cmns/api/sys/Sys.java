@@ -56,4 +56,8 @@ public class Sys {
 		invoke().yeld();
 	}
 
+	public static void wait (final Object lock) {
+		invoke().wait(lock);
+	}
+
 }

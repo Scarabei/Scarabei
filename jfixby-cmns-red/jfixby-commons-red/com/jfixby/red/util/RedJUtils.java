@@ -3,6 +3,8 @@ package com.jfixby.red.util;
 
 import java.io.UnsupportedEncodingException;
 
+import com.jfixby.cmns.api.assets.ID;
+import com.jfixby.cmns.api.assets.Names;
 import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
@@ -23,6 +25,7 @@ import com.jfixby.cmns.api.util.path.MountPoint;
 import com.jfixby.cmns.api.util.path.RelativePath;
 
 public class RedJUtils implements UtilsComponent {
+
 	@Override
 	public List<String> split (final String input_string, final String splitter) {
 		Debug.checkNull("input_string", input_string);
@@ -182,8 +185,7 @@ public class RedJUtils implements UtilsComponent {
 	}
 
 	@Override
-	public String wrapSequence (final Sequence<String> seq, final int size, final String bracketLeft,
-		final String bracketRight) {
+	public String wrapSequence (final Sequence<String> seq, final int size, final String bracketLeft, final String bracketRight) {
 		final int iMax = size - 1;
 		if (iMax == -1) {
 			return bracketLeft + bracketRight;
@@ -197,6 +199,19 @@ public class RedJUtils implements UtilsComponent {
 			}
 			b.append(", ");
 		}
+	}
+
+	private ID NULL_NAME;
+
+	@Override
+	public ID nameOf (final Class<?> type) {
+		if (type == null) {
+			if (this.NULL_NAME == null) {
+				this.NULL_NAME = Names.newID("null");
+			}
+			return this.NULL_NAME;
+		}
+		return Names.newID(type.getCanonicalName());
 	}
 
 }

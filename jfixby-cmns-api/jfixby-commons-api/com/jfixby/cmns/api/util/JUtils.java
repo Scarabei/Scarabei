@@ -2,6 +2,7 @@
 package com.jfixby.cmns.api.util;
 
 import com.jfixby.cmns.api.ComponentInstaller;
+import com.jfixby.cmns.api.assets.ID;
 import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.collections.Map;
@@ -123,6 +124,10 @@ public class JUtils {
 	public static String wrapSequence (final Sequence<String> seq, final int size, final String bracketLeft,
 		final String bracketRight) {
 		return invoke().wrapSequence(seq, size, bracketLeft, bracketRight);
+	}
+
+	public static ID nameOf (final Class<?> type) {
+		return invoke().nameOf(type);
 	}
 
 }
