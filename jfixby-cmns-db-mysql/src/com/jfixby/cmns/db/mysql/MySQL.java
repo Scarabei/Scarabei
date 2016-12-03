@@ -1,9 +1,12 @@
 
 package com.jfixby.cmns.db.mysql;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import com.jfixby.cmns.api.collections.Collections;
+import com.jfixby.cmns.api.collections.Map;
 import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.db.api.DBComponent;
@@ -16,6 +19,7 @@ public class MySQL implements DBComponent {
 	private final String dbName;
 	private final boolean useSSL;
 	private final MysqlDataSource dataSource;
+	final Map<String, MySQLTable> tables = Collections.newMap();
 
 	public MySQL (final MySQLConfig config) {
 		this.serverName = Debug.checkNull("serverName", config.getServerName());
@@ -40,8 +44,15 @@ public class MySQL implements DBComponent {
 		return this.dbName;
 	}
 
-	public MySQLTable getTable (final String name) {
-		return new MySQLTable(this, name);
+	public synchronized MySQLTable getTable (final String name) throws IOException {
+		Debug.checkNull("name", name);
+		Debug.checkEmpty("name", name);
+		MySQLTable table = this.tables.get(name);
+		if (table == null) {
+			table = new MySQLTable(this, name);
+			this.tables.put(name, table);
+		}
+		return table;
 	}
 
 	public MySQLConnection obtainConnection () {

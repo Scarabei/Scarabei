@@ -19,10 +19,12 @@ public class MySQLTable {
 
 	final MySQL db;
 	final String sql_table_name;
+	private final MySQLTableSchema schema;
 
-	public MySQLTable (final MySQL mySQL, final String name) {
+	public MySQLTable (final MySQL mySQL, final String name) throws IOException {
 		this.db = mySQL;
 		this.sql_table_name = name;
+		this.schema = new MySQLTableSchema(this);
 
 	}
 
@@ -50,7 +52,7 @@ public class MySQLTable {
 
 	private List<MySQLEntry> collectResult (final ResultSet result) throws SQLException, IOException {
 		final List<MySQLEntry> entries = Collections.newList();
-		final MySQLTableSchema schema = new MySQLTableSchema(this);
+		final MySQLTableSchema schema = this.getSchema();
 		final Collection<String> columns = schema.getColumns();
 		while (result.next()) {
 			final MySQLEntry entry = this.readEntry(result, columns);
@@ -78,13 +80,12 @@ public class MySQLTable {
 	}
 
 	public MySQLTableSchema getSchema () throws IOException {
-		final MySQLTableSchema schema = new MySQLTableSchema(this);
-		return schema;
+		return this.schema;
 	}
 
 	private String paramString (final MySQLEntry entry, final List<String> keys, final String bracketLeft,
 		final String bracketRight) throws IOException {
-		final MySQLTableSchema schema = new MySQLTableSchema(this);
+		final MySQLTableSchema schema = this.getSchema();
 		final Collection<String> colums = schema.getColumns();
 
 		for (int i = 0; i < colums.size(); i++) {
