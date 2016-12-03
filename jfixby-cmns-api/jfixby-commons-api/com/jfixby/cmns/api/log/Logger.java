@@ -43,6 +43,10 @@ public class Logger {
 		invoke().e(msg);
 	}
 
+	public static void e (final Throwable msg) {
+		invoke().e(msg);
+	}
+
 	public static void e (final Object tag, final Object msg) {
 		invoke().e(tag, msg);
 	}

@@ -60,4 +60,8 @@ public class GdxLogger implements LoggerComponent {
 		return null;
 	}
 
+	@Override
+	public void e (final Throwable msg) {
+	}
+
 }

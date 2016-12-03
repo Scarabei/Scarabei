@@ -218,4 +218,10 @@ public abstract class AbstractLogger implements LoggerComponent {
 		this.e(this.throwableToString(err));
 	}
 
+	@Override
+	public void e (final Throwable err) {
+
+		this.e(this.throwableToString(err));
+	}
+
 }

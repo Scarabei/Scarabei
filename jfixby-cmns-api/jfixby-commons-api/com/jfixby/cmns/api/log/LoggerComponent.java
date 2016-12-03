@@ -11,6 +11,8 @@ public interface LoggerComponent {
 
 	void e (Object msg);
 
+	void e (Throwable msg);
+
 	void e (Object tag, Object msg);
 
 	void e (Object tag, Throwable err);
