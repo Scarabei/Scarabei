@@ -17,7 +17,7 @@ public class Err {
 
 	public static final ErrorComponent invoke () {
 		if (componentInstaller.getComponent() == null) {
-			throw new Error("ErrorComponent is not installed");
+			Err.reportError("ErrorComponent is not installed");
 		}
 		return componentInstaller.invokeComponent();
 	}
@@ -26,12 +26,12 @@ public class Err {
 		return componentInstaller.getComponent();
 	}
 
-	public static void reportWarning (final String message) {
-		invoke().reportWarning(message);
-	}
-
 	public static void reportError (final String message) {
 		invoke().reportError(message);
+	}
+
+	public static void reportNotImplementedYet () {
+		invoke().reportNotImplementedYet();
 	}
 
 	public static void reportError (final Throwable e) {
@@ -42,20 +42,12 @@ public class Err {
 		invoke().reportError(message, e);
 	}
 
-	public static void reportNotImplementedYet () {
-		invoke().reportNotImplementedYet();
-	}
-
 	public static void reportGCLeak (final String msg, final Object leakingObject) {
 		invoke().reportGCLeak(msg, leakingObject);
 	}
 
 	public static void reportError (final Thread t, final Throwable e) {
 		invoke().reportError(t, e);
-	}
-
-	public static void reportWarning (final String msg, final Throwable e) {
-		invoke().reportWarning(msg, e);
 	}
 
 }

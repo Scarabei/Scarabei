@@ -63,7 +63,8 @@ public class S3File extends AbstractRedFile implements File {
 
 	@Override
 	public boolean rename (final String new_name) {
-		throw new Error("Read-only file system!");
+		Err.reportError("Read-only file system!");
+		return false;
 	}
 
 	@Override
@@ -93,7 +94,7 @@ public class S3File extends AbstractRedFile implements File {
 // final FileHandle file = Gdx.files.internal(this.getGdxInternalPathString());
 
 		if (!this.exists()) {
-			throw new Error("File does not exist: " + this.absolute_path);
+			Err.reportError("File does not exist: " + this.absolute_path);
 		}
 		if (this.isFolder()) {
 			final FilesList listFiles = new FilesList();
@@ -108,8 +109,9 @@ public class S3File extends AbstractRedFile implements File {
 
 			return listFiles;
 		} else {
-			throw new Error("This is not a folder: " + this.absolute_path);
+			Err.reportError("This is not a folder: " + this.absolute_path);
 		}
+		return null;
 	}
 
 // @Override

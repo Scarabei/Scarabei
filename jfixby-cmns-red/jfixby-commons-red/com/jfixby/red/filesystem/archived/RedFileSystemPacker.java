@@ -7,6 +7,7 @@ import java.io.InputStream;
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.Map;
 import com.jfixby.cmns.api.debug.Debug;
+import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.FileInputStream;
 import com.jfixby.cmns.api.file.packing.CompressionMethod;
@@ -43,7 +44,7 @@ public class RedFileSystemPacker implements FileSystemPackerComponent {
 		final CompressionMethod method = this.findMethod(schema_name);
 
 		if (method == null) {
-			throw new Error("CompressionMethod [" + schema_name + "] not found.");
+			Err.reportError("CompressionMethod [" + schema_name + "] not found.");
 		}
 
 		this.skip(END_LINE.length(), jis);
@@ -75,7 +76,7 @@ public class RedFileSystemPacker implements FileSystemPackerComponent {
 		final CompressionMethod schema = this.findMethod(schema_name);
 
 		if (schema == null) {
-			throw new Error("CompressionMethod [" + schema_name + "] not found.");
+			Err.reportError("CompressionMethod [" + schema_name + "] not found.");
 		}
 
 		final java.io.OutputStream jos = os.toJavaOutputStream();
@@ -107,7 +108,7 @@ public class RedFileSystemPacker implements FileSystemPackerComponent {
 		final String schema_name = schema.getName();
 		final CompressionMethod schema_stored = this.methods.get(schema_name);
 		if (schema_stored != null) {
-			throw new Error("CompressionMethod [" + schema_name + "] is already installed: " + schema_stored);
+			Err.reportError("CompressionMethod [" + schema_name + "] is already installed: " + schema_stored);
 		}
 		this.methods.put(schema_name, schema);
 	}

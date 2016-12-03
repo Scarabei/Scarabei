@@ -44,7 +44,7 @@ public class RedIntegerMath implements IntegerMathComponent {
 
 	private static final void checkIfItIsNatural (final long n_number) {
 		if (n_number < 0) {
-			throw new Error("This is not a natural number:" + n_number);
+			Err.reportError("This is not a natural number:" + n_number);
 		}
 	}
 

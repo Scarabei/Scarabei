@@ -13,11 +13,13 @@ public interface LoggerComponent {
 
 	void e (Object tag, Object msg);
 
+	void e (Object tag, Throwable err);
+
 	void d ();
 
 	void e ();
 
-	void d_addChars (Object msg);
+	void d_appendChars (Object msg);
 
 	public String toString (Object[] array);
 

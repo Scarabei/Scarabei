@@ -14,6 +14,7 @@ import com.jfixby.cmns.api.color.Color;
 import com.jfixby.cmns.api.color.ColorDistance;
 import com.jfixby.cmns.api.color.ColorSet;
 import com.jfixby.cmns.api.color.Colors;
+import com.jfixby.cmns.api.err.Err;
 
 public class RedColorsSet implements ColorSet {
 
@@ -48,7 +49,7 @@ public class RedColorsSet implements ColorSet {
 	@Override
 	public Color findClosest (final Color original) {
 		if (this.colors.size() == 0) {
-			throw new Error("ColorsSet is empty.");
+			Err.reportError("ColorsSet is empty.");
 		}
 		Color closest = this.colors.getElementAt(0);// assuming size >0;
 		float current_distance = Colors.distanceRGB().measure(original, closest);

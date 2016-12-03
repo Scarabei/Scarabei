@@ -1,6 +1,7 @@
 
 package com.jfixby.red.math;
 
+import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.math.Average;
 import com.jfixby.cmns.api.math.FloatMathComponent;
 
@@ -31,10 +32,10 @@ public abstract class RedFloatMath implements FloatMathComponent {
 	@Override
 	public double DOUBLE_EPSILON (final int number_of_safe_operations) {
 		if (number_of_safe_operations < 1) {
-			throw new Error("number_of_safe_operations must be in[1;10000]");
+			Err.reportError("number_of_safe_operations must be in[1;10000]");
 		}
 		if (number_of_safe_operations > 100000) {
-			throw new Error("number_of_safe_operations must be in[1;100000]");
+			Err.reportError("number_of_safe_operations must be in[1;100000]");
 		}
 		return this.JAVA_DOUBLE_PRECISION * number_of_safe_operations;
 	}

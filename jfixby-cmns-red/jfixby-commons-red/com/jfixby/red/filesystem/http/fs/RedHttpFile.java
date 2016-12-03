@@ -13,8 +13,8 @@ import com.jfixby.cmns.api.file.ChildrenList;
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.FileHash;
 import com.jfixby.cmns.api.file.FileSystem;
-import com.jfixby.cmns.api.file.FolderSupportingIndexEntry;
 import com.jfixby.cmns.api.file.FolderSupportingIndex;
+import com.jfixby.cmns.api.file.FolderSupportingIndexEntry;
 import com.jfixby.cmns.api.java.ByteArray;
 import com.jfixby.cmns.api.net.http.HttpURL;
 import com.jfixby.cmns.api.util.path.AbsolutePath;
@@ -115,8 +115,7 @@ public class RedHttpFile extends AbstractRedFile implements File {
 	}
 
 	private FolderSupportingIndex readDescriptor () throws IOException {
-		final AbsolutePath<FileSystem> path = this.getAbsoluteFilePath()
-			.child(FolderSupportingIndex.FILE_NAME);
+		final AbsolutePath<FileSystem> path = this.getAbsoluteFilePath().child(FolderSupportingIndex.FILE_NAME);
 
 		final FolderSupportingIndex desc = this.getDescriptor(path);
 		return desc;
@@ -150,8 +149,7 @@ public class RedHttpFile extends AbstractRedFile implements File {
 		for (int i = 0; i < children.size(); i++) {
 			final String key = children.getKeyAt(i);
 			final FolderSupportingIndex val = children.get(key);
-			final AbsolutePath<FileSystem> subPath = path.parent().child(key)
-				.child(FolderSupportingIndex.FILE_NAME);
+			final AbsolutePath<FileSystem> subPath = path.parent().child(key).child(FolderSupportingIndex.FILE_NAME);
 			final HttpURL subUrl = this.fs.getURLFor(subPath);
 			this.caheValue(subPath, subUrl, val);
 // L.d("key", key);
@@ -231,7 +229,8 @@ public class RedHttpFile extends AbstractRedFile implements File {
 
 	@Override
 	public java.io.File toJavaFile () {
-		throw new Error("The method is not supported");
+		Err.reportError("The method is not supported");
+		return null;
 	}
 
 	@Override

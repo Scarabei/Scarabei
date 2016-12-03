@@ -37,15 +37,4 @@ public class RedError implements ErrorComponent {
 		throw new Error("Thread error: " + t, e);
 	}
 
-	@Override
-	public void reportWarning (final String msg, final Throwable e) {
-		L.e(msg);
-		e.printStackTrace();
-	}
-
-	@Override
-	public void reportWarning (final String message) {
-		L.e(message);
-	}
-
 }

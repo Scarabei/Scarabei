@@ -14,6 +14,7 @@ import com.jfixby.cmns.api.color.ColorsComponent;
 import com.jfixby.cmns.api.color.CustomColor;
 import com.jfixby.cmns.api.color.GraySet;
 import com.jfixby.cmns.api.debug.Debug;
+import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.image.ColorMap;
 import com.jfixby.cmns.api.image.GrayMap;
 import com.jfixby.cmns.api.math.FloatMath;
@@ -41,7 +42,7 @@ public class RedColors implements ColorsComponent {
 	private static final RedColor NO = new RedColor("NO", 0f, 0f, 0f, 0f);
 
 	@Override
-	public CustomColor newColor (float a, float r, float g, float b) {
+	public CustomColor newColor (final float a, final float r, final float g, final float b) {
 		return new RedColor(a, r, g, b);
 	}
 
@@ -96,14 +97,14 @@ public class RedColors implements ColorsComponent {
 	}
 
 	@Override
-	public CustomColor newRandomColor (float alpha) {
-		RedColor result = RedColor.random();
+	public CustomColor newRandomColor (final float alpha) {
+		final RedColor result = RedColor.random();
 		result.setAlpha(alpha);
 		return result;
 	}
 
 	@Override
-	public CustomColor newColor (float r, float g, float b) {
+	public CustomColor newColor (final float r, final float g, final float b) {
 		return new RedColor(r, g, b);
 	}
 
@@ -115,7 +116,7 @@ public class RedColors implements ColorsComponent {
 	final ColorDistance distanceRGB = new ColorDistance() {
 
 		@Override
-		public float measure (Color X, Color Y) {
+		public float measure (final Color X, final Color Y) {
 			final double dR = FloatMath.component().abs(X.red() - Y.red());
 			final double dG = FloatMath.component().abs(X.green() - Y.green());
 			final double dB = FloatMath.component().abs(X.blue() - Y.blue());
@@ -125,7 +126,7 @@ public class RedColors implements ColorsComponent {
 	};
 
 	@Override
-	public CustomColor newColor (int argb) {
+	public CustomColor newColor (final int argb) {
 		return new RedColor(argb);
 	}
 
@@ -167,16 +168,17 @@ public class RedColors implements ColorsComponent {
 
 	@Override
 	public <T> ColorMapping<T> newColorMapping () {
-		throw new Error();
+		Err.reportNotImplementedYet();
+		return null;
 	}
 
 	@Override
-	public CustomColor newGray (float gray) {
+	public CustomColor newGray (final float gray) {
 		return this.newColor(gray, gray, gray);
 	}
 
 	@Override
-	public ColorRandomiser newColorRandomizer (long seed) {
+	public ColorRandomiser newColorRandomizer (final long seed) {
 		return new RedColorRandomizer(this, seed);
 	}
 
@@ -198,12 +200,12 @@ public class RedColors implements ColorsComponent {
 	}
 
 	@Override
-	public GraySet newGraySet (float... array) {
+	public GraySet newGraySet (final float... array) {
 		return new RedGraySet().addAll(array);
 	}
 
 	@Override
-	public GraySet newUniformGraySet (int depth) {
+	public GraySet newUniformGraySet (final int depth) {
 		Debug.component().checkTrue("depth > 0", depth > 0);
 		final RedGraySet set = new RedGraySet();
 		final float delta = (depth - 1);
@@ -215,11 +217,11 @@ public class RedColors implements ColorsComponent {
 	}
 
 	@Override
-	public ColorSet newColorsSet (ColorMap image) {
-		ColorSet palette = this.newColorSet();
+	public ColorSet newColorsSet (final ColorMap image) {
+		final ColorSet palette = this.newColorSet();
 		for (int i = 0; i < image.getWidth(); i++) {
 			for (int j = 0; j < image.getHeight(); j++) {
-				Color color = image.valueAt(i, j);
+				final Color color = image.valueAt(i, j);
 				palette.add(color);
 			}
 		}
@@ -228,17 +230,17 @@ public class RedColors implements ColorsComponent {
 
 	@Override
 	public ColorDistance distanceRGB () {
-		return distanceRGB;
+		return this.distanceRGB;
 	}
 
 	@Override
-	public CachedColorProjector colorProjectorCache (ColorProjector input) {
+	public CachedColorProjector colorProjectorCache (final ColorProjector input) {
 		return new RedCachedColorProjector(input);
 	}
 
 	@Override
-	public GraySet newGraySet (GrayMap image) {
-		GraySet palette = this.newGraySet();
+	public GraySet newGraySet (final GrayMap image) {
+		final GraySet palette = this.newGraySet();
 		for (int i = 0; i < image.getWidth(); i++) {
 			for (int j = 0; j < image.getHeight(); j++) {
 				palette.add(image.valueAt(i, j));

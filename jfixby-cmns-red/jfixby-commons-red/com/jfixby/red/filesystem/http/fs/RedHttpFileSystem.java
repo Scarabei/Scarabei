@@ -77,10 +77,10 @@ public class RedHttpFileSystem extends AbstractFileSystem implements FileSystem,
 	@Override
 	public RedHttpFile newFile (final AbsolutePath<FileSystem> file_path) {
 		if (file_path == null) {
-			throw new Error("Filepath is null.");
+			Err.reportError("Filepath is null.");
 		}
 		if (file_path.getMountPoint() != this) {
-			throw new Error("Path does not belong to this filesystem: " + file_path);
+			Err.reportError("Path does not belong to this filesystem: " + file_path);
 		}
 		return new RedHttpFile(this, file_path);
 	}
@@ -100,10 +100,10 @@ public class RedHttpFileSystem extends AbstractFileSystem implements FileSystem,
 	@Override
 	public FileInputStream newFileInputStream (final File input_file) {
 		if (input_file == null) {
-			throw new Error("Input file is null.");
+			Err.reportError("Input file is null.");
 		}
 		if (input_file.getFileSystem() != this) {
-			throw new Error("Input file does not belong to this filesystem: " + input_file);
+			Err.reportError("Input file does not belong to this filesystem: " + input_file);
 		}
 
 		return new RedHttpFileInputStream((RedHttpFile)input_file);

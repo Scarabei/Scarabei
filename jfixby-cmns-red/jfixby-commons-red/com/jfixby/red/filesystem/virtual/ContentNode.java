@@ -4,6 +4,7 @@ package com.jfixby.red.filesystem.virtual;
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.collections.Map;
+import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.log.L;
 
 public class ContentNode {
@@ -12,34 +13,34 @@ public class ContentNode {
 	final Map<String, ContentLeaf> leafs = Collections.newMap();
 
 	public void clearAll () {
-		leafs.clear();
-		nodes.clear();
+		this.leafs.clear();
+		this.nodes.clear();
 	}
 
-	public ContentNode getChildNode (String child_name) {
-		return nodes.get(child_name);
+	public ContentNode getChildNode (final String child_name) {
+		return this.nodes.get(child_name);
 	}
 
-	public ContentLeaf getChildLeaf (String child_name) {
-		return leafs.get(child_name);
+	public ContentLeaf getChildLeaf (final String child_name) {
+		return this.leafs.get(child_name);
 	}
 
-	public void removeLeaf (String leaf) {
-		leafs.remove(leaf);
+	public void removeLeaf (final String leaf) {
+		this.leafs.remove(leaf);
 	}
 
-	public void removeNode (String node) {
-		nodes.remove(node);
+	public void removeNode (final String node) {
+		this.nodes.remove(node);
 	}
 
-	public void renameNode (String node, String new_name) {
-		ContentNode object = nodes.remove(node);
-		nodes.put(new_name, object);
+	public void renameNode (final String node, final String new_name) {
+		final ContentNode object = this.nodes.remove(node);
+		this.nodes.put(new_name, object);
 	}
 
-	public void renameLeaf (String leaf, String new_name) {
-		ContentLeaf object = leafs.remove(leaf);
-		leafs.put(new_name, object);
+	public void renameLeaf (final String leaf, final String new_name) {
+		final ContentLeaf object = this.leafs.remove(leaf);
+		this.leafs.put(new_name, object);
 	}
 
 	public List<String> listAllChildren () {
@@ -49,16 +50,16 @@ public class ContentNode {
 		return result;
 	}
 
-	public ContentNode createNewNode (String name) {
+	public ContentNode createNewNode (final String name) {
 		if (this.leafs.containsKey(name) || this.nodes.containsKey(name)) {
-			throw new Error("File already exists: " + name);
+			Err.reportError("File already exists: " + name);
 		}
-		ContentNode new_node = new ContentNode();
+		final ContentNode new_node = new ContentNode();
 		this.nodes.put(name, new_node);
 		return new_node;
 	}
 
-	public ContentLeaf createNewFile (String name) {
+	public ContentLeaf createNewFile (final String name) {
 		if (this.nodes.containsKey(name)) {
 			L.e("Folder with this name already exists: " + name);
 			return null;

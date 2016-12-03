@@ -2,6 +2,7 @@
 package com.jfixby.red.util;
 
 import com.jfixby.cmns.api.collections.List;
+import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.util.JUtils;
 import com.jfixby.cmns.api.util.path.AbsolutePath;
 import com.jfixby.cmns.api.util.path.MountPoint;
@@ -54,10 +55,10 @@ class RedAbsolutePath<T extends MountPoint> implements AbsolutePath<T> {
 		this.mount_point = mount_point;
 		this.relative = (RedRelativePath)relative;
 		if (mount_point == null) {
-			throw new Error("MountPoint == null");
+			Err.reportError("MountPoint == null");
 		}
 		if (relative == null) {
-			throw new Error("RelativePath == null");
+			Err.reportError("RelativePath == null");
 		}
 	}
 
@@ -75,7 +76,7 @@ class RedAbsolutePath<T extends MountPoint> implements AbsolutePath<T> {
 	public String getName () {
 		final List<String> steps = this.relative.stepsList();
 		if (steps.size() == 0) {
-			throw new Error("This is root!");
+			Err.reportError("This is root!");
 		}
 		return steps.getLast();
 	}

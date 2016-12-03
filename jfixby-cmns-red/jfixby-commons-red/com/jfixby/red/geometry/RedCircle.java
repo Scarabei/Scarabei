@@ -1,6 +1,7 @@
 
 package com.jfixby.red.geometry;
 
+import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.geometry.Circle;
 import com.jfixby.cmns.api.geometry.Vertex;
 import com.jfixby.cmns.api.math.Angle;
@@ -8,72 +9,72 @@ import com.jfixby.cmns.api.math.FloatMath;
 
 public class RedCircle extends VertexMaster implements Circle {
 
-	private RedVertex point;
-	private RedVertex center;
+	private final RedVertex point;
+	private final RedVertex center;
 	double radius = 0;
 
 	RedCircle () {
-		point = new RedVertex(this);
-		center = new RedVertex(this);
+		this.point = new RedVertex(this);
+		this.center = new RedVertex(this);
 	}
 
-	public RedCircle (Circle other) {
+	public RedCircle (final Circle other) {
 		this();
 
 		this.setRadius(other.getRadius());
-		throw new Error();
+		Err.reportNotImplementedYet();
 	}
 
 	@Override
 	public double getRadius () {
-		return radius;
+		return this.radius;
 	}
 
 	@Override
-	public void setRadius (double radius) {
+	public void setRadius (final double radius) {
 		this.radius = radius;
 	}
 
 	@Override
-	public Vertex getVertexAt (Angle direction) {
+	public Vertex getVertexAt (final Angle direction) {
 		return this.getVertexAt(direction.toRadians());
 	}
 
 	@Override
-	public Vertex getVertexAt (double direction_radians) {
-		point.relative().setXY(FloatMath.cos(direction_radians), FloatMath.sin(direction_radians));
-		point.relative().scaleXY(this.radius);
-		return point;
+	public Vertex getVertexAt (final double direction_radians) {
+		this.point.relative().setXY(FloatMath.cos(direction_radians), FloatMath.sin(direction_radians));
+		this.point.relative().scaleXY(this.radius);
+		return this.point;
 	}
 
 	@Override
-	public void setXY (double x, double y) {
-		center.relative().setXY(x, y);
+	public void setXY (final double x, final double y) {
+		this.center.relative().setXY(x, y);
 	}
 
 	@Override
-	public void setRotation (double rotation) {
-		throw new Error();
+	public void setRotation (final double rotation) {
+		Err.reportNotImplementedYet();
 	}
 
 	@Override
 	public double getPositionX () {
-		return center.transformed().getX();
+		return this.center.transformed().getX();
 	}
 
 	@Override
 	public double getPositionY () {
-		return center.transformed().getY();
+		return this.center.transformed().getY();
 	}
 
 	@Override
-	public void setPosition (double x, double y) {
-		center.relative().setXY(x, y);
+	public void setPosition (final double x, final double y) {
+		this.center.relative().setXY(x, y);
 	}
 
 	@Override
 	public Vertex getCenter () {
-		return center;
+		return this.center;
 	}
 
 }

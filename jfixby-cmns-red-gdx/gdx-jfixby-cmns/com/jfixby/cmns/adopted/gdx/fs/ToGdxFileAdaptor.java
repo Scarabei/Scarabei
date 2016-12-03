@@ -18,6 +18,7 @@ import com.badlogic.gdx.Files.FileType;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.StreamUtils;
+import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.FileInputStream;
 import com.jfixby.cmns.api.file.FileSystem;
@@ -82,8 +83,9 @@ public class ToGdxFileAdaptor extends FileHandle {
 			return new ByteArrayInputStream(data.toArray());
 		} catch (final IOException e) {
 			e.printStackTrace();
-			throw new Error();
+			Err.reportNotImplementedYet();
 		}
+		return null;
 	}
 
 	@Override
@@ -336,7 +338,7 @@ public class ToGdxFileAdaptor extends FileHandle {
 	}
 
 	private void err (final String msg) {
-		throw new Error(msg + ": not implemented yet");
+		Err.reportError(msg + ": not implemented yet");
 	}
 
 	public ToGdxFileAdaptor (final File fokker_file) {

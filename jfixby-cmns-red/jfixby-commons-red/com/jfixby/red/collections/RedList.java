@@ -22,7 +22,7 @@ public abstract class RedList<T> implements List<T> {
 	@Override
 	public void addAllArrayElements (final T[] array) {
 		if (array == null) {
-			throw new Error("Input array is null");
+			Err.reportError("Input array is null");
 		}
 		for (int i = 0; i < array.length; i++) {
 			this.legacy.add(array[i]);
@@ -128,7 +128,7 @@ public abstract class RedList<T> implements List<T> {
 	@Override
 	public T removeLast () {
 		if (this.size() == 0) {
-			throw new Error("List is empty!");
+			Err.reportError("List is empty!");
 		}
 		return this.legacy.remove(this.size() - 1);
 	}
@@ -161,7 +161,7 @@ public abstract class RedList<T> implements List<T> {
 	@Override
 	public T getLast () {
 		if (this.size() == 0) {
-			throw new Error("List is empty!");
+			Err.reportError("List is empty!");
 		}
 		return this.legacy.get(this.size() - 1);
 	}

@@ -15,6 +15,7 @@ import javax.jms.Session;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.ActiveMQSession;
 
+import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.log.MESSAGE_MARKER;
 
@@ -129,7 +130,7 @@ public class MQPipe {
 
 	public void start () {
 		if (this.url == null) {
-			throw new Error("ActiveMQLogger is not initialized.");
+			Err.reportError("ActiveMQLogger is not initialized.");
 		}
 		final Thread t = new Thread(this.runner);
 		t.start();

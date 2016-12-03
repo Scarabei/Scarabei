@@ -3,6 +3,7 @@ package com.jfixby.red.filesystem.http;
 
 import java.io.IOException;
 
+import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.net.http.Http;
 import com.jfixby.cmns.api.net.http.HttpCall;
 import com.jfixby.cmns.api.net.http.HttpCallExecutor;
@@ -18,7 +19,7 @@ public class RedCallExecutor implements HttpCallExecutor {
 	public HttpCallProgress execute (final HttpCall call) throws IOException {
 		final boolean use_ssl = call.getUseSSL();
 		if (use_ssl) {
-			throw new Error("Not implemented yet");
+			Err.reportError("Not implemented yet");
 		}
 
 		final HttpURL url = call.getUrl();

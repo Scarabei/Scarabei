@@ -17,6 +17,7 @@ import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.debug.Debug;
+import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.file.ChildrenList;
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.FileConflistResolver;
@@ -50,12 +51,12 @@ public class AWSS3FileSystem extends AbstractFileSystem implements FileSystem {
 	@Override
 	public S3File newFile (final AbsolutePath<FileSystem> file_path) {
 		if (file_path == null) {
-			throw new Error("Filepath is null.");
+			Err.reportError("Filepath is null.");
 		}
 		if (file_path.getMountPoint() != this) {
 			L.e("file_path", file_path);
 			L.e("FileSystem", this.ROOT());
-			throw new Error("Path does not belong to this filesystem: " + file_path);
+			Err.reportError("Path does not belong to this filesystem: " + file_path);
 		}
 		return new S3File(file_path, this);
 	}
@@ -75,10 +76,10 @@ public class AWSS3FileSystem extends AbstractFileSystem implements FileSystem {
 	@Override
 	public FileInputStream newFileInputStream (final File input_file) {
 		if (input_file == null) {
-			throw new Error("Input file is null.");
+			Err.reportError("Input file is null.");
 		}
 		if (input_file.getFileSystem() != this) {
-			throw new Error("Input file does not belong to this filesystem: " + input_file);
+			Err.reportError("Input file does not belong to this filesystem: " + input_file);
 		}
 
 		return new S3FileInputStream((S3File)input_file);

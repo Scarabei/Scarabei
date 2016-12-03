@@ -79,7 +79,8 @@ public abstract class AbstractLocalFile<T extends AbstractLocalFileSystem> exten
 		if (!this.getAbsoluteFilePath().isRoot()) {
 			return this.getFileSystem().newFile(this.getAbsoluteFilePath().parent());
 		}
-		throw new Error("This is already a root file. No parent available: " + this);
+		Err.reportError("This is already a root file. No parent available: " + this);
+		return null;
 	}
 
 	@Override

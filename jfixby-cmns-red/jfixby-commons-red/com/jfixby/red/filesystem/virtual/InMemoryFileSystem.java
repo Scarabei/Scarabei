@@ -1,6 +1,7 @@
 
 package com.jfixby.red.filesystem.virtual;
 
+import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.FileInputStream;
 import com.jfixby.cmns.api.file.FileOutputStream;
@@ -17,10 +18,10 @@ public class InMemoryFileSystem extends AbstractFileSystem implements FileSystem
 	@Override
 	public InMemoryFile newFile (final AbsolutePath<FileSystem> file_path) {
 		if (file_path == null) {
-			throw new Error("Filepath is null.");
+			Err.reportError("Filepath is null.");
 		}
 		if (file_path.getMountPoint() != this) {
-			throw new Error("Path does not belong to this filesystem: " + file_path);
+			Err.reportError("Path does not belong to this filesystem: " + file_path);
 		}
 		return new InMemoryFile(this, file_path);
 	}
@@ -28,10 +29,10 @@ public class InMemoryFileSystem extends AbstractFileSystem implements FileSystem
 	@Override
 	public FileOutputStream newFileOutputStream (final File output_file) {
 		if (output_file == null) {
-			throw new Error("Output file is null.");
+			Err.reportError("Output file is null.");
 		}
 		if (output_file.getFileSystem() != this) {
-			throw new Error("Output file does not belong to this filesystem: " + output_file);
+			Err.reportError("Output file does not belong to this filesystem: " + output_file);
 		}
 		return new InMemoryFileOutputStream((InMemoryFile)output_file, false);
 	}
@@ -39,10 +40,10 @@ public class InMemoryFileSystem extends AbstractFileSystem implements FileSystem
 	@Override
 	public FileOutputStream newFileOutputStream (final File output_file, final boolean append) {
 		if (output_file == null) {
-			throw new Error("Output file is null.");
+			Err.reportError("Output file is null.");
 		}
 		if (output_file.getFileSystem() != this) {
-			throw new Error("Output file does not belong to this filesystem: " + output_file);
+			Err.reportError("Output file does not belong to this filesystem: " + output_file);
 		}
 		return new InMemoryFileOutputStream((InMemoryFile)output_file, append);
 	}
@@ -50,10 +51,10 @@ public class InMemoryFileSystem extends AbstractFileSystem implements FileSystem
 	@Override
 	public FileInputStream newFileInputStream (final File input_file) {
 		if (input_file == null) {
-			throw new Error("Input file is null.");
+			Err.reportError("Input file is null.");
 		}
 		if (input_file.getFileSystem() != this) {
-			throw new Error("Input file does not belong to this filesystem: " + input_file);
+			Err.reportError("Input file does not belong to this filesystem: " + input_file);
 		}
 
 		return new InMemoryFileInputStream((InMemoryFile)input_file);

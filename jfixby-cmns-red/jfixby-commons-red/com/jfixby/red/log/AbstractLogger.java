@@ -187,7 +187,7 @@ public abstract class AbstractLogger implements LoggerComponent {
 	}
 
 	@Override
-	public void d_addChars (final Object msg) {
+	public void d_appendChars (final Object msg) {
 		this.logAppend(MESSAGE_MARKER.NORMAL, msg);
 	}
 
@@ -211,4 +211,11 @@ public abstract class AbstractLogger implements LoggerComponent {
 		aThrowable.printStackTrace(printWriter);
 		return result.toString();
 	}
+
+	@Override
+	public void e (final Object tag, final Throwable err) {
+		this.e(tag);
+		this.e(this.throwableToString(err));
+	}
+
 }

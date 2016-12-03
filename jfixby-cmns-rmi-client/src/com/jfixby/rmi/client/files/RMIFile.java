@@ -67,7 +67,7 @@ public class RMIFile extends AbstractRedFile implements File {
 		final RMIDataContainer content = this.virtualFileSystem.getContent();
 
 		if (!content.exists(this.relativePath)) {
-			throw new Error("File does not exist: " + this.absolute_path);
+			Err.reportError("File does not exist: " + this.absolute_path);
 		}
 		if (content.isFolder(this.relativePath)) {
 			final List<String> files = content.listChildren(this.relativePath);
@@ -85,8 +85,9 @@ public class RMIFile extends AbstractRedFile implements File {
 			//
 			return listFiles;
 		} else {
-			throw new Error("This is not a folder: " + this.absolute_path);
+			Err.reportError("This is not a folder: " + this.absolute_path);
 		}
+		return null;
 	}
 
 	@Override
@@ -152,7 +153,8 @@ public class RMIFile extends AbstractRedFile implements File {
 
 	@Override
 	public java.io.File toJavaFile () {
-		throw new Error("The method is not supported");
+		Err.reportError("The method is not supported");
+		return null;
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 
 package com.jfixby.red.geometry;
 
+import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.floatn.FixedFloat2;
 import com.jfixby.cmns.api.floatn.Float2;
 import com.jfixby.cmns.api.geometry.Geometry;
@@ -56,7 +57,7 @@ public class RedVertex implements Vertex, RectangleCorner {
 	}
 
 	public void set (final Vertex a) {
-		throw new Error();
+		Err.reportNotImplementedYet();
 	}
 
 	// @Override

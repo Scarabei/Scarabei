@@ -1,6 +1,7 @@
 
 package com.jfixby.red.filesystem.sandbox;
 
+import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.FileInputStream;
 import com.jfixby.cmns.api.file.FileOutputStream;
@@ -31,10 +32,10 @@ public class RedSandboxFileSystem extends AbstractFileSystem implements FileSyst
 	@Override
 	public File newFile (final AbsolutePath<FileSystem> file_path) {
 		if (file_path == null) {
-			throw new Error("Filepath is null.");
+			Err.reportError("Filepath is null.");
 		}
 		if (file_path.getMountPoint() != this) {
-			throw new Error("Path does not belong to this filesystem: " + file_path);
+			Err.reportError("Path does not belong to this filesystem: " + file_path);
 		}
 		return new SandboxFile(this, file_path);
 	}
@@ -42,10 +43,10 @@ public class RedSandboxFileSystem extends AbstractFileSystem implements FileSyst
 	@Override
 	public FileOutputStream newFileOutputStream (final File output_file) {
 		if (output_file == null) {
-			throw new Error("Output file is null.");
+			Err.reportError("Output file is null.");
 		}
 		if (output_file.getFileSystem() != this) {
-			throw new Error("Output file does not belong to this filesystem: " + output_file);
+			Err.reportError("Output file does not belong to this filesystem: " + output_file);
 		}
 		return output_file.newOutputStream(false);
 	}
@@ -53,10 +54,10 @@ public class RedSandboxFileSystem extends AbstractFileSystem implements FileSyst
 	@Override
 	public FileOutputStream newFileOutputStream (final File output_file, final boolean append) {
 		if (output_file == null) {
-			throw new Error("Output file is null.");
+			Err.reportError("Output file is null.");
 		}
 		if (output_file.getFileSystem() != this) {
-			throw new Error("Output file does not belong to this filesystem: " + output_file);
+			Err.reportError("Output file does not belong to this filesystem: " + output_file);
 		}
 		return output_file.newOutputStream(append);
 	}
@@ -64,10 +65,10 @@ public class RedSandboxFileSystem extends AbstractFileSystem implements FileSyst
 	@Override
 	public FileInputStream newFileInputStream (final File input_file) {
 		if (input_file == null) {
-			throw new Error("Input file is null.");
+			Err.reportError("Input file is null.");
 		}
 		if (input_file.getFileSystem() != this) {
-			throw new Error("Input file does not belong to this filesystem: " + input_file);
+			Err.reportError("Input file does not belong to this filesystem: " + input_file);
 		}
 		return input_file.newInputStream();
 	}

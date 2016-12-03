@@ -1,34 +1,35 @@
 
 package com.jfixby.red.geometry;
 
+import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.geometry.Line;
 import com.jfixby.cmns.api.geometry.Vertex;
 
 public class RedLine extends VertexMaster implements Line {
 
-	private RedVertex a;
-	private RedVertex b;
+	private final RedVertex a;
+	private final RedVertex b;
 
 	RedLine () {
-		a = new RedVertex(this);
-		b = new RedVertex(this);
+		this.a = new RedVertex(this);
+		this.b = new RedVertex(this);
 	}
 
-	public RedLine (Line other) {
+	public RedLine (final Line other) {
 		this();
 		this.a.set(other.A());
 		this.b.set(other.B());
-		throw new Error();
+		Err.reportNotImplementedYet();
 	}
 
 	@Override
 	public Vertex A () {
-		return a;
+		return this.a;
 	}
 
 	@Override
 	public Vertex B () {
-		return b;
+		return this.b;
 	}
 
 }

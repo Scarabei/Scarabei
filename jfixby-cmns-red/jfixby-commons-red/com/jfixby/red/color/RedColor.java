@@ -8,6 +8,7 @@ import com.jfixby.cmns.api.color.ColorConstant;
 import com.jfixby.cmns.api.color.Colors;
 import com.jfixby.cmns.api.color.CustomColor;
 import com.jfixby.cmns.api.debug.Debug;
+import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.red.util.md5.RSADataSecurityIncMD5;
 
@@ -19,81 +20,82 @@ public class RedColor implements Color, CustomColor, ColorConstant {
 	private float G;
 	private float B;
 
-	RedColor (String color_name, float alpha, float red, float green, float blue) {
+	RedColor (final String color_name, final float alpha, final float red, final float green, final float blue) {
 		this.color_name = color_name;
-		set(alpha, red, green, blue);
+		this.set(alpha, red, green, blue);
 	}
 
-	public RedColor (float alpha, float red, float green, float blue) {
-		set(alpha, red, green, blue);
+	public RedColor (final float alpha, final float red, final float green, final float blue) {
+		this.set(alpha, red, green, blue);
 		this.color_name = null;
 	}
 
-	public RedColor set (float a, float r, float g, float b) {
+	public RedColor set (final float a, final float r, final float g, final float b) {
 		if (a < 0 || r < 0 || g < 0 || b < 0) {
 			L.e("A", a);
 			L.e("R", r);
 			L.e("G", g);
 			L.e("B", b);
-			throw new Error();
+			Err.reportError("bad input");
 		}
 		if (a > 1f || r > 1f || g > 1f || b > 1f) {
 			L.e("A", a);
 			L.e("R", r);
 			L.e("G", g);
 			L.e("B", b);
-			throw new Error();
+			Err.reportError("bad input");
 		}
-		A = a;
-		R = r;
-		G = g;
-		B = b;
+		this.A = a;
+		this.R = r;
+		this.G = g;
+		this.B = b;
 		return this;
 	}
 
-	public RedColor (int ARGB) {
-		int a = ((ARGB >> (8 * 3)) & 0x000000ff);
-		int r = ((ARGB >> (8 * 2)) & 0x000000ff);
-		int g = ((ARGB >> (8 * 1)) & 0x000000ff);
-		int b = ((ARGB >> (8 * 0)) & 0x000000ff);
-		float A = a / 255f;
-		float R = r / 255f;
-		float G = g / 255f;
-		float B = b / 255f;
-		color_name = null;
-		set(A, R, G, B);
+	public RedColor (final int ARGB) {
+		final int a = ((ARGB >> (8 * 3)) & 0x000000ff);
+		final int r = ((ARGB >> (8 * 2)) & 0x000000ff);
+		final int g = ((ARGB >> (8 * 1)) & 0x000000ff);
+		final int b = ((ARGB >> (8 * 0)) & 0x000000ff);
+		final float A = a / 255f;
+		final float R = r / 255f;
+		final float G = g / 255f;
+		final float B = b / 255f;
+		this.color_name = null;
+		this.set(A, R, G, B);
 	}
 
-	public RedColor (float red, float green, float blue) {
+	public RedColor (final float red, final float green, final float blue) {
 		this(1f, red, green, blue);
 	}
 
-	RedColor (String name, int ARGB) {
-		color_name = name;
-		setARGB(ARGB);
+	RedColor (final String name, final int ARGB) {
+		this.color_name = name;
+		this.setARGB(ARGB);
 
 	}
 
-	public RedColor setARGB (int ARGB) {
-		int a = ((ARGB >> (8 * 3)) & 0x000000ff);
-		int r = ((ARGB >> (8 * 2)) & 0x000000ff);
-		int g = ((ARGB >> (8 * 1)) & 0x000000ff);
-		int b = ((ARGB >> (8 * 0)) & 0x000000ff);
-		float A = a / 255f;
-		float R = r / 255f;
-		float G = g / 255f;
-		float B = b / 255f;
-		set(A, R, G, B);
+	@Override
+	public RedColor setARGB (final int ARGB) {
+		final int a = ((ARGB >> (8 * 3)) & 0x000000ff);
+		final int r = ((ARGB >> (8 * 2)) & 0x000000ff);
+		final int g = ((ARGB >> (8 * 1)) & 0x000000ff);
+		final int b = ((ARGB >> (8 * 0)) & 0x000000ff);
+		final float A = a / 255f;
+		final float R = r / 255f;
+		final float G = g / 255f;
+		final float B = b / 255f;
+		this.set(A, R, G, B);
 
 		return this;
 	}
 
 	public RedColor () {
-		color_name = null;
+		this.color_name = null;
 	}
 
-	public RedColor (RedColor c) {
-		color_name = c.color_name;
+	public RedColor (final RedColor c) {
+		this.color_name = c.color_name;
 		this.setValue(c);
 
 	}
@@ -102,15 +104,15 @@ public class RedColor implements Color, CustomColor, ColorConstant {
 	public int hashCode () {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + Float.floatToIntBits(A);
-		result = prime * result + Float.floatToIntBits(B);
-		result = prime * result + Float.floatToIntBits(G);
-		result = prime * result + Float.floatToIntBits(R);
+		result = prime * result + Float.floatToIntBits(this.A);
+		result = prime * result + Float.floatToIntBits(this.B);
+		result = prime * result + Float.floatToIntBits(this.G);
+		result = prime * result + Float.floatToIntBits(this.R);
 		return result;
 	}
 
 	@Override
-	public boolean equals (Object obj) {
+	public boolean equals (final Object obj) {
 		if (this == obj) {
 			return true;
 		}
@@ -120,17 +122,17 @@ public class RedColor implements Color, CustomColor, ColorConstant {
 		if (!(obj instanceof RedColor)) {
 			return false;
 		}
-		RedColor other = (RedColor)obj;
-		if (Float.floatToIntBits(A) != Float.floatToIntBits(other.A)) {
+		final RedColor other = (RedColor)obj;
+		if (Float.floatToIntBits(this.A) != Float.floatToIntBits(other.A)) {
 			return false;
 		}
-		if (Float.floatToIntBits(B) != Float.floatToIntBits(other.B)) {
+		if (Float.floatToIntBits(this.B) != Float.floatToIntBits(other.B)) {
 			return false;
 		}
-		if (Float.floatToIntBits(G) != Float.floatToIntBits(other.G)) {
+		if (Float.floatToIntBits(this.G) != Float.floatToIntBits(other.G)) {
 			return false;
 		}
-		if (Float.floatToIntBits(R) != Float.floatToIntBits(other.R)) {
+		if (Float.floatToIntBits(this.R) != Float.floatToIntBits(other.R)) {
 			return false;
 		}
 		return true;
@@ -138,97 +140,97 @@ public class RedColor implements Color, CustomColor, ColorConstant {
 
 	@Override
 	public String getName () {
-		if (color_name == null) {
+		if (this.color_name == null) {
 			return this.toFullHexString();
 		}
-		return color_name;
+		return this.color_name;
 	}
 
 	@Override
 	public String toFullHexString () {
-		byte b0 = (byte)(255f * A);
-		byte b1 = (byte)(255f * R);
-		byte b2 = (byte)(255f * G);
-		byte b3 = (byte)(255f * B);
-		byte[] val = new byte[] {b0, b1, b2, b3};
-		String hex = RSADataSecurityIncMD5.encodeHexString(val);
+		final byte b0 = (byte)(255f * this.A);
+		final byte b1 = (byte)(255f * this.R);
+		final byte b2 = (byte)(255f * this.G);
+		final byte b3 = (byte)(255f * this.B);
+		final byte[] val = new byte[] {b0, b1, b2, b3};
+		final String hex = RSADataSecurityIncMD5.encodeHexString(val);
 		return hex;
 	}
 
 	@Override
 	public String toShortHexString () {
-		byte b1 = (byte)(255f * R);
-		byte b2 = (byte)(255f * G);
-		byte b3 = (byte)(255f * B);
-		byte[] val = new byte[] {b1, b2, b3};
-		String hex = RSADataSecurityIncMD5.encodeHexString(val);
+		final byte b1 = (byte)(255f * this.R);
+		final byte b2 = (byte)(255f * this.G);
+		final byte b3 = (byte)(255f * this.B);
+		final byte[] val = new byte[] {b1, b2, b3};
+		final String hex = RSADataSecurityIncMD5.encodeHexString(val);
 
 		return hex;
 	}
 
 	@Override
-	public CustomColor setValue (Color other) {
+	public CustomColor setValue (final Color other) {
 		Debug.checkNull("Color", other);
-		RedColor color = (RedColor)other;
+		final RedColor color = (RedColor)other;
 		return this.set(color.A, color.R, color.G, color.B);
 	}
 
 	@Override
-	public RedColor setAlpha (float alpha) {
+	public RedColor setAlpha (final float alpha) {
 		this.A = alpha;
 		return this;
 	}
 
 	@Override
-	public RedColor setRed (float red) {
+	public RedColor setRed (final float red) {
 		this.R = red;
 		return this;
 	}
 
 	@Override
-	public RedColor setGreen (float green) {
+	public RedColor setGreen (final float green) {
 		this.G = green;
 		return this;
 	}
 
 	@Override
-	public RedColor setBlue (float blue) {
+	public RedColor setBlue (final float blue) {
 		this.B = blue;
 		return this;
 	}
 
 	@Override
 	public float alpha () {
-		return A;
+		return this.A;
 	}
 
 	@Override
 	public float red () {
-		return R;
+		return this.R;
 	}
 
 	@Override
 	public float green () {
-		return G;
+		return this.G;
 	}
 
 	@Override
 	public float blue () {
-		return B;
+		return this.B;
 	}
 
 	@Override
 	public int toInteger () {
-		int a = (((int)(255f * A) << (8 * 3)) & 0xff000000);
-		int r = (((int)(255f * R) << (8 * 2)) & 0x00ff0000);
-		int g = (((int)(255f * G) << (8 * 1)) & 0x0000ff00);
-		int b = (((int)(255f * B) << (8 * 0)) & 0x000000ff);
-		int result = a | r | g | b;
+		final int a = (((int)(255f * this.A) << (8 * 3)) & 0xff000000);
+		final int r = (((int)(255f * this.R) << (8 * 2)) & 0x00ff0000);
+		final int g = (((int)(255f * this.G) << (8 * 1)) & 0x0000ff00);
+		final int b = (((int)(255f * this.B) << (8 * 0)) & 0x000000ff);
+		final int result = a | r | g | b;
 		return result;
 	}
 
 	public static RedColor random () {
-		Random random = new Random();
+		final Random random = new Random();
 
 		final float r = random.nextFloat();
 		final float g = random.nextFloat();
@@ -253,39 +255,39 @@ public class RedColor implements Color, CustomColor, ColorConstant {
 	}
 
 	@Override
-	public Color mutliply (float f) {
-		this.B = limit(this.B * f);
-		this.R = limit(this.R * f);
-		this.G = limit(this.G * f);
+	public Color mutliply (final float f) {
+		this.B = this.limit(this.B * f);
+		this.R = this.limit(this.R * f);
+		this.G = this.limit(this.G * f);
 		return this;
 	}
 
-	private float limit (float f) {
+	private float limit (final float f) {
 		return Colors.limit(f);
 	}
 
 	@Override
-	public CustomColor mix (Color other, float proportion) {
-		this.B = limit(this.B * (1 - proportion) + proportion * other.blue());
-		this.R = limit(this.R * (1 - proportion) + proportion * other.red());
-		this.G = limit(this.G * (1 - proportion) + proportion * other.green());
+	public CustomColor mix (final Color other, final float proportion) {
+		this.B = this.limit(this.B * (1 - proportion) + proportion * other.blue());
+		this.R = this.limit(this.R * (1 - proportion) + proportion * other.red());
+		this.G = this.limit(this.G * (1 - proportion) + proportion * other.green());
 		return this;
 	}
 
 	@Override
-	public CustomColor mix (Color other) {
+	public CustomColor mix (final Color other) {
 		return this.mix(other, 0.5f);
 	}
 
 	@Override
 	public final float getGrayscaleValue (final float grayscale_alpha, final float grayscale_betta, final float grayscale_gamma) {
-		return ((R * grayscale_alpha + G * grayscale_betta + B * grayscale_gamma)
+		return ((this.R * grayscale_alpha + this.G * grayscale_betta + this.B * grayscale_gamma)
 			/ (grayscale_alpha + grayscale_betta + grayscale_gamma));
 	}
 
 	@Override
 	public final float gray () {
-		return getGrayscaleValue(grayscale_alpha, grayscale_betta, grayscale_gamma);
+		return this.getGrayscaleValue(grayscale_alpha, grayscale_betta, grayscale_gamma);
 	}
 
 	@Override

@@ -1,30 +1,31 @@
 
 package com.jfixby.red.sys;
 
+import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.taskman.ExecutorComponent;
 import com.jfixby.cmns.api.taskman.SYSTEM_STATE;
 
 public class RedSystemExecutor implements ExecutorComponent {
 
-	private RedTaskManager taskMan;
+	private final RedTaskManager taskMan;
 
-	public RedSystemExecutor (RedTaskManager redSystem) {
+	public RedSystemExecutor (final RedTaskManager redSystem) {
 		this.taskMan = redSystem;
 	}
 
 	@Override
 	public void onSystemStart () {
-		expectState(SYSTEM_STATE.NEW);
-		switchState(SYSTEM_STATE.RUNNING);
+		this.expectState(SYSTEM_STATE.NEW);
+		this.switchState(SYSTEM_STATE.RUNNING);
 	}
 
-	private void switchState (SYSTEM_STATE next_state) {
+	private void switchState (final SYSTEM_STATE next_state) {
 		this.state = next_state;
 	}
 
-	private void expectState (SYSTEM_STATE expected) {
+	private void expectState (final SYSTEM_STATE expected) {
 		if (expected != this.state) {
-			throw new Error("Wrong state: " + state + ", espected: " + expected);
+			Err.reportError("Wrong state: " + this.state + ", espected: " + expected);
 		}
 	}
 
@@ -32,7 +33,7 @@ public class RedSystemExecutor implements ExecutorComponent {
 
 	@Override
 	public void pushTasks () {
-		taskMan.push();
+		this.taskMan.push();
 	}
 
 }

@@ -47,6 +47,10 @@ public class Logger {
 		invoke().e(tag, msg);
 	}
 
+	public static void e (final Object tag, final Throwable err) {
+		invoke().e(tag, err);
+	}
+
 	public static void d () {
 		invoke().d();
 	}
@@ -55,8 +59,8 @@ public class Logger {
 		invoke().e();
 	}
 
-	public static void d_addChars (final Object msg) {
-		invoke().d_addChars(msg);
+	public static void d_appendChars (final Object msg) {
+		invoke().d_appendChars(msg);
 	}
 
 	public static String toString (final Object[] doubles) {
@@ -66,9 +70,5 @@ public class Logger {
 	public static String stackTraceToString (final Throwable e) {
 		return invoke().stackTraceToString(e);
 	}
-
-// public static String throwableToString (final Throwable e) {
-// return invoke().throwableToString(e);
-// }
 
 }

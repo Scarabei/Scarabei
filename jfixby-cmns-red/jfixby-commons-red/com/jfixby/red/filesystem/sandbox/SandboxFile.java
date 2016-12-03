@@ -67,7 +67,7 @@ public class SandboxFile extends AbstractRedFile implements File {
 		final File unprotected_file = this.getUnprotectedFile();
 
 		if (!unprotected_file.exists()) {
-			throw new Error("File does not exist: " + this.absolute_path);
+			Err.reportError("File does not exist: " + this.absolute_path);
 		}
 		if (unprotected_file.isFolder()) {
 
@@ -89,8 +89,9 @@ public class SandboxFile extends AbstractRedFile implements File {
 			//
 			return listFiles;
 		} else {
-			throw new Error("This is not a folder: " + this.absolute_path);
+			Err.reportError("This is not a folder: " + this.absolute_path);
 		}
+		return null;
 	}
 
 	@Override

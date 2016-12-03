@@ -5,6 +5,7 @@ import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.debug.Debug;
+import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.util.JUtils;
 import com.jfixby.cmns.api.util.path.RelativePath;
 
@@ -58,7 +59,7 @@ class RedRelativePath implements RelativePath {
 		final List<String> path_steps = Collections.newList();
 		path_steps.addAll(this.path_steps);
 		if (this.isRoot()) {
-			throw new Error("This is already a root path. No parent available.");
+			Err.reportError("This is already a root path. No parent available.");
 		}
 		path_steps.removeLast();
 		return new RedRelativePath(path_steps);

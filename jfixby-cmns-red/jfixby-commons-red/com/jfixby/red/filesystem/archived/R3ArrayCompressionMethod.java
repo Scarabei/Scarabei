@@ -3,6 +3,7 @@ package com.jfixby.red.filesystem.archived;
 
 import java.io.IOException;
 
+import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.packing.CompressionMethod;
 import com.jfixby.cmns.api.file.packing.CompressionSchema;
@@ -112,7 +113,7 @@ public class R3ArrayCompressionMethod implements CompressionMethod {
 
 	private void absorbFolder (final File folder, final RelativePath path, final TagsList list) throws IOException {
 		if (!folder.isFolder()) {
-			throw new Error(folder + " is not a folder");
+			Err.reportError(folder + " is not a folder");
 		}
 		final FileTag info = new FileTag(folder, path);
 		list.addInfo(info);

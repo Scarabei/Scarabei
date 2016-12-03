@@ -1,6 +1,7 @@
 
 package com.jfixby.red.graphs;
 
+import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.graphs.Edge;
 
 public class EdgeImpl<VertexType, EdgeType> implements Edge<EdgeType> {
@@ -8,32 +9,32 @@ public class EdgeImpl<VertexType, EdgeType> implements Edge<EdgeType> {
 	private VertexImpl<VertexType, EdgeType> leftNode;
 
 	public VertexImpl<VertexType, EdgeType> getRightNode () {
-		return rightNode;
+		return this.rightNode;
 	}
 
-	public void setRightNode (VertexImpl<VertexType, EdgeType> rightNode) {
+	public void setRightNode (final VertexImpl<VertexType, EdgeType> rightNode) {
 		this.rightNode = rightNode;
 	}
 
 	public VertexImpl<VertexType, EdgeType> getLeftNode () {
-		return leftNode;
+		return this.leftNode;
 	}
 
-	public void setLeftNode (VertexImpl<VertexType, EdgeType> leftNode) {
+	public void setLeftNode (final VertexImpl<VertexType, EdgeType> leftNode) {
 		this.leftNode = leftNode;
 	}
 
-	public void setObject (EdgeType object) {
+	public void setObject (final EdgeType object) {
 		this.object = object;
 	}
 
 	@Override
 	public String toString () {
-		return "Edge [" + leftNode.getVertexObject() + "]-[" + rightNode.getVertexObject() + "] @ " + this.object;
+		return "Edge [" + this.leftNode.getVertexObject() + "]-[" + this.rightNode.getVertexObject() + "] @ " + this.object;
 	}
 
 	@Override
-	public boolean equals (Object obj) {
+	public boolean equals (final Object obj) {
 		if (this == obj) {
 			return true;
 		}
@@ -41,15 +42,15 @@ public class EdgeImpl<VertexType, EdgeType> implements Edge<EdgeType> {
 		return false;
 	}
 
-	public boolean isNeighbour (EdgeImpl<VertexType, EdgeType> other) {
-		return rightNode == other.rightNode || //
-			rightNode == other.leftNode || //
-			leftNode == other.rightNode || //
-			leftNode == other.leftNode //
+	public boolean isNeighbour (final EdgeImpl<VertexType, EdgeType> other) {
+		return this.rightNode == other.rightNode || //
+			this.rightNode == other.leftNode || //
+			this.leftNode == other.rightNode || //
+			this.leftNode == other.leftNode //
 		;
 	}
 
-	public VertexImpl<VertexType, EdgeType> getOtherNode (VertexImpl<VertexType, EdgeType> champion) {
+	public VertexImpl<VertexType, EdgeType> getOtherNode (final VertexImpl<VertexType, EdgeType> champion) {
 		if (champion == this.leftNode) {
 			return this.rightNode;
 		}
@@ -57,7 +58,8 @@ public class EdgeImpl<VertexType, EdgeType> implements Edge<EdgeType> {
 			return this.leftNode;
 		}
 
-		throw new Error("Node " + champion + " does not belong here. (" + this + ")");
+		Err.reportError("Node " + champion + " does not belong here. (" + this + ")");
+		return champion;
 	}
 
 	public void switchDirection () {
@@ -67,7 +69,7 @@ public class EdgeImpl<VertexType, EdgeType> implements Edge<EdgeType> {
 
 	}
 
-	public EdgeImpl (EdgeImpl<VertexType, EdgeType> start_direction) {
+	public EdgeImpl (final EdgeImpl<VertexType, EdgeType> start_direction) {
 		this.rightNode = start_direction.rightNode;
 		this.leftNode = start_direction.leftNode;
 	}
@@ -79,12 +81,12 @@ public class EdgeImpl<VertexType, EdgeType> implements Edge<EdgeType> {
 	EdgeType object;
 
 	@Override
-	public void putObject (EdgeType object) {
+	public void putObject (final EdgeType object) {
 		this.object = object;
 	}
 
 	@Override
 	public EdgeType getObject () {
-		return object;
+		return this.object;
 	}
 }

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.Map;
 import com.jfixby.cmns.api.debug.Debug;
+import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.FileInputStream;
 import com.jfixby.cmns.api.file.packing.CompressionSchema;
@@ -102,7 +103,8 @@ public class R3ArrayCompressionSchema implements CompressionSchema {
 			return filePointer;
 		}
 		this.registry.print("Failed to read: " + relativePath);
-		throw new Error("Failed to read: " + relativePath);
+		Err.reportError("Failed to read: " + relativePath);
+		return filePointer;
 	}
 
 	public static final String END_LINE = "#";// " ←\n"

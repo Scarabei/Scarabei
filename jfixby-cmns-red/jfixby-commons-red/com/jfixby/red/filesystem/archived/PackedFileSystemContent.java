@@ -3,6 +3,7 @@ package com.jfixby.red.filesystem.archived;
 
 import java.io.IOException;
 
+import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.packing.CompressionSchema;
 import com.jfixby.cmns.api.file.packing.FileData;
@@ -10,53 +11,56 @@ import com.jfixby.cmns.api.util.path.RelativePath;
 
 public class PackedFileSystemContent {
 
-	private CompressionSchema schema;
-	private File archive;
+	private final CompressionSchema schema;
+	private final File archive;
 
-	public PackedFileSystemContent (CompressionSchema schema, File archive) {
+	public PackedFileSystemContent (final CompressionSchema schema, final File archive) {
 		this.schema = schema;
 		this.archive = archive;
 
 	}
 
-	public boolean isFile (RelativePath relativePath) {
-		return schema.isFile(relativePath);
+	public boolean isFile (final RelativePath relativePath) {
+		return this.schema.isFile(relativePath);
 	}
 
-	public long lastModified (RelativePath relativePath) {
-		return schema.lastModified(relativePath);
+	public long lastModified (final RelativePath relativePath) {
+		return this.schema.lastModified(relativePath);
 	}
 
-	public boolean isFolder (RelativePath relativePath) {
-		return schema.isFolder(relativePath);
+	public boolean isFolder (final RelativePath relativePath) {
+		return this.schema.isFolder(relativePath);
 	}
 
-	public boolean delete (RelativePath relativePath) {
-		throw new Error("Not supported (yet?)");
+	public boolean delete (final RelativePath relativePath) {
+		Err.reportError("Not supported (yet?)");
+		return false;
 	}
 
-	public boolean exists (RelativePath relativePath) {
+	public boolean exists (final RelativePath relativePath) {
 		return this.isFile(relativePath) || this.isFolder(relativePath);
 	}
 
-	public boolean mkdirs (RelativePath relativePath) {
-		throw new Error("Not supported (yet?)");
+	public boolean mkdirs (final RelativePath relativePath) {
+		Err.reportError("Not supported (yet?)");
+		return false;
 	}
 
-	public void rename (RelativePath relativePath, String new_name) {
-		throw new Error("Not supported (yet?)");
+	public void rename (final RelativePath relativePath, final String new_name) {
+		Err.reportError("Not supported (yet?)");
 	}
 
-	public Iterable<String> listChildren (RelativePath relativePath) {
-		return schema.listChildren(relativePath);
+	public Iterable<String> listChildren (final RelativePath relativePath) {
+		return this.schema.listChildren(relativePath);
 	}
 
-	public FileData createFile (RelativePath relativePath) {
-		throw new Error("Not supported (yet?)");
+	public FileData createFile (final RelativePath relativePath) {
+		Err.reportError("Not supported (yet?)");
+		return null;
 	}
 
-	public FileData getContentLeaf (RelativePath relativePath) throws IOException {
-		return schema.readFileData(relativePath, archive);
+	public FileData getContentLeaf (final RelativePath relativePath) throws IOException {
+		return this.schema.readFileData(relativePath, this.archive);
 	}
 
 }

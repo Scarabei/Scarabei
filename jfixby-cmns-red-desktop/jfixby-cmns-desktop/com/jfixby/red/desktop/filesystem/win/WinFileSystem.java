@@ -4,6 +4,7 @@ package com.jfixby.red.desktop.filesystem.win;
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.debug.Debug;
+import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.FileSystem;
 import com.jfixby.cmns.api.file.LocalFileSystemComponent;
@@ -36,10 +37,10 @@ public class WinFileSystem extends AbstractLocalFileSystem implements LocalFileS
 		final String path_string = file.getAbsolutePath();
 		// L.d("path_string", path_string);
 		// if (path_string.contains("@")) {
-		// throw new Error();
+		// Err.reportError();
 		// }
 		// if (path_string.contains("#input_sprites_tmp_folder#")) {
-		// throw new Error();
+		// Err.reportError();
 		// }
 
 		final List<String> steps = Collections.newList(path_string.split(OS_SEPARATOR + OS_SEPARATOR));
@@ -48,7 +49,7 @@ public class WinFileSystem extends AbstractLocalFileSystem implements LocalFileS
 		final RelativePath relative = JUtils.newRelativePath(steps);
 		final AbsolutePath<FileSystem> path = JUtils.newAbsolutePath((FileSystem)this, relative);
 		// L.d("path", path);
-		// throw new Error();
+		// Err.reportError();
 		return path;
 	}
 
@@ -62,12 +63,12 @@ public class WinFileSystem extends AbstractLocalFileSystem implements LocalFileS
 	@Override
 	public WinFile newFile (final AbsolutePath<FileSystem> file_path) {
 		if (file_path == null) {
-			throw new Error("Filepath is null.");
+			Err.reportError("Filepath is null.");
 		}
 		if (file_path.getMountPoint() != this) {
 			L.e("file_path", file_path);
 			L.e("FileSystem", file_path.getMountPoint());
-			throw new Error("Path does not belong to this filesystem: " + this);
+			Err.reportError("Path does not belong to this filesystem: " + this);
 		}
 		return new WinFile(file_path, this);
 	}
@@ -94,7 +95,7 @@ public class WinFileSystem extends AbstractLocalFileSystem implements LocalFileS
 		if (file_path.getMountPoint() != this) {
 			L.e("file_path", file_path);
 			L.e("FileSystem", file_path.getMountPoint());
-			throw new Error("Path does not belong to this filesystem: " + this);
+			Err.reportError("Path does not belong to this filesystem: " + this);
 		}
 		final WinFile win_f = (WinFile)file;
 		return win_f.getJavaFile();
@@ -103,12 +104,12 @@ public class WinFileSystem extends AbstractLocalFileSystem implements LocalFileS
 	@Override
 	public String toAbsolutePathString (final AbsolutePath<FileSystem> file_path) {
 		if (file_path == null) {
-			throw new Error("Filepath is null.");
+			Err.reportError("Filepath is null.");
 		}
 		if (file_path.getMountPoint() != this) {
 			L.e("file_path", file_path);
 			L.e("FileSystem", file_path.getMountPoint());
-			throw new Error("Path does not belong to this filesystem: " + this);
+			Err.reportError("Path does not belong to this filesystem: " + this);
 		}
 		return new WinFile(file_path, this).getAbsolutePathString();
 	}

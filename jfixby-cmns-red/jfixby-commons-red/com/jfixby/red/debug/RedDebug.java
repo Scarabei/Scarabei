@@ -6,6 +6,7 @@ import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.debug.DEBUG_TIMER_MODE;
 import com.jfixby.cmns.api.debug.DebugComponent;
 import com.jfixby.cmns.api.debug.DebugTimer;
+import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.sys.Sys;
 
 public class RedDebug implements DebugComponent {
@@ -19,8 +20,8 @@ public class RedDebug implements DebugComponent {
 	}
 
 	final static private void printStack () {
-		CallStack stack = new CallStack();
-		List<StackTraceElement> list = Collections.newList(stack.getStackTrace());
+		final CallStack stack = new CallStack();
+		final List<StackTraceElement> list = Collections.newList(stack.getStackTrace());
 		list.reverse();
 		list.removeLast();
 		list.removeLast();
@@ -29,31 +30,31 @@ public class RedDebug implements DebugComponent {
 	}
 
 	@Override
-	public <T> T checkNull (String parameter_name, T value) {
+	public <T> T checkNull (final String parameter_name, final T value) {
 		if (value == null) {
-			throw new Error("<" + parameter_name + "> is null.");
+			Err.reportError("<" + parameter_name + "> is null.");
 		}
 		return value;
 	}
 
 	@Override
-	public <T> T checkNull (T value) {
+	public <T> T checkNull (final T value) {
 		if (value == null) {
-			throw new Error("Paremeter is null.");
+			Err.reportError("Paremeter is null.");
 		}
 		return value;
 	}
 
 	@Override
-	public String checkEmpty (String parameter_name, String value) {
+	public String checkEmpty (final String parameter_name, final String value) {
 		if ("".equals(value)) {
-			throw new Error("<" + parameter_name + "> is empty.");
+			Err.reportError("<" + parameter_name + "> is empty.");
 		}
 		return value;
 	}
 
 	@Override
-	public void exit (boolean condition) {
+	public void exit (final boolean condition) {
 		if (condition) {
 			Sys.exit();
 		}
@@ -65,16 +66,16 @@ public class RedDebug implements DebugComponent {
 	}
 
 	@Override
-	public void checkTrue (String flag_name, boolean flag) {
+	public void checkTrue (final String flag_name, final boolean flag) {
 		if (flag == false) {
-			throw new Error(flag_name + "");
+			Err.reportError(flag_name + " is " + flag);
 		}
 	}
 
 	@Override
-	public void checkTrue (boolean flag) {
+	public void checkTrue (final boolean flag) {
 		if (flag == false) {
-			throw new Error();
+			Err.reportError("flag is " + flag);
 		}
 	}
 
@@ -84,7 +85,7 @@ public class RedDebug implements DebugComponent {
 	}
 
 	@Override
-	public DebugTimer newTimer (DEBUG_TIMER_MODE mode) {
+	public DebugTimer newTimer (final DEBUG_TIMER_MODE mode) {
 		return new RedDebugTimer(mode);
 	}
 

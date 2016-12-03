@@ -4,6 +4,7 @@ package com.jfixby.red.desktop.filesystem.unix;
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.debug.Debug;
+import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.FileSystem;
 import com.jfixby.cmns.api.file.LocalFileSystemComponent;
@@ -48,12 +49,12 @@ public class UnixFileSystem extends AbstractLocalFileSystem implements LocalFile
 	@Override
 	public UnixFile newFile (final AbsolutePath<FileSystem> file_path) {
 		if (file_path == null) {
-			throw new Error("Filepath is null.");
+			Err.reportError("Filepath is null.");
 		}
 		if (file_path.getMountPoint() != this) {
 			L.e("file_path", file_path);
 			L.e("FileSystem", file_path.getMountPoint());
-			throw new Error("Path does not belong to this filesystem: " + this);
+			Err.reportError("Path does not belong to this filesystem: " + this);
 		}
 		return new UnixFile(file_path, this);
 	}
@@ -80,7 +81,7 @@ public class UnixFileSystem extends AbstractLocalFileSystem implements LocalFile
 		if (file_path.getMountPoint() != this) {
 			L.e("file_path", file_path);
 			L.e("FileSystem", file_path.getMountPoint());
-			throw new Error("Path does not belong to this filesystem: " + this);
+			Err.reportError("Path does not belong to this filesystem: " + this);
 		}
 		final UnixFile win_f = (UnixFile)file;
 		return win_f.getJavaFile();
@@ -89,12 +90,12 @@ public class UnixFileSystem extends AbstractLocalFileSystem implements LocalFile
 	@Override
 	public String toAbsolutePathString (final AbsolutePath<FileSystem> file_path) {
 		if (file_path == null) {
-			throw new Error("Filepath is null.");
+			Err.reportError("Filepath is null.");
 		}
 		if (file_path.getMountPoint() != this) {
 			L.e("file_path", file_path);
 			L.e("FileSystem", file_path.getMountPoint());
-			throw new Error("Path does not belong to this filesystem: " + this);
+			Err.reportError("Path does not belong to this filesystem: " + this);
 		}
 		return new UnixFile(file_path, this).getAbsolutePathString();
 	}

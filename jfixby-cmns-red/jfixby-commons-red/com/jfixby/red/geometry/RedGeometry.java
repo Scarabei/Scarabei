@@ -7,6 +7,7 @@ import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.EditableCollection;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.debug.Debug;
+import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.floatn.FixedFloat2;
 import com.jfixby.cmns.api.floatn.Float2;
 import com.jfixby.cmns.api.floatn.Float3;
@@ -110,7 +111,7 @@ public class RedGeometry implements GeometryComponent {
 	public void copyValues (final Collection<? extends FixedFloat2> a, final EditableCollection<? extends Float2> b,
 		final int offset) {
 		if (a.size() + offset > b.size()) {
-			throw new Error(
+			Err.reportError(
 				"Not enough space in the destination array, required = " + (a.size() + offset) + ", available = " + b.size());
 		}
 		for (int i = 0; i < a.size(); i++) {
@@ -268,7 +269,7 @@ public class RedGeometry implements GeometryComponent {
 	@Override
 	public Rectangle setupWrapingFrame (final Collection<? extends FixedFloat2> points_to_wrap, final Rectangle wrapping_frame) {
 		if (points_to_wrap.size() == 0) {
-			throw new Error("Empty collection!");
+			Err.reportError("Empty collection!");
 		}
 		final Float2 top_left = Geometry.newFloat2(points_to_wrap.getElementAt(0));
 		final Float2 bottom_right = Geometry.newFloat2(points_to_wrap.getElementAt(0));
