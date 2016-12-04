@@ -1,5 +1,5 @@
 
-package com.jfixby.red.filesystem.http;
+package com.jfixby.red.net.http;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;

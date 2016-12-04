@@ -6,7 +6,7 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 
 import com.jfixby.cmns.api.err.Err;
-import com.jfixby.red.filesystem.http.RedHttp;
+import com.jfixby.red.net.http.RedHttp;
 
 public class DesktopHttp extends RedHttp {
 	final boolean simulateAndroidSSLBugFix = false;

@@ -1,10 +1,11 @@
 
-package com.jfixby.red.net;
+package com.jfixby.red.net.http;
 
 import java.net.URL;
 
 import com.jfixby.cmns.api.net.http.HttpURL;
 import com.jfixby.cmns.api.util.path.RelativePath;
+import com.jfixby.red.net.RedHost;
 
 public class RedHttpURL implements HttpURL {
 

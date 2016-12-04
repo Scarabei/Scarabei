@@ -220,7 +220,6 @@ public abstract class AbstractLogger implements LoggerComponent {
 
 	@Override
 	public void e (final Throwable err) {
-
 		this.e(this.throwableToString(err));
 	}
 

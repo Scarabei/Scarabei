@@ -1,5 +1,5 @@
 
-package com.jfixby.red.filesystem.http;
+package com.jfixby.red.net.http;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -20,7 +20,6 @@ import com.jfixby.cmns.api.util.path.RelativePath;
 import com.jfixby.red.filesystem.http.fs.RedHttpFileSystem;
 import com.jfixby.red.filesystem.http.fs.RedHttpFileSystemSpecs;
 import com.jfixby.red.net.RedHost;
-import com.jfixby.red.net.RedHttpURL;
 
 public abstract class RedHttp implements HttpComponent {
 

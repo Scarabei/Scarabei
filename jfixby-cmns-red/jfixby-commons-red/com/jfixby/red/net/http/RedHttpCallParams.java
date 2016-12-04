@@ -1,5 +1,5 @@
 
-package com.jfixby.red.filesystem.http;
+package com.jfixby.red.net.http;
 
 import com.jfixby.cmns.api.net.http.HttpCallParams;
 import com.jfixby.cmns.api.net.http.HttpURL;

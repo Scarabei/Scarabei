@@ -7,7 +7,7 @@ import javax.net.ssl.SSLSocketFactory;
 
 import com.jfixby.cmns.api.err.Err;
 import com.jfixby.red.android.net.http.sslfix.NoSSLv3SocketFactory;
-import com.jfixby.red.filesystem.http.RedHttp;
+import com.jfixby.red.net.http.RedHttp;
 
 public class AndroidHttp extends RedHttp {
 	public AndroidHttp () {

@@ -32,15 +32,15 @@ public class RedError implements ErrorComponent {
 	}
 
 	@Override
-	public void reportNotImplementedYet () {
-		this.reportError(new NotImplementedYetException());
-	}
-
-	@Override
 	public void reportError (final Thread t, final Throwable e) {
 		L.e("Thread", t);
 		L.e(e);
 		Sys.exit();
+	}
+
+	@Override
+	public void reportNotImplementedYet () {
+		this.reportError(new NotImplementedYetException());
 	}
 
 }
