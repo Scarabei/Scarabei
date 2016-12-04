@@ -46,7 +46,7 @@ public class PackedFile extends AbstractRedFile implements File {
 
 	@Override
 	public ChildrenList listAllChildren () {
-		Err.reportNotImplementedYet();
+		Err.throwNotImplementedYet();
 		return null;
 	}
 

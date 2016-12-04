@@ -57,7 +57,7 @@ public class RedVertex implements Vertex, RectangleCorner {
 	}
 
 	public void set (final Vertex a) {
-		Err.reportNotImplementedYet();
+		Err.throwNotImplementedYet();
 	}
 
 	// @Override

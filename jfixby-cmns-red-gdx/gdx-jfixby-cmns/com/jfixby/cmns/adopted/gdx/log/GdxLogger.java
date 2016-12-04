@@ -11,7 +11,7 @@ public class GdxLogger implements LoggerComponent {
 	public GdxLogger () {
 		super();
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
-		Err.reportNotImplementedYet();
+		Err.throwNotImplementedYet();
 	}
 
 	@Override

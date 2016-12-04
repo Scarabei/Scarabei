@@ -38,7 +38,7 @@ public class RedHttpConnectionInputStreamOperator implements JavaInputStreamOper
 
 	@Override
 	public ByteArray readAll () throws IOException {
-		Err.reportNotImplementedYet();
+		Err.throwNotImplementedYet();
 		return null;
 	}
 

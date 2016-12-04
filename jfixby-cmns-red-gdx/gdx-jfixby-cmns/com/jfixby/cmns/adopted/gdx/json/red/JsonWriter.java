@@ -176,12 +176,12 @@ public class JsonWriter implements Closeable, CharWriter, DataWriter<JsonString>
 
 	@Override
 	public void write (final int c) {
-		Err.reportNotImplementedYet();
+		Err.throwNotImplementedYet();
 	}
 
 	@Override
 	public void write (final String quoteName) {
-		Err.reportNotImplementedYet();
+		Err.throwNotImplementedYet();
 	}
 
 	public StringBuffer getBuffer () {

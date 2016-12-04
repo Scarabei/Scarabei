@@ -84,7 +84,7 @@ public class RedHttpFile extends AbstractRedFile implements File {
 
 	@Override
 	public boolean delete () {
-		Err.reportNotImplementedYet();
+		Err.throwNotImplementedYet();
 		return false;
 
 	}
@@ -182,13 +182,13 @@ public class RedHttpFile extends AbstractRedFile implements File {
 
 	@Override
 	public boolean makeFolder () {
-		Err.reportNotImplementedYet();
+		Err.throwNotImplementedYet();
 		return false;
 	}
 
 	@Override
 	public boolean rename (final String new_name) {
-		Err.reportNotImplementedYet();
+		Err.throwNotImplementedYet();
 		return false;
 	}
 

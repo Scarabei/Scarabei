@@ -22,7 +22,7 @@ public class RedCircle extends VertexMaster implements Circle {
 		this();
 
 		this.setRadius(other.getRadius());
-		Err.reportNotImplementedYet();
+		Err.throwNotImplementedYet();
 	}
 
 	@Override
@@ -54,7 +54,7 @@ public class RedCircle extends VertexMaster implements Circle {
 
 	@Override
 	public void setRotation (final double rotation) {
-		Err.reportNotImplementedYet();
+		Err.throwNotImplementedYet();
 	}
 
 	@Override

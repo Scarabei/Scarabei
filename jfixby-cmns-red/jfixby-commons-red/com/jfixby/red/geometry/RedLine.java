@@ -19,7 +19,7 @@ public class RedLine extends VertexMaster implements Line {
 		this();
 		this.a.set(other.A());
 		this.b.set(other.B());
-		Err.reportNotImplementedYet();
+		Err.throwNotImplementedYet();
 	}
 
 	@Override

@@ -46,7 +46,7 @@ public class RMIFile extends AbstractRedFile implements File {
 
 	@Override
 	public ChildrenList listAllChildren () {
-		Err.reportNotImplementedYet();
+		Err.throwNotImplementedYet();
 		return null;
 	}
 

@@ -30,7 +30,7 @@ public class Err {
 		invoke().reportError(message);
 	}
 
-	public static void reportNotImplementedYet () {
+	public static void throwNotImplementedYet () {
 		invoke().reportNotImplementedYet();
 	}
 

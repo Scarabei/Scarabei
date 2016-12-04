@@ -83,7 +83,7 @@ public class ToGdxFileAdaptor extends FileHandle {
 			return new ByteArrayInputStream(data.toArray());
 		} catch (final IOException e) {
 			e.printStackTrace();
-			Err.reportNotImplementedYet();
+			Err.throwNotImplementedYet();
 		}
 		return null;
 	}

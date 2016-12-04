@@ -47,7 +47,7 @@ public class JavaFileOutputStreamOperator implements JavaOutputStreamOperator {
 
 	@Override
 	public void writeAll (final ByteArray bytes) throws IOException {
-		Err.reportNotImplementedYet();
+		Err.throwNotImplementedYet();
 	}
 
 }

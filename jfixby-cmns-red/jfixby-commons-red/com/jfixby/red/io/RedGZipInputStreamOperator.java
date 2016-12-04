@@ -44,7 +44,7 @@ public class RedGZipInputStreamOperator implements JavaInputStreamOperator {
 
 	@Override
 	public ByteArray readAll () throws IOException {
-		Err.reportNotImplementedYet();
+		Err.throwNotImplementedYet();
 		return null;
 	}
 }

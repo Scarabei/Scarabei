@@ -47,26 +47,26 @@ public class SimpleLocalization implements LocalizationComponent, StringValuesCo
 
 	@Override
 	public Locale getLocale (final String locale_name) {
-		Err.reportNotImplementedYet();
+		Err.throwNotImplementedYet();
 		return null;
 
 	}
 
 	@Override
 	public StringValueID getIdByValue (final String ui_string_value) {
-		Err.reportNotImplementedYet();
+		Err.throwNotImplementedYet();
 		return null;
 	}
 
 	@Override
 	public StringValueLocalizations getLocalizationsFor (final StringValueID string_value_id) {
-		Err.reportNotImplementedYet();
+		Err.throwNotImplementedYet();
 		return null;
 	}
 
 	@Override
 	public StringValueLocalizationSpecs newLocalizationSpecs () {
-		Err.reportNotImplementedYet();
+		Err.throwNotImplementedYet();
 		return null;
 	}
 
@@ -77,19 +77,19 @@ public class SimpleLocalization implements LocalizationComponent, StringValuesCo
 
 	@Override
 	public LocalizedStringValue newLocalizationEntry (final StringValueLocalizationSpecs specs) {
-		Err.reportNotImplementedYet();
+		Err.throwNotImplementedYet();
 		return null;
 	}
 
 	@Override
 	public LocalizedStringValue getLocalizationFor (final String locale_name, final StringValueID string_value_id) {
-		Err.reportNotImplementedYet();
+		Err.throwNotImplementedYet();
 		return null;
 	}
 
 	@Override
 	public LocalizedStringValuesList listAllValues () {
-		Err.reportNotImplementedYet();
+		Err.throwNotImplementedYet();
 		return null;
 	}
 

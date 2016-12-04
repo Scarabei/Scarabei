@@ -9,7 +9,7 @@ public class GwtSystem extends RedSystem {
 
 	@Override
 	public SystemInfo getSystemInfo () {
-		Err.reportNotImplementedYet();
+		Err.throwNotImplementedYet();
 		return null;
 	}
 

@@ -168,7 +168,7 @@ public class RedColors implements ColorsComponent {
 
 	@Override
 	public <T> ColorMapping<T> newColorMapping () {
-		Err.reportNotImplementedYet();
+		Err.throwNotImplementedYet();
 		return null;
 	}
 
