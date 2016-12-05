@@ -9,14 +9,14 @@ public interface TaskSpecs {
 
 	String getName ();
 
-	void setRunInSeparatedThread (boolean runInSeparatedThread);
-
-	boolean runInSeparatedThread ();
-
 	void addJobs (Iterable<Job> jobs);
 
 	Collection<Job> listJobs ();
 
 	void addJob (Job job);
+
+	public void setType (TASK_TYPE type);
+
+	TASK_TYPE getType ();
 
 }

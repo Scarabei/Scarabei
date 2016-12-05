@@ -5,12 +5,13 @@ import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.taskman.Job;
+import com.jfixby.cmns.api.taskman.TASK_TYPE;
 import com.jfixby.cmns.api.taskman.TaskSpecs;
 
 public class RedTaskSpecs implements TaskSpecs {
 	final List<Job> jobs = Collections.newList();
-	private boolean runInSeparatedThread = false;
 	private String name;
+	private TASK_TYPE type = TASK_TYPE.PSEUDO_PARALEL;
 
 	@Override
 	public void setName (final String string) {
@@ -20,16 +21,6 @@ public class RedTaskSpecs implements TaskSpecs {
 	@Override
 	public String getName () {
 		return this.name;
-	}
-
-	@Override
-	public void setRunInSeparatedThread (final boolean runInSeparatedThread) {
-		this.runInSeparatedThread = runInSeparatedThread;
-	}
-
-	@Override
-	public boolean runInSeparatedThread () {
-		return this.runInSeparatedThread;
 	}
 
 	@Override
@@ -45,6 +36,16 @@ public class RedTaskSpecs implements TaskSpecs {
 	@Override
 	public void addJob (final Job job) {
 		this.jobs.add(job);
+	}
+
+	@Override
+	public void setType (final TASK_TYPE type) {
+		this.type = type;
+	}
+
+	@Override
+	public TASK_TYPE getType () {
+		return this.type;
 	}
 
 }

@@ -4,10 +4,12 @@ package com.jfixby.red.sys;
 import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
+import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.sys.Sys;
 import com.jfixby.cmns.api.taskman.Job;
 import com.jfixby.cmns.api.taskman.TASK_STATE;
+import com.jfixby.cmns.api.taskman.TASK_TYPE;
 import com.jfixby.cmns.api.taskman.Task;
 import com.jfixby.cmns.api.taskman.TaskSpecs;
 import com.jfixby.cmns.api.util.JUtils;
@@ -21,10 +23,10 @@ public class RedTask implements Task, Runnable {
 
 	private final StateSwitcher<TASK_STATE> switcher;
 	private String name;
+	boolean threadStarted = false;
 
-	final private boolean runInSeparatedThread;
-
-	private boolean threadStarted;
+	private final TASK_TYPE type;
+	final Thread t;
 
 	@Override
 	public String toString () {
@@ -41,8 +43,8 @@ public class RedTask implements Task, Runnable {
 			this.name = super.toString();
 		}
 		this.jobs.addAll(jobs);
+		this.type = TASK_TYPE.PSEUDO_PARALEL;
 		this.switcher = JUtils.newStateSwitcher(TASK_STATE.ACTIVE);
-		this.runInSeparatedThread = false;
 		this.t = null;
 		// listNames();
 	}
@@ -52,36 +54,49 @@ public class RedTask implements Task, Runnable {
 		if (this.name == null) {
 			this.name = super.toString();
 		}
-		this.runInSeparatedThread = specs.runInSeparatedThread();
+
+		this.type = Debug.checkNull("TASK_TYPE", specs.getType());
 
 		this.jobs.addAll(specs.listJobs());
 
 		this.switcher = JUtils.newStateSwitcher(TASK_STATE.ACTIVE);
 
-		if (this.runInSeparatedThread) {
+		if (this.type == TASK_TYPE.SEPARATED_THREAD) {
 			this.t = new Thread(this.runner);
 			this.threadStarted = false;
+		} else if (this.type == TASK_TYPE.PSEUDO_PARALEL) {
+			this.t = null;
+		} else if (this.type == TASK_TYPE.BACKGROUND) {
+			this.t = null;
 		} else {
 			this.t = null;
+			Err.throwNotImplementedYet();
 		}
 	}
 
 	private final Runnable runner = this;
-	final Thread t;
 
 	boolean first_call = false;
 	Job current_job;
 
 	public void push () {
-		if (!this.runInSeparatedThread) {
+		if (this.type == TASK_TYPE.PSEUDO_PARALEL) {
 			this.pushTask();
-		} else {
+			return;
+		}
+		if (this.type == TASK_TYPE.SEPARATED_THREAD) {
 			if (!this.threadStarted) {
 				this.threadStarted = true;
 				this.t.start();
 			} else {
 				Sys.yeld();
 			}
+			return;
+		}
+
+		if (this.type == TASK_TYPE.BACKGROUND) {
+			Err.throwNotImplementedYet();
+			return;
 		}
 	}
 
