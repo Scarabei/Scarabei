@@ -4,40 +4,64 @@ package com.jfixby.red.sys;
 import com.jfixby.cmns.api.assets.ID;
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.Map;
+import com.jfixby.cmns.api.collections.Mapping;
 import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.sys.settings.ExecutionMode;
 import com.jfixby.cmns.api.sys.settings.SystemSettingsComponent;
 
 public class RedSystemSettings implements SystemSettingsComponent {
+	private ExecutionMode execution_mode = ExecutionMode.EARLY_DEVELOPMENT;
 
 	final Map<String, Boolean> flags = Collections.newMap();
 	final Map<String, Long> longs = Collections.newMap();
 	final Map<String, String> strings = Collections.newMap();
 	final Map<String, ID> assets = Collections.newMap();
 
+	@Override
 	public void printSystemParameters () {
 		L.d("---[SystemSettings]-----------------------------------");
-		flags.print("   Flags  ");
-		longs.print("   Longs  ");
-		strings.print("   Strings");
-		assets.print("   Assets ");
+		L.d("ExecutionMode", this.execution_mode);
+		this.flags.print("   Flags  ");
+		this.longs.print("   Longs  ");
+		this.strings.print("   Strings");
+		this.assets.print("   Assets ");
 		L.d("---[SystemSettings-END]-----------------------------------");
 	}
 
-	private ExecutionMode execution_mode = ExecutionMode.EARLY_DEVELOPMENT;
+	@Override
+	public Mapping<String, String> listAllSettings () {
+		final Map<String, String> params = Collections.newMap();
+		params.put("ExecutionMode", "" + this.execution_mode);
+		collect("flag", params, this.flags);
+		collect("long", params, this.longs);
+		collect("string", params, this.strings);
+		collect("assets", params, this.assets);
+		return params;
+	}
 
+	static private void collect (final String string, final Map<String, String> params, final Map<String, ?> input) {
+		for (final String flagName : input.keys()) {
+			final String key = string + "." + flagName;
+			final String value = "" + input.get(flagName);
+			params.put(key, value);
+		}
+	}
+
+	@Override
 	public void setExecutionMode (final ExecutionMode executionMode) {
 		Debug.checkNull("ExecutionMode", executionMode);
 		this.execution_mode = executionMode;
 	}
 
-	public void setFlag (String flag_name, boolean flag_value) {
+	@Override
+	public void setFlag (final String flag_name, final boolean flag_value) {
 		this.flags.put(flag_name, flag_value);
 	}
 
-	public boolean getFlag (String flag_name) {
-		Boolean value = flags.get(flag_name);
+	@Override
+	public boolean getFlag (final String flag_name) {
+		final Boolean value = this.flags.get(flag_name);
 		if (value == null) {
 			L.d("Flag not found", flag_name);
 			return false;
@@ -45,8 +69,9 @@ public class RedSystemSettings implements SystemSettingsComponent {
 		return value;
 	}
 
-	public String getStringParameter (String parameter_name) {
-		String value = strings.get(parameter_name);
+	@Override
+	public String getStringParameter (final String parameter_name) {
+		final String value = this.strings.get(parameter_name);
 		if (value == null) {
 			L.d("Parameter not found", parameter_name);
 			return null;
@@ -54,16 +79,19 @@ public class RedSystemSettings implements SystemSettingsComponent {
 		return value;
 	}
 
-	public void setStringParameter (String parameter_name, String parameter_value) {
-		strings.put(parameter_name, parameter_value);
+	@Override
+	public void setStringParameter (final String parameter_name, final String parameter_value) {
+		this.strings.put(parameter_name, parameter_value);
 	}
 
-	public void setSystemAssetID (String parameter_name, ID parameter_value) {
-		assets.put(parameter_name, parameter_value);
+	@Override
+	public void setSystemAssetID (final String parameter_name, final ID parameter_value) {
+		this.assets.put(parameter_name, parameter_value);
 	}
 
-	public ID getSystemAssetID (String parameter_name) {
-		ID value = assets.get(parameter_name);
+	@Override
+	public ID getSystemAssetID (final String parameter_name) {
+		final ID value = this.assets.get(parameter_name);
 		if (value == null) {
 			L.d("Parameter not found", parameter_name);
 			return null;
@@ -71,21 +99,24 @@ public class RedSystemSettings implements SystemSettingsComponent {
 		return value;
 	}
 
+	@Override
 	public boolean executionModeCovers (final ExecutionMode execution_mode) {
 		return this.execution_mode.covers(execution_mode);
 	}
 
+	@Override
 	public ExecutionMode getExecutionMode () {
 		return this.execution_mode;
 	}
 
 	@Override
-	public void setLongParameter (String parameterName, long parameterValue) {
-		longs.put(parameterName, parameterValue);
+	public void setLongParameter (final String parameterName, final long parameterValue) {
+		this.longs.put(parameterName, parameterValue);
 	}
 
-	public long getLongParameter (String parameterName) {
-		Long value = longs.get(parameterName);
+	@Override
+	public long getLongParameter (final String parameterName) {
+		final Long value = this.longs.get(parameterName);
 		if (value == null) {
 			L.d("Parameter not found", parameterName);
 			return 0;

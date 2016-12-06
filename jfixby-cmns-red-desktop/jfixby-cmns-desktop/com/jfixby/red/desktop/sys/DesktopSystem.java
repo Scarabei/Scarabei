@@ -6,6 +6,8 @@ import java.awt.Toolkit;
 
 import com.jfixby.cmns.api.sys.SystemInfo;
 import com.jfixby.cmns.api.sys.SystemInfoTags;
+import com.jfixby.cmns.api.sys.settings.SystemSettings;
+import com.jfixby.cmns.ver.Version;
 import com.jfixby.red.sys.RedDeviceInfo;
 import com.jfixby.red.sys.RedSystem;
 
@@ -30,6 +32,12 @@ public class DesktopSystem extends RedSystem {
 		{
 			final String java = System.getProperty("java.version");
 			deviceInfo.putValue(SystemInfoTags.Java.Version, java);
+		}
+
+		{
+			deviceInfo.putValue(Version.Tags.PackageName, SystemSettings.getStringParameter(Version.Tags.PackageName));
+			deviceInfo.putValue(Version.Tags.VersionCode, SystemSettings.getStringParameter(Version.Tags.VersionCode));
+			deviceInfo.putValue(Version.Tags.VersionName, SystemSettings.getStringParameter(Version.Tags.VersionName));
 		}
 
 		return deviceInfo;

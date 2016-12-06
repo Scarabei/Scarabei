@@ -2,6 +2,7 @@
 package com.jfixby.cmns.api.sys.settings;
 
 import com.jfixby.cmns.api.assets.ID;
+import com.jfixby.cmns.api.collections.Mapping;
 
 public interface SystemSettingsComponent {
 
@@ -28,5 +29,7 @@ public interface SystemSettingsComponent {
 	void setLongParameter (String parameterName, long parameterValue);
 
 	long getLongParameter (String parameterName);
+
+	Mapping<String, String> listAllSettings ();
 
 }

@@ -22,11 +22,14 @@ public class MySQL implements DBComponent {
 	final Map<String, MySQLTable> tables = Collections.newMap();
 	private int port;
 	private final ConnectionParametersProvider connectionParamatesProvider;
+	private final int maxReconnects;
 
 	public MySQL (final MySQLConfig config) {
 		this.dbName = Debug.checkNull("dbName", config.getDBName());
 		this.useSSL = config.useSSL();
 		this.connectionParamatesProvider = config.getConnectionParametersProvider();
+		this.maxReconnects = config.getMaxReconnects();
+
 		if (this.connectionParamatesProvider == null) {
 			this.serverName = Debug.checkNull("serverName", config.getServerName());
 			this.login = Debug.checkNull("login", config.getLogin());
@@ -106,7 +109,7 @@ public class MySQL implements DBComponent {
 		this.dataSource.setUseSSL(this.useSSL);
 		this.dataSource.setDatabaseName(this.dbName);
 		this.dataSource.setAutoReconnect(true);
-		this.dataSource.setMaxReconnects(2);
+		this.dataSource.setMaxReconnects(this.maxReconnects);
 		try {
 			this.dataSource.setConnectTimeout(2000);
 		} catch (final SQLException e) {

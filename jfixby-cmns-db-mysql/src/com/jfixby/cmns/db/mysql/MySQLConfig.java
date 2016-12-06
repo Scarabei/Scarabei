@@ -10,6 +10,7 @@ public class MySQLConfig {
 	private boolean useSSL;
 	private int port = 3306;
 	private ConnectionParametersProvider connectionParamatesProvider;
+	private int maxReconnects = 2;
 
 	public void setServerName (final String server) {
 		this.server = server;
@@ -65,6 +66,14 @@ public class MySQLConfig {
 
 	public ConnectionParametersProvider getConnectionParametersProvider () {
 		return this.connectionParamatesProvider;
+	}
+
+	public int getMaxReconnects () {
+		return this.maxReconnects;
+	}
+
+	public void setMaxReconnects (final int maxReconnects) {
+		this.maxReconnects = maxReconnects;
 	}
 
 }
