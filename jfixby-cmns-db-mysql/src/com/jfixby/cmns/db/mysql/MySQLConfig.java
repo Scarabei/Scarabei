@@ -8,6 +8,8 @@ public class MySQLConfig {
 	private String server;
 	private String dbName;
 	private boolean useSSL;
+	private int port = 3306;
+	private ConnectionParametersProvider connectionParamatesProvider;
 
 	public void setServerName (final String server) {
 		this.server = server;
@@ -47,6 +49,22 @@ public class MySQLConfig {
 
 	public void setUseSSL (final boolean b) {
 		this.useSSL = b;
+	}
+
+	public void setPort (final int port) {
+		this.port = port;
+	}
+
+	public int getPort () {
+		return this.port;
+	}
+
+	public void setConnectionParametersProvider (final ConnectionParametersProvider connectionParamatesProvider) {
+		this.connectionParamatesProvider = connectionParamatesProvider;
+	}
+
+	public ConnectionParametersProvider getConnectionParametersProvider () {
+		return this.connectionParamatesProvider;
 	}
 
 }

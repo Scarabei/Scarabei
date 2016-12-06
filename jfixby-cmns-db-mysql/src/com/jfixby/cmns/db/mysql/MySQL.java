@@ -18,25 +18,36 @@ public class MySQL implements DBComponent {
 	String password;
 	private final String dbName;
 	private final boolean useSSL;
-	private final MysqlDataSource dataSource;
+	private MysqlDataSource dataSource;
 	final Map<String, MySQLTable> tables = Collections.newMap();
+	private int port;
+	private final ConnectionParametersProvider connectionParamatesProvider;
 
 	public MySQL (final MySQLConfig config) {
-		this.serverName = Debug.checkNull("serverName", config.getServerName());
-		this.login = Debug.checkNull("login", config.getLogin());
-		this.password = Debug.checkNull("password", config.getPassword());
 		this.dbName = Debug.checkNull("dbName", config.getDBName());
-
 		this.useSSL = config.useSSL();
+		this.connectionParamatesProvider = config.getConnectionParametersProvider();
+		if (this.connectionParamatesProvider == null) {
+			this.serverName = Debug.checkNull("serverName", config.getServerName());
+			this.login = Debug.checkNull("login", config.getLogin());
+			this.password = Debug.checkNull("password", config.getPassword());
+			this.port = Debug.checkNull("port", config.getPort());
 
-		L.d("connecting", this.serverName);
-		this.dataSource = new MysqlDataSource();
-		this.dataSource.setUser(this.login);
-		this.dataSource.setPassword(this.password);
-		this.dataSource.setServerName(this.serverName);
-		this.dataSource.setUseSSL(this.useSSL);
-		this.dataSource.setDatabaseName(this.dbName);
-		this.dataSource.setAutoReconnect(true);
+			L.d("connecting", this.serverName);
+			this.dataSource = new MysqlDataSource();
+			this.dataSource.setUser(this.login);
+			this.dataSource.setPassword(this.password);
+			this.dataSource.setPort(this.port);
+			this.dataSource.setServerName(this.serverName);
+			this.dataSource.setUseSSL(this.useSSL);
+			this.dataSource.setDatabaseName(this.dbName);
+			this.dataSource.setAutoReconnect(true);
+			try {
+				this.dataSource.setConnectTimeout(1000);
+			} catch (final SQLException e) {
+				e.printStackTrace();
+			}
+		}
 
 	}
 
@@ -44,7 +55,7 @@ public class MySQL implements DBComponent {
 		return this.dbName;
 	}
 
-	public synchronized MySQLTable getTable (final String name) throws IOException {
+	public MySQLTable getTable (final String name) throws IOException {
 		Debug.checkNull("name", name);
 		Debug.checkEmpty("name", name);
 		MySQLTable table = this.tables.get(name);
@@ -66,10 +77,48 @@ public class MySQL implements DBComponent {
 	}
 
 	synchronized Connection open () throws SQLException {
+		if (this.dataSource != null) {
+			return this.dataSource.getConnection();
+		}
+		this.serverName = this.connectionParamatesProvider.getHost();
+		this.login = this.connectionParamatesProvider.getLogin();
+		this.password = this.connectionParamatesProvider.getPassword();
+		this.port = this.connectionParamatesProvider.getPort();
+		if (this.serverName == null) {
+			throw new SQLException("Missing connection configuration: serverName");
+		}
+		if (this.login == null) {
+			throw new SQLException("Missing connection configuration: login");
+		}
+		if (this.password == null) {
+			throw new SQLException("Missing connection configuration: password");
+		}
+		if (this.port == -1) {
+			throw new SQLException("Missing connection configuration: port");
+		}
+
+		L.d("connecting", this.serverName);
+		this.dataSource = new MysqlDataSource();
+		this.dataSource.setUser(this.login);
+		this.dataSource.setPassword(this.password);
+		this.dataSource.setPort(this.port);
+		this.dataSource.setServerName(this.serverName);
+		this.dataSource.setUseSSL(this.useSSL);
+		this.dataSource.setDatabaseName(this.dbName);
+		this.dataSource.setAutoReconnect(true);
+		this.dataSource.setMaxReconnects(5);
+		try {
+			this.dataSource.setConnectTimeout(1000);
+		} catch (final SQLException e) {
+			e.printStackTrace();
+		}
 		return this.dataSource.getConnection();
 	}
 
 	public String getUrl () {
+		if (this.dataSource == null) {
+			return null;
+		}
 		return this.dataSource.getURL();
 	}
 
