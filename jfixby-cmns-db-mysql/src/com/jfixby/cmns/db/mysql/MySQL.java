@@ -106,9 +106,9 @@ public class MySQL implements DBComponent {
 		this.dataSource.setUseSSL(this.useSSL);
 		this.dataSource.setDatabaseName(this.dbName);
 		this.dataSource.setAutoReconnect(true);
-		this.dataSource.setMaxReconnects(5);
+		this.dataSource.setMaxReconnects(2);
 		try {
-			this.dataSource.setConnectTimeout(1000);
+			this.dataSource.setConnectTimeout(2000);
 		} catch (final SQLException e) {
 			e.printStackTrace();
 		}

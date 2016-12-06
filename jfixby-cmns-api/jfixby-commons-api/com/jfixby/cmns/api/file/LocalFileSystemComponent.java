@@ -15,6 +15,4 @@ public interface LocalFileSystemComponent extends FileSystem {
 
 	File ApplicationHome ();
 
-	File WorkspaceFolder ();
-
 }

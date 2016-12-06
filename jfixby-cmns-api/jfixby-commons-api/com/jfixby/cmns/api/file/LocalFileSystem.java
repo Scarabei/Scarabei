@@ -71,10 +71,6 @@ public class LocalFileSystem {
 		return invoke().newFileOutputStream(file);
 	}
 
-	public static File WorkspaceFolder () {
-		return invoke().WorkspaceFolder();
-	}
-
 	public static void writeStringToFile (final String string_data, final AbsolutePath<FileSystem> file_path) throws IOException {
 		invoke().writeStringToFile(string_data, file_path);
 	}

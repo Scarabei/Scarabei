@@ -8,6 +8,7 @@ import java.net.URL;
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.Map;
 import com.jfixby.cmns.api.debug.Debug;
+import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.io.IO;
 import com.jfixby.cmns.api.net.http.HttpConnection;
 import com.jfixby.cmns.api.net.http.HttpConnectionInputStream;
@@ -115,6 +116,9 @@ public class RedHttpConnection implements HttpConnection {
 
 	@Override
 	public int getResponseCode () throws IOException {
+		if (this.java_connection == null) {
+			Err.reportError("Not connected: " + this);
+		}
 		return this.java_connection.getResponseCode();
 	}
 

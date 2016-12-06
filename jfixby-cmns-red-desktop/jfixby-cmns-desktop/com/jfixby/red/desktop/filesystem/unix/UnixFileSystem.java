@@ -100,11 +100,4 @@ public class UnixFileSystem extends AbstractLocalFileSystem implements LocalFile
 		return new UnixFile(file_path, this).getAbsolutePathString();
 	}
 
-	@Override
-	public File WorkspaceFolder () {
-		final String application_home_path_string = System.getProperty("user.dir");
-		final java.io.File workspace_mount_point = (new java.io.File(application_home_path_string)).getParentFile();
-		return this.newFile(workspace_mount_point);
-	}
-
 }
