@@ -1,7 +1,10 @@
 
 package com.jfixby.cmns.db.mysql;
 
-public class MySQLConfig {
+import com.jfixby.cmns.db.api.ConnectionParametersProvider;
+import com.jfixby.cmns.db.api.DBConfig;
+
+class MySQLConfig implements DBConfig {
 
 	private String dbLogin;
 	private String dbPassword;
@@ -12,14 +15,17 @@ public class MySQLConfig {
 	private ConnectionParametersProvider connectionParamatesProvider;
 	private int maxReconnects = 2;
 
+	@Override
 	public void setServerName (final String server) {
 		this.server = server;
 	}
 
+	@Override
 	public void setLogin (final String dbLogin) {
 		this.dbLogin = dbLogin;
 	}
 
+	@Override
 	public void setPassword (final String dbPassword) {
 		this.dbPassword = dbPassword;
 	}
@@ -40,6 +46,7 @@ public class MySQLConfig {
 		return this.dbName;
 	}
 
+	@Override
 	public void setDBName (final String dbName) {
 		this.dbName = dbName;
 	}
@@ -48,10 +55,12 @@ public class MySQLConfig {
 		return this.useSSL;
 	}
 
+	@Override
 	public void setUseSSL (final boolean b) {
 		this.useSSL = b;
 	}
 
+	@Override
 	public void setPort (final int port) {
 		this.port = port;
 	}
@@ -60,6 +69,7 @@ public class MySQLConfig {
 		return this.port;
 	}
 
+	@Override
 	public void setConnectionParametersProvider (final ConnectionParametersProvider connectionParamatesProvider) {
 		this.connectionParamatesProvider = connectionParamatesProvider;
 	}
@@ -72,6 +82,7 @@ public class MySQLConfig {
 		return this.maxReconnects;
 	}
 
+	@Override
 	public void setMaxReconnects (final int maxReconnects) {
 		this.maxReconnects = maxReconnects;
 	}

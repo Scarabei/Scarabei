@@ -14,6 +14,10 @@ public class Collections {
 		componentInstaller.installComponent(component_to_install);
 	}
 
+	public static void installComponent (final String className) {
+		componentInstaller.installComponent(className);
+	}
+
 	public static final CollectionsComponent invoke () {
 		return componentInstaller.invokeComponent();
 	}

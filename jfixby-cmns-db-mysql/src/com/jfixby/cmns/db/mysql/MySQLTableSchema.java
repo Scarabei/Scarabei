@@ -10,8 +10,9 @@ import java.sql.SQLException;
 import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.Set;
+import com.jfixby.cmns.db.api.TableSchema;
 
-public class MySQLTableSchema {
+class MySQLTableSchema implements TableSchema {
 
 	private final MySQLTable mySQLTable;
 	private final Set<String> columns = Collections.newSet();
@@ -37,7 +38,8 @@ public class MySQLTableSchema {
 		}
 	}
 
-	public Collection<String> getColumns () throws IOException {
+	@Override
+	public Collection<String> getColumns () {
 		return this.columns;
 	}
 
@@ -45,6 +47,7 @@ public class MySQLTableSchema {
 		this.columns.print("schema");
 	}
 
+	@Override
 	public int indexOf (final String key) {
 		final int result = this.columns.indexOf(key);
 		if (result == -1) {

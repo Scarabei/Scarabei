@@ -4,10 +4,10 @@ package com.jfixby.red.desktop.test;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
+import com.jfixby.cmns.api.desktop.DesktopSetup;
 import com.jfixby.cmns.api.io.IO;
 import com.jfixby.cmns.api.io.InputStream;
 import com.jfixby.cmns.api.java.gc.GCFisher;
-import com.jfixby.red.desktop.DesktopSetup;
 
 public class StreamLeakTest {
 

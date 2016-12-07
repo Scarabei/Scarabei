@@ -9,10 +9,12 @@ import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.Map;
 import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.log.L;
-import com.jfixby.cmns.db.api.DBComponent;
+import com.jfixby.cmns.db.api.ConnectionParametersProvider;
+import com.jfixby.cmns.db.api.DBConfig;
+import com.jfixby.cmns.db.api.DataBase;
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
-public class MySQL implements DBComponent {
+class MySQL implements DataBase {
 	String serverName;
 	String login;
 	String password;
@@ -24,7 +26,7 @@ public class MySQL implements DBComponent {
 	private final ConnectionParametersProvider connectionParamatesProvider;
 	private final int maxReconnects;
 
-	public MySQL (final MySQLConfig config) {
+	MySQL (final DBConfig config) {
 		this.dbName = Debug.checkNull("dbName", config.getDBName());
 		this.useSSL = config.useSSL();
 		this.connectionParamatesProvider = config.getConnectionParametersProvider();
@@ -58,6 +60,7 @@ public class MySQL implements DBComponent {
 		return this.dbName;
 	}
 
+	@Override
 	public MySQLTable getTable (final String name) throws IOException {
 		Debug.checkNull("name", name);
 		Debug.checkEmpty("name", name);

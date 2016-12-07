@@ -5,12 +5,12 @@ import java.io.IOException;
 
 import com.jfixby.cmns.adopted.gdx.json.RedJson;
 import com.jfixby.cmns.api.debug.Debug;
+import com.jfixby.cmns.api.desktop.DesktopSetup;
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.LocalFileSystem;
 import com.jfixby.cmns.api.json.Json;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.md5.MD5;
-import com.jfixby.red.desktop.DesktopSetup;
 
 public class TestFileWrite {
 

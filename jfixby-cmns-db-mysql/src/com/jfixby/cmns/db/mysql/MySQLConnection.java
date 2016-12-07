@@ -9,7 +9,7 @@ import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.log.L;
 
-public class MySQLConnection {
+class MySQLConnection {
 
 	private SQLException e;
 	private final MySQL mySQL;

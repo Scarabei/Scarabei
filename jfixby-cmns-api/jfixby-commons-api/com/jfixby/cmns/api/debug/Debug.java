@@ -7,8 +7,12 @@ public class Debug {
 
 	static private ComponentInstaller<DebugComponent> componentInstaller = new ComponentInstaller<DebugComponent>("Debug");
 
-	public static final void installComponent (DebugComponent component_to_install) {
+	public static final void installComponent (final DebugComponent component_to_install) {
 		componentInstaller.installComponent(component_to_install);
+	}
+
+	public static void installComponent (final String className) {
+		componentInstaller.installComponent(className);
 	}
 
 	public static final DebugComponent invoke () {
@@ -31,23 +35,23 @@ public class Debug {
 		invoke().printCallStack();
 	}
 
-	public static <T> T checkNull (String parameter_name, T value) {
+	public static <T> T checkNull (final String parameter_name, final T value) {
 		return invoke().checkNull(parameter_name, value);
 	}
 
-	public static <T> T checkNull (T value) {
+	public static <T> T checkNull (final T value) {
 		return invoke().checkNull(value);
 	}
 
-	public static String checkEmpty (String parameter_name, String value) {
+	public static String checkEmpty (final String parameter_name, final String value) {
 		return invoke().checkEmpty(parameter_name, value);
 	}
 
-	public static void checkTrue (boolean flag) {
+	public static void checkTrue (final boolean flag) {
 		invoke().checkTrue(flag);
 	}
 
-	public static void checkTrue (String flag_name, boolean flag) {
+	public static void checkTrue (final String flag_name, final boolean flag) {
 		invoke().checkTrue(flag_name, flag);
 	}
 
@@ -55,7 +59,7 @@ public class Debug {
 		return invoke().newTimer();
 	}
 
-	public static DebugTimer newTimer (DEBUG_TIMER_MODE mode) {
+	public static DebugTimer newTimer (final DEBUG_TIMER_MODE mode) {
 		return invoke().newTimer(mode);
 	}
 

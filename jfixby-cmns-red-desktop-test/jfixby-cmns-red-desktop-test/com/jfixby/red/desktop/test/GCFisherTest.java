@@ -1,10 +1,10 @@
 
 package com.jfixby.red.desktop.test;
 
+import com.jfixby.cmns.api.desktop.DesktopSetup;
 import com.jfixby.cmns.api.java.gc.GCFisher;
 import com.jfixby.cmns.api.java.gc.MemoryStatistics;
 import com.jfixby.cmns.api.java.gc.MemoryStatisticsComparison;
-import com.jfixby.red.desktop.DesktopSetup;
 
 public class GCFisherTest {
 

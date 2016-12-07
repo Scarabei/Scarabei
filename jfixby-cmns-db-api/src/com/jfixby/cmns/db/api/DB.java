@@ -11,12 +11,24 @@ public class DB {
 		componentInstaller.installComponent(component_to_install);
 	}
 
+	public static void installComponent (final String className) {
+		componentInstaller.installComponent(className);
+	}
+
 	public static final DBComponent invoke () {
 		return componentInstaller.invokeComponent();
 	}
 
 	public static final DBComponent component () {
 		return componentInstaller.getComponent();
+	}
+
+	public static DBConfig newDBConfig () {
+		return invoke().newDBConfig();
+	}
+
+	public static DataBase newDB (final DBConfig config) {
+		return invoke().newDB(config);
 	}
 
 }

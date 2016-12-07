@@ -13,6 +13,10 @@ public class Angles {
 		componentInstaller.installComponent(component_to_install);
 	}
 
+	public static void installComponent (final String className) {
+		componentInstaller.installComponent(className);
+	}
+
 	public static final AnglesComponent invoke () {
 		return componentInstaller.invokeComponent();
 	}

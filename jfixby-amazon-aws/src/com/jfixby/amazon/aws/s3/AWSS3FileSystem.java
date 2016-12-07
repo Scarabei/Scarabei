@@ -4,6 +4,7 @@ package com.jfixby.amazon.aws.s3;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
+import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.ListObjectsRequest;
@@ -42,7 +43,15 @@ public class AWSS3FileSystem extends AbstractFileSystem implements FileSystem {
 
 	public AWSS3FileSystem (final AWSS3FileSystemConfig specs) {
 		this.bucketName = Debug.checkNull("getBucketName()", specs.getBucketName());
-		this.s3 = new AmazonS3Client();
+
+		final String access_key_id = specs.getAccessKeyID();
+		final String secret_key_id = specs.getSecretKeyID();
+		if (access_key_id != null && secret_key_id != null) {
+			final BasicAWSCredentials awsCreds = new BasicAWSCredentials(access_key_id, secret_key_id);
+			this.s3 = new AmazonS3Client(awsCreds);
+		} else {
+			this.s3 = new AmazonS3Client();// default credentials
+		}
 		this.toString = "S3BucketFileSystem[" + this.bucketName + "]";
 	}
 

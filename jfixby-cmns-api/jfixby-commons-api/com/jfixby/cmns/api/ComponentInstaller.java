@@ -42,4 +42,19 @@ public class ComponentInstaller<T> {
 		return c;
 	}
 
+	public static <C> C newComponent (final String className) {
+		try {
+			return (C)Class.forName(className).newInstance();
+		} catch (final Throwable e) {
+			e.printStackTrace();
+			System.exit(-1);
+			return null;
+		}
+	}
+
+	public void installComponent (final String className) {
+		final T toInstall = newComponent(className);
+		this.installComponent(toInstall);
+	}
+
 }

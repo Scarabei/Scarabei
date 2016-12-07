@@ -1,5 +1,5 @@
 
-package com.jfixby.cmns.db.mysql;
+package com.jfixby.cmns.db.api;
 
 public interface ConnectionParametersProvider {
 

@@ -3,7 +3,7 @@ package com.jfixby.rmi.test;
 import java.io.IOException;
 import java.rmi.NotBoundException;
 
-import com.jfixby.red.desktop.DesktopSetup;
+import com.jfixby.cmns.api.desktop.DesktopSetup;
 import com.jfixby.rmi.api.RMIFace;
 import com.jfixby.rmi.client.RMIClient;
 

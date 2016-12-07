@@ -1,10 +1,10 @@
 
 package com.jfixby.red.desktop.test;
 
+import com.jfixby.cmns.api.desktop.DesktopSetup;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.util.JUtils;
 import com.jfixby.cmns.api.util.path.RelativePath;
-import com.jfixby.red.desktop.DesktopSetup;
 
 public class RestRelativePath {
 

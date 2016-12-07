@@ -7,8 +7,8 @@ import com.jfixby.amazon.aws.s3.AWSS3FileSystem;
 import com.jfixby.amazon.aws.s3.AWSS3FileSystemConfig;
 import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.debug.DebugTimer;
+import com.jfixby.cmns.api.desktop.DesktopSetup;
 import com.jfixby.cmns.api.file.File;
-import com.jfixby.red.desktop.DesktopSetup;
 
 public class ClearBucket {
 

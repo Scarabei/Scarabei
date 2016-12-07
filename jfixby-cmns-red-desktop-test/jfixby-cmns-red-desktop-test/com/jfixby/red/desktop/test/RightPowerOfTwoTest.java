@@ -4,9 +4,9 @@ package com.jfixby.red.desktop.test;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.jfixby.cmns.api.desktop.DesktopSetup;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.math.IntegerMath;
-import com.jfixby.red.desktop.DesktopSetup;
 
 public class RightPowerOfTwoTest {
 

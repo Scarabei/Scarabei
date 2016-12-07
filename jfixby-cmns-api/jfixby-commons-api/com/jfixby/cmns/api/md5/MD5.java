@@ -13,6 +13,10 @@ public class MD5 {
 		componentInstaller.installComponent(component_to_install);
 	}
 
+	public static void installComponent (final String className) {
+		componentInstaller.installComponent(className);
+	}
+
 	public static final MD5Component invoke () {
 		return componentInstaller.invokeComponent();
 	}

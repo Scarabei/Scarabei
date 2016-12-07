@@ -3,9 +3,9 @@ package com.jfixby.red.desktop.test;
 
 import java.io.IOException;
 
+import com.jfixby.cmns.api.desktop.DesktopSetup;
 import com.jfixby.cmns.api.file.LocalFileSystem;
 import com.jfixby.cmns.api.file.LocalFileSystemComponent;
-import com.jfixby.red.desktop.DesktopSetup;
 
 public class ListFiles {
 

@@ -6,10 +6,10 @@ import java.util.Random;
 
 import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.debug.DebugTimer;
+import com.jfixby.cmns.api.desktop.DesktopSetup;
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.LocalFileSystem;
 import com.jfixby.cmns.api.log.L;
-import com.jfixby.red.desktop.DesktopSetup;
 import com.jfixby.red.filesystem.virtual.InMemoryFileSystem;
 
 public class IOTestIMFS {

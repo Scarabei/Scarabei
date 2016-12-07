@@ -27,6 +27,10 @@ public class ImageAWT {
 		return componentInstaller.invokeComponent();
 	}
 
+	public static void installComponent (final String className) {
+		componentInstaller.installComponent(className);
+	}
+
 	public static final ImageAWTComponent component () {
 		return componentInstaller.getComponent();
 	}

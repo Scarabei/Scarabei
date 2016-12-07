@@ -19,6 +19,10 @@ public class Geometry {
 		componentInstaller.installComponent(component_to_install);
 	}
 
+	public static void installComponent (final String className) {
+		componentInstaller.installComponent(className);
+	}
+
 	public static final GeometryComponent invoke () {
 		return componentInstaller.invokeComponent();
 	}

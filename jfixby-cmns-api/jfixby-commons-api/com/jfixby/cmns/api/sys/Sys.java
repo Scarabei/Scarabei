@@ -12,6 +12,10 @@ public class Sys {
 		componentInstaller.installComponent(component_to_install);
 	}
 
+	public static void installComponent (final String className) {
+		componentInstaller.installComponent(className);
+	}
+
 	public static final SystemComponent invoke () {
 		return componentInstaller.invokeComponent();
 	}

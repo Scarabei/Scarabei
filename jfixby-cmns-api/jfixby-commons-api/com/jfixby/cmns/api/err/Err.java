@@ -11,6 +11,10 @@ public class Err {
 		componentInstaller.installComponent(component_to_install);
 	}
 
+	public static void installComponent (final String className) {
+		componentInstaller.installComponent(className);
+	}
+
 	public static ErrorComponent deInstallCurrentComponent () {
 		return componentInstaller.deInstallCurrentComponent();
 	}

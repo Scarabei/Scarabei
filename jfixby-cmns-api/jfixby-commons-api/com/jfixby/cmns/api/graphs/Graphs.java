@@ -9,8 +9,12 @@ public class Graphs {
 
 	static private ComponentInstaller<GraphsComponent> componentInstaller = new ComponentInstaller<GraphsComponent>("Graphs");
 
-	public static final void installComponent (GraphsComponent component_to_install) {
+	public static final void installComponent (final GraphsComponent component_to_install) {
 		componentInstaller.installComponent(component_to_install);
+	}
+
+	public static void installComponent (final String className) {
+		componentInstaller.installComponent(className);
 	}
 
 	public static final GraphsComponent invoke () {
@@ -25,7 +29,7 @@ public class Graphs {
 		return invoke().newUndirectedGraph();
 	}
 
-	public static <EdgeType> PolyGraph<EdgeType> newPolyGraph (EditableCollection<? extends FixedFloat2> vertices) {
+	public static <EdgeType> PolyGraph<EdgeType> newPolyGraph (final EditableCollection<? extends FixedFloat2> vertices) {
 		return invoke().newPolyGraph(vertices);
 	}
 

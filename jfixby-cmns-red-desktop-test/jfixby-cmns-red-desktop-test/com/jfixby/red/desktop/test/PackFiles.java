@@ -4,6 +4,7 @@ package com.jfixby.red.desktop.test;
 import java.io.IOException;
 
 import com.jfixby.cmns.adopted.gdx.json.RedJson;
+import com.jfixby.cmns.api.desktop.DesktopSetup;
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.LocalFileSystem;
 import com.jfixby.cmns.api.file.packing.CompressionMethod;
@@ -12,7 +13,6 @@ import com.jfixby.cmns.api.file.packing.FileSystemPackingSpecs;
 import com.jfixby.cmns.api.io.OutputStream;
 import com.jfixby.cmns.api.json.Json;
 import com.jfixby.cmns.api.log.L;
-import com.jfixby.red.desktop.DesktopSetup;
 import com.jfixby.red.filesystem.archived.R3ArrayCompressionMethod;
 import com.jfixby.red.filesystem.archived.RedFileSystemPacker;
 

@@ -15,6 +15,10 @@ public class LocalFileSystem {
 		componentInstaller.deInstallCurrentComponent();
 	}
 
+	public static void installComponent (final String className) {
+		componentInstaller.installComponent(className);
+	}
+
 	public static final void installComponent (final LocalFileSystemComponent component_to_install) {
 		componentInstaller.installComponent(component_to_install);
 	}

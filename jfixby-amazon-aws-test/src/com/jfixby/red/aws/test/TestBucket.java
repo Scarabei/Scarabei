@@ -10,9 +10,9 @@ import com.amazonaws.services.s3.model.S3ObjectSummary;
 import com.jfixby.amazon.aws.s3.S3ObjectInfo;
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
+import com.jfixby.cmns.api.desktop.DesktopSetup;
 import com.jfixby.cmns.api.util.JUtils;
 import com.jfixby.cmns.api.util.path.RelativePath;
-import com.jfixby.red.desktop.DesktopSetup;
 
 public class TestBucket {
 

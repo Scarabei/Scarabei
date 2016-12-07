@@ -14,8 +14,11 @@ import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.util.JUtils;
+import com.jfixby.cmns.db.api.Entry;
+import com.jfixby.cmns.db.api.Table;
+import com.jfixby.cmns.db.api.TableSchema;
 
-public class MySQLTable {
+class MySQLTable implements Table {
 
 	final MySQL db;
 	final String sql_table_name;
@@ -28,7 +31,8 @@ public class MySQLTable {
 
 	}
 
-	public List<MySQLEntry> listAll () throws IOException {
+	@Override
+	public List<Entry> listAll () throws IOException {
 		final MySQLConnection connection = this.db.obtainConnection();
 		connection.checkIsOpen();
 
@@ -39,7 +43,7 @@ public class MySQLTable {
 			final String request = "SELECT * FROM " + this.sql_table_name;
 			final ResultSet result = statement.executeQuery(request);
 
-			final List<MySQLEntry> resultList = this.collectResult(result);
+			final List<Entry> resultList = this.collectResult(result);
 
 			return resultList;
 		} catch (final SQLException e) {
@@ -50,12 +54,12 @@ public class MySQLTable {
 		}
 	}
 
-	private List<MySQLEntry> collectResult (final ResultSet result) throws SQLException, IOException {
-		final List<MySQLEntry> entries = Collections.newList();
-		final MySQLTableSchema schema = this.getSchema();
+	private List<Entry> collectResult (final ResultSet result) throws SQLException, IOException {
+		final List<Entry> entries = Collections.newList();
+		final TableSchema schema = this.getSchema();
 		final Collection<String> columns = schema.getColumns();
 		while (result.next()) {
-			final MySQLEntry entry = this.readEntry(result, columns);
+			final Entry entry = this.readEntry(result, columns);
 			entries.add(entry);
 		}
 
@@ -63,34 +67,36 @@ public class MySQLTable {
 
 	}
 
-	private MySQLEntry readEntry (final ResultSet result, final Collection<String> columns) throws SQLException {
-		final MySQLEntry entry = this.newMySQLEntry();
+	private Entry readEntry (final ResultSet result, final Collection<String> columns) throws SQLException {
+		final Entry entry = this.newEntry();
 
 		final int N = columns.size();
 		for (int i = 0; i < N; i++) {
 			final String key = columns.getElementAt(i);
 			final String value = result.getString(i + 1);
-			entry.set(key, value);
+			entry.set(this.schema, this.schema.indexOf(key), value);
 		}
 		return entry;
 	}
 
-	public MySQLEntry newMySQLEntry () {
+	@Override
+	public Entry newEntry () {
 		return new MySQLEntry();
 	}
 
+	@Override
 	public MySQLTableSchema getSchema () throws IOException {
 		return this.schema;
 	}
 
-	private String paramString (final MySQLEntry entry, final List<String> keys, final String bracketLeft,
-		final String bracketRight) throws IOException {
+	private String paramString (final Entry entry, final List<String> keys, final String bracketLeft, final String bracketRight)
+		throws IOException {
 		final MySQLTableSchema schema = this.getSchema();
 		final Collection<String> colums = schema.getColumns();
 
 		for (int i = 0; i < colums.size(); i++) {
 			final String key = colums.getElementAt(i);
-			final String value = entry.values.get(key);
+			final String value = entry.getValue(key);
 			if (value != null) {
 				keys.add(key);
 			}
@@ -100,7 +106,8 @@ public class MySQLTable {
 		return schemaString + " VALUES " + JUtils.wrapSequence( (i) -> "?", keys.size(), "(", ")");
 	}
 
-	public Collection<MySQLEntry> findEntries (final String key, final String value) throws IOException {
+	@Override
+	public Collection<Entry> findEntries (final String key, final String value) throws IOException {
 		Debug.checkNull("key", key);
 		Debug.checkNull("value", value);
 
@@ -115,7 +122,7 @@ public class MySQLTable {
 				.prepareStatement(stm);
 			statement.setString(1, value);
 			final ResultSet result = statement.executeQuery();
-			final List<MySQLEntry> res = this.collectResult(result);
+			final List<Entry> res = this.collectResult(result);
 			return res;
 		} catch (final SQLException e) {
 			e.printStackTrace();
@@ -125,6 +132,7 @@ public class MySQLTable {
 		}
 	}
 
+	@Override
 	public void clear () throws IOException {
 		L.d("clear sql table", this.sql_table_name);
 		final String request = "TRUNCATE " + this.sql_table_name;
@@ -143,11 +151,12 @@ public class MySQLTable {
 		}
 	}
 
-	public void replaceEntries (final List<MySQLEntry> batch) throws IOException {
+	@Override
+	public void replaceEntries (final List<Entry> batch) throws IOException {
 		if (batch.size() == 0) {
 			return;
 		}
-		final MySQLEntry entry0 = batch.getElementAt(0);
+		final Entry entry0 = batch.getElementAt(0);
 		final String table_name = this.sql_table_name;
 		final List<String> keys = Collections.newList();
 		final String stm = "REPLACE " + table_name + " " + this.paramString(entry0, keys, "(", ")");
@@ -157,10 +166,10 @@ public class MySQLTable {
 			final Connection mysql_connection = connection.getConnection();
 			final PreparedStatement statement = mysql_connection.prepareStatement(stm);
 			for (int b = 0; b < batch.size(); b++) {
-				final MySQLEntry entry = batch.getElementAt(b);
+				final Entry entry = batch.getElementAt(b);
 				for (int i = 0; i < keys.size(); i++) {
 					final String key = keys.getElementAt(i);
-					final String value = entry.values.get(key);
+					final String value = entry.getValue(key);
 					statement.setString(i + 1, value);
 				}
 				statement.addBatch();
@@ -174,11 +183,11 @@ public class MySQLTable {
 		}
 	}
 
-	public void addEntries (final Collection<MySQLEntry> batch) throws IOException {
+	public void addEntries (final Collection<Entry> batch) throws IOException {
 		if (batch.size() == 0) {
 			return;
 		}
-		final MySQLEntry entry0 = batch.getElementAt(0);
+		final Entry entry0 = batch.getElementAt(0);
 		final String table_name = this.sql_table_name;
 		final List<String> keys = Collections.newList();
 		final String stm = "INSERT INTO " + table_name + " " + this.paramString(entry0, keys, "(", ")");
@@ -189,10 +198,11 @@ public class MySQLTable {
 
 			final PreparedStatement statement = mysql_connection.prepareStatement(stm);
 			for (int b = 0; b < batch.size(); b++) {
-				final MySQLEntry entry = batch.getElementAt(b);
+				final Entry entry = batch.getElementAt(b);
 				for (int i = 0; i < keys.size(); i++) {
 					final String key = keys.getElementAt(i);
-					final String value = entry.values.get(key);
+// final String value = entry.getValue(key);
+					final String value = entry.getValue(key);
 					statement.setString(i + 1, value);
 				}
 				statement.addBatch();
@@ -206,7 +216,8 @@ public class MySQLTable {
 		}
 	}
 
-	public void addEntry (final MySQLEntry entry) throws IOException {
+	@Override
+	public void addEntry (final Entry entry) throws IOException {
 
 		final String table_name = this.sql_table_name;
 		final List<String> keys = Collections.newList();
@@ -220,7 +231,7 @@ public class MySQLTable {
 
 			for (int i = 0; i < keys.size(); i++) {
 				final String key = keys.getElementAt(i);
-				final String value = entry.values.get(key);
+				final String value = entry.getValue(key);
 				statement.setString(i + 1, value);
 			}
 

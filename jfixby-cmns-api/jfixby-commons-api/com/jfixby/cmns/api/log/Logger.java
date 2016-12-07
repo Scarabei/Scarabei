@@ -7,6 +7,10 @@ public class Logger {
 
 	static private ComponentInstaller<LoggerComponent> componentInstaller = new ComponentInstaller<LoggerComponent>("Logger");
 
+	public static void installComponent (final String className) {
+		componentInstaller.installComponent(className);
+	}
+
 	public static final void installComponent (final LoggerComponent component_to_install) {
 		componentInstaller.installComponent(component_to_install);
 	}

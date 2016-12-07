@@ -9,8 +9,12 @@ public class Colors {
 
 	static private ComponentInstaller<ColorsComponent> componentInstaller = new ComponentInstaller<ColorsComponent>("Colors");
 
-	public static final void installComponent (ColorsComponent component_to_install) {
+	public static final void installComponent (final ColorsComponent component_to_install) {
 		componentInstaller.installComponent(component_to_install);
+	}
+
+	public static void installComponent (final String className) {
+		componentInstaller.installComponent(className);
 	}
 
 	public static final ColorsComponent invoke () {
@@ -45,7 +49,7 @@ public class Colors {
 		return invoke().BLUE();
 	}
 
-	public static CustomColor newColor (float R, float G, float B) {
+	public static CustomColor newColor (final float R, final float G, final float B) {
 		return invoke().newColor(R, G, B);
 	}
 
@@ -85,11 +89,11 @@ public class Colors {
 		return invoke().newColorSet();
 	}
 
-	public static CustomColor newRandomColor (float alpha) {
+	public static CustomColor newRandomColor (final float alpha) {
 		return invoke().newRandomColor(alpha);
 	}
 
-	public static CustomColor newColor (float a, float r, float g, float b) {
+	public static CustomColor newColor (final float a, final float r, final float g, final float b) {
 		return invoke().newColor(a, r, g, b);
 	}
 
@@ -97,7 +101,7 @@ public class Colors {
 		return invoke().newColor();
 	}
 
-	public static float limit (float f) {
+	public static float limit (final float f) {
 		return invoke().limit(f);
 	}
 
@@ -105,19 +109,19 @@ public class Colors {
 		return invoke().newColorMapping();
 	}
 
-	public static CustomColor newGray (float gray) {
+	public static CustomColor newGray (final float gray) {
 		return invoke().newGray(gray);
 	}
 
-	public static CustomColor newColor (int argb) {
+	public static CustomColor newColor (final int argb) {
 		return invoke().newColor(argb);
 	}
 
-	public static ColorRandomiser newColorRandomizer (long seed) {
+	public static ColorRandomiser newColorRandomizer (final long seed) {
 		return invoke().newColorRandomizer(seed);
 	}
 
-	public static Color newColor (String hexstring) {
+	public static Color newColor (final String hexstring) {
 		return invoke().newColor(hexstring);
 	}
 
@@ -125,15 +129,15 @@ public class Colors {
 		return invoke().newGraySet();
 	}
 
-	public static GraySet newGraySet (float... array) {
+	public static GraySet newGraySet (final float... array) {
 		return invoke().newGraySet(array);
 	}
 
-	public static GraySet newUniformGraySet (int depth) {
+	public static GraySet newUniformGraySet (final int depth) {
 		return invoke().newUniformGraySet(depth);
 	}
 
-	public static ColorSet newColorsSet (ColorMap image) {
+	public static ColorSet newColorsSet (final ColorMap image) {
 		return invoke().newColorsSet(image);
 	}
 
@@ -141,11 +145,11 @@ public class Colors {
 		return invoke().distanceRGB();
 	}
 
-	public static CachedColorProjector colorProjectorCache (ColorProjector input) {
+	public static CachedColorProjector colorProjectorCache (final ColorProjector input) {
 		return invoke().colorProjectorCache(input);
 	}
 
-	public static GraySet newGraySet (GrayMap image) {
+	public static GraySet newGraySet (final GrayMap image) {
 		return invoke().newGraySet(image);
 	}
 

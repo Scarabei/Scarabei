@@ -3,10 +3,10 @@ package com.jfixby.red.desktop.test;
 
 import org.junit.Test;
 
+import com.jfixby.cmns.api.desktop.DesktopSetup;
 import com.jfixby.cmns.api.java.Int;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.util.JUtils;
-import com.jfixby.red.desktop.DesktopSetup;
 
 public class TestClassName {
 

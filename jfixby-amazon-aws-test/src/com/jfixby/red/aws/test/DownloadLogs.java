@@ -5,9 +5,9 @@ import java.io.IOException;
 
 import com.jfixby.amazon.aws.s3.AWSS3FileSystem;
 import com.jfixby.amazon.aws.s3.AWSS3FileSystemConfig;
+import com.jfixby.cmns.api.desktop.DesktopSetup;
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.LocalFileSystem;
-import com.jfixby.red.desktop.DesktopSetup;
 
 public class DownloadLogs {
 
