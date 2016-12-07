@@ -7,7 +7,6 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.ListObjectsRequest;
 import com.amazonaws.services.s3.model.ObjectListing;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
-import com.jfixby.amazon.aws.s3.S3ObjectInfo;
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.desktop.DesktopSetup;
@@ -32,10 +31,6 @@ public class TestBucket {
 		prefixes.print("prefixes");
 
 		final List<S3ObjectSummary> summs = Collections.newList(objectListing.getObjectSummaries());
-		final List<S3ObjectInfo> infos = Collections.newList();
-		Collections.convertCollection(summs, infos, S3ObjectSummary -> new S3ObjectInfo(S3ObjectSummary));
-//
-		infos.print("all");
 
 	}
 

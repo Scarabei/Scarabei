@@ -35,7 +35,7 @@ import com.jfixby.cmns.api.util.path.AbsolutePath;
 import com.jfixby.cmns.api.util.path.RelativePath;
 import com.jfixby.red.filesystem.AbstractFileSystem;
 
-public class AWSS3FileSystem extends AbstractFileSystem implements FileSystem {
+class AWSS3FileSystem extends AbstractFileSystem implements FileSystem {
 
 	private final String bucketName;
 	private final AmazonS3Client s3;

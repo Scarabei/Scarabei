@@ -8,7 +8,7 @@ import com.amazonaws.services.s3.model.S3ObjectSummary;
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 
-public class ObjectListingResult {
+class ObjectListingResult {
 
 	private final AmazonS3Client s3;
 	private final ListObjectsRequest request;

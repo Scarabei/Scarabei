@@ -3,24 +3,27 @@ package com.jfixby.red.aws.test;
 
 import java.io.IOException;
 
-import com.jfixby.amazon.aws.s3.AWSS3FileSystem;
-import com.jfixby.amazon.aws.s3.AWSS3FileSystemConfig;
 import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.debug.DebugTimer;
 import com.jfixby.cmns.api.desktop.DesktopSetup;
 import com.jfixby.cmns.api.file.File;
+import com.jfixby.cmns.aws.api.AWS;
+import com.jfixby.cmns.aws.api.FileSystemConfig;
+import com.jfixby.cmns.aws.api.S3;
+import com.jfixby.cmns.aws.api.S3FileSystem;
 
 public class ClearBucket {
 
 	public static void main (final String[] args) throws IOException {
 		DesktopSetup.deploy();
-
-		final AWSS3FileSystemConfig specs = new AWSS3FileSystemConfig();
+		AWS.installComponent("com.jfixby.amazon.aws.RedAWS");
+		final S3 s3 = AWS.getS3();
+		final FileSystemConfig specs = s3.newFileSystemConfig();
 		specs.setBucketName("amzfs");//
-		final AWSS3FileSystem S3 = new AWSS3FileSystem(specs);
+		final S3FileSystem fs = s3.newFileSystem(specs);
 		final DebugTimer timer = Debug.newTimer();
 		timer.reset();
-		final File remote = S3.ROOT();
+		final File remote = fs.ROOT();
 		timer.printTime("root");
 		timer.reset();
 		remote.clearFolder();

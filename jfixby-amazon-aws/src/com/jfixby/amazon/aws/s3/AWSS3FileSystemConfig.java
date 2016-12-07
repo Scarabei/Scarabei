@@ -1,7 +1,7 @@
 
 package com.jfixby.amazon.aws.s3;
 
-public class AWSS3FileSystemConfig {
+class AWSS3FileSystemConfig {
 
 	private String bucketName;
 	private String accessKeyID;

@@ -10,7 +10,7 @@ import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.util.JUtils;
 import com.jfixby.cmns.api.util.path.RelativePath;
 
-public class S3ObjectInfo {
+class S3ObjectInfo {
 
 	boolean isFolder;
 	String s3Key;

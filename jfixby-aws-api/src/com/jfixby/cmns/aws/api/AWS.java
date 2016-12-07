@@ -23,4 +23,8 @@ public class AWS {
 		return componentInstaller.getComponent();
 	}
 
+	public static S3 getS3 () {
+		return null;
+	}
+
 }

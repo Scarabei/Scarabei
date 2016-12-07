@@ -19,7 +19,7 @@ import com.jfixby.red.filesystem.AbstractRedFile;
 import com.jfixby.red.filesystem.FilesList;
 import com.jfixby.red.filesystem.RedFileHash;
 
-public class S3File extends AbstractRedFile implements File {
+class S3File extends AbstractRedFile implements File {
 
 	final private AbsolutePath<FileSystem> absolute_path;
 	private final AWSS3FileSystem fs;

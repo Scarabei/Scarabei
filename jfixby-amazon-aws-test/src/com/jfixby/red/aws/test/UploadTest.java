@@ -3,27 +3,34 @@ package com.jfixby.red.aws.test;
 
 import java.io.IOException;
 
-import com.jfixby.amazon.aws.s3.AWSS3FileSystem;
-import com.jfixby.amazon.aws.s3.AWSS3FileSystemConfig;
 import com.jfixby.cmns.api.desktop.DesktopSetup;
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.FileHash;
 import com.jfixby.cmns.api.file.LocalFileSystem;
 import com.jfixby.cmns.api.log.L;
+import com.jfixby.cmns.aws.api.AWS;
+import com.jfixby.cmns.aws.api.FileSystemConfig;
+import com.jfixby.cmns.aws.api.S3;
+import com.jfixby.cmns.aws.api.S3FileSystem;
 
 public class UploadTest {
 
 	public static void main (final String[] args) throws IOException {
 		DesktopSetup.deploy();
 
-		final AWSS3FileSystemConfig specs = new AWSS3FileSystemConfig();
+		DesktopSetup.deploy();
+
+		AWS.installComponent("com.jfixby.amazon.aws.RedAWS");
+		final S3 s3 = AWS.getS3();
+		final FileSystemConfig specs = s3.newFileSystemConfig();
 		specs.setBucketName("com.red-triplane.assets");//
-		final AWSS3FileSystem S3 = new AWSS3FileSystem(specs);
-		final File remote = S3.ROOT().child("test");
+		final S3FileSystem fileSystem = s3.newFileSystem(specs);
+
+		final File remote = fileSystem.ROOT().child("test");
 
 		final File local = LocalFileSystem.ApplicationHome().child("input");
 
-		S3.copyFolderContentsToFolder(local, remote, (from, to) -> {
+		fileSystem.copyFolderContentsToFolder(local, remote, (from, to) -> {
 			try {
 				final FileHash hashLocal = from.calculateHash();
 				final FileHash hashRemote = to.calculateHash();

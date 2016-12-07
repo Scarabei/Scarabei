@@ -10,7 +10,7 @@ import com.jfixby.cmns.api.io.IO;
 import com.jfixby.cmns.api.io.JavaOutputStreamOperator;
 import com.jfixby.cmns.api.java.ByteArray;
 
-public class S3FileOutputStreamOperator implements JavaOutputStreamOperator {
+class S3FileOutputStreamOperator implements JavaOutputStreamOperator {
 	private BufferOutputStream os;
 	private final S3File v_file;
 	private final boolean append;

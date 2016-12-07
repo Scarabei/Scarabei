@@ -9,7 +9,7 @@ import com.jfixby.cmns.api.io.JavaInputStreamOperator;
 import com.jfixby.cmns.api.java.ByteArray;
 import com.jfixby.cmns.api.util.JUtils;
 
-public class S3FileFileInputStreamOperator implements JavaInputStreamOperator {
+class S3FileFileInputStreamOperator implements JavaInputStreamOperator {
 
 	private final S3File file;
 	private ByteArrayInputStream bis;
