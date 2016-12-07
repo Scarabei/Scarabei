@@ -17,8 +17,6 @@ import com.jfixby.cmns.api.net.http.HttpFileSystemSpecs;
 import com.jfixby.cmns.api.net.http.HttpURL;
 import com.jfixby.cmns.api.util.JUtils;
 import com.jfixby.cmns.api.util.path.RelativePath;
-import com.jfixby.red.filesystem.http.fs.RedHttpFileSystem;
-import com.jfixby.red.filesystem.http.fs.RedHttpFileSystemSpecs;
 import com.jfixby.red.net.RedHost;
 
 public abstract class RedHttp implements HttpComponent {

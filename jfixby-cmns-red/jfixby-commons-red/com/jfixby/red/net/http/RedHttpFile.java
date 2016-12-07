@@ -1,5 +1,5 @@
 
-package com.jfixby.red.filesystem.http.fs;
+package com.jfixby.red.net.http;
 
 import java.io.IOException;
 
@@ -23,7 +23,7 @@ import com.jfixby.red.filesystem.AbstractRedFile;
 import com.jfixby.red.filesystem.FilesList;
 import com.jfixby.red.filesystem.RedFileHash;
 
-public class RedHttpFile extends AbstractRedFile implements File {
+class RedHttpFile extends AbstractRedFile implements File {
 
 	private final RedHttpFileSystem fs;
 	private final AbsolutePath<FileSystem> absolute_path;

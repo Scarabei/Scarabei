@@ -16,7 +16,7 @@ import com.jfixby.cmns.api.java.ByteArray;
 import com.jfixby.cmns.api.json.Json;
 import com.jfixby.cmns.api.json.JsonString;
 import com.jfixby.cmns.api.log.L;
-import com.jfixby.red.filesystem.http.fs.HTTPOperator;
+import com.jfixby.red.net.http.HTTPOperator;
 
 public class RedFolderSupportingIndexBuilder {
 

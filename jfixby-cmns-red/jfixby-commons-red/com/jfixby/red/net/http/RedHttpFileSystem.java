@@ -1,5 +1,5 @@
 
-package com.jfixby.red.filesystem.http.fs;
+package com.jfixby.red.net.http;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -25,7 +25,7 @@ import com.jfixby.cmns.api.util.path.AbsolutePath;
 import com.jfixby.cmns.api.util.path.RelativePath;
 import com.jfixby.red.filesystem.AbstractFileSystem;
 
-public class RedHttpFileSystem extends AbstractFileSystem implements FileSystem, HttpFileSystem {
+class RedHttpFileSystem extends AbstractFileSystem implements FileSystem, HttpFileSystem {
 
 	public static final String OS_SEPARATOR = "/";
 

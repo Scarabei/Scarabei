@@ -11,4 +11,6 @@ public interface ConnectionParametersProvider {
 
 	public String getPassword ();
 
+	public String getDBName ();
+
 }

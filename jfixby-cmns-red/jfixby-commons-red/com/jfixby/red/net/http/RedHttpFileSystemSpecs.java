@@ -1,10 +1,10 @@
 
-package com.jfixby.red.filesystem.http.fs;
+package com.jfixby.red.net.http;
 
 import com.jfixby.cmns.api.net.http.HttpFileSystemSpecs;
 import com.jfixby.cmns.api.net.http.HttpURL;
 
-public class RedHttpFileSystemSpecs implements HttpFileSystemSpecs {
+class RedHttpFileSystemSpecs implements HttpFileSystemSpecs {
 
 	HttpURL url;
 	private int cache = 200;

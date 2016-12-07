@@ -3,7 +3,6 @@ package com.jfixby.red.desktop.test;
 
 import java.io.IOException;
 
-import com.jfixby.cmns.adopted.gdx.json.RedJson;
 import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.desktop.DesktopSetup;
 import com.jfixby.cmns.api.file.File;
@@ -16,7 +15,7 @@ public class TestFileWrite {
 
 	public static void main (final String[] args) throws IOException {
 		DesktopSetup.deploy();
-		Json.installComponent(new RedJson());
+		Json.installComponent("com.jfixby.cmns.adopted.gdx.json.RedJson");
 
 		final File testFile = LocalFileSystem.ApplicationHome().child("RW-test.txt");
 

@@ -60,7 +60,7 @@ class S3ObjectInfo {
 		return this.lastModified;
 	}
 
-	public byte[] readBytes (final AWSS3FileSystem awss3FileSystem) throws IOException {
+	public byte[] readBytes (final RedS3FileSystem awss3FileSystem) throws IOException {
 		return awss3FileSystem.readData(this.s3Key);
 	}
 

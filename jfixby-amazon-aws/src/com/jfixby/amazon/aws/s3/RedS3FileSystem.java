@@ -33,15 +33,17 @@ import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.util.JUtils;
 import com.jfixby.cmns.api.util.path.AbsolutePath;
 import com.jfixby.cmns.api.util.path.RelativePath;
+import com.jfixby.cmns.aws.api.S3FileSystemConfig;
+import com.jfixby.cmns.aws.api.S3FileSystem;
 import com.jfixby.red.filesystem.AbstractFileSystem;
 
-class AWSS3FileSystem extends AbstractFileSystem implements FileSystem {
+class RedS3FileSystem extends AbstractFileSystem implements FileSystem, S3FileSystem {
 
 	private final String bucketName;
 	private final AmazonS3Client s3;
 	final private String toString;
 
-	public AWSS3FileSystem (final AWSS3FileSystemConfig specs) {
+	public RedS3FileSystem (final S3FileSystemConfig specs) {
 		this.bucketName = Debug.checkNull("getBucketName()", specs.getBucketName());
 
 		final String access_key_id = specs.getAccessKeyID();

@@ -3,7 +3,6 @@ package com.jfixby.rmi.files.server.run;
 
 import java.io.IOException;
 
-import com.jfixby.cmns.adopted.gdx.json.RedJson;
 import com.jfixby.cmns.api.desktop.DesktopSetup;
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.LocalFileSystem;
@@ -24,7 +23,7 @@ public class RunFileServer {
 		LocalFileSystem.deInstallCurrentComponent();
 		LocalFileSystem.installComponent(new UnixFileSystem());
 
-		Json.installComponent(new RedJson());
+		Json.installComponent("com.jfixby.cmns.adopted.gdx.json.RedJson");
 
 		final File config_file = LocalFileSystem.ApplicationHome().child("rmi-file-server.cfg");
 		if (!config_file.exists()) {

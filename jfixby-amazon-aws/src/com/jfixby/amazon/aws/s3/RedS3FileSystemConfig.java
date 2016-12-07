@@ -1,12 +1,15 @@
 
 package com.jfixby.amazon.aws.s3;
 
-class AWSS3FileSystemConfig {
+import com.jfixby.cmns.aws.api.S3FileSystemConfig;
+
+class RedS3FileSystemConfig implements S3FileSystemConfig {
 
 	private String bucketName;
 	private String accessKeyID;
 	private String secretKeyID;
 
+	@Override
 	public void setBucketName (final String bucketName) {
 		this.bucketName = bucketName;
 	}

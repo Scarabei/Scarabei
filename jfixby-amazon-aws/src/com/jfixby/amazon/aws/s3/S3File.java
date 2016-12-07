@@ -22,11 +22,11 @@ import com.jfixby.red.filesystem.RedFileHash;
 class S3File extends AbstractRedFile implements File {
 
 	final private AbsolutePath<FileSystem> absolute_path;
-	private final AWSS3FileSystem fs;
+	private final RedS3FileSystem fs;
 	private final RelativePath relative;
 // private S3ObjectInfo objectInfo;
 
-	public S3File (final AbsolutePath<FileSystem> output_file_path, final AWSS3FileSystem file_system) {
+	public S3File (final AbsolutePath<FileSystem> output_file_path, final RedS3FileSystem file_system) {
 		this.absolute_path = output_file_path;
 		this.fs = file_system;
 		this.relative = this.absolute_path.getRelativePath();
@@ -86,7 +86,7 @@ class S3File extends AbstractRedFile implements File {
 	}
 
 	public static String toNativePathString (final String string) {
-		return string.replaceAll(RelativePath.SEPARATOR, AWSS3FileSystem.OS_SEPARATOR + AWSS3FileSystem.OS_SEPARATOR);
+		return string.replaceAll(RelativePath.SEPARATOR, RedS3FileSystem.OS_SEPARATOR + RedS3FileSystem.OS_SEPARATOR);
 	}
 
 	@Override
@@ -130,7 +130,7 @@ class S3File extends AbstractRedFile implements File {
 	}
 
 	@Override
-	public AWSS3FileSystem getFileSystem () {
+	public RedS3FileSystem getFileSystem () {
 		return this.fs;
 	}
 

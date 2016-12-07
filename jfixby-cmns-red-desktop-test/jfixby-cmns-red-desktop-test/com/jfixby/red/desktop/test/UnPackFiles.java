@@ -3,7 +3,6 @@ package com.jfixby.red.desktop.test;
 
 import java.io.IOException;
 
-import com.jfixby.cmns.adopted.gdx.json.RedJson;
 import com.jfixby.cmns.api.desktop.DesktopSetup;
 import com.jfixby.cmns.api.file.File;
 import com.jfixby.cmns.api.file.LocalFileSystem;
@@ -16,22 +15,22 @@ import com.jfixby.red.filesystem.archived.RedFileSystemPacker;
 
 public class UnPackFiles {
 
-	public static void main (String[] args) throws IOException {
+	public static void main (final String[] args) throws IOException {
 
 		DesktopSetup.deploy();
-		Json.installComponent(new RedJson());
+		Json.installComponent("com.jfixby.cmns.adopted.gdx.json.RedJson");
 		FileSystemPacker.installComponent(new RedFileSystemPacker());
-		CompressionMethod schema = new R3ArrayCompressionMethod();
+		final CompressionMethod schema = new R3ArrayCompressionMethod();
 		FileSystemPacker.installCompressionSchema(schema);
 
-		File where_to_unpack = LocalFileSystem.ApplicationHome().child("output");
-		File folder_compressed = LocalFileSystem.ApplicationHome().child("compressed");
-		FileSystemUnpackingSpecs unpacking_specs = FileSystemPacker.newUnpackingSpecs();
+		final File where_to_unpack = LocalFileSystem.ApplicationHome().child("output");
+		final File folder_compressed = LocalFileSystem.ApplicationHome().child("compressed");
+		final FileSystemUnpackingSpecs unpacking_specs = FileSystemPacker.newUnpackingSpecs();
 
-		File archive_file = folder_compressed.child("compressed-file-system.r3dat");
+		final File archive_file = folder_compressed.child("compressed-file-system.r3dat");
 		unpacking_specs.setDataFile(archive_file);
 
-		File files_package = FileSystemPacker.unpack(unpacking_specs).ROOT();
+		final File files_package = FileSystemPacker.unpack(unpacking_specs).ROOT();
 		files_package.getFileSystem().copyFolderContentsToFolder(files_package, where_to_unpack);
 
 	}

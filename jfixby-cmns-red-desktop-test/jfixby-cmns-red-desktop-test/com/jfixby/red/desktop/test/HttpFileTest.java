@@ -10,16 +10,16 @@ import com.jfixby.cmns.api.file.LocalFileSystem;
 import com.jfixby.cmns.api.json.Json;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.net.http.Http;
+import com.jfixby.cmns.api.net.http.HttpFileSystem;
+import com.jfixby.cmns.api.net.http.HttpFileSystemSpecs;
 import com.jfixby.cmns.api.net.http.HttpURL;
-import com.jfixby.red.filesystem.http.fs.RedHttpFileSystem;
-import com.jfixby.red.filesystem.http.fs.RedHttpFileSystemSpecs;
 
 public class HttpFileTest {
 
 	public static void main (final String[] args) throws IOException {
 		DesktopSetup.deploy();
 		Json.installComponent(new RedJson());
-		final RedHttpFileSystemSpecs specs = new RedHttpFileSystemSpecs();
+		final HttpFileSystemSpecs http_specs = Http.newHttpFileSystemSpecs();
 
 		final String urlString = "http://localhost:8080/tinto-assets/assets";
 
@@ -30,11 +30,11 @@ public class HttpFileTest {
 // final HTTPFileInfo info = HTTPOperator.getFileInfo(url);
 // L.d("info", info);
 
-		specs.setRootUrl(url);
+		http_specs.setRootUrl(url);
+		final HttpFileSystem fs = Http.newHttpFileSystem(http_specs);
 
 		final String filename = "3-file.txt";
 		//
-		final RedHttpFileSystem fs = new RedHttpFileSystem(specs);
 		//
 		final File root = fs.ROOT();
 		root.isFolder();

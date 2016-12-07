@@ -1,5 +1,5 @@
 
-package com.jfixby.red.filesystem.http.fs;
+package com.jfixby.red.net.http;
 
 import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.Map;
