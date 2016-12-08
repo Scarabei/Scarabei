@@ -15,7 +15,8 @@ public class RedError implements ErrorComponent {
 
 	@Override
 	public void reportError (final String message) {
-		L.e(message);
+		final Error e = new Error(message);
+		L.e(e);
 		Sys.exit();
 	}
 

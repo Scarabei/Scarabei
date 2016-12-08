@@ -15,6 +15,10 @@ public class AWS {
 		componentInstaller.installComponent(className);
 	}
 
+	public static void installComponent (final String className, final ClassLoader classLoader) {
+		componentInstaller.installComponent(className, classLoader);
+	}
+
 	public static final AWSComponent invoke () {
 		return componentInstaller.invokeComponent();
 	}
@@ -24,7 +28,7 @@ public class AWS {
 	}
 
 	public static S3 getS3 () {
-		return null;
+		return invoke().getS3();
 	}
 
 }

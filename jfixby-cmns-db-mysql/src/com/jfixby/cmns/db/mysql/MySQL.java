@@ -9,6 +9,7 @@ import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.Map;
 import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.log.L;
+import com.jfixby.cmns.api.math.IntegerMath;
 import com.jfixby.cmns.db.api.ConnectionParametersProvider;
 import com.jfixby.cmns.db.api.DBConfig;
 import com.jfixby.cmns.db.api.DataBase;
@@ -18,7 +19,7 @@ class MySQL implements DataBase {
 	String serverName;
 	String login;
 	String password;
-	private final String dbName;
+	String dbName;
 	private final boolean useSSL;
 	private MysqlDataSource dataSource;
 	final Map<String, MySQLTable> tables = Collections.newMap();
@@ -27,16 +28,17 @@ class MySQL implements DataBase {
 	private final int maxReconnects;
 
 	MySQL (final DBConfig config) {
-		this.dbName = Debug.checkNull("dbName", config.getDBName());
+
 		this.useSSL = config.useSSL();
 		this.connectionParamatesProvider = config.getConnectionParametersProvider();
-		this.maxReconnects = config.getMaxReconnects();
+		this.maxReconnects = (int)IntegerMath.limit(1, config.getMaxReconnects(), Integer.MAX_VALUE);
 
 		if (this.connectionParamatesProvider == null) {
 			this.serverName = Debug.checkNull("serverName", config.getServerName());
 			this.login = Debug.checkNull("login", config.getLogin());
 			this.password = Debug.checkNull("password", config.getPassword());
 			this.port = Debug.checkNull("port", config.getPort());
+			this.dbName = Debug.checkNull("dbName", config.getDBName());
 
 			L.d("connecting", this.serverName);
 			this.dataSource = new MysqlDataSource();
@@ -89,6 +91,7 @@ class MySQL implements DataBase {
 		this.serverName = this.connectionParamatesProvider.getHost();
 		this.login = this.connectionParamatesProvider.getLogin();
 		this.password = this.connectionParamatesProvider.getPassword();
+		this.dbName = this.connectionParamatesProvider.getDBName();
 		this.port = this.connectionParamatesProvider.getPort();
 		if (this.serverName == null) {
 			throw new SQLException("Missing connection configuration: serverName");

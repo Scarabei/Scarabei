@@ -21,7 +21,7 @@ public class Err {
 
 	public static final ErrorComponent invoke () {
 		if (componentInstaller.getComponent() == null) {
-			Err.reportError("ErrorComponent is not installed");
+			throw new Error("ErrorComponent is not installed");
 		}
 		return componentInstaller.invokeComponent();
 	}

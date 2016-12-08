@@ -42,9 +42,11 @@ public class ComponentInstaller<T> {
 		return c;
 	}
 
-	public static <C> C newComponent (final String className) {
+	public static <C> C newComponent (final String className, final ClassLoader classLoader) {
 		try {
-			return (C)Class.forName(className).newInstance();
+			final Class<C> klass = (Class<C>)Class.forName(className, true, classLoader);
+// final Class<C> klass = (Class<C>)Class.forName(className);
+			return klass.newInstance();
 		} catch (final Throwable e) {
 			e.printStackTrace();
 			System.exit(-1);
@@ -53,7 +55,14 @@ public class ComponentInstaller<T> {
 	}
 
 	public void installComponent (final String className) {
-		final T toInstall = newComponent(className);
+// Class<?> caller = Reflection.getCallerClass();
+		final ClassLoader classLoader = this.getClass().getClassLoader();
+		final T toInstall = newComponent(className, classLoader);
+		this.installComponent(toInstall);
+	}
+
+	public void installComponent (final String className, final ClassLoader classLoader) {
+		final T toInstall = newComponent(className, classLoader);
 		this.installComponent(toInstall);
 	}
 

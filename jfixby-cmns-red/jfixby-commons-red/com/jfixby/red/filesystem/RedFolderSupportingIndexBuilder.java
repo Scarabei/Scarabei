@@ -92,10 +92,26 @@ public class RedFolderSupportingIndexBuilder {
 				L.d("writing", desc_file_json);
 				final JsonString stringData = Json.serializeToString(desc);
 				final JsonString testStringData = Json.serializeToString(deckCheck);
-				if (!stringData.equals(testStringData)) {
-					L.d("    stringData", stringData);
-					L.d("testStringData", testStringData);
-					Err.reportError("decoder fails");
+				final String s1 = stringData.toString();
+				final String s2 = testStringData.toString();
+				if (!s1.equals(s2)) {
+
+					L.e("    stringData " + s1.length());
+					L.e("testStringData " + s2.length());
+					L.e(desc_file_json);
+// for (int k = 0; k < s1.length(); k++) {
+// final char c1 = s1.charAt(k);
+// final char c2 = s2.charAt(k);
+// if (c1 != c2) {
+//// L.d_appendChars("#");L.d_appendChars("#");L.d_appendChars("#");
+//// L.d_appendChars("" + c1);
+//// L.d_appendChars("#");
+// } else {
+//// L.d_appendChars("" + c1);
+// }
+// }
+
+					L.e("decoder fails");
 				}
 				final String data = stringData.toString();
 				desc_file_json.writeString(data);
