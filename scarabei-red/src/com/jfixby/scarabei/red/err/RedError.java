@@ -1,0 +1,47 @@
+
+package com.jfixby.scarabei.red.err;
+
+import com.jfixby.scarabei.api.err.ErrorComponent;
+import com.jfixby.scarabei.api.err.NotImplementedYetException;
+import com.jfixby.scarabei.api.log.L;
+import com.jfixby.scarabei.api.sys.Sys;
+
+public class RedError implements ErrorComponent {
+
+	@Override
+	public void reportGCLeak (final String message, final Object leakingObject) {
+		L.e(message, leakingObject);
+	}
+
+	@Override
+	public void reportError (final String message) {
+		final Error e = new Error(message);
+		L.e(e);
+		Sys.exit();
+	}
+
+	@Override
+	public void reportError (final Throwable e) {
+		L.e(e);
+		Sys.exit();
+	}
+
+	@Override
+	public void reportError (final String message, final Throwable e) {
+		L.e(message, e);
+		Sys.exit();
+	}
+
+	@Override
+	public void reportError (final Thread t, final Throwable e) {
+		L.e("Thread", t);
+		L.e(e);
+		Sys.exit();
+	}
+
+	@Override
+	public void reportNotImplementedYet () {
+		this.reportError(new NotImplementedYetException());
+	}
+
+}
