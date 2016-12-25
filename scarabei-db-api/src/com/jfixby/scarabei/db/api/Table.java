@@ -7,14 +7,15 @@ import com.jfixby.scarabei.api.collections.Collection;
 import com.jfixby.scarabei.api.collections.List;
 
 public interface Table {
-
-	List<Entry> listAll () throws IOException;
+	Entry newEntry ();
 
 	TableSchema getSchema () throws IOException;
 
-	Entry newEntry ();
+	Collection<Entry> listAll () throws IOException;
 
 	void addEntry (Entry entry) throws IOException;
+
+	void addEntries (Collection<Entry> batch) throws IOException;
 
 	void clear () throws IOException;
 

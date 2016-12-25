@@ -157,6 +157,7 @@ class MySQLTable implements Table {
 		}
 	}
 
+	@Override
 	public void addEntries (final Collection<Entry> batch) throws IOException {
 		if (batch.size() == 0) {
 			return;

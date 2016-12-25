@@ -129,8 +129,11 @@ class RedHttpFile extends AbstractRedFile implements File {
 // L.d("not found", url);
 // this.fs.printCache();
 			final ByteArray data = HTTPOperator.readFile(url);
+
 			desc = HTTPOperator.decode(data);
+
 			this.caheValue(path, url, desc);
+
 		}
 		return desc;
 	}

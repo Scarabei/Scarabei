@@ -45,27 +45,36 @@ public class HTTPOperator {
 
 	}
 
-	public static void encode (final FolderSupportingIndex desc, final OutputStream os) throws IOException {
+	public static void encode (final FolderSupportingIndex index, final OutputStream os) throws IOException {
 		final GZipOutputStream gzip = IO.newGZipStream(os);
 		gzip.open();
-		IO.serialize(desc, gzip);
+		IO.serialize(index, gzip);
 		gzip.close();
 	}
 
-	public static FolderSupportingIndex decode (final ByteArray data) throws IOException {
+	public static FolderSupportingIndex decode (final ByteArray bytes) throws IOException {
 
 // final String raw_json = JUtils.newString(data);
 // final HttpFolderDescriptor desc = Json.deserializeFromString(HttpFolderDescriptor.class, raw_json);
 
-		final Buffer buffer = IO.newBuffer(data);
+		final Buffer buffer = IO.newBuffer(bytes);
 		final BufferInputStream is = IO.newBufferInputStream(buffer);
 		final GZipInputStream gzip = IO.newGZipStream(is);
 		is.open();
 		gzip.open();
-		final FolderSupportingIndex desc = IO.deserialize(FolderSupportingIndex.class, gzip);
-		gzip.close();
-		is.close();
-		return desc;
+		final ByteArray dat = gzip.readAll();
+		try {
+
+			final FolderSupportingIndex index = IO.deserialize(FolderSupportingIndex.class, dat);
+			return index;
+		} catch (final IOException e) {
+			L.e(new String(dat.toArray()));
+			throw e;
+		} finally {
+			gzip.close();
+			is.close();
+		}
+
 	}
 
 }

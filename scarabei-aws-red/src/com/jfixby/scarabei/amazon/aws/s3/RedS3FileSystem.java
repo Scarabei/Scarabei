@@ -428,7 +428,7 @@ class RedS3FileSystem extends AbstractFileSystem implements FileSystem, S3FileSy
 						this.writeData(targetRelative, file_to_copy.readBytes());
 					} else {
 // L.d(" skip", file_to_copy);
-						L.d("   skip", target);
+						L.d("                  skip", target);
 					}
 				}
 
