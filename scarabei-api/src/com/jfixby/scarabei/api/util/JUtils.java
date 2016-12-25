@@ -126,8 +126,8 @@ public class JUtils {
 	}
 
 	public static String wrapSequence (final Sequence<String> seq, final int size, final String bracketLeft,
-		final String bracketRight) {
-		return invoke().wrapSequence(seq, size, bracketLeft, bracketRight);
+		final String bracketRight, final String separator) {
+		return invoke().wrapSequence(seq, size, bracketLeft, bracketRight, separator);
 	}
 
 	public static ID nameOf (final Class<?> type) {

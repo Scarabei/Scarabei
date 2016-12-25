@@ -185,7 +185,8 @@ public class RedJUtils implements UtilsComponent {
 	}
 
 	@Override
-	public String wrapSequence (final Sequence<String> seq, final int size, final String bracketLeft, final String bracketRight) {
+	public String wrapSequence (final Sequence<String> seq, final int size, final String bracketLeft, final String bracketRight,
+		final String separator) {
 		final int iMax = size - 1;
 		if (iMax == -1) {
 			return bracketLeft + bracketRight;
@@ -197,7 +198,7 @@ public class RedJUtils implements UtilsComponent {
 			if (i == iMax) {
 				return b.append(bracketRight).toString();
 			}
-			b.append(", ");
+			b.append(separator);
 		}
 	}
 

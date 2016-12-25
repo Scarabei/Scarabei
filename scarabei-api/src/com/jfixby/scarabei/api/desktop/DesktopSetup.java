@@ -30,44 +30,44 @@ import com.jfixby.scarabei.api.util.JUtils;
 public class DesktopSetup {
 
 	public static final void deploy () {
-		L.installComponent("com.jfixby.red.log.SimpleLogger");
-		JUtils.installComponent("com.jfixby.red.util.RedJUtils");
+		L.installComponent("com.jfixby.scarabei.red.log.SimpleLogger");
+		JUtils.installComponent("com.jfixby.scarabei.red.util.RedJUtils");
 
-		Collections.installComponent("com.jfixby.red.desktop.collections.DesktopCollections");
-		FloatMath.installComponent("com.jfixby.red.desktop.math.DesktopFloatMath");
-		TaskManager.installComponent("com.jfixby.red.sys.RedTaskManager");
-		Sys.installComponent("com.jfixby.red.desktop.sys.DesktopSystem");
-		SystemSettings.installComponent("com.jfixby.red.sys.RedSystemSettings");
-		IntegerMath.installComponent("com.jfixby.red.math.RedIntegerMath");
-		Names.installComponent("com.jfixby.red.name.RedAssetsNamespace");
-		IO.installComponent("com.jfixby.red.io.RedIO");
-		Graphs.installComponent("com.jfixby.red.graphs.RedGraphs");
+		Collections.installComponent("com.jfixby.scarabei.red.desktop.collections.DesktopCollections");
+		FloatMath.installComponent("com.jfixby.scarabei.red.desktop.math.DesktopFloatMath");
+		TaskManager.installComponent("com.jfixby.scarabei.red.sys.RedTaskManager");
+		Sys.installComponent("com.jfixby.scarabei.red.desktop.sys.DesktopSystem");
+		SystemSettings.installComponent("com.jfixby.scarabei.red.sys.RedSystemSettings");
+		IntegerMath.installComponent("com.jfixby.scarabei.red.math.RedIntegerMath");
+		Names.installComponent("com.jfixby.scarabei.red.name.RedAssetsNamespace");
+		IO.installComponent("com.jfixby.scarabei.red.io.RedIO");
+		Graphs.installComponent("com.jfixby.scarabei.red.graphs.RedGraphs");
 
-		Angles.installComponent("com.jfixby.red.math.RedAngles");
-		Geometry.installComponent("com.jfixby.red.geometry.RedGeometry");
-		Colors.installComponent("com.jfixby.red.color.RedColors");
-		MathTools.installComponent("com.jfixby.red.math.RedMathTools");
-		Err.installComponent("com.jfixby.red.err.RedError");
-		Debug.installComponent("com.jfixby.red.debug.RedDebug");
-		GCFisher.installComponent("com.jfixby.red.java.gc.RedGCFisher");
-		MD5.installComponent("com.jfixby.red.util.md5.RSADataSecurityIncMD5");
-		Random.installComponent("com.jfixby.red.random.RedRandom");
-		Arrays.installComponent("com.jfixby.red.arrays.RedArrays");
+		Angles.installComponent("com.jfixby.scarabei.red.math.RedAngles");
+		Geometry.installComponent("com.jfixby.scarabei.red.geometry.RedGeometry");
+		Colors.installComponent("com.jfixby.scarabei.red.color.RedColors");
+		MathTools.installComponent("com.jfixby.scarabei.red.math.RedMathTools");
+		Err.installComponent("com.jfixby.scarabei.red.err.RedError");
+		Debug.installComponent("com.jfixby.scarabei.red.debug.RedDebug");
+		GCFisher.installComponent("com.jfixby.scarabei.red.java.gc.RedGCFisher");
+		MD5.installComponent("com.jfixby.scarabei.red.util.md5.RSADataSecurityIncMD5");
+		Random.installComponent("com.jfixby.scarabei.red.random.RedRandom");
+		Arrays.installComponent("com.jfixby.scarabei.red.arrays.RedArrays");
 		// --
 
 		if (Sys.isWindows()) {
-			LocalFileSystem.installComponent("com.jfixby.red.desktop.filesystem.win.WinFileSystem");
+			LocalFileSystem.installComponent("com.jfixby.scarabei.red.desktop.filesystem.win.WinFileSystem");
 		} else if (Sys.isUnix() || Sys.isMac()) {
-			LocalFileSystem.installComponent("com.jfixby.red.desktop.filesystem.unix.UnixFileSystem");
+			LocalFileSystem.installComponent("com.jfixby.scarabei.red.desktop.filesystem.unix.UnixFileSystem");
 		} else {
-			LocalFileSystem.installComponent("com.jfixby.red.desktop.filesystem.unix.UnixFileSystem");
+			LocalFileSystem.installComponent("com.jfixby.scarabei.red.desktop.filesystem.unix.UnixFileSystem");
 		}
 
-		Http.installComponent("com.jfixby.red.desktop.net.http.DesktopHttp");
+		Http.installComponent("com.jfixby.scarabei.red.desktop.net.http.DesktopHttp");
 
-		ImageProcessing.installComponent("com.jfixby.red.image.RedImageProcessing");
-// ImageAWT.installComponent("com.jfixby.red.desktop.image.RedImageAWT");
-		FileCache.installComponent("com.jfixby.red.filesystem.cache.RedFileCache");
+		ImageProcessing.installComponent("com.jfixby.scarabei.red.image.RedImageProcessing");
+// ImageAWT.installComponent("com.jfixby.scarabei.red.desktop.image.RedImageAWT");
+		FileCache.installComponent("com.jfixby.scarabei.red.filesystem.cache.RedFileCache");
 
 	}
 

@@ -147,6 +147,10 @@ public class IO {
 		return component().deserialize(type, bytes);
 	}
 
+	public static <T> T deserialize (final Class<T> type, final byte[] bytes) throws IOException {
+		return component().deserialize(type, bytes);
+	}
+
 	public static ByteArray compress (final ByteArray data) {
 		return component().compress(data);
 	}

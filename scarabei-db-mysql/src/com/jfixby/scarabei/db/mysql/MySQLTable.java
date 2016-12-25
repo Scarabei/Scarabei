@@ -101,35 +101,9 @@ class MySQLTable implements Table {
 				keys.add(key);
 			}
 		}
-		final String schemaString = JUtils.wrapSequence(keys, keys.size(), bracketLeft, bracketRight);
+		final String schemaString = JUtils.wrapSequence(keys, keys.size(), bracketLeft, bracketRight, ", ");
 
-		return schemaString + " VALUES " + JUtils.wrapSequence( (i) -> "?", keys.size(), "(", ")");
-	}
-
-	@Override
-	public Collection<Entry> findEntries (final String key, final String value) throws IOException {
-		Debug.checkNull("key", key);
-		Debug.checkNull("value", value);
-
-		final MySQLConnection connection = this.db.obtainConnection();
-		connection.checkIsOpen();
-		try {
-			final Connection mysql_connection = connection.getConnection();
-
-			final String table_name = this.sql_table_name;
-			final String stm = "SELECT * FROM " + table_name + " WHERE " + key + " = ?";
-			final PreparedStatement statement = mysql_connection//
-				.prepareStatement(stm);
-			statement.setString(1, value);
-			final ResultSet result = statement.executeQuery();
-			final List<Entry> res = this.collectResult(result);
-			return res;
-		} catch (final SQLException e) {
-			e.printStackTrace();
-			throw new IOException(e);
-		} finally {
-			this.db.releaseConnection(connection);
-		}
+		return schemaString + " VALUES " + JUtils.wrapSequence( (i) -> "?", keys.size(), "(", ")", ", ");
 	}
 
 	@Override
@@ -242,6 +216,102 @@ class MySQLTable implements Table {
 		} finally {
 			this.db.releaseConnection(connection);
 		}
+	}
+
+	@Override
+	public boolean deleteEntry (final TableSchema schema, final int keyIndex, final Object value) throws IOException {
+		final String key = this.schema.getColumns().getElementAt(keyIndex);
+		Debug.checkNull("value", value);
+
+		final MySQLConnection connection = this.db.obtainConnection();
+		connection.checkIsOpen();
+		try {
+			final Connection mysql_connection = connection.getConnection();
+
+			final String table_name = this.sql_table_name;
+			final String stm = "DELETE * FROM " + table_name + " WHERE " + key + " = ?";
+			final PreparedStatement statement = mysql_connection//
+				.prepareStatement(stm);
+			statement.setString(1, value + "");
+			return statement.execute();
+		} catch (final SQLException e) {
+			e.printStackTrace();
+			throw new IOException(e);
+		} finally {
+			this.db.releaseConnection(connection);
+		}
+	}
+
+	@Override
+	public Collection<Entry> findEntries (final TableSchema schema, final int keyIndex, final Object value) throws IOException {
+		final String key = this.schema.getColumns().getElementAt(keyIndex);
+		Debug.checkNull("value", value);
+
+		final MySQLConnection connection = this.db.obtainConnection();
+		connection.checkIsOpen();
+		try {
+			final Connection mysql_connection = connection.getConnection();
+
+			final String table_name = this.sql_table_name;
+			final String stm = "SELECT * FROM " + table_name + " WHERE " + key + " = ?";
+			final PreparedStatement statement = mysql_connection//
+				.prepareStatement(stm);
+			statement.setString(1, value + "");
+			final ResultSet result = statement.executeQuery();
+			final List<Entry> res = this.collectResult(result);
+			return res;
+		} catch (final SQLException e) {
+			e.printStackTrace();
+			throw new IOException(e);
+		} finally {
+			this.db.releaseConnection(connection);
+		}
+	}
+
+	@Override
+	public boolean deleteEntry (final Entry entry) throws IOException {
+		final Collection<String> shema = this.schema.getColumns();
+
+		final List<String> keys = Collections.newList();
+		this.paramString(entry, keys, "(", ")");
+		final String table_name = this.sql_table_name;
+		final String stm;
+		if (keys.size() == 0) {
+			stm = "DELETE FROM " + table_name;
+		} else {
+			stm = "DELETE FROM " + table_name + " WHERE "
+				+ JUtils.wrapSequence( (i) -> keys.getElementAt(i) + "=" + "?", keys.size(), "", "", " AND ");
+		}
+
+		final MySQLConnection connection = this.db.obtainConnection();
+		connection.checkIsOpen();
+		try {
+			final Connection mysql_connection = connection.getConnection();
+			final PreparedStatement statement = mysql_connection//
+				.prepareStatement(stm);
+			int k = 1;
+			for (int i = 0; i < keys.size(); i++) {
+				final String valuei = entry.getValue(keys.getElementAt(i));
+				statement.setString(k, valuei);
+				k++;
+			}
+
+			return statement.execute();
+		} catch (final SQLException e) {
+			e.printStackTrace();
+			throw new IOException(e);
+		} finally {
+			this.db.releaseConnection(connection);
+		}
+
+	}
+
+	@Override
+	public void deleteEntries (final Collection<Entry> paramEntries) throws IOException {
+		for (final Entry e : paramEntries) {// fuck you
+			this.deleteEntry(e);
+		}
+
 	}
 
 }

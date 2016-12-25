@@ -228,24 +228,6 @@ public class RedIO implements IOComponent {
 	}
 
 	@Override
-	public <T> T deserialize (final Class<T> type, final ByteArray bytes) throws IOException {
-		Debug.checkNull("bytes", bytes);
-		Debug.checkNull("type", type);
-		final ByteArrayInputStream jis = new ByteArrayInputStream(bytes.toArray());
-		final ObjectInputStream os = new ObjectInputStream(jis);
-		try {
-			final T object = (T)os.readObject();
-			return object;
-		} catch (final Throwable e) {
-			e.printStackTrace();
-			throw new IOException(e);
-		} finally {
-			this.forceClose(jis);
-			this.forceClose(os);
-		}
-	}
-
-	@Override
 	public void forceClose (final java.io.OutputStream os) {
 		if (os == null) {
 			return;
@@ -360,6 +342,29 @@ public class RedIO implements IOComponent {
 		bis.close();
 		final byte[] bytes = bis.toByteArray();
 		return JUtils.newByteArray(bytes);
+	}
+
+	@Override
+	public <T> T deserialize (final Class<T> type, final ByteArray bytes) throws IOException {
+		return this.deserialize(type, bytes.toArray());
+	}
+
+	@Override
+	public <T> T deserialize (final Class<T> type, final byte[] bytes) throws IOException {
+		Debug.checkNull("bytes", bytes);
+		Debug.checkNull("type", type);
+		final ByteArrayInputStream jis = new ByteArrayInputStream(bytes);
+		final ObjectInputStream os = new ObjectInputStream(jis);
+		try {
+			final T object = (T)os.readObject();
+			return object;
+		} catch (final Throwable e) {
+			e.printStackTrace();
+			throw new IOException(e);
+		} finally {
+			this.forceClose(jis);
+			this.forceClose(os);
+		}
 	}
 
 }

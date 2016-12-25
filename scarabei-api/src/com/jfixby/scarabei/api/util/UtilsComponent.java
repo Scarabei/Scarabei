@@ -60,7 +60,7 @@ public interface UtilsComponent {
 
 	String prefix (String string, int offset);
 
-	String wrapSequence (Sequence<String> seq, int size, String bracketLeft, String bracketRight);
+	String wrapSequence (Sequence<String> seq, int size, String bracketLeft, String bracketRight, final String separator);
 
 	ID nameOf (Class<?> type);
 
