@@ -6,5 +6,8 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/scarabei-api-desktop"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/scarabei-aws-api"/>
 	<classpathentry kind="con" path="com.amazonaws.eclipse.sdk.AWS_JAVA_SDK"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/scarabei-aws-red"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/scarabei-red"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/scarabei-red-desktop"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

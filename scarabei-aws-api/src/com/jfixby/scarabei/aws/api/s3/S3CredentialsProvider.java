@@ -7,4 +7,6 @@ public interface S3CredentialsProvider {
 
 	String getSecretKeyID ();
 
+	String getRegionName ();
+
 }

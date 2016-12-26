@@ -15,4 +15,8 @@ public interface S3FileSystemConfig {
 
 	void setSecretKeyID (String secretKeyID);
 
+	String getRegionName ();
+
+	void setRegionName (String regionName);
+
 }

@@ -48,11 +48,15 @@ class RedS3FileSystem extends AbstractFileSystem implements FileSystem, S3FileSy
 
 		final String access_key_id = specs.getAccessKeyID();
 		final String secret_key_id = specs.getSecretKeyID();
+		final String regionName = specs.getRegionName();
 		if (access_key_id != null && secret_key_id != null) {
 			final BasicAWSCredentials awsCreds = new BasicAWSCredentials(access_key_id, secret_key_id);
 			this.s3 = new AmazonS3Client(awsCreds);
 		} else {
 			this.s3 = new AmazonS3Client();// default credentials
+		}
+		if (regionName != null) {
+			this.s3.setRegion(com.amazonaws.regions.Region.getRegion(com.amazonaws.regions.Regions.fromName(regionName)));
 		}
 		this.toString = "S3BucketFileSystem[" + this.bucketName + "]";
 	}
