@@ -30,4 +30,9 @@ public final class Message implements java.io.Serializable {
 		}
 	}
 
+	public Message putValue (final String key, final String value) {
+		this.values.put(key, value);
+		return this;
+	}
+
 }

@@ -41,7 +41,8 @@ public class RedError implements ErrorComponent {
 
 	@Override
 	public void reportNotImplementedYet () {
-		this.reportError(new NotImplementedYetException());
+		L.e(new NotImplementedYetException());
+		Sys.exit();
 	}
 
 }
