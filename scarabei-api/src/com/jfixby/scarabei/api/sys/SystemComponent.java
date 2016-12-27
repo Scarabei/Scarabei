@@ -25,4 +25,6 @@ public interface SystemComponent {
 
 	void wait (Object lock);
 
+	void addOnExitListener (OnExitListener listener);
+
 }
