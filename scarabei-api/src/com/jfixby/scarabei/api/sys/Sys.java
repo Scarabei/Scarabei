@@ -64,4 +64,8 @@ public class Sys {
 		invoke().wait(lock);
 	}
 
+	public static void addOnExitListener (final OnExitListener listener) {
+		invoke().addOnExitListener(listener);
+	}
+
 }

@@ -1,7 +1,10 @@
 
 package com.jfixby.scarabei.red.sys;
 
+import com.jfixby.scarabei.api.collections.Collections;
+import com.jfixby.scarabei.api.collections.List;
 import com.jfixby.scarabei.api.debug.Debug;
+import com.jfixby.scarabei.api.sys.OnExitListener;
 import com.jfixby.scarabei.api.sys.SystemComponent;
 import com.jfixby.scarabei.api.time.TimeStream;
 
@@ -65,10 +68,21 @@ public abstract class RedSystem implements SystemComponent {
 		}
 	}
 
+	final List<OnExitListener> onExitListeners = Collections.newList();
+
 	@Override
 	final public void exit () {
+		for (final OnExitListener listener : this.onExitListeners) {
+			listener.onExit();
+		}
 		System.out.println("EXIT");
 		System.exit(0);
+	}
+
+	@Override
+	public void addOnExitListener (final OnExitListener listener) {
+		Debug.checkNull("listener", listener);
+		this.onExitListeners.add(listener);
 	}
 
 }
