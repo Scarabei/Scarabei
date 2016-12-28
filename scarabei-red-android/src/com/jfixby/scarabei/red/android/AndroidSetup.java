@@ -1,7 +1,6 @@
 
 package com.jfixby.scarabei.red.android;
 
-import com.jfixby.scarabei.adopted.gdx.GdxSimpleTriangulator;
 import com.jfixby.scarabei.android.api.Android;
 import com.jfixby.scarabei.android.api.AndroidComponent;
 import com.jfixby.scarabei.api.angles.Angles;
@@ -91,7 +90,7 @@ public class AndroidSetup {
 		Random.installComponent(new RedRandom());
 		Arrays.installComponent(new RedArrays());
 
-		SimpleTriangulator.installComponent(new GdxSimpleTriangulator());
+		SimpleTriangulator.installComponent("com.jfixby.scarabei.adopted.gdx.GdxSimpleTriangulator");
 
 		{
 			LocalFileSystem.installComponent(new AndroidFileSystem());

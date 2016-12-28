@@ -15,6 +15,10 @@ public class SimpleTriangulator {
 	public static final void installComponent (SimpleTriangulatorComponent component_to_install) {
 		componentInstaller.installComponent(component_to_install);
 	}
+	
+	public static void installComponent (final String className) {
+		componentInstaller.installComponent(className);
+	}
 
 	public static final SimpleTriangulatorComponent invoke () {
 		return componentInstaller.invokeComponent();
@@ -27,5 +31,7 @@ public class SimpleTriangulator {
 	public static List<Triangle> triangulate (EditableCollection<Float2> vertices_list) {
 		return invoke().triangulate(vertices_list);
 	}
+	
+	
 
 }
