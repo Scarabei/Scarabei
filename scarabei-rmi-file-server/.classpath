@@ -7,6 +7,5 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/scarabei-red-desktop"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/scarabei-rmi-api"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/scarabei-rmi-server"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/scarabei-red-gdx"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -3,7 +3,6 @@ package com.jfixby.scarabei.red.desktop.test;
 
 import java.io.IOException;
 
-import com.jfixby.scarabei.adopted.gdx.json.RedJson;
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.desktop.DesktopSetup;
 import com.jfixby.scarabei.api.file.File;
@@ -22,7 +21,7 @@ public class IOTest {
 	public static void main (String[] args) throws IOException {
 
 		DesktopSetup.deploy();
-		Json.installComponent(new RedJson());
+		Json.installComponent("com.jfixby.scarabei.adopted.gdx.json.RedJson");
 		FileSystemPacker.installComponent(new RedFileSystemPacker());
 		CompressionMethod schema = new R3ArrayCompressionMethod();
 		FileSystemPacker.installCompressionSchema(schema);
