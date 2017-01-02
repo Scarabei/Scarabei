@@ -195,39 +195,39 @@ public abstract class RedCollections implements CollectionsComponent {
 
 	}
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public <Q, P, Cp extends EditableCollection<P>> Cp castCollection (final Collection<Q> input, final Cp output) {
-		for (final Q i : input) {
-			final P p = (P)i;
-			output.add(p);
-		}
-		return output;
-	}
+// @SuppressWarnings("unchecked")
+// @Override
+// public <Q, P, Cp extends EditableCollection<P>> Cp castCollection (final Collection<Q> input, final Cp output) {
+// for (final Q i : input) {
+// final P p = (P)i;
+// output.add(p);
+// }
+// return output;
+// }
 
-	@Override
-	public <Q, P> List<P> castCollection (final Collection<Q> input) {
-		final List<P> list = Collections.newList();
-		return this.castCollection(input, list);
-	}
+// @Override
+// public <Q, P> List<P> castCollection (final Collection<Q> input) {
+// final List<P> list = Collections.newList();
+// return this.castCollection(input, list);
+// }
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public <A, B, X, Y, Mp extends Map<A, B>> Mp castMap (final Mapping<X, Y> input, final Mp output) {
-		for (final X iK : input.keys()) {
-			final A oK = (A)iK;
-			final B oV = (B)input.get(iK);
-			output.put(oK, oV);
-		}
-		return output;
+// @SuppressWarnings("unchecked")
+// @Override
+// public <A, B, X, Y, Mp extends Map<A, B>> Mp castMap (final Mapping<X, Y> input, final Mp output) {
+// for (final X iK : input.keys()) {
+// final A oK = (A)iK;
+// final B oV = (B)input.get(iK);
+// output.put(oK, oV);
+// }
+// return output;
+//
+// }
 
-	}
-
-	@Override
-	public <A, B, X, Y> Map<A, B> castMap (final Mapping<X, Y> input) {
-		final Map<A, B> map = Collections.newMap();
-		return this.castMap(input, map);
-	}
+// @Override
+// public <A, B, X, Y> Map<A, B> castMap (final Mapping<X, Y> input) {
+// final Map<A, B> map = Collections.newMap();
+// return this.castMap(input, map);
+// }
 
 	@Override
 	public <T> void arrayCopy (final Collection<? extends T> source, final int source_index,
@@ -262,18 +262,18 @@ public abstract class RedCollections implements CollectionsComponent {
 		this.scanCollection(input, scanner);
 	}
 
-	@Override
-	public <T, A extends EditableCollection<T>> A intersect (final Collection<? extends T> c1, final Collection<? extends T> c2,
-		final A target) {
-		for (int i = 0; i < c1.size(); i++) {
-			final T e = c1.getElementAt(i);
-			if (c2.contains(e)) {
-				target.add(e);
-			}
-		}
-
-		return target;
-	}
+// @Override
+// public <T, A extends EditableCollection<T>> A intersect (final Collection<? extends T> c1, final Collection<? extends T> c2,
+// final A target) {
+// for (int i = 0; i < c1.size(); i++) {
+// final T e = c1.getElementAt(i);
+// if (c2.contains(e)) {
+// target.add(e);
+// }
+// }
+//
+// return target;
+// }
 
 	@Override
 	public <T> void scanCollection (final Sequence<T> collection, final long fromIndex, final long toIndex,

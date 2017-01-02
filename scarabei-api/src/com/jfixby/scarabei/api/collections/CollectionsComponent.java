@@ -42,15 +42,13 @@ public interface CollectionsComponent {
 
 	boolean equalLists (List<?> a, List<?> b);
 
-	public <A, B, X, Y> Map<A, B> castMap (Mapping<X, Y> input);
-
-	public <A, B, X, Y, Mp extends Map<A, B>> Mp castMap (Mapping<X, Y> input, Mp output);
+// public <A, B, X, Y> Map<A, B> castMap (Mapping<X, Y> input);
+//
+// public <A, B, X, Y, Mp extends Map<A, B>> Mp castMap (Mapping<X, Y> input, Mp output);
 
 	boolean beginsWith (Collection<?> list, Collection<?> with);
 
-	public <Q, P, Cp extends EditableCollection<P>> Cp castCollection (Collection<Q> input, Cp output);
-
-	public <Q, P> List<P> castCollection (Collection<Q> input);
+// public <Q, P, Cp extends EditableCollection<P>> Cp castCollection (Collection<Q> input, Cp output);
 
 	public <T> void arrayCopy (Collection<? extends T> source, int source_index, EditableCollection<? super T> destination,
 		int number_of_elements);
@@ -64,8 +62,5 @@ public interface CollectionsComponent {
 	public <T> PriorityQueue<T> newPriorityQueue (Comparator<T> priorityComparator);
 
 	public <T> Heap<T> newHeap (Comparator<? super T> comparator);
-
-	public <T, A extends EditableCollection<T>> A intersect (final Collection<? extends T> c1, final Collection<? extends T> c2,
-		final A target);
 
 }

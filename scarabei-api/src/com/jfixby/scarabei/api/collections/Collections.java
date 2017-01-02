@@ -111,21 +111,17 @@ public class Collections {
 		return invoke().beginsWith(list, with);
 	}
 
-	static public <Q, P, Cp extends EditableCollection<P>> Cp castCollection (final Collection<Q> input, final Cp output) {
-		return invoke().castCollection(input, output);
-	}
-
-	static public <Q, P> List<P> castCollection (final Collection<Q> input) {
-		return invoke().castCollection(input);
-	}
-
-	public static <A, B, X, Y, Mp extends Map<A, B>> Mp castMap (final Mapping<X, Y> input, final Mp output) {
-		return invoke().castMap(input, output);
-	}
-
-	public static <A, B, X, Y> Map<A, B> castMap (final Mapping<X, Y> input) {
-		return invoke().castMap(input);
-	}
+// static public <Q, P, Cp extends EditableCollection<P>> Cp castCollection (final Collection<Q> input, final Cp output) {
+// return invoke().castCollection(input, output);
+// }
+//
+// public static <A, B, X, Y, Mp extends Map<A, B>> Mp castMap (final Mapping<X, Y> input, final Mp output) {
+// return invoke().castMap(input, output);
+// }
+//
+// public static <A, B, X, Y> Map<A, B> castMap (final Mapping<X, Y> input) {
+// return invoke().castMap(input);
+// }
 
 	public static <T> void arrayCopy (final Collection<? extends T> source, final int source_index,
 		final EditableCollection<? super T> destination, final int number_of_elements) {
@@ -143,11 +139,6 @@ public class Collections {
 	public static <A, B> void convertCollection (final Collection<A> input, final EditableCollection<B> output,
 		final CollectionConverter<A, B> converter) {
 		invoke().convertCollection(input, output, converter);
-	}
-
-	public static <T, A extends EditableCollection<T>> A intersect (final Collection<? extends T> c1,
-		final Collection<? extends T> c2, final A target) {
-		return invoke().intersect(c1, c2, target);
 	}
 
 }

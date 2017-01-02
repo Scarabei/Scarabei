@@ -19,73 +19,73 @@ public class RedNamespaceRegistry<T> implements NamespaceRegistry<T> {
 	final Map<ID, Set<T>> map = Collections.newMap();
 
 	@Override
-	public void put (ID object_name, Collection<T> value) {
-		Set<T> collection = find(object_name);
+	public void put (final ID object_name, final Collection<T> value) {
+		final Set<T> collection = this.find(object_name);
 		collection.addAll(value);
 	}
 
 	@Override
 	public void clear () {
-		map.clear();
+		this.map.clear();
 	}
 
 	@Override
-	public Collection<T> remove (Object key) {
-		return map.remove(key);
+	public Collection<T> remove (final Object key) {
+		return this.map.remove(key);
 	}
 
 	@Override
-	public void putAll (Mapping<? extends ID, ? extends Collection<T>> other_map) {
-		for (ID key : other_map.keys()) {
-			Collection<T> value = other_map.get(key);
+	public void putAll (final Mapping<? extends ID, ? extends Collection<T>> other_map) {
+		for (final ID key : other_map.keys()) {
+			final Collection<T> value = other_map.get(key);
 			this.put(key, value);
 		}
 
 	}
 
 	@Override
-	public void putJavaMap (java.util.Map<? extends ID, ? extends Collection<T>> java_map) {
-		for (ID key : java_map.keySet()) {
-			Collection<T> value = java_map.get(key);
+	public void putJavaMap (final java.util.Map<? extends ID, ? extends Collection<T>> java_map) {
+		for (final ID key : java_map.keySet()) {
+			final Collection<T> value = java_map.get(key);
 			this.put(key, value);
 		}
 	}
 
 	@Override
-	public void removeAll (Collection<?> keys) {
-		map.removeAll(keys);
+	public void removeAll (final Collection<?> keys) {
+		this.map.removeAll(keys);
 	}
 
 	@Override
-	public boolean containsKey (Object key) {
-		return map.containsKey(key);
+	public boolean containsKey (final Object key) {
+		return this.map.containsKey(key);
 	}
 
 	@Override
-	public Collection<T> get (Object key) {
-		Collection<T> result = map.get(key);
+	public Collection<T> get (final Object key) {
+		final Collection<T> result = this.map.get(key);
 
 		if (result != null) {
 			return result;
 		}
 
 		ID id = (ID)key;
-		String last = id.getLastStep();
+		final String last = id.getLastStep();
 		if ("*".equals(last)) {
 			id = id.parent();
-			return wildcardGet(id);
+			return this.wildcardGet(id);
 		}
 
 		return null;
 
 	}
 
-	private Collection<T> wildcardGet (ID id) {
-		List<T> result = Collections.newList();
+	private Collection<T> wildcardGet (final ID id) {
+		final List<T> result = Collections.newList();
 		for (int i = 0; i < this.map.size(); i++) {
 			final ID k = this.map.keys().getElementAt(i);
 			if (id.includes(k)) {
-				Collection<T> vals = this.map.get(k);
+				final Collection<T> vals = this.map.get(k);
 				result.addAll(vals);
 			}
 		}
@@ -94,67 +94,70 @@ public class RedNamespaceRegistry<T> implements NamespaceRegistry<T> {
 	}
 
 	@Override
-	public void print (String tag) {
-		map.print(tag);
+	public void print (final String tag) {
+		this.map.print(tag);
 	}
 
 	@Override
 	public int size () {
-		return map.size();
+		return this.map.size();
 	}
 
 	@Override
-	public ID getKeyAt (long i) {
-		return map.getKeyAt(i);
+	public ID getKeyAt (final long i) {
+		return this.map.getKeyAt(i);
 	}
 
 	@Override
-	public Collection<T> getValueAt (long i) {
-		return map.getValueAt(i);
+	public Collection<T> getValueAt (final long i) {
+		return this.map.getValueAt(i);
 	}
 
 	@Override
 	public Iterator<ID> keysIterator () {
-		return map.keysIterator();
+		return this.map.keysIterator();
 	}
 
 	@Override
 	public Collection<Collection<T>> values () {
-		return Collections.castCollection(map.values());
+		final Collection<? extends Set<T>> vals = this.map.values();
+		final Collection<Collection<T>> x = (Collection<Collection<T>>)vals;
+		return x;
 	}
 
 	@Override
 	public Collection<ID> keys () {
-		return map.keys();
+		return this.map.keys();
 	}
 
 	@Override
 	public java.util.Map<ID, Collection<T>> toJavaMap () {
-		Map<ID, Collection<T>> map_t = Collections.castMap(map);
+		final Map<ID, ? extends Set<T>> map = this.map;
+		final Map<ID, Collection<T>> map_t = (Map<ID, Collection<T>>)map;
 		return map_t.toJavaMap();
 	}
 
 	@Override
-	public void put (ID object_name, T object) {
-		Set<T> collection = find(object_name);
+	public void put (final ID object_name, final T object) {
+		final Set<T> collection = this.find(object_name);
 		collection.add(object);
 
 	}
 
-	private Set<T> find (ID object_name) {
-		Set<T> collection = map.get(object_name);
+	private Set<T> find (final ID object_name) {
+		Set<T> collection = this.map.get(object_name);
 		if (collection == null) {
 			collection = Collections.newSet();
-			map.put(object_name, collection);
+			this.map.put(object_name, collection);
 		}
 		return collection;
 	}
 
 	@Override
 	public Collection<T> allValues () {
-		List<T> result = Collections.newList();
+		final List<T> result = Collections.newList();
 		for (int i = 0; i < this.map.size(); i++) {
-			Set<T> values = this.map.getValueAt(i);
+			final Set<T> values = this.map.getValueAt(i);
 			result.addAll(values);
 		}
 		return result;
@@ -162,16 +165,16 @@ public class RedNamespaceRegistry<T> implements NamespaceRegistry<T> {
 
 	@Override
 	public void sortKeys () {
-		map.sortKeys();
+		this.map.sortKeys();
 	}
 
 	@Override
-	public void sortKeys (Comparator<? super ID> keysComparator) {
-		map.sortKeys(keysComparator);
+	public void sortKeys (final Comparator<? super ID> keysComparator) {
+		this.map.sortKeys(keysComparator);
 	}
 
 	@Override
-	public EditableCollection<ID> cutToSize (int max_size) {
+	public EditableCollection<ID> cutToSize (final int max_size) {
 		return this.map.cutToSize(max_size);
 	}
 
