@@ -39,4 +39,6 @@ public interface AndroidComponent {
 
 	String getManufacturer ();
 
+	double densityIndependentPixels2Pixels (float dip);
+
 }
