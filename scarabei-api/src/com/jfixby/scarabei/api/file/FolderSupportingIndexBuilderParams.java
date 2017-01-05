@@ -29,4 +29,8 @@ public interface FolderSupportingIndexBuilderParams {
 
 	boolean recoursive ();
 
+	boolean ignoreJsonDecoderFailure ();
+
+	void setIgnoreJsonDecoderFailure (boolean b);
+
 }

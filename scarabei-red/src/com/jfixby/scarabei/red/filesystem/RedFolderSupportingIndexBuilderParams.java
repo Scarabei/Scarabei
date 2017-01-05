@@ -12,6 +12,7 @@ public class RedFolderSupportingIndexBuilderParams implements FolderSupportingIn
 	private boolean noOutput;
 	private boolean debug;
 	private boolean recoursive = true;
+	private boolean ignoreJsonDecoderFailure = false;
 
 	public RedFolderSupportingIndexBuilderParams (
 		final RedFolderSupportingIndexBuilderParams redFolderSupportingIndexBuilderParams) {
@@ -88,6 +89,16 @@ public class RedFolderSupportingIndexBuilderParams implements FolderSupportingIn
 	@Override
 	public boolean recoursive () {
 		return this.recoursive;
+	}
+
+	@Override
+	public boolean ignoreJsonDecoderFailure () {
+		return this.ignoreJsonDecoderFailure;
+	}
+
+	@Override
+	public void setIgnoreJsonDecoderFailure (final boolean b) {
+		this.ignoreJsonDecoderFailure = b;
 	}
 
 }

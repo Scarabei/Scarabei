@@ -194,7 +194,11 @@ class S3File extends AbstractRedFile implements File {
 
 	@Override
 	public FileHash calculateHash () throws IOException {
-		return new RedFileHash(this.info().md5());
+		final S3ObjectInfo info = this.info();
+		if (info == null) {
+// return null;
+		}
+		return new RedFileHash(info.md5());
 	}
 
 	public S3ObjectInfo info () {

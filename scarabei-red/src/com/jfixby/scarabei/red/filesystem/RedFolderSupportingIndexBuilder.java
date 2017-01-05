@@ -95,7 +95,7 @@ public class RedFolderSupportingIndexBuilder {
 				final String s1 = stringData.toString();
 				final String s2 = testStringData.toString();
 				if (!s1.equals(s2)) {
-
+					final String message = "decoder fails";
 					L.e("    stringData " + s1.length());
 					L.e("testStringData " + s2.length());
 					L.e(desc_file_json);
@@ -111,7 +111,11 @@ public class RedFolderSupportingIndexBuilder {
 // }
 // }
 
-					L.e("decoder fails");
+					if (params.ignoreJsonDecoderFailure()) {
+						L.e(message);
+					} else {
+						Err.reportError(message);
+					}
 				}
 				final String data = stringData.toString();
 				desc_file_json.writeString(data);
