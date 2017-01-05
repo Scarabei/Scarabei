@@ -419,7 +419,7 @@ class RedS3FileSystem extends AbstractFileSystem implements FileSystem, S3FileSy
 // L.d(" to", target);
 					this.makeFolder(targetRelative + RelativePath.SEPARATOR);
 				} else if (file_to_copy.isFile()) {
-					if (resolver.overwrite(file_to_copy, target)) {
+					if (!target.exists() || resolver.overwrite(file_to_copy, target)) {
 						L.d("copying", file_to_copy);
 						L.d("     to", target);
 						final File parent = target.parent();
