@@ -21,7 +21,6 @@ import com.jfixby.scarabei.api.math.IntegerMath;
 import com.jfixby.scarabei.api.math.MathTools;
 import com.jfixby.scarabei.api.math.SimpleTriangulator;
 import com.jfixby.scarabei.api.md5.MD5;
-import com.jfixby.scarabei.api.memory.MemoryManager;
 import com.jfixby.scarabei.api.net.http.Http;
 import com.jfixby.scarabei.api.random.Random;
 import com.jfixby.scarabei.api.sys.Sys;
@@ -43,7 +42,6 @@ import com.jfixby.scarabei.red.ios.collections.iOSCollections;
 import com.jfixby.scarabei.red.ios.filesystem.iOSFileSystem;
 import com.jfixby.scarabei.red.ios.log.iOSLogger;
 import com.jfixby.scarabei.red.ios.math.iOSFloatMath;
-import com.jfixby.scarabei.red.ios.memory.iOSMemoryManager;
 import com.jfixby.scarabei.red.ios.net.http.iOSHttp;
 import com.jfixby.scarabei.red.ios.sys.iOSSystem;
 import com.jfixby.scarabei.red.java.gc.RedGCFisher;
@@ -80,9 +78,6 @@ public class iOSSetup {
 		Debug.installComponent(new RedDebug());
 
 		iOS.installComponent(ios);
-		MemoryManager.installComponent(new iOSMemoryManager());
-		L.d("Max heap size: ", MemoryManager.getMaxHeapSize() + "Mb");
-		L.d("Recommended heap size: ", MemoryManager.getRecommendedHeapSize() + "Mb");
 
 		GCFisher.installComponent(new RedGCFisher());
 

@@ -22,14 +22,6 @@ public class iOS {
 		return componentInstaller.getComponent();
 	}
 
-	public static long getMaxHeapSize () {
-		return invoke().getMaxHeapSize();
-	}
-
-	public static long getRecommendedHeapSize () {
-		return invoke().getRecommendedHeapSize();
-	}
-
 	public static String getApplicationPrivateDirPathString () {
 		return invoke().getApplicationPrivateDirPathString();
 	}

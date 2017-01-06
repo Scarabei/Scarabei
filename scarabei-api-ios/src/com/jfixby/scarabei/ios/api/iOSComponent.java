@@ -7,10 +7,6 @@ import com.jfixby.scarabei.ios.api.camera.iOSCameraSetup;
 
 public interface iOSComponent {
 
-	long getMaxHeapSize ();
-
-	long getRecommendedHeapSize ();
-
 	String getApplicationPrivateDirPathString ();
 
 	iOSCameraSetup getCameraSetup ();

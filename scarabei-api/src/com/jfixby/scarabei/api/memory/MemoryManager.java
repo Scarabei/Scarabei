@@ -7,7 +7,7 @@ public class MemoryManager {
 	static private ComponentInstaller<MemoryManagerComponent> componentInstaller = new ComponentInstaller<MemoryManagerComponent>(
 		"MemoryManager");
 
-	public static final void installComponent (MemoryManagerComponent component_to_install) {
+	public static final void installComponent (final MemoryManagerComponent component_to_install) {
 		componentInstaller.installComponent(component_to_install);
 	}
 
