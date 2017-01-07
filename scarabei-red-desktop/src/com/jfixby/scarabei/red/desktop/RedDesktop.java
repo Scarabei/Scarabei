@@ -5,4 +5,8 @@ import com.jfixby.scarabei.api.desktop.DesktopComponent;
 
 public class RedDesktop implements DesktopComponent {
 
+	public static final void main (final String[] arg) {
+
+	}
+
 }

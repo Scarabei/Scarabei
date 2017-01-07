@@ -3,7 +3,6 @@ package com.jfixby.scarabei.red.net.http;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.net.URLConnection;
 
 import com.jfixby.scarabei.api.debug.Debug;
 import com.jfixby.scarabei.api.err.Err;
@@ -13,11 +12,12 @@ import com.jfixby.scarabei.api.java.ByteArray;
 public class RedHttpConnectionOutputStreamOperator implements JavaOutputStreamOperator {
 
 	private OutputStream java_output_stream;
-	private final URLConnection java_connection;
+	private final RedHttpConnection red_connection;
 
-	public RedHttpConnectionOutputStreamOperator (final URLConnection java_connection) {
-		Debug.checkNull("java_connection", java_connection);
-		this.java_connection = java_connection;
+	public RedHttpConnectionOutputStreamOperator (final RedHttpConnection red_connection) {
+		Debug.checkNull("red_connection", red_connection);
+		this.red_connection = red_connection;
+
 	}
 
 	@Override
@@ -27,9 +27,11 @@ public class RedHttpConnectionOutputStreamOperator implements JavaOutputStreamOp
 
 	@Override
 	public OutputStream getJavaStream () throws IOException {
+		if (this.red_connection.java_connection == null) {
+			this.red_connection.tryToOpenConnection();
+		}
 		if (this.java_output_stream == null) {
-
-			this.java_output_stream = this.java_connection.getOutputStream();
+			this.java_output_stream = this.red_connection.java_connection.getOutputStream();
 		}
 		return this.java_output_stream;
 	}

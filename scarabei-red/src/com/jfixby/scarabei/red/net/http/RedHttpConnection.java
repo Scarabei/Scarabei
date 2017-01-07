@@ -8,14 +8,16 @@ import java.net.URL;
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.Map;
 import com.jfixby.scarabei.api.debug.Debug;
-import com.jfixby.scarabei.api.err.Err;
 import com.jfixby.scarabei.api.io.IO;
+import com.jfixby.scarabei.api.net.http.CONNECTION_STATE;
 import com.jfixby.scarabei.api.net.http.HttpConnection;
 import com.jfixby.scarabei.api.net.http.HttpConnectionInputStream;
 import com.jfixby.scarabei.api.net.http.HttpConnectionOutputStream;
 import com.jfixby.scarabei.api.net.http.HttpConnectionSpecs;
 import com.jfixby.scarabei.api.net.http.HttpURL;
 import com.jfixby.scarabei.api.net.http.METHOD;
+import com.jfixby.scarabei.api.util.JUtils;
+import com.jfixby.scarabei.api.util.StateSwitcher;
 
 public class RedHttpConnection implements HttpConnection {
 
@@ -23,7 +25,7 @@ public class RedHttpConnection implements HttpConnection {
 	private final boolean use_agent;
 	final Map<String, String> requestProperties = Collections.newMap();
 
-	private HttpURLConnection java_connection;
+	HttpURLConnection java_connection;
 	private URL java_url;
 	private RedHttpConnectionInputStream red_input_stream;
 	private RedHttpConnectionOutputStream red_output_stream;
@@ -36,6 +38,7 @@ public class RedHttpConnection implements HttpConnection {
 	private boolean octetStream;
 	private long connectionTimeout;
 	private long readTimeout;
+	private final StateSwitcher<CONNECTION_STATE> state = JUtils.newStateSwitcher(CONNECTION_STATE.NEW);
 
 	public RedHttpConnection (final HttpConnectionSpecs specs) {
 		this.url = specs.getURL();
@@ -49,7 +52,6 @@ public class RedHttpConnection implements HttpConnection {
 		this.octetStream = specs.octetStream();
 		this.connectionTimeout = specs.getConnectionTimeout();
 		this.readTimeout = specs.getReadTimeout();
-
 	}
 
 	public RedHttpConnection (final HttpURL url, final boolean use_agent) {
@@ -58,7 +60,12 @@ public class RedHttpConnection implements HttpConnection {
 	}
 
 	@Override
-	public void open () throws IOException {
+	public void open () {
+		this.state.expectState(CONNECTION_STATE.NEW);
+		this.state.switchState(CONNECTION_STATE.OPEN);
+	}
+
+	void tryToOpenConnection () throws IOException {
 		this.java_url = new java.net.URL(this.url.getURLString());
 
 		this.java_connection = (HttpURLConnection)this.java_url.openConnection();
@@ -93,33 +100,43 @@ public class RedHttpConnection implements HttpConnection {
 
 	@Override
 	public HttpConnectionInputStream getInputStream () {
+		this.state.expectState(CONNECTION_STATE.OPEN);
 		if (this.red_input_stream == null) {
-			this.red_input_stream = new RedHttpConnectionInputStream(this.java_connection);
+			this.red_input_stream = new RedHttpConnectionInputStream(this);
 		}
 		return this.red_input_stream;
 	}
 
 	@Override
 	public HttpConnectionOutputStream getOutputStream () {
+		this.state.expectState(CONNECTION_STATE.OPEN);
 		Debug.checkTrue("Connection is not open " + this.url, this.java_connection != null);
 		if (this.red_output_stream == null) {
-			this.red_output_stream = new RedHttpConnectionOutputStream(this.java_connection);
+			this.red_output_stream = new RedHttpConnectionOutputStream(this);
 		}
 		return this.red_output_stream;
 	}
 
 	@Override
 	public void close () {
+		this.state.expectState(CONNECTION_STATE.OPEN);
+		this.state.switchState(CONNECTION_STATE.CLOSED);
 		IO.forceClose(this.red_output_stream);
 		IO.forceClose(this.red_input_stream);
 	}
 
 	@Override
 	public int getResponseCode () throws IOException {
+		this.state.expectState(CONNECTION_STATE.OPEN);
 		if (this.java_connection == null) {
-			Err.reportError("Not connected: " + this);
+			this.tryToOpenConnection();
 		}
 		return this.java_connection.getResponseCode();
+	}
+
+	@Override
+	public CONNECTION_STATE getState () {
+		return this.state.currentState();
 	}
 
 }

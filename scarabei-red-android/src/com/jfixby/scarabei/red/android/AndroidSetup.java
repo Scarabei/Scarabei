@@ -103,4 +103,8 @@ public class AndroidSetup {
 
 	}
 
+	public static final void main (final String[] arg) {
+
+	}
+
 }
