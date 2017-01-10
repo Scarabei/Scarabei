@@ -12,17 +12,14 @@ import com.jfixby.scarabei.api.log.L;
 import com.jfixby.scarabei.api.util.JUtils;
 import com.jfixby.scarabei.api.util.path.AbsolutePath;
 import com.jfixby.scarabei.api.util.path.RelativePath;
-import com.jfixby.scarabei.ios.api.iOS;
 import com.jfixby.scarabei.red.filesystem.AbstractLocalFileSystem;
 
 public class iOSFileSystem extends AbstractLocalFileSystem implements LocalFileSystemComponent {
 
-	String application_home_path_string = System.getProperty("user.dir");
+	final String application_home_path_string = System.getProperty("user.dir");
 
 	public iOSFileSystem () {
-// L.d("System.getProperty(user.dir)", System.getProperty("user.dir"));
-		this.application_home_path_string = iOS.getApplicationPrivateDirPathString();
-		L.d("applicationPrivateDirPathString", this.application_home_path_string);
+
 	}
 
 	public static final String OS_SEPARATOR = "/";

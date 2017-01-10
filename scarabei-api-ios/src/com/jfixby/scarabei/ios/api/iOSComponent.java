@@ -7,13 +7,19 @@ import com.jfixby.scarabei.ios.api.camera.iOSCameraSetup;
 
 public interface iOSComponent {
 
-	String getApplicationPrivateDirPathString ();
-
 	iOSCameraSetup getCameraSetup ();
 
-	File getPrivateFolder ();
+	File getDocuments ();
 
-	File getCacheFolder ();
+	File getLibrary ();
+
+	File getTmp ();
+
+	File getCaches ();
+
+	File getLocal ();
+
+	File getPreferences ();
 
 	DisplayMetrics getDisplayMetrics ();
 

@@ -2,13 +2,12 @@
 package com.jfixby.scarabei.ios.api;
 
 import com.jfixby.scarabei.api.ComponentInstaller;
-import com.jfixby.scarabei.api.file.File;
 import com.jfixby.scarabei.api.sys.SystemInfo;
 import com.jfixby.scarabei.ios.api.camera.iOSCameraSetup;
 
 public class iOS {
 
-	static private ComponentInstaller<iOSComponent> componentInstaller = new ComponentInstaller<>("iOS");
+	static private ComponentInstaller<iOSComponent> componentInstaller = new ComponentInstaller<iOSComponent>("iOS");
 
 	public static final void installComponent (final iOSComponent component_to_install) {
 		componentInstaller.installComponent(component_to_install);
@@ -22,21 +21,9 @@ public class iOS {
 		return componentInstaller.getComponent();
 	}
 
-	public static String getApplicationPrivateDirPathString () {
-		return invoke().getApplicationPrivateDirPathString();
-	}
-
 	public static iOSCameraSetup getCameraSetup () {
 		return invoke().getCameraSetup();
 
-	}
-
-	public static File getPrivateFolder () {
-		return invoke().getPrivateFolder();
-	}
-
-	public static File getCacheFolder () {
-		return invoke().getCacheFolder();
 	}
 
 	public static DisplayMetrics getDisplayMetrics () {

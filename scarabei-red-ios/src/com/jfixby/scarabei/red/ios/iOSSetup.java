@@ -19,7 +19,6 @@ import com.jfixby.scarabei.api.log.L;
 import com.jfixby.scarabei.api.math.FloatMath;
 import com.jfixby.scarabei.api.math.IntegerMath;
 import com.jfixby.scarabei.api.math.MathTools;
-import com.jfixby.scarabei.api.math.SimpleTriangulator;
 import com.jfixby.scarabei.api.md5.MD5;
 import com.jfixby.scarabei.api.net.http.Http;
 import com.jfixby.scarabei.api.random.Random;
@@ -84,8 +83,6 @@ public class iOSSetup {
 		MD5.installComponent(new RSADataSecurityIncMD5());
 		Random.installComponent(new RedRandom());
 		Arrays.installComponent(new RedArrays());
-
-		SimpleTriangulator.installComponent("com.jfixby.scarabei.adopted.gdx.GdxSimpleTriangulator");
 
 		{
 			LocalFileSystem.installComponent(new iOSFileSystem());
