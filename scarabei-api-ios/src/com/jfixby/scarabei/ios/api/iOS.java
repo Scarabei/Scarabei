@@ -2,6 +2,7 @@
 package com.jfixby.scarabei.ios.api;
 
 import com.jfixby.scarabei.api.ComponentInstaller;
+import com.jfixby.scarabei.api.display.DisplayMetrics;
 import com.jfixby.scarabei.api.sys.SystemInfo;
 import com.jfixby.scarabei.ios.api.camera.iOSCameraSetup;
 
@@ -30,28 +31,20 @@ public class iOS {
 		return invoke().getDisplayMetrics();
 	}
 
-	public static String getBrand () {
-		return invoke().getBrand();
-	}
-
-	public static String getModel () {
-		return invoke().getModel();
-	}
-
-	public static String getHost () {
-		return invoke().getHost();
-	}
-
-	public static String getVersionRelease () {
-		return invoke().getVersionRelease();
-	}
-
 	public static iOSAppVersion getAppVersion () {
 		return invoke().getAppVersion();
 	}
 
 	public static SystemInfo getSystemInfo () {
 		return invoke().getSystemInfo();
+	}
+
+	public static long getMaxHeapSize () {
+		return invoke().getMaxHeapSize();
+	}
+
+	public static long getRecommendedHeapSize () {
+		return invoke().getRecommendedHeapSize();
 	}
 
 }

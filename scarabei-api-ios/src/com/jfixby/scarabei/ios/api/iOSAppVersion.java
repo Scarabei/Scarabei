@@ -7,7 +7,7 @@ public interface iOSAppVersion {
 
 	String getName ();
 
-	int getCode ();
+	String getBuild ();
 
 	ID getPackageName ();
 

@@ -68,4 +68,8 @@ public class Sys {
 		invoke().addOnExitListener(listener);
 	}
 
+	public static boolean isIOS () {
+		return invoke().isIOS();
+	}
+
 }

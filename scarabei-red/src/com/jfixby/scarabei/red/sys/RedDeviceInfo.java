@@ -3,6 +3,7 @@ package com.jfixby.scarabei.red.sys;
 
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.Map;
+import com.jfixby.scarabei.api.collections.Mapping;
 import com.jfixby.scarabei.api.log.L;
 import com.jfixby.scarabei.api.sys.SystemInfo;
 
@@ -23,6 +24,10 @@ public class RedDeviceInfo implements SystemInfo {
 	public void print () {
 		L.d("---[DeviceInfo]------------------------");
 		this.params.print("params");
+	}
+
+	public void putAll (final Mapping<? extends String, ? extends String> values) {
+		this.params.putAll(values);
 	}
 
 }

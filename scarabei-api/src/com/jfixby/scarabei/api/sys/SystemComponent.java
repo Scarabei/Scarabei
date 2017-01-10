@@ -27,4 +27,6 @@ public interface SystemComponent {
 
 	void addOnExitListener (OnExitListener listener);
 
+	boolean isIOS ();
+
 }

@@ -43,6 +43,11 @@ public abstract class RedSystem implements SystemComponent {
 	}
 
 	@Override
+	public boolean isIOS () {
+		return OSValidator.isIOS();
+	}
+
+	@Override
 	final public void yeld () {
 		Thread.yield();
 	}

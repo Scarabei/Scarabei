@@ -17,6 +17,7 @@ import com.jfixby.scarabei.api.log.L;
 import com.jfixby.scarabei.api.net.http.Http;
 import com.jfixby.scarabei.api.net.http.HttpConnection;
 import com.jfixby.scarabei.api.net.http.HttpConnectionInputStream;
+import com.jfixby.scarabei.api.net.http.HttpConnectionSpecs;
 import com.jfixby.scarabei.api.net.http.HttpURL;
 
 public class HTTPOperator {
@@ -28,7 +29,11 @@ public class HTTPOperator {
 	public static ByteArray readFile (final HttpURL url) throws IOException {
 
 		L.d("FETCHING: " + url);
-		final HttpConnection conn = Http.newConnection(url);
+		final HttpConnectionSpecs spec = Http.newConnectionSpecs();
+		spec.setDoOutput(false);
+		spec.setURL(url);
+		final HttpConnection conn = Http.newConnection(spec);
+
 		final DebugTimer timer = Debug.newTimer();
 		timer.reset();
 

@@ -5,6 +5,7 @@ public class SystemInfoTags {
 
 	public static class System {
 		public static final String OS_NAME = "os.name";
+		public static final String OS_VERSION = "os.version";
 	}
 
 	public static class Java {

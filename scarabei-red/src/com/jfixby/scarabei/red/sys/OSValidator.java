@@ -3,6 +3,10 @@ package com.jfixby.scarabei.red.sys;
 
 public class OSValidator {
 
+	public OSValidator () {
+
+	}
+
 	private static String OS = System.getProperty("os.name").toLowerCase();
 
 	public static boolean isWindows () {
@@ -19,6 +23,10 @@ public class OSValidator {
 
 	public static boolean isSolaris () {
 		return (OS.indexOf("sunos") >= 0);
+	}
+
+	public static boolean isIOS () {
+		return (OS.indexOf("ios") >= 0);
 	}
 
 	public static String getOS () {

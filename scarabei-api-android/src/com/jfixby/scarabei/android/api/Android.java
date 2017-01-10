@@ -3,6 +3,7 @@ package com.jfixby.scarabei.android.api;
 
 import com.jfixby.scarabei.android.api.camera.AndroidCameraSetup;
 import com.jfixby.scarabei.api.ComponentInstaller;
+import com.jfixby.scarabei.api.display.DisplayMetrics;
 import com.jfixby.scarabei.api.file.File;
 import com.jfixby.scarabei.api.sys.SystemInfo;
 
