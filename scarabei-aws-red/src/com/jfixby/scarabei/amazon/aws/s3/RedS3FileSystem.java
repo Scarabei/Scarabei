@@ -19,7 +19,7 @@ import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.List;
 import com.jfixby.scarabei.api.debug.Debug;
 import com.jfixby.scarabei.api.err.Err;
-import com.jfixby.scarabei.api.file.ChildrenList;
+import com.jfixby.scarabei.api.file.FilesList;
 import com.jfixby.scarabei.api.file.File;
 import com.jfixby.scarabei.api.file.FileConflistResolver;
 import com.jfixby.scarabei.api.file.FileInputStream;
@@ -403,7 +403,7 @@ class RedS3FileSystem extends AbstractFileSystem implements FileSystem, S3FileSy
 // pointer = pointer.parent();
 // } while (!pointer.getAbsoluteFilePath().isRoot());
 
-			final ChildrenList task = input_folder.listAllChildren();
+			final FilesList task = input_folder.listAllChildren();
 // task.addAll(children);
 // task.print("task");
 			ouput_folder.makeFolder();

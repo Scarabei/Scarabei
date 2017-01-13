@@ -6,13 +6,13 @@ import java.io.IOException;
 import com.jfixby.scarabei.api.collections.Collection;
 import com.jfixby.scarabei.api.debug.Debug;
 import com.jfixby.scarabei.api.err.Err;
-import com.jfixby.scarabei.api.file.ChildrenList;
 import com.jfixby.scarabei.api.file.File;
 import com.jfixby.scarabei.api.file.FileConflistResolver;
 import com.jfixby.scarabei.api.file.FileConverter;
 import com.jfixby.scarabei.api.file.FileInputStream;
 import com.jfixby.scarabei.api.file.FileOutputStream;
 import com.jfixby.scarabei.api.file.FileSystem;
+import com.jfixby.scarabei.api.file.FilesList;
 import com.jfixby.scarabei.api.file.FolderConverter;
 import com.jfixby.scarabei.api.file.FolderSupportingIndexBuilderParams;
 import com.jfixby.scarabei.api.io.InputStream;
@@ -91,7 +91,7 @@ public abstract class AbstractFileSystem implements FileSystem {
 		Debug.checkTrue("This is not a folder: " + input_folder, input_folder.exists());
 
 		ouput_folder.makeFolder();
-		final ChildrenList children = input_folder.listDirectChildren();
+		final FilesList children = input_folder.listDirectChildren();
 // children.print("children");
 		for (int i = 0; i < children.size(); i++) {
 			final File file_to_copy = (children.getElementAt(i));
@@ -177,7 +177,7 @@ public abstract class AbstractFileSystem implements FileSystem {
 		Debug.checkTrue("This is not a folder: " + input_folder, input_folder.exists());
 
 		ouput_folder.makeFolder();
-		final ChildrenList children = input_folder.listDirectChildren();
+		final FilesList children = input_folder.listDirectChildren();
 		for (int i = 0; i < children.size(); i++) {
 			final File file_to_copy = (children.getElementAt(i));
 			this.convertFile(file_to_copy, ouput_folder, folderConverter, fileConverter);
@@ -223,7 +223,7 @@ public abstract class AbstractFileSystem implements FileSystem {
 
 		@Override
 		public boolean convert (final File inputFolder, final File outputfolder) throws IOException {
-			final ChildrenList children = inputFolder.listDirectChildren();
+			final FilesList children = inputFolder.listDirectChildren();
 			outputfolder.makeFolder();
 			AbstractFileSystem.this.copyFilesTo(children, outputfolder);
 			return true;

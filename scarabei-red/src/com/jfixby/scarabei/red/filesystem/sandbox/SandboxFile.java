@@ -4,16 +4,16 @@ package com.jfixby.scarabei.red.filesystem.sandbox;
 import java.io.IOException;
 
 import com.jfixby.scarabei.api.err.Err;
-import com.jfixby.scarabei.api.file.ChildrenList;
 import com.jfixby.scarabei.api.file.File;
 import com.jfixby.scarabei.api.file.FileHash;
 import com.jfixby.scarabei.api.file.FileInputStream;
 import com.jfixby.scarabei.api.file.FileOutputStream;
 import com.jfixby.scarabei.api.file.FileSystem;
+import com.jfixby.scarabei.api.file.FilesList;
 import com.jfixby.scarabei.api.util.path.AbsolutePath;
 import com.jfixby.scarabei.api.util.path.RelativePath;
 import com.jfixby.scarabei.red.filesystem.AbstractRedFile;
-import com.jfixby.scarabei.red.filesystem.FilesList;
+import com.jfixby.scarabei.red.filesystem.RedFilesList;
 
 public class SandboxFile extends AbstractRedFile implements File {
 
@@ -63,7 +63,7 @@ public class SandboxFile extends AbstractRedFile implements File {
 	}
 
 	@Override
-	public ChildrenList listDirectChildren () throws IOException {
+	public FilesList listDirectChildren () throws IOException {
 		final File unprotected_file = this.getUnprotectedFile();
 
 		if (!unprotected_file.exists()) {
@@ -71,11 +71,11 @@ public class SandboxFile extends AbstractRedFile implements File {
 		}
 		if (unprotected_file.isFolder()) {
 
-			final ChildrenList unprotected_children = unprotected_file.listDirectChildren();
+			final FilesList unprotected_children = unprotected_file.listDirectChildren();
 
 			// List<String> files = content.listChildren(relativePath);
 
-			final FilesList listFiles = new FilesList();
+			final RedFilesList listFiles = new RedFilesList();
 			for (int i = 0; i < unprotected_children.size(); i++) {
 				final String file_i = unprotected_children.getElementAt(i).getName();
 				final AbsolutePath<FileSystem> absolute_file = this.absolute_path.child(file_i);
@@ -95,7 +95,7 @@ public class SandboxFile extends AbstractRedFile implements File {
 	}
 
 	@Override
-	public ChildrenList listAllChildren () {
+	public FilesList listAllChildren () {
 		Err.throwNotImplementedYet();
 		return null;
 	}

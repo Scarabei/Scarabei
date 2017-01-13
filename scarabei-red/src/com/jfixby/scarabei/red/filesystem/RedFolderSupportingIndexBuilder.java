@@ -6,9 +6,9 @@ import java.io.IOException;
 import com.jfixby.scarabei.api.collections.CollectionScanner;
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.err.Err;
-import com.jfixby.scarabei.api.file.ChildrenList;
 import com.jfixby.scarabei.api.file.File;
 import com.jfixby.scarabei.api.file.FileOutputStream;
+import com.jfixby.scarabei.api.file.FilesList;
 import com.jfixby.scarabei.api.file.FolderSupportingIndex;
 import com.jfixby.scarabei.api.file.FolderSupportingIndexBuilderParams;
 import com.jfixby.scarabei.api.file.FolderSupportingIndexEntry;
@@ -29,7 +29,7 @@ public class RedFolderSupportingIndexBuilder {
 		if (params.getDebug()) {
 			L.d(file);
 		}
-		final ChildrenList children = file.listDirectChildren();
+		final FilesList children = file.listDirectChildren();
 // children.print("children");
 		final FolderSupportingIndex desc = new FolderSupportingIndex();
 		Collections.scanCollection(children, new CollectionScanner<File>() {

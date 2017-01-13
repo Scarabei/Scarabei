@@ -21,11 +21,11 @@ public interface File {
 
 	public FileHash calculateHash () throws IOException;
 
-	public ChildrenList listDirectChildren () throws IOException;
+	public FilesList listDirectChildren () throws IOException;
 
-	public ChildrenList listDirectChildren (FileFilter filter) throws IOException;
+	public FilesList listDirectChildren (FileFilter filter) throws IOException;
 
-	public ChildrenList listAllChildren () throws IOException;
+	public FilesList listAllChildren () throws IOException;
 
 	File child (String child_name);
 
@@ -86,7 +86,7 @@ public interface File {
 
 	File proceed (RelativePath relative);
 
-	ChildrenList listSubFolders () throws IOException;
+	FilesList listSubFolders () throws IOException;
 
 	void writeData (Object object) throws IOException;
 

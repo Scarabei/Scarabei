@@ -6,7 +6,7 @@ import java.io.IOException;
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.List;
 import com.jfixby.scarabei.api.err.Err;
-import com.jfixby.scarabei.api.file.ChildrenList;
+import com.jfixby.scarabei.api.file.FilesList;
 import com.jfixby.scarabei.api.file.File;
 import com.jfixby.scarabei.api.file.FileHash;
 import com.jfixby.scarabei.api.file.FileSystem;
@@ -16,7 +16,7 @@ import com.jfixby.scarabei.api.util.JUtils;
 import com.jfixby.scarabei.api.util.path.AbsolutePath;
 import com.jfixby.scarabei.api.util.path.RelativePath;
 import com.jfixby.scarabei.red.filesystem.AbstractRedFile;
-import com.jfixby.scarabei.red.filesystem.FilesList;
+import com.jfixby.scarabei.red.filesystem.RedFilesList;
 import com.jfixby.scarabei.red.filesystem.RedFileHash;
 
 class S3File extends AbstractRedFile implements File {
@@ -90,14 +90,14 @@ class S3File extends AbstractRedFile implements File {
 	}
 
 	@Override
-	public ChildrenList listDirectChildren () {
+	public FilesList listDirectChildren () {
 // final FileHandle file = Gdx.files.internal(this.getGdxInternalPathString());
 
 		if (!this.exists()) {
 			Err.reportError("File does not exist: " + this.absolute_path);
 		}
 		if (this.isFolder()) {
-			final FilesList listFiles = new FilesList();
+			final RedFilesList listFiles = new RedFilesList();
 			final List<String> subfolders = this.info().listDirectSubfolders();
 			final List<String> files = this.info().listDirectChildFiles();
 
@@ -145,9 +145,9 @@ class S3File extends AbstractRedFile implements File {
 	}
 
 	@Override
-	public FilesList listAllChildren () {
+	public RedFilesList listAllChildren () {
 		final S3ObjectInfo info = this.fs.listAllS3Keys(this.relative);
-		final FilesList result = new FilesList();
+		final RedFilesList result = new RedFilesList();
 
 		Collections.scanCollection(info.allChildren,
 			(e, i) -> result.add(this.fs.newFile(JUtils.newAbsolutePath(this.fs, e.path))));

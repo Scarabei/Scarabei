@@ -5,13 +5,13 @@ import java.io.IOException;
 
 import com.jfixby.scarabei.api.collections.Collection;
 
-public interface ChildrenList extends Collection<File> {
+public interface FilesList extends Collection<File> {
 
 	File findChild (String short_child_name);
 
-	ChildrenList filterFiles (FileFilter filter);
+	FilesList filter (FileFilter filter);
 
-	ChildrenList filterByExtension (String extension);
+	FilesList filterByExtension (String extension);
 
 	void deleteAll () throws IOException;
 }

@@ -5,13 +5,13 @@ import java.io.IOException;
 
 import com.jfixby.scarabei.api.collections.List;
 import com.jfixby.scarabei.api.err.Err;
-import com.jfixby.scarabei.api.file.ChildrenList;
 import com.jfixby.scarabei.api.file.File;
 import com.jfixby.scarabei.api.file.FileSystem;
+import com.jfixby.scarabei.api.file.FilesList;
 import com.jfixby.scarabei.api.util.path.AbsolutePath;
 import com.jfixby.scarabei.api.util.path.RelativePath;
 import com.jfixby.scarabei.red.filesystem.AbstractRedFile;
-import com.jfixby.scarabei.red.filesystem.FilesList;
+import com.jfixby.scarabei.red.filesystem.RedFilesList;
 
 public class InMemoryFile extends AbstractRedFile implements File {
 
@@ -31,7 +31,7 @@ public class InMemoryFile extends AbstractRedFile implements File {
 	}
 
 	@Override
-	public ChildrenList listAllChildren () {
+	public FilesList listAllChildren () {
 		Err.throwNotImplementedYet();
 		return null;
 	}
@@ -61,7 +61,7 @@ public class InMemoryFile extends AbstractRedFile implements File {
 	}
 
 	@Override
-	public ChildrenList listDirectChildren () {
+	public FilesList listDirectChildren () {
 		final InMemoryFileSystemContent content = this.virtualFileSystem.getContent();
 
 		if (!content.exists(this.relativePath)) {
@@ -70,7 +70,7 @@ public class InMemoryFile extends AbstractRedFile implements File {
 		if (content.isFolder(this.relativePath)) {
 			final List<String> files = content.listChildren(this.relativePath);
 
-			final FilesList listFiles = new FilesList();
+			final RedFilesList listFiles = new RedFilesList();
 			for (int i = 0; i < files.size(); i++) {
 				final String file_i = files.getElementAt(i);
 

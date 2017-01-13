@@ -9,10 +9,10 @@ import com.jfixby.scarabei.api.collections.List;
 import com.jfixby.scarabei.api.collections.Map;
 import com.jfixby.scarabei.api.debug.Debug;
 import com.jfixby.scarabei.api.err.Err;
-import com.jfixby.scarabei.api.file.ChildrenList;
 import com.jfixby.scarabei.api.file.File;
 import com.jfixby.scarabei.api.file.FileHash;
 import com.jfixby.scarabei.api.file.FileSystem;
+import com.jfixby.scarabei.api.file.FilesList;
 import com.jfixby.scarabei.api.file.FolderSupportingIndex;
 import com.jfixby.scarabei.api.file.FolderSupportingIndexEntry;
 import com.jfixby.scarabei.api.java.ByteArray;
@@ -20,8 +20,8 @@ import com.jfixby.scarabei.api.net.http.HttpURL;
 import com.jfixby.scarabei.api.util.path.AbsolutePath;
 import com.jfixby.scarabei.api.util.path.RelativePath;
 import com.jfixby.scarabei.red.filesystem.AbstractRedFile;
-import com.jfixby.scarabei.red.filesystem.FilesList;
 import com.jfixby.scarabei.red.filesystem.RedFileHash;
+import com.jfixby.scarabei.red.filesystem.RedFilesList;
 
 class RedHttpFile extends AbstractRedFile implements File {
 
@@ -41,15 +41,15 @@ class RedHttpFile extends AbstractRedFile implements File {
 	}
 
 	@Override
-	public ChildrenList listAllChildren () throws IOException {
+	public FilesList listAllChildren () throws IOException {
 		final List<RedHttpFile> filesQueue = Collections.newList();
 		filesQueue.add(this);
-		final FilesList result = new FilesList();
-		final ChildrenList children = this.listDirectChildren();
+		final RedFilesList result = new RedFilesList();
+		final FilesList children = this.listDirectChildren();
 		for (final File f : children) {
 			result.add(f);
 			if (f.isFolder()) {
-				final ChildrenList sub_list = f.listAllChildren();
+				final FilesList sub_list = f.listAllChildren();
 				result.addAll(sub_list);
 			}
 		}
@@ -90,13 +90,13 @@ class RedHttpFile extends AbstractRedFile implements File {
 	}
 
 	@Override
-	public ChildrenList listDirectChildren () throws IOException {
+	public FilesList listDirectChildren () throws IOException {
 		this.checkExists();
 		this.checkIsFolder();
 
 		final FolderSupportingIndex desc = this.readDescriptor();
 
-		final FilesList listFiles = new FilesList();
+		final RedFilesList listFiles = new RedFilesList();
 // Collections.newMap(desc.entries).print("entries");
 		Collections.scanCollection(desc.entries.keySet(), new CollectionScanner<String>() {
 			@Override

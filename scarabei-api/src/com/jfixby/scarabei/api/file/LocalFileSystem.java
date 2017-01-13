@@ -59,7 +59,7 @@ public class LocalFileSystem {
 		return invoke().toJavaFile(file);
 	}
 
-	public static void copyFilesTo (final ChildrenList children_list, final File to_folder) throws IOException {
+	public static void copyFilesTo (final FilesList children_list, final File to_folder) throws IOException {
 		invoke().copyFilesTo(children_list, to_folder);
 	}
 

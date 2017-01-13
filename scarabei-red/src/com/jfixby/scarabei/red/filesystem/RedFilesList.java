@@ -8,11 +8,11 @@ import com.jfixby.scarabei.api.collections.Collection;
 import com.jfixby.scarabei.api.collections.CollectionFilter;
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.List;
-import com.jfixby.scarabei.api.file.ChildrenList;
 import com.jfixby.scarabei.api.file.File;
 import com.jfixby.scarabei.api.file.FileFilter;
+import com.jfixby.scarabei.api.file.FilesList;
 
-public class FilesList implements ChildrenList {
+public class RedFilesList implements FilesList {
 	final List<File> internal_list = Collections.newList();
 
 	@Override
@@ -86,8 +86,8 @@ public class FilesList implements ChildrenList {
 	}
 
 	@Override
-	public ChildrenList filterFiles (final FileFilter filter) {
-		final FilesList result = new FilesList();
+	public FilesList filter (final FileFilter filter) {
+		final RedFilesList result = new RedFilesList();
 		for (int i = 0; i < this.size(); i++) {
 			final File child = this.getElementAt(i);
 			if (filter.fits(child)) {
@@ -144,8 +144,8 @@ public class FilesList implements ChildrenList {
 	}
 
 	@Override
-	public ChildrenList filterByExtension (final String extention) {
-		return this.filterFiles(new FileFilter() {
+	public FilesList filterByExtension (final String extention) {
+		return this.filter(new FileFilter() {
 			@Override
 			public boolean fits (final File file) {
 				return file.getName().toLowerCase().endsWith(extention.toLowerCase());

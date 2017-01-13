@@ -120,10 +120,10 @@ public abstract class AbstractLocalFile<T extends AbstractLocalFileSystem> exten
 	static final boolean ALL_CHILDREN = !DIRECT_CHILDREN;
 
 	@Override
-	final public FilesList listDirectChildren () {
+	final public RedFilesList listDirectChildren () {
 		final List<AbstractLocalFile<T>> filesQueue = Collections.newList();
 		filesQueue.add(this);
-		final FilesList result = new FilesList();
+		final RedFilesList result = new RedFilesList();
 		collectChildren(filesQueue, result, DIRECT_CHILDREN);
 
 		return result;
@@ -131,10 +131,10 @@ public abstract class AbstractLocalFile<T extends AbstractLocalFileSystem> exten
 	}
 
 	@Override
-	final public FilesList listAllChildren () {
+	final public RedFilesList listAllChildren () {
 		final List<AbstractLocalFile<T>> filesQueue = Collections.newList();
 		filesQueue.add(this);
-		final FilesList result = new FilesList();
+		final RedFilesList result = new RedFilesList();
 		collectChildren(filesQueue, result, ALL_CHILDREN);
 
 		return result;
@@ -142,7 +142,7 @@ public abstract class AbstractLocalFile<T extends AbstractLocalFileSystem> exten
 	}
 
 	static private <T extends AbstractLocalFileSystem> void collectChildren (final List<AbstractLocalFile<T>> filesQueue,
-		final FilesList result, final boolean directFlag) {
+		final RedFilesList result, final boolean directFlag) {
 		while (filesQueue.size() > 0) {
 			final AbstractLocalFile<T> nextfile = filesQueue.removeElementAt(0);
 			final java.io.File file = new java.io.File(nextfile.getAbsolutePathString());

@@ -5,13 +5,13 @@ import java.io.IOException;
 import java.io.Serializable;
 
 import com.jfixby.scarabei.api.debug.Debug;
-import com.jfixby.scarabei.api.file.ChildrenList;
 import com.jfixby.scarabei.api.file.File;
 import com.jfixby.scarabei.api.file.FileFilter;
 import com.jfixby.scarabei.api.file.FileHash;
 import com.jfixby.scarabei.api.file.FileInputStream;
 import com.jfixby.scarabei.api.file.FileOutputStream;
 import com.jfixby.scarabei.api.file.FileSystem;
+import com.jfixby.scarabei.api.file.FilesList;
 import com.jfixby.scarabei.api.io.IO;
 import com.jfixby.scarabei.api.java.ByteArray;
 import com.jfixby.scarabei.api.log.L;
@@ -24,7 +24,7 @@ public abstract class AbstractRedFile implements File {
 	@Override
 	public void clearFolder () throws IOException {
 		if (this.isFolder()) {
-			final ChildrenList children = this.listDirectChildren();
+			final FilesList children = this.listDirectChildren();
 			for (int i = 0; i < children.size(); i++) {
 				// WinFile file = new WinFile(child);
 				final File child = children.getElementAt(i);
@@ -101,9 +101,9 @@ public abstract class AbstractRedFile implements File {
 	}
 
 	@Override
-	public ChildrenList listSubFolders () throws IOException {
-		final FilesList listFiles = new FilesList();
-		final ChildrenList children = this.listDirectChildren();
+	public FilesList listSubFolders () throws IOException {
+		final RedFilesList listFiles = new RedFilesList();
+		final FilesList children = this.listDirectChildren();
 		for (final File file : children) {
 			if (file.isFolder()) {
 				listFiles.add(file);
@@ -228,8 +228,8 @@ public abstract class AbstractRedFile implements File {
 	}
 
 	@Override
-	final public ChildrenList listDirectChildren (final FileFilter filter) throws IOException {
-		return this.listDirectChildren().filterFiles(filter);
+	final public FilesList listDirectChildren (final FileFilter filter) throws IOException {
+		return this.listDirectChildren().filter(filter);
 	}
 
 }
