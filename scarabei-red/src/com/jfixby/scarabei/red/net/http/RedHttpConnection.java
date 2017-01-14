@@ -7,7 +7,6 @@ import java.net.URL;
 
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.Map;
-import com.jfixby.scarabei.api.debug.Debug;
 import com.jfixby.scarabei.api.io.IO;
 import com.jfixby.scarabei.api.net.http.CONNECTION_STATE;
 import com.jfixby.scarabei.api.net.http.HttpConnection;
@@ -110,7 +109,7 @@ public class RedHttpConnection implements HttpConnection {
 	@Override
 	public HttpConnectionOutputStream getOutputStream () {
 		this.state.expectState(CONNECTION_STATE.OPEN);
-		Debug.checkTrue("Connection is not open " + this.url, this.java_connection != null);
+// Debug.checkTrue("Connection is not open " + this.url, this.java_connection != null);
 		if (this.red_output_stream == null) {
 			this.red_output_stream = new RedHttpConnectionOutputStream(this);
 		}
