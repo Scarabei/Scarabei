@@ -7,7 +7,7 @@ import com.jfixby.scarabei.api.log.L;
 import com.jfixby.scarabei.api.sys.Sys;
 
 public class RedError implements ErrorComponent {
-	public static final long EXIT_DELAY = 1000;
+	public static final long EXIT_DELAY = 100;
 
 	@Override
 	public void reportGCLeak (final String message, final Object leakingObject) {
