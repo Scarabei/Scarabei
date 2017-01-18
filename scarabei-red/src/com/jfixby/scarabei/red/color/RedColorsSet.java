@@ -126,12 +126,6 @@ public class RedColorsSet implements ColorSet {
 	}
 
 	@Override
-	public RedColorsSet addAll (final com.jfixby.scarabei.api.collections.Collection<? extends Color> list) {
-		this.colors.addAll(list);
-		return this;
-	}
-
-	@Override
 	public RedColorsSet addAll (final Iterable<? extends Color> list) {
 		this.colors.addAll(list);
 		return this;

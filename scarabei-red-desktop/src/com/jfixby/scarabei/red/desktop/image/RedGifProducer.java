@@ -32,6 +32,7 @@ public class RedGifProducer implements GifProducer {
 		if (this.java_os == null) {
 			this.java_os = this.os.toJavaOutputStream();
 			this.encoder.start(this.java_os);
+			this.encoder.setRepeat(0);
 		}
 
 		this.buffer.add(image);

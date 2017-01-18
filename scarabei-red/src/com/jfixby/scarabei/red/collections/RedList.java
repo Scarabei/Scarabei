@@ -60,12 +60,6 @@ public abstract class RedList<T> implements List<T> {
 	}
 
 	@Override
-	public RedList<T> addAll (final Collection<? extends T> parts_list) {
-		this.legacy.addAll(parts_list.toJavaList());
-		return this;
-	}
-
-	@Override
 	public RedList<T> addAll (final Iterable<? extends T> parts_list) {
 		for (final T e : parts_list) {
 			this.add(e);

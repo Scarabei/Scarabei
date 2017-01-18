@@ -83,15 +83,6 @@ public class RedSet<T> implements Set<T> {
 	}
 
 	@Override
-	public RedSet<T> addAll (final Collection<? extends T> list) {
-		for (final Iterator<? extends T> i = list.iterator(); i.hasNext();) {
-			final T element = i.next();
-			this.add(element);
-		}
-		return this;
-	}
-
-	@Override
 	public Iterator<T> iterator () {
 		return this.content_list.iterator();
 	}
