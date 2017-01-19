@@ -21,4 +21,8 @@ public interface TaskManagerComponent {
 
 	Task newTask (TaskSpecs specs);
 
+	SimpleProgress newSimpleProgress ();
+
+	boolean executeImmediately (Job job);
+
 }

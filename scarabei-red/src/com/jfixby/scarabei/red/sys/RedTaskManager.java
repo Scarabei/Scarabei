@@ -5,11 +5,14 @@ import java.util.ArrayList;
 
 import com.jfixby.scarabei.api.collections.Collection;
 import com.jfixby.scarabei.api.collections.Collections;
+import com.jfixby.scarabei.api.log.L;
 import com.jfixby.scarabei.api.taskman.Job;
+import com.jfixby.scarabei.api.taskman.SimpleProgress;
 import com.jfixby.scarabei.api.taskman.SysExecutor;
 import com.jfixby.scarabei.api.taskman.Task;
 import com.jfixby.scarabei.api.taskman.TaskManagerComponent;
 import com.jfixby.scarabei.api.taskman.TaskSpecs;
+import com.jfixby.scarabei.red.taskman.RedSimpleProgress;
 
 public class RedTaskManager implements TaskManagerComponent {
 	private final RedSystemExecutor executor = new RedSystemExecutor(this);
@@ -104,6 +107,25 @@ public class RedTaskManager implements TaskManagerComponent {
 	@Override
 	public TaskSpecs newTaskSpecs () {
 		return new RedTaskSpecs();
+	}
+
+	@Override
+	public SimpleProgress newSimpleProgress () {
+		return new RedSimpleProgress();
+	}
+
+	@Override
+	public boolean executeImmediately (final Job job) {
+		try {
+			job.doStart();
+			do {
+				job.doPush();
+			} while (!job.isDone());
+		} catch (final Throwable e) {
+			L.e(e);
+			return false;
+		}
+		return true;
 	}
 
 }

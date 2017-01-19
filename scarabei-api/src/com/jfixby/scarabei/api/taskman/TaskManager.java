@@ -49,4 +49,12 @@ public class TaskManager {
 		return invoke().newTask(specs);
 	}
 
+	public static SimpleProgress newSimpleProgress () {
+		return invoke().newSimpleProgress();
+	}
+
+	public static boolean executeImmediately (final Job job) {
+		return invoke().executeImmediately(job);
+	}
+
 }
