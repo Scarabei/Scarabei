@@ -7,6 +7,6 @@ public interface TaskProgress extends Progress {
 
 	public int getTotalSteps ();
 
-	public int getProcessedSteps ();
+	public float getProcessedSteps ();
 
 }

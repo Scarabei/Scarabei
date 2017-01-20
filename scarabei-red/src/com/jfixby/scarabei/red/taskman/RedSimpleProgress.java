@@ -9,7 +9,7 @@ import com.jfixby.scarabei.api.taskman.TaskProgress;
 public class RedSimpleProgress implements TaskProgress, SimpleProgress {
 	boolean is_done = false;
 	private int total;
-	private int processed;
+	private float processed;
 
 	@Override
 	public boolean isDone () {
@@ -22,7 +22,7 @@ public class RedSimpleProgress implements TaskProgress, SimpleProgress {
 	}
 
 	@Override
-	public int getProcessedSteps () {
+	public float getProcessedSteps () {
 		return this.processed;
 	}
 
@@ -55,13 +55,13 @@ public class RedSimpleProgress implements TaskProgress, SimpleProgress {
 	}
 
 	@Override
-	public void setTotal (final long l) {
-		this.total = (int)l;
+	public void setTotal (final int l) {
+		this.total = l;
 	}
 
 	@Override
-	public void updateProcessed (final long processed) {
-		this.processed = (int)processed;
+	public void updateProcessed (final float processed) {
+		this.processed = processed;
 
 	}
 

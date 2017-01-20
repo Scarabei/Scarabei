@@ -3,9 +3,9 @@ package com.jfixby.scarabei.api.taskman;
 
 public interface SimpleProgress extends TaskProgress {
 
-	void updateProcessed (long processed);
+	void updateProcessed (float processed);
 
-	void setTotal (long total);
+	void setTotal (int total);
 
 	void setIsDone ();
 

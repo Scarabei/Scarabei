@@ -99,6 +99,11 @@ class RedRelativePath implements RelativePath {
 	}
 
 	@Override
+	public String getStep (final int index) {
+		return this.path_steps.getElementAt(index);
+	}
+
+	@Override
 	public int hashCode () {
 		final int prime = 31;
 		int result = 1;

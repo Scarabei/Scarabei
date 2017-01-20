@@ -35,4 +35,6 @@ public interface RelativePath {
 
 	RelativePath removeStep (int index);
 
+	String getStep (int index);
+
 }
