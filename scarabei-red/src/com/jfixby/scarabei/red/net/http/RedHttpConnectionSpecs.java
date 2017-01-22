@@ -19,8 +19,8 @@ public class RedHttpConnectionSpecs implements HttpConnectionSpecs {
 	private boolean octetStream;
 	private boolean defaultUseCaches;
 	private boolean useCaches;
-	private long connectionTimeout;
-	private long readTimeout;
+	private long connectionTimeout = 3000;
+	private long readTimeout = 3000;
 
 	@Override
 	public void setURL (final HttpURL url) {

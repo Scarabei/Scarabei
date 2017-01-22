@@ -32,6 +32,8 @@ public class HTTPOperator {
 		final HttpConnectionSpecs spec = Http.newConnectionSpecs();
 		spec.setDoOutput(false);
 		spec.setURL(url);
+		spec.setConnectTimeout(3000);
+		spec.setReadTimeout(3000);
 		final HttpConnection conn = Http.newConnection(spec);
 
 		final DebugTimer timer = Debug.newTimer();
@@ -40,12 +42,20 @@ public class HTTPOperator {
 		conn.open();
 		final HttpConnectionInputStream is = conn.getInputStream();
 		is.open();
-		final ByteArray data = is.readAll();
+		IOException t = null;
+		ByteArray data = null;
+		try {
+			data = is.readAll();
+		} catch (final IOException e) {
+			t = e;
+		}
 		is.close();
 		conn.close();
 
 		timer.printTime("          ");
-
+		if (t != null) {
+			throw t;
+		}
 		return data;
 
 	}
@@ -67,13 +77,13 @@ public class HTTPOperator {
 		final GZipInputStream gzip = IO.newGZipStream(is);
 		is.open();
 		gzip.open();
-		final ByteArray dat = gzip.readAll();
 		try {
 
+			final ByteArray dat = gzip.readAll();
 			final FolderSupportingIndex index = IO.deserialize(FolderSupportingIndex.class, dat);
 			return index;
 		} catch (final IOException e) {
-			L.e(new String(dat.toArray()));
+// L.e(new String(dat.toArray()));
 			throw e;
 		} finally {
 			gzip.close();
