@@ -44,6 +44,7 @@ public class RedGeometry implements GeometryComponent {
 
 	@Override
 	public Rectangle newRectangle (final Rectangle other) {
+		Debug.checkNull("argument", other);
 		final Rectangle result = this.newRectangle();
 		result.setWidth(other.getWidth());
 		result.setHeight(other.getHeight());

@@ -94,4 +94,6 @@ public interface File {
 
 	File copyTo (String newFileName) throws IOException;
 
+	boolean tryToClearFolder ();
+
 }

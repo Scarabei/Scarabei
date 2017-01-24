@@ -232,4 +232,15 @@ public abstract class AbstractRedFile implements File {
 		return this.listDirectChildren().filter(filter);
 	}
 
+	@Override
+	public boolean tryToClearFolder () {
+		try {
+			this.clearFolder();
+			return true;
+		} catch (final IOException e) {
+			L.e(e);
+			return false;
+		}
+	}
+
 }
