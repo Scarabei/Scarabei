@@ -6,6 +6,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import com.jfixby.scarabei.api.collections.Collections;
+import com.jfixby.scarabei.api.collections.List;
 import com.jfixby.scarabei.api.collections.Map;
 import com.jfixby.scarabei.api.io.IO;
 import com.jfixby.scarabei.api.net.http.CONNECTION_STATE;
@@ -65,7 +66,8 @@ public class RedHttpConnection implements HttpConnection {
 	}
 
 	void tryToOpenConnection () throws IOException {
-		this.java_url = new java.net.URL(this.url.getURLString());
+
+		this.java_url = new java.net.URL(this.getRequestUrlString());
 
 		this.java_connection = (HttpURLConnection)this.java_url.openConnection();
 
@@ -86,9 +88,10 @@ public class RedHttpConnection implements HttpConnection {
 		if (this.octetStream) {
 			this.java_connection.setRequestProperty("Content-Type", "application/octet-stream");
 		}
-
-		for (final String key : this.requestProperties.keys()) {
-			this.java_connection.addRequestProperty(key, this.requestProperties.get(key));
+		if (this.method == METHOD.POST) {
+			for (final String key : this.requestProperties.keys()) {
+				this.java_connection.addRequestProperty(key, this.requestProperties.get(key));
+			}
 		}
 
 		this.java_connection.setConnectTimeout((int)this.connectionTimeout);
@@ -136,6 +139,22 @@ public class RedHttpConnection implements HttpConnection {
 	@Override
 	public CONNECTION_STATE getState () {
 		return this.state.currentState();
+	}
+
+	@Override
+	public String getRequestUrlString () {
+
+		String urlString = this.url.getURLString();
+
+		if (this.method == METHOD.GET) {
+			final List<String> list = Collections.newList();
+			for (final String key : this.requestProperties.keys()) {
+				list.add(key + "=" + this.requestProperties.get(key));
+			}
+			urlString = urlString + JUtils.wrapSequence(list, list.size(), "?", "", "&");
+		}
+
+		return urlString;
 	}
 
 }
