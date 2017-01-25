@@ -51,6 +51,7 @@ public class AbstractRedInputStream<T extends JavaInputStreamOperator> implement
 		this.operator = operator;
 		// bis = new BufferedInputStream(is, 1024 * 1024 * 4);
 		this.state = JUtils.newStateSwitcher(STREAM_STATE.CLOSED);
+		this.state.setDebugName(this.toString());
 		if (SystemSettings.executionModeCovers(ExecutionMode.EARLY_DEVELOPMENT)) {
 			this.source = new Exception();
 		}

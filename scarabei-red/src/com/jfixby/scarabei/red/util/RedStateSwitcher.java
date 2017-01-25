@@ -22,7 +22,7 @@ public class RedStateSwitcher<T> implements StateSwitcher<T> {
 		if (!this.state.equals(expected_state)) {
 			final String message = "Wrong state=" + this.state + ", expected: " + expected_state;
 			if (this.throw_error) {
-				Err.reportError(message);
+				Err.reportError(this.debug_name + ": " + message);
 			} else {
 				this.result.setErrorFlag(true);
 				this.result.setErrorMessage(message);
@@ -37,7 +37,7 @@ public class RedStateSwitcher<T> implements StateSwitcher<T> {
 	@Override
 	public void switchState (final T next_state) {
 		if (next_state == null) {
-			Err.reportError("Null state detected");
+			Err.reportError(this.debug_name + ": " + "Null state detected");
 		}
 		if (this.debug) {
 			L.d(this.debug_name + ": " + this.state + " -", next_state);
@@ -79,7 +79,7 @@ public class RedStateSwitcher<T> implements StateSwitcher<T> {
 		if (this.state.equals(unexpected_state)) {
 			final String message = "Unexpected state=" + this.state;
 			if (this.throw_error) {
-				Err.reportError(message);
+				Err.reportError(this.debug_name + ": " + message);
 			} else {
 				this.result.setErrorFlag(true);
 				this.result.setErrorMessage(message);
