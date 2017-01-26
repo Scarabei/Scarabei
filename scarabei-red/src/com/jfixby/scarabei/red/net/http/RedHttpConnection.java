@@ -5,10 +5,13 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import com.jfixby.scarabei.api.collections.Collection;
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.List;
 import com.jfixby.scarabei.api.collections.Map;
+import com.jfixby.scarabei.api.collections.Mapping;
 import com.jfixby.scarabei.api.io.IO;
+import com.jfixby.scarabei.api.log.L;
 import com.jfixby.scarabei.api.net.http.CONNECTION_STATE;
 import com.jfixby.scarabei.api.net.http.HttpConnection;
 import com.jfixby.scarabei.api.net.http.HttpConnectionInputStream;
@@ -39,6 +42,7 @@ public class RedHttpConnection implements HttpConnection {
 	private long connectionTimeout;
 	private long readTimeout;
 	private final StateSwitcher<CONNECTION_STATE> state = JUtils.newStateSwitcher(CONNECTION_STATE.NEW);
+	private boolean instanceFollowRedirects;
 
 	public RedHttpConnection (final HttpConnectionSpecs specs) {
 		this.url = specs.getURL();
@@ -52,6 +56,7 @@ public class RedHttpConnection implements HttpConnection {
 		this.octetStream = specs.octetStream();
 		this.connectionTimeout = specs.getConnectionTimeout();
 		this.readTimeout = specs.getReadTimeout();
+		this.instanceFollowRedirects = specs.getInstanceFollowRedirects();
 	}
 
 	public RedHttpConnection (final HttpURL url, final boolean use_agent) {
@@ -65,6 +70,38 @@ public class RedHttpConnection implements HttpConnection {
 		this.state.switchState(CONNECTION_STATE.OPEN);
 	}
 
+	@Override
+	public String getRedirectUrlString () throws IOException {
+		this.state.expectState(CONNECTION_STATE.OPEN);
+		if (this.java_connection == null) {
+			this.tryToOpenConnection();
+		}
+		final URL urlResult = this.java_connection.getURL();
+		return urlResult.toString();
+	}
+
+	@Override
+	public Mapping<String, Collection<String>> getResponseHeaders () throws IOException {
+		this.state.expectState(CONNECTION_STATE.OPEN);
+		if (this.java_connection == null) {
+			this.tryToOpenConnection();
+		}
+		final Map<String, Collection<String>> fields = this.wrapMap(this.java_connection.getHeaderFields());
+// fields.print("HeaderFields");
+// return this.java_connection.getHeaderField(key);
+		return fields;
+	}
+
+	private Map<String, Collection<String>> wrapMap (final java.util.Map<String, java.util.List<String>> headerFields) {
+		final Map<String, Collection<String>> result = Collections.newMap();
+		final java.util.Set<String> keys = headerFields.keySet();
+		for (final String key : keys) {
+			final List<String> value = Collections.newList(headerFields.get(key));
+			result.put(key, value);
+		}
+		return result;
+	}
+
 	void tryToOpenConnection () throws IOException {
 
 		this.java_url = new java.net.URL(this.getRequestUrlString());
@@ -76,6 +113,7 @@ public class RedHttpConnection implements HttpConnection {
 		this.java_connection.setDefaultUseCaches(this.defaultUseCaches);
 		this.java_connection.setDoInput(this.doInput);
 		this.java_connection.setDoOutput(this.doOutput);
+		this.java_connection.setInstanceFollowRedirects(this.instanceFollowRedirects);
 
 // this.code = this.java_connection.getResponseCode();
 		if (this.use_agent) {
@@ -98,6 +136,9 @@ public class RedHttpConnection implements HttpConnection {
 		this.java_connection.setReadTimeout((int)this.readTimeout);
 
 		this.java_connection.connect();
+
+		final String rm = this.java_connection.getResponseMessage();
+		L.d("ResponseMessage", rm);
 	}
 
 	@Override

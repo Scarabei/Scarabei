@@ -21,6 +21,7 @@ public class RedHttpConnectionSpecs implements HttpConnectionSpecs {
 	private boolean useCaches;
 	private long connectionTimeout = 3000;
 	private long readTimeout = 3000;
+	private boolean instanceFollowRedirects;
 
 	@Override
 	public void setURL (final HttpURL url) {
@@ -135,6 +136,16 @@ public class RedHttpConnectionSpecs implements HttpConnectionSpecs {
 	@Override
 	public long getReadTimeout () {
 		return this.readTimeout;
+	}
+
+	@Override
+	public void setInstanceFollowRedirects (final boolean instanceFollowRedirects) {
+		this.instanceFollowRedirects = instanceFollowRedirects;
+	}
+
+	@Override
+	public boolean getInstanceFollowRedirects () {
+		return this.instanceFollowRedirects;
 	}
 
 }

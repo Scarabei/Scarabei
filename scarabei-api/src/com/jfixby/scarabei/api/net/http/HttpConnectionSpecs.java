@@ -51,4 +51,8 @@ public interface HttpConnectionSpecs {
 
 	long getReadTimeout ();
 
+	void setInstanceFollowRedirects (boolean instanceFollowRedirects);
+
+	boolean getInstanceFollowRedirects ();
+
 }

@@ -15,6 +15,8 @@ public interface InputStream extends Stream {
 
 	ByteArray readAll () throws IOException;
 
+	String readAllToString () throws IOException;
+
 	java.io.InputStream toJavaInputStream () throws IOException;;
 
 }

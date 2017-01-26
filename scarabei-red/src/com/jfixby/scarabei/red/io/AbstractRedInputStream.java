@@ -137,4 +137,10 @@ public class AbstractRedInputStream<T extends JavaInputStreamOperator> implement
 	public boolean isClosed () {
 		return this.getState() == STREAM_STATE.CLOSED;
 	}
+
+	@Override
+	public String readAllToString () throws IOException {
+		final ByteArray bytes = this.readAll();
+		return JUtils.newString(bytes);
+	}
 }
