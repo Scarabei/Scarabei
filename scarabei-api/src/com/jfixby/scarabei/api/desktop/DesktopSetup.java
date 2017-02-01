@@ -22,7 +22,6 @@ import com.jfixby.scarabei.api.math.MathTools;
 import com.jfixby.scarabei.api.md5.MD5;
 import com.jfixby.scarabei.api.net.http.Http;
 import com.jfixby.scarabei.api.random.Random;
-import com.jfixby.scarabei.api.serialize.Serialize;
 import com.jfixby.scarabei.api.sys.Sys;
 import com.jfixby.scarabei.api.sys.settings.SystemSettings;
 import com.jfixby.scarabei.api.taskman.TaskManager;
@@ -54,8 +53,8 @@ public class DesktopSetup {
 		MD5.installComponent("com.jfixby.scarabei.red.util.md5.RSADataSecurityIncMD5");
 		Random.installComponent("com.jfixby.scarabei.red.random.RedRandom");
 		Arrays.installComponent("com.jfixby.scarabei.red.arrays.RedArrays");
-		Serialize.installComponent("com.jfixby.scarabei.red.serialize.RedSerialize");
-		// --
+// Serialize.installComponent("com.jfixby.scarabei.red.serialize.RedSerialize");
+// --
 
 		if (Sys.isWindows()) {
 			LocalFileSystem.installComponent("com.jfixby.scarabei.red.desktop.filesystem.win.WinFileSystem");
