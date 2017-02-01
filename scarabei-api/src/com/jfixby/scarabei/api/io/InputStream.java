@@ -17,6 +17,8 @@ public interface InputStream extends Stream {
 
 	String readAllToString () throws IOException;
 
+	String readAllToString (String encoding) throws IOException;
+
 	java.io.InputStream toJavaInputStream () throws IOException;;
 
 }

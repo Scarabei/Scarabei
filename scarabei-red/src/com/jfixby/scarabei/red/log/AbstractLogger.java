@@ -57,6 +57,10 @@ public abstract class AbstractLogger implements LoggerComponent {
 			return this.listToString(indent, (Collection<?>)object);
 
 		}
+		if (object instanceof java.util.Collection) {
+			return this.listToString(indent, (java.util.Collection<?>)object);
+
+		}
 		if (object instanceof Mapping) {
 			return this.mapToString(indent, (Mapping<?, ?>)object);
 
@@ -81,6 +85,25 @@ public abstract class AbstractLogger implements LoggerComponent {
 		final String indent_str = this.indent(indent);
 		for (int i = 0; i < n; i++) {
 			string.append(indent_str + "(" + i + ") " + array.getElementAt(i) + "\n");
+		}
+		return string.toString();
+	}
+
+	private String listToString (final int indent, final java.util.Collection<?> array) {
+		final StringBuilder string = new StringBuilder();
+		final String canonocal_name = "Collection[]";
+		final int n = array.size();
+		if (n == 0) {
+			return canonocal_name;
+		}
+
+		string.append(canonocal_name.substring(0, canonocal_name.length() - 1) + n + "]\n");
+		final String indent_str = this.indent(indent);
+		int i = 0;
+		for (final Object e : array) {
+// int i = 0; i < n; i++
+			string.append(indent_str + "(" + i + ") " + e + "\n");
+			i++;
 		}
 		return string.toString();
 	}

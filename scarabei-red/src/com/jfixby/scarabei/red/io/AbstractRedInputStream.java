@@ -4,6 +4,7 @@ package com.jfixby.scarabei.red.io;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+import com.jfixby.scarabei.api.debug.Debug;
 import com.jfixby.scarabei.api.err.Err;
 import com.jfixby.scarabei.api.io.Data;
 import com.jfixby.scarabei.api.io.InputStream;
@@ -142,5 +143,13 @@ public class AbstractRedInputStream<T extends JavaInputStreamOperator> implement
 	public String readAllToString () throws IOException {
 		final ByteArray bytes = this.readAll();
 		return JUtils.newString(bytes);
+	}
+
+	@Override
+	public String readAllToString (final String encoding) throws IOException {
+		Debug.checkNull("encoding", encoding);
+		Debug.checkEmpty("encoding", encoding);
+		final ByteArray bytes = this.readAll();
+		return JUtils.newString(bytes, encoding);
 	}
 }

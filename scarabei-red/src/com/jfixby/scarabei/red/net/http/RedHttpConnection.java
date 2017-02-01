@@ -11,7 +11,6 @@ import com.jfixby.scarabei.api.collections.List;
 import com.jfixby.scarabei.api.collections.Map;
 import com.jfixby.scarabei.api.collections.Mapping;
 import com.jfixby.scarabei.api.io.IO;
-import com.jfixby.scarabei.api.log.L;
 import com.jfixby.scarabei.api.net.http.CONNECTION_STATE;
 import com.jfixby.scarabei.api.net.http.HttpConnection;
 import com.jfixby.scarabei.api.net.http.HttpConnectionInputStream;
@@ -138,7 +137,7 @@ public class RedHttpConnection implements HttpConnection {
 		this.java_connection.connect();
 
 		final String rm = this.java_connection.getResponseMessage();
-		L.d("ResponseMessage", rm);
+// L.d("ResponseMessage", rm);
 	}
 
 	@Override
