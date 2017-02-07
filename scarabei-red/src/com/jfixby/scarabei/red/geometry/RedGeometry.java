@@ -22,6 +22,7 @@ import com.jfixby.scarabei.api.geometry.Line;
 import com.jfixby.scarabei.api.geometry.LinearCombinator;
 import com.jfixby.scarabei.api.geometry.ProjectionFactory;
 import com.jfixby.scarabei.api.geometry.Rectangle;
+import com.jfixby.scarabei.api.geometry.Spline2D;
 import com.jfixby.scarabei.api.geometry.Triangle;
 import com.jfixby.scarabei.api.math.FloatMath;
 import com.jfixby.scarabei.api.math.MathTools;
@@ -375,6 +376,11 @@ public class RedGeometry implements GeometryComponent {
 				return comb.getLinearCombination(1 - t, t);
 			}
 		};
+	}
+
+	@Override
+	public Spline2D newSpline2D () {
+		return new RedSpline2D();
 	}
 
 }

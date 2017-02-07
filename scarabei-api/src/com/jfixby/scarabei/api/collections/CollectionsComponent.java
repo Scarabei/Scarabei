@@ -63,4 +63,6 @@ public interface CollectionsComponent {
 
 	public <T> Heap<T> newHeap (Comparator<? super T> comparator);
 
+	<T> T[] toArray (Collection<T> c);
+
 }
