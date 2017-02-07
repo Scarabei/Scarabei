@@ -1,7 +1,7 @@
 
 package com.jfixby.scarabei.red.geometry;
 
-import com.jfixby.scarabei.api.floatn.FixedFloat2;
+import com.jfixby.scarabei.api.floatn.ReadOnlyFloat2;
 import com.jfixby.scarabei.api.floatn.Float2;
 import com.jfixby.scarabei.api.geometry.Geometry;
 import com.jfixby.scarabei.api.geometry.Triangle;
@@ -50,7 +50,7 @@ public class RedTriangle extends VertexMaster implements Triangle {
 	 * @see com.jfixby.cmns.api.geometry.Rectangle#containsPoint(double, double)
 	 */
 	@Override
-	public boolean containsPoint (FixedFloat2 point) {
+	public boolean containsPoint (ReadOnlyFloat2 point) {
 		// L.e("Warning: bad performance function!");
 		if (this.A.transformed().isInEpsilonDistance(point)) {
 			return true;

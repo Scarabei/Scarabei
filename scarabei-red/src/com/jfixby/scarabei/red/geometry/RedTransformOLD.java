@@ -1,7 +1,7 @@
 
 package com.jfixby.scarabei.red.geometry;
 
-import com.jfixby.scarabei.api.floatn.FixedFloat2;
+import com.jfixby.scarabei.api.floatn.ReadOnlyFloat2;
 import com.jfixby.scarabei.api.floatn.Float2;
 import com.jfixby.scarabei.api.geometry.Geometry;
 import com.jfixby.scarabei.api.math.Angle;
@@ -93,7 +93,7 @@ public class RedTransformOLD implements CanvasTransform {
 	}
 
 	@Override
-	public void setOffset (FixedFloat2 offset) {
+	public void setOffset (ReadOnlyFloat2 offset) {
 		this.position.set(offset);
 		need_setup = true;
 	}
@@ -111,7 +111,7 @@ public class RedTransformOLD implements CanvasTransform {
 	}
 
 	@Override
-	public FixedFloat2 getOffset () {
+	public ReadOnlyFloat2 getOffset () {
 
 		return this.position;
 	}
@@ -163,13 +163,13 @@ public class RedTransformOLD implements CanvasTransform {
 	}
 
 	@Override
-	public void setSkew (FixedFloat2 skew) {
+	public void setSkew (ReadOnlyFloat2 skew) {
 		need_setup = true;
 		this.skew.set(skew);
 	}
 
 	@Override
-	public FixedFloat2 getSkew () {
+	public ReadOnlyFloat2 getSkew () {
 
 		return this.skew;
 	}
@@ -205,13 +205,13 @@ public class RedTransformOLD implements CanvasTransform {
 	}
 
 	@Override
-	public void setScale (FixedFloat2 scale) {
+	public void setScale (ReadOnlyFloat2 scale) {
 		need_setup = true;
 		this.scale.set(scale);
 	}
 
 	@Override
-	public FixedFloat2 getScale () {
+	public ReadOnlyFloat2 getScale () {
 
 		return this.scale;
 	}

@@ -2,7 +2,7 @@
 package com.jfixby.scarabei.red.geometry;
 
 import com.jfixby.scarabei.api.angles.Angles;
-import com.jfixby.scarabei.api.floatn.FixedFloat2;
+import com.jfixby.scarabei.api.floatn.ReadOnlyFloat2;
 import com.jfixby.scarabei.api.geometry.CanvasPosition;
 import com.jfixby.scarabei.api.math.Angle;
 import com.jfixby.scarabei.api.math.CustomAngle;
@@ -38,7 +38,7 @@ public class RedPosition extends RedPoint implements CanvasPosition {
 	}
 
 	@Override
-	public void setPosition (final FixedFloat2 other) {
+	public void setPosition (final ReadOnlyFloat2 other) {
 		this.set(other);
 	}
 

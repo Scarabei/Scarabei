@@ -1,7 +1,7 @@
 
 package com.jfixby.scarabei.red.math;
 
-import com.jfixby.scarabei.api.math.FixedInt2;
+import com.jfixby.scarabei.api.math.ReadOnlyInt2;
 import com.jfixby.scarabei.api.math.Int2;
 
 public class RedInt2 implements Int2 {
@@ -72,7 +72,7 @@ public class RedInt2 implements Int2 {
 	}
 
 	@Override
-	public Int2 setXY (FixedInt2 other) {
+	public Int2 setXY (ReadOnlyInt2 other) {
 		return this.setXY(other.getX(), other.getY());
 	}
 

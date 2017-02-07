@@ -3,7 +3,7 @@ package com.jfixby.scarabei.api.graphs;
 
 import com.jfixby.scarabei.api.ComponentInstaller;
 import com.jfixby.scarabei.api.collections.EditableCollection;
-import com.jfixby.scarabei.api.floatn.FixedFloat2;
+import com.jfixby.scarabei.api.floatn.ReadOnlyFloat2;
 
 public class Graphs {
 
@@ -29,7 +29,7 @@ public class Graphs {
 		return invoke().newUndirectedGraph();
 	}
 
-	public static <EdgeType> PolyGraph<EdgeType> newPolyGraph (final EditableCollection<? extends FixedFloat2> vertices) {
+	public static <EdgeType> PolyGraph<EdgeType> newPolyGraph (final EditableCollection<? extends ReadOnlyFloat2> vertices) {
 		return invoke().newPolyGraph(vertices);
 	}
 

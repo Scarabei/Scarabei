@@ -4,7 +4,7 @@ package com.jfixby.scarabei.red.geometry;
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.EditableCollection;
 import com.jfixby.scarabei.api.collections.List;
-import com.jfixby.scarabei.api.floatn.FixedFloat2;
+import com.jfixby.scarabei.api.floatn.ReadOnlyFloat2;
 import com.jfixby.scarabei.api.floatn.Float2;
 import com.jfixby.scarabei.api.geometry.Geometry;
 import com.jfixby.scarabei.api.geometry.PolyTriangulation;
@@ -19,7 +19,7 @@ import com.jfixby.scarabei.api.math.SimpleTriangulator;
 public class RedPolyTriangulation implements PolyTriangulation {
 	final List<RedPoint> triangulated_vertices = Collections.newList();
 	final List<Triangle> triangles = Collections.newList();
-	final List<FixedFloat2> dots = Collections.newList();
+	final List<ReadOnlyFloat2> dots = Collections.newList();
 
 	public PolyTriangulation check (List<Vertex> vertices) {
 		final boolean already_triangulated = Geometry.equalFloat2Collections(vertices, this.triangulated_vertices);
@@ -69,7 +69,7 @@ public class RedPolyTriangulation implements PolyTriangulation {
 	}
 
 	@Override
-	public EditableCollection<FixedFloat2> asDots () {
+	public EditableCollection<ReadOnlyFloat2> asDots () {
 		return dots;
 	}
 }

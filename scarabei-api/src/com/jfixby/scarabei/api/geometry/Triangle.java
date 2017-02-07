@@ -1,7 +1,7 @@
 
 package com.jfixby.scarabei.api.geometry;
 
-import com.jfixby.scarabei.api.floatn.FixedFloat2;
+import com.jfixby.scarabei.api.floatn.ReadOnlyFloat2;
 
 public interface Triangle {
 
@@ -13,6 +13,6 @@ public interface Triangle {
 
 	public boolean containsPoint (double worldx, double worldy);
 
-	public boolean containsPoint (FixedFloat2 point);
+	public boolean containsPoint (ReadOnlyFloat2 point);
 
 }

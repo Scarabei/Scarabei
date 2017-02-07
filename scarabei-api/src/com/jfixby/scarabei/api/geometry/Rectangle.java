@@ -2,7 +2,7 @@
 package com.jfixby.scarabei.api.geometry;
 
 import com.jfixby.scarabei.api.collections.Collection;
-import com.jfixby.scarabei.api.floatn.FixedFloat2;
+import com.jfixby.scarabei.api.floatn.ReadOnlyFloat2;
 import com.jfixby.scarabei.api.floatn.Float2;
 import com.jfixby.scarabei.api.math.Angle;
 
@@ -69,11 +69,11 @@ public interface Rectangle extends GeometryFigure {
 
 	void setPosition (CanvasPosition position);
 
-	void setPosition (FixedFloat2 position);
+	void setPosition (ReadOnlyFloat2 position);
 
 	boolean containsPoint (double canvas_x, double canvas_y);
 
-	boolean containsPoint (FixedFloat2 canvas_point);
+	boolean containsPoint (ReadOnlyFloat2 canvas_point);
 
 	public double getOriginRelativeX ();
 
@@ -83,9 +83,9 @@ public interface Rectangle extends GeometryFigure {
 
 	void toAbsolute (Float2 temp_point);
 
-	void setOriginAbsolute (FixedFloat2 tmp);
+	void setOriginAbsolute (ReadOnlyFloat2 tmp);
 
-	Collection<FixedFloat2> listVertices ();
+	Collection<ReadOnlyFloat2> listVertices ();
 
 	void reScale (double scaleX, double scaleY);
 

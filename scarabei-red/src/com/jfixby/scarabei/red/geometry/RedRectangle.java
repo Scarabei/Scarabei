@@ -4,7 +4,7 @@ package com.jfixby.scarabei.red.geometry;
 import com.jfixby.scarabei.api.collections.Collection;
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.List;
-import com.jfixby.scarabei.api.floatn.FixedFloat2;
+import com.jfixby.scarabei.api.floatn.ReadOnlyFloat2;
 import com.jfixby.scarabei.api.floatn.Float2;
 import com.jfixby.scarabei.api.geometry.CanvasPosition;
 import com.jfixby.scarabei.api.geometry.Geometry;
@@ -25,8 +25,8 @@ public class RedRectangle extends VertexMaster implements Rectangle {
 	final RedVertex bottom_left = new RedVertex(this);
 	final RedVertex bottom_right = new RedVertex(this);
 	final RedTransform transform = new RedTransform();
-	final List<FixedFloat2> vertices = Collections.newList((FixedFloat2)this.top_left, (FixedFloat2)this.top_right,
-		(FixedFloat2)this.bottom_right, (FixedFloat2)this.bottom_left);
+	final List<ReadOnlyFloat2> vertices = Collections.newList((ReadOnlyFloat2)this.top_left, (ReadOnlyFloat2)this.top_right,
+		(ReadOnlyFloat2)this.bottom_right, (ReadOnlyFloat2)this.bottom_left);
 
 	final RedPoint origin_relative = new RedPoint();
 
@@ -332,7 +332,7 @@ public class RedRectangle extends VertexMaster implements Rectangle {
 	}
 
 	@Override
-	public boolean containsPoint (final FixedFloat2 point) {
+	public boolean containsPoint (final ReadOnlyFloat2 point) {
 		return this.containsPoint(point.getX(), point.getY());
 	}
 
@@ -347,17 +347,17 @@ public class RedRectangle extends VertexMaster implements Rectangle {
 	}
 
 	@Override
-	public void setPosition (final FixedFloat2 position) {
+	public void setPosition (final ReadOnlyFloat2 position) {
 		this.setPosition(position.getX(), position.getY());
 	}
 
 	@Override
-	public void setOriginAbsolute (final FixedFloat2 tmp) {
+	public void setOriginAbsolute (final ReadOnlyFloat2 tmp) {
 		this.setOriginAbsolute(tmp.getX(), tmp.getY());
 	}
 
 	@Override
-	public Collection<FixedFloat2> listVertices () {
+	public Collection<ReadOnlyFloat2> listVertices () {
 		return this.vertices;
 	}
 

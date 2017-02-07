@@ -6,7 +6,7 @@ import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.List;
 import com.jfixby.scarabei.api.debug.Debug;
 import com.jfixby.scarabei.api.err.Err;
-import com.jfixby.scarabei.api.floatn.FixedFloat2;
+import com.jfixby.scarabei.api.floatn.ReadOnlyFloat2;
 import com.jfixby.scarabei.api.floatn.Float2;
 import com.jfixby.scarabei.api.geometry.ClosedPolygonalChain;
 import com.jfixby.scarabei.api.geometry.PolyTriangulation;
@@ -51,7 +51,7 @@ public class RedClosedPolygonalChain extends VertexMaster implements ClosedPolyg
 	// }
 	//
 	@Override
-	public void addVertex (final FixedFloat2 vertex) {
+	public void addVertex (final ReadOnlyFloat2 vertex) {
 		final int shift = this.public_vertices.size();
 		final int new_size = 1 + shift;
 		this.setSize(new_size);

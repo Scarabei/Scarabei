@@ -2,7 +2,7 @@
 package com.jfixby.scarabei.api.geometry;
 
 import com.jfixby.scarabei.api.collections.Collection;
-import com.jfixby.scarabei.api.floatn.FixedFloat2;
+import com.jfixby.scarabei.api.floatn.ReadOnlyFloat2;
 import com.jfixby.scarabei.api.floatn.Float2;
 
 public interface ClosedPolygonalChain extends GeometryFigure {
@@ -25,7 +25,7 @@ public interface ClosedPolygonalChain extends GeometryFigure {
 
 	public Collection<Vertex> listVertices ();
 
-	void addVertex (FixedFloat2 point);
+	void addVertex (ReadOnlyFloat2 point);
 
 	void print (String tag);
 
