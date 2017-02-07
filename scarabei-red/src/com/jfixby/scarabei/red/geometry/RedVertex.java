@@ -104,4 +104,9 @@ public class RedVertex implements Vertex, RectangleCorner {
 		return this.world_position.norm();
 	}
 
+	@Override
+	public Float2 getLinearSum (final double alpha, final FixedFloat2 other, final double betta, final Float2 output) {
+		return output.setLinearSum(this, alpha, other, betta);
+	}
+
 }

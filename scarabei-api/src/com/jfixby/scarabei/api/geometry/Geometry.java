@@ -174,6 +174,10 @@ public class Geometry {
 		return invoke().getProjectionFactory();
 	}
 
+	public static <T extends LinearCombinable<T, ? extends T>> BezierPoint<T> newBezierPoint (final T base) {
+		return invoke().newBezierPoint(base);
+	}
+
 	// public static ClosedPolygonalChain newPoly(AssetID asset_id) {
 	// return invoke().newPoly(asset_id);
 	// }

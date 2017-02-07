@@ -83,4 +83,6 @@ public interface GeometryComponent {
 
 	public ProjectionFactory getProjectionFactory ();
 
+	public <T extends LinearCombinable<T, ? extends T>> BezierPoint<T> newBezierPoint (final T base);
+
 }

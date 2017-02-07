@@ -11,6 +11,7 @@ import com.jfixby.scarabei.api.err.Err;
 import com.jfixby.scarabei.api.floatn.FixedFloat2;
 import com.jfixby.scarabei.api.floatn.Float2;
 import com.jfixby.scarabei.api.floatn.Float3;
+import com.jfixby.scarabei.api.geometry.BezierPoint;
 import com.jfixby.scarabei.api.geometry.CanvasPosition;
 import com.jfixby.scarabei.api.geometry.Circle;
 import com.jfixby.scarabei.api.geometry.ClosedPolygonalChain;
@@ -18,6 +19,7 @@ import com.jfixby.scarabei.api.geometry.CombinedGeometry;
 import com.jfixby.scarabei.api.geometry.Geometry;
 import com.jfixby.scarabei.api.geometry.GeometryComponent;
 import com.jfixby.scarabei.api.geometry.Line;
+import com.jfixby.scarabei.api.geometry.LinearCombinable;
 import com.jfixby.scarabei.api.geometry.ProjectionFactory;
 import com.jfixby.scarabei.api.geometry.Rectangle;
 import com.jfixby.scarabei.api.geometry.Triangle;
@@ -353,5 +355,10 @@ public class RedGeometry implements GeometryComponent {
 	}
 
 	final RedProjectionFactory projectionFactory = new RedProjectionFactory();
+
+	@Override
+	public <T extends LinearCombinable<T, ? extends T>> BezierPoint<T> newBezierPoint (final T base) {
+		return new RedBezierPoint<T>(base);
+	}
 
 }

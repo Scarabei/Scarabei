@@ -169,15 +169,21 @@ public class RedPoint implements Float2, FixedFloat2 {
 	}
 
 	@Override
-	public void setLinearSum (final FixedFloat2 a, final double alpha, final FixedFloat2 b, final double betta) {
+	public RedPoint setLinearSum (final FixedFloat2 a, final double alpha, final FixedFloat2 b, final double betta) {
 		this.x = a.getX() * alpha + b.getX() * betta;
 		this.y = a.getY() * alpha + b.getY() * betta;
+		return this;
 	}
 
 	@Override
 	public void subtract (final FixedFloat2 position) {
 		this.x = this.x - position.getX();
 		this.y = this.y - position.getY();
+	}
+
+	@Override
+	public Float2 getLinearSum (final double alpha, final FixedFloat2 other, final double betta, final Float2 output) {
+		return output.setLinearSum(this, alpha, other, betta);
 	}
 
 }
