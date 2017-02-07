@@ -1,12 +1,12 @@
 
 package com.jfixby.scarabei.red.geometry;
 
-import com.jfixby.scarabei.api.floatn.FixedFloat2;
+import com.jfixby.scarabei.api.floatn.ReadOnlyFloat2;
 import com.jfixby.scarabei.api.floatn.Float2;
 import com.jfixby.scarabei.api.geometry.Geometry;
 import com.jfixby.scarabei.api.math.FloatMath;
 
-public class RedPoint implements Float2, FixedFloat2 {
+public class RedPoint implements Float2, ReadOnlyFloat2 {
 
 	@Override
 	public int hashCode () {
@@ -52,7 +52,7 @@ public class RedPoint implements Float2, FixedFloat2 {
 	public RedPoint () {
 	}
 
-	public RedPoint (final FixedFloat2 dot) {
+	public RedPoint (final ReadOnlyFloat2 dot) {
 		this();
 		this.set(dot);
 	}
@@ -91,7 +91,7 @@ public class RedPoint implements Float2, FixedFloat2 {
 	}
 
 	@Override
-	public Float2 set (final FixedFloat2 other) {
+	public Float2 set (final ReadOnlyFloat2 other) {
 		this.setXY(other.getX(), other.getY());
 		return this;
 	}
@@ -103,7 +103,7 @@ public class RedPoint implements Float2, FixedFloat2 {
 	}
 
 	@Override
-	public Float2 add (final FixedFloat2 offset) {
+	public Float2 add (final ReadOnlyFloat2 offset) {
 		this.setXY(this.x + offset.getX(), this.y + offset.getY());
 		return this;
 	}
@@ -127,7 +127,7 @@ public class RedPoint implements Float2, FixedFloat2 {
 	}
 
 	@Override
-	public boolean isInEpsilonDistance (final FixedFloat2 other) {
+	public boolean isInEpsilonDistance (final ReadOnlyFloat2 other) {
 		return Geometry.isInEpsilonDistance(this, other);
 	}
 
@@ -142,7 +142,7 @@ public class RedPoint implements Float2, FixedFloat2 {
 	}
 
 	@Override
-	public double distanceTo (final FixedFloat2 other) {
+	public double distanceTo (final ReadOnlyFloat2 other) {
 		return Geometry.distance(this, other);
 	}
 
@@ -169,15 +169,21 @@ public class RedPoint implements Float2, FixedFloat2 {
 	}
 
 	@Override
-	public void setLinearSum (final FixedFloat2 a, final double alpha, final FixedFloat2 b, final double betta) {
+	public RedPoint setLinearSum (final ReadOnlyFloat2 a, final double alpha, final ReadOnlyFloat2 b, final double betta) {
 		this.x = a.getX() * alpha + b.getX() * betta;
 		this.y = a.getY() * alpha + b.getY() * betta;
+		return this;
 	}
 
 	@Override
-	public void subtract (final FixedFloat2 position) {
+	public void subtract (final ReadOnlyFloat2 position) {
 		this.x = this.x - position.getX();
 		this.y = this.y - position.getY();
 	}
+
+// @Override
+// public Float2 getLinearSum (final double alpha, final FixedFloat2 other, final double betta, final Float2 output) {
+// return output.setLinearSum(this, alpha, other, betta);
+// }
 
 }

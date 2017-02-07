@@ -5,9 +5,9 @@ import com.jfixby.scarabei.api.ComponentInstaller;
 import com.jfixby.scarabei.api.collections.Collection;
 import com.jfixby.scarabei.api.collections.EditableCollection;
 import com.jfixby.scarabei.api.collections.List;
-import com.jfixby.scarabei.api.floatn.FixedFloat2;
 import com.jfixby.scarabei.api.floatn.Float2;
 import com.jfixby.scarabei.api.floatn.Float3;
+import com.jfixby.scarabei.api.floatn.ReadOnlyFloat2;
 import com.jfixby.scarabei.api.math.Matrix;
 
 public class Geometry {
@@ -67,20 +67,20 @@ public class Geometry {
 		return invoke().newTriangle();
 	}
 
-	public static boolean equalFloat2Collections (final Collection<? extends FixedFloat2> A,
-		final Collection<? extends FixedFloat2> B) {
+	public static boolean equalFloat2Collections (final Collection<? extends ReadOnlyFloat2> A,
+		final Collection<? extends ReadOnlyFloat2> B) {
 		return invoke().equalPointCollections(A, B);
 	}
 
-	public static <T extends FixedFloat2> void setPointsCollectionSize (final EditableCollection<T> A, final int size) {
+	public static <T extends ReadOnlyFloat2> void setPointsCollectionSize (final EditableCollection<T> A, final int size) {
 		invoke().setPointsCollectionSize(A, size);
 	}
 
-	public static void copyValues (final Collection<? extends FixedFloat2> A, final EditableCollection<? extends Float2> B) {
+	public static void copyValues (final Collection<? extends ReadOnlyFloat2> A, final EditableCollection<? extends Float2> B) {
 		invoke().copyValues(A, B);
 	}
 
-	public static void copyValues (final Collection<? extends FixedFloat2> A, final EditableCollection<? extends Float2> B,
+	public static void copyValues (final Collection<? extends ReadOnlyFloat2> A, final EditableCollection<? extends Float2> B,
 		final int offset) {
 		invoke().copyValues(A, B, offset);
 	}
@@ -90,7 +90,7 @@ public class Geometry {
 		invoke().applyTransformation(transformation, points_to_process);
 	}
 
-	public static Float2 newFloat2 (final FixedFloat2 dot) {
+	public static Float2 newFloat2 (final ReadOnlyFloat2 dot) {
 		return invoke().newFloat2(dot);
 	}
 
@@ -102,11 +102,11 @@ public class Geometry {
 		invoke().applyTransformation(transformation, tmp);
 	}
 
-	public static boolean isInEpsilonDistance (final FixedFloat2 a, final FixedFloat2 b) {
+	public static boolean isInEpsilonDistance (final ReadOnlyFloat2 a, final ReadOnlyFloat2 b) {
 		return invoke().isInEpsilonDistance(a, b);
 	}
 
-	public static boolean isInEpsilonDistanceOfZero (final FixedFloat2 point) {
+	public static boolean isInEpsilonDistanceOfZero (final ReadOnlyFloat2 point) {
 		return invoke().isInEpsilonDistanceOfZero(point);
 
 	}
@@ -115,7 +115,7 @@ public class Geometry {
 		return invoke().newCanvasPosition();
 	}
 
-	public static void parametrize (final FixedFloat2 A, final double progress_from_A_to_B, final FixedFloat2 B,
+	public static void parametrize (final ReadOnlyFloat2 A, final double progress_from_A_to_B, final ReadOnlyFloat2 B,
 		final Float2 result) {
 		invoke().parametrize(A, progress_from_A_to_B, B, result);
 	}
@@ -129,7 +129,7 @@ public class Geometry {
 		return invoke().newRectangle(w, h);
 	}
 
-	public static double distance (final FixedFloat2 A, final FixedFloat2 B) {
+	public static double distance (final ReadOnlyFloat2 A, final ReadOnlyFloat2 B) {
 		return invoke().distance(A, B);
 	}
 
@@ -137,7 +137,7 @@ public class Geometry {
 		return invoke().newCircle();
 	}
 
-	public static Rectangle setupWrapingFrame (final Collection<? extends FixedFloat2> points_to_wrap,
+	public static Rectangle setupWrapingFrame (final Collection<? extends ReadOnlyFloat2> points_to_wrap,
 		final Rectangle wrapping_frame) {
 		return invoke().setupWrapingFrame(points_to_wrap, wrapping_frame);
 	}
@@ -173,6 +173,18 @@ public class Geometry {
 	public static ProjectionFactory getProjectionFactory () {
 		return invoke().getProjectionFactory();
 	}
+
+	public static LinearCombinator<CanvasPosition> newLinearCanvasPositionCombinator () {
+		return invoke().newLinearCanvasPositionCombinator();
+	}
+
+	public static Bezier<CanvasPosition> combine (final Bezier<CanvasPosition> pStart, final Bezier<CanvasPosition> pEnd) {
+		return invoke().combine(pStart, pEnd);
+	}
+
+// public static <T extends LinearCombinable<T, ? extends T>> BezierPoint<T> newBezierPoint (final T base) {
+// return invoke().newBezierPoint(base);
+// }
 
 	// public static ClosedPolygonalChain newPoly(AssetID asset_id) {
 	// return invoke().newPoly(asset_id);

@@ -8,9 +8,10 @@ import com.jfixby.scarabei.api.collections.EditableCollection;
 import com.jfixby.scarabei.api.collections.List;
 import com.jfixby.scarabei.api.debug.Debug;
 import com.jfixby.scarabei.api.err.Err;
-import com.jfixby.scarabei.api.floatn.FixedFloat2;
 import com.jfixby.scarabei.api.floatn.Float2;
 import com.jfixby.scarabei.api.floatn.Float3;
+import com.jfixby.scarabei.api.floatn.ReadOnlyFloat2;
+import com.jfixby.scarabei.api.geometry.Bezier;
 import com.jfixby.scarabei.api.geometry.CanvasPosition;
 import com.jfixby.scarabei.api.geometry.Circle;
 import com.jfixby.scarabei.api.geometry.ClosedPolygonalChain;
@@ -18,6 +19,7 @@ import com.jfixby.scarabei.api.geometry.CombinedGeometry;
 import com.jfixby.scarabei.api.geometry.Geometry;
 import com.jfixby.scarabei.api.geometry.GeometryComponent;
 import com.jfixby.scarabei.api.geometry.Line;
+import com.jfixby.scarabei.api.geometry.LinearCombinator;
 import com.jfixby.scarabei.api.geometry.ProjectionFactory;
 import com.jfixby.scarabei.api.geometry.Rectangle;
 import com.jfixby.scarabei.api.geometry.Triangle;
@@ -85,7 +87,7 @@ public class RedGeometry implements GeometryComponent {
 	}
 
 	@Override
-	public <T extends FixedFloat2> void setPointsCollectionSize (final EditableCollection<T> a, final int size) {
+	public <T extends ReadOnlyFloat2> void setPointsCollectionSize (final EditableCollection<T> a, final int size) {
 		if (a.size() == size) {
 			return;
 		}
@@ -104,12 +106,12 @@ public class RedGeometry implements GeometryComponent {
 	}
 
 	@Override
-	public void copyValues (final Collection<? extends FixedFloat2> a, final EditableCollection<? extends Float2> b) {
+	public void copyValues (final Collection<? extends ReadOnlyFloat2> a, final EditableCollection<? extends Float2> b) {
 		this.copyValues(a, b, 0);
 	}
 
 	@Override
-	public void copyValues (final Collection<? extends FixedFloat2> a, final EditableCollection<? extends Float2> b,
+	public void copyValues (final Collection<? extends ReadOnlyFloat2> a, final EditableCollection<? extends Float2> b,
 		final int offset) {
 		if (a.size() + offset > b.size()) {
 			Err.reportError(
@@ -121,13 +123,14 @@ public class RedGeometry implements GeometryComponent {
 	}
 
 	@Override
-	public boolean equalPointCollections (final Collection<? extends FixedFloat2> a, final Collection<? extends FixedFloat2> b) {
+	public boolean equalPointCollections (final Collection<? extends ReadOnlyFloat2> a,
+		final Collection<? extends ReadOnlyFloat2> b) {
 		if (a.size() != b.size()) {
 			return false;
 		}
 		for (int i = 0; i < a.size(); i++) {
-			final FixedFloat2 vertex_a = a.getElementAt(i);
-			final FixedFloat2 vertex_b = b.getElementAt(i);
+			final ReadOnlyFloat2 vertex_a = a.getElementAt(i);
+			final ReadOnlyFloat2 vertex_b = b.getElementAt(i);
 
 			final double ax = vertex_a.getX();
 			final double ay = vertex_a.getY();
@@ -200,17 +203,17 @@ public class RedGeometry implements GeometryComponent {
 	}
 
 	@Override
-	public Float2 newFloat2 (final FixedFloat2 dot) {
+	public Float2 newFloat2 (final ReadOnlyFloat2 dot) {
 		return new RedPoint(dot);
 	}
 
 	@Override
-	public boolean isInEpsilonDistance (final FixedFloat2 A, final FixedFloat2 B) {
+	public boolean isInEpsilonDistance (final ReadOnlyFloat2 A, final ReadOnlyFloat2 B) {
 		return FloatMath.isWithinEpsilon(FloatMath.distance(A.getX(), A.getY(), B.getX(), B.getY()));
 	}
 
 	@Override
-	public boolean isInEpsilonDistanceOfZero (final FixedFloat2 A) {
+	public boolean isInEpsilonDistanceOfZero (final ReadOnlyFloat2 A) {
 		return FloatMath.isWithinEpsilon(FloatMath.distance(A.getX(), A.getY(), 0, 0));
 	}
 
@@ -220,7 +223,8 @@ public class RedGeometry implements GeometryComponent {
 	}
 
 	@Override
-	public void parametrize (final FixedFloat2 a, final double progress_from_A_to_B, final FixedFloat2 b, final Float2 result) {
+	public void parametrize (final ReadOnlyFloat2 a, final double progress_from_A_to_B, final ReadOnlyFloat2 b,
+		final Float2 result) {
 		result.setX(a.getX() + (b.getX() - a.getX()) * progress_from_A_to_B);
 		result.setY(a.getY() + (b.getY() - a.getY()) * progress_from_A_to_B);
 	}
@@ -243,7 +247,7 @@ public class RedGeometry implements GeometryComponent {
 	}
 
 	@Override
-	public double distance (final FixedFloat2 A, final FixedFloat2 B) {
+	public double distance (final ReadOnlyFloat2 A, final ReadOnlyFloat2 B) {
 		return FloatMath.distance(A.getX(), A.getY(), B.getX(), B.getY());
 	}
 
@@ -268,14 +272,15 @@ public class RedGeometry implements GeometryComponent {
 	}
 
 	@Override
-	public Rectangle setupWrapingFrame (final Collection<? extends FixedFloat2> points_to_wrap, final Rectangle wrapping_frame) {
+	public Rectangle setupWrapingFrame (final Collection<? extends ReadOnlyFloat2> points_to_wrap,
+		final Rectangle wrapping_frame) {
 		if (points_to_wrap.size() == 0) {
 			Err.reportError("Empty collection!");
 		}
 		final Float2 top_left = Geometry.newFloat2(points_to_wrap.getElementAt(0));
 		final Float2 bottom_right = Geometry.newFloat2(points_to_wrap.getElementAt(0));
 		for (int i = 1; i < points_to_wrap.size(); i++) {
-			final FixedFloat2 element = points_to_wrap.getElementAt(i);
+			final ReadOnlyFloat2 element = points_to_wrap.getElementAt(i);
 			top_left.setX(FloatMath.min(element.getX(), top_left.getX()));
 			top_left.setY(FloatMath.min(element.getY(), top_left.getY()));
 			bottom_right.setX(FloatMath.max(element.getX(), bottom_right.getX()));
@@ -353,5 +358,23 @@ public class RedGeometry implements GeometryComponent {
 	}
 
 	final RedProjectionFactory projectionFactory = new RedProjectionFactory();
+
+	@Override
+	public LinearCombinator<CanvasPosition> newLinearCanvasPositionCombinator () {
+		return new RedLinearCanvasPositionCombinator();
+	}
+
+	@Override
+	public Bezier<CanvasPosition> combine (final Bezier<CanvasPosition> start, final Bezier<CanvasPosition> end) {
+		final LinearCombinator<CanvasPosition> comb = Geometry.newLinearCanvasPositionCombinator();
+		return new Bezier<CanvasPosition>() {
+			@Override
+			public CanvasPosition valueAt (final double t) {
+				comb.setA(start.valueAt(t));
+				comb.setB(end.valueAt(t));
+				return comb.getLinearCombination(1 - t, t);
+			}
+		};
+	}
 
 }

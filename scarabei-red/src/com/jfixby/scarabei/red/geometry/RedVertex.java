@@ -2,7 +2,7 @@
 package com.jfixby.scarabei.red.geometry;
 
 import com.jfixby.scarabei.api.err.Err;
-import com.jfixby.scarabei.api.floatn.FixedFloat2;
+import com.jfixby.scarabei.api.floatn.ReadOnlyFloat2;
 import com.jfixby.scarabei.api.floatn.Float2;
 import com.jfixby.scarabei.api.geometry.Geometry;
 import com.jfixby.scarabei.api.geometry.RectangleCorner;
@@ -41,7 +41,7 @@ public class RedVertex implements Vertex, RectangleCorner {
 	}
 
 	@Override
-	public FixedFloat2 transformed () {
+	public ReadOnlyFloat2 transformed () {
 		this.world_position.set(this.relative_position);
 		this.getTransform().transform(this.world_position);/// ? ISSUE?
 		return this.world_position;
@@ -83,7 +83,7 @@ public class RedVertex implements Vertex, RectangleCorner {
 	}
 
 	@Override
-	public boolean isInEpsilonDistance (final FixedFloat2 other) {
+	public boolean isInEpsilonDistance (final ReadOnlyFloat2 other) {
 
 		return this.transformed().isInEpsilonDistance(other);
 	}
@@ -95,7 +95,7 @@ public class RedVertex implements Vertex, RectangleCorner {
 	}
 
 	@Override
-	public double distanceTo (final FixedFloat2 other) {
+	public double distanceTo (final ReadOnlyFloat2 other) {
 		return this.transformed().distanceTo(other);
 	}
 
@@ -103,5 +103,10 @@ public class RedVertex implements Vertex, RectangleCorner {
 	public double norm () {
 		return this.world_position.norm();
 	}
+
+// @Override
+// public Float2 getLinearSum (final double alpha, final FixedFloat2 other, final double betta, final Float2 output) {
+// return output.setLinearSum(this, alpha, other, betta);
+// }
 
 }

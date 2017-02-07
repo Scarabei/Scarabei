@@ -1,7 +1,7 @@
 
 package com.jfixby.scarabei.api.floatn;
 
-public interface FixedFloat3 {
+public interface ReadOnlyFloat3 {
 
 	double getX ();
 

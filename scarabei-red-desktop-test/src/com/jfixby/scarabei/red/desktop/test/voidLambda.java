@@ -3,13 +3,13 @@ package com.jfixby.scarabei.red.desktop.test;
 
 public class voidLambda {
 
-	public interface L {
+	public interface Lam {
 		public void value ();
 	}
 
 	public static void main (final String[] args) {
 
-		final L L = () -> System.out.println("woka");
+		final Lam L = () -> System.out.println("woka");
 		L.value();
 	}
 

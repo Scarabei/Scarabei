@@ -1,7 +1,7 @@
 
 package com.jfixby.scarabei.api.transform;
 
-import com.jfixby.scarabei.api.floatn.FixedFloat2;
+import com.jfixby.scarabei.api.floatn.ReadOnlyFloat2;
 import com.jfixby.scarabei.api.math.Angle;
 
 public interface CanvasTransform extends Transform {
@@ -12,9 +12,9 @@ public interface CanvasTransform extends Transform {
 
 	public void setOffsetY (double y);
 
-	public void setOffset (FixedFloat2 offset);
+	public void setOffset (ReadOnlyFloat2 offset);
 
-	public FixedFloat2 getOffset ();
+	public ReadOnlyFloat2 getOffset ();
 
 	public double getOffsetX ();
 
@@ -32,9 +32,9 @@ public interface CanvasTransform extends Transform {
 
 	public void setSkewY (double skew);
 
-	public void setSkew (FixedFloat2 skew);
+	public void setSkew (ReadOnlyFloat2 skew);
 
-	public FixedFloat2 getSkew ();
+	public ReadOnlyFloat2 getSkew ();
 
 	public double getSkewX ();
 
@@ -46,9 +46,9 @@ public interface CanvasTransform extends Transform {
 
 	public void setScaleY (double scale);
 
-	public void setScale (FixedFloat2 scale);
+	public void setScale (ReadOnlyFloat2 scale);
 
-	public FixedFloat2 getScale ();
+	public ReadOnlyFloat2 getScale ();
 
 	public double getScaleX ();
 

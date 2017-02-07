@@ -7,7 +7,7 @@ import com.jfixby.scarabei.api.collections.EditableCollection;
 import com.jfixby.scarabei.api.collections.List;
 import com.jfixby.scarabei.api.collections.Set;
 import com.jfixby.scarabei.api.err.Err;
-import com.jfixby.scarabei.api.floatn.FixedFloat2;
+import com.jfixby.scarabei.api.floatn.ReadOnlyFloat2;
 import com.jfixby.scarabei.api.floatn.Float2;
 import com.jfixby.scarabei.api.geometry.Geometry;
 import com.jfixby.scarabei.api.graphs.PathInGraph;
@@ -97,7 +97,7 @@ public class PolyGraphUtils {
 		return null;
 	}
 
-	private static <EdgeType> VertexImpl<Float2, EdgeType> findNode (final FixedFloat2 dot, final Ploy2DGraph<EdgeType> graph) {
+	private static <EdgeType> VertexImpl<Float2, EdgeType> findNode (final ReadOnlyFloat2 dot, final Ploy2DGraph<EdgeType> graph) {
 		// final VertexImpl<Point, EdgeType> n = new VertexImpl<Point,
 		// EdgeType>(point);
 		// return findNode(n, graph.vertices);
@@ -159,11 +159,11 @@ public class PolyGraphUtils {
 		return FloatMath.EPSILON() >= FloatMath.abs(AB - A - B);
 	}
 
-	public static <EdgeType> Ploy2DGraph<EdgeType> newMultiGraph (final EditableCollection<? extends FixedFloat2> input) {
+	public static <EdgeType> Ploy2DGraph<EdgeType> newMultiGraph (final EditableCollection<? extends ReadOnlyFloat2> input) {
 
 		final List<VertexImpl<Float2, EdgeType>> nodes = Collections.newList();
 		for (int i = 0; i < input.size(); i++) {
-			final FixedFloat2 dot = input.getElementAt(i);
+			final ReadOnlyFloat2 dot = input.getElementAt(i);
 			VertexImpl<Float2, EdgeType> node = new VertexImpl<Float2, EdgeType>();
 			final Float2 point = Geometry.newFloat2(dot);
 			node.putVertexObject(point);
@@ -188,8 +188,8 @@ public class PolyGraphUtils {
 			if (index_next >= input.size()) {
 				index_next = 0;
 			}
-			final FixedFloat2 point = input.getElementAt(index);
-			final FixedFloat2 point_next = input.getElementAt(index_next);
+			final ReadOnlyFloat2 point = input.getElementAt(index);
+			final ReadOnlyFloat2 point_next = input.getElementAt(index_next);
 
 			final VertexImpl<Float2, EdgeType> node = findNode(point, multy_graph);
 			final VertexImpl<Float2, EdgeType> next_node = findNode(point_next, multy_graph);

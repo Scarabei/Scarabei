@@ -1,7 +1,7 @@
 
 package com.jfixby.scarabei.api.floatn;
 
-public interface Float2 extends FixedFloat2 {
+public interface Float2 extends ReadOnlyFloat2 {
 
 	Float2 setXY (double x, double y);
 
@@ -9,11 +9,11 @@ public interface Float2 extends FixedFloat2 {
 
 	Float2 setY (double y);
 
-	Float2 set (FixedFloat2 other);
+	Float2 set (ReadOnlyFloat2 other);
 
 	Float2 setXY ();
 
-	Float2 add (FixedFloat2 offset);
+	Float2 add (ReadOnlyFloat2 offset);
 
 	Float2 addX (double delta);
 
@@ -29,8 +29,8 @@ public interface Float2 extends FixedFloat2 {
 
 	double product (Float2 other);
 
-	void setLinearSum (FixedFloat2 a, double alpha, FixedFloat2 b, double betta);
+	Float2 setLinearSum (ReadOnlyFloat2 a, double alpha, ReadOnlyFloat2 b, double betta);
 
-	void subtract (FixedFloat2 position);
+	void subtract (ReadOnlyFloat2 position);
 
 }

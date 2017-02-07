@@ -1,7 +1,7 @@
 
 package com.jfixby.scarabei.api.floatn;
 
-public interface Float3 extends FixedFloat3 {
+public interface Float3 extends ReadOnlyFloat3 {
 
 	void setXYZ (double x, double y, double z);
 
