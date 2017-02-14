@@ -87,4 +87,6 @@ public interface GeometryComponent {
 
 	public Bezier<CanvasPosition> combine (Bezier<CanvasPosition> pStart, Bezier<CanvasPosition> pEnd);
 
+	public Spline2D newSpline2D ();
+
 }

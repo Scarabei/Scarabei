@@ -182,6 +182,10 @@ public class Geometry {
 		return invoke().combine(pStart, pEnd);
 	}
 
+	public static Spline2D newSpline2D () {
+		return invoke().newSpline2D();
+	}
+
 // public static <T extends LinearCombinable<T, ? extends T>> BezierPoint<T> newBezierPoint (final T base) {
 // return invoke().newBezierPoint(base);
 // }

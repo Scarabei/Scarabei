@@ -284,4 +284,16 @@ public abstract class RedCollections implements CollectionsComponent {
 		}
 	}
 
+	@Override
+	public <T> T[] toArray (final Collection<T> c) {
+// final T[] foos = x.toArray(new T[x.size()]);
+
+//
+		final Object[] array = new Object[c.size()];
+		for (int i = 0; i < c.size(); i++) {
+			array[i] = c.getElementAt(i);
+		}
+		return (T[])array;
+	}
+
 }

@@ -141,4 +141,8 @@ public class Collections {
 		invoke().convertCollection(input, output, converter);
 	}
 
+	public static <T> T[] toArray (final Collection<T> C) {
+		return invoke().toArray(C);
+	}
+
 }

@@ -2,12 +2,21 @@
 package com.jfixby.scarabei.red.geometry;
 
 import com.jfixby.scarabei.api.floatn.Float2;
+import com.jfixby.scarabei.api.floatn.ReadOnlyFloat2;
+import com.jfixby.scarabei.api.geometry.CanvasPosition;
+import com.jfixby.scarabei.api.geometry.Geometry;
 import com.jfixby.scarabei.api.geometry.OffsetProjection;
 
 public final class RedOffsetProjection implements OffsetProjection {
 
 	private double offsetX;
 	private double offsetY;
+	final Float2 offset = Geometry.newFloat2();
+
+	public ReadOnlyFloat2 getOffset () {
+		this.offset.setXY(this.offsetX, this.offsetY);
+		return this.offset;
+	}
 
 	@Override
 	public void setOffsetX (final double x) {
@@ -33,6 +42,11 @@ public final class RedOffsetProjection implements OffsetProjection {
 	public void project (final Float2 point) {
 		point.setX(point.getX() + this.offsetX);
 		point.setY(point.getY() + this.offsetY);
+	}
+
+	public void setOffset (final CanvasPosition position) {
+		this.offsetX = position.getX();
+		this.offsetY = position.getY();
 	}
 
 }

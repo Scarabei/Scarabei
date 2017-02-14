@@ -6,6 +6,7 @@ import com.jfixby.scarabei.api.geometry.IdentityProjection;
 import com.jfixby.scarabei.api.geometry.OffsetProjection;
 import com.jfixby.scarabei.api.geometry.Projection;
 import com.jfixby.scarabei.api.geometry.ProjectionFactory;
+import com.jfixby.scarabei.api.geometry.RotateAndOffsetProjection;
 import com.jfixby.scarabei.api.geometry.RotateProjection;
 
 public class RedProjectionFactory implements ProjectionFactory {
@@ -33,6 +34,20 @@ public class RedProjectionFactory implements ProjectionFactory {
 	@Override
 	public ComposedProjection compose (final Projection... sequence) {
 		return new RedProjectionsStack(sequence);
+	}
+
+	@Override
+	public OffsetProjection newOffset (final double x, final double y) {
+		final RedOffsetProjection offset = new RedOffsetProjection();
+		offset.setOffsetX(x);
+		offset.setOffsetY(y);
+		return offset;
+	}
+
+	@Override
+	public RotateAndOffsetProjection newOffsetAndRotate () {
+		final RedRotateAndOffsetProjection combo = new RedRotateAndOffsetProjection();
+		return combo;
 	}
 
 }
