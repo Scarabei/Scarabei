@@ -8,14 +8,14 @@ import com.jfixby.scarabei.api.geometry.ComposedProjection;
 import com.jfixby.scarabei.api.geometry.Projection;
 import com.jfixby.scarabei.api.geometry.ProjectionsStack;
 
-public final class RedProjectionsStack implements ProjectionsStack, ComposedProjection {
+public class RedProjectionsStack implements ProjectionsStack, ComposedProjection {
 
 	final ArrayList<Projection> stack = new ArrayList<Projection>();
 
 	public RedProjectionsStack () {
 	}
 
-	public RedProjectionsStack (final Projection[] sequence) {
+	public RedProjectionsStack (final Projection... sequence) {
 		for (int i = 0; i < sequence.length; i++) {
 			final Projection p = sequence[i];
 			this.push(p);
