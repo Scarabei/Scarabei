@@ -7,7 +7,10 @@ import com.jfixby.scarabei.api.debug.DEBUG_TIMER_MODE;
 import com.jfixby.scarabei.api.debug.DebugComponent;
 import com.jfixby.scarabei.api.debug.DebugTimer;
 import com.jfixby.scarabei.api.err.Err;
+import com.jfixby.scarabei.api.log.L;
 import com.jfixby.scarabei.api.sys.Sys;
+import com.jfixby.scarabei.api.sys.settings.ExecutionMode;
+import com.jfixby.scarabei.api.sys.settings.SystemSettings;
 
 public class RedDebug implements DebugComponent {
 
@@ -63,6 +66,16 @@ public class RedDebug implements DebugComponent {
 	@Override
 	public void printCallStack () {
 		printStack();
+	}
+
+	@Override
+	public void reportWarning (final String msg) {
+		if (SystemSettings.executionModeCovers(ExecutionMode.EARLY_DEVELOPMENT)) {
+			Err.reportError(msg);
+		} else {
+			L.e("WARNING", msg);
+			this.printCallStack();
+		}
 	}
 
 	@Override

@@ -63,4 +63,8 @@ public class Debug {
 		return invoke().newTimer(mode);
 	}
 
+	public static void reportWarning (final String msg) {
+		invoke().reportWarning(msg);
+	}
+
 }

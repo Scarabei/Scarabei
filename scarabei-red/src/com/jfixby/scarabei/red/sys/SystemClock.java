@@ -12,6 +12,14 @@ public class SystemClock implements TimeStream {
 
 	@Override
 	public long currentTimeMillis () {
+// final String msg = L.stackTraceToString(new Error());
+// if (msg.contains("com.jfixby.tinto.ui.game.TintoGameClock.currentTimeMillis")
+// || msg.contains("com.jfixby.r3.engine.core.unit.anim.SimpleAnimator.onUpdate")) {
+//
+// } else {
+// Debug.printCallStack();
+// }
+
 		return System.currentTimeMillis();
 	}
 

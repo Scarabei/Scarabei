@@ -23,4 +23,6 @@ public interface DebugComponent {
 
 	DebugTimer newTimer (DEBUG_TIMER_MODE mode);
 
+	void reportWarning (String msg);
+
 }
