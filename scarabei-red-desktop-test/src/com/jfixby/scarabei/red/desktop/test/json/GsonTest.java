@@ -4,7 +4,7 @@ package com.jfixby.scarabei.red.desktop.test.json;
 import java.util.Vector;
 
 import com.jfixby.scarabei.adopted.gdx.json.GoogleGson;
-import com.jfixby.scarabei.api.desktop.DesktopSetup;
+import com.jfixby.scarabei.api.desktop.ScarabeiDesktop;
 import com.jfixby.scarabei.api.json.Json;
 import com.jfixby.scarabei.api.json.JsonString;
 import com.jfixby.scarabei.api.log.L;
@@ -12,7 +12,7 @@ import com.jfixby.scarabei.api.log.L;
 public class GsonTest {
 
 	public static void main (final String[] args) {
-		DesktopSetup.deploy();
+		ScarabeiDesktop.deploy();
 		Json.installComponent(new GoogleGson());
 
 		final GsonTest testObject = new GsonTest();

@@ -77,11 +77,6 @@ class RedS3FileSystem extends AbstractFileSystem implements FileSystem, S3FileSy
 	}
 
 	@Override
-	public FileOutputStream newFileOutputStream (final File output_file) {
-		return this.newFileOutputStream(output_file, false);
-	}
-
-	@Override
 	public FileOutputStream newFileOutputStream (final File output_file, final boolean append) {
 		Debug.checkNull("File", output_file);
 		Debug.checkTrue("File belongs to this filesystem?", output_file.getFileSystem() == this);
@@ -98,11 +93,6 @@ class RedS3FileSystem extends AbstractFileSystem implements FileSystem, S3FileSy
 		}
 
 		return new S3FileInputStream((S3File)input_file);
-	}
-
-	@Override
-	public String nativeSeparator () {
-		return OS_SEPARATOR;
 	}
 
 	@Override

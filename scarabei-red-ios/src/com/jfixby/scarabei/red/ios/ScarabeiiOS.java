@@ -56,7 +56,7 @@ import com.jfixby.scarabei.red.sys.RedTaskManager;
 import com.jfixby.scarabei.red.util.RedJUtils;
 import com.jfixby.scarabei.red.util.md5.RSADataSecurityIncMD5;
 
-public class iOSSetup {
+public class ScarabeiiOS {
 
 	public static final void deploy (final iOSComponent ios) {
 		L.installComponent(new iOSLogger());

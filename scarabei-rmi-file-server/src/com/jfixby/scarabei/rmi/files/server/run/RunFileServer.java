@@ -3,7 +3,7 @@ package com.jfixby.scarabei.rmi.files.server.run;
 
 import java.io.IOException;
 
-import com.jfixby.scarabei.api.desktop.DesktopSetup;
+import com.jfixby.scarabei.api.desktop.ScarabeiDesktop;
 import com.jfixby.scarabei.api.file.File;
 import com.jfixby.scarabei.api.file.LocalFileSystem;
 import com.jfixby.scarabei.api.java.ByteArray;
@@ -18,7 +18,7 @@ import com.jfixby.scarabei.rmi.server.files.RMIFileSystemServerConfig;
 public class RunFileServer {
 
 	public static void main (final String[] args) throws IOException {
-		DesktopSetup.deploy();
+		ScarabeiDesktop.deploy();
 
 		LocalFileSystem.deInstallCurrentComponent();
 		LocalFileSystem.installComponent(new UnixFileSystem());

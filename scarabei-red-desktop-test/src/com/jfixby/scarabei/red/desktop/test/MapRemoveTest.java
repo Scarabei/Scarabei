@@ -8,14 +8,14 @@ import com.jfixby.scarabei.api.assets.Names;
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.List;
 import com.jfixby.scarabei.api.collections.Map;
-import com.jfixby.scarabei.api.desktop.DesktopSetup;
+import com.jfixby.scarabei.api.desktop.ScarabeiDesktop;
 
 public class MapRemoveTest {
 
 	@Test
 	public void test () {
 
-		DesktopSetup.deploy();
+		ScarabeiDesktop.deploy();
 
 		final Map<ID, List<Object>> map = Collections.newMap();
 		final int N = 10;

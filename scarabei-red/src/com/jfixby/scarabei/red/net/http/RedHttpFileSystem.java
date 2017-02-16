@@ -86,12 +86,6 @@ class RedHttpFileSystem extends AbstractFileSystem implements FileSystem, HttpFi
 	}
 
 	@Override
-	public FileOutputStream newFileOutputStream (final File output_file) {
-		Err.reportError("Read only file system");
-		return null;// final FileFilter F
-	}
-
-	@Override
 	public FileOutputStream newFileOutputStream (final File output_file, final boolean append) {
 		Err.reportError("Read only file system");
 		return null;// final FileFilter F
@@ -107,11 +101,6 @@ class RedHttpFileSystem extends AbstractFileSystem implements FileSystem, HttpFi
 		}
 
 		return new RedHttpFileInputStream((RedHttpFile)input_file);
-	}
-
-	@Override
-	public String nativeSeparator () {
-		return OS_SEPARATOR;
 	}
 
 	public static String toNativePathString (final String string) {

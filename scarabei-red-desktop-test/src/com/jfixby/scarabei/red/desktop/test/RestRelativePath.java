@@ -1,7 +1,7 @@
 
 package com.jfixby.scarabei.red.desktop.test;
 
-import com.jfixby.scarabei.api.desktop.DesktopSetup;
+import com.jfixby.scarabei.api.desktop.ScarabeiDesktop;
 import com.jfixby.scarabei.api.log.L;
 import com.jfixby.scarabei.api.util.JUtils;
 import com.jfixby.scarabei.api.util.path.RelativePath;
@@ -12,7 +12,7 @@ public class RestRelativePath {
 
 	public static void main (final String[] args) {
 
-		DesktopSetup.deploy();
+		ScarabeiDesktop.deploy();
 
 		final RelativePath path = JUtils.newRelativePath(desktopAssemblerRelativePathString);
 		L.d("path", path);

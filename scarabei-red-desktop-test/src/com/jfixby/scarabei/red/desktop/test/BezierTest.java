@@ -3,7 +3,7 @@ package com.jfixby.scarabei.red.desktop.test;
 
 import org.junit.Test;
 
-import com.jfixby.scarabei.api.desktop.DesktopSetup;
+import com.jfixby.scarabei.api.desktop.ScarabeiDesktop;
 import com.jfixby.scarabei.api.geometry.Bezier;
 import com.jfixby.scarabei.api.geometry.CanvasPosition;
 import com.jfixby.scarabei.api.geometry.Geometry;
@@ -13,7 +13,7 @@ public class BezierTest {
 
 	@Test
 	public static void main (final String[] args) {
-		DesktopSetup.deploy();
+		ScarabeiDesktop.deploy();
 
 		final CanvasPosition start = Geometry.newCanvasPosition();
 		start.setXY(1, 2);

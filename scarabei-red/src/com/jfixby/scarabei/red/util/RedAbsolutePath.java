@@ -83,8 +83,8 @@ class RedAbsolutePath<T extends MountPoint> implements AbsolutePath<T> {
 
 	@Override
 	public AbsolutePath<T> child (final String child_name) {
-		final RelativePath child_relative = JUtils
-			.newRelativePath(this.relative.getPathString() + RelativePath.SEPARATOR + child_name);
+		final RelativePath child_relative = this.relative.child(child_name);
+
 		final AbsolutePath<T> result = JUtils.newAbsolutePath(this.mount_point, child_relative);
 		return result;
 	}

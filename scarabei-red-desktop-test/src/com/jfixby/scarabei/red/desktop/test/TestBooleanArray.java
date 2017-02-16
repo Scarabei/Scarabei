@@ -1,13 +1,13 @@
 
 package com.jfixby.scarabei.red.desktop.test;
 
-import com.jfixby.scarabei.api.desktop.DesktopSetup;
+import com.jfixby.scarabei.api.desktop.ScarabeiDesktop;
 import com.jfixby.scarabei.api.log.L;
 
 public class TestBooleanArray {
 
 	public static void main (String[] args) {
-		DesktopSetup.deploy();
+		ScarabeiDesktop.deploy();
 		int N = 170;
 		BooleanArray array = new BooleanArray(N);
 

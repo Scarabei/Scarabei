@@ -27,7 +27,7 @@ import com.jfixby.scarabei.api.sys.settings.SystemSettings;
 import com.jfixby.scarabei.api.taskman.TaskManager;
 import com.jfixby.scarabei.api.util.JUtils;
 
-public class DesktopSetup {
+public class ScarabeiDesktop {
 
 	public static final void deploy () {
 		L.installComponent("com.jfixby.scarabei.red.log.SimpleLogger");

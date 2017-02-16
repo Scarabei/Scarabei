@@ -3,7 +3,7 @@ package com.jfixby.scarabei.red.aws.test;
 
 import java.io.IOException;
 
-import com.jfixby.scarabei.api.desktop.DesktopSetup;
+import com.jfixby.scarabei.api.desktop.ScarabeiDesktop;
 import com.jfixby.scarabei.api.file.File;
 import com.jfixby.scarabei.api.log.L;
 import com.jfixby.scarabei.aws.api.AWS;
@@ -14,7 +14,7 @@ import com.jfixby.scarabei.aws.api.S3FileSystemConfig;
 public class DeleteFileTest {
 
 	public static void main (final String[] args) throws IOException {
-		DesktopSetup.deploy();
+		ScarabeiDesktop.deploy();
 		AWS.installComponent("com.jfixby.amazon.aws.RedAWS");
 		final S3 s3 = AWS.getS3();
 		final S3FileSystemConfig specs = s3.newFileSystemConfig();

@@ -39,19 +39,6 @@ public class RMIFileSystem extends AbstractFileSystem implements FileSystem {
 	}
 
 	@Override
-	public FileOutputStream newFileOutputStream (final File output_file) {
-		if (output_file == null) {
-			Err.reportError("Output file is null.");
-		}
-		if (output_file.getFileSystem() != this) {
-			Err.reportError("Output file does not belong to this filesystem: " + output_file);
-		}
-		// return new RMIFileOutputStream((RMIFile) output_file);
-		final RMIFile v_file = (RMIFile)output_file;
-		return v_file.getOutputStream(false);
-	}
-
-	@Override
 	public FileOutputStream newFileOutputStream (final File output_file, final boolean append) {
 		if (output_file == null) {
 			Err.reportError("Output file is null.");
@@ -74,11 +61,6 @@ public class RMIFileSystem extends AbstractFileSystem implements FileSystem {
 		}
 		final RMIFile v_file = (RMIFile)input_file;
 		return v_file.getInputStream();
-	}
-
-	@Override
-	public String nativeSeparator () {
-		return OS_SEPARATOR;
 	}
 
 	final private String name = "RMIFileSystem";

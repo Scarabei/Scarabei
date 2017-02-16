@@ -1,7 +1,7 @@
 
 package com.jfixby.scarabei.red.desktop.test;
 
-import com.jfixby.scarabei.api.desktop.DesktopSetup;
+import com.jfixby.scarabei.api.desktop.ScarabeiDesktop;
 import com.jfixby.scarabei.api.log.L;
 import com.jfixby.scarabei.api.math.Average;
 import com.jfixby.scarabei.api.math.FloatMath;
@@ -9,7 +9,7 @@ import com.jfixby.scarabei.api.math.FloatMath;
 public class AverageTest {
 
 	public static void main (final String[] args) {
-		DesktopSetup.deploy();
+		ScarabeiDesktop.deploy();
 
 		final Average av = FloatMath.newAverage(10);
 		double sum = 0;

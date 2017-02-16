@@ -209,12 +209,12 @@ public abstract class AbstractRedFile implements File {
 	@Override
 	public String getExtension () throws IOException {
 		if (this.isFolder()) {
-			return null;
+			return "";
 		}
 		final String name = this.getName().toLowerCase();
 		final int index = name.lastIndexOf('.');
 		if (index < 0) {
-			return null;
+			return "";
 		}
 		final String ext = name.substring(index + 1);
 		return ext;
@@ -229,7 +229,12 @@ public abstract class AbstractRedFile implements File {
 
 	@Override
 	final public FilesList listDirectChildren (final FileFilter filter) throws IOException {
-		return this.listDirectChildren().filter(filter);
+		return this.listDirectChildren().filter(filter);// ugly hack
+	}
+
+	@Override
+	final public FilesList listAllChildren (final FileFilter filter) throws IOException {
+		return this.listAllChildren().filter(filter);// ugly hack
 	}
 
 	@Override

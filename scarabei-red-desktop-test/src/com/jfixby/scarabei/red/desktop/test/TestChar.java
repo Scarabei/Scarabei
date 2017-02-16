@@ -3,13 +3,13 @@ package com.jfixby.scarabei.red.desktop.test;
 
 import java.io.File;
 
-import com.jfixby.scarabei.api.desktop.DesktopSetup;
+import com.jfixby.scarabei.api.desktop.ScarabeiDesktop;
 import com.jfixby.scarabei.api.log.L;
 
 public class TestChar {
 
 	public static void main (final String[] args) {
-		DesktopSetup.deploy();
+		ScarabeiDesktop.deploy();
 
 		final String input = "A\\\\B\\\\C\\\\D\\\\E\\\\F\\\\G\\\\H\\\\";
 		L.d("input", input);

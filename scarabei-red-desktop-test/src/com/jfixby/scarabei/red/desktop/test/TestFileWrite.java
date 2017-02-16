@@ -4,7 +4,7 @@ package com.jfixby.scarabei.red.desktop.test;
 import java.io.IOException;
 
 import com.jfixby.scarabei.api.debug.Debug;
-import com.jfixby.scarabei.api.desktop.DesktopSetup;
+import com.jfixby.scarabei.api.desktop.ScarabeiDesktop;
 import com.jfixby.scarabei.api.file.File;
 import com.jfixby.scarabei.api.file.LocalFileSystem;
 import com.jfixby.scarabei.api.json.Json;
@@ -14,7 +14,7 @@ import com.jfixby.scarabei.api.md5.MD5;
 public class TestFileWrite {
 
 	public static void main (final String[] args) throws IOException {
-		DesktopSetup.deploy();
+		ScarabeiDesktop.deploy();
 		Json.installComponent("com.jfixby.cmns.adopted.gdx.json.RedJson");
 
 		final File testFile = LocalFileSystem.ApplicationHome().child("RW-test.txt");

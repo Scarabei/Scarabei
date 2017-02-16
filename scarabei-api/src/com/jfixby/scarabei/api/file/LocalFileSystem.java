@@ -55,20 +55,12 @@ public class LocalFileSystem {
 		return invoke().newFile(java_path);
 	}
 
-	public static java.io.File toJavaFile (final File file) {
-		return invoke().toJavaFile(file);
-	}
-
 	public static void copyFilesTo (final FilesList children_list, final File to_folder) throws IOException {
 		invoke().copyFilesTo(children_list, to_folder);
 	}
 
 	public static String readFileToString (final AbsolutePath<FileSystem> file_path) throws IOException {
 		return invoke().readFileToString(file_path);
-	}
-
-	public static String toAbsolutePathString (final AbsolutePath<FileSystem> file) {
-		return invoke().toAbsolutePathString(file);
 	}
 
 	public static FileOutputStream newFileOutputStream (final File file) throws IOException {

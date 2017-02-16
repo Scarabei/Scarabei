@@ -3,7 +3,7 @@ package com.jfixby.scarabei.red.aws.test;
 
 import java.io.IOException;
 
-import com.jfixby.scarabei.api.desktop.DesktopSetup;
+import com.jfixby.scarabei.api.desktop.ScarabeiDesktop;
 import com.jfixby.scarabei.api.file.File;
 import com.jfixby.scarabei.api.file.FileHash;
 import com.jfixby.scarabei.api.file.LocalFileSystem;
@@ -16,9 +16,9 @@ import com.jfixby.scarabei.aws.api.S3FileSystemConfig;
 public class UploadTest {
 
 	public static void main (final String[] args) throws IOException {
-		DesktopSetup.deploy();
+		ScarabeiDesktop.deploy();
 
-		DesktopSetup.deploy();
+		ScarabeiDesktop.deploy();
 
 		AWS.installComponent("com.jfixby.amazon.aws.RedAWS");
 		final S3 s3 = AWS.getS3();

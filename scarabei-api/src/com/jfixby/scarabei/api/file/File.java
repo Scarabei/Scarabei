@@ -8,6 +8,7 @@ import com.jfixby.scarabei.api.util.path.AbsolutePath;
 import com.jfixby.scarabei.api.util.path.RelativePath;
 
 public interface File {
+	java.io.File toJavaFile ();
 
 	AbsolutePath<FileSystem> getAbsoluteFilePath ();
 
@@ -26,6 +27,8 @@ public interface File {
 	public FilesList listDirectChildren (FileFilter filter) throws IOException;
 
 	public FilesList listAllChildren () throws IOException;
+
+	FilesList listAllChildren (FileFilter pdfFileFilter) throws IOException;
 
 	File child (String child_name);
 
@@ -67,8 +70,6 @@ public interface File {
 	void writeBytes (byte[] bytes) throws IOException;
 
 	long getSize () throws IOException;
-
-	java.io.File toJavaFile ();
 
 	File parent ();
 

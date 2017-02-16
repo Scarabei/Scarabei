@@ -1,7 +1,7 @@
 
 package com.jfixby.scarabei.red.desktop.test;
 
-import com.jfixby.scarabei.api.desktop.DesktopSetup;
+import com.jfixby.scarabei.api.desktop.ScarabeiDesktop;
 import com.jfixby.scarabei.api.java.gc.GCFisher;
 import com.jfixby.scarabei.api.java.gc.MemoryStatistics;
 import com.jfixby.scarabei.api.java.gc.MemoryStatisticsComparison;
@@ -9,7 +9,7 @@ import com.jfixby.scarabei.api.java.gc.MemoryStatisticsComparison;
 public class GCFisherTest {
 
 	public static void main (final String[] args) {
-		DesktopSetup.deploy();
+		ScarabeiDesktop.deploy();
 		final MemoryStatistics before = GCFisher.getMemoryStatistics();
 		before.print("before");
 		for (int i = 0; i < 10; i++) {

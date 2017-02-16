@@ -41,17 +41,6 @@ public class RedSandboxFileSystem extends AbstractFileSystem implements FileSyst
 	}
 
 	@Override
-	public FileOutputStream newFileOutputStream (final File output_file) {
-		if (output_file == null) {
-			Err.reportError("Output file is null.");
-		}
-		if (output_file.getFileSystem() != this) {
-			Err.reportError("Output file does not belong to this filesystem: " + output_file);
-		}
-		return output_file.newOutputStream(false);
-	}
-
-	@Override
 	public FileOutputStream newFileOutputStream (final File output_file, final boolean append) {
 		if (output_file == null) {
 			Err.reportError("Output file is null.");
@@ -71,11 +60,6 @@ public class RedSandboxFileSystem extends AbstractFileSystem implements FileSyst
 			Err.reportError("Input file does not belong to this filesystem: " + input_file);
 		}
 		return input_file.newInputStream();
-	}
-
-	@Override
-	public String nativeSeparator () {
-		return OS_SEPARATOR;
 	}
 
 	private String name = "";

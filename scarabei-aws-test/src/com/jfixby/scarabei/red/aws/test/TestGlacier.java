@@ -8,7 +8,7 @@ import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.amazonaws.services.glacier.AmazonGlacierClient;
 import com.amazonaws.services.glacier.transfer.ArchiveTransferManager;
 import com.amazonaws.services.glacier.transfer.UploadResult;
-import com.jfixby.scarabei.api.desktop.DesktopSetup;
+import com.jfixby.scarabei.api.desktop.ScarabeiDesktop;
 import com.jfixby.scarabei.api.file.LocalFileSystem;
 
 public class TestGlacier {
@@ -19,7 +19,7 @@ public class TestGlacier {
 
 	public static void main (final String[] args) throws IOException {
 
-		DesktopSetup.deploy();
+		ScarabeiDesktop.deploy();
 
 		final com.jfixby.scarabei.api.file.File file = LocalFileSystem.ApplicationHome().child("input").child("sprite1.png");
 

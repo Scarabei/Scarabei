@@ -34,6 +34,13 @@ public abstract class AbstractFileSystem implements FileSystem {
 		return this.ROOT;
 	}
 
+	boolean deleteSwitchIsInSafePosition = !true;
+
+	@Override
+	public boolean deleteSwitchIsInSafePosition () {
+		return this.deleteSwitchIsInSafePosition;
+	}
+
 // abstract public String md5Hex (File file) throws IOException;
 
 	final public String md5Hex (final File file) throws IOException {
@@ -42,6 +49,11 @@ public abstract class AbstractFileSystem implements FileSystem {
 		final String checksum = MD5.md5Stream(input_stream);
 		input_stream.close();
 		return checksum.toUpperCase();
+	}
+
+	@Override
+	final public FileOutputStream newFileOutputStream (final File output_file) {
+		return this.newFileOutputStream(output_file, false);
 	}
 
 	@Override

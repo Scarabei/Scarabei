@@ -7,7 +7,7 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import com.jfixby.scarabei.api.desktop.DesktopSetup;
+import com.jfixby.scarabei.api.desktop.ScarabeiDesktop;
 import com.jfixby.scarabei.api.json.Json;
 import com.jfixby.scarabei.api.log.L;
 
@@ -22,7 +22,7 @@ public class GdxJsonTest {
 
 	@Test
 	public void test () {
-		DesktopSetup.deploy();
+		ScarabeiDesktop.deploy();
 		Json.installComponent("com.jfixby.scarabei.adopted.gdx.json.RedJson");
 
 		L.d("GdxJsonTest");

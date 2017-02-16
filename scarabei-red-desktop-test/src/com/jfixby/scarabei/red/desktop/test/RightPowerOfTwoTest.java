@@ -4,7 +4,7 @@ package com.jfixby.scarabei.red.desktop.test;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.jfixby.scarabei.api.desktop.DesktopSetup;
+import com.jfixby.scarabei.api.desktop.ScarabeiDesktop;
 import com.jfixby.scarabei.api.log.L;
 import com.jfixby.scarabei.api.math.IntegerMath;
 
@@ -12,7 +12,7 @@ public class RightPowerOfTwoTest {
 
 	@Test
 	public void test () {
-		DesktopSetup.deploy();
+		ScarabeiDesktop.deploy();
 		int n = 10;
 		for (int pot = 0; pot < n; pot++) {
 			long potvalueleft = pot(pot);

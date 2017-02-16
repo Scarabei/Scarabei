@@ -4,7 +4,7 @@ package com.jfixby.scarabei.red.desktop.test;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-import com.jfixby.scarabei.api.desktop.DesktopSetup;
+import com.jfixby.scarabei.api.desktop.ScarabeiDesktop;
 import com.jfixby.scarabei.api.desktop.ImageAWT;
 import com.jfixby.scarabei.api.file.File;
 import com.jfixby.scarabei.api.file.FileInputStream;
@@ -24,7 +24,7 @@ import com.jfixby.scarabei.api.log.L;
 public class SplitChannelsTest {
 
 	public static void main (final String[] args) throws IOException {
-		DesktopSetup.deploy();
+		ScarabeiDesktop.deploy();
 
 		final File home = LocalFileSystem.ApplicationHome();
 		final File input_folder = home.child("input");

@@ -22,8 +22,6 @@ public interface FileSystem extends MountPoint {
 
 	FileInputStream newFileInputStream (File input_file);
 
-	String nativeSeparator ();
-
 	void copyFileToFolder (File file_to_copy, File to_folder) throws IOException;
 
 	void copyFileToFolder (File file_to_copy, File to_folder, FileConflistResolver resollver) throws IOException;
@@ -55,5 +53,7 @@ public interface FileSystem extends MountPoint {
 	void rebuildFolderSupportingIndexes (FolderSupportingIndexBuilderParams params) throws IOException;
 
 	FolderSupportingIndexBuilderParams newFolderSupportingIndexBuilderParams ();
+
+	boolean deleteSwitchIsInSafePosition ();
 
 }

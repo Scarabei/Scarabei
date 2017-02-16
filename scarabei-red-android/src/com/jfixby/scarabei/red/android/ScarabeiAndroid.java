@@ -56,7 +56,7 @@ import com.jfixby.scarabei.red.sys.RedTaskManager;
 import com.jfixby.scarabei.red.util.RedJUtils;
 import com.jfixby.scarabei.red.util.md5.RSADataSecurityIncMD5;
 
-public class AndroidSetup {
+public class ScarabeiAndroid {
 
 	public static final void deploy (final AndroidComponent android) {
 		L.installComponent(new AndroidLogger());

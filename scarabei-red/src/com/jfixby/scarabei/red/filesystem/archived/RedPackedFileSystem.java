@@ -33,12 +33,6 @@ public class RedPackedFileSystem extends AbstractFileSystem implements FileSyste
 	}
 
 	@Override
-	public FileOutputStream newFileOutputStream (final File output_file) {
-		Err.reportError("Not supported (yet?)");
-		return null;
-	}
-
-	@Override
 	public FileOutputStream newFileOutputStream (final File output_file, final boolean append) {
 		Err.reportError("Not supported (yet?)");
 		return null;
@@ -47,18 +41,7 @@ public class RedPackedFileSystem extends AbstractFileSystem implements FileSyste
 	@Override
 	public FileInputStream newFileInputStream (final File input_file) {
 		Err.reportError("Not supported (yet?)");
-// final PackedFile v_file = (PackedFile)input_file;
-// final FileData leaf = v_file.getContent();
-// if (leaf == null) {
-// throw new IOException("File not found: " + input_file);
-// }
-// return (FileInputStream)IO.newBufferInputStream(IO.newBuffer(leaf.getBytes()));
 		return null;
-	}
-
-	@Override
-	public String nativeSeparator () {
-		return OS_SEPARATOR;
 	}
 
 	final private String name = "PackedFileSystem";

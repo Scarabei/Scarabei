@@ -27,17 +27,6 @@ public class InMemoryFileSystem extends AbstractFileSystem implements FileSystem
 	}
 
 	@Override
-	public FileOutputStream newFileOutputStream (final File output_file) {
-		if (output_file == null) {
-			Err.reportError("Output file is null.");
-		}
-		if (output_file.getFileSystem() != this) {
-			Err.reportError("Output file does not belong to this filesystem: " + output_file);
-		}
-		return new InMemoryFileOutputStream((InMemoryFile)output_file, false);
-	}
-
-	@Override
 	public FileOutputStream newFileOutputStream (final File output_file, final boolean append) {
 		if (output_file == null) {
 			Err.reportError("Output file is null.");
@@ -58,11 +47,6 @@ public class InMemoryFileSystem extends AbstractFileSystem implements FileSystem
 		}
 
 		return new InMemoryFileInputStream((InMemoryFile)input_file);
-	}
-
-	@Override
-	public String nativeSeparator () {
-		return OS_SEPARATOR;
 	}
 
 	final private String name = "InMemoryFileSystem";
