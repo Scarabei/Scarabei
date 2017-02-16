@@ -150,16 +150,16 @@ public final class LocalRedFile extends AbstractRedFile implements LocalFile {
 	@Override
 	final public boolean delete () throws IOException {
 		final java.io.File f = this.toJavaFile();
-		if (this.getFileSystem().deleteSwitchIsInSafePosition()) {
-			L.e("delete switch is in safe position", this.fs);
-			L.e("ignore file", f);
-			return false;
-		}
 
 		if (this.isFolder()) {
 			this.clearFolder();
 		}
-
+		if (this.getFileSystem().deleteSwitchIsInSafePosition()) {
+			L.e("Delete switch is in safe position, file ignored", f);
+			return false;
+		} else {
+			L.d("delete", f);
+		}
 		return f.delete();
 
 	}
