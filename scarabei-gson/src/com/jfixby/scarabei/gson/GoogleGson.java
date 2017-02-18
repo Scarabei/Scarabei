@@ -1,5 +1,5 @@
 
-package com.jfixby.scarabei.adopted.gdx.json;
+package com.jfixby.scarabei.gson;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

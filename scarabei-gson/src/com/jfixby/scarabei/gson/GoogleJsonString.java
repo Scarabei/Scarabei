@@ -1,5 +1,5 @@
 
-package com.jfixby.scarabei.adopted.gdx.json;
+package com.jfixby.scarabei.gson;
 
 import com.jfixby.scarabei.api.debug.Debug;
 import com.jfixby.scarabei.api.json.JsonString;

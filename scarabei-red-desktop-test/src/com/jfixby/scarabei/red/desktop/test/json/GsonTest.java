@@ -3,11 +3,11 @@ package com.jfixby.scarabei.red.desktop.test.json;
 
 import java.util.Vector;
 
-import com.jfixby.scarabei.adopted.gdx.json.GoogleGson;
 import com.jfixby.scarabei.api.desktop.ScarabeiDesktop;
 import com.jfixby.scarabei.api.json.Json;
 import com.jfixby.scarabei.api.json.JsonString;
 import com.jfixby.scarabei.api.log.L;
+import com.jfixby.scarabei.gson.GoogleGson;
 
 public class GsonTest {
 
