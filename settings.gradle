@@ -13,6 +13,8 @@ include 'scarabei-red-desktop'
 include 'scarabei-red-ios'
 include 'scarabei-red-gwt'
 include 'scarabei-red-gdx'
+include 'scarabei-apache-cmns'
+
 
 
 

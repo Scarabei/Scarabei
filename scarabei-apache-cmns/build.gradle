@@ -1,0 +1,30 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+
+repositories {
+        	 maven { url 'https://jitpack.io' }
+        	 mavenCentral()
+}
+
+
+dependencies {
+	         compile project(":scarabei-api")
+	         compile project(":scarabei-red")
+	         compile group: 'org.apache.commons', name: 'com.springsource.org.apache.commons.codec', version: '1.6.0'
+}	
+	
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/']
+        }
+        resources {
+            
+        }
+    }
+}
