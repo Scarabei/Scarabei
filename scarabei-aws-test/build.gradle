@@ -14,10 +14,11 @@ repositories {
 dependencies {
 	         compile 'com.github.Scarabei.Scarabei:scarabei-api:-SNAPSHOT'
 	         compile 'com.github.Scarabei.Scarabei:scarabei-api-desktop:-SNAPSHOT'
+	         compile 'com.github.Scarabei.Scarabei:scarabei-aws-api:-SNAPSHOT'
+	         compile 'com.github.Scarabei.Scarabei:scarabei-aws-red:-SNAPSHOT'
 	         compile 'com.github.Scarabei.Scarabei:scarabei-red:-SNAPSHOT'
 	         compile 'com.github.Scarabei.Scarabei:scarabei-red-desktop:-SNAPSHOT'
-	         compile 'com.github.Scarabei.Scarabei:scarabei-gson:-SNAPSHOT'
-	         compile 'com.github.Scarabei.Scarabei:scarabei-apache-cmns:-SNAPSHOT'
+	         compile group: 'com.amazonaws', name: 'aws-java-sdk', version: '1.10.56'
 	         testCompile 'junit:junit:4.10'
 }	
 	
