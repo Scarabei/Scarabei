@@ -5,7 +5,7 @@ import com.jfixby.scarabei.api.ComponentInstaller;
 
 public class AWS {
 
-	static private ComponentInstaller<AWSComponent> componentInstaller = new ComponentInstaller<>("AWS");
+	static private ComponentInstaller<AWSComponent> componentInstaller = new ComponentInstaller<AWSComponent>("AWS");
 
 	public static final void installComponent (final AWSComponent component_to_install) {
 		componentInstaller.installComponent(component_to_install);

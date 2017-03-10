@@ -11,8 +11,11 @@ allprojects {
 	}
 	
 	dependencies {
-	         compile 'com.github.Scarabei.Scarabei:scarabei-api:-SNAPSHOT'
-	}
+    compile project(":scarabei-api")
+    compile project(":scarabei-db-api")
+ }   
+}
+	
 
 sourceSets {
     main {
