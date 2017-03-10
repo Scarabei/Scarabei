@@ -7,6 +7,7 @@ targetCompatibility = 1.8
 
 repositories {
         	 maven { url 'https://jitpack.io' }
+        	 mavenCentral()
 }
 
 
@@ -16,6 +17,7 @@ dependencies {
 	         compile 'com.github.Scarabei.Scarabei:scarabei-red:-SNAPSHOT'
 	         compile 'com.github.Scarabei.Scarabei:scarabei-red-desktop:-SNAPSHOT'
 	         compile 'com.github.Scarabei.Scarabei:scarabei-gson:-SNAPSHOT'
+	         testCompile 'junit:junit:4.10'
 }	
 	
 
