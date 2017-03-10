@@ -15,7 +15,7 @@ public class RedGifProducer implements GifProducer {
 	private AnimatedGifEncoder encoder;
 	private java.io.OutputStream java_os;
 	private final OutputStream os;
-	final ArrayList<ColorMap> buffer = new ArrayList<>();
+	final ArrayList<ColorMap> buffer = new ArrayList<ColorMap>();
 	private int buffer_max_size;
 
 	public RedGifProducer (final GifProducerSpecs producerSpecs) {

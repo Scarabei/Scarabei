@@ -5,7 +5,7 @@ import com.jfixby.scarabei.api.ComponentInstaller;
 
 public class DB {
 
-	static private ComponentInstaller<DBComponent> componentInstaller = new ComponentInstaller<>("DataBase");
+	static private ComponentInstaller<DBComponent> componentInstaller = new ComponentInstaller<DBComponent>("DataBase");
 
 	public static final void installComponent (final DBComponent component_to_install) {
 		componentInstaller.installComponent(component_to_install);

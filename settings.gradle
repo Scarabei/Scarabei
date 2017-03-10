@@ -1,4 +1,14 @@
 include 'scarabei-api'
 include 'scarabei-api-desktop'
+include 'scarabei-api-android'
+include 'scarabei-api-ios'
+include 'scarabei-aws-api'
+include 'scarabei-db-api'
 include 'scarabei-gson'
+include 'scarabei-red'
+include 'scarabei-red-android'
+include 'scarabei-red-desktop'
+include 'scarabei-red-ios'
+include 'scarabei-red-red-gwt'
+
 
