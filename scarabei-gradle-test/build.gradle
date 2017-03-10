@@ -12,7 +12,7 @@ allprojects {
 
 dependencies {
 	         compile 'com.github.Scarabei.Scarabei:scarabei-api:-SNAPSHOT'
-	         compile 'com.github.Scarabei.Scarabei:scarabei-desktop-api:-SNAPSHOT'
+	         compile 'com.github.Scarabei.Scarabei:scarabei-api-desktop:-SNAPSHOT'
 	}	
 	
 
