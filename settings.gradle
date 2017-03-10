@@ -1,1 +1,2 @@
 include 'scarabei-api'
+include 'scarabei-gson'
