@@ -1,0 +1,27 @@
+apply plugin: "java"
+apply plugin: "maven"
+
+sourceCompatibility = 1.8
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+repositories {
+        jcenter()
+}
+
+dependencies {
+    compile project(":scarabei-api")
+    compile project(":scarabei-red")
+    compile group: 'org.apache.activemq', name: 'activemq-all', version: '5.14.4'
+
+}
+    
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/']
+        }
+        resources {
+            
+        }
+    }
+}

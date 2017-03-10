@@ -15,6 +15,13 @@ include 'scarabei-red-gwt'
 include 'scarabei-red-gdx'
 include 'scarabei-apache-cmns'
 include 'scarabei-db-mysql'
+include 'scarabei-red-log-mq'
+include 'scarabei-rmi-api'
+include 'scarabei-rmi-client'
+include 'scarabei-rmi-server'
+include 'scarabei-rmi-file-server'
+
+
 
 
 
