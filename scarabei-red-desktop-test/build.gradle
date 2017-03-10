@@ -4,18 +4,19 @@ apply plugin: 'maven'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-allprojects {
-		repositories {
-			maven { url 'https://jitpack.io' }
-		}
-	}
+
+repositories {
+        	 maven { url 'https://jitpack.io' }
+}
+
 
 dependencies {
 	         compile 'com.github.Scarabei.Scarabei:scarabei-api:-SNAPSHOT'
 	         compile 'com.github.Scarabei.Scarabei:scarabei-api-desktop:-SNAPSHOT'
 	         compile 'com.github.Scarabei.Scarabei:scarabei-red:-SNAPSHOT'
 	         compile 'com.github.Scarabei.Scarabei:scarabei-red-desktop:-SNAPSHOT'
-	}	
+	         compile 'com.github.Scarabei.Scarabei:scarabei-gson:-SNAPSHOT'
+}	
 	
 
 sourceSets {
