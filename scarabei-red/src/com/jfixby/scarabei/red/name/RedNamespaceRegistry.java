@@ -133,7 +133,7 @@ public class RedNamespaceRegistry<T> implements NamespaceRegistry<T> {
 
 	@Override
 	public java.util.Map<ID, Collection<T>> toJavaMap () {
-		final Map<ID, ? extends Set<T>> map = this.map;
+		final Map<ID, ?> map = this.map;
 		final Map<ID, Collection<T>> map_t = (Map<ID, Collection<T>>)map;
 		return map_t.toJavaMap();
 	}
