@@ -1,0 +1,33 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+
+sourceCompatibility = 1.6
+targetCompatibility = 1.6
+
+allprojects {
+		repositories {
+			maven { url 'https://jitpack.io' }
+	    	mavenLocal()
+        	mavenCentral()
+        	maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        	maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+			
+		}
+	}
+
+dependencies {
+              compile project(":scarabei-api")
+              compile "com.badlogicgames.gdx:gdx:1.9.6"
+	}	
+	
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/']
+        }
+        resources {
+            
+        }
+    }
+}
