@@ -10,7 +10,7 @@ include 'scarabei-red'
 include 'scarabei-red-android'
 include 'scarabei-red-desktop'
 include 'scarabei-red-ios'
-include 'scarabei-red-red-gwt'
+include 'scarabei-red-gwt'
 include 'scarabei-red-gdx'
 
 
