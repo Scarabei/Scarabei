@@ -7,6 +7,7 @@ targetCompatibility = 1.6
 dependencies {
     compile project(":scarabei-api")
     compile project(":scarabei-api-ios")
+    compile project(":scarabei-red")
 }
 
 sourceSets {
