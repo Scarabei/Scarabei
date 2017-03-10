@@ -120,8 +120,9 @@ public class RedNamespaceRegistry<T> implements NamespaceRegistry<T> {
 
 	@Override
 	public Collection<Collection<T>> values () {
-		final Collection<? extends Set<T>> vals = this.map.values();
-		final Collection<Collection<T>> x = (Collection<Collection<T>>)vals;
+		final Collection<Set<T>> vals = this.map.values();
+		final Collection<?> obj = vals;
+		final Collection<Collection<T>> x = (Collection<Collection<T>>)obj;
 		return x;
 	}
 
