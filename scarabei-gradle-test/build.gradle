@@ -9,10 +9,12 @@ allprojects {
 			maven { url 'https://jitpack.io' }
 		}
 	}
-	
-	dependencies {
+
+dependencies {
 	         compile 'com.github.Scarabei.Scarabei:scarabei-api:-SNAPSHOT'
-	}
+	         compile 'com.github.Scarabei.Scarabei:scarabei-desktop-api:-SNAPSHOT'
+	}	
+	
 
 sourceSets {
     main {
