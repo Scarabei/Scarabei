@@ -1,9 +1,4 @@
 include 'scarabei-api'
 include 'scarabei-api-desktop'
-include 'scarabei-api-android'
-include 'scarabei-api-ios'
-include 'scarabei-db-api'
 include 'scarabei-gson'
-include 'scarabei-aws-api'
-include 'scarabei-db-api'
-include 'scarabei-db-mysql'
+
