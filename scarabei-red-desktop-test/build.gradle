@@ -17,6 +17,7 @@ dependencies {
 	         compile 'com.github.Scarabei.Scarabei:scarabei-red:-SNAPSHOT'
 	         compile 'com.github.Scarabei.Scarabei:scarabei-red-desktop:-SNAPSHOT'
 	         compile 'com.github.Scarabei.Scarabei:scarabei-gson:-SNAPSHOT'
+	         compile 'com.github.Scarabei.Scarabei:scarabei-apache-cmns:-SNAPSHOT'
 	         testCompile 'junit:junit:4.10'
 }	
 	

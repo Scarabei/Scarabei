@@ -1,20 +1,22 @@
 apply plugin: 'java'
 apply plugin: 'maven'
 
-sourceCompatibility = 1.6
-targetCompatibility = 1.6
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
-allprojects {
-		repositories {
-			maven { url 'https://jitpack.io' }
-		}
-	}
-	
-	dependencies {
-    compile project(":scarabei-api")
-    compile project(":scarabei-db-api")
- }   
+
+repositories {
+        	 maven { url 'https://jitpack.io' }
+        	 mavenCentral()
 }
+
+
+dependencies {
+	         compile project(":scarabei-api")
+	         compile project(":scarabei-db-api")
+	         compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.40'
+	         
+}	
 	
 
 sourceSets {
