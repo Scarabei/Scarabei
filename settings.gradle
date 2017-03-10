@@ -1,3 +1,4 @@
 include 'scarabei-api'
 include 'scarabei-api-android'
+include 'scarabei-api-desktop'
 include 'scarabei-gson'
