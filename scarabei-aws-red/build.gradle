@@ -1,0 +1,31 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+
+repositories {
+        	 maven { url 'https://jitpack.io' }
+        	 mavenCentral()
+}
+
+
+dependencies {
+	         compile project(":scarabei-api")
+	         compile project(":scarabei-red")
+	         compile project(":scarabei-aws-api")
+	         compile group: 'com.amazonaws', name: 'aws-java-sdk', version: '1.10.56'
+}	
+	
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/']
+        }
+        resources {
+            
+        }
+    }
+}
