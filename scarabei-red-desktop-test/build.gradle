@@ -12,6 +12,7 @@ repositories {
 
 
 dependencies {
+             
 	         compile 'com.github.Scarabei.Scarabei:scarabei-api:-SNAPSHOT'
 	         compile 'com.github.Scarabei.Scarabei:scarabei-api-desktop:-SNAPSHOT'
 	         compile 'com.github.Scarabei.Scarabei:scarabei-red:-SNAPSHOT'
