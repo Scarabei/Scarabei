@@ -136,7 +136,7 @@ public class RedHttpConnection implements HttpConnection {
 
 		this.java_connection.connect();
 
-		final String rm = this.java_connection.getResponseMessage();
+// final String rm = this.java_connection.getResponseMessage();
 // L.d("ResponseMessage", rm);
 	}
 
