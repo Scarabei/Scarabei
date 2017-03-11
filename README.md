@@ -24,12 +24,13 @@ repositories {
 dependencies {
 //format:  compile 'com.github.Scarabei.Scarabei:%project-name%:%version%'
 
+
            compile 'com.github.Scarabei.Scarabei:scarabei-api:-SNAPSHOT'
-	   compile 'com.github.Scarabei.Scarabei:scarabei-api-desktop:-SNAPSHOT'
-	   compile 'com.github.Scarabei.Scarabei:scarabei-red:-SNAPSHOT'
-	   compile 'com.github.Scarabei.Scarabei:scarabei-red-desktop:-SNAPSHOT'
-	   compile 'com.github.Scarabei.Scarabei:scarabei-gson:-SNAPSHOT'
-	   compile 'com.github.Scarabei.Scarabei:scarabei-apache-cmns:-SNAPSHOT'
+	       compile 'com.github.Scarabei.Scarabei:scarabei-api-desktop:-SNAPSHOT'
+	       compile 'com.github.Scarabei.Scarabei:scarabei-red:-SNAPSHOT'
+	       compile 'com.github.Scarabei.Scarabei:scarabei-red-desktop:-SNAPSHOT'
+	       compile 'com.github.Scarabei.Scarabei:scarabei-gson:-SNAPSHOT'
+	       compile 'com.github.Scarabei.Scarabei:scarabei-apache-cmns:-SNAPSHOT'
            
 	...
 }	
