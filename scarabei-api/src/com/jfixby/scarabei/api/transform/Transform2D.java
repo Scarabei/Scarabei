@@ -8,7 +8,7 @@ public class Transform2D {
 	static private ComponentInstaller<Transform2DComponent> componentInstaller = new ComponentInstaller<Transform2DComponent>(
 		"Transform2D");
 
-	public static final void installComponent (Transform2DComponent component_to_install) {
+	public static final void installComponent (final Transform2DComponent component_to_install) {
 		componentInstaller.installComponent(component_to_install);
 	}
 
