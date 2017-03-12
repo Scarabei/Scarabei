@@ -1,7 +1,7 @@
 
 package com.jfixby.scarabei.amazon.aws.s3;
 
-import com.jfixby.scarabei.aws.api.S3FileSystemConfig;
+import com.jfixby.scarabei.aws.api.s3.S3FileSystemConfig;
 
 class RedS3FileSystemConfig implements S3FileSystemConfig {
 

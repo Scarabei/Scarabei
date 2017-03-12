@@ -33,8 +33,8 @@ import com.jfixby.scarabei.api.log.L;
 import com.jfixby.scarabei.api.util.JUtils;
 import com.jfixby.scarabei.api.util.path.AbsolutePath;
 import com.jfixby.scarabei.api.util.path.RelativePath;
-import com.jfixby.scarabei.aws.api.S3FileSystem;
-import com.jfixby.scarabei.aws.api.S3FileSystemConfig;
+import com.jfixby.scarabei.aws.api.s3.S3FileSystem;
+import com.jfixby.scarabei.aws.api.s3.S3FileSystemConfig;
 import com.jfixby.scarabei.red.filesystem.AbstractFileSystem;
 
 class RedS3FileSystem extends AbstractFileSystem implements FileSystem, S3FileSystem {

@@ -1,9 +1,9 @@
 
 package com.jfixby.scarabei.amazon.aws.s3;
 
-import com.jfixby.scarabei.aws.api.S3;
-import com.jfixby.scarabei.aws.api.S3FileSystem;
-import com.jfixby.scarabei.aws.api.S3FileSystemConfig;
+import com.jfixby.scarabei.aws.api.s3.S3;
+import com.jfixby.scarabei.aws.api.s3.S3FileSystem;
+import com.jfixby.scarabei.aws.api.s3.S3FileSystemConfig;
 
 public class RedS3 implements S3 {
 

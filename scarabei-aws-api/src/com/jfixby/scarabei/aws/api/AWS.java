@@ -2,10 +2,12 @@
 package com.jfixby.scarabei.aws.api;
 
 import com.jfixby.scarabei.api.ComponentInstaller;
+import com.jfixby.scarabei.aws.api.s3.S3;
+import com.jfixby.scarabei.aws.api.sns.SNS;
 
 public class AWS {
 
-	static private ComponentInstaller<AWSComponent> componentInstaller = new ComponentInstaller<AWSComponent>("AWS");
+	static private ComponentInstaller<AWSComponent> componentInstaller = new ComponentInstaller<>("AWS");
 
 	public static final void installComponent (final AWSComponent component_to_install) {
 		componentInstaller.installComponent(component_to_install);
@@ -29,6 +31,10 @@ public class AWS {
 
 	public static S3 getS3 () {
 		return invoke().getS3();
+	}
+
+	public static SNS getSNS () {
+		return invoke().getSNS();
 	}
 
 }

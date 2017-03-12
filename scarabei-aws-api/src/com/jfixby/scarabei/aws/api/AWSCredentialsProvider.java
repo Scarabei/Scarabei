@@ -1,7 +1,7 @@
 
-package com.jfixby.scarabei.aws.api.s3;
+package com.jfixby.scarabei.aws.api;
 
-public interface S3CredentialsProvider {
+public interface AWSCredentialsProvider {
 
 	String getAccessKeyID ();
 
