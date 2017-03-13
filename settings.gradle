@@ -22,7 +22,7 @@ include 'scarabei-rmi-server'
 include 'scarabei-rmi-file-server'
 include 'scarabei-aws-test'
 include 'scarabei-rmi-test'
-include 'scarabei-desktop-test'
+include 'scarabei-red-desktop-test'
 
 
 
