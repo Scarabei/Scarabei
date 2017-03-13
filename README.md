@@ -7,7 +7,7 @@ Collection of open source reusable Java components
 [![](https://jitpack.io/v/Scarabei/Scarabei.svg)](https://jitpack.io/#Scarabei/Scarabei)
 
 # Installation
-See also: https://jitpack.io/#Scarabei/Scarabei/1.2.3
+See also: https://jitpack.io/#Scarabei/Scarabei/
 ```
 apply plugin: 'java'
 apply plugin: 'maven'
