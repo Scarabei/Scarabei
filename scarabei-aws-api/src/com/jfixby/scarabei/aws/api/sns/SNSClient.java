@@ -3,8 +3,8 @@ package com.jfixby.scarabei.aws.api.sns;
 
 public interface SNSClient {
 
-	SNSTopicSunscribeRequestParams newSunscribeParams ();
+	SNSTopicSunscribeRequestParams newSubscribeParams ();
 
-	SNSTopicSunscribeRequest sunscribe (SNSTopicSunscribeRequestParams params);
+	SNSTopicSunscribeRequest subscribe (SNSTopicSunscribeRequestParams params);
 
 }

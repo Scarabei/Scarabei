@@ -3,9 +3,11 @@ package com.jfixby.scarabei.amazon.aws;
 
 import com.jfixby.scarabei.amazon.aws.s3.RedS3;
 import com.jfixby.scarabei.amazon.aws.sns.RedSNS;
+import com.jfixby.scarabei.amazon.aws.sqs.RedSQS;
 import com.jfixby.scarabei.aws.api.AWSComponent;
 import com.jfixby.scarabei.aws.api.s3.S3;
 import com.jfixby.scarabei.aws.api.sns.SNS;
+import com.jfixby.scarabei.aws.api.sqs.SQS;
 
 public class RedAWS implements AWSComponent {
 
@@ -15,6 +17,7 @@ public class RedAWS implements AWSComponent {
 
 	final RedS3 S3 = new RedS3();
 	final RedSNS SNS = new RedSNS();
+	final RedSQS SQS = new RedSQS();
 
 	@Override
 	public S3 getS3 () {
@@ -24,6 +27,11 @@ public class RedAWS implements AWSComponent {
 	@Override
 	public SNS getSNS () {
 		return this.SNS;
+	}
+
+	@Override
+	public SQS getSQS () {
+		return this.SQS;
 	}
 
 }

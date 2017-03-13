@@ -46,12 +46,12 @@ public class RedSNSClient implements SNSClient {
 	}
 
 	@Override
-	public SNSTopicSunscribeRequestParams newSunscribeParams () {
+	public SNSTopicSunscribeRequestParams newSubscribeParams () {
 		return new RedSNSTopicSunscribeRequestParams();
 	}
 
 	@Override
-	public SNSTopicSunscribeRequest sunscribe (final SNSTopicSunscribeRequestParams params) {
+	public SNSTopicSunscribeRequest subscribe (final SNSTopicSunscribeRequestParams params) {
 		return new RedSNSTopicSunscribeRequest(params, this);
 	}
 

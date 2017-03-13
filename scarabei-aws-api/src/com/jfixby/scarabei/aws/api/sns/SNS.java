@@ -3,7 +3,7 @@ package com.jfixby.scarabei.aws.api.sns;
 
 public interface SNS {
 
-	SNSClientSpecs newSunscribeSpecs ();
+	SNSClientSpecs newClientSpecs ();
 
 	SNSClient newClient (SNSClientSpecs params);
 

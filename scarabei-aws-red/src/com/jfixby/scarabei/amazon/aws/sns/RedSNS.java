@@ -8,7 +8,7 @@ import com.jfixby.scarabei.aws.api.sns.SNSClientSpecs;
 public class RedSNS implements SNS {
 
 	@Override
-	public SNSClientSpecs newSunscribeSpecs () {
+	public SNSClientSpecs newClientSpecs () {
 		return new RedSNSClientSpecs();
 	}
 

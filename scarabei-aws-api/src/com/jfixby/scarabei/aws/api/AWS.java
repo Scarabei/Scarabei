@@ -4,6 +4,7 @@ package com.jfixby.scarabei.aws.api;
 import com.jfixby.scarabei.api.ComponentInstaller;
 import com.jfixby.scarabei.aws.api.s3.S3;
 import com.jfixby.scarabei.aws.api.sns.SNS;
+import com.jfixby.scarabei.aws.api.sqs.SQS;
 
 public class AWS {
 
@@ -35,6 +36,10 @@ public class AWS {
 
 	public static SNS getSNS () {
 		return invoke().getSNS();
+	}
+
+	public static SQS getSQS () {
+		return invoke().getSQS();
 	}
 
 }
