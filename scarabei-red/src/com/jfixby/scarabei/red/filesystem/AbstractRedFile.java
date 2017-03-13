@@ -184,7 +184,7 @@ public abstract class AbstractRedFile implements File {
 
 	@Override
 	public FileHash calculateHash () throws IOException {
-		return new RedFileHash((this.getAbstractFileSystem()).md5Hex(this));
+		return ((this.getAbstractFileSystem()).md5Hex(this));
 	}
 
 	private AbstractFileSystem getAbstractFileSystem () {

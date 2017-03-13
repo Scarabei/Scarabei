@@ -19,6 +19,7 @@ import com.jfixby.scarabei.api.io.InputStream;
 import com.jfixby.scarabei.api.java.ByteArray;
 import com.jfixby.scarabei.api.log.L;
 import com.jfixby.scarabei.api.md5.MD5;
+import com.jfixby.scarabei.api.md5.MD5String;
 import com.jfixby.scarabei.api.util.JUtils;
 import com.jfixby.scarabei.api.util.path.AbsolutePath;
 
@@ -43,12 +44,12 @@ public abstract class AbstractFileSystem implements FileSystem {
 
 // abstract public String md5Hex (File file) throws IOException;
 
-	final public String md5Hex (final File file) throws IOException {
+	final public MD5String md5Hex (final File file) throws IOException {
 		final InputStream input_stream = this.newFileInputStream(file);
 		input_stream.open();
-		final String checksum = MD5.md5Stream(input_stream);
+		final MD5String checksum = MD5.md5Stream(input_stream);
 		input_stream.close();
-		return checksum.toUpperCase();
+		return checksum;
 	}
 
 	@Override

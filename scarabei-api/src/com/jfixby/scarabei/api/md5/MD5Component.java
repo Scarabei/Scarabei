@@ -9,8 +9,8 @@ public interface MD5Component {
 
 // String md5Stream (java.io.InputStream java_input_stream) throws IOException;
 
-	String md5String (String password);
+	MD5String md5String (String password);
 
-	String md5Stream (InputStream input_stream) throws IOException;
+	MD5String md5Stream (InputStream input_stream) throws IOException;
 
 }

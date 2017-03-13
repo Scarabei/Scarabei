@@ -24,17 +24,13 @@ public class RedSQSMessage implements SQSMessage {
 		final Map<String, String> atr = this.awsMsg.getAttributes();
 		if (atr.size() > 0) {
 			L.d("    attributes", atr);
-		}
 
-// L.d("---SQSMessage[" + this.awsMsg.getMessageId() + "]----------------------------------");
-// System.out.println(" ReceiptHandle: " + message.getReceiptHandle());
-// System.out.println(" MD5OfBody: " + message.getMD5OfBody());
-// System.out.println(" Body: " + message.getBody());
-// for (Entry<String, String> entry : message.getAttributes().entrySet()) {
-// System.out.println(" Attribute");
-// System.out.println(" Name: " + entry.getKey());
-// System.out.println(" Value: " + entry.getValue());
-// }
+		}
+	}
+
+	@Override
+	public String getBody () {
+		return this.awsMsg.getBody();
 	}
 
 }

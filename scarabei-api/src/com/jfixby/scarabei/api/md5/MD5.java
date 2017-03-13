@@ -25,11 +25,11 @@ public class MD5 {
 		return componentInstaller.getComponent();
 	}
 
-	public static String md5Stream (final InputStream java_input_stream) throws IOException {
+	public static MD5String md5Stream (final InputStream java_input_stream) throws IOException {
 		return invoke().md5Stream(java_input_stream);
 	}
 
-	public static String md5String (final String password) {
+	public static MD5String md5String (final String password) {
 		return invoke().md5String(password);
 	}
 }

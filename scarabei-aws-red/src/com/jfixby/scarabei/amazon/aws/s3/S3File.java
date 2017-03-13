@@ -16,8 +16,8 @@ import com.jfixby.scarabei.api.util.JUtils;
 import com.jfixby.scarabei.api.util.path.AbsolutePath;
 import com.jfixby.scarabei.api.util.path.RelativePath;
 import com.jfixby.scarabei.red.filesystem.AbstractRedFile;
-import com.jfixby.scarabei.red.filesystem.RedFileHash;
 import com.jfixby.scarabei.red.filesystem.RedFilesList;
+import com.jfixby.scarabei.red.util.md5.RedMD5String;
 
 class S3File extends AbstractRedFile implements File {
 
@@ -198,7 +198,7 @@ class S3File extends AbstractRedFile implements File {
 		if (info == null) {
 // return null;
 		}
-		return new RedFileHash(info.md5());
+		return new RedMD5String(info.md5());
 	}
 
 	public S3ObjectInfo info () {

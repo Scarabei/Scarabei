@@ -45,6 +45,7 @@ import java.io.IOException;
 import com.jfixby.scarabei.api.debug.Debug;
 import com.jfixby.scarabei.api.io.InputStream;
 import com.jfixby.scarabei.api.md5.MD5Component;
+import com.jfixby.scarabei.api.md5.MD5String;
 import com.jfixby.scarabei.api.util.JUtils;
 
 public final class RSADataSecurityIncMD5 extends RedMD5 implements MD5Component {
@@ -287,7 +288,7 @@ public final class RSADataSecurityIncMD5 extends RedMD5 implements MD5Component 
 	}
 
 	@Override
-	public String md5Stream (final InputStream input_stream) throws IOException {
+	public MD5String md5Stream (final InputStream input_stream) throws IOException {
 		Debug.checkNull("input_stream", input_stream);
 		final byte[] data = input_stream.readAll().toArray();
 		this.reset();
@@ -296,7 +297,7 @@ public final class RSADataSecurityIncMD5 extends RedMD5 implements MD5Component 
 		this.digest(result);
 		final String md5_string = encodeHexString(result);
 		this.reset();
-		return md5_string;
+		return new RedMD5String(md5_string);
 	}
 
 	public static String encodeHexString (final byte[] bytes) {

@@ -20,8 +20,8 @@ import com.jfixby.scarabei.api.net.http.HttpURL;
 import com.jfixby.scarabei.api.util.path.AbsolutePath;
 import com.jfixby.scarabei.api.util.path.RelativePath;
 import com.jfixby.scarabei.red.filesystem.AbstractRedFile;
-import com.jfixby.scarabei.red.filesystem.RedFileHash;
 import com.jfixby.scarabei.red.filesystem.RedFilesList;
+import com.jfixby.scarabei.red.util.md5.RedMD5String;
 
 class RedHttpFile extends AbstractRedFile implements File {
 
@@ -259,7 +259,7 @@ class RedHttpFile extends AbstractRedFile implements File {
 	public FileHash calculateHash () throws IOException {
 		final FolderSupportingIndex desc = this.parent().readDescriptor();
 		final FolderSupportingIndexEntry entry = desc.entries.get(this.getName());
-		return new RedFileHash(entry.hash);
+		return new RedMD5String(entry.hash);
 	}
 
 }

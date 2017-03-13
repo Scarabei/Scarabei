@@ -1,13 +1,26 @@
 
-package com.jfixby.scarabei.red.filesystem;
+package com.jfixby.scarabei.red.util.md5;
 
 import com.jfixby.scarabei.api.file.FileHash;
+import com.jfixby.scarabei.api.md5.MD5String;
 
-public final class RedFileHash implements FileHash {
+public class RedMD5String implements MD5String, FileHash {
+
+	public RedMD5String (final String string) {
+		this.md5Hex = string.toLowerCase();
+		String readable_md5 = "";
+		for (int i = 0; i < this.md5Hex.length(); i = i + 2) {
+			readable_md5 = readable_md5 + this.md5Hex.charAt(i) + this.md5Hex.charAt(i + 1);
+			if (i + 2 < this.md5Hex.length()) {
+				readable_md5 = readable_md5 + ":";
+			}
+		}
+		this.readable_md5 = readable_md5;
+	}
 
 	@Override
 	public String toString () {
-		return "FileHash [MD5=" + this.readable_md5 + "]";
+		return this.md5Hex;
 	}
 
 	private final String md5Hex;
@@ -32,7 +45,7 @@ public final class RedFileHash implements FileHash {
 		if (this.getClass() != obj.getClass()) {
 			return false;
 		}
-		final RedFileHash other = (RedFileHash)obj;
+		final RedMD5String other = (RedMD5String)obj;
 		if (this.md5Hex == null) {
 			if (other.md5Hex != null) {
 				return false;
@@ -41,18 +54,6 @@ public final class RedFileHash implements FileHash {
 			return false;
 		}
 		return true;
-	}
-
-	public RedFileHash (final String md5Hex) {
-		this.md5Hex = md5Hex.toLowerCase();
-		String readable_md5 = "";
-		for (int i = 0; i < md5Hex.length(); i = i + 2) {
-			readable_md5 = readable_md5 + md5Hex.charAt(i) + md5Hex.charAt(i + 1);
-			if (i + 2 < md5Hex.length()) {
-				readable_md5 = readable_md5 + ":";
-			}
-		}
-		this.readable_md5 = readable_md5;
 	}
 
 	@Override
