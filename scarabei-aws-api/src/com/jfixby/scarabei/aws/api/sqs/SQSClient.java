@@ -1,6 +1,12 @@
 
 package com.jfixby.scarabei.aws.api.sqs;
 
+import com.jfixby.scarabei.api.collections.Collection;
+
 public interface SQSClient {
-	SQSReceiveMessageRequestResult receive (SQSReceiveMessageRequest request);
+	SQSReceiveMessageResult receive (SQSReceiveMessageRequest request);
+
+	SQSCreateQueueResult createQueue (SQSCreateQueueParams createQueueRequestParams);
+
+	Collection<String> listAllSQSUrls ();
 }

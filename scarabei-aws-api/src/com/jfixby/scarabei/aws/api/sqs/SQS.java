@@ -7,8 +7,10 @@ public interface SQS {
 
 	SQSClient newClient (SQSClienSpecs specs);
 
-	SQSReceiveMessageRequestParams newReceiveMessageRequestParams ();
+	SQSReceiveMessageParams newReceiveMessageParams ();
 
-	SQSReceiveMessageRequest newReceiveMessageRequest (SQSReceiveMessageRequestParams params);
+	SQSReceiveMessageRequest newReceiveMessageRequest (SQSReceiveMessageParams params);
+
+	SQSCreateQueueParams newCreateQueueParams ();
 
 }

@@ -1,9 +1,9 @@
 
 package com.jfixby.scarabei.amazon.aws.sqs;
 
-import com.jfixby.scarabei.aws.api.sqs.SQSReceiveMessageRequestParams;
+import com.jfixby.scarabei.aws.api.sqs.SQSReceiveMessageParams;
 
-public class RedSQSReceiveMessageRequestParams implements SQSReceiveMessageRequestParams {
+public class RedSQSReceiveMessageRequestParams implements SQSReceiveMessageParams {
 
 	private String url;
 

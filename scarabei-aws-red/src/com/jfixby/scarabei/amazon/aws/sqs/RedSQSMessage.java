@@ -10,9 +10,11 @@ import com.jfixby.scarabei.aws.api.sqs.SQSMessage;
 public class RedSQSMessage implements SQSMessage {
 
 	private final Message awsMsg;
+	private final String receiptHandle;
 
 	public RedSQSMessage (final Message m) {
 		this.awsMsg = m;
+		this.receiptHandle = this.awsMsg.getReceiptHandle();
 	}
 
 	@Override
@@ -21,6 +23,7 @@ public class RedSQSMessage implements SQSMessage {
 		L.d(" ReceiptHandle", this.awsMsg.getReceiptHandle());
 		L.d("     MD5OfBody", this.awsMsg.getMD5OfBody());
 		L.d("          Body", this.awsMsg.getBody());
+		L.d(" ReceiptHandle", this.receiptHandle);
 		final Map<String, String> atr = this.awsMsg.getAttributes();
 		if (atr.size() > 0) {
 			L.d("    attributes", atr);
@@ -31,6 +34,11 @@ public class RedSQSMessage implements SQSMessage {
 	@Override
 	public String getBody () {
 		return this.awsMsg.getBody();
+	}
+
+	@Override
+	public String getReceiptHandle () {
+		return this.receiptHandle;
 	}
 
 }

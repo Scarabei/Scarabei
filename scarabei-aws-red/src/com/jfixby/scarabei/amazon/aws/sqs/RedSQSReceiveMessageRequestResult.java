@@ -8,14 +8,14 @@ import com.jfixby.scarabei.api.collections.Collection;
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.List;
 import com.jfixby.scarabei.aws.api.sqs.SQSMessage;
-import com.jfixby.scarabei.aws.api.sqs.SQSReceiveMessageRequestResult;
 
-public class RedSQSReceiveMessageRequestResult implements SQSReceiveMessageRequestResult {
+public class RedSQSReceiveMessageRequestResult implements com.jfixby.scarabei.aws.api.sqs.SQSReceiveMessageResult {
 
 	private final ReceiveMessageResult aws_result;
 
 	public RedSQSReceiveMessageRequestResult (final RedSQSReceiveMessageRequest request, final AmazonSQSClient awsSQSClient) {
 		this.aws_result = awsSQSClient.receiveMessage(request.aws_request);
+
 	}
 
 	@Override

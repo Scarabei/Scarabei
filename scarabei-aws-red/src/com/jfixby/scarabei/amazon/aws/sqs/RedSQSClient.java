@@ -3,11 +3,16 @@ package com.jfixby.scarabei.amazon.aws.sqs;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.services.sqs.AmazonSQSClient;
+import com.amazonaws.services.sqs.model.ListQueuesResult;
+import com.jfixby.scarabei.api.collections.Collection;
+import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.aws.api.AWSCredentialsProvider;
 import com.jfixby.scarabei.aws.api.sqs.SQSClienSpecs;
 import com.jfixby.scarabei.aws.api.sqs.SQSClient;
+import com.jfixby.scarabei.aws.api.sqs.SQSCreateQueueParams;
+import com.jfixby.scarabei.aws.api.sqs.SQSCreateQueueResult;
 import com.jfixby.scarabei.aws.api.sqs.SQSReceiveMessageRequest;
-import com.jfixby.scarabei.aws.api.sqs.SQSReceiveMessageRequestResult;
+import com.jfixby.scarabei.aws.api.sqs.SQSReceiveMessageResult;
 
 public class RedSQSClient implements SQSClient {
 
@@ -50,8 +55,19 @@ public class RedSQSClient implements SQSClient {
 	}
 
 	@Override
-	public SQSReceiveMessageRequestResult receive (final SQSReceiveMessageRequest request) {
+	public SQSReceiveMessageResult receive (final SQSReceiveMessageRequest request) {
 		return new RedSQSReceiveMessageRequestResult((RedSQSReceiveMessageRequest)request, this.awsSQSClient);
+	}
+
+	@Override
+	public SQSCreateQueueResult createQueue (final SQSCreateQueueParams createQueueRequestParams) {
+		return new RedSQSCreateQueueResult(createQueueRequestParams, this.awsSQSClient);
+	}
+
+	@Override
+	public Collection<String> listAllSQSUrls () {
+		final ListQueuesResult list = this.awsSQSClient.listQueues();
+		return Collections.newList(list.getQueueUrls());
 	}
 
 }

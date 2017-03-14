@@ -1,7 +1,7 @@
 
 package com.jfixby.scarabei.aws.api.sqs;
 
-public interface SQSReceiveMessageRequestParams {
+public interface SQSReceiveMessageParams {
 
 	String getQueueURL ();
 

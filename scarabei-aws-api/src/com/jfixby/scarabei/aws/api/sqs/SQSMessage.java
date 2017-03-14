@@ -5,4 +5,6 @@ public interface SQSMessage {
 	public void print ();
 
 	public String getBody ();
+
+	public String getReceiptHandle ();
 }
