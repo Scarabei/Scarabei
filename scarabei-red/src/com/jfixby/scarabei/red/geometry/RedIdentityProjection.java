@@ -7,7 +7,11 @@ import com.jfixby.scarabei.api.geometry.projections.IdentityProjection;
 public final class RedIdentityProjection implements IdentityProjection {
 
 	@Override
-	public void project (final Float2 point) {
+	final public void project (final Float2 point) {
+	}
+
+	@Override
+	final public void unProject (final Float2 point) {
 	}
 
 }

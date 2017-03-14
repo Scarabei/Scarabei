@@ -30,4 +30,18 @@ public class RedScaleProjection implements ScaleProjection {
 		this.setScaleY(h);
 	}
 
+	@Override
+	public void unProject (final Float2 point) {
+		if (this.scaleX != 0) {
+			point.setX(point.getX() / this.scaleX);
+		} else {
+			point.setX(Double.MAX_VALUE);
+		}
+		if (this.scaleY != 0) {
+			point.setY(point.getY() / this.scaleY);
+		} else {
+			point.setY(Double.MAX_VALUE);
+		}
+	}
+
 }

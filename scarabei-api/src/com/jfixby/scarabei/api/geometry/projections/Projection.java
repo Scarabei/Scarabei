@@ -7,4 +7,6 @@ public interface Projection {
 
 	public void project (final Float2 point);
 
+	public void unProject (final Float2 point);
+
 }

@@ -1,3 +1,4 @@
+
 package com.jfixby.scarabei.adopted.gdx;
 
 import com.badlogic.gdx.math.EarClippingTriangulator;
@@ -14,37 +15,37 @@ import com.jfixby.scarabei.api.math.SimpleTriangulatorComponent;
 public class GdxSimpleTriangulator implements SimpleTriangulatorComponent {
 
 	@Override
-	public List<Triangle> triangulate(EditableCollection<Float2> vertices_list) {
-		FloatArray vertices = new FloatArray();
+	public List<Triangle> triangulate (final EditableCollection<Float2> vertices_list) {
+		final FloatArray vertices = new FloatArray();
 		for (int i = 0; i < vertices_list.size(); i++) {
-			Float2 point_i = vertices_list.getElementAt(i);
-			vertices.add((float) point_i.getX());
-			vertices.add((float) point_i.getY());
+			final Float2 point_i = vertices_list.getElementAt(i);
+			vertices.add((float)point_i.getX());
+			vertices.add((float)point_i.getY());
 		}
 
-		EarClippingTriangulator triangulator = new EarClippingTriangulator();
-		ShortArray result_numeration = triangulator.computeTriangles(vertices);
-		List<Short> indexes = Collections.newList();
+		final EarClippingTriangulator triangulator = new EarClippingTriangulator();
+		final ShortArray result_numeration = triangulator.computeTriangles(vertices);
+		final List<Short> indexes = Collections.newList();
 		for (int i = 0; i < result_numeration.size; i++) {
-			Short element = result_numeration.get(i);
+			final Short element = result_numeration.get(i);
 			indexes.add(element);
 		}
-		List<Triangle> result = Collections.newList();
+		final List<Triangle> result = Collections.newList();
 		for (int i = 0; i < indexes.size(); i = i + 3) {
-			int index_0 = indexes.getElementAt(i);
-			int index_1 = indexes.getElementAt(i + 1);
-			int index_2 = indexes.getElementAt(i + 2);
+			final int index_0 = indexes.getElementAt(i);
+			final int index_1 = indexes.getElementAt(i + 1);
+			final int index_2 = indexes.getElementAt(i + 2);
 
-			double x_0 = vertices.get(index_0 * 2);
-			double y_0 = vertices.get(index_0 * 2 + 1);
+			final double x_0 = vertices.get(index_0 * 2);
+			final double y_0 = vertices.get(index_0 * 2 + 1);
 
-			double x_1 = vertices.get(index_1 * 2);
-			double y_1 = vertices.get(index_1 * 2 + 1);
+			final double x_1 = vertices.get(index_1 * 2);
+			final double y_1 = vertices.get(index_1 * 2 + 1);
 
-			double x_2 = vertices.get(index_2 * 2);
-			double y_2 = vertices.get(index_2 * 2 + 1);
+			final double x_2 = vertices.get(index_2 * 2);
+			final double y_2 = vertices.get(index_2 * 2 + 1);
 
-			Triangle triangle = Geometry.newTriangle();
+			final Triangle triangle = Geometry.newTriangle();
 
 			triangle.A().relative().setXY(x_0, y_0);
 			triangle.B().relative().setXY(x_1, y_1);

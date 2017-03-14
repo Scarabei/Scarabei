@@ -33,4 +33,13 @@ public class RedSkewProjection implements SkewProjection {
 		this.skewY.setValue(skewy);
 	}
 
+	@Override
+	public void unProject (final Float2 point) {
+		this.x = point.getX();
+		this.y = point.getY();
+		point.setX(this.x + Math.sin(-this.skewX.toRadians()) * this.y);
+		point.setY(this.y + Math.sin(-this.skewY.toRadians()) * this.x);
+
+	}
+
 }

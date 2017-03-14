@@ -54,4 +54,16 @@ public class RedProjectionsStack implements ProjectionsStack, ComposedProjection
 		}
 	}
 
+	@Override
+	public void unProject (final Float2 point) {
+		if (this.stack.size() == 0) {
+			return;
+		}
+
+		for (int i = 0; i < this.size(); i++) {
+			final Projection projection_i = this.stack.get(i);
+			projection_i.unProject(point);
+		}
+	}
+
 }

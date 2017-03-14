@@ -55,4 +55,10 @@ public final class RedOffsetProjection implements OffsetProjection {
 		this.setOffsetY(y);
 	}
 
+	@Override
+	public void unProject (final Float2 point) {
+		point.setX(point.getX() - this.offsetX);
+		point.setY(point.getY() - this.offsetY);
+	}
+
 }
