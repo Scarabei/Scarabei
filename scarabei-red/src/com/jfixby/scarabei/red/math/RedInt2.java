@@ -1,8 +1,8 @@
 
 package com.jfixby.scarabei.red.math;
 
-import com.jfixby.scarabei.api.math.ReadOnlyInt2;
 import com.jfixby.scarabei.api.math.Int2;
+import com.jfixby.scarabei.api.math.ReadOnlyInt2;
 
 public class RedInt2 implements Int2 {
 	long x;

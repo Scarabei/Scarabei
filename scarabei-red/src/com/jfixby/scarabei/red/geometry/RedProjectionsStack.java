@@ -4,9 +4,9 @@ package com.jfixby.scarabei.red.geometry;
 import java.util.ArrayList;
 
 import com.jfixby.scarabei.api.floatn.Float2;
-import com.jfixby.scarabei.api.geometry.ComposedProjection;
-import com.jfixby.scarabei.api.geometry.Projection;
-import com.jfixby.scarabei.api.geometry.ProjectionsStack;
+import com.jfixby.scarabei.api.geometry.projections.ComposedProjection;
+import com.jfixby.scarabei.api.geometry.projections.Projection;
+import com.jfixby.scarabei.api.geometry.projections.ProjectionsStack;
 
 public class RedProjectionsStack implements ProjectionsStack, ComposedProjection {
 

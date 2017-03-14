@@ -2,7 +2,7 @@
 package com.jfixby.scarabei.red.geometry;
 
 import com.jfixby.scarabei.api.floatn.Float2;
-import com.jfixby.scarabei.api.geometry.IdentityProjection;
+import com.jfixby.scarabei.api.geometry.projections.IdentityProjection;
 
 public final class RedIdentityProjection implements IdentityProjection {
 

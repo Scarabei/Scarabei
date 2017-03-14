@@ -3,7 +3,7 @@ package com.jfixby.scarabei.red.geometry;
 
 import com.jfixby.scarabei.api.angles.Angles;
 import com.jfixby.scarabei.api.floatn.Float2;
-import com.jfixby.scarabei.api.geometry.RotateProjection;
+import com.jfixby.scarabei.api.geometry.projections.RotateProjection;
 import com.jfixby.scarabei.api.math.Angle;
 import com.jfixby.scarabei.api.math.CustomAngle;
 

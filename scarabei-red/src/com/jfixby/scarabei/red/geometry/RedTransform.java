@@ -1,13 +1,13 @@
 
 package com.jfixby.scarabei.red.geometry;
 
-import com.jfixby.scarabei.api.floatn.ReadOnlyFloat2;
 import com.jfixby.scarabei.api.floatn.Float2;
+import com.jfixby.scarabei.api.floatn.ReadOnlyFloat2;
 import com.jfixby.scarabei.api.geometry.Geometry;
+import com.jfixby.scarabei.api.geometry.projections.CanvasTransform;
 import com.jfixby.scarabei.api.math.Angle;
 import com.jfixby.scarabei.api.math.MathTools;
 import com.jfixby.scarabei.api.math.VectorTool;
-import com.jfixby.scarabei.api.transform.CanvasTransform;
 
 public class RedTransform implements CanvasTransform {
 
@@ -47,13 +47,13 @@ public class RedTransform implements CanvasTransform {
 		temp_point.setX(temp_point.getX() * this.scale.getX());
 		temp_point.setY(temp_point.getY() * this.scale.getY());
 
-		vector_tool.X = temp_point.getX();
-		vector_tool.Y = temp_point.getY();
-		vector_tool.XYtoAR();
-		vector_tool.A = vector_tool.A + this.position.getRotation().toRadians();
-		vector_tool.ARtoXY();
-		temp_point.setX(vector_tool.X + position.getX());
-		temp_point.setY(vector_tool.Y + position.getY());
+		this.vector_tool.X = temp_point.getX();
+		this.vector_tool.Y = temp_point.getY();
+		this.vector_tool.XYtoAR();
+		this.vector_tool.A = this.vector_tool.A + this.position.getRotation().toRadians();
+		this.vector_tool.ARtoXY();
+		temp_point.setX(this.vector_tool.X + this.position.getX());
+		temp_point.setY(this.vector_tool.Y + this.position.getY());
 
 		// setup();
 		//
@@ -96,14 +96,14 @@ public class RedTransform implements CanvasTransform {
 	}
 
 	@Override
-	public void reverse (Float2 temp_point) {
-		vector_tool.X = temp_point.getX() - position.getX();
-		vector_tool.Y = temp_point.getY() - position.getY();
-		vector_tool.XYtoAR();
-		vector_tool.A = vector_tool.A - this.position.getRotation().toRadians();
-		vector_tool.ARtoXY();
-		temp_point.setX(vector_tool.X / this.scale.getX());
-		temp_point.setY(vector_tool.Y / this.scale.getY());
+	public void reverse (final Float2 temp_point) {
+		this.vector_tool.X = temp_point.getX() - this.position.getX();
+		this.vector_tool.Y = temp_point.getY() - this.position.getY();
+		this.vector_tool.XYtoAR();
+		this.vector_tool.A = this.vector_tool.A - this.position.getRotation().toRadians();
+		this.vector_tool.ARtoXY();
+		temp_point.setX(this.vector_tool.X / this.scale.getX());
+		temp_point.setY(this.vector_tool.Y / this.scale.getY());
 
 		// vector_tool.X = temp_point.getX();
 		// vector_tool.Y = temp_point.getY();
@@ -119,25 +119,25 @@ public class RedTransform implements CanvasTransform {
 	// final private Point offset = Geometry.newPoint();
 
 	@Override
-	public void setOffset (double x, double y) {
+	public void setOffset (final double x, final double y) {
 		this.position.setXY(x, y);
 		// need_setup = true;
 	}
 
 	@Override
-	public void setOffset (ReadOnlyFloat2 offset) {
+	public void setOffset (final ReadOnlyFloat2 offset) {
 		this.position.set(offset);
 		// need_setup = true;
 	}
 
 	@Override
-	public void setOffsetX (double x) {
+	public void setOffsetX (final double x) {
 		// need_setup = true;
 		this.position.setX(x);
 	}
 
 	@Override
-	public void setOffsetY (double y) {
+	public void setOffsetY (final double y) {
 		// need_setup = true;
 		this.position.setY(y);
 	}
@@ -159,13 +159,13 @@ public class RedTransform implements CanvasTransform {
 	}
 
 	@Override
-	public void setRotation (Angle rotation) {
+	public void setRotation (final Angle rotation) {
 		// need_setup = true;
 		this.position.getRotation().setValue(rotation);
 	}
 
 	@Override
-	public void setRotation (double radians) {
+	public void setRotation (final double radians) {
 		// need_setup = true;
 		this.position.getRotation().setValue(radians);
 	}
@@ -177,25 +177,25 @@ public class RedTransform implements CanvasTransform {
 	}
 
 	@Override
-	public void setSkew (double skewx, double skewy) {
+	public void setSkew (final double skewx, final double skewy) {
 		// need_setup = true;
 		this.skew.setXY(skewx, skewy);
 	}
 
 	@Override
-	public void setSkewX (double skew) {
+	public void setSkewX (final double skew) {
 		// need_setup = true;
 		this.skew.setX(skew);
 	}
 
 	@Override
-	public void setSkewY (double skew) {
+	public void setSkewY (final double skew) {
 		// need_setup = true;
 		this.skew.setY(skew);
 	}
 
 	@Override
-	public void setSkew (ReadOnlyFloat2 skew) {
+	public void setSkew (final ReadOnlyFloat2 skew) {
 		// need_setup = true;
 		this.skew.set(skew);
 	}
@@ -219,25 +219,25 @@ public class RedTransform implements CanvasTransform {
 	//
 
 	@Override
-	public void setScale (double scalex, double scaley) {
+	public void setScale (final double scalex, final double scaley) {
 		// need_setup = true;
 		this.scale.setXY(scalex, scaley);
 	}
 
 	@Override
-	public void setScaleX (double scale) {
+	public void setScaleX (final double scale) {
 		// need_setup = true;
 		this.scale.setX(scale);
 	}
 
 	@Override
-	public void setScaleY (double scale) {
+	public void setScaleY (final double scale) {
 		// need_setup = true;
 		this.scale.setY(scale);
 	}
 
 	@Override
-	public void setScale (ReadOnlyFloat2 scale) {
+	public void setScale (final ReadOnlyFloat2 scale) {
 		// need_setup = true;
 		this.scale.set(scale);
 	}

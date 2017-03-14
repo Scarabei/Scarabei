@@ -1,13 +1,13 @@
 
 package com.jfixby.scarabei.red.geometry;
 
-import com.jfixby.scarabei.api.geometry.ComposedProjection;
-import com.jfixby.scarabei.api.geometry.IdentityProjection;
-import com.jfixby.scarabei.api.geometry.OffsetProjection;
-import com.jfixby.scarabei.api.geometry.Projection;
-import com.jfixby.scarabei.api.geometry.ProjectionFactory;
-import com.jfixby.scarabei.api.geometry.RotateAndOffsetProjection;
-import com.jfixby.scarabei.api.geometry.RotateProjection;
+import com.jfixby.scarabei.api.geometry.projections.ComposedProjection;
+import com.jfixby.scarabei.api.geometry.projections.IdentityProjection;
+import com.jfixby.scarabei.api.geometry.projections.OffsetProjection;
+import com.jfixby.scarabei.api.geometry.projections.Projection;
+import com.jfixby.scarabei.api.geometry.projections.ProjectionFactory;
+import com.jfixby.scarabei.api.geometry.projections.RotateAndOffsetProjection;
+import com.jfixby.scarabei.api.geometry.projections.RotateProjection;
 
 public class RedProjectionFactory implements ProjectionFactory {
 

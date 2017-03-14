@@ -1,5 +1,5 @@
 
-package com.jfixby.scarabei.api.geometry;
+package com.jfixby.scarabei.api.geometry.projections;
 
 import com.jfixby.scarabei.api.math.Angle;
 

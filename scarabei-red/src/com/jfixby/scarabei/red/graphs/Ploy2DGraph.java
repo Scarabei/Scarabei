@@ -3,8 +3,8 @@ package com.jfixby.scarabei.red.graphs;
 
 import com.jfixby.scarabei.api.collections.EditableCollection;
 import com.jfixby.scarabei.api.collections.List;
-import com.jfixby.scarabei.api.floatn.ReadOnlyFloat2;
 import com.jfixby.scarabei.api.floatn.Float2;
+import com.jfixby.scarabei.api.floatn.ReadOnlyFloat2;
 import com.jfixby.scarabei.api.graphs.PathInGraph;
 import com.jfixby.scarabei.api.graphs.PolyGraph;
 

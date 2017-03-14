@@ -1,8 +1,8 @@
 
 package com.jfixby.scarabei.red.geometry;
 
-import com.jfixby.scarabei.api.floatn.ReadOnlyFloat2;
 import com.jfixby.scarabei.api.floatn.Float2;
+import com.jfixby.scarabei.api.floatn.ReadOnlyFloat2;
 import com.jfixby.scarabei.api.geometry.Geometry;
 import com.jfixby.scarabei.api.geometry.Triangle;
 import com.jfixby.scarabei.api.math.MathTools;

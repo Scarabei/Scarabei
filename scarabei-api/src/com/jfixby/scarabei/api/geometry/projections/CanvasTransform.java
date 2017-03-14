@@ -1,10 +1,10 @@
 
-package com.jfixby.scarabei.api.transform;
+package com.jfixby.scarabei.api.geometry.projections;
 
 import com.jfixby.scarabei.api.floatn.ReadOnlyFloat2;
 import com.jfixby.scarabei.api.math.Angle;
 
-public interface CanvasTransform extends Transform {
+public interface CanvasTransform extends Transform2D {
 
 	public void setOffset (double x, double y);
 

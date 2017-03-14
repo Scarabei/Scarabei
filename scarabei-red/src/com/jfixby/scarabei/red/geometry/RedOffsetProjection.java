@@ -5,7 +5,7 @@ import com.jfixby.scarabei.api.floatn.Float2;
 import com.jfixby.scarabei.api.floatn.ReadOnlyFloat2;
 import com.jfixby.scarabei.api.geometry.CanvasPosition;
 import com.jfixby.scarabei.api.geometry.Geometry;
-import com.jfixby.scarabei.api.geometry.OffsetProjection;
+import com.jfixby.scarabei.api.geometry.projections.OffsetProjection;
 
 public final class RedOffsetProjection implements OffsetProjection {
 

@@ -7,6 +7,7 @@ import com.jfixby.scarabei.api.collections.List;
 import com.jfixby.scarabei.api.floatn.Float2;
 import com.jfixby.scarabei.api.floatn.Float3;
 import com.jfixby.scarabei.api.floatn.ReadOnlyFloat2;
+import com.jfixby.scarabei.api.geometry.projections.ProjectionFactory;
 import com.jfixby.scarabei.api.math.Matrix;
 
 public interface GeometryComponent {

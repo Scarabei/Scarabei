@@ -3,7 +3,7 @@ package com.jfixby.scarabei.red.geometry;
 
 import com.jfixby.scarabei.api.floatn.ReadOnlyFloat2;
 import com.jfixby.scarabei.api.geometry.CanvasPosition;
-import com.jfixby.scarabei.api.geometry.RotateAndOffsetProjection;
+import com.jfixby.scarabei.api.geometry.projections.RotateAndOffsetProjection;
 import com.jfixby.scarabei.api.math.Angle;
 
 public class RedRotateAndOffsetProjection extends RedProjectionsStack implements RotateAndOffsetProjection {

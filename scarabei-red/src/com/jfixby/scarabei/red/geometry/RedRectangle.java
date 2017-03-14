@@ -4,8 +4,8 @@ package com.jfixby.scarabei.red.geometry;
 import com.jfixby.scarabei.api.collections.Collection;
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.List;
-import com.jfixby.scarabei.api.floatn.ReadOnlyFloat2;
 import com.jfixby.scarabei.api.floatn.Float2;
+import com.jfixby.scarabei.api.floatn.ReadOnlyFloat2;
 import com.jfixby.scarabei.api.geometry.CanvasPosition;
 import com.jfixby.scarabei.api.geometry.Geometry;
 import com.jfixby.scarabei.api.geometry.ORIGIN_RELATIVE_HORIZONTAL;
@@ -14,7 +14,6 @@ import com.jfixby.scarabei.api.geometry.Rectangle;
 import com.jfixby.scarabei.api.geometry.RectangleCorner;
 import com.jfixby.scarabei.api.geometry.Triangle;
 import com.jfixby.scarabei.api.math.Angle;
-import com.jfixby.scarabei.api.transform.CanvasTransform;
 
 public class RedRectangle extends VertexMaster implements Rectangle {
 	double width = 0;
@@ -131,9 +130,8 @@ public class RedRectangle extends VertexMaster implements Rectangle {
 	}
 
 	@Override
-	public CanvasTransform getTransform () {
+	public RedTransform getTransform () {
 		return this.transform;
-
 	}
 
 	@Override

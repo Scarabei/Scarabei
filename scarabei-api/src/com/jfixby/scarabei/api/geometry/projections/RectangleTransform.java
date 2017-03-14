@@ -1,8 +1,7 @@
 
-package com.jfixby.scarabei.api.transform;
+package com.jfixby.scarabei.api.geometry.projections;
 
 import com.jfixby.scarabei.api.floatn.Float2;
-import com.jfixby.scarabei.api.geometry.CanvasTransform;
 
 public interface RectangleTransform extends CanvasTransform {
 
