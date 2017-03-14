@@ -49,4 +49,10 @@ public final class RedOffsetProjection implements OffsetProjection {
 		this.offsetY = position.getY();
 	}
 
+	@Override
+	public void setOffsetXY (final double x, final double y) {
+		this.setOffsetX(x);
+		this.setOffsetY(y);
+	}
+
 }

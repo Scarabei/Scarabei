@@ -11,4 +11,6 @@ public interface OffsetProjection extends Projection {
 
 	public double getOffsetY ();
 
+	void setOffsetXY (double x, double y);
+
 }

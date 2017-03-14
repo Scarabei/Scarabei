@@ -8,6 +8,8 @@ import com.jfixby.scarabei.api.geometry.projections.Projection;
 import com.jfixby.scarabei.api.geometry.projections.ProjectionFactory;
 import com.jfixby.scarabei.api.geometry.projections.RotateAndOffsetProjection;
 import com.jfixby.scarabei.api.geometry.projections.RotateProjection;
+import com.jfixby.scarabei.api.geometry.projections.ScaleProjection;
+import com.jfixby.scarabei.api.geometry.projections.SkewProjection;
 
 public class RedProjectionFactory implements ProjectionFactory {
 
@@ -48,6 +50,18 @@ public class RedProjectionFactory implements ProjectionFactory {
 	public RotateAndOffsetProjection newOffsetAndRotate () {
 		final RedRotateAndOffsetProjection combo = new RedRotateAndOffsetProjection();
 		return combo;
+	}
+
+	@Override
+	public ScaleProjection newScale () {
+		final RedScaleProjection pj = new RedScaleProjection();
+		return pj;
+	}
+
+	@Override
+	public SkewProjection newSkew () {
+		final RedSkewProjection pj = new RedSkewProjection();
+		return pj;
 	}
 
 }

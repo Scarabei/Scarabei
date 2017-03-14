@@ -14,8 +14,16 @@ public class RedRotateProjection implements RotateProjection {
 		this.a = Angles.newAngle();
 	}
 
+	double x = 0;
+	double y = 0;
+
 	@Override
 	public void project (final Float2 point) {
+		this.x = point.getX();
+		this.y = point.getY();
+		final double r = this.a.toRadians();
+		point.setX(this.x * Math.cos(r) - Math.sin(r) * this.y);
+		point.setY(Math.sin(r) * this.x + this.y * Math.cos(r));
 
 	}
 

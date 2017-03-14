@@ -62,4 +62,9 @@ public class RedRotateAndOffsetProjection extends RedProjectionsStack implements
 		this.rotate.setRotation(position.getRotation());
 	}
 
+	@Override
+	public void setOffsetXY (final double x, final double y) {
+		this.offset.setOffsetXY(x, y);
+	}
+
 }

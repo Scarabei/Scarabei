@@ -15,4 +15,8 @@ public interface ProjectionFactory {
 
 	RotateAndOffsetProjection newOffsetAndRotate ();
 
+	ScaleProjection newScale ();
+
+	SkewProjection newSkew ();
+
 }
