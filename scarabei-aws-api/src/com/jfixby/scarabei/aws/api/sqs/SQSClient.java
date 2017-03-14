@@ -9,4 +9,8 @@ public interface SQSClient {
 	SQSCreateQueueResult createQueue (SQSCreateQueueParams createQueueRequestParams);
 
 	Collection<String> listAllSQSUrls ();
+
+	SQSSendMessageResult sendMessage (SQSSendMessageParams sendParams);
+
+	SQSDeleteMessageResult deleteMessage (SQSDeleteMessageParams delete);
 }

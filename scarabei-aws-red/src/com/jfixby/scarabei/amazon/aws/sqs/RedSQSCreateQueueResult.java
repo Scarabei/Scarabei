@@ -16,6 +16,7 @@ public class RedSQSCreateQueueResult implements SQSCreateQueueResult {
 		final String name = createQueueRequestParams.getName();
 		final CreateQueueRequest createQueueRequest = new CreateQueueRequest(name);
 		this.aws_createQueueResult = awsSQSClient.createQueue(createQueueRequest);
+
 		this.url = this.aws_createQueueResult.getQueueUrl();
 	}
 

@@ -13,4 +13,8 @@ public interface SQS {
 
 	SQSCreateQueueParams newCreateQueueParams ();
 
+	SQSSendMessageParams newSendMessageParams ();
+
+	SQSDeleteMessageParams newDeleteMessageParams ();
+
 }

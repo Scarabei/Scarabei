@@ -5,8 +5,10 @@ import com.jfixby.scarabei.aws.api.sqs.SQS;
 import com.jfixby.scarabei.aws.api.sqs.SQSClienSpecs;
 import com.jfixby.scarabei.aws.api.sqs.SQSClient;
 import com.jfixby.scarabei.aws.api.sqs.SQSCreateQueueParams;
+import com.jfixby.scarabei.aws.api.sqs.SQSDeleteMessageParams;
 import com.jfixby.scarabei.aws.api.sqs.SQSReceiveMessageParams;
 import com.jfixby.scarabei.aws.api.sqs.SQSReceiveMessageRequest;
+import com.jfixby.scarabei.aws.api.sqs.SQSSendMessageParams;
 
 public class RedSQS implements SQS {
 
@@ -33,6 +35,16 @@ public class RedSQS implements SQS {
 	@Override
 	public SQSCreateQueueParams newCreateQueueParams () {
 		return new RedSQSCreateQueueParams();
+	}
+
+	@Override
+	public SQSSendMessageParams newSendMessageParams () {
+		return new RedSQSSendMessageParams();
+	}
+
+	@Override
+	public SQSDeleteMessageParams newDeleteMessageParams () {
+		return new RedSQSDeleteMessageParams();
 	}
 
 }

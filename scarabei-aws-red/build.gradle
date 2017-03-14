@@ -15,8 +15,8 @@ dependencies {
 	         compile project(":scarabei-api")
 	         compile project(":scarabei-red")
 	         compile project(":scarabei-aws-api")
-	         compile group: 'com.amazonaws', name: 'aws-java-sdk', version: '1.10.56'
-	         //compile group: 'com.amazonaws', name: 'aws-java-sdk', version: '1.11.103'
+	         //compile group: 'com.amazonaws', name: 'aws-java-sdk', version: '1.10.56'
+	         compile group: 'com.amazonaws', name: 'aws-java-sdk', version: '1.11.103'
 	         
 }	
 	
