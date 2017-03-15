@@ -7,6 +7,7 @@ import com.jfixby.scarabei.aws.api.ses.SESClientSpecs;
 public class RedSESClientSpecs implements SESClientSpecs {
 
 	private AWSCredentialsProvider awsKeys;
+	private String regionName;
 
 	@Override
 	public void setAWSCredentialsProvider (final AWSCredentialsProvider awsKeys) {
@@ -16,6 +17,16 @@ public class RedSESClientSpecs implements SESClientSpecs {
 	@Override
 	public AWSCredentialsProvider getAWSCredentialsProvider () {
 		return this.awsKeys;
+	}
+
+	@Override
+	public String getSESRegionName () {
+		return this.regionName;
+	}
+
+	@Override
+	public void setSESRegionName (final String regionName) {
+		this.regionName = regionName;
 	}
 
 }

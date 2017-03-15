@@ -12,7 +12,7 @@ import com.jfixby.scarabei.aws.api.ses.AmazonSimpleEmailSpecs;
 
 public class RedAmazonSimpleEmail implements AmazonSimpleEmail {
 	private final String subject;
-	private final String from;
+	final String from;
 	private final Collection<String> to;
 	private final Collection<String> bcc;
 	private final String body;

@@ -9,4 +9,8 @@ public interface SESClientSpecs {
 
 	AWSCredentialsProvider getAWSCredentialsProvider ();
 
+	String getSESRegionName ();
+
+	public void setSESRegionName (String regionName);
+
 }
