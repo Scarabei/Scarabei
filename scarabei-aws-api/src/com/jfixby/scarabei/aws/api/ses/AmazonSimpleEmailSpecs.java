@@ -13,6 +13,10 @@ public interface AmazonSimpleEmailSpecs {
 
 	void addBcc (String bcc);
 
+	void addTo (Collection<String> to);
+
+	void addBcc (Collection<String> bcc);
+
 	void setBody (String string);
 
 	String getSubject ();

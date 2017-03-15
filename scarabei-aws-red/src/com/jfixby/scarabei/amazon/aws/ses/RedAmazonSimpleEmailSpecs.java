@@ -66,4 +66,14 @@ public class RedAmazonSimpleEmailSpecs implements AmazonSimpleEmailSpecs {
 		return this.body;
 	}
 
+	@Override
+	public void addTo (final Collection<String> to) {
+		this.to.addAll(to);
+	}
+
+	@Override
+	public void addBcc (final Collection<String> bcc) {
+		this.bcc.addAll(bcc);
+	}
+
 }
