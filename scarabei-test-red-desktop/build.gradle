@@ -17,12 +17,13 @@ sourceCompatibility = 1.8
      
              compile "com.google.code.gson:gson:2.8.0"
 	         compile project(":scarabei-api")
-	         compile project(":scarabei-api-desktop")
-	         compile project(":scarabei-aws-api")
-	         compile project(":scarabei-aws-red")
 	         compile project(":scarabei-red")
-	         compile project(":scarabei-gson")
+	         
+	         compile project(":scarabei-api-desktop")
 	         compile project(":scarabei-red-desktop")
+	         
+	         compile project(":scarabei-gson")
+	         
 	         testCompile 'junit:junit:4.10'
 
     }
