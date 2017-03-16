@@ -20,6 +20,9 @@ include 'scarabei-rmi-api'
 include 'scarabei-rmi-client'
 include 'scarabei-rmi-server'
 include 'scarabei-rmi-file-server'
+include 'scarabei-test-red-aws'
+include 'scarabei-test-red-desktop'
+include 'scarabei-test-red-rmi'
 
 
 
