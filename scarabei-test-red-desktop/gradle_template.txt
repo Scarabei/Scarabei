@@ -1,0 +1,21 @@
+apply plugin: "java"
+apply plugin: "maven"
+
+sourceCompatibility = #JAVA_VERSION#
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+
+dependencies {
+#COMPILE_PROJECTS#
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = #SRC_DIRS#
+        }
+        resources {
+            
+        }
+    }
+}
