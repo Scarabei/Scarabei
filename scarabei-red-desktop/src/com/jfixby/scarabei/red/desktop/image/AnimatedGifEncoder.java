@@ -154,8 +154,7 @@ public class AnimatedGifEncoder {
 	 * values (minimum = 1) produce better colors, but slow processing significantly. 10 is the default, and produces good color
 	 * mapping at reasonable speeds. Values greater than 20 do not yield significant improvements in speed.
 	 *
-	 * @param quality int greater than 0.
-	 * @return */
+	 * @param quality int greater than 0. */
 	public void setQuality (int quality) {
 		if (quality < 1) {
 			quality = 1;
