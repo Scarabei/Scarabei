@@ -52,8 +52,7 @@ public class AnimatedGifEncoder {
 	/** Sets the number of times the set of GIF frames should be played. Default is 1; 0 means play indefinitely. Must be invoked
 	 * before the first image is added.
 	 *
-	 * @param iter int number of iterations.
-	 * @return */
+	 * @param iter int number of iterations. */
 	public void setRepeat (final int iter) {
 		if (iter >= 0) {
 			this.repeat = iter;
@@ -110,7 +109,10 @@ public class AnimatedGifEncoder {
 		return ok;
 	}
 
-	/** Flushes any pending data and closes output file. If writing to an OutputStream, the stream is not closed. */
+	/** Flushes any pending data and closes output file. If writing to an OutputStream, the stream is not closed. * @return true if
+	 *
+	 * @return true if successful. */
+
 	public boolean finish () {
 		if (!this.started) {
 			return false;
@@ -179,8 +181,8 @@ public class AnimatedGifEncoder {
 
 	/** Sets the GIF frame position. The position is 0,0 by default. Useful for only updating a section of the image
 	 *
-	 * @param w int frame width.
-	 * @param h int frame width. */
+	 * @param x int frame width.
+	 * @param y int frame width. */
 	public void setPosition (final int x, final int y) {
 		this.x = x;
 		this.y = y;
