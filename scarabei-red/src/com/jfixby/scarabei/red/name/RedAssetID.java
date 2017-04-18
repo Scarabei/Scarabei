@@ -2,6 +2,8 @@
 package com.jfixby.scarabei.red.name;
 
 import com.jfixby.scarabei.api.assets.ID;
+import com.jfixby.scarabei.api.collections.Collections;
+import com.jfixby.scarabei.api.collections.List;
 import com.jfixby.scarabei.api.debug.Debug;
 import com.jfixby.scarabei.api.util.JUtils;
 import com.jfixby.scarabei.api.util.path.RelativePath;
@@ -105,6 +107,11 @@ public final class RedAssetID implements ID {
 		final RedAssetID red_subpackage = (RedAssetID)subpackage;
 		final RelativePath new_path = this.value.proceed(red_subpackage.value);
 		return new RedAssetID(new_path);
+	}
+
+	@Override
+	public List<String> steps () {
+		return Collections.newList(this.value.steps());
 	}
 
 }

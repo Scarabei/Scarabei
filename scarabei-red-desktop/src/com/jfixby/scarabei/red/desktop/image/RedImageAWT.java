@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 import java.awt.image.DataBufferInt;
 import java.io.IOException;
-import java.util.Vector;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
@@ -114,7 +114,7 @@ public class RedImageAWT implements ImageAWTComponent {
 		return im;
 	}
 
-	static final Vector<String> palette = new Vector<String>();
+	static final ArrayList<String> palette = new ArrayList<String>();
 	static String next_line_L = "\n";
 	static float delta;
 	static {

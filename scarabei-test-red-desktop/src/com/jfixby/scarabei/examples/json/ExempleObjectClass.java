@@ -1,13 +1,13 @@
 
 package com.jfixby.scarabei.examples.json;
 
-import java.util.Vector;
+import java.util.ArrayList;
 
 public class ExempleObjectClass {
 
 	public static class ChildA {
 		public String A = "a";
-		Vector<String> v1 = new Vector<>();
+		ArrayList<String> v1 = new ArrayList<>();
 
 		@Override
 		public boolean equals (final Object obj) {
@@ -54,13 +54,13 @@ public class ExempleObjectClass {
 
 		public String B = "b";
 
-		Vector<String> v2 = new Vector<>();
+		ArrayList<String> v2 = new ArrayList<>();
 
 		public ChildB () {
 		}
 
 		public ChildB (final String string) {
-			this.v2.addElement(string);
+			this.v2.add(string);
 		}
 
 		@Override
@@ -115,7 +115,7 @@ public class ExempleObjectClass {
 		public String A = "a";
 		public String B = "b";
 		public String C = "c";
-		Vector<ChildB> v3 = new Vector<>();
+		ArrayList<ChildB> v3 = new ArrayList<>();
 
 		@Override
 		public boolean equals (final Object obj) {

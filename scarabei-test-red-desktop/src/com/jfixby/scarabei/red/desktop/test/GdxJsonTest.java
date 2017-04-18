@@ -3,7 +3,7 @@ package com.jfixby.scarabei.red.desktop.test;
 
 import static org.junit.Assert.assertTrue;
 
-import java.util.Vector;
+import java.util.ArrayList;
 
 import org.junit.Test;
 
@@ -14,9 +14,9 @@ import com.jfixby.scarabei.api.log.L;
 public class GdxJsonTest {
 
 	public long stamp = System.currentTimeMillis();
-	String test = stamp + "x";
+	String test = this.stamp + "x";
 
-	public Vector<String> vector = new Vector<String>();
+	public ArrayList<String> vector = new ArrayList<String>();
 
 	GdxJsonTest other = null;
 
@@ -27,7 +27,7 @@ public class GdxJsonTest {
 
 		L.d("GdxJsonTest");
 
-		GdxJsonTest original = new GdxJsonTest();
+		final GdxJsonTest original = new GdxJsonTest();
 		original.vector.add(System.currentTimeMillis() + "A");
 		original.vector.add(System.currentTimeMillis() + "B");
 		original.vector.add(System.currentTimeMillis() + "C");
@@ -35,8 +35,8 @@ public class GdxJsonTest {
 		L.d("original");
 		L.d(original);
 
-		String string = Json.serializeToString(original).toString();
-		GdxJsonTest restored = Json.deserializeFromString(GdxJsonTest.class, string);
+		final String string = Json.serializeToString(original).toString();
+		final GdxJsonTest restored = Json.deserializeFromString(GdxJsonTest.class, string);
 		L.d();
 		L.d(string);
 		L.d();
@@ -53,31 +53,47 @@ public class GdxJsonTest {
 	public int hashCode () {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (int)(stamp ^ (stamp >>> 32));
-		result = prime * result + ((test == null) ? 0 : test.hashCode());
-		result = prime * result + ((vector == null) ? 0 : vector.hashCode());
+		result = prime * result + (int)(this.stamp ^ (this.stamp >>> 32));
+		result = prime * result + ((this.test == null) ? 0 : this.test.hashCode());
+		result = prime * result + ((this.vector == null) ? 0 : this.vector.hashCode());
 		return result;
 	}
 
 	@Override
-	public boolean equals (Object obj) {
-		if (this == obj) return true;
-		if (obj == null) return false;
-		if (getClass() != obj.getClass()) return false;
-		GdxJsonTest other = (GdxJsonTest)obj;
-		if (stamp != other.stamp) return false;
-		if (test == null) {
-			if (other.test != null) return false;
-		} else if (!test.equals(other.test)) return false;
-		if (vector == null) {
-			if (other.vector != null) return false;
-		} else if (!vector.equals(other.vector)) return false;
+	public boolean equals (final Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (this.getClass() != obj.getClass()) {
+			return false;
+		}
+		final GdxJsonTest other = (GdxJsonTest)obj;
+		if (this.stamp != other.stamp) {
+			return false;
+		}
+		if (this.test == null) {
+			if (other.test != null) {
+				return false;
+			}
+		} else if (!this.test.equals(other.test)) {
+			return false;
+		}
+		if (this.vector == null) {
+			if (other.vector != null) {
+				return false;
+			}
+		} else if (!this.vector.equals(other.vector)) {
+			return false;
+		}
 		return true;
 	}
 
 	@Override
 	public String toString () {
-		return "GdxJsonTest [stamp=" + stamp + ", test=" + test + ", vector=" + vector + "]";
+		return "GdxJsonTest [stamp=" + this.stamp + ", test=" + this.test + ", vector=" + this.vector + "]";
 	}
 
 }

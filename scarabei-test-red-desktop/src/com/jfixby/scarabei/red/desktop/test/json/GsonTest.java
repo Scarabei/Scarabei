@@ -1,7 +1,7 @@
 
 package com.jfixby.scarabei.red.desktop.test.json;
 
-import java.util.Vector;
+import java.util.ArrayList;
 
 import com.jfixby.scarabei.api.desktop.ScarabeiDesktop;
 import com.jfixby.scarabei.api.json.Json;
@@ -37,13 +37,13 @@ public class GsonTest {
 
 	public static class ChildA {
 		public String A = "a";
-		Vector<String> v1 = new Vector<>();
+		ArrayList<String> v1 = new ArrayList<>();
 
 	}
 
 	public static class ChildB {
 		public ChildB (final String string) {
-			this.v2.addElement(string);
+			this.v2.add(string);
 		}
 
 		public ChildB () {
@@ -51,14 +51,14 @@ public class GsonTest {
 
 		public String A = "a";
 		public String B = "b";
-		Vector<String> v2 = new Vector<>();
+		ArrayList<String> v2 = new ArrayList<>();
 	}
 
 	public static class ChildC {
 		public String A = "a";
 		public String B = "b";
 		public String C = "c";
-		Vector<ChildB> v3 = new Vector<>();
+		ArrayList<ChildB> v3 = new ArrayList<>();
 
 	}
 
