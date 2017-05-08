@@ -9,9 +9,10 @@ import com.jfixby.scarabei.api.input.KeysList;
 public class RedKeysList implements KeysList {
 
 	final private ArrayList<Key> list = new ArrayList<Key>();
+// final private ArrayList<Boolean> pressed = new ArrayList<Boolean>();
 
 	public void add (final Key keyCode) {
-		list.add(keyCode);
+		this.list.add(keyCode);
 	}
 
 	@Override
@@ -20,8 +21,13 @@ public class RedKeysList implements KeysList {
 	}
 
 	@Override
-	public Key get (int i) {
+	public Key get (final int i) {
 		return this.list.get(i);
+	}
+
+	@Override
+	public int indexOf (final Key otherKey) {
+		return this.list.indexOf(otherKey);
 	}
 
 }

@@ -7,4 +7,6 @@ public interface KeysList {
 
 	Key get (int i);
 
+	int indexOf (Key otherKey);
+
 }

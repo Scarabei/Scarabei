@@ -12,7 +12,12 @@ public final class RedKeyboard implements Keyboard {
 		return this.KEYS_LIST;
 	}
 
-	public final KeysList KEYS_LIST = new RedKeysList();;
+// @Override
+// public boolean isKeyPressed (final Key key) {
+// return this.KEYS_LIST.isKeyPressed(key);
+// }
+
+	public final RedKeysList KEYS_LIST = new RedKeysList();;
 
 	final Key ANY_KEY = new KeyCode("ANY_KEY", this); // -1;
 	final Key NUM_0 = new KeyCode("0", this); // 7;
@@ -191,762 +196,762 @@ public final class RedKeyboard implements Keyboard {
 
 	@Override
 	public Key NUM_1 () {
-		return NUM_1;
+		return this.NUM_1;
 	}
 
 	@Override
 	public Key NUM_2 () {
-		return NUM_2;
+		return this.NUM_2;
 	}
 
 	@Override
 	public Key NUM_3 () {
-		return NUM_3;
+		return this.NUM_3;
 	}
 
 	@Override
 	public Key NUM_4 () {
-		return NUM_4;
+		return this.NUM_4;
 	}
 
 	@Override
 	public Key NUM_5 () {
-		return NUM_5;
+		return this.NUM_5;
 	}
 
 	@Override
 	public Key NUM_6 () {
-		return NUM_6;
+		return this.NUM_6;
 	}
 
 	@Override
 	public Key NUM_7 () {
-		return NUM_7;
+		return this.NUM_7;
 	}
 
 	@Override
 	public Key NUM_8 () {
-		return NUM_8;
+		return this.NUM_8;
 	}
 
 	@Override
 	public Key NUM_9 () {
-		return NUM_9;
+		return this.NUM_9;
 	}
 
 	@Override
 	public Key A () {
-		return A;
+		return this.A;
 	}
 
 	@Override
 	public Key ALT_LEFT () {
-		return ALT_LEFT;
+		return this.ALT_LEFT;
 	}
 
 	@Override
 	public Key ALT_RIGHT () {
-		return ALT_RIGHT;
+		return this.ALT_RIGHT;
 	}
 
 	@Override
 	public Key APOSTROPHE () {
-		return APOSTROPHE;
+		return this.APOSTROPHE;
 	}
 
 	@Override
 	public Key AT () {
-		return AT;
+		return this.AT;
 	}
 
 	@Override
 	public Key B () {
-		return B;
+		return this.B;
 	}
 
 	@Override
 	public Key BACK () {
-		return BACK;
+		return this.BACK;
 	}
 
 	@Override
 	public Key BACKSLASH () {
-		return BACKSLASH;
+		return this.BACKSLASH;
 	}
 
 	@Override
 	public Key C () {
-		return C;
+		return this.C;
 	}
 
 	@Override
 	public Key CALL () {
-		return CALL;
+		return this.CALL;
 	}
 
 	@Override
 	public Key CAMERA () {
-		return CAMERA;
+		return this.CAMERA;
 	}
 
 	@Override
 	public Key CLEAR () {
-		return CLEAR;
+		return this.CLEAR;
 	}
 
 	@Override
 	public Key COMMA () {
-		return COMMA;
+		return this.COMMA;
 	}
 
 	@Override
 	public Key D () {
-		return D;
+		return this.D;
 	}
 
 	@Override
 	public Key BACKSPACE () {
-		return BACKSPACE;
+		return this.BACKSPACE;
 	}
 
 	@Override
 	public Key FORWARD_DEL () {
-		return FORWARD_DEL;
+		return this.FORWARD_DEL;
 	}
 
 	@Override
 	public Key DPAD_CENTER () {
-		return DPAD_CENTER;
+		return this.DPAD_CENTER;
 	}
 
 	@Override
 	public Key DPAD_DOWN () {
-		return DPAD_DOWN;
+		return this.DPAD_DOWN;
 	}
 
 	@Override
 	public Key DPAD_LEFT () {
-		return DPAD_LEFT;
+		return this.DPAD_LEFT;
 	}
 
 	@Override
 	public Key DPAD_RIGHT () {
-		return DPAD_RIGHT;
+		return this.DPAD_RIGHT;
 	}
 
 	@Override
 	public Key DPAD_UP () {
-		return DPAD_UP;
+		return this.DPAD_UP;
 	}
 
 	@Override
 	public Key CENTER () {
-		return CENTER;
+		return this.CENTER;
 	}
 
 	@Override
 	public Key DOWN () {
-		return DOWN;
+		return this.DOWN;
 	}
 
 	@Override
 	public Key LEFT () {
-		return LEFT;
+		return this.LEFT;
 	}
 
 	@Override
 	public Key RIGHT () {
-		return RIGHT;
+		return this.RIGHT;
 	}
 
 	@Override
 	public Key UP () {
-		return UP;
+		return this.UP;
 	}
 
 	@Override
 	public Key E () {
-		return E;
+		return this.E;
 	}
 
 	@Override
 	public Key ENDCALL () {
-		return ENDCALL;
+		return this.ENDCALL;
 	}
 
 	@Override
 	public Key ENTER () {
-		return ENTER;
+		return this.ENTER;
 	}
 
 	@Override
 	public Key ENVELOPE () {
-		return ENVELOPE;
+		return this.ENVELOPE;
 	}
 
 	@Override
 	public Key EQUALS () {
-		return EQUALS;
+		return this.EQUALS;
 	}
 
 	@Override
 	public Key EXPLORER () {
-		return EXPLORER;
+		return this.EXPLORER;
 	}
 
 	@Override
 	public Key F () {
-		return F;
+		return this.F;
 	}
 
 	@Override
 	public Key FOCUS () {
-		return FOCUS;
+		return this.FOCUS;
 	}
 
 	@Override
 	public Key G () {
-		return G;
+		return this.G;
 	}
 
 	@Override
 	public Key GRAVE () {
-		return GRAVE;
+		return this.GRAVE;
 	}
 
 	@Override
 	public Key H () {
-		return H;
+		return this.H;
 	}
 
 	@Override
 	public Key HEADSETHOOK () {
-		return HEADSETHOOK;
+		return this.HEADSETHOOK;
 	}
 
 	@Override
 	public Key HOME () {
-		return HOME;
+		return this.HOME;
 	}
 
 	@Override
 	public Key I () {
-		return I;
+		return this.I;
 	}
 
 	@Override
 	public Key J () {
-		return J;
+		return this.J;
 	}
 
 	@Override
 	public Key K () {
-		return K;
+		return this.K;
 	}
 
 	@Override
 	public Key L () {
-		return L;
+		return this.L;
 	}
 
 	@Override
 	public Key LEFT_BRACKET () {
-		return LEFT_BRACKET;
+		return this.LEFT_BRACKET;
 	}
 
 	@Override
 	public Key M () {
-		return M;
+		return this.M;
 	}
 
 	@Override
 	public Key MEDIA_FAST_FORWARD () {
-		return MEDIA_FAST_FORWARD;
+		return this.MEDIA_FAST_FORWARD;
 	}
 
 	@Override
 	public Key MEDIA_NEXT () {
-		return MEDIA_FAST_FORWARD;
+		return this.MEDIA_FAST_FORWARD;
 	}
 
 	@Override
 	public Key MEDIA_PLAY_PAUSE () {
-		return MEDIA_PLAY_PAUSE;
+		return this.MEDIA_PLAY_PAUSE;
 	}
 
 	@Override
 	public Key MEDIA_PREVIOUS () {
-		return MEDIA_PREVIOUS;
+		return this.MEDIA_PREVIOUS;
 	}
 
 	@Override
 	public Key MEDIA_REWIND () {
-		return MEDIA_REWIND;
+		return this.MEDIA_REWIND;
 	}
 
 	@Override
 	public Key MEDIA_STOP () {
-		return MEDIA_STOP;
+		return this.MEDIA_STOP;
 	}
 
 	@Override
 	public Key MENU () {
-		return MENU;
+		return this.MENU;
 	}
 
 	@Override
 	public Key MINUS () {
-		return MINUS;
+		return this.MINUS;
 	}
 
 	@Override
 	public Key MUTE () {
-		return MUTE;
+		return this.MUTE;
 	}
 
 	@Override
 	public Key N () {
-		return N;
+		return this.N;
 	}
 
 	@Override
 	public Key NOTIFICATION () {
-		return NOTIFICATION;
+		return this.NOTIFICATION;
 	}
 
 	@Override
 	public Key NUM () {
-		return NUM;
+		return this.NUM;
 	}
 
 	@Override
 	public Key O () {
-		return O;
+		return this.O;
 	}
 
 	@Override
 	public Key P () {
-		return P;
+		return this.P;
 	}
 
 	@Override
 	public Key PERIOD () {
-		return PERIOD;
+		return this.PERIOD;
 	}
 
 	@Override
 	public Key PLUS () {
-		return PLUS;
+		return this.PLUS;
 	}
 
 	@Override
 	public Key POUND () {
-		return POUND;
+		return this.POUND;
 	}
 
 	@Override
 	public Key POWER () {
-		return POWER;
+		return this.POWER;
 	}
 
 	@Override
 	public Key Q () {
-		return Q;
+		return this.Q;
 	}
 
 	@Override
 	public Key R () {
-		return R;
+		return this.R;
 	}
 
 	@Override
 	public Key RIGHT_BRACKET () {
-		return RIGHT_BRACKET;
+		return this.RIGHT_BRACKET;
 	}
 
 	@Override
 	public Key S () {
-		return S;
+		return this.S;
 	}
 
 	@Override
 	public Key SEARCH () {
-		return SEARCH;
+		return this.SEARCH;
 	}
 
 	@Override
 	public Key SEMICOLON () {
-		return SEMICOLON;
+		return this.SEMICOLON;
 	}
 
 	@Override
 	public Key SHIFT_LEFT () {
-		return SHIFT_LEFT;
+		return this.SHIFT_LEFT;
 	}
 
 	@Override
 	public Key SHIFT_RIGHT () {
-		return SHIFT_RIGHT;
+		return this.SHIFT_RIGHT;
 	}
 
 	@Override
 	public Key SLASH () {
-		return SLASH;
+		return this.SLASH;
 	}
 
 	@Override
 	public Key SOFT_LEFT () {
-		return SOFT_LEFT;
+		return this.SOFT_LEFT;
 	}
 
 	@Override
 	public Key SPACE () {
-		return SPACE;
+		return this.SPACE;
 	}
 
 	@Override
 	public Key SOFT_RIGHT () {
-		return SOFT_RIGHT;
+		return this.SOFT_RIGHT;
 	}
 
 	@Override
 	public Key SYM () {
-		return SYM;
+		return this.SYM;
 	}
 
 	@Override
 	public Key T () {
-		return T;
+		return this.T;
 	}
 
 	@Override
 	public Key TAB () {
-		return TAB;
+		return this.TAB;
 	}
 
 	@Override
 	public Key U () {
-		return U;
+		return this.U;
 	}
 
 	@Override
 	public Key STAR () {
-		return STAR;
+		return this.STAR;
 	}
 
 	@Override
 	public Key UNKNOWN () {
-		return UNKNOWN;
+		return this.UNKNOWN;
 	}
 
 	@Override
 	public Key V () {
-		return V;
+		return this.V;
 	}
 
 	@Override
 	public Key VOLUME_DOWN () {
-		return VOLUME_DOWN;
+		return this.VOLUME_DOWN;
 	}
 
 	@Override
 	public Key VOLUME_UP () {
-		return VOLUME_UP;
+		return this.VOLUME_UP;
 	}
 
 	@Override
 	public Key W () {
-		return W;
+		return this.W;
 	}
 
 	@Override
 	public Key X () {
-		return X;
+		return this.X;
 	}
 
 	@Override
 	public Key Y () {
-		return Y;
+		return this.Y;
 	}
 
 	@Override
 	public Key Z () {
-		return Z;
+		return this.Z;
 	}
 
 	@Override
 	public Key META_ALT_LEFT_ON () {
-		return META_ALT_LEFT_ON;
+		return this.META_ALT_LEFT_ON;
 	}
 
 	@Override
 	public Key META_ALT_ON () {
-		return META_ALT_ON;
+		return this.META_ALT_ON;
 	}
 
 	@Override
 	public Key META_ALT_RIGHT_ON () {
-		return META_ALT_RIGHT_ON;
+		return this.META_ALT_RIGHT_ON;
 	}
 
 	@Override
 	public Key META_SHIFT_LEFT_ON () {
-		return META_SHIFT_LEFT_ON;
+		return this.META_SHIFT_LEFT_ON;
 	}
 
 	@Override
 	public Key META_SHIFT_ON () {
-		return META_SHIFT_ON;
+		return this.META_SHIFT_ON;
 	}
 
 	@Override
 	public Key META_SHIFT_RIGHT_ON () {
-		return META_SHIFT_RIGHT_ON;
+		return this.META_SHIFT_RIGHT_ON;
 	}
 
 	@Override
 	public Key META_SYM_ON () {
-		return META_SYM_ON;
+		return this.META_SYM_ON;
 	}
 
 	@Override
 	public Key CONTROL_LEFT () {
-		return CONTROL_LEFT;
+		return this.CONTROL_LEFT;
 	}
 
 	@Override
 	public Key CONTROL_RIGHT () {
-		return CONTROL_RIGHT;
+		return this.CONTROL_RIGHT;
 	}
 
 	@Override
 	public Key ESCAPE () {
-		return ESCAPE;
+		return this.ESCAPE;
 	}
 
 	@Override
 	public Key END () {
-		return END;
+		return this.END;
 	}
 
 	@Override
 	public Key INSERT () {
-		return INSERT;
+		return this.INSERT;
 	}
 
 	@Override
 	public Key PAGE_UP () {
-		return PAGE_UP;
+		return this.PAGE_UP;
 	}
 
 	@Override
 	public Key PAGE_DOWN () {
-		return PAGE_DOWN;
+		return this.PAGE_DOWN;
 	}
 
 	@Override
 	public Key PICTSYMBOLS () {
-		return PICTSYMBOLS;
+		return this.PICTSYMBOLS;
 	}
 
 	@Override
 	public Key SWITCH_CHARSET () {
-		return SWITCH_CHARSET;
+		return this.SWITCH_CHARSET;
 	}
 
 	@Override
 	public Key BUTTON_CIRCLE () {
-		return BUTTON_CIRCLE;
+		return this.BUTTON_CIRCLE;
 	}
 
 	@Override
 	public Key BUTTON_A () {
-		return BUTTON_A;
+		return this.BUTTON_A;
 	}
 
 	@Override
 	public Key BUTTON_B () {
-		return BUTTON_B;
+		return this.BUTTON_B;
 	}
 
 	@Override
 	public Key BUTTON_C () {
-		return BUTTON_C;
+		return this.BUTTON_C;
 	}
 
 	@Override
 	public Key BUTTON_X () {
-		return BUTTON_X;
+		return this.BUTTON_X;
 	}
 
 	@Override
 	public Key BUTTON_Y () {
-		return BUTTON_Y;
+		return this.BUTTON_Y;
 	}
 
 	@Override
 	public Key BUTTON_Z () {
-		return BUTTON_Z;
+		return this.BUTTON_Z;
 	}
 
 	@Override
 	public Key BUTTON_L1 () {
-		return BUTTON_L1;
+		return this.BUTTON_L1;
 	}
 
 	@Override
 	public Key BUTTON_R1 () {
-		return BUTTON_R1;
+		return this.BUTTON_R1;
 	}
 
 	@Override
 	public Key BUTTON_R2 () {
-		return BUTTON_R2;
+		return this.BUTTON_R2;
 	}
 
 	@Override
 	public Key BUTTON_L2 () {
-		return BUTTON_L2;
+		return this.BUTTON_L2;
 	}
 
 	@Override
 	public Key BUTTON_THUMBL () {
-		return BUTTON_THUMBL;
+		return this.BUTTON_THUMBL;
 	}
 
 	@Override
 	public Key BUTTON_START () {
-		return BUTTON_START;
+		return this.BUTTON_START;
 	}
 
 	@Override
 	public Key BUTTON_MODE () {
-		return BUTTON_MODE;
+		return this.BUTTON_MODE;
 	}
 
 	@Override
 	public Key BUTTON_SELECT () {
-		return BUTTON_SELECT;
+		return this.BUTTON_SELECT;
 	}
 
 	@Override
 	public Key BUTTON_THUMBR () {
-		return BUTTON_THUMBR;
+		return this.BUTTON_THUMBR;
 	}
 
 	@Override
 	public Key NUMPAD_0 () {
-		return NUMPAD_0;
+		return this.NUMPAD_0;
 	}
 
 	@Override
 	public Key NUMPAD_1 () {
-		return NUMPAD_1;
+		return this.NUMPAD_1;
 	}
 
 	@Override
 	public Key NUMPAD_2 () {
-		return NUMPAD_2;
+		return this.NUMPAD_2;
 	}
 
 	@Override
 	public Key NUMPAD_3 () {
-		return NUMPAD_3;
+		return this.NUMPAD_3;
 	}
 
 	@Override
 	public Key NUMPAD_4 () {
-		return NUMPAD_4;
+		return this.NUMPAD_4;
 	}
 
 	@Override
 	public Key NUMPAD_5 () {
-		return NUMPAD_5;
+		return this.NUMPAD_5;
 	}
 
 	@Override
 	public Key NUMPAD_6 () {
-		return NUMPAD_6;
+		return this.NUMPAD_6;
 	}
 
 	@Override
 	public Key NUMPAD_7 () {
-		return NUMPAD_7;
+		return this.NUMPAD_7;
 	}
 
 	@Override
 	public Key NUMPAD_8 () {
-		return NUMPAD_8;
+		return this.NUMPAD_8;
 	}
 
 	@Override
 	public Key NUMPAD_9 () {
-		return NUMPAD_9;
+		return this.NUMPAD_9;
 	}
 
 	@Override
 	public Key COLON () {
-		return COLON;
+		return this.COLON;
 	}
 
 	@Override
 	public Key F1 () {
-		return F1;
+		return this.F1;
 	}
 
 	@Override
 	public Key F2 () {
-		return F2;
+		return this.F2;
 	}
 
 	@Override
 	public Key F3 () {
-		return F3;
+		return this.F3;
 	}
 
 	@Override
 	public Key F4 () {
-		return F4;
+		return this.F4;
 	}
 
 	@Override
 	public Key F5 () {
-		return F5;
+		return this.F5;
 	}
 
 	@Override
 	public Key F6 () {
-		return F6;
+		return this.F6;
 	}
 
 	@Override
 	public Key F7 () {
-		return F7;
+		return this.F7;
 	}
 
 	@Override
 	public Key F8 () {
-		return F8;
+		return this.F8;
 	}
 
 	@Override
 	public Key F9 () {
-		return F9;
+		return this.F9;
 	}
 
 	@Override
 	public Key F10 () {
-		return F10;
+		return this.F10;
 	}
 
 	@Override
 	public Key F11 () {
-		return F11;
+		return this.F11;
 	}
 
 	@Override
 	public Key F12 () {
-		return F12;
+		return this.F12;
 	}
 
 }
