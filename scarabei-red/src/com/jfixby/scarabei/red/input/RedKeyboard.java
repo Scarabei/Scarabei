@@ -183,10 +183,16 @@ public final class RedKeyboard implements Keyboard {
 	final Key F10 = new KeyCode("F10", this); // 253;
 	final Key F11 = new KeyCode("F11", this); // 254;
 	final Key F12 = new KeyCode("F12", this); // 255;
+	final Key PRINT_SCREEN = new KeyCode("PrintScreen", this); // 255;
 
 	@Override
 	public Key ANY_KEY () {
 		return this.ANY_KEY;
+	}
+
+	@Override
+	public Key PRINT_SCREEN () {
+		return this.PRINT_SCREEN;
 	}
 
 	@Override

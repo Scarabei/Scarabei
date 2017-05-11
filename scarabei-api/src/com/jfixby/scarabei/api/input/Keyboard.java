@@ -313,4 +313,6 @@ public interface Keyboard {
 
 	Key F12 ();
 
+	Key PRINT_SCREEN ();
+
 }

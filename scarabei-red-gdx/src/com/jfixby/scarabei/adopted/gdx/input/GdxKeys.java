@@ -1,3 +1,4 @@
+
 package com.jfixby.scarabei.adopted.gdx.input;
 
 import com.jfixby.scarabei.api.input.Key;
@@ -5,7 +6,7 @@ import com.jfixby.scarabei.api.input.UserInput;
 
 public final class GdxKeys {
 
-	public static Key resolveGdxKeyCode(int gdx_key_code) {
+	public static Key resolveGdxKeyCode (final int gdx_key_code) {
 		if (gdx_key_code == com.badlogic.gdx.Input.Keys.ANY_KEY) {
 			return UserInput.Keyboard().ANY_KEY();
 		}
@@ -282,9 +283,7 @@ public final class GdxKeys {
 		if (gdx_key_code == com.badlogic.gdx.Input.Keys.U) {
 			return UserInput.Keyboard().U();
 		}
-		if (gdx_key_code == com.badlogic.gdx.Input.Keys.UNKNOWN) {
-			return UserInput.Keyboard().UNKNOWN();
-		}
+
 		if (gdx_key_code == com.badlogic.gdx.Input.Keys.V) {
 			return UserInput.Keyboard().V();
 		}
@@ -472,7 +471,9 @@ public final class GdxKeys {
 		if (gdx_key_code == com.badlogic.gdx.Input.Keys.BUTTON_CIRCLE) {
 			return UserInput.Keyboard().BUTTON_CIRCLE();
 		}
-
+		if (gdx_key_code == com.badlogic.gdx.Input.Keys.UNKNOWN) {
+			return UserInput.Keyboard().UNKNOWN();
+		}
 		return null;
 	}
 }
