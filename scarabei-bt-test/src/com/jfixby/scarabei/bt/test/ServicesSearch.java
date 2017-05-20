@@ -10,7 +10,6 @@ import javax.bluetooth.ServiceRecord;
 import javax.bluetooth.UUID;
 
 import com.jfixby.scarabei.api.collections.Collections;
-import com.jfixby.scarabei.api.collections.List;
 import com.jfixby.scarabei.api.collections.Map;
 
 public class ServicesSearch {
@@ -27,7 +26,7 @@ public class ServicesSearch {
 	/* Get URL attribute from bluetooth service */
 	private final int URL_ATTRIBUTE = 0X0100;
 
-	public Map<String, List<String>> getBluetoothDevices () {
+	public Map<String, Map<String, String>> getBluetoothDevices () {
 		/** Find service on bluetooth device Note: In following line you can use one service at a time. I'm new to bluetooth
 		 * programming it might me wrong perception. UUID[] searchUuidSet = new UUID[]{OBEX_FILE_TRANSGER_PROFILE};
 		 *
@@ -41,7 +40,7 @@ public class ServicesSearch {
 		/* Create an object to get list of devices in range or paired */
 		final RemoteDeviceDiscovery remoteDeviceDiscovery = new RemoteDeviceDiscovery();
 		/* Create map to return Bluetooth device address, name and URL */
-		final Map<String, List<String>> mapReturnResult = Collections.newMap();
+		final Map<String, Map<String, String>> mapReturnResult = Collections.newMap();
 
 		try {
 			/* Create an object of DiscoveryListener */
@@ -74,11 +73,11 @@ public class ServicesSearch {
 						if (serviceName != null) {
 							temporaryString = serviceName.getValue() + "\n" + url;
 							/* Put it in map */
-							mapReturnResult.get(rd.getBluetoothAddress()).add(temporaryString);
+							mapReturnResult.get(rd.getBluetoothAddress()).put("serviceName", temporaryString);
 						} else {
 							temporaryString = "Uknown service \n" + url;
 							/* Put it in map */
-							mapReturnResult.get(rd.getBluetoothAddress()).add(temporaryString);
+							mapReturnResult.get(rd.getBluetoothAddress()).put("serviceName", temporaryString);
 						}
 					}
 				}
@@ -97,12 +96,12 @@ public class ServicesSearch {
 				/* Get RemoteDevice object */
 				final RemoteDevice btDevice = dev.getRemoteDevice();
 				/* Create list to return details */
-				final List<String> listDeviceDetails = Collections.newList();
+				final Map<String, String> listDeviceDetails = Collections.newMap();
 
 				try {
 					/* Add bluetooth device name and address in list */
-					listDeviceDetails.add(btDevice.getFriendlyName(false));
-					listDeviceDetails.add(btDevice.getBluetoothAddress());
+					listDeviceDetails.put("name", btDevice.getFriendlyName(true));
+					listDeviceDetails.put("BluetoothAddress", btDevice.getBluetoothAddress());
 				} catch (final Exception e) {
 				}
 

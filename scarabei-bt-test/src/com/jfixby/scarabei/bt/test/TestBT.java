@@ -2,7 +2,6 @@
 package com.jfixby.scarabei.bt.test;
 
 import com.jfixby.scarabei.api.bt.ScarabeiBlueTooth;
-import com.jfixby.scarabei.api.collections.List;
 import com.jfixby.scarabei.api.collections.Map;
 import com.jfixby.scarabei.api.desktop.ScarabeiDesktop;
 import com.jfixby.scarabei.bt.red.desktop.RedDesktopBlueTooth;
@@ -20,7 +19,7 @@ public class TestBT {
 // list.print("list");
 
 		final ServicesSearch search = new ServicesSearch();
-		final Map<String, List<String>> devices = search.getBluetoothDevices();
+		final Map<String, Map<String, String>> devices = search.getBluetoothDevices();
 		devices.print("devices");
 
 	}
