@@ -11,7 +11,6 @@ import com.jfixby.scarabei.api.collections.Collection;
 import com.jfixby.scarabei.api.collections.Mapping;
 import com.jfixby.scarabei.api.log.LoggerComponent;
 import com.jfixby.scarabei.api.log.MESSAGE_MARKER;
-import com.jfixby.scarabei.api.util.JUtils;
 
 public abstract class AbstractLogger implements LoggerComponent {
 
@@ -46,7 +45,7 @@ public abstract class AbstractLogger implements LoggerComponent {
 
 		}
 		if (object instanceof byte[]) {
-			return JUtils.newString((byte[])object);
+			return this.toHexString((byte[])object);
 
 		}
 		if (object instanceof int[]) {

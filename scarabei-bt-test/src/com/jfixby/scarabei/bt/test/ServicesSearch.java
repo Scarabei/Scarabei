@@ -10,6 +10,7 @@ import javax.bluetooth.ServiceRecord;
 import javax.bluetooth.UUID;
 
 import com.jfixby.scarabei.api.collections.Collections;
+import com.jfixby.scarabei.api.collections.List;
 import com.jfixby.scarabei.api.collections.Map;
 
 public class ServicesSearch {
@@ -23,6 +24,7 @@ public class ServicesSearch {
 	private final UUID OBEX_FILE_TRANSFER_PROFILE = new UUID(0x1106);
 	/* To find hands free service */
 	private final UUID HANDS_FREE = new UUID(0x111E);
+	private final UUID SERIAL_PORT = new UUID(0x1101);
 	/* Get URL attribute from bluetooth service */
 	private final int URL_ATTRIBUTE = 0X0100;
 
@@ -33,7 +35,7 @@ public class ServicesSearch {
 		 * CORRECT: UUID[] searchUuidSet = new UUID[]{OBEX_FILE_TRANSGER_PROFILE}; WRONG: UUID[] searchUuidSet = new
 		 * UUID[]{OBEX_FILE_TRANSGER_PROFILE, OBEX_OBJECT_PUSH_PROFILE}; */
 		/* Initialize UUID Array */
-		final UUID[] searchUuidSet = new UUID[] {this.HANDS_FREE};
+		final UUID[] searchUuidSet = new UUID[] {this.SERIAL_PORT};
 		final Object serviceSearchCompletedEvent = new Object();
 		final int[] attrIDs = new int[] {this.URL_ATTRIBUTE};
 
@@ -58,18 +60,26 @@ public class ServicesSearch {
 
 				/* Find service URL of bluetooth device */
 				@Override
-				public void servicesDiscovered (final int transID, final ServiceRecord[] servRecord) {
-					for (int i = 0; i < servRecord.length; i++) {
+				public void servicesDiscovered (final int transID, final ServiceRecord[] slist) {
+					final List<ServiceRecord> services_in = Collections.newList(slist);
+					final List<BTService> services_out = Collections.newList();
+					Collections.convertCollection(services_in, services_out, x -> new BTService(x));
+// L.d("servicesDiscovered", transID, Arrays.toString(servRecord));
+					services_out.print("services");
+
+					for (int i = 0; i < services_out.size(); i++) {
+						final BTService btService = services_out.getElementAt(i);
+
 						/* Find URL of bluetooth device */
-						final String url = servRecord[i].getConnectionURL(ServiceRecord.NOAUTHENTICATE_NOENCRYPT, false);
+						final String url = btService.getConnectionURL(ServiceRecord.NOAUTHENTICATE_NOENCRYPT, false);
 						if (url == null) {
 							continue;
 						}
 						String temporaryString = "";
 						/* Get object of bluetooth device */
-						final RemoteDevice rd = servRecord[i].getHostDevice();
+						final RemoteDevice rd = btService.getHostDevice();
 						/* Get attribute from ServiceRecord */
-						final DataElement serviceName = servRecord[i].getAttributeValue(ServicesSearch.this.URL_ATTRIBUTE);
+						final DataElement serviceName = btService.getAttributeValue(ServicesSearch.this.URL_ATTRIBUTE);
 						if (serviceName != null) {
 							temporaryString = serviceName.getValue() + "\n" + url;
 							/* Put it in map */
@@ -98,12 +108,13 @@ public class ServicesSearch {
 				/* Create list to return details */
 				final Map<String, String> listDeviceDetails = Collections.newMap();
 
-				try {
-					/* Add bluetooth device name and address in list */
-					listDeviceDetails.put("name", btDevice.getFriendlyName(true));
-					listDeviceDetails.put("BluetoothAddress", btDevice.getBluetoothAddress());
-				} catch (final Exception e) {
-				}
+				/* Add bluetooth device name and address in list */
+				listDeviceDetails.put("name", btDevice.getFriendlyName(true));
+				listDeviceDetails.put("BluetoothAddress", btDevice.getBluetoothAddress());
+				listDeviceDetails.put("isAuthenticated", "" + btDevice.isAuthenticated());
+				listDeviceDetails.put("isTrustedDevice", "" + btDevice.isTrustedDevice());
+				listDeviceDetails.put("isEncrypted", "" + btDevice.isEncrypted());
+// listDeviceDetails.put("isAuthenticated", "" + btDevice.is);
 
 				/* Put bluetooth device details in map */
 				mapReturnResult.put(btDevice.getBluetoothAddress(), listDeviceDetails);
