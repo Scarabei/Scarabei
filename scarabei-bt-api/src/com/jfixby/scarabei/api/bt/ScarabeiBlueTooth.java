@@ -5,7 +5,8 @@ import com.jfixby.scarabei.api.ComponentInstaller;
 
 public class ScarabeiBlueTooth {
 
-	static private ComponentInstaller<ScarabeiBlueToothComponent> componentInstaller = new ComponentInstaller<>("ScarabeiBlueTooth");
+	static private ComponentInstaller<ScarabeiBlueToothComponent> componentInstaller = new ComponentInstaller<>(
+		"ScarabeiBlueTooth");
 
 	public static final void installComponent (final ScarabeiBlueToothComponent component_to_install) {
 		componentInstaller.installComponent(component_to_install);
@@ -17,6 +18,14 @@ public class ScarabeiBlueTooth {
 
 	public static final ScarabeiBlueToothComponent component () {
 		return componentInstaller.getComponent();
+	}
+
+	public static BTSpecs newBTSpecs () {
+		return invoke().newBTSpecs();
+	}
+
+	public static BT newBT (final BTSpecs specs) {
+		return invoke().newBT(specs);
 	}
 
 }
