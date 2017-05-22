@@ -15,6 +15,8 @@ import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 import com.jfixby.scarabei.api.collections.Collection;
+import com.jfixby.scarabei.api.collections.CollectionConverter;
+import com.jfixby.scarabei.api.collections.CollectionScanner;
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.List;
 import com.jfixby.scarabei.api.debug.Debug;
@@ -195,16 +197,19 @@ class RedS3FileSystem extends AbstractFileSystem implements FileSystem, S3FileSy
 				info = new S3ObjectInfo(summs.getElementAt(0));
 			}
 			final List<String> files = Collections.newList();
-			Collections.scanCollection(summs, (summ, i) -> {
-				final String key = summ.getKey();
-				final RelativePath keyPath = JUtils.newRelativePath(key);
-				if (keyPath.equals(relative)) {
-					return;
-				}
-				if (key.endsWith(RelativePath.SEPARATOR)) {
-					prefixes.add(key);
-				} else {
-					files.add(key);
+			Collections.scanCollection(summs, new CollectionScanner<S3ObjectSummary>() {
+				@Override
+				public void scanElement (final S3ObjectSummary summ, final long i) {
+					final String key = summ.getKey();
+					final RelativePath keyPath = JUtils.newRelativePath(key);
+					if (keyPath.equals(relative)) {
+						return;
+					}
+					if (key.endsWith(RelativePath.SEPARATOR)) {
+						prefixes.add(key);
+					} else {
+						files.add(key);
+					}
 				}
 			});
 			info.addDirectSubfolders(prefixes);
@@ -240,7 +245,12 @@ class RedS3FileSystem extends AbstractFileSystem implements FileSystem, S3FileSy
 			final List<String> prefixes = Collections.newList(objectListing.getCommonPrefixes());
 			final List<S3ObjectSummary> summs = Collections.newList(objectListing.getObjectSummaries());
 			final List<String> files = Collections.newList();
-			Collections.convertCollection(summs, files, S3ObjectSummary -> new S3ObjectInfo(S3ObjectSummary).path.getLastStep());
+			Collections.convertCollection(summs, files, new CollectionConverter<S3ObjectSummary, String>() {
+				@Override
+				public String convert (final S3ObjectSummary S3ObjectSummary) {
+					return new S3ObjectInfo(S3ObjectSummary).path.getLastStep();
+				}
+			});
 			info.addDirectSubfolders(prefixes);
 			info.addDirectChildFiles(files);
 			return info;

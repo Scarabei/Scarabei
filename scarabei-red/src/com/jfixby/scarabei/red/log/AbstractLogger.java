@@ -185,7 +185,7 @@ public abstract class AbstractLogger implements LoggerComponent {
 		return result;
 	}
 
-	private final char[] HEXDIGITS = "0123456789abcdef".toCharArray();
+	private final char[] HEXDIGITS = "0123456789abcdef".toUpperCase().toCharArray();
 
 	public String toHexString (final byte[] bytes) {
 		final StringBuilder sb = new StringBuilder(bytes.length * 3);

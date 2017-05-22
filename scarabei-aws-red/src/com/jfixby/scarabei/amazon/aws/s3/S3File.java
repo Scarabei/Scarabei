@@ -3,6 +3,7 @@ package com.jfixby.scarabei.amazon.aws.s3;
 
 import java.io.IOException;
 
+import com.jfixby.scarabei.api.collections.CollectionScanner;
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.List;
 import com.jfixby.scarabei.api.err.Err;
@@ -101,11 +102,19 @@ class S3File extends AbstractRedFile implements File {
 			final List<String> subfolders = this.info().listDirectSubfolders();
 			final List<String> files = this.info().listDirectChildFiles();
 
-			Collections.scanCollection(subfolders,
-				(folderName, index) -> listFiles.add(this.fs.newFile(this.getAbsoluteFilePath().child(folderName))));
+			Collections.scanCollection(subfolders, new CollectionScanner<String>() {
+				@Override
+				public void scanElement (final String folderName, final long index) {
+					listFiles.add(S3File.this.fs.newFile(S3File.this.getAbsoluteFilePath().child(folderName)));
+				}
+			});
 
-			Collections.scanCollection(files,
-				(fileName, index) -> listFiles.add(this.fs.newFile(this.getAbsoluteFilePath().child(fileName))));
+			Collections.scanCollection(files, new CollectionScanner<String>() {
+				@Override
+				public void scanElement (final String fileName, final long index) {
+					listFiles.add(S3File.this.fs.newFile(S3File.this.getAbsoluteFilePath().child(fileName)));
+				}
+			});
 
 			return listFiles;
 		} else {
@@ -149,8 +158,13 @@ class S3File extends AbstractRedFile implements File {
 		final S3ObjectInfo info = this.fs.listAllS3Keys(this.relative);
 		final RedFilesList result = new RedFilesList();
 
-		Collections.scanCollection(info.allChildren,
-			(e, i) -> result.add(this.fs.newFile(JUtils.newAbsolutePath(this.fs, e.path))));
+		Collections.scanCollection(info.allChildren, new CollectionScanner<S3ObjectInfo>() {
+			@Override
+			public void scanElement (final S3ObjectInfo e, final long i) {
+				final AbsolutePath<FileSystem> p = JUtils.newAbsolutePath((FileSystem)S3File.this.fs, e.path);
+				result.add(S3File.this.fs.newFile(p));
+			}
+		});
 
 		return result;
 	}
@@ -159,7 +173,12 @@ class S3File extends AbstractRedFile implements File {
 	final public void clearFolder () {
 		if (this.isFolder()) {
 			final S3ObjectInfo info = this.fs.listAllS3Keys(this.relative);
-			Collections.scanCollection(info.allChildren, (e, i) -> this.fs.deleteS3Object(e.s3Key));
+			Collections.scanCollection(info.allChildren, new CollectionScanner<S3ObjectInfo>() {
+				@Override
+				public void scanElement (final S3ObjectInfo e, final long i) {
+					S3File.this.fs.deleteS3Object(e.s3Key);
+				}
+			});
 		} else {
 			L.e("Unable to clear", this.getAbsoluteFilePath());
 			L.e("       this is not a folder.");
