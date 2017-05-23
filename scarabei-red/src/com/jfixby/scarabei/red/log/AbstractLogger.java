@@ -50,7 +50,9 @@ public abstract class AbstractLogger implements LoggerComponent {
 		}
 		if (object instanceof int[]) {
 			return Arrays.toString((int[])object);
-
+		}
+		if (object instanceof float[]) {
+			return Arrays.toString((float[])object);
 		}
 		if (object instanceof Collection) {
 			return this.listToString(indent, (Collection<?>)object);
