@@ -40,10 +40,6 @@ public abstract class AbstractLogger implements LoggerComponent {
 
 	private String toString (final int indent, final Object object) {
 
-		if (object instanceof Object[]) {
-			return this.arrayToString(indent, (Object[])object);
-
-		}
 		if (object instanceof byte[]) {
 			return this.toHexString((byte[])object);
 
@@ -54,6 +50,12 @@ public abstract class AbstractLogger implements LoggerComponent {
 		if (object instanceof float[]) {
 			return Arrays.toString((float[])object);
 		}
+
+		if (object instanceof Object[]) {
+			return this.arrayToString(indent, (Object[])object);
+
+		}
+
 		if (object instanceof Collection) {
 			return this.listToString(indent, (Collection<?>)object);
 
