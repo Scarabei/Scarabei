@@ -1,7 +1,7 @@
 
 package com.jfixby.scarabei.aws.desktop.sqs;
 
-import com.jfixby.scarabei.aws.api.sqs.SQS;
+import com.jfixby.scarabei.aws.api.sqs.SQSComponent;
 import com.jfixby.scarabei.aws.api.sqs.SQSClienSpecs;
 import com.jfixby.scarabei.aws.api.sqs.SQSClient;
 import com.jfixby.scarabei.aws.api.sqs.SQSCreateQueueParams;
@@ -10,7 +10,7 @@ import com.jfixby.scarabei.aws.api.sqs.SQSReceiveMessageParams;
 import com.jfixby.scarabei.aws.api.sqs.SQSReceiveMessageRequest;
 import com.jfixby.scarabei.aws.api.sqs.SQSSendMessageParams;
 
-public class DesktopSQS implements SQS {
+public class DesktopSQS implements SQSComponent {
 
 	@Override
 	public SQSClienSpecs newSQSClienSpecs () {

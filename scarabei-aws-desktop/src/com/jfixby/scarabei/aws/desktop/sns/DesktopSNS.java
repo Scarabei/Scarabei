@@ -1,11 +1,11 @@
 
 package com.jfixby.scarabei.aws.desktop.sns;
 
-import com.jfixby.scarabei.aws.api.sns.SNS;
+import com.jfixby.scarabei.aws.api.sns.SNSComponent;
 import com.jfixby.scarabei.aws.api.sns.SNSClient;
 import com.jfixby.scarabei.aws.api.sns.SNSClientSpecs;
 
-public class DesktopSNS implements SNS {
+public class DesktopSNS implements SNSComponent {
 
 	@Override
 	public SNSClientSpecs newClientSpecs () {

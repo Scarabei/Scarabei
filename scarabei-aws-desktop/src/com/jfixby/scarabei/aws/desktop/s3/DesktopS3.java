@@ -1,11 +1,11 @@
 
 package com.jfixby.scarabei.aws.desktop.s3;
 
-import com.jfixby.scarabei.aws.api.s3.S3;
+import com.jfixby.scarabei.aws.api.s3.S3Component;
 import com.jfixby.scarabei.aws.api.s3.S3FileSystem;
 import com.jfixby.scarabei.aws.api.s3.S3FileSystemConfig;
 
-public class DesktopS3 implements S3 {
+public class DesktopS3 implements S3Component {
 
 	@Override
 	public S3FileSystemConfig newFileSystemConfig () {

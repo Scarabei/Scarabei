@@ -1,20 +1,30 @@
 
 package com.jfixby.scarabei.aws.api.sqs;
 
-public interface SQS {
+import com.jfixby.scarabei.api.ComponentInstaller;
 
-	SQSClienSpecs newSQSClienSpecs ();
+public class SQS {
 
-	SQSClient newClient (SQSClienSpecs specs);
+	static private ComponentInstaller<SQSComponent> componentInstaller = new ComponentInstaller<SQSComponent>("SQSComponent");
 
-	SQSReceiveMessageParams newReceiveMessageParams ();
+	public static final void installComponent (final SQSComponent component_to_install) {
+		componentInstaller.installComponent(component_to_install);
+	}
 
-	SQSReceiveMessageRequest newReceiveMessageRequest (SQSReceiveMessageParams params);
+	public static void installComponent (final String className) {
+		componentInstaller.installComponent(className);
+	}
 
-	SQSCreateQueueParams newCreateQueueParams ();
+	public static void installComponent (final String className, final ClassLoader classLoader) {
+		componentInstaller.installComponent(className, classLoader);
+	}
 
-	SQSSendMessageParams newSendMessageParams ();
+	public static final SQSComponent invoke () {
+		return componentInstaller.invokeComponent();
+	}
 
-	SQSDeleteMessageParams newDeleteMessageParams ();
+	public static final SQSComponent component () {
+		return componentInstaller.getComponent();
+	}
 
 }
