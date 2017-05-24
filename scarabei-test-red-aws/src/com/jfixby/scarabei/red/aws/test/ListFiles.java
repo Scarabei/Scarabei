@@ -8,14 +8,14 @@ import com.jfixby.scarabei.aws.api.AWS;
 import com.jfixby.scarabei.aws.api.s3.S3;
 import com.jfixby.scarabei.aws.api.s3.S3FileSystem;
 import com.jfixby.scarabei.aws.api.s3.S3FileSystemConfig;
-import com.jfixby.scarabei.aws.desktop.RedAWS;
+import com.jfixby.scarabei.aws.desktop.DesktopAWS;
 
 public class ListFiles {
 
 	public static void main (final String[] args) throws IOException {
 		ScarabeiDesktop.deploy();
 
-		AWS.installComponent(new RedAWS());
+		AWS.installComponent(new DesktopAWS());
 		final S3 s3 = AWS.getS3();
 		final S3FileSystemConfig specs = s3.newFileSystemConfig();
 		specs.setRegionName("eu-central-1");

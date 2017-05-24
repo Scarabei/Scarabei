@@ -31,5 +31,7 @@
 	<classpathentry kind="lib" path="/libs/aws/1.10.56/third-party/lib/spring-context-3.0.7.RELEASE.jar"/>
 	<classpathentry kind="lib" path="/libs/aws/1.10.56/third-party/lib/spring-core-3.0.7.RELEASE.jar"/>
 	<classpathentry kind="lib" path="/libs/aws/1.10.56/third-party/lib/spring-test-3.0.7.RELEASE.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/scarabei-aws-android"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/scarabei-aws-desktop"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
