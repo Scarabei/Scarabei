@@ -20,6 +20,9 @@ include 'scarabei-rmi-api'
 include 'scarabei-rmi-client'
 include 'scarabei-rmi-server'
 include 'scarabei-rmi-file-server'
+include 'scarabei-bt-api'
+include 'scarabei-bt-red'
+include 'scarabei-bt-desktop'
 
 
 
