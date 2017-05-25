@@ -1,21 +1,18 @@
-apply plugin: 'java'
-apply plugin: 'maven'
+apply plugin: "java"
+apply plugin: "maven"
 
 sourceCompatibility = 1.6
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
-
-
 
 dependencies {
     compile project(":scarabei-api")
     compile project(":scarabei-red")
     compile project(":scarabei-aws-api")
     compile project(":scarabei-aws-red")
+    compile project(":scarabei-aws-android")
     
-    compile 'com.amazonaws:aws-android-sdk-core:2.2.+'
-    
-}	
-	
+    compile 'com.amazonaws:aws-android-sdk-ses:2.2.+'
+}
 
 sourceSets {
     main {
@@ -27,6 +24,7 @@ sourceSets {
         }
     }
 }
+
 
 task sourcesJar(type: Jar, dependsOn: classes) {
     classifier = 'sources'

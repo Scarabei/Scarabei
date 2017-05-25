@@ -2,8 +2,9 @@
 package com.jfixby.scarabei.aws.android.ses;
 
 import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.regions.Region;
 import com.amazonaws.services.simpleemail.AmazonSimpleEmailService;
-import com.amazonaws.services.simpleemail.AmazonSimpleEmailServiceClientBuilder;
+import com.amazonaws.services.simpleemail.AmazonSimpleEmailServiceClient;
 import com.amazonaws.services.simpleemail.model.ListVerifiedEmailAddressesResult;
 import com.amazonaws.services.simpleemail.model.VerifyEmailAddressRequest;
 import com.jfixby.scarabei.api.err.Err;
@@ -44,13 +45,13 @@ public class AndroidSESClient implements SESClient {
 			}
 		};
 
-		final AmazonSimpleEmailServiceClientBuilder standardclient = AmazonSimpleEmailServiceClientBuilder.standard();
-		standardclient.setCredentials(awsKeys);
+		final AmazonSimpleEmailServiceClient standardclient = new AmazonSimpleEmailServiceClient(awsKeys);
+// standardclient.setCredentials(awsKeys);
 
 // standardclient.set
-		final String regionString = "" + com.amazonaws.regions.Region.getRegion(com.amazonaws.regions.Regions.fromName(regionName));
-		standardclient.setRegion(regionString);
-		this.aws_client = standardclient.build();
+		final Region region = com.amazonaws.regions.Region.getRegion(com.amazonaws.regions.Regions.fromName(regionName));
+		standardclient.setRegion(region);
+		this.aws_client = standardclient;
 	}
 
 	@Override
