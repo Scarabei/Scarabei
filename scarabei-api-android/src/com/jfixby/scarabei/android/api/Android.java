@@ -1,7 +1,6 @@
 
 package com.jfixby.scarabei.android.api;
 
-import com.jfixby.scarabei.android.api.camera.AndroidCameraSetup;
 import com.jfixby.scarabei.api.ComponentInstaller;
 import com.jfixby.scarabei.api.display.DisplayMetrics;
 import com.jfixby.scarabei.api.file.File;
@@ -33,11 +32,6 @@ public class Android {
 
 	public static String getApplicationPrivateDirPathString () {
 		return invoke().getApplicationPrivateDirPathString();
-	}
-
-	public static AndroidCameraSetup getCameraSetup () {
-		return invoke().getCameraSetup();
-
 	}
 
 	public static File getPrivateFolder () {
