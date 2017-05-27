@@ -54,7 +54,8 @@ public class RedAndroidComponent implements AndroidComponent {
 
 	@Override
 	public String getApplicationPrivateDirPathString () {
-		final String java_path = this.app.getApplication().getApplicationContext().getFilesDir().getAbsolutePath();
+// final String java_path = this.app.getApplication().getApplicationContext().getFilesDir().getAbsolutePath();
+		final String java_path = this.context.getFilesDir().getAbsolutePath();
 		return java_path;
 	}
 
