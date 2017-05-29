@@ -8,7 +8,7 @@ public class Collisions {
 	static private ComponentInstaller<CollisionsComponent> componentInstaller = new ComponentInstaller<CollisionsComponent>(
 		"Collisions");
 
-	public static final void installComponent (CollisionsComponent component_to_install) {
+	public static final void installComponent (final CollisionsComponent component_to_install) {
 		componentInstaller.installComponent(component_to_install);
 	}
 
@@ -28,15 +28,15 @@ public class Collisions {
 		return invoke().AtomicCategories();
 	}
 
-	public static final CollisionCategory produceAND (CollisionCategory A, CollisionCategory B) {
+	public static final CollisionCategory produceAND (final CollisionCategory A, final CollisionCategory B) {
 		return invoke().produceAND(A, B);
 	}
 
-	public static final CollisionCategory produceOR (CollisionCategory A, CollisionCategory B) {
+	public static final CollisionCategory produceOR (final CollisionCategory A, final CollisionCategory B) {
 		return invoke().produceOR(A, B);
 	}
 
-	public static final CollisionCategory produceNOT (CollisionCategory A) {
+	public static final CollisionCategory produceNOT (final CollisionCategory A) {
 		return invoke().produceNOT(A);
 	}
 
@@ -46,6 +46,10 @@ public class Collisions {
 
 	public static CollisionCategory DEFAULT () {
 		return invoke().DEFAULT();
+	}
+
+	public static CollisionRelations newCollisionRelations () {
+		return invoke().newCollisionRelations();
 	}
 
 }

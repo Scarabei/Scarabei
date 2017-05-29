@@ -17,4 +17,6 @@ public interface CollisionsComponent {
 
 	public CollisionCategory DEFAULT ();
 
+	public CollisionRelations newCollisionRelations ();
+
 }
