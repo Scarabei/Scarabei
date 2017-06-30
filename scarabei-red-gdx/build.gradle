@@ -18,6 +18,7 @@ allprojects {
 
 dependencies {
               compile project(":scarabei-api")
+              compile project(":scarabei-red")
               compile "com.badlogicgames.gdx:gdx:1.9.6"
 	}	
 	
