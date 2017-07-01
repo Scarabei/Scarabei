@@ -33,7 +33,7 @@ public class GdxAssetFile extends AbstractRedFile implements File {
 		this.absolute_path = output_file_path;
 		this.fs = file_system;
 		this.relative = this.absolute_path.getRelativePath();
-		if (this.fs.index_is_loaded) {
+		if (true) {
 			final Boolean isFile = this.fs.index.get(this.relative);
 			this.gdx_file = Gdx.files.internal(this.getGdxInternalPathString());
 
@@ -79,7 +79,7 @@ public class GdxAssetFile extends AbstractRedFile implements File {
 	}
 
 	String getGdxInternalPathString () {
-		return GdxAssetsFileSystem.internalFileName(this.absolute_path.getRelativePath());
+		return GdxAssetsFileSystem.internalFileName(this.absolute_path.getRelativePath(), this.fs);
 	}
 
 	@Override

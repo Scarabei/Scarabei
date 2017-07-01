@@ -6,25 +6,81 @@ import java.io.IOException;
 import com.jfixby.scarabei.api.base64.Base64;
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.List;
+import com.jfixby.scarabei.api.debug.Debug;
 import com.jfixby.scarabei.api.err.Err;
 import com.jfixby.scarabei.api.file.File;
+import com.jfixby.scarabei.api.file.FileSystem;
 import com.jfixby.scarabei.api.file.FilesList;
 import com.jfixby.scarabei.api.java.ByteArray;
+import com.jfixby.scarabei.api.log.L;
 import com.jfixby.scarabei.api.util.JUtils;
 import com.jfixby.scarabei.api.util.path.RelativePath;
 
 public class GdxAssetsFileSystemPacker {
 
+	public static void pack (final GdxAssetsFileSystemPackerParams packerParams) throws IOException {
+		Debug.checkNull("inputAssetsFolder", packerParams.inputAssetsFolder);
+		Debug.checkNull("outputAssetsFolder", packerParams.outputAssetsFolder);
+
+		final GdxAssetsFileSystemIndex index = new GdxAssetsFileSystemIndex();
+		final File index_file = packerParams.outputAssetsFolder.child(GdxAssetsFileSystemIndex.INDEX_FILE_NAME);
+
+		{
+
+			index.collapsedFolders = packerParams.collapseFolders;
+			index.encryptedNames = packerParams.encryptNames;
+			index.salt = packerParams.encryptionSalt;
+			final RelativePath path = JUtils.newRelativePath();
+			indexFolder(index, packerParams.inputAssetsFolder, path, index_file);
+			index.registerFile(JUtils.newRelativePath(GdxAssetsFileSystemIndex.INDEX_FILE_NAME));
+			// String string_data = Json.serializeToString(index);
+			index_file.writeData(index);
+// Collections.newList(index.index).print("index built");
+
+		}
+
+		if (packerParams.justBuildIndex) {
+			return;
+		}
+		final FileSystem fs = packerParams.inputAssetsFolder.getFileSystem();
+		if (!packerParams.collapseFolders) {
+			fs.copyFolderContentsToFolder(packerParams.inputAssetsFolder, packerParams.outputAssetsFolder);
+			return;
+		}
+
+		final FilesList list = packerParams.inputAssetsFolder.listAllChildren();
+		final RelativePath prefix = packerParams.inputAssetsFolder.getAbsoluteFilePath().getRelativePath();
+
+		for (final File f : list) {
+			if (f.isFolder()) {
+				continue;
+			}
+			final RelativePath postfix = f.getAbsoluteFilePath().getRelativePath().splitAt(prefix.size());
+// L.d("postfix", postfix);
+
+			final String assetFileName = GdxAssetsFileSystemIndex.internalFileName(postfix, packerParams.collapseFolders,
+				packerParams.encryptNames, packerParams.encryptionSalt);
+
+			final File outputFile = packerParams.outputAssetsFolder.child(assetFileName);
+			if (outputFile.exists()) {
+				L.d("md5 collision", outputFile);
+			}
+			fs.copyFileToFile(f, outputFile);
+		}
+// Sys.exit();
+
+	}
+
 	private static boolean compress = false;
 
-	public static void index (final File input, final File output) throws IOException {
+	private static void index (final File input_folder, final File output) throws IOException {
 		final GdxAssetsFileSystemIndex index = new GdxAssetsFileSystemIndex();
 		// index//
-		final File index_file = input.child(GdxAssetsFileSystemIndex.INDEX_FILE_NAME);
+		final File index_file = input_folder.child(GdxAssetsFileSystemIndex.INDEX_FILE_NAME);
 		{
 
 			final RelativePath path = JUtils.newRelativePath();
-			indexFolder(index, input, path, index_file);
+			indexFolder(index, input_folder, path, index_file);
 
 			// String string_data = Json.serializeToString(index);
 			index_file.writeData(index);
@@ -39,7 +95,7 @@ public class GdxAssetsFileSystemPacker {
 			for (int i = 0; i < index_list.size(); i++) {
 				final GdxAssetsFileSystemIndexEntry entry_i = index_list.getElementAt(i);
 				final RelativePath relative = JUtils.newRelativePath(entry_i.path);
-				final File file_i = input.proceed(relative);
+				final File file_i = input_folder.proceed(relative);
 				if (!file_i.exists()) {
 					Err.reportError("Index is corrupted: " + file_i);
 				}
@@ -59,7 +115,7 @@ public class GdxAssetsFileSystemPacker {
 
 			}
 		} else {
-			output.getFileSystem().copyFolderContentsToFolder(input, output);
+			output.getFileSystem().copyFolderContentsToFolder(input_folder, output);
 		}
 		fixTextures(output);
 
