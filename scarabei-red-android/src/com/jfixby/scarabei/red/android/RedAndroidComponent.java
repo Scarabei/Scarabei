@@ -86,7 +86,7 @@ public class RedAndroidComponent implements AndroidComponent {
 
 	@Override
 	public DisplayMetrics getDisplayMetrics () {
-
+		final DisplayMetrics displayMetrics = new DisplayMetrics();
 		final android.util.DisplayMetrics dm = new android.util.DisplayMetrics();
 		try {
 			this.app.getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -96,12 +96,10 @@ public class RedAndroidComponent implements AndroidComponent {
 		final int height = dm.heightPixels;
 		final int width = dm.widthPixels;
 
-		this.displayMetrics.set(width, height);
+		displayMetrics.set(width, height);
 
-		return this.displayMetrics;
+		return displayMetrics;
 	}
-
-	final DisplayMetrics displayMetrics = new DisplayMetrics();
 
 	@Override
 	public String getBrand () {
