@@ -12,7 +12,6 @@ import com.jfixby.scarabei.api.sys.SystemInfo;
 import com.jfixby.scarabei.api.sys.SystemInfoTags;
 import com.jfixby.scarabei.api.sys.settings.SystemSettings;
 import com.jfixby.scarabei.api.ver.Version;
-import com.jfixby.scarabei.red.display.RedDisplayMetrics;
 import com.jfixby.scarabei.red.sys.RedDeviceInfo;
 
 import android.app.Activity;
@@ -102,7 +101,7 @@ public class RedAndroidComponent implements AndroidComponent {
 		return this.displayMetrics;
 	}
 
-	final RedDisplayMetrics displayMetrics = new RedDisplayMetrics();
+	final DisplayMetrics displayMetrics = new DisplayMetrics();
 
 	@Override
 	public String getBrand () {

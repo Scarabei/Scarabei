@@ -1,10 +1,22 @@
 
 package com.jfixby.scarabei.api.display;
 
-public interface DisplayMetrics {
+public class DisplayMetrics {
 
-	double getHeight ();
+	private double width;
+	private double height;
 
-	double getWidth ();
+	public void set (final double width, final double height) {
+		this.width = width;
+		this.height = height;
+	}
+
+	public double getHeight () {
+		return this.height;
+	}
+
+	public double getWidth () {
+		return this.width;
+	}
 
 }
