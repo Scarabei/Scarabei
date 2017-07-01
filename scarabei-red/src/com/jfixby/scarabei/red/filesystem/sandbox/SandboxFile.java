@@ -95,12 +95,6 @@ public class SandboxFile extends AbstractRedFile implements File {
 	}
 
 	@Override
-	public FilesList listAllChildren () {
-		Err.throwNotImplementedYet();
-		return null;
-	}
-
-	@Override
 	public File child (final String child_name) {
 		return new SandboxFile(this.getFileSystem(), this.getAbsoluteFilePath().child(child_name));
 	}

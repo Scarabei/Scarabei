@@ -33,7 +33,7 @@ public class GdxAssetsFileSystem extends AbstractFileSystem implements FileSyste
 	public void checkIndex () {
 		for (int i = 0; i < this.index_data.index.size(); i++) {
 			final GdxAssetsFileSystemIndexEntry entry = this.index_data.index.get(i);
-			L.d("checking", entry.path);
+//			L.d("checking", entry.path);
 			final RelativePath path = JUtils.newRelativePath(entry.path);
 			String file_name = internalFileName(path, this);
 			if (GdxAssetsFileSystemIndex.INDEX_FILE_NAME.equals(entry.path)) {
@@ -44,7 +44,11 @@ public class GdxAssetsFileSystem extends AbstractFileSystem implements FileSyste
 			if (entry.is_file && !gdx_file.exists()) {
 				L.d("         path", path);
 				L.d("entry.is_file", entry.is_file);
-				L.d("     gdx_file", gdx_file.file().getAbsolutePath());
+				L.d("     gdx_file", gdx_file);
+				final java.io.File file = gdx_file.file();
+				if (file != null) {
+					L.d("         file", file.getAbsolutePath());
+				}
 				L.d("       exists", gdx_file.exists());
 				Err.reportError("GdxFileSystemIndex is corrupted. File not found: " + gdx_file);
 			}

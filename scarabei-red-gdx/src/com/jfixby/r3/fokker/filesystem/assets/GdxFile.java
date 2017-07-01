@@ -47,12 +47,6 @@ public class GdxFile extends AbstractRedFile implements File {
 	}
 
 	@Override
-	public FilesList listAllChildren () {
-		Err.throwNotImplementedYet();
-		return null;
-	}
-
-	@Override
 	public boolean isFolder () {
 		final FileHandle file = Gdx.files.internal(this.getGdxInternalPathString());
 		if (!file.exists()) {

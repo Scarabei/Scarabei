@@ -3,7 +3,6 @@ package com.jfixby.scarabei.red.filesystem.virtual;
 
 import java.io.IOException;
 
-import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.List;
 import com.jfixby.scarabei.api.err.Err;
 import com.jfixby.scarabei.api.file.File;
@@ -12,7 +11,6 @@ import com.jfixby.scarabei.api.file.FilesList;
 import com.jfixby.scarabei.api.util.path.AbsolutePath;
 import com.jfixby.scarabei.api.util.path.RelativePath;
 import com.jfixby.scarabei.red.filesystem.AbstractRedFile;
-import com.jfixby.scarabei.red.filesystem.LocalFileSystem;
 import com.jfixby.scarabei.red.filesystem.RedFilesList;
 
 public class InMemoryFile extends AbstractRedFile implements File {
@@ -30,49 +28,6 @@ public class InMemoryFile extends AbstractRedFile implements File {
 	@Override
 	public AbsolutePath<FileSystem> getAbsoluteFilePath () {
 		return this.absolute_path;
-	}
-
-	@Override
-	final public RedFilesList listAllChildren () throws IOException {
-		final List<File> filesQueue = Collections.newList();
-		filesQueue.add(this);
-		final RedFilesList result = new RedFilesList();
-		collectChildren(filesQueue, result, false);
-
-		return result;
-
-	}
-
-	static final boolean DIRECT_CHILDREN = true;
-	static final boolean ALL_CHILDREN = !DIRECT_CHILDREN;
-
-	static private <T extends LocalFileSystem> void collectChildren (final List<File> filesQueue, final RedFilesList result,
-		final boolean directFlag) throws IOException {
-		while (filesQueue.size() > 0) {
-			final File nextfile = filesQueue.removeElementAt(0);
-
-			if (nextfile.isFolder()) {
-
-				final FilesList files = nextfile.listDirectChildren();
-
-				for (int i = 0; i < files.size(); i++) {
-					final File child = files.getElementAt(i);
-					result.add(child);
-					if (directFlag == ALL_CHILDREN) {
-
-						if (child.isFolder()) {
-							filesQueue.add(child);
-						}
-					} else {
-
-					}
-				}
-
-			} else {
-				Err.reportError("This is not a folder: " + nextfile.getAbsoluteFilePath());
-			}
-
-		}
 	}
 
 	@Override

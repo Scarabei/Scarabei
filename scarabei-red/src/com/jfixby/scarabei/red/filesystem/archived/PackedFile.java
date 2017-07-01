@@ -45,12 +45,6 @@ public class PackedFile extends AbstractRedFile implements File {
 	}
 
 	@Override
-	public FilesList listAllChildren () {
-		Err.throwNotImplementedYet();
-		return null;
-	}
-
-	@Override
 	public boolean isFolder () {
 		final PackedFileSystemContent content = this.virtualFileSystem.getContent();
 		return content.isFolder(this.absolute_path.getRelativePath());

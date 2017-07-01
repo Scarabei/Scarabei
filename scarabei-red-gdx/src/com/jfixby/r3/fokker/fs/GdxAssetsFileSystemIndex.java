@@ -29,6 +29,10 @@ public class GdxAssetsFileSystemIndex implements Serializable {
 	public static String internalFileName (final RelativePath path, final boolean collapsedFolders, final boolean encryptedNames,
 		final String salt) {
 		String stringPath = path.toString();
+		if (stringPath.equals(INDEX_FILE_NAME)) {
+			return stringPath;
+		}
+
 		if (collapsedFolders) {
 			stringPath = stringPath.replaceAll("/", "#");
 		}

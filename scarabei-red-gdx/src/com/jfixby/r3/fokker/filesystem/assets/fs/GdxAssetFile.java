@@ -6,11 +6,13 @@ import java.io.IOException;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.jfixby.scarabei.api.collections.Collection;
+import com.jfixby.scarabei.api.collections.List;
 import com.jfixby.scarabei.api.err.Err;
 import com.jfixby.scarabei.api.file.File;
 import com.jfixby.scarabei.api.file.FileSystem;
 import com.jfixby.scarabei.api.file.FilesList;
 import com.jfixby.scarabei.api.java.ByteArray;
+import com.jfixby.scarabei.api.log.L;
 import com.jfixby.scarabei.api.util.path.AbsolutePath;
 import com.jfixby.scarabei.api.util.path.RelativePath;
 import com.jfixby.scarabei.red.filesystem.AbstractRedFile;
@@ -22,12 +24,6 @@ public class GdxAssetFile extends AbstractRedFile implements File {
 	private final GdxAssetsFileSystem fs;
 	private final RelativePath relative;
 	private FileHandle gdx_file;
-
-	@Override
-	public FilesList listAllChildren () {
-		Err.throwNotImplementedYet();
-		return null;
-	}
 
 	public GdxAssetFile (final AbsolutePath<FileSystem> output_file_path, final GdxAssetsFileSystem file_system) {
 		this.absolute_path = output_file_path;
@@ -152,9 +148,10 @@ public class GdxAssetFile extends AbstractRedFile implements File {
 			final RedFilesList listFiles = new RedFilesList();
 			for (int i = 0; i < this.fs.index.size(); i++) {
 				final RelativePath path = this.fs.index.getKeyAt(i);
+				final RelativePath pp = path.parent();
 				final Collection<String> candidate_steps = path.steps();
 				if (my_steps.size() + 1 == candidate_steps.size()) {
-					if (path.parent().equals(this.relative)) {
+					if (pp.equals(this.relative)) {
 						final AbsolutePath<FileSystem> absolute_file = this.absolute_path.child(candidate_steps.getLast());
 						final File addFile = absolute_file.getMountPoint().newFile(absolute_file);
 						{
@@ -244,6 +241,79 @@ public class GdxAssetFile extends AbstractRedFile implements File {
 
 	public FileHandle toFileHandle () {
 		return this.gdx_file;
+	}
+
+	@Override
+	public FilesList listAllChildren () throws IOException {
+
+		final FileHandle file = Gdx.files.internal(this.getGdxInternalPathString());
+
+		if (!this.exists()) {
+			Err.reportError("File does not exist: " + this.absolute_path);
+		}
+		if (this.isFolder()) {
+			final Collection<String> my_steps = this.relative.steps();
+			final RedFilesList listFiles = new RedFilesList();
+			for (int i = 0; i < this.fs.index.size(); i++) {
+				final RelativePath path = this.fs.index.getKeyAt(i);
+// final RelativePath pp = path.parent();
+// final Collection<String> candidate_steps = path.steps();
+				if (path.beginsWith(this.relative)) {
+					if (path.size() > this.relative.size()) {
+						final AbsolutePath<FileSystem> absolute_file = this.fs.ROOT().getAbsoluteFilePath().proceed(path);
+//						L.d("GDX", absolute_file);
+						final File addFile = absolute_file.getMountPoint().newFile(absolute_file);
+						{
+							listFiles.add(addFile);
+						}
+					}
+				}
+			}
+			return listFiles;
+		} else {
+			Err.reportError("This is not a folder: " + this.absolute_path);
+		}
+		return null;
+
+// final List<File> filesQueue = Collections.newList();
+// filesQueue.add(this);
+// final RedFilesList result = new RedFilesList();
+// collectChildren(filesQueue, result, false);
+//
+// return result;
+
+	}
+
+	private static final boolean DIRECT_CHILDREN = true;
+	private static final boolean ALL_CHILDREN = !DIRECT_CHILDREN;
+
+	static private void collectChildren (final List<File> filesQueue, final RedFilesList result, final boolean directFlag)
+		throws IOException {
+		while (filesQueue.size() > 0) {
+			final File nextfile = filesQueue.removeElementAt(0);
+
+			if (nextfile.isFolder()) {
+
+				final FilesList files = nextfile.listDirectChildren();
+
+				for (int i = 0; i < files.size(); i++) {
+					final File child = files.getElementAt(i);
+					result.add(child);
+					if (directFlag == ALL_CHILDREN) {
+
+						if (child.isFolder()) {
+							filesQueue.add(child);
+						}
+					} else {
+
+					}
+				}
+
+			} else {
+				Err.reportError("This is not a folder: " + nextfile.getAbsoluteFilePath());
+			}
+
+		}
 	}
 
 }

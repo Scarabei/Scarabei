@@ -4,7 +4,10 @@ package com.jfixby.scarabei.red.filesystem;
 import java.io.IOException;
 import java.io.Serializable;
 
+import com.jfixby.scarabei.api.collections.Collections;
+import com.jfixby.scarabei.api.collections.List;
 import com.jfixby.scarabei.api.debug.Debug;
+import com.jfixby.scarabei.api.err.Err;
 import com.jfixby.scarabei.api.file.File;
 import com.jfixby.scarabei.api.file.FileFilter;
 import com.jfixby.scarabei.api.file.FileHash;
@@ -245,6 +248,49 @@ public abstract class AbstractRedFile implements File {
 		} catch (final IOException e) {
 			L.e(e);
 			return false;
+		}
+	}
+
+	@Override
+	public FilesList listAllChildren () throws IOException {
+		final List<File> filesQueue = Collections.newList();
+		filesQueue.add(this);
+		final RedFilesList result = new RedFilesList();
+		collectChildren(filesQueue, result, false);
+
+		return result;
+
+	}
+
+	private static final boolean DIRECT_CHILDREN = true;
+	private static final boolean ALL_CHILDREN = !DIRECT_CHILDREN;
+
+	static private void collectChildren (final List<File> filesQueue, final RedFilesList result, final boolean directFlag)
+		throws IOException {
+		while (filesQueue.size() > 0) {
+			final File nextfile = filesQueue.removeElementAt(0);
+
+			if (nextfile.isFolder()) {
+
+				final FilesList files = nextfile.listDirectChildren();
+
+				for (int i = 0; i < files.size(); i++) {
+					final File child = files.getElementAt(i);
+					result.add(child);
+					if (directFlag == ALL_CHILDREN) {
+
+						if (child.isFolder()) {
+							filesQueue.add(child);
+						}
+					} else {
+
+					}
+				}
+
+			} else {
+				Err.reportError("This is not a folder: " + nextfile.getAbsoluteFilePath());
+			}
+
 		}
 	}
 

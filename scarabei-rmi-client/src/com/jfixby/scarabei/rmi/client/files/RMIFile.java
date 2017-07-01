@@ -45,12 +45,6 @@ public class RMIFile extends AbstractRedFile implements File {
 	}
 
 	@Override
-	public FilesList listAllChildren () {
-		Err.throwNotImplementedYet();
-		return null;
-	}
-
-	@Override
 	public boolean isFolder () throws IOException {
 		final RMIDataContainer content = this.virtualFileSystem.getContent();
 		return content.isFolder(this.absolute_path.getRelativePath());
