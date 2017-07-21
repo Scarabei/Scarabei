@@ -13,6 +13,7 @@ import com.jfixby.scarabei.api.file.cache.FileCache;
 import com.jfixby.scarabei.api.geometry.Geometry;
 import com.jfixby.scarabei.api.graphs.Graphs;
 import com.jfixby.scarabei.api.image.ImageProcessing;
+import com.jfixby.scarabei.api.input.UserInput;
 import com.jfixby.scarabei.api.io.IO;
 import com.jfixby.scarabei.api.java.gc.GCFisher;
 import com.jfixby.scarabei.api.log.L;
@@ -69,7 +70,7 @@ public class ScarabeiDesktop {
 		ImageProcessing.installComponent("com.jfixby.scarabei.red.image.RedImageProcessing");
 // ImageAWT.installComponent("com.jfixby.scarabei.red.desktop.image.RedImageAWT");
 		FileCache.installComponent("com.jfixby.scarabei.red.filesystem.cache.RedFileCache");
-
+		UserInput.installComponent("com.jfixby.scarabei.red.input.RedInput");
 	}
 
 }

@@ -8,8 +8,12 @@ public class UserInput {
 	static private ComponentInstaller<UserInputComponent> componentInstaller = new ComponentInstaller<UserInputComponent>(
 		"UserInput");
 
-	public static final void installComponent (UserInputComponent component_to_install) {
+	public static final void installComponent (final UserInputComponent component_to_install) {
 		componentInstaller.installComponent(component_to_install);
+	}
+
+	public static void installComponent (final String className) {
+		componentInstaller.installComponent(className);
 	}
 
 	public static final UserInputComponent invoke () {
