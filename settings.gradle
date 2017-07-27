@@ -3,3 +3,12 @@ include "scarabei-api-desktop"
 include "scarabei-api-android"
 include "scarabei-api-ios"
 include "scarabei-api-gwt"
+
+
+include "scarabei-red"
+include "scarabei-red-desktop"
+include "scarabei-red-android"
+include "scarabei-red-ios"
+include "scarabei-red-gwt"
+
+include "scarabei-gson"
