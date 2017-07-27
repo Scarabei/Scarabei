@@ -8,32 +8,32 @@ import java.io.UnsupportedEncodingException;
 
 import com.jfixby.scarabei.api.net.http.HttpCallProgress;
 import com.jfixby.scarabei.api.net.http.HttpConnection;
-import com.jfixby.scarabei.api.util.JUtils;
+import com.jfixby.scarabei.api.strings.Strings;
 
 public class RedHttpCallProgress implements HttpCallProgress {
 
-	private HttpConnection connection;
-	private byte[] data;
+	private final HttpConnection connection;
+	private final byte[] data;
 
-	public RedHttpCallProgress (HttpConnection connection, byte[] data) {
+	public RedHttpCallProgress (final HttpConnection connection, final byte[] data) {
 		this.connection = connection;
 		this.data = data;
 
 	}
 
 	@Override
-	public String readResultAsString (String encoding_string) throws UnsupportedEncodingException {
+	public String readResultAsString (final String encoding_string) throws UnsupportedEncodingException {
 
-		String input_data = JUtils.newString(data, encoding_string);
+		final String input_data = Strings.newString(this.data, encoding_string);
 
 		return input_data;
 	}
 
 	@Override
 	public Object readObject () throws IOException, ClassNotFoundException {
-		ByteArrayInputStream bis = new ByteArrayInputStream(data);
-		ObjectInputStream ois = new ObjectInputStream(bis);
-		Object object = ois.readObject();
+		final ByteArrayInputStream bis = new ByteArrayInputStream(this.data);
+		final ObjectInputStream ois = new ObjectInputStream(bis);
+		final Object object = ois.readObject();
 		return object;
 	}
 

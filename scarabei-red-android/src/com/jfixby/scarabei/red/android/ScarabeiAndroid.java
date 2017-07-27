@@ -25,10 +25,11 @@ import com.jfixby.scarabei.api.md5.MD5;
 import com.jfixby.scarabei.api.memory.MemoryManager;
 import com.jfixby.scarabei.api.net.http.Http;
 import com.jfixby.scarabei.api.random.Random;
+import com.jfixby.scarabei.api.strings.Strings;
 import com.jfixby.scarabei.api.sys.Sys;
 import com.jfixby.scarabei.api.sys.settings.SystemSettings;
 import com.jfixby.scarabei.api.taskman.TaskManager;
-import com.jfixby.scarabei.api.util.JUtils;
+import com.jfixby.scarabei.api.util.Utils;
 import com.jfixby.scarabei.red.android.collections.AndroidCollections;
 import com.jfixby.scarabei.red.android.filesystem.AndroidFileSystem;
 import com.jfixby.scarabei.red.android.log.AndroidLogger;
@@ -51,16 +52,18 @@ import com.jfixby.scarabei.red.math.RedIntegerMath;
 import com.jfixby.scarabei.red.math.RedMathTools;
 import com.jfixby.scarabei.red.name.RedAssetsNamespace;
 import com.jfixby.scarabei.red.random.RedRandom;
+import com.jfixby.scarabei.red.string.RedStrings;
 import com.jfixby.scarabei.red.sys.RedSystemSettings;
 import com.jfixby.scarabei.red.sys.RedTaskManager;
-import com.jfixby.scarabei.red.util.RedJUtils;
+import com.jfixby.scarabei.red.util.RedUtils;
 import com.jfixby.scarabei.red.util.md5.RSADataSecurityIncMD5;
 
 public class ScarabeiAndroid {
 
 	public static final void deploy (final AndroidComponent android) {
 		L.installComponent(new AndroidLogger());
-		JUtils.installComponent(new RedJUtils());
+		Utils.installComponent(new RedUtils());
+		Strings.installComponent(new RedStrings());
 		Collections.installComponent(new AndroidCollections());
 		FloatMath.installComponent(new AndroidFloatMath());
 		TaskManager.installComponent(new RedTaskManager());

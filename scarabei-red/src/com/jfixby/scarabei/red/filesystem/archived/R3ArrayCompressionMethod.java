@@ -11,7 +11,8 @@ import com.jfixby.scarabei.api.io.InputStream;
 import com.jfixby.scarabei.api.io.OutputStream;
 import com.jfixby.scarabei.api.json.Json;
 import com.jfixby.scarabei.api.log.L;
-import com.jfixby.scarabei.api.util.JUtils;
+import com.jfixby.scarabei.api.strings.Strings;
+import com.jfixby.scarabei.api.util.Utils;
 import com.jfixby.scarabei.api.util.path.RelativePath;
 
 public class R3ArrayCompressionMethod implements CompressionMethod {
@@ -29,7 +30,7 @@ public class R3ArrayCompressionMethod implements CompressionMethod {
 
 		final TagsList list = new TagsList();
 
-		final RelativePath path = JUtils.newRelativePath();
+		final RelativePath path = Utils.newRelativePath();
 
 		this.absrobCollection(input, path, list);
 		long offset = 0;
@@ -146,7 +147,7 @@ public class R3ArrayCompressionMethod implements CompressionMethod {
 		final byte[] shema_bytes = new byte[(int)schema_len];
 		is.read(shema_bytes);
 		is.close();
-		final String schema_string = JUtils.newString(shema_bytes);
+		final String schema_string = Strings.newString(shema_bytes);
 
 		// L.d("schema_string", schema_string);
 

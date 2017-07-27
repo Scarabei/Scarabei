@@ -17,7 +17,7 @@ import com.jfixby.scarabei.api.file.packing.FileSystemPackingSpecs;
 import com.jfixby.scarabei.api.file.packing.FileSystemUnpackingSpecs;
 import com.jfixby.scarabei.api.file.packing.PackedFileSystem;
 import com.jfixby.scarabei.api.io.OutputStream;
-import com.jfixby.scarabei.api.util.JUtils;
+import com.jfixby.scarabei.api.strings.Strings;
 
 public class RedFileSystemPacker implements FileSystemPackerComponent {
 
@@ -37,7 +37,7 @@ public class RedFileSystemPacker implements FileSystemPackerComponent {
 		this.skip(END_LINE.length(), jis);
 		final byte[] name_array = new byte[schema_name_len];
 		jis.read(name_array);
-		final String schema_name = JUtils.newString(name_array);
+		final String schema_name = Strings.newString(name_array);
 
 		// L.d("shema_name", schema_name);
 

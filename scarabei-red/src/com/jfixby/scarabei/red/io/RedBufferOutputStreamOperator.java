@@ -8,7 +8,7 @@ import java.io.OutputStream;
 import com.jfixby.scarabei.api.io.IO;
 import com.jfixby.scarabei.api.io.JavaOutputStreamOperator;
 import com.jfixby.scarabei.api.java.ByteArray;
-import com.jfixby.scarabei.api.util.JUtils;
+import com.jfixby.scarabei.api.util.Utils;
 
 public class RedBufferOutputStreamOperator implements JavaOutputStreamOperator {
 
@@ -23,7 +23,7 @@ public class RedBufferOutputStreamOperator implements JavaOutputStreamOperator {
 	}
 
 	public ByteArray getBytes () {
-		return JUtils.newByteArray(this.data);
+		return Utils.newByteArray(this.data);
 	}
 
 	@Override

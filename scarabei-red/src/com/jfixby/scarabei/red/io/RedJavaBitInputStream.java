@@ -8,7 +8,7 @@ import com.jfixby.scarabei.api.debug.Debug;
 import com.jfixby.scarabei.api.io.JavaBitInputStream;
 import com.jfixby.scarabei.api.io.JavaBitStreamMode;
 import com.jfixby.scarabei.api.util.EditableBinaryCode;
-import com.jfixby.scarabei.api.util.JUtils;
+import com.jfixby.scarabei.api.util.Utils;
 
 public class RedJavaBitInputStream implements JavaBitInputStream {
 
@@ -22,7 +22,7 @@ public class RedJavaBitInputStream implements JavaBitInputStream {
 	public RedJavaBitInputStream (java.io.InputStream is, JavaBitStreamMode mode) {
 		this.mode = Debug.checkNull("JavaBitStreamMode", mode);
 		this.is = is;
-		buffer = JUtils.newBinaryCode();
+		buffer = Utils.newBinaryCode();
 	}
 
 	@Override

@@ -15,7 +15,7 @@ import com.jfixby.scarabei.api.net.http.HttpConnectionSpecs;
 import com.jfixby.scarabei.api.net.http.HttpFileSystem;
 import com.jfixby.scarabei.api.net.http.HttpFileSystemSpecs;
 import com.jfixby.scarabei.api.net.http.HttpURL;
-import com.jfixby.scarabei.api.util.JUtils;
+import com.jfixby.scarabei.api.util.Utils;
 import com.jfixby.scarabei.api.util.path.RelativePath;
 import com.jfixby.scarabei.red.net.RedHost;
 
@@ -28,7 +28,7 @@ public abstract class RedHttp implements HttpComponent {
 		try {
 			final URL java_url = new URL(url_string);
 			url_string = java_url.toString();
-			final RelativePath relative = JUtils.newRelativePath(java_url.getPath());
+			final RelativePath relative = Utils.newRelativePath(java_url.getPath());
 			final RedHost host = new RedHost(RedHttpURL.getURLRoot(java_url));
 			return new RedHttpURL(host, relative);
 		} catch (final MalformedURLException e) {

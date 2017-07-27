@@ -5,7 +5,7 @@ import com.jfixby.scarabei.api.assets.ID;
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.List;
 import com.jfixby.scarabei.api.debug.Debug;
-import com.jfixby.scarabei.api.util.JUtils;
+import com.jfixby.scarabei.api.util.Utils;
 import com.jfixby.scarabei.api.util.path.RelativePath;
 
 public final class RedAssetID implements ID {
@@ -16,7 +16,7 @@ public final class RedAssetID implements ID {
 		Debug.checkEmpty("AssetID String", value);
 		Debug.checkTrue("Input value contains space: <" + value + "> at " + value.indexOf(' '), value.indexOf(' ') == -1);
 		// Debug.checkEmpty("value", value.replaceAll("\\\\.", ""));
-		this.value = JUtils.newRelativePath(value.replaceAll("\\" + ID.SEPARATOR, RelativePath.SEPARATOR));
+		this.value = Utils.newRelativePath(value.replaceAll("\\" + ID.SEPARATOR, RelativePath.SEPARATOR));
 		// L.d();
 		// L.d("string value", value);
 		// L.d(" value", this.value);
@@ -25,7 +25,7 @@ public final class RedAssetID implements ID {
 
 	public RedAssetID () {
 		super();
-		this.value = JUtils.newRelativePath();
+		this.value = Utils.newRelativePath();
 	}
 
 	public RedAssetID (final RelativePath value) {

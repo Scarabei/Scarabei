@@ -28,7 +28,7 @@ import com.jfixby.scarabei.api.io.OutputStreamOpener;
 import com.jfixby.scarabei.api.io.StreamPipe;
 import com.jfixby.scarabei.api.io.U_StreamPipeProgressListener;
 import com.jfixby.scarabei.api.java.ByteArray;
-import com.jfixby.scarabei.api.util.JUtils;
+import com.jfixby.scarabei.api.util.Utils;
 
 public class RedIO implements IOComponent {
 
@@ -198,7 +198,7 @@ public class RedIO implements IOComponent {
 		os.flush();
 // os.close();
 		buff.close();
-		return JUtils.newByteArray(buff.toByteArray());
+		return Utils.newByteArray(buff.toByteArray());
 	}
 
 	@Override
@@ -341,7 +341,7 @@ public class RedIO implements IOComponent {
 		}
 		bis.close();
 		final byte[] bytes = bis.toByteArray();
-		return JUtils.newByteArray(bytes);
+		return Utils.newByteArray(bytes);
 	}
 
 	@Override

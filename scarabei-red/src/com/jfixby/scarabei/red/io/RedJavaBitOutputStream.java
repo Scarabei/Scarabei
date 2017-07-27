@@ -11,14 +11,14 @@ import com.jfixby.scarabei.api.io.JavaBitStreamMode;
 import com.jfixby.scarabei.api.math.IntegerMath;
 import com.jfixby.scarabei.api.util.BinaryCode;
 import com.jfixby.scarabei.api.util.EditableBinaryCode;
-import com.jfixby.scarabei.api.util.JUtils;
+import com.jfixby.scarabei.api.util.Utils;
 
 public class RedJavaBitOutputStream implements JavaBitOutputStream {
 
 	final private OutputStream os;
 	private int frameSize;
 	private long valueLimit;
-	final EditableBinaryCode buffer = JUtils.newBinaryCode();
+	final EditableBinaryCode buffer = Utils.newBinaryCode();
 	int max_buffer_size = 8;
 	private int byteValue;
 	private JavaBitStreamMode mode;
@@ -52,7 +52,7 @@ public class RedJavaBitOutputStream implements JavaBitOutputStream {
 	}
 
 	public void writeBits (int bits, int numberOfBitsToWrite) throws IOException {
-		final BinaryCode bitform = JUtils.component().binaryCodeOf(bits, numberOfBitsToWrite);
+		final BinaryCode bitform = Utils.component().binaryCodeOf(bits, numberOfBitsToWrite);
 		buffer.append(bitform);
 		if (buffer.size() >= max_buffer_size) {
 			flushWhatCanBeFlushed();

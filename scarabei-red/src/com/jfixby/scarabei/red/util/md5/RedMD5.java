@@ -10,14 +10,14 @@ import com.jfixby.scarabei.api.io.IO;
 import com.jfixby.scarabei.api.java.ByteArray;
 import com.jfixby.scarabei.api.md5.MD5Component;
 import com.jfixby.scarabei.api.md5.MD5String;
-import com.jfixby.scarabei.api.util.JUtils;
+import com.jfixby.scarabei.api.util.Utils;
 
 public abstract class RedMD5 implements MD5Component {
 
 	@Override
 	public MD5String md5String (final String password) {
 		Debug.checkNull("input", password);
-		final ByteArray array = JUtils.newByteArray(password.getBytes());
+		final ByteArray array = Utils.newByteArray(password.getBytes());
 		final Buffer buff = IO.newBuffer(array);
 		final BufferInputStream bis = IO.newBufferInputStream(buff);
 		bis.open();

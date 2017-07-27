@@ -14,7 +14,7 @@ import com.jfixby.scarabei.api.file.FileOutputStream;
 import com.jfixby.scarabei.api.file.FileSystem;
 import com.jfixby.scarabei.api.file.LocalFileSystemComponent;
 import com.jfixby.scarabei.api.log.L;
-import com.jfixby.scarabei.api.util.JUtils;
+import com.jfixby.scarabei.api.util.Utils;
 import com.jfixby.scarabei.api.util.path.AbsolutePath;
 import com.jfixby.scarabei.api.util.path.RelativePath;
 import com.jfixby.scarabei.red.io.JavaFileInputStream;
@@ -41,7 +41,7 @@ public class LocalFileSystem extends AbstractFileSystem implements LocalFileSyst
 		file = file.getAbsoluteFile();
 
 		final RelativePath relative = this.pathToRelative(file.toPath());
-		final AbsolutePath<FileSystem> path = JUtils.newAbsolutePath((FileSystem)this, relative);
+		final AbsolutePath<FileSystem> path = Utils.newAbsolutePath((FileSystem)this, relative);
 		return path;
 	}
 
@@ -50,7 +50,7 @@ public class LocalFileSystem extends AbstractFileSystem implements LocalFileSyst
 		for (final Path p : path) {
 			steps.add(p.toFile().getName());
 		}
-		final RelativePath relative = JUtils.newRelativePath(steps);
+		final RelativePath relative = Utils.newRelativePath(steps);
 		return relative;
 	}
 
@@ -72,7 +72,7 @@ public class LocalFileSystem extends AbstractFileSystem implements LocalFileSyst
 		Debug.checkNull("java_file_path", java_file_path);
 
 		final String splitRegex = Pattern.quote(System.getProperty("file.separator"));
-		final RelativePath splittedFileName = JUtils.newRelativePath(Collections.newList(java_file_path.split(splitRegex)));
+		final RelativePath splittedFileName = Utils.newRelativePath(Collections.newList(java_file_path.split(splitRegex)));
 // splittedFileName.steps().print("steps");
 
 		final File file = this.ROOT().proceed(splittedFileName);

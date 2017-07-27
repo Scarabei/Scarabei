@@ -5,7 +5,7 @@ import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.List;
 import com.jfixby.scarabei.api.java.gc.BaitInfo;
 import com.jfixby.scarabei.api.log.L;
-import com.jfixby.scarabei.api.util.JUtils;
+import com.jfixby.scarabei.api.util.Utils;
 import com.jfixby.scarabei.api.util.StateSwitcher;
 
 public class GCForceSession {
@@ -26,7 +26,7 @@ public class GCForceSession {
 		return freeSessionID;
 	}
 
-	public StateSwitcher<GCForceSessionState> state = JUtils.newStateSwitcher(GCForceSessionState.NEW);
+	public StateSwitcher<GCForceSessionState> state = Utils.newStateSwitcher(GCForceSessionState.NEW);
 	final List<RedBaitInfo> activeBaits = Collections.newList();
 
 	private long thrown;

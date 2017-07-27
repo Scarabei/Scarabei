@@ -3,7 +3,7 @@ package com.jfixby.scarabei.red.util;
 
 import com.jfixby.scarabei.api.collections.List;
 import com.jfixby.scarabei.api.err.Err;
-import com.jfixby.scarabei.api.util.JUtils;
+import com.jfixby.scarabei.api.util.Utils;
 import com.jfixby.scarabei.api.util.path.AbsolutePath;
 import com.jfixby.scarabei.api.util.path.MountPoint;
 import com.jfixby.scarabei.api.util.path.RelativePath;
@@ -85,7 +85,7 @@ class RedAbsolutePath<T extends MountPoint> implements AbsolutePath<T> {
 	public AbsolutePath<T> child (final String child_name) {
 		final RelativePath child_relative = this.relative.child(child_name);
 
-		final AbsolutePath<T> result = JUtils.newAbsolutePath(this.mount_point, child_relative);
+		final AbsolutePath<T> result = Utils.newAbsolutePath(this.mount_point, child_relative);
 		return result;
 	}
 
@@ -97,14 +97,14 @@ class RedAbsolutePath<T extends MountPoint> implements AbsolutePath<T> {
 	@Override
 	public AbsolutePath<T> parent () {
 		final RelativePath parent = this.relative.parent();
-		final AbsolutePath<T> result = JUtils.newAbsolutePath(this.mount_point, parent);
+		final AbsolutePath<T> result = Utils.newAbsolutePath(this.mount_point, parent);
 		return result;
 	}
 
 	@Override
 	public AbsolutePath<T> proceed (final RelativePath relative) {
 		final RelativePath incremented = this.relative.proceed(relative);
-		return JUtils.newAbsolutePath(this.mount_point, incremented);
+		return Utils.newAbsolutePath(this.mount_point, incremented);
 	}
 
 	@Override

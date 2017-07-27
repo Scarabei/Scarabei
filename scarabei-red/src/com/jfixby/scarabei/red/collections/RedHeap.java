@@ -7,7 +7,7 @@ import java.util.Comparator;
 import com.jfixby.scarabei.api.collections.Collection;
 import com.jfixby.scarabei.api.collections.Heap;
 import com.jfixby.scarabei.api.log.L;
-import com.jfixby.scarabei.api.util.JUtils;
+import com.jfixby.scarabei.api.strings.Strings;
 
 final public class RedHeap<T> implements Heap<T> {
 
@@ -165,13 +165,13 @@ final public class RedHeap<T> implements Heap<T> {
 		final int offset = nodeHeader.length() / 2;
 
 		if (type == NODE_PRINT_TYPE.ROOT) {
-			nextPrefix = globalPrefix + JUtils.prefix(" ", offset);
+			nextPrefix = globalPrefix + Strings.prefix(" ", offset);
 			L.d(globalPrefix + nodeHeader);
 		} else if (type == NODE_PRINT_TYPE.LAST) {
-			nextPrefix = globalPrefix + JUtils.prefix(" ", offset);
+			nextPrefix = globalPrefix + Strings.prefix(" ", offset);
 			L.d(globalPrefix + "└" + nodeHeader);
 		} else { // (type == NODE_PRINT_TYPE.MIDDLE) {
-			nextPrefix = globalPrefix + "│" + JUtils.prefix(" ", offset);
+			nextPrefix = globalPrefix + "│" + Strings.prefix(" ", offset);
 			L.d(globalPrefix + "├" + nodeHeader);
 		}
 

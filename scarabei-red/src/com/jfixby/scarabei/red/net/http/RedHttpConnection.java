@@ -18,8 +18,9 @@ import com.jfixby.scarabei.api.net.http.HttpConnectionOutputStream;
 import com.jfixby.scarabei.api.net.http.HttpConnectionSpecs;
 import com.jfixby.scarabei.api.net.http.HttpURL;
 import com.jfixby.scarabei.api.net.http.METHOD;
-import com.jfixby.scarabei.api.util.JUtils;
+import com.jfixby.scarabei.api.strings.Strings;
 import com.jfixby.scarabei.api.util.StateSwitcher;
+import com.jfixby.scarabei.api.util.Utils;
 
 public class RedHttpConnection implements HttpConnection {
 
@@ -40,7 +41,7 @@ public class RedHttpConnection implements HttpConnection {
 	private boolean octetStream;
 	private long connectionTimeout;
 	private long readTimeout;
-	private final StateSwitcher<CONNECTION_STATE> state = JUtils.newStateSwitcher(CONNECTION_STATE.NEW);
+	private final StateSwitcher<CONNECTION_STATE> state = Utils.newStateSwitcher(CONNECTION_STATE.NEW);
 	private boolean instanceFollowRedirects;
 
 	public RedHttpConnection (final HttpConnectionSpecs specs) {
@@ -191,7 +192,7 @@ public class RedHttpConnection implements HttpConnection {
 			for (final String key : this.requestProperties.keys()) {
 				list.add(key + "=" + this.requestProperties.get(key));
 			}
-			urlString = urlString + JUtils.wrapSequence(list, list.size(), "?", "", "&");
+			urlString = urlString + Strings.wrapSequence(list, list.size(), "?", "", "&");
 		}
 
 		return urlString;

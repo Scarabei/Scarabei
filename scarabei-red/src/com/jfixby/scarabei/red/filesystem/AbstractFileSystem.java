@@ -20,7 +20,8 @@ import com.jfixby.scarabei.api.java.ByteArray;
 import com.jfixby.scarabei.api.log.L;
 import com.jfixby.scarabei.api.md5.MD5;
 import com.jfixby.scarabei.api.md5.MD5String;
-import com.jfixby.scarabei.api.util.JUtils;
+import com.jfixby.scarabei.api.strings.Strings;
+import com.jfixby.scarabei.api.util.Utils;
 import com.jfixby.scarabei.api.util.path.AbsolutePath;
 
 public abstract class AbstractFileSystem implements FileSystem {
@@ -30,7 +31,7 @@ public abstract class AbstractFileSystem implements FileSystem {
 	@Override
 	final public File ROOT () {
 		if (this.ROOT == null) {
-			this.ROOT = this.newFile(JUtils.newAbsolutePath((FileSystem)this));
+			this.ROOT = this.newFile(Utils.newAbsolutePath((FileSystem)this));
 		}
 		return this.ROOT;
 	}
@@ -131,7 +132,7 @@ public abstract class AbstractFileSystem implements FileSystem {
 		final FileInputStream is = this.newFileInputStream(file);
 		final ByteArray data = is.readAll();
 		is.close();
-		return JUtils.newString(data);
+		return Strings.newString(data);
 	}
 
 	@Override
@@ -145,7 +146,7 @@ public abstract class AbstractFileSystem implements FileSystem {
 
 	@Override
 	final public void writeStringToFile (final String string_data, final AbsolutePath<FileSystem> file_path) throws IOException {
-		this.writeDataToFile(file_path, JUtils.newByteArray(string_data.getBytes()));
+		this.writeDataToFile(file_path, Utils.newByteArray(string_data.getBytes()));
 	}
 
 	@Override

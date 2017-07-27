@@ -6,7 +6,7 @@ import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.List;
 import com.jfixby.scarabei.api.debug.Debug;
 import com.jfixby.scarabei.api.err.Err;
-import com.jfixby.scarabei.api.util.JUtils;
+import com.jfixby.scarabei.api.util.Utils;
 import com.jfixby.scarabei.api.util.path.RelativePath;
 
 class RedRelativePath implements RelativePath {
@@ -147,7 +147,7 @@ class RedRelativePath implements RelativePath {
 		Debug.checkNull(value);
 		final List<String> steps = Collections.newList(this.path_steps);
 		steps.addAll(value.steps());
-		final RelativePath incremented = JUtils.newRelativePath(steps);
+		final RelativePath incremented = Utils.newRelativePath(steps);
 		return incremented;
 	}
 
@@ -180,14 +180,14 @@ class RedRelativePath implements RelativePath {
 
 	@Override
 	public RelativePath splitAt (final int step) {
-		return JUtils.newRelativePath(Collections.newList(this.stepsList()).splitAt(step));
+		return Utils.newRelativePath(Collections.newList(this.stepsList()).splitAt(step));
 	}
 
 	@Override
 	public RelativePath removeStep (final int index) {
 		final List<String> newPath = this.steps().toList();
 		newPath.removeElementAt(index);
-		return JUtils.newRelativePath(newPath);
+		return Utils.newRelativePath(newPath);
 	}
 
 }

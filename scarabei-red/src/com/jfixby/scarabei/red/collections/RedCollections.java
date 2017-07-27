@@ -24,7 +24,7 @@ import com.jfixby.scarabei.api.collections.Sequence;
 import com.jfixby.scarabei.api.collections.Set;
 import com.jfixby.scarabei.api.collections.ZxZ_Functuion;
 import com.jfixby.scarabei.api.debug.Debug;
-import com.jfixby.scarabei.api.util.JUtils;
+import com.jfixby.scarabei.api.util.Utils;
 
 public abstract class RedCollections implements CollectionsComponent {
 
@@ -161,7 +161,7 @@ public abstract class RedCollections implements CollectionsComponent {
 		for (int i = 0; i < N; i++) {
 			final Object ai = a.getElementAt(i);
 			final Object bi = b.getElementAt(i);
-			if (!JUtils.component().equalObjects(ai, bi)) {
+			if (!Utils.component().equalObjects(ai, bi)) {
 				return false;
 			}
 		}
@@ -186,7 +186,7 @@ public abstract class RedCollections implements CollectionsComponent {
 			final Object a = with.getElementAt(i);
 			final Object b = list.getElementAt(i);
 // if (!Objects.equals(a, b)) {
-			if (!JUtils.equalObjects(a, b)) {
+			if (!Utils.equalObjects(a, b)) {
 				// L.d("false", a + " != " + b);
 				return false;
 			}

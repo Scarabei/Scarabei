@@ -5,7 +5,7 @@ import com.jfixby.scarabei.api.assets.AssetsNamespaceComponent;
 import com.jfixby.scarabei.api.assets.ID;
 import com.jfixby.scarabei.api.assets.NamespaceRegistry;
 import com.jfixby.scarabei.api.collections.Collection;
-import com.jfixby.scarabei.api.util.JUtils;
+import com.jfixby.scarabei.api.util.Utils;
 
 public class RedAssetsNamespace implements AssetsNamespaceComponent {
 
@@ -31,7 +31,7 @@ public class RedAssetsNamespace implements AssetsNamespaceComponent {
 
 	@Override
 	public ID newID (final Collection<String> list) {
-		return new RedAssetID(JUtils.newRelativePath(list));
+		return new RedAssetID(Utils.newRelativePath(list));
 	}
 
 }

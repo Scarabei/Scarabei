@@ -23,16 +23,17 @@ import com.jfixby.scarabei.api.math.MathTools;
 import com.jfixby.scarabei.api.md5.MD5;
 import com.jfixby.scarabei.api.net.http.Http;
 import com.jfixby.scarabei.api.random.Random;
+import com.jfixby.scarabei.api.strings.Strings;
 import com.jfixby.scarabei.api.sys.Sys;
 import com.jfixby.scarabei.api.sys.settings.SystemSettings;
 import com.jfixby.scarabei.api.taskman.TaskManager;
-import com.jfixby.scarabei.api.util.JUtils;
+import com.jfixby.scarabei.api.util.Utils;
 
 public class ScarabeiDesktop {
 
 	public static final void deploy () {
 		L.installComponent("com.jfixby.scarabei.red.log.SimpleLogger");
-		JUtils.installComponent("com.jfixby.scarabei.red.util.RedJUtils");
+		Utils.installComponent("com.jfixby.scarabei.red.util.RedUtils");
 
 		Collections.installComponent("com.jfixby.scarabei.red.desktop.collections.DesktopCollections");
 		FloatMath.installComponent("com.jfixby.scarabei.red.desktop.math.DesktopFloatMath");
@@ -54,6 +55,7 @@ public class ScarabeiDesktop {
 		MD5.installComponent("com.jfixby.scarabei.red.util.md5.RSADataSecurityIncMD5");
 		Random.installComponent("com.jfixby.scarabei.red.random.RedRandom");
 		Arrays.installComponent("com.jfixby.scarabei.red.arrays.RedArrays");
+		Strings.installComponent("com.jfixby.scarabei.red.string.RedStrings");
 // Serialize.installComponent("com.jfixby.scarabei.red.serialize.RedSerialize");
 // --
 

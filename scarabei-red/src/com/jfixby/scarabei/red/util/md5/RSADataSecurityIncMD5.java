@@ -46,7 +46,7 @@ import com.jfixby.scarabei.api.debug.Debug;
 import com.jfixby.scarabei.api.io.InputStream;
 import com.jfixby.scarabei.api.md5.MD5Component;
 import com.jfixby.scarabei.api.md5.MD5String;
-import com.jfixby.scarabei.api.util.JUtils;
+import com.jfixby.scarabei.api.strings.Strings;
 
 public final class RSADataSecurityIncMD5 extends RedMD5 implements MD5Component {
 
@@ -301,7 +301,7 @@ public final class RSADataSecurityIncMD5 extends RedMD5 implements MD5Component 
 	}
 
 	public static String encodeHexString (final byte[] bytes) {
-		return JUtils.newString(encodeHex(bytes));
+		return Strings.newString(encodeHex(bytes));
 	}
 
 }

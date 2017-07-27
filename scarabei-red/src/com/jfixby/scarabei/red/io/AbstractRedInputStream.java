@@ -11,10 +11,11 @@ import com.jfixby.scarabei.api.io.InputStream;
 import com.jfixby.scarabei.api.io.JavaInputStreamOperator;
 import com.jfixby.scarabei.api.io.STREAM_STATE;
 import com.jfixby.scarabei.api.java.ByteArray;
+import com.jfixby.scarabei.api.strings.Strings;
 import com.jfixby.scarabei.api.sys.settings.ExecutionMode;
 import com.jfixby.scarabei.api.sys.settings.SystemSettings;
-import com.jfixby.scarabei.api.util.JUtils;
 import com.jfixby.scarabei.api.util.StateSwitcher;
+import com.jfixby.scarabei.api.util.Utils;
 
 public class AbstractRedInputStream<T extends JavaInputStreamOperator> implements InputStream {
 	private final StateSwitcher<STREAM_STATE> state;
@@ -51,7 +52,7 @@ public class AbstractRedInputStream<T extends JavaInputStreamOperator> implement
 	public AbstractRedInputStream (final T operator) {
 		this.operator = operator;
 		// bis = new BufferedInputStream(is, 1024 * 1024 * 4);
-		this.state = JUtils.newStateSwitcher(STREAM_STATE.CLOSED);
+		this.state = Utils.newStateSwitcher(STREAM_STATE.CLOSED);
 		this.state.setDebugName(this.toString());
 		if (SystemSettings.executionModeCovers(ExecutionMode.EARLY_DEVELOPMENT)) {
 			this.source = new Exception();
@@ -109,7 +110,7 @@ public class AbstractRedInputStream<T extends JavaInputStreamOperator> implement
 		// bis.close();
 // this.javaStream().close();
 		final byte data[] = baos.toByteArray();
-		return JUtils.newByteArray(data);
+		return Utils.newByteArray(data);
 	}
 
 	@Override
@@ -142,7 +143,7 @@ public class AbstractRedInputStream<T extends JavaInputStreamOperator> implement
 	@Override
 	public String readAllToString () throws IOException {
 		final ByteArray bytes = this.readAll();
-		return JUtils.newString(bytes);
+		return Strings.newString(bytes);
 	}
 
 	@Override
@@ -150,6 +151,6 @@ public class AbstractRedInputStream<T extends JavaInputStreamOperator> implement
 		Debug.checkNull("encoding", encoding);
 		Debug.checkEmpty("encoding", encoding);
 		final ByteArray bytes = this.readAll();
-		return JUtils.newString(bytes, encoding);
+		return Strings.newString(bytes, encoding);
 	}
 }

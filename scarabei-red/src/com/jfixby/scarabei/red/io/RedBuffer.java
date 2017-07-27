@@ -3,7 +3,7 @@ package com.jfixby.scarabei.red.io;
 
 import com.jfixby.scarabei.api.io.Buffer;
 import com.jfixby.scarabei.api.java.ByteArray;
-import com.jfixby.scarabei.api.util.JUtils;
+import com.jfixby.scarabei.api.util.Utils;
 
 public class RedBuffer implements Buffer {
 
@@ -15,7 +15,7 @@ public class RedBuffer implements Buffer {
 	}
 
 	public RedBuffer () {
-		this.bytes = JUtils.newByteArray(0);
+		this.bytes = Utils.newByteArray(0);
 	}
 
 	@Override

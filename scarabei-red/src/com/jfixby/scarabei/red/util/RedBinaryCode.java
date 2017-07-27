@@ -6,7 +6,7 @@ import com.jfixby.scarabei.api.err.Err;
 import com.jfixby.scarabei.api.log.L;
 import com.jfixby.scarabei.api.util.BinaryCode;
 import com.jfixby.scarabei.api.util.EditableBinaryCode;
-import com.jfixby.scarabei.api.util.JUtils;
+import com.jfixby.scarabei.api.util.Utils;
 
 public class RedBinaryCode implements BinaryCode, EditableBinaryCode {
 
@@ -121,13 +121,13 @@ public class RedBinaryCode implements BinaryCode, EditableBinaryCode {
 	public EditableBinaryCode append (int bits, int numberOfBits) {
 		final int originalSize = this.size();
 		while (numberOfBits > 8) {
-			final BinaryCode cached = JUtils.component().binaryCodeOf(bits, 8);
+			final BinaryCode cached = Utils.component().binaryCodeOf(bits, 8);
 			this.insertAt(cached, originalSize);
 			bits = bits >> 8;
 			numberOfBits = numberOfBits - 8;
 		}
 
-		final BinaryCode cached = JUtils.component().binaryCodeOf(bits, numberOfBits);
+		final BinaryCode cached = Utils.component().binaryCodeOf(bits, numberOfBits);
 		if (cached == null) {
 			L.d("bits=" + bits);
 			L.d("numberOfBits=" + numberOfBits);

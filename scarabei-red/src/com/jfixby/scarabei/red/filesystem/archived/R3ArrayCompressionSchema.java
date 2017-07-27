@@ -14,7 +14,7 @@ import com.jfixby.scarabei.api.file.FileInputStream;
 import com.jfixby.scarabei.api.file.packing.CompressionSchema;
 import com.jfixby.scarabei.api.file.packing.FileData;
 import com.jfixby.scarabei.api.log.L;
-import com.jfixby.scarabei.api.util.JUtils;
+import com.jfixby.scarabei.api.util.Utils;
 import com.jfixby.scarabei.api.util.path.RelativePath;
 
 public class R3ArrayCompressionSchema implements CompressionSchema {
@@ -28,7 +28,7 @@ public class R3ArrayCompressionSchema implements CompressionSchema {
 		this.pointers = pointers;
 		for (int i = 0; i < pointers.list.size(); i++) {
 			final FilePointer pointer = pointers.list.get(i);
-			final RelativePath key = JUtils.newRelativePath(pointer.path);
+			final RelativePath key = Utils.newRelativePath(pointer.path);
 			this.registry.put(key, pointer);
 			if (key.size() > 0) {
 				final RelativePath parent_folder = key.parent();
@@ -94,7 +94,7 @@ public class R3ArrayCompressionSchema implements CompressionSchema {
 		final byte[] bytes = new byte[(int)pointer.size];
 		jis.read(bytes);
 
-		return new ContentLeaf(JUtils.newByteArray(bytes), pointer);
+		return new ContentLeaf(Utils.newByteArray(bytes), pointer);
 
 	}
 

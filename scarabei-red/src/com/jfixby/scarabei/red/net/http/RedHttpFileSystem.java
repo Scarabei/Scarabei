@@ -20,7 +20,7 @@ import com.jfixby.scarabei.api.net.http.Http;
 import com.jfixby.scarabei.api.net.http.HttpFileSystem;
 import com.jfixby.scarabei.api.net.http.HttpFileSystemSpecs;
 import com.jfixby.scarabei.api.net.http.HttpURL;
-import com.jfixby.scarabei.api.util.JUtils;
+import com.jfixby.scarabei.api.util.Utils;
 import com.jfixby.scarabei.api.util.path.AbsolutePath;
 import com.jfixby.scarabei.api.util.path.RelativePath;
 import com.jfixby.scarabei.red.filesystem.AbstractFileSystem;
@@ -52,7 +52,7 @@ class RedHttpFileSystem extends AbstractFileSystem implements FileSystem, HttpFi
 					encodedSteps.add(urlEncodeString(steps.getElementAt(i)));
 				}
 			});
-			relative = JUtils.newRelativePath(encodedSteps);
+			relative = Utils.newRelativePath(encodedSteps);
 		}
 
 		final String prefix = (this.url.getURLString());

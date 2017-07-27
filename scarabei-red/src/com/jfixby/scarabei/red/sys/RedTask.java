@@ -12,7 +12,7 @@ import com.jfixby.scarabei.api.taskman.TASK_STATE;
 import com.jfixby.scarabei.api.taskman.TASK_TYPE;
 import com.jfixby.scarabei.api.taskman.Task;
 import com.jfixby.scarabei.api.taskman.TaskSpecs;
-import com.jfixby.scarabei.api.util.JUtils;
+import com.jfixby.scarabei.api.util.Utils;
 import com.jfixby.scarabei.api.util.StateSwitcher;
 
 public class RedTask implements Task, Runnable {
@@ -44,7 +44,7 @@ public class RedTask implements Task, Runnable {
 		}
 		this.jobs.addAll(jobs);
 		this.type = TASK_TYPE.PSEUDO_PARALEL;
-		this.switcher = JUtils.newStateSwitcher(TASK_STATE.ACTIVE);
+		this.switcher = Utils.newStateSwitcher(TASK_STATE.ACTIVE);
 		this.t = null;
 		// listNames();
 	}
@@ -59,7 +59,7 @@ public class RedTask implements Task, Runnable {
 
 		this.jobs.addAll(specs.listJobs());
 
-		this.switcher = JUtils.newStateSwitcher(TASK_STATE.ACTIVE);
+		this.switcher = Utils.newStateSwitcher(TASK_STATE.ACTIVE);
 
 		if (this.type == TASK_TYPE.SEPARATED_THREAD) {
 			this.t = new Thread(this.runner);
