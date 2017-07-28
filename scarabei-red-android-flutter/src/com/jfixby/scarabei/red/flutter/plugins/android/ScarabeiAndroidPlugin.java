@@ -2,6 +2,8 @@
 package com.jfixby.scarabei.red.flutter.plugins.android;
 
 import com.jfixby.scarabei.android.api.Android;
+import com.jfixby.scarabei.api.flutter.plugins.FlutterPluginSpecs;
+import com.jfixby.scarabei.api.flutter.plugins.FlutterPlugins;
 import com.jfixby.scarabei.api.log.L;
 
 import io.flutter.plugin.common.MethodCall;
@@ -19,5 +21,11 @@ public class ScarabeiAndroidPlugin implements MethodCallHandler {
 		} else {
 			result.notImplemented();
 		}
+	}
+
+	public static FlutterPluginSpecs specs () {
+		final FlutterPluginSpecs specs = FlutterPlugins.newPluginSpecs();
+		specs.methodCallHandler = new ScarabeiAndroidPlugin();
+		return specs;
 	}
 }

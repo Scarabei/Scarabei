@@ -5,6 +5,7 @@ import com.jfixby.scarabei.api.flutter.plugins.FlutterPlugin;
 import com.jfixby.scarabei.api.flutter.plugins.FlutterPluginSpecs;
 import com.jfixby.scarabei.api.flutter.plugins.FlutterPluginsComponent;
 import com.jfixby.scarabei.api.log.L;
+import com.jfixby.scarabei.red.flutter.plugins.android.ScarabeiAndroidPlugin;
 
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.PluginRegistry;
@@ -16,7 +17,7 @@ public class RedFlutterPlugins implements FlutterPluginsComponent {
 
 	public RedFlutterPlugins (final PluginRegistry registry) {
 		this.registry = registry;
-
+		this.registerPlugin(ScarabeiAndroidPlugin.specs());
 	}
 
 	void registerPlugin (final MethodChannel.MethodCallHandler plugin, final String channelName) {
