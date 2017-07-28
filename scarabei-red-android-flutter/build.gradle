@@ -1,0 +1,8 @@
+sourceCompatibility = 1.7
+
+dependencies {
+    compile project(":scarabei-api-android-flutter")
+    compile project(":scarabei-red-android")
+    
+    
+}

@@ -1,0 +1,6 @@
+sourceCompatibility = 1.7
+
+dependencies {
+    compile "com.github.Scarabei.Flutter:flutter-api:2017-07-24-5278588d80"
+    compile project(":scarabei-api-android")
+}

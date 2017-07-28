@@ -1,14 +1,23 @@
 include "scarabei-api"
-include "scarabei-api-desktop"
-include "scarabei-api-android"
-include "scarabei-api-ios"
-include "scarabei-api-gwt"
-
-
 include "scarabei-red"
-include "scarabei-red-desktop"
+
+include "scarabei-api-android"
 include "scarabei-red-android"
+
+include "scarabei-api-android-flutter"
+include "scarabei-red-android-flutter"
+
+include "scarabei-api-desktop"
+include "scarabei-red-desktop"
+
+include "scarabei-api-ios"
 include "scarabei-red-ios"
+
+include "scarabei-api-gwt"
 include "scarabei-red-gwt"
 
 include "scarabei-gson"
+
+
+
+include "scarabei-red-flutter"
