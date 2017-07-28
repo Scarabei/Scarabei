@@ -30,4 +30,9 @@ public class RedDeviceInfo implements SystemInfo {
 		this.params.putAll(values);
 	}
 
+	@Override
+	public String toString () {
+		return "DeviceInfo" + this.params + "";
+	}
+
 }
