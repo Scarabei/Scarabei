@@ -1,10 +1,10 @@
 
-package com.jfixby.scarabei.gson;
+package com.jfixby.scarabei.red.json;
 
 import com.jfixby.scarabei.api.debug.Debug;
 import com.jfixby.scarabei.api.json.JsonString;
 
-public class GoogleJsonString implements JsonString {
+public class RedJsonString implements JsonString {
 
 	@Override
 	public int hashCode () {
@@ -25,7 +25,7 @@ public class GoogleJsonString implements JsonString {
 		if (this.getClass() != obj.getClass()) {
 			return false;
 		}
-		final GoogleJsonString other = (GoogleJsonString)obj;
+		final RedJsonString other = (RedJsonString)obj;
 		if (this.raw_json_string == null) {
 			if (other.raw_json_string != null) {
 				return false;
@@ -38,7 +38,7 @@ public class GoogleJsonString implements JsonString {
 
 	final private String raw_json_string;
 
-	public GoogleJsonString (final String raw_json_string) {
+	public RedJsonString (final String raw_json_string) {
 		Debug.checkNull("raw_json_string", raw_json_string);
 		this.raw_json_string = raw_json_string;
 	}

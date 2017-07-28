@@ -1,7 +1,0 @@
-sourceCompatibility = 1.6
-
-dependencies {
-    compile project(":scarabei-api")
-    
-    compile 'com.google.code.gson:gson:2.8.0'
-}

@@ -1,5 +1,5 @@
 
-package com.jfixby.scarabei.gson;
+package com.jfixby.scarabei.red.json;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -9,7 +9,7 @@ import com.jfixby.scarabei.api.json.JsonComponent;
 import com.jfixby.scarabei.api.json.JsonString;
 import com.jfixby.scarabei.api.log.L;
 
-public class GoogleGson implements JsonComponent {
+public class GoogleJson implements JsonComponent {
 
 	@Override
 	public JsonString serializeToString (final Object object) {
@@ -43,7 +43,7 @@ public class GoogleGson implements JsonComponent {
 
 	@Override
 	public JsonString newJsonString (final String raw_json_string) {
-		return new GoogleJsonString(raw_json_string);
+		return new RedJsonString(raw_json_string);
 	}
 
 }

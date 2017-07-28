@@ -17,6 +17,7 @@ import com.jfixby.scarabei.api.graphs.Graphs;
 import com.jfixby.scarabei.api.image.ImageProcessing;
 import com.jfixby.scarabei.api.io.IO;
 import com.jfixby.scarabei.api.java.gc.GCFisher;
+import com.jfixby.scarabei.api.json.Json;
 import com.jfixby.scarabei.api.log.L;
 import com.jfixby.scarabei.api.math.FloatMath;
 import com.jfixby.scarabei.api.math.IntegerMath;
@@ -47,6 +48,7 @@ import com.jfixby.scarabei.red.graphs.RedGraphs;
 import com.jfixby.scarabei.red.image.RedImageProcessing;
 import com.jfixby.scarabei.red.io.RedIO;
 import com.jfixby.scarabei.red.java.gc.RedGCFisher;
+import com.jfixby.scarabei.red.json.GoogleJson;
 import com.jfixby.scarabei.red.math.RedAngles;
 import com.jfixby.scarabei.red.math.RedIntegerMath;
 import com.jfixby.scarabei.red.math.RedMathTools;
@@ -73,7 +75,7 @@ public class ScarabeiAndroid {
 		Names.installComponent(new RedAssetsNamespace());
 		IO.installComponent(new RedIO());
 		Graphs.installComponent(new RedGraphs());
-
+		Json.installComponent(new GoogleJson());
 		Angles.installComponent(new RedAngles());
 		Geometry.installComponent(new RedGeometry());
 		Colors.installComponent(new RedColors());
