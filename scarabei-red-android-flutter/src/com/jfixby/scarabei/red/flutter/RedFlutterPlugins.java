@@ -17,7 +17,7 @@ public class RedFlutterPlugins implements FlutterPluginsComponent {
 
 	public RedFlutterPlugins (final PluginRegistry registry) {
 		this.registry = registry;
-		this.registerPlugin(ScarabeiAndroidPlugin.specs());
+		this.registerPlugin(ScarabeiAndroidPlugin.filloutRegistration(this.newPluginSpecs()));
 	}
 
 	void registerPlugin (final MethodChannel.MethodCallHandler plugin, final String channelName) {
