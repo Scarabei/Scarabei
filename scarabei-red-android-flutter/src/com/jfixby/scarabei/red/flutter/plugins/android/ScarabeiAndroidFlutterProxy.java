@@ -10,7 +10,7 @@ import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 
-public class ScarabeiAndroidPlugin implements MethodCallHandler {
+public class ScarabeiAndroidFlutterProxy implements MethodCallHandler {
 
 	@Override
 	public void onMethodCall (final MethodCall call, final Result result) {
@@ -25,7 +25,7 @@ public class ScarabeiAndroidPlugin implements MethodCallHandler {
 	}
 
 	public static FlutterPluginSpecs filloutRegistration (final FlutterPluginSpecs specs) {
-		specs.methodCallHandler = new ScarabeiAndroidPlugin();
+		specs.methodCallHandler = new ScarabeiAndroidFlutterProxy();
 		return specs;
 	}
 }

@@ -9,7 +9,7 @@ import com.jfixby.scarabei.api.flutter.plugins.FlutterPlugin;
 import com.jfixby.scarabei.api.flutter.plugins.FlutterPluginSpecs;
 import com.jfixby.scarabei.api.flutter.plugins.FlutterPluginsComponent;
 import com.jfixby.scarabei.api.log.L;
-import com.jfixby.scarabei.red.flutter.plugins.android.ScarabeiAndroidPlugin;
+import com.jfixby.scarabei.red.flutter.plugins.android.ScarabeiAndroidFlutterProxy;
 
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
@@ -22,7 +22,7 @@ public class RedFlutterPlugins implements FlutterPluginsComponent {
 
 	public RedFlutterPlugins (final PluginRegistry registry) {
 		this.registry = registry;
-		this.registerPlugin(ScarabeiAndroidPlugin.filloutRegistration(this.newPluginSpecs()));
+		this.registerPlugin(ScarabeiAndroidFlutterProxy.filloutRegistration(this.newPluginSpecs()));
 	}
 
 	void registerPlugin (final ID methodCallHandlerClassName, final ID channelName, MethodCallHandler instance) {
