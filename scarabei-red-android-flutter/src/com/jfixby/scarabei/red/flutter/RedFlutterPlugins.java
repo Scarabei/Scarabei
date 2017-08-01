@@ -92,12 +92,4 @@ public class RedFlutterPlugins implements FlutterPluginsComponent {
 		return new RedFlutterPlugin(this, specs);
 	}
 
-	public void registerPlugin (final ID methodCallHandlerClassName, final ID name) {
-		// methodCallHandler = master.newInstance
-		// final ClassLoader classLoader = this.getClass().getClassLoader();
-		// final MethodCallHandler toInstall = newComponent(specs.methodCallHandlerClassName, classLoader);
-		// methodCallHandler =
-
-	}
-
 }

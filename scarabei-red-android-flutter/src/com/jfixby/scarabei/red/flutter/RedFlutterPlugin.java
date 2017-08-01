@@ -35,7 +35,7 @@ public class RedFlutterPlugin implements FlutterPlugin {
 		if (methodCallHandler != null) {
 			this.master.registerPlugin(methodCallHandlerClassName, this.name, methodCallHandler);
 		} else {
-			this.master.registerPlugin(methodCallHandlerClassName, this.name);
+			this.master.registerPlugin(methodCallHandlerClassName, this.name, null);
 		}
 
 	}
