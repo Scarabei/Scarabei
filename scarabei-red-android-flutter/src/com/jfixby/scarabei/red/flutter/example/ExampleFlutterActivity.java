@@ -1,6 +1,7 @@
 
 package com.jfixby.scarabei.red.flutter.example;
 
+import com.jfixby.scarabei.api.assets.Names;
 import com.jfixby.scarabei.api.flutter.plugins.FlutterPlugin;
 import com.jfixby.scarabei.api.flutter.plugins.FlutterPluginSpecs;
 import com.jfixby.scarabei.api.flutter.plugins.FlutterPlugins;
@@ -28,6 +29,7 @@ public class ExampleFlutterActivity extends FlutterActivity {
 
 		specs.methodCallHandler = new ExamplePlugin();
 		specs.channelName = null;
+		specs.methodCallHandlerClassName = Names.newID(ExamplePlugin.class.getCanonicalName());
 
 		final FlutterPlugin plugin = FlutterPlugins.registerPlugin(specs);
 

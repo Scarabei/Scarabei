@@ -5,7 +5,8 @@ import com.jfixby.scarabei.api.ComponentInstaller;
 
 public class FlutterPlugins {
 
-	static private ComponentInstaller<FlutterPluginsComponent> componentInstaller = new ComponentInstaller<>("FlutterPlugins");
+	static private ComponentInstaller<FlutterPluginsComponent> componentInstaller = new ComponentInstaller<>(
+		"FlutterPlugins");
 
 	public static void installComponent (final String className) {
 		componentInstaller.installComponent(className);

@@ -1,11 +1,11 @@
 
 package com.jfixby.scarabei.api.flutter.plugins;
 
-import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
+import com.jfixby.scarabei.api.assets.ID;
 
 public interface FlutterPlugin {
 
-	public String getName ();
+	public ID getName ();
 
-	public MethodCallHandler getHandler ();
+// public MethodCallHandler getHandler ();
 }
