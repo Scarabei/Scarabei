@@ -24,14 +24,19 @@ public class ExampleFlutterActivity extends FlutterActivity {
 		final FlutterPluginsComponent flutterPlugins = new RedFlutterPlugins(this);
 		FlutterPlugins.installComponent(flutterPlugins);
 
-		final FlutterPluginSpecs specs = FlutterPlugins.newPluginSpecs();
+		this.bindExamplePlugin();
 
-		specs.methodCallHandler = new ExamplePlugin();
-		specs.channelName = null;
-		specs.methodCallHandlerClass = ExamplePlugin.class;
+	}
+
+	private void bindExamplePlugin () {
+		final FlutterPluginSpecs specs = new FlutterPluginSpecs();
+
+		specs.methodCallHandlerClass = ExamplePlugin.class;// instance will be created automatically
+		specs.channelName = null; // default name is plugin.getClass().getCanonicalName();
+
+// specs.methodCallHandler = new ExamplePlugin();// it possible to provide a plugin instance directly
 
 		final FlutterPlugin plugin = FlutterPlugins.registerPlugin(specs);
-
 	}
 
 }
