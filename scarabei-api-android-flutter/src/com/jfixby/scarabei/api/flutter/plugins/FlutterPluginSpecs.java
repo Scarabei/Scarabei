@@ -7,8 +7,9 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 
 public class FlutterPluginSpecs {
 
-	public MethodCallHandler methodCallHandler;
+	public Class methodCallHandlerClass;
 	public ID methodCallHandlerClassName;
+	public MethodCallHandler methodCallHandler;
 	public ID channelName; // default value is methodCallHandler.getClass().getCanonicalName();
 
 }

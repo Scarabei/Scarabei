@@ -24,6 +24,10 @@ public class RedFlutterPlugin implements FlutterPlugin {
 			methodCallHandlerClassName = Names.newID(methodCallHandler.getClass().getCanonicalName());
 		} else {
 			methodCallHandlerClassName = specs.methodCallHandlerClassName;
+			if (methodCallHandlerClassName == null) {
+				Debug.checkNull("methodCallHandlerClassName", specs.methodCallHandlerClass);
+				methodCallHandlerClassName = Names.newID(specs.methodCallHandlerClass.getCanonicalName());
+			}
 			Debug.checkNull("methodCallHandlerClassName", methodCallHandlerClassName);
 		}
 
