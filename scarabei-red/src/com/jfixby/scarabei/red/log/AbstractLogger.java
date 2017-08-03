@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 
 import com.jfixby.scarabei.api.collections.Collection;
+import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.Mapping;
 import com.jfixby.scarabei.api.log.LoggerComponent;
 import com.jfixby.scarabei.api.log.MESSAGE_MARKER;
@@ -40,9 +41,17 @@ public abstract class AbstractLogger implements LoggerComponent {
 			return "scarabei";
 		}
 		final StackTraceElement[] trace = Thread.currentThread().getStackTrace();
-// final String aray = Arrays.toString(trace);
-// this.log(MESSAGE_MARKER.NORMAL, "", "", Collections.newList(trace));
-		final String frame = "" + trace[4];
+		final String aray = Arrays.toString(trace);
+		this.log(MESSAGE_MARKER.NORMAL, "", "", Collections.newList(trace));
+		String frame = "";
+		final String prefix = com.jfixby.scarabei.api.log.Logger.class.getCanonicalName();
+		for (int i = 0; i < trace.length; i++) {
+			frame = "" + trace[i];
+			if (frame.startsWith(prefix)) {
+				frame = "" + trace[i + 1];
+				break;
+			}
+		}
 // System.out.println();
 // Sys.exit();
 		return frame;

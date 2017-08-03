@@ -9,7 +9,7 @@ import com.jfixby.scarabei.api.sys.settings.SystemSettings;
 
 public class SimpleLogger extends AbstractLogger {
 
-	int pad = 90;
+	int pad = 90 - 23;
 
 	@Override
 	public void logLine (final MESSAGE_MARKER marker, final String frame) {
