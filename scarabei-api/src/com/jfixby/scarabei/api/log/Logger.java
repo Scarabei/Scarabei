@@ -67,9 +67,9 @@ public class Logger {
 		invoke().e();
 	}
 
-	public static void d_appendChars (final Object msg) {
-		invoke().d_appendChars(msg);
-	}
+// public static void d_appendChars (final Object msg) {
+// invoke().d_appendChars(msg);
+// }
 
 	public static String toString (final Object[] doubles) {
 		return invoke().toString(doubles);

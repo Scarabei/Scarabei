@@ -21,7 +21,7 @@ public interface LoggerComponent {
 
 	void e ();
 
-	void d_appendChars (Object msg);
+// void d_appendChars (Object msg);
 
 	public String toString (Object[] array);
 

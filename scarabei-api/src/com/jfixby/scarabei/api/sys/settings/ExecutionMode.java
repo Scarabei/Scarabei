@@ -10,13 +10,17 @@ public enum ExecutionMode {
 
 	final private int level;
 
-	ExecutionMode (int level) {
+	ExecutionMode (final int level) {
 		this.level = level;
 
 	}
 
-	public final boolean covers (ExecutionMode targetMode) {
+	public final boolean covers (final ExecutionMode targetMode) {
 		return this.level >= targetMode.level;
+	}
+
+	public boolean isBelow (final ExecutionMode targetMode) {
+		return this.level < targetMode.level;
 	}
 
 }

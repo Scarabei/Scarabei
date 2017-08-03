@@ -11,31 +11,179 @@ import com.jfixby.scarabei.api.collections.Collection;
 import com.jfixby.scarabei.api.collections.Mapping;
 import com.jfixby.scarabei.api.log.LoggerComponent;
 import com.jfixby.scarabei.api.log.MESSAGE_MARKER;
+import com.jfixby.scarabei.api.sys.settings.ExecutionMode;
+import com.jfixby.scarabei.api.sys.settings.SystemSettings;
 
 public abstract class AbstractLogger implements LoggerComponent {
 
-	abstract public void logLine (final MESSAGE_MARKER marker, final Object string);
+	abstract public void logLine (final MESSAGE_MARKER marker, String frame, final String line);
 
-	abstract public void logAppend (final MESSAGE_MARKER marker, final Object string);
+// abstract public void logAppend (final MESSAGE_MARKER marker, String frame, final Object string);
 
-	abstract public void logLine (final MESSAGE_MARKER marker);
+	abstract public void logLine (final MESSAGE_MARKER marker, String frame);
 
-	abstract public void logAppend (final MESSAGE_MARKER marker);
+// abstract public void logAppend (final MESSAGE_MARKER marker, String frame);
 
 	public abstract String arrayToString (int indent, Object[] array);
 
 	@Override
 	public void d (final Object... objects) {
+		final String frame = this.getFrame();
 		for (int i = 0; i < objects.length; i++) {
-			this.logLine(MESSAGE_MARKER.NORMAL, objects[i] + " ");
+			this.logLine(MESSAGE_MARKER.NORMAL, frame, objects[i] + " ");
 		}
-		this.logLine(MESSAGE_MARKER.NORMAL);
+		this.logLine(MESSAGE_MARKER.NORMAL, frame);
+	}
+
+	private String getFrame () {
+		if (SystemSettings.getExecutionMode().isBelow(ExecutionMode.TESTING)) {
+			return "scarabei";
+		}
+		final StackTraceElement[] trace = Thread.currentThread().getStackTrace();
+// final String aray = Arrays.toString(trace);
+// this.log(MESSAGE_MARKER.NORMAL, "", "", Collections.newList(trace));
+		final String frame = "" + trace[4];
+// System.out.println();
+// Sys.exit();
+		return frame;
 	}
 
 	@Override
-	public void d (final Object string, final Object object) {
-		final String tag = string + "";
-		this.logLine(MESSAGE_MARKER.NORMAL, string + " > " + this.toString(tag.length() + 3, object));
+	public void d (final Object tag, final Object object) {
+		final String frame = this.getFrame();
+		this.log(MESSAGE_MARKER.NORMAL, frame, tag, object);
+	}
+
+	private void log (final MESSAGE_MARKER normal, final String frame) {
+		this.logLine(normal, frame);
+	}
+
+	private void log (final MESSAGE_MARKER mode, final String frame, final Object tag, final Object object) {
+
+		if (object instanceof Collection) {
+			final Collection<?> array = (Collection<?>)object;
+			final String canonocal_name = "Collection[]";
+			final int n = array.size();
+			if (n == 0) {
+				this.logLine(mode, frame, canonocal_name);
+				return;
+			}
+			this.logLine(mode, frame, canonocal_name.substring(0, canonocal_name.length() - 1) + n + "]");
+			final int indent = (tag + "").length() + 3;
+			final String indent_str = this.indent(indent);
+			for (int i = 0; i < n; i++) {
+				this.logLine(mode, frame, indent_str + "(" + i + ") " + array.getElementAt(i) + "");
+			}
+			return;
+
+		}
+		if (object instanceof java.util.Collection) {
+			final java.util.Collection array = (java.util.Collection)object;
+			final String canonocal_name = "Collection[]";
+			final int n = array.size();
+			if (n == 0) {
+				this.logLine(mode, frame, canonocal_name);
+				return;
+			}
+			this.logLine(mode, frame, canonocal_name.substring(0, canonocal_name.length() - 1) + n + "]");
+			final int indent = (tag + "").length() + 3;
+			final String indent_str = this.indent(indent);
+			int i = 0;
+			for (final Object e : array) {
+				this.logLine(mode, frame, indent_str + "(" + i + ") " + e + "");
+				i++;
+			}
+			return;
+
+		}
+		if (object instanceof Mapping) {
+			final Mapping array = (Mapping)object;
+			final String canonocal_name = "Collection[]";
+			final int n = array.size();
+			if (n == 0) {
+				this.logLine(mode, frame, canonocal_name);
+				return;
+			}
+			this.logLine(mode, frame, canonocal_name.substring(0, canonocal_name.length() - 1) + n + "]");
+			final int indent = (tag + "").length() + 3;
+			final String indent_str = this.indent(indent);
+			int i = 0;
+			for (final Object e : array.keys()) {
+// this.logLine(normal, frame, indent_str + "(" + i + ") " + e + "");
+				this.logLine(mode, frame, indent_str + "(" + i + ") " + array.getKeyAt(i) + " :-> " + array.getValueAt(i) + "");
+				i++;
+			}
+			return;
+
+		}
+		if (object instanceof java.util.Map) {
+			final java.util.Map array = (java.util.Map)object;
+			final String canonocal_name = "Collection[]";
+			final int n = array.size();
+			if (n == 0) {
+				this.logLine(mode, frame, canonocal_name);
+				return;
+			}
+			this.logLine(mode, frame, canonocal_name.substring(0, canonocal_name.length() - 1) + n + "]");
+			final int indent = (tag + "").length() + 3;
+			final String indent_str = this.indent(indent);
+			int i = 0;
+			for (final Object e : array.keySet()) {
+				this.logLine(mode, frame, indent_str + "(" + i + ") " + e + " :-> " + array.get(e) + "");
+				i++;
+			}
+			return;
+
+		}
+
+		this.logLine(mode, frame, tag + " > " + object);
+	}
+
+	private void log (final MESSAGE_MARKER normal, final String frame, final Object tag) {
+		this.logLine(normal, frame, tag + "");
+	}
+
+	@Override
+	public void d (final Object tag) {
+		final String frame = this.getFrame();
+		this.log(MESSAGE_MARKER.NORMAL, frame, tag);
+	}
+
+	@Override
+	public void e (final Object tag, final Object object) {
+		final String frame = this.getFrame();
+		this.log(MESSAGE_MARKER.ERROR, frame, tag, object);
+	}
+
+	@Override
+	public void e (final Object tag) {
+		final String frame = this.getFrame();
+		this.log(MESSAGE_MARKER.ERROR, frame, tag);
+	}
+
+	@Override
+	public void d () {
+		final String frame = this.getFrame();
+		this.log(MESSAGE_MARKER.NORMAL, frame);
+	}
+
+	@Override
+	public void e () {
+		final String frame = this.getFrame();
+		this.log(MESSAGE_MARKER.ERROR, frame);
+	}
+
+	@Override
+	public void e (final Object tag, final Throwable err) {
+		final String frame = this.getFrame();
+		this.log(MESSAGE_MARKER.ERROR, frame, tag);
+		this.log(MESSAGE_MARKER.ERROR, frame, err);
+	}
+
+	@Override
+	public void e (final Throwable err) {
+		final String frame = this.getFrame();
+		this.log(MESSAGE_MARKER.ERROR, frame, err);
 	}
 
 	private String toString (final int indent, final Object object) {
@@ -84,10 +232,10 @@ public abstract class AbstractLogger implements LoggerComponent {
 			return canonocal_name;
 		}
 
-		string.append(canonocal_name.substring(0, canonocal_name.length() - 1) + n + "]\n");
+		string.append(canonocal_name.substring(0, canonocal_name.length() - 1) + n + "]");
 		final String indent_str = this.indent(indent);
 		for (int i = 0; i < n; i++) {
-			string.append(indent_str + "(" + i + ") " + array.getElementAt(i) + "\n");
+			string.append(indent_str + "(" + i + ") " + array.getElementAt(i) + "");
 		}
 		return string.toString();
 	}
@@ -100,12 +248,12 @@ public abstract class AbstractLogger implements LoggerComponent {
 			return canonocal_name;
 		}
 
-		string.append(canonocal_name.substring(0, canonocal_name.length() - 1) + n + "]\n");
+		string.append(canonocal_name.substring(0, canonocal_name.length() - 1) + n + "]");
 		final String indent_str = this.indent(indent);
 		int i = 0;
 		for (final Object e : array) {
 // int i = 0; i < n; i++
-			string.append(indent_str + "(" + i + ") " + e + "\n");
+			string.append(indent_str + "(" + i + ") " + e + "");
 			i++;
 		}
 		return string.toString();
@@ -119,10 +267,10 @@ public abstract class AbstractLogger implements LoggerComponent {
 			return canonocal_name;
 		}
 
-		string.append(canonocal_name.substring(0, canonocal_name.length() - 1) + n + "]\n");
+		string.append(canonocal_name.substring(0, canonocal_name.length() - 1) + n + "]");
 		final String indent_str = this.indent(indent);
 		for (int i = 0; i < n; i++) {
-			string.append(indent_str + "(" + i + ") " + array.getKeyAt(i) + " :-> " + array.getValueAt(i) + "\n");
+			string.append(indent_str + "(" + i + ") " + array.getKeyAt(i) + " :-> " + array.getValueAt(i) + "");
 		}
 
 		return string.toString();
@@ -136,13 +284,13 @@ public abstract class AbstractLogger implements LoggerComponent {
 			return canonocal_name;
 		}
 
-		string.append(canonocal_name.substring(0, canonocal_name.length() - 1) + n + "]\n");
+		string.append(canonocal_name.substring(0, canonocal_name.length() - 1) + n + "]");
 		final String indent_str = this.indent(indent);
 		int i = 0;
 		for (final Iterator<?> I = array.keySet().iterator(); I.hasNext();) {
 			final Object key = I.next();
 			final Object value = array.get(key);
-			string.append(indent_str + "(" + i + ") " + key + " :-> " + value + "\n");
+			string.append(indent_str + "(" + i + ") " + key + " :-> " + value + "");
 			i++;
 		}
 
@@ -150,31 +298,11 @@ public abstract class AbstractLogger implements LoggerComponent {
 	}
 
 	public String indent (final int indent) {
-		String r = "";
+		final StringBuilder r = new StringBuilder();
 		for (int i = 0; i < indent; i++) {
-			r = r + " ";
+			r.append(" ");
 		}
-		return r;
-	}
-
-	@Override
-	public void d (final Object object) {
-		this.logLine(MESSAGE_MARKER.NORMAL, this.toString(0, object));
-	}
-
-	@Override
-	public void e (final Object string, final Object object) {
-		this.logLine(MESSAGE_MARKER.ERROR, string + " > " + this.toString(0, object));
-	}
-
-	@Override
-	public void e (final Object object) {
-		this.logLine(MESSAGE_MARKER.ERROR, this.toString(0, object));
-	}
-
-	public void d (final String string, final Object... objects_list) {
-		this.logLine(MESSAGE_MARKER.NORMAL, string + " > " + this.buld_list(objects_list));
-
+		return r.toString();
 	}
 
 	private String buld_list (final Object[] objects_list) {
@@ -202,20 +330,9 @@ public abstract class AbstractLogger implements LoggerComponent {
 		return "(" + bytes.length + ") " + sb.toString();
 	}
 
-	@Override
-	public void d () {
-		this.logLine(MESSAGE_MARKER.NORMAL);
-	}
-
-	@Override
-	public void e () {
-		this.logLine(MESSAGE_MARKER.ERROR);
-	}
-
-	@Override
-	public void d_appendChars (final Object msg) {
-		this.logAppend(MESSAGE_MARKER.NORMAL, msg);
-	}
+// public void d_appendChars (final Object msg) {
+// this.logAppend(MESSAGE_MARKER.NORMAL, msg);
+// }
 
 	public final static String SEPARATOR = System.getProperty("line.separator");
 
@@ -237,16 +354,10 @@ public abstract class AbstractLogger implements LoggerComponent {
 		aThrowable.printStackTrace(printWriter);
 		return result.toString();
 	}
-
-	@Override
-	public void e (final Object tag, final Throwable err) {
-		this.e(tag);
-		this.e(this.throwableToString(err));
-	}
-
-	@Override
-	public void e (final Throwable err) {
-		this.e(this.throwableToString(err));
-	}
+//
+// public void d (final String string, final Object... objects_list) {
+// this.logLine(MESSAGE_MARKER.NORMAL, string + " > " + this.buld_list(objects_list));
+//
+// }
 
 }
