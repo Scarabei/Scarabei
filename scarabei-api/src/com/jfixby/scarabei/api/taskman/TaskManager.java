@@ -3,6 +3,8 @@ package com.jfixby.scarabei.api.taskman;
 
 import com.jfixby.scarabei.api.ComponentInstaller;
 import com.jfixby.scarabei.api.collections.Collection;
+import com.jfixby.scarabei.api.promise.Future;
+import com.jfixby.scarabei.api.promise.Promise;
 
 public class TaskManager {
 
@@ -55,6 +57,10 @@ public class TaskManager {
 
 	public static boolean executeImmediately (final Job job) {
 		return invoke().executeImmediately(job);
+	}
+
+	public static <T> Promise<T> newPromise (final Future<T> future) {
+		return invoke().newPromise(future);
 	}
 
 }

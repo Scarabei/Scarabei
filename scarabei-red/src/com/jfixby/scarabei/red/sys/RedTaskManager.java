@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import com.jfixby.scarabei.api.collections.Collection;
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.log.L;
+import com.jfixby.scarabei.api.promise.Future;
+import com.jfixby.scarabei.api.promise.Promise;
 import com.jfixby.scarabei.api.taskman.Job;
 import com.jfixby.scarabei.api.taskman.SimpleProgress;
 import com.jfixby.scarabei.api.taskman.SysExecutor;
@@ -126,6 +128,11 @@ public class RedTaskManager implements TaskManagerComponent {
 			return false;
 		}
 		return true;
+	}
+
+	@Override
+	public <T> Promise<T> newPromise (final Future<T> future) {
+		return new RedPromise<T>(future);
 	}
 
 }

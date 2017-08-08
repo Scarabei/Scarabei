@@ -2,6 +2,8 @@
 package com.jfixby.scarabei.api.taskman;
 
 import com.jfixby.scarabei.api.collections.Collection;
+import com.jfixby.scarabei.api.promise.Future;
+import com.jfixby.scarabei.api.promise.Promise;
 
 public interface TaskManagerComponent {
 
@@ -24,5 +26,7 @@ public interface TaskManagerComponent {
 	SimpleProgress newSimpleProgress ();
 
 	boolean executeImmediately (Job job);
+
+	<T> Promise<T> newPromise (Future<T> plan);
 
 }

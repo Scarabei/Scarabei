@@ -1,5 +1,5 @@
 
-package com.jfixby.scarabei.api.lang;
+package com.jfixby.scarabei.red.util;
 
 import java.util.Arrays;
 
