@@ -190,7 +190,7 @@ public abstract class AbstractLogger implements LoggerComponent {
 	@Override
 	public void e (final Throwable err) {
 		final String frame = this.getFrame();
-		this.log(MESSAGE_MARKER.ERROR, frame, err);
+		this.log(MESSAGE_MARKER.ERROR, frame, this.stackTraceToString(err));
 	}
 
 	private String toString (final int indent, final Object object) {
