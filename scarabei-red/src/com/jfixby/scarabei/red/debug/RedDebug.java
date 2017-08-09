@@ -1,6 +1,7 @@
 
 package com.jfixby.scarabei.red.debug;
 
+import com.jfixby.scarabei.api.collections.Collection;
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.List;
 import com.jfixby.scarabei.api.debug.DEBUG_TIMER_MODE;
@@ -11,25 +12,20 @@ import com.jfixby.scarabei.api.log.L;
 import com.jfixby.scarabei.api.sys.Sys;
 import com.jfixby.scarabei.api.sys.settings.ExecutionMode;
 import com.jfixby.scarabei.api.sys.settings.SystemSettings;
+import com.jfixby.scarabei.api.taskman.SysExecutor;
 
 public class RedDebug implements DebugComponent {
 
 	@Override
-	public void printCallStack (final boolean condition) {
-		if (!condition) {
-			return;
-		}
-		printStack();
-	}
-
-	final static private void printStack () {
+	public final Collection<StackTraceElement> getStackTrace () {
 		final CallStack stack = new CallStack();
 		final List<StackTraceElement> list = Collections.newList(stack.getStackTrace());
 		list.reverse();
 		list.removeLast();
 		list.removeLast();
 		list.removeLast();
-		list.print("call stack");
+		return list;
+
 	}
 
 	@Override
@@ -100,6 +96,15 @@ public class RedDebug implements DebugComponent {
 	@Override
 	public DebugTimer newTimer (final DEBUG_TIMER_MODE mode) {
 		return new RedDebugTimer(mode);
+	}
+
+	@Override
+	public void checkCurrentThreadIsMain () {
+		if (SysExecutor.isMainThread()) {
+			return;
+		} else {
+			Err.reportError("Current thread is not main: <" + Thread.currentThread() + ">");
+		}
 	}
 
 }

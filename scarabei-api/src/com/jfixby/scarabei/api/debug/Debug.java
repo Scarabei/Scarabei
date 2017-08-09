@@ -2,6 +2,7 @@
 package com.jfixby.scarabei.api.debug;
 
 import com.jfixby.scarabei.api.ComponentInstaller;
+import com.jfixby.scarabei.api.collections.Collection;
 
 public class Debug {
 
@@ -23,16 +24,12 @@ public class Debug {
 		return componentInstaller.getComponent();
 	}
 
-	public static void printCallStack (final boolean condition) {
-		invoke().printCallStack(condition);
+	public static Collection<StackTraceElement> getStackTrace () {
+		return invoke().getStackTrace();
 	}
 
 	public static void exit (final boolean condition) {
 		invoke().exit(condition);
-	}
-
-	public static void printCallStack () {
-		invoke().printCallStack();
 	}
 
 	public static <T> T checkNull (final String parameter_name, final T value) {
@@ -65,6 +62,10 @@ public class Debug {
 
 	public static void reportWarning (final String msg) {
 		invoke().reportWarning(msg);
+	}
+
+	public static void checkCurrentThreadIsMain () {
+		invoke().checkCurrentThreadIsMain();
 	}
 
 }

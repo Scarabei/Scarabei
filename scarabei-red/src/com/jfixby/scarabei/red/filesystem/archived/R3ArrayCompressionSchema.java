@@ -44,7 +44,8 @@ public class R3ArrayCompressionSchema implements CompressionSchema {
 
 	@Override
 	public void print (final String tag) {
-		this.registry.print(tag);
+// this.registry.print(tag);
+		Err.throwNotImplementedYet();
 	}
 
 	@Override
@@ -102,7 +103,7 @@ public class R3ArrayCompressionSchema implements CompressionSchema {
 		if (filePointer != null) {
 			return filePointer;
 		}
-		this.registry.print("Failed to read: " + relativePath);
+// this.registry.print("Failed to read: " + relativePath);
 		Err.reportError("Failed to read: " + relativePath);
 		return filePointer;
 	}

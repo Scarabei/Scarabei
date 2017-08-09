@@ -6,7 +6,10 @@ import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.List;
 import com.jfixby.scarabei.api.debug.Debug;
 import com.jfixby.scarabei.api.err.Err;
+import com.jfixby.scarabei.api.log.L;
 import com.jfixby.scarabei.api.sys.Sys;
+import com.jfixby.scarabei.api.sys.settings.ExecutionMode;
+import com.jfixby.scarabei.api.sys.settings.SystemSettings;
 import com.jfixby.scarabei.api.taskman.Job;
 import com.jfixby.scarabei.api.taskman.TASK_STATE;
 import com.jfixby.scarabei.api.taskman.TASK_TYPE;
@@ -58,11 +61,11 @@ public class RedTask implements Task, Runnable {
 		this.type = Debug.checkNull("TASK_TYPE", specs.getType());
 
 		this.jobs.addAll(specs.listJobs());
-
 		this.switcher = Utils.newStateSwitcher(TASK_STATE.ACTIVE);
 
 		if (this.type == TASK_TYPE.SEPARATED_THREAD) {
-			this.t = new Thread(this.runner);
+
+			this.t = this.newThread(this.runner);
 			this.t.setName(this.name);
 			this.threadStarted = false;
 		} else if (this.type == TASK_TYPE.PSEUDO_PARALEL) {
@@ -71,6 +74,10 @@ public class RedTask implements Task, Runnable {
 			this.t = null;
 			Err.throwNotImplementedYet();
 		}
+	}
+
+	private Thread newThread (final Runnable runner) {
+		return new Thread(runner);
 	}
 
 	private final Runnable runner = this;
@@ -100,6 +107,7 @@ public class RedTask implements Task, Runnable {
 		while (this.isActive()) {
 			this.pushTask();
 		}
+
 	}
 
 	private void pushTask () {
@@ -115,8 +123,7 @@ public class RedTask implements Task, Runnable {
 				this.current_job.doStart();
 				this.first_call = false;
 			} catch (final Throwable e) {
-				e.printStackTrace();
-				this.switcher.switchState(TASK_STATE.FAILED);
+				this.onFail(e);
 				return;
 			}
 		}
@@ -124,8 +131,7 @@ public class RedTask implements Task, Runnable {
 		try {
 			this.current_job.doPush();
 		} catch (final Throwable e) {
-			Err.reportError(e);
-			this.switcher.switchState(TASK_STATE.FAILED);
+			this.onFail(e);
 			return;
 		}
 
@@ -139,6 +145,16 @@ public class RedTask implements Task, Runnable {
 			return;
 		}
 
+	}
+
+	private void onFail (final Throwable e) {
+		if (SystemSettings.getExecutionMode().isBelow(ExecutionMode.EARLY_DEVELOPMENT)) {
+			L.e(e);
+		} else {
+			Err.reportError(e);
+			Sys.exit();
+		}
+		this.switcher.switchState(TASK_STATE.FAILED);
 	}
 
 	@Override

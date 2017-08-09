@@ -6,4 +6,8 @@ public interface ExecutorComponent {
 	void onSystemStart ();
 
 	void pushTasks ();
+
+	boolean isMainThread ();
+
+	void switchMainThread ();
 }

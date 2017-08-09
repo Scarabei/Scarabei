@@ -17,12 +17,12 @@ public class RedPromiseJob implements Job {
 
 	@Override
 	public void doPush () throws Throwable {
-		this.redPromise.await();
+		this.redPromise.deliver();
 	}
 
 	@Override
 	public boolean isDone () {
-		return this.redPromise.delivered;
+		return this.redPromise.isDone;
 	}
 
 }

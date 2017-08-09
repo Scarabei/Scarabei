@@ -4,6 +4,7 @@ package com.jfixby.scarabei.red.sys;
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.Map;
 import com.jfixby.scarabei.api.collections.Mapping;
+import com.jfixby.scarabei.api.err.Err;
 import com.jfixby.scarabei.api.log.L;
 import com.jfixby.scarabei.api.sys.SystemInfo;
 
@@ -23,7 +24,8 @@ public class RedDeviceInfo implements SystemInfo {
 	@Override
 	public void print () {
 		L.d("---[DeviceInfo]------------------------");
-		this.params.print("params");
+// this.params.print("params");
+		Err.throwNotImplementedYet();
 	}
 
 	public void putAll (final Mapping<? extends String, ? extends String> values) {

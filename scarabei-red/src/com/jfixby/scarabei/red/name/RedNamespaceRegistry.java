@@ -93,10 +93,10 @@ public class RedNamespaceRegistry<T> implements NamespaceRegistry<T> {
 		return result;
 	}
 
-	@Override
-	public void print (final String tag) {
-		this.map.print(tag);
-	}
+// @Override
+// public void print (final String tag) {
+// this.map.print(tag);
+// }
 
 	@Override
 	public int size () {

@@ -39,9 +39,11 @@ public class ScarabeiDesktop {
 		Json.installComponent(new GoogleJson());
 		Collections.installComponent(new com.jfixby.scarabei.red.desktop.collections.DesktopCollections());
 		FloatMath.installComponent(new com.jfixby.scarabei.red.desktop.math.DesktopFloatMath());
-		TaskManager.installComponent(new com.jfixby.scarabei.red.sys.RedTaskManager());
+
 		Sys.installComponent(new com.jfixby.scarabei.red.desktop.sys.DesktopSystem());
 		SystemSettings.installComponent(new com.jfixby.scarabei.red.sys.RedSystemSettings());
+		TaskManager.installComponent(new com.jfixby.scarabei.red.sys.RedTaskManager());
+
 		IntegerMath.installComponent(new com.jfixby.scarabei.red.math.RedIntegerMath());
 		Names.installComponent(new com.jfixby.scarabei.red.name.RedAssetsNamespace());
 		IO.installComponent(new com.jfixby.scarabei.red.io.RedIO());

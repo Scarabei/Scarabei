@@ -3,6 +3,7 @@ package com.jfixby.scarabei.red.net.http;
 
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.Map;
+import com.jfixby.scarabei.api.err.Err;
 import com.jfixby.scarabei.api.file.FolderSupportingIndex;
 import com.jfixby.scarabei.api.net.http.HttpURL;
 
@@ -36,6 +37,7 @@ public class HttpFolderDescriptorCache {
 	}
 
 	public void print () {
-		this.cache.print("cache");
+		Err.throwNotImplementedYet();
+// this.cache.print("cache");
 	}
 }

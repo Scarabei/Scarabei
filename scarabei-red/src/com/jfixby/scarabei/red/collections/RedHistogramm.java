@@ -11,6 +11,7 @@ import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.Histogramm;
 import com.jfixby.scarabei.api.collections.List;
 import com.jfixby.scarabei.api.collections.Map;
+import com.jfixby.scarabei.api.err.Err;
 import com.jfixby.scarabei.api.math.IntegerMath;
 
 public class RedHistogramm<T> implements Histogramm<T> {
@@ -67,7 +68,8 @@ public class RedHistogramm<T> implements Histogramm<T> {
 
 	@Override
 	public void print (final String tag) {
-		this.storage.print(tag);
+// this.storage.print(tag);
+		Err.throwNotImplementedYet();
 	}
 
 	@Override

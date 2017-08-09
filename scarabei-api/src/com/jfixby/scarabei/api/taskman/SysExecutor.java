@@ -8,7 +8,7 @@ public class SysExecutor {
 	static private ComponentInstaller<ExecutorComponent> componentInstaller = new ComponentInstaller<ExecutorComponent>(
 		"SysExecutor");
 
-	public static final void installComponent (ExecutorComponent component_to_install) {
+	public static final void installComponent (final ExecutorComponent component_to_install) {
 		componentInstaller.installComponent(component_to_install);
 	}
 
@@ -26,6 +26,14 @@ public class SysExecutor {
 
 	public static void pushTasks () {
 		invoke().pushTasks();
+	}
+
+	public static boolean isMainThread () {
+		return invoke().isMainThread();
+	}
+
+	public static void switchMainThread () {
+		invoke().switchMainThread();
 	}
 
 }

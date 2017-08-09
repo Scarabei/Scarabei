@@ -27,6 +27,12 @@ public interface TaskManagerComponent {
 
 	boolean executeImmediately (Job job);
 
-	<O> Promise<O> newPromise (Future<Void, O> plan);
+	<O> Promise<O> newPromise (String name, Future<Void, O> futre);
+
+	<O> Promise<O> newPromise (PromiseSpecs args, Future<Void, O> futre);
+
+	PromiseSpecs newPromiseSpecs ();
+
+	Promise<Void> newPromise (String name);
 
 }

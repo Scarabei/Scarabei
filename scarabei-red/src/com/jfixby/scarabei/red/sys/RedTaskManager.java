@@ -9,6 +9,7 @@ import com.jfixby.scarabei.api.log.L;
 import com.jfixby.scarabei.api.promise.Future;
 import com.jfixby.scarabei.api.promise.Promise;
 import com.jfixby.scarabei.api.taskman.Job;
+import com.jfixby.scarabei.api.taskman.PromiseSpecs;
 import com.jfixby.scarabei.api.taskman.SimpleProgress;
 import com.jfixby.scarabei.api.taskman.SysExecutor;
 import com.jfixby.scarabei.api.taskman.Task;
@@ -26,6 +27,7 @@ public class RedTaskManager implements TaskManagerComponent {
 		this.delete_candidates = new ArrayList<RedTask>();
 
 		SysExecutor.installComponent(this.executor);
+		SysExecutor.onSystemStart();
 	}
 
 	final ArrayList<RedTask> new_tasks;
@@ -131,8 +133,36 @@ public class RedTaskManager implements TaskManagerComponent {
 	}
 
 	@Override
-	public <O> Promise<O> newPromise (final Future<Void, O> future) {
-		return new RedPromise<O>(future);
+	public PromiseSpecs newPromiseSpecs () {
+		return new PromiseSpecs();
 	}
+
+	@Override
+	public <O> Promise<O> newPromise (final String name, final Future<Void, O> future) {
+		final PromiseSpecs specs = new PromiseSpecs();
+		specs.executeInMainThread = false;
+		specs.name = "Promise<" + future + ">";
+		specs.name = name;
+		return this.newPromise(specs, future);
+	}
+
+	@Override
+	public <O> Promise<O> newPromise (final PromiseSpecs specs, final Future<Void, O> future) {
+		return new RedPromise<O>(future, specs);
+
+	}
+
+	@Override
+	public Promise<Void> newPromise (final String name) {
+		return this.newPromise(name, this.voidFuture);
+	}
+
+	private final Future<Void, Void> voidFuture = new Future<Void, Void>() {
+
+		@Override
+		public Void deliver (final Void input) throws Throwable {
+			return null;
+		}
+	};
 
 }

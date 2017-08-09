@@ -9,8 +9,6 @@ import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.EditableCollection;
 import com.jfixby.scarabei.api.collections.List;
 import com.jfixby.scarabei.api.err.Err;
-import com.jfixby.scarabei.api.log.L;
-import com.jfixby.scarabei.api.math.IntegerMath;
 
 public abstract class RedList<T> implements List<T> {
 	public final java.util.List<T> legacy;
@@ -127,30 +125,30 @@ public abstract class RedList<T> implements List<T> {
 		return this.legacy.remove(this.size() - 1);
 	}
 
-	@Override
-	public void print (final String tag) {
-		L.d(tag, this);
-	}
-
-	@Override
-	public void print (final String tag, final int from_index, final int to_index) {
-		final List<T> l = Collections.newList();
-		final int N = this.size();
-		int a = 0;
-		int b = N;
-		a = (int)IntegerMath.limit(0, from_index, N);
-		b = (int)IntegerMath.limit(0, to_index, N);
-
-		int d = 1;
-		if (a > b) {
-			d = -1;
-		}
-		for (int i = a; i < b; i = i + d) {
-			final T element = this.getElementAt(i);
-			l.add(element);
-		}
-		l.print(tag);
-	}
+// @Override
+// public void print (final String tag) {
+// L.d(tag, this);
+// }
+//
+// @Override
+// public void print (final String tag, final int from_index, final int to_index) {
+// final List<T> l = Collections.newList();
+// final int N = this.size();
+// int a = 0;
+// int b = N;
+// a = (int)IntegerMath.limit(0, from_index, N);
+// b = (int)IntegerMath.limit(0, to_index, N);
+//
+// int d = 1;
+// if (a > b) {
+// d = -1;
+// }
+// for (int i = a; i < b; i = i + d) {
+// final T element = this.getElementAt(i);
+// l.add(element);
+// }
+// l.print(tag);
+// }
 
 	@Override
 	public T getLast () {

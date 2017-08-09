@@ -1,13 +1,11 @@
 
 package com.jfixby.scarabei.api.debug;
 
+import com.jfixby.scarabei.api.collections.Collection;
+
 public interface DebugComponent {
 
-	void printCallStack (boolean condition);
-
 	void exit (boolean condition);
-
-	void printCallStack ();
 
 	<T> T checkNull (String parameter_name, T value);
 
@@ -24,5 +22,9 @@ public interface DebugComponent {
 	DebugTimer newTimer (DEBUG_TIMER_MODE mode);
 
 	void reportWarning (String msg);
+
+	void checkCurrentThreadIsMain ();
+
+	Collection<StackTraceElement> getStackTrace ();
 
 }

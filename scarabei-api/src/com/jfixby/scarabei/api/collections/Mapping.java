@@ -9,7 +9,7 @@ public interface Mapping<K, V> {
 
 	V get (Object key);
 
-	void print (String tag);
+// void print (String tag);
 
 	int size ();
 

@@ -59,8 +59,21 @@ public class TaskManager {
 		return invoke().executeImmediately(job);
 	}
 
-	public static <T> Promise<T> newPromise (final Future<Void, T> future) {
-		return invoke().newPromise(future);
+	public static <T> Promise<T> newPromise (final String name, final Future<Void, T> future) {
+		return invoke().newPromise(name, future);
+	}
+
+	public static <T> Promise<T> newPromise (final PromiseSpecs args, final Future<Void, T> future) {
+		return invoke().newPromise(args, future);
+	}
+
+	public static PromiseSpecs newPromiseSpecs () {
+		return invoke().newPromiseSpecs();
+	}
+
+	public static Promise<Void> newPromise (final String name) {
+		return invoke().newPromise(name);
+
 	}
 
 }

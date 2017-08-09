@@ -6,6 +6,7 @@ import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.Map;
 import com.jfixby.scarabei.api.collections.Mapping;
 import com.jfixby.scarabei.api.debug.Debug;
+import com.jfixby.scarabei.api.err.Err;
 import com.jfixby.scarabei.api.log.L;
 import com.jfixby.scarabei.api.sys.settings.ExecutionMode;
 import com.jfixby.scarabei.api.sys.settings.SystemSettingsComponent;
@@ -22,10 +23,11 @@ public class RedSystemSettings implements SystemSettingsComponent {
 	public void printSystemParameters () {
 		L.d("---[SystemSettings]-----------------------------------");
 		L.d("ExecutionMode", this.execution_mode);
-		this.flags.print("   Flags  ");
-		this.longs.print("   Longs  ");
-		this.strings.print("   Strings");
-		this.assets.print("   Assets ");
+// this.flags.print(" Flags ");
+// this.longs.print(" Longs ");
+// this.strings.print(" Strings");
+// this.assets.print(" Assets ");
+		Err.throwNotImplementedYet();
 		L.d("---[SystemSettings-END]-----------------------------------");
 	}
 

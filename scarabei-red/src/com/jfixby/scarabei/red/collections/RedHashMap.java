@@ -13,7 +13,6 @@ import com.jfixby.scarabei.api.collections.Map;
 import com.jfixby.scarabei.api.collections.Mapping;
 import com.jfixby.scarabei.api.collections.Set;
 import com.jfixby.scarabei.api.err.Err;
-import com.jfixby.scarabei.api.log.L;
 
 public class RedHashMap<K, V> implements Map<K, V> {
 	final LinkedHashMap<K, V> hash_map = new LinkedHashMap<K, V>();
@@ -42,10 +41,10 @@ public class RedHashMap<K, V> implements Map<K, V> {
 		this.keys_list.clear();
 	}
 
-	@Override
-	public void print (final String tag) {
-		L.d(tag, this);
-	}
+// @Override
+// public void print (final String tag) {
+// L.d(tag, this);
+// }
 
 	// +----------------------------------------------------------------
 
