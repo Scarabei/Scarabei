@@ -131,8 +131,8 @@ public class RedTaskManager implements TaskManagerComponent {
 	}
 
 	@Override
-	public <T> Promise<T> newPromise (final Future<T> future) {
-		return new RedPromise<T>(future);
+	public <O> Promise<O> newPromise (final Future<Void, O> future) {
+		return new RedPromise<O>(future);
 	}
 
 }

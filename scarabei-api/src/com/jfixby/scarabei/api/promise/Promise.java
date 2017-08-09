@@ -1,8 +1,10 @@
 
 package com.jfixby.scarabei.api.promise;
 
-public interface Promise<T> {
+public interface Promise<P> {
 
-	T await () throws Throwable;
+	P await () throws Throwable;
+
+	<N> Promise<N> then (Future<P, N> receiver);
 
 }

@@ -12,8 +12,8 @@ import com.jfixby.scarabei.api.taskman.TASK_STATE;
 import com.jfixby.scarabei.api.taskman.TASK_TYPE;
 import com.jfixby.scarabei.api.taskman.Task;
 import com.jfixby.scarabei.api.taskman.TaskSpecs;
-import com.jfixby.scarabei.api.util.Utils;
 import com.jfixby.scarabei.api.util.StateSwitcher;
+import com.jfixby.scarabei.api.util.Utils;
 
 public class RedTask implements Task, Runnable {
 
@@ -63,10 +63,9 @@ public class RedTask implements Task, Runnable {
 
 		if (this.type == TASK_TYPE.SEPARATED_THREAD) {
 			this.t = new Thread(this.runner);
+			this.t.setName(this.name);
 			this.threadStarted = false;
 		} else if (this.type == TASK_TYPE.PSEUDO_PARALEL) {
-			this.t = null;
-		} else if (this.type == TASK_TYPE.BACKGROUND) {
 			this.t = null;
 		} else {
 			this.t = null;
@@ -94,10 +93,6 @@ public class RedTask implements Task, Runnable {
 			return;
 		}
 
-		if (this.type == TASK_TYPE.BACKGROUND) {
-			Err.throwNotImplementedYet();
-			return;
-		}
 	}
 
 	@Override

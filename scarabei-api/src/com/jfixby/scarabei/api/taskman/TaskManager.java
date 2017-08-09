@@ -59,7 +59,7 @@ public class TaskManager {
 		return invoke().executeImmediately(job);
 	}
 
-	public static <T> Promise<T> newPromise (final Future<T> future) {
+	public static <T> Promise<T> newPromise (final Future<Void, T> future) {
 		return invoke().newPromise(future);
 	}
 
