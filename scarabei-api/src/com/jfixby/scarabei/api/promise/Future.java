@@ -1,8 +1,8 @@
 
 package com.jfixby.scarabei.api.promise;
 
-public interface Future<T> {
+public interface Future<X, Y> {
 
-	public T deliver () throws Throwable;
+	public Y deliver (X input) throws Throwable;
 
 }
