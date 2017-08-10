@@ -69,10 +69,10 @@ public class RedColorsSet implements ColorSet {
 
 	}
 
-	@Override
-	public void print (final String tag) {
-		this.colors.print(tag);
-	}
+// @Override
+// public void print (final String tag) {
+// this.colors.print(tag);
+// }
 
 	@Override
 	public void sort () {
@@ -176,10 +176,10 @@ public class RedColorsSet implements ColorSet {
 		return this.colors.isEmpty();
 	}
 
-	@Override
-	public void print (final String tag, final int from_index, final int to_index) {
-		this.colors.print(tag, from_index, to_index);
-	}
+// @Override
+// public void print (final String tag, final int from_index, final int to_index) {
+// this.colors.print(tag, from_index, to_index);
+// }
 
 	@Override
 	public boolean beginsWith (final com.jfixby.scarabei.api.collections.Collection<Color> steps) {

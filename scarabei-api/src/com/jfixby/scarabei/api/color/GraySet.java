@@ -9,7 +9,7 @@ public interface GraySet {
 
 	GraySet add (float value);
 
-	void print (String string);
+// void print (String string);
 
 	void sort ();
 

@@ -64,8 +64,4 @@ public class Debug {
 		invoke().reportWarning(msg);
 	}
 
-	public static void checkCurrentThreadIsMain () {
-		invoke().checkCurrentThreadIsMain();
-	}
-
 }

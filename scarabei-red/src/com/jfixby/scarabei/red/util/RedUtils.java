@@ -7,6 +7,7 @@ import com.jfixby.scarabei.api.collections.Collection;
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.Set;
 import com.jfixby.scarabei.api.java.ByteArray;
+import com.jfixby.scarabei.api.taskman.SimpleProgress;
 import com.jfixby.scarabei.api.util.BinaryCode;
 import com.jfixby.scarabei.api.util.EditableBinaryCode;
 import com.jfixby.scarabei.api.util.ProgressIndicator;
@@ -36,6 +37,11 @@ public class RedUtils implements UtilsComponent {
 	@Override
 	public <T extends MountPoint> AbsolutePath<T> newAbsolutePath (final T mount_point, final RelativePath relative) {
 		return new RedAbsolutePath<T>(mount_point, relative);
+	}
+
+	@Override
+	public SimpleProgress newSimpleProgress () {
+		return new RedSimpleProgress();
 	}
 
 	@Override

@@ -28,55 +28,89 @@ import com.jfixby.scarabei.api.strings.Strings;
 import com.jfixby.scarabei.api.sys.Sys;
 import com.jfixby.scarabei.api.sys.settings.SystemSettings;
 import com.jfixby.scarabei.api.taskman.TaskManager;
+import com.jfixby.scarabei.api.ui.UIThread;
 import com.jfixby.scarabei.api.util.Utils;
+import com.jfixby.scarabei.red.arrays.RedArrays;
+import com.jfixby.scarabei.red.color.RedColors;
+import com.jfixby.scarabei.red.debug.RedDebug;
+import com.jfixby.scarabei.red.desktop.collections.DesktopCollections;
+import com.jfixby.scarabei.red.desktop.filesystem.unix.UnixFileSystem;
+import com.jfixby.scarabei.red.desktop.filesystem.win.WinFileSystem;
+import com.jfixby.scarabei.red.desktop.math.DesktopFloatMath;
+import com.jfixby.scarabei.red.desktop.net.http.DesktopHttp;
+import com.jfixby.scarabei.red.desktop.sys.DesktopSystem;
+import com.jfixby.scarabei.red.desktop.taskman.DesktopTaskManager;
+import com.jfixby.scarabei.red.err.RedError;
+import com.jfixby.scarabei.red.filesystem.cache.RedFileCache;
+import com.jfixby.scarabei.red.geometry.RedGeometry;
+import com.jfixby.scarabei.red.graphs.RedGraphs;
+import com.jfixby.scarabei.red.image.RedImageProcessing;
+import com.jfixby.scarabei.red.input.RedInput;
+import com.jfixby.scarabei.red.io.RedIO;
+import com.jfixby.scarabei.red.java.gc.RedGCFisher;
 import com.jfixby.scarabei.red.json.GoogleJson;
+import com.jfixby.scarabei.red.log.SimpleLogger;
+import com.jfixby.scarabei.red.math.RedAngles;
+import com.jfixby.scarabei.red.math.RedIntegerMath;
+import com.jfixby.scarabei.red.math.RedMathTools;
+import com.jfixby.scarabei.red.name.RedAssetsNamespace;
+import com.jfixby.scarabei.red.random.RedRandom;
+import com.jfixby.scarabei.red.string.RedStrings;
+import com.jfixby.scarabei.red.sys.RedSystemSettings;
+import com.jfixby.scarabei.red.ui.RedUIThread;
+import com.jfixby.scarabei.red.util.RedUtils;
+import com.jfixby.scarabei.red.util.md5.RSADataSecurityIncMD5;
 
 public class ScarabeiDesktop {
 
 	public static final void deploy () {
-		L.installComponent(new com.jfixby.scarabei.red.log.SimpleLogger());
-		Utils.installComponent(new com.jfixby.scarabei.red.util.RedUtils());
+		L.installComponent(new SimpleLogger());
+		Err.installComponent(new RedError());
+		Debug.installComponent(new RedDebug());
+
+		Utils.installComponent(new RedUtils());
 		Json.installComponent(new GoogleJson());
-		Collections.installComponent(new com.jfixby.scarabei.red.desktop.collections.DesktopCollections());
-		FloatMath.installComponent(new com.jfixby.scarabei.red.desktop.math.DesktopFloatMath());
+		Collections.installComponent(new DesktopCollections());
+		FloatMath.installComponent(new DesktopFloatMath());
 
-		Sys.installComponent(new com.jfixby.scarabei.red.desktop.sys.DesktopSystem());
-		SystemSettings.installComponent(new com.jfixby.scarabei.red.sys.RedSystemSettings());
-		TaskManager.installComponent(new com.jfixby.scarabei.red.sys.RedTaskManager());
+		Sys.installComponent(new DesktopSystem());
+		SystemSettings.installComponent(new RedSystemSettings());
+		TaskManager.installComponent(new DesktopTaskManager());
 
-		IntegerMath.installComponent(new com.jfixby.scarabei.red.math.RedIntegerMath());
-		Names.installComponent(new com.jfixby.scarabei.red.name.RedAssetsNamespace());
-		IO.installComponent(new com.jfixby.scarabei.red.io.RedIO());
-		Graphs.installComponent(new com.jfixby.scarabei.red.graphs.RedGraphs());
+		UIThread.installComponent(new RedUIThread());
 
-		Angles.installComponent(new com.jfixby.scarabei.red.math.RedAngles());
-		Geometry.installComponent(new com.jfixby.scarabei.red.geometry.RedGeometry());
-		Colors.installComponent(new com.jfixby.scarabei.red.color.RedColors());
-		MathTools.installComponent(new com.jfixby.scarabei.red.math.RedMathTools());
-		Err.installComponent(new com.jfixby.scarabei.red.err.RedError());
-		Debug.installComponent(new com.jfixby.scarabei.red.debug.RedDebug());
-		GCFisher.installComponent(new com.jfixby.scarabei.red.java.gc.RedGCFisher());
-		MD5.installComponent(new com.jfixby.scarabei.red.util.md5.RSADataSecurityIncMD5());
-		Random.installComponent(new com.jfixby.scarabei.red.random.RedRandom());
-		Arrays.installComponent(new com.jfixby.scarabei.red.arrays.RedArrays());
-		Strings.installComponent(new com.jfixby.scarabei.red.string.RedStrings());
+		IntegerMath.installComponent(new RedIntegerMath());
+		Names.installComponent(new RedAssetsNamespace());
+		IO.installComponent(new RedIO());
+		Graphs.installComponent(new RedGraphs());
+
+		Angles.installComponent(new RedAngles());
+		Geometry.installComponent(new RedGeometry());
+		Colors.installComponent(new RedColors());
+		MathTools.installComponent(new RedMathTools());
+
+		GCFisher.installComponent(new RedGCFisher());
+		MD5.installComponent(new RSADataSecurityIncMD5());
+		Random.installComponent(new RedRandom());
+		Arrays.installComponent(new RedArrays());
+		Strings.installComponent(new RedStrings());
 // Serialize.installComponent(new com.jfixby.scarabei.red.serialize.RedSerialize());
 // --
 
 		if (Sys.isWindows()) {
-			LocalFileSystem.installComponent(new com.jfixby.scarabei.red.desktop.filesystem.win.WinFileSystem());
+			LocalFileSystem.installComponent(new WinFileSystem());
 		} else if (Sys.isUnix() || Sys.isMac()) {
-			LocalFileSystem.installComponent(new com.jfixby.scarabei.red.desktop.filesystem.unix.UnixFileSystem());
+			LocalFileSystem.installComponent(new UnixFileSystem());
 		} else {
-			LocalFileSystem.installComponent(new com.jfixby.scarabei.red.desktop.filesystem.unix.UnixFileSystem());
+			LocalFileSystem.installComponent(new UnixFileSystem());
 		}
 
-		Http.installComponent(new com.jfixby.scarabei.red.desktop.net.http.DesktopHttp());
+		Http.installComponent(new DesktopHttp());
 
-		ImageProcessing.installComponent(new com.jfixby.scarabei.red.image.RedImageProcessing());
+		ImageProcessing.installComponent(new RedImageProcessing());
 // ImageAWT.installComponent(new com.jfixby.scarabei.red.desktop.image.RedImageAWT());
-		FileCache.installComponent(new com.jfixby.scarabei.red.filesystem.cache.RedFileCache());
-		UserInput.installComponent(new com.jfixby.scarabei.red.input.RedInput());
+		FileCache.installComponent(new RedFileCache());
+		UserInput.installComponent(new RedInput());
 	}
 
 }

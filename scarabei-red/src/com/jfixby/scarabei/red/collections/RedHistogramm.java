@@ -150,10 +150,10 @@ public class RedHistogramm<T> implements Histogramm<T> {
 		return this.storage.size() == 0;
 	}
 
-	@Override
-	public void print (final String tag, final int from_index, final int to_index) {
-		this.storage.keys().print(tag, from_index, to_index);
-	}
+// @Override
+// public void print (final String tag, final int from_index, final int to_index) {
+// this.storage.keys().print(tag, from_index, to_index);
+// }
 
 	@Override
 	public boolean beginsWith (final Collection<T> steps) {

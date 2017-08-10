@@ -2,6 +2,6 @@
 package com.jfixby.scarabei.api.taskman;
 
 public enum SYSTEM_STATE {
-	NEW, RUNNING
+	NEW, PASSIVE_MODE, ACTIVE_MODE
 
 }

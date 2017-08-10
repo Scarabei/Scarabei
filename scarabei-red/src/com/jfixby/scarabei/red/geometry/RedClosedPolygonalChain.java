@@ -149,10 +149,10 @@ public class RedClosedPolygonalChain extends VertexMaster implements ClosedPolyg
 		return this.public_vertices;
 	}
 
-	@Override
-	public void print (final String tag) {
-		this.public_vertices.print(tag);
-	}
+// @Override
+// public void print (final String tag) {
+// this.public_vertices.print(tag);
+// }
 
 	@Override
 	public boolean containsPoint (final double point_x, final double point_y) {

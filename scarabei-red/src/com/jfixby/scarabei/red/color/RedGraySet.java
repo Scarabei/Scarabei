@@ -27,7 +27,7 @@ public class RedGraySet implements GraySet {
 		return closest_value;
 	}
 
-	private static final float abs (double d) {
+	private static final float abs (final double d) {
 		if (d < 0) {
 			return (float)-d;
 		}
@@ -37,7 +37,7 @@ public class RedGraySet implements GraySet {
 	final List<FloatValue> palette = Collections.newList();
 
 	@Override
-	public GraySet addAll (float... array) {
+	public GraySet addAll (final float... array) {
 		for (int i = 0; i < array.length; i++) {
 			this.add(array[i]);
 		}
@@ -45,37 +45,37 @@ public class RedGraySet implements GraySet {
 	}
 
 	@Override
-	public GraySet add (float value) {
-		FloatValue add = new FloatValue();
+	public GraySet add (final float value) {
+		final FloatValue add = new FloatValue();
 		add.value = value;
 		if (!this.palette.contains(add)) {
 			this.palette.add(add);
 		}
 		return this;
 	}
-
-	@Override
-	public void print (String string) {
-		this.palette.print(string);
-	}
+//
+// @Override
+// public void print (String string) {
+// this.palette.print(string);
+// }
 
 	@Override
 	public void sort () {
-		palette.sort();
+		this.palette.sort();
 	}
 
 	@Override
 	public int size () {
-		return palette.size();
+		return this.palette.size();
 	}
 
 	@Override
-	public float getValue (int index) {
+	public float getValue (final int index) {
 		return (float)this.palette.getElementAt(index).value;
 	}
 
 	@Override
-	public int indexOf (float exactValue) {
+	public int indexOf (final float exactValue) {
 		for (int i = 0; i < this.palette.size(); i++) {
 			if (this.palette.getElementAt(i).value == exactValue) {
 				return i;
@@ -83,5 +83,9 @@ public class RedGraySet implements GraySet {
 		}
 		return -1;
 	}
+
+// @Override
+// public void print (String string) {
+// }
 
 }

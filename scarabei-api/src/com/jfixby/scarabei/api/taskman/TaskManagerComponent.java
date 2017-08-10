@@ -7,32 +7,12 @@ import com.jfixby.scarabei.api.promise.Promise;
 
 public interface TaskManagerComponent {
 
-	Task newTask (String task_name, Job job);
+	Task newTask (String debugName, Job... jobs);
 
-	Task newTask (String task_name, Job... jobs_sequence);
+	Task newTask (String debugName, Collection<Job> jobs);
 
-	Task newTask (String task_name, Collection<Job> jobs_sequence);
+	<O> Promise<O> executeAsynchronously (String debugName, Future<Void, O> future);
 
-	Task newTask (Job job);
-
-	Task newTask (Job... jobs_sequence);
-
-	Task newTask (Collection<Job> jobs_sequence);
-
-	TaskSpecs newTaskSpecs ();
-
-	Task newTask (TaskSpecs specs);
-
-	SimpleProgress newSimpleProgress ();
-
-	boolean executeImmediately (Job job);
-
-	<O> Promise<O> newPromise (String name, Future<Void, O> futre);
-
-	<O> Promise<O> newPromise (PromiseSpecs args, Future<Void, O> futre);
-
-	PromiseSpecs newPromiseSpecs ();
-
-	Promise<Void> newPromise (String name);
+	Promise<Void> executeAsynchronously (String debugName);
 
 }

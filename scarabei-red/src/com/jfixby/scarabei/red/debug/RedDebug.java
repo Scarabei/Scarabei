@@ -12,7 +12,6 @@ import com.jfixby.scarabei.api.log.L;
 import com.jfixby.scarabei.api.sys.Sys;
 import com.jfixby.scarabei.api.sys.settings.ExecutionMode;
 import com.jfixby.scarabei.api.sys.settings.SystemSettings;
-import com.jfixby.scarabei.api.taskman.SysExecutor;
 
 public class RedDebug implements DebugComponent {
 
@@ -59,10 +58,10 @@ public class RedDebug implements DebugComponent {
 		}
 	}
 
-	@Override
-	public void printCallStack () {
-		printStack();
-	}
+// @Override
+// public void printCallStack () {
+// printStack();
+// }
 
 	@Override
 	public void reportWarning (final String msg) {
@@ -70,7 +69,7 @@ public class RedDebug implements DebugComponent {
 			Err.reportError(msg);
 		} else {
 			L.e("WARNING", msg);
-			this.printCallStack();
+// this.printCallStack();
 		}
 	}
 
@@ -96,15 +95,6 @@ public class RedDebug implements DebugComponent {
 	@Override
 	public DebugTimer newTimer (final DEBUG_TIMER_MODE mode) {
 		return new RedDebugTimer(mode);
-	}
-
-	@Override
-	public void checkCurrentThreadIsMain () {
-		if (SysExecutor.isMainThread()) {
-			return;
-		} else {
-			Err.reportError("Current thread is not main: <" + Thread.currentThread() + ">");
-		}
 	}
 
 }

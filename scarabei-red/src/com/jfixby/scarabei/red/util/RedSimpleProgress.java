@@ -1,5 +1,5 @@
 
-package com.jfixby.scarabei.red.taskman;
+package com.jfixby.scarabei.red.util;
 
 import com.jfixby.scarabei.api.math.FloatMath;
 import com.jfixby.scarabei.api.math.IntegerMath;

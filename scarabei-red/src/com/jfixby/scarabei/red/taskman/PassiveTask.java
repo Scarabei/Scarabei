@@ -1,10 +1,9 @@
 
-package com.jfixby.scarabei.red.sys;
+package com.jfixby.scarabei.red.taskman;
 
 import com.jfixby.scarabei.api.collections.Collection;
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.List;
-import com.jfixby.scarabei.api.debug.Debug;
 import com.jfixby.scarabei.api.err.Err;
 import com.jfixby.scarabei.api.log.L;
 import com.jfixby.scarabei.api.sys.Sys;
@@ -12,102 +11,36 @@ import com.jfixby.scarabei.api.sys.settings.ExecutionMode;
 import com.jfixby.scarabei.api.sys.settings.SystemSettings;
 import com.jfixby.scarabei.api.taskman.Job;
 import com.jfixby.scarabei.api.taskman.TASK_STATE;
-import com.jfixby.scarabei.api.taskman.TASK_TYPE;
 import com.jfixby.scarabei.api.taskman.Task;
-import com.jfixby.scarabei.api.taskman.TaskSpecs;
 import com.jfixby.scarabei.api.util.StateSwitcher;
 import com.jfixby.scarabei.api.util.Utils;
 
-public class RedTask implements Task, Runnable {
+public class PassiveTask implements Task {
 
 	private final List<Job> jobs = Collections.newList();
 
 	int job_to_do = -1;
 
 	private final StateSwitcher<TASK_STATE> switcher;
-	private String name;
-	boolean threadStarted = false;
-
-	private final TASK_TYPE type;
-	final Thread t;
+	private final String name;
 
 	@Override
 	public String toString () {
 		return "Task[" + this.name + "]";
 	}
 
-	public RedTask (final String name, final Job job) {
-		this(name, Collections.newList(job));
-	}
-
-	public RedTask (final String name, final Collection<Job> jobs) {
+	public PassiveTask (final String name, final Collection<Job> jobs) {
 		this.name = name;
-		if (name == null) {
-			this.name = super.toString();
-		}
 		this.jobs.addAll(jobs);
-		this.type = TASK_TYPE.PSEUDO_PARALEL;
 		this.switcher = Utils.newStateSwitcher(TASK_STATE.ACTIVE);
-		this.t = null;
 		// listNames();
 	}
-
-	public RedTask (final TaskSpecs specs) {
-		this.name = specs.getName();
-		if (this.name == null) {
-			this.name = super.toString();
-		}
-
-		this.type = Debug.checkNull("TASK_TYPE", specs.getType());
-
-		this.jobs.addAll(specs.listJobs());
-		this.switcher = Utils.newStateSwitcher(TASK_STATE.ACTIVE);
-
-		if (this.type == TASK_TYPE.SEPARATED_THREAD) {
-
-			this.t = this.newThread(this.runner);
-			this.t.setName(this.name);
-			this.threadStarted = false;
-		} else if (this.type == TASK_TYPE.PSEUDO_PARALEL) {
-			this.t = null;
-		} else {
-			this.t = null;
-			Err.throwNotImplementedYet();
-		}
-	}
-
-	private Thread newThread (final Runnable runner) {
-		return new Thread(runner);
-	}
-
-	private final Runnable runner = this;
 
 	boolean first_call = false;
 	Job current_job;
 
 	public void push () {
-		if (this.type == TASK_TYPE.PSEUDO_PARALEL) {
-			this.pushTask();
-			return;
-		}
-		if (this.type == TASK_TYPE.SEPARATED_THREAD) {
-			if (!this.threadStarted) {
-				this.threadStarted = true;
-				this.t.start();
-			} else {
-				Sys.yeld();
-			}
-			return;
-		}
-
-	}
-
-	@Override
-	public void run () {
-		while (this.isActive()) {
-			this.pushTask();
-		}
-
+		this.pushTask();
 	}
 
 	private void pushTask () {
@@ -175,6 +108,11 @@ public class RedTask implements Task, Runnable {
 	@Override
 	public TASK_STATE getState () {
 		return this.switcher.currentState();
+	}
+
+	@Override
+	public String getName () {
+		return this.name;
 	}
 
 }

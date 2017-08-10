@@ -49,7 +49,7 @@ public class RedImageAWT implements ImageAWTComponent {
 			L.d("      hash", image_file.calculateHash());
 			L.d("      size", image_file.getSize());
 			final File parent = image_file.getFileSystem().newFile(image_file.getAbsoluteFilePath().parent());
-			parent.listDirectChildren().print("files");
+			L.e("", parent.listDirectChildren());
 			throw new IOException("Failed to read image: " + image_file);
 		}
 		is.close();
@@ -114,7 +114,7 @@ public class RedImageAWT implements ImageAWTComponent {
 		return im;
 	}
 
-	static final ArrayList<String> palette = new ArrayList<String>();
+	static final ArrayList<String> palette = new ArrayList<>();
 	static String next_line_L = "\n";
 	static float delta;
 	static {

@@ -127,16 +127,16 @@ public class RedFilesList implements FilesList {
 		return this.internal_list.isEmpty();
 	}
 
-	@Override
-	public void print (final String tag) {
-		this.internal_list.print(tag);
-
-	}
-
-	@Override
-	public void print (final String tag, final int from_index, final int to_index) {
-		this.internal_list.print(tag, from_index, to_index);
-	}
+// @Override
+// public void print (final String tag) {
+// this.internal_list.print(tag);
+//
+// }
+//
+// @Override
+// public void print (final String tag, final int from_index, final int to_index) {
+// this.internal_list.print(tag, from_index, to_index);
+// }
 
 	@Override
 	public boolean beginsWith (final Collection<File> steps) {

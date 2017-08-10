@@ -8,7 +8,6 @@ import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.List;
 import com.jfixby.scarabei.api.log.L;
 import com.jfixby.scarabei.red.android.display.AndroidDisplay;
-import com.jfixby.scarabei.red.android.display.AndroidDisplay.ROTATION;
 
 import android.content.Context;
 import android.content.res.Configuration;
@@ -49,7 +48,8 @@ public class CameraSurface extends SurfaceView implements SurfaceHolder.Callback
 		// We use the opportunity to initialize the camera preview display dimensions.
 		final Camera.Parameters parameters = this.camera.getParameters();
 		final List<CameraSize> previewSizes = this.getSupportedPreviewSizes();
-		previewSizes.print("previewSizes");
+// previewSizes.print("previewSizes");
+		L.d("previewSizes", previewSizes);
 		final AndroidDisplay display = this.getDefaultDisplay();
 		L.d(display);
 		L.d("Surface size = " + width + " x " + height);

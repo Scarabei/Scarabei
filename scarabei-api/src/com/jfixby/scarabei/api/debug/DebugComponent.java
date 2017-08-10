@@ -23,8 +23,6 @@ public interface DebugComponent {
 
 	void reportWarning (String msg);
 
-	void checkCurrentThreadIsMain ();
-
 	Collection<StackTraceElement> getStackTrace ();
 
 }

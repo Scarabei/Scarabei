@@ -27,53 +27,24 @@ public class TaskManager {
 		return componentInstaller.getComponent();
 	}
 
-	public static Task newTask (final String task_name, final Collection<Job> jobs_sequence) {
-		return invoke().newTask(task_name, jobs_sequence);
+	public static TaskManagerComponent deInstallComponent () {
+		return componentInstaller.deInstallCurrentComponent();
 	}
 
-	public static Task newTask (final String task_name, final Job... jobs_sequence) {
-		return invoke().newTask(task_name, jobs_sequence);
+	public static Task newTask (final String debugName, final Collection<Job> jobs_sequence) {
+		return invoke().newTask(debugName, jobs_sequence);
 	}
 
-	public static Task newTask (final Collection<Job> jobs_sequence) {
-		return invoke().newTask(jobs_sequence);
+	public static Task newTask (final String debugName, final Job... jobs_sequence) {
+		return invoke().newTask(debugName, jobs_sequence);
 	}
 
-	public static Task newTask (final Job... jobs_sequence) {
-		return invoke().newTask(jobs_sequence);
+	public static <T> Promise<T> executeAsynchronously (final String debugName, final Future<Void, T> future) {
+		return invoke().executeAsynchronously(debugName, future);
 	}
 
-	public static TaskSpecs newTaskSpecs () {
-		return invoke().newTaskSpecs();
-	}
-
-	public static Task newTask (final TaskSpecs specs) {
-		return invoke().newTask(specs);
-	}
-
-	public static SimpleProgress newSimpleProgress () {
-		return invoke().newSimpleProgress();
-	}
-
-	public static boolean executeImmediately (final Job job) {
-		return invoke().executeImmediately(job);
-	}
-
-	public static <T> Promise<T> newPromise (final String name, final Future<Void, T> future) {
-		return invoke().newPromise(name, future);
-	}
-
-	public static <T> Promise<T> newPromise (final PromiseSpecs args, final Future<Void, T> future) {
-		return invoke().newPromise(args, future);
-	}
-
-	public static PromiseSpecs newPromiseSpecs () {
-		return invoke().newPromiseSpecs();
-	}
-
-	public static Promise<Void> newPromise (final String name) {
-		return invoke().newPromise(name);
-
+	public static Promise<Void> executeAsynchronously (final String debugName) {
+		return invoke().executeAsynchronously(debugName);
 	}
 
 }

@@ -87,15 +87,15 @@ public class RedQueue<T> implements Queue<T> {
 		return this.queue.isEmpty();
 	}
 
-	@Override
-	public void print (final String tag) {
-		this.queue.print(tag);
-	}
-
-	@Override
-	public void print (final String tag, final int from_index, final int to_index) {
-		this.queue.print(tag, from_index, to_index);
-	}
+// @Override
+// public void print (final String tag) {
+// this.queue.print(tag);
+// }
+//
+// @Override
+// public void print (final String tag, final int from_index, final int to_index) {
+// this.queue.print(tag, from_index, to_index);
+// }
 
 	@Override
 	public boolean beginsWith (final Collection<T> steps) {

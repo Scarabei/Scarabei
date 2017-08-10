@@ -11,4 +11,6 @@ public interface Task {
 
 	TASK_STATE getState ();
 
+	String getName ();
+
 }

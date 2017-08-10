@@ -6,6 +6,7 @@ import com.jfixby.scarabei.api.assets.ID;
 import com.jfixby.scarabei.api.collections.Collection;
 import com.jfixby.scarabei.api.collections.Set;
 import com.jfixby.scarabei.api.java.ByteArray;
+import com.jfixby.scarabei.api.taskman.SimpleProgress;
 import com.jfixby.scarabei.api.util.path.AbsolutePath;
 import com.jfixby.scarabei.api.util.path.MountPoint;
 import com.jfixby.scarabei.api.util.path.RelativePath;
@@ -88,6 +89,10 @@ public class Utils {
 
 	public static ID nameOf (final Class<?> type) {
 		return invoke().nameOf(type);
+	}
+
+	public static SimpleProgress newSimpleProgress () {
+		return invoke().newSimpleProgress();
 	}
 
 }

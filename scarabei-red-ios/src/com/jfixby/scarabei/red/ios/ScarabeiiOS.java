@@ -25,7 +25,6 @@ import com.jfixby.scarabei.api.net.http.Http;
 import com.jfixby.scarabei.api.random.Random;
 import com.jfixby.scarabei.api.sys.Sys;
 import com.jfixby.scarabei.api.sys.settings.SystemSettings;
-import com.jfixby.scarabei.api.taskman.TaskManager;
 import com.jfixby.scarabei.api.util.Utils;
 import com.jfixby.scarabei.ios.api.iOS;
 import com.jfixby.scarabei.ios.api.iOSComponent;
@@ -52,7 +51,6 @@ import com.jfixby.scarabei.red.math.RedMathTools;
 import com.jfixby.scarabei.red.name.RedAssetsNamespace;
 import com.jfixby.scarabei.red.random.RedRandom;
 import com.jfixby.scarabei.red.sys.RedSystemSettings;
-import com.jfixby.scarabei.red.sys.RedTaskManager;
 import com.jfixby.scarabei.red.util.RedUtils;
 import com.jfixby.scarabei.red.util.md5.RSADataSecurityIncMD5;
 
@@ -63,7 +61,7 @@ public class ScarabeiiOS {
 		Utils.installComponent(new RedUtils());
 		Collections.installComponent(new iOSCollections());
 		FloatMath.installComponent(new iOSFloatMath());
-		TaskManager.installComponent(new RedTaskManager());
+// TaskManager.installComponent(new RedTaskManager());
 		Sys.installComponent(new iOSSystem());
 		SystemSettings.installComponent(new RedSystemSettings());
 		IntegerMath.installComponent(new RedIntegerMath());
