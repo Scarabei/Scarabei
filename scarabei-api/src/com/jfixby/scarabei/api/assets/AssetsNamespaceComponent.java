@@ -15,4 +15,6 @@ public interface AssetsNamespaceComponent {
 
 	ID newID (Collection<String> list);
 
+	boolean isValidString (String value);
+
 }

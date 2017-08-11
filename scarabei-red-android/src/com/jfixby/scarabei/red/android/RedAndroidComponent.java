@@ -214,11 +214,16 @@ public class RedAndroidComponent implements AndroidComponent {
 		}
 
 		{
-			deviceInfo.putValue(Version.Tags.PackageName, SystemSettings.getStringParameter(Version.Tags.PackageName));
-			deviceInfo.putValue(Version.Tags.VersionCode, SystemSettings.getStringParameter(Version.Tags.VersionCode));
-			deviceInfo.putValue(Version.Tags.VersionName, SystemSettings.getStringParameter(Version.Tags.VersionName));
+			deviceInfo.putValue(Version.Tags.PackageName, SystemSettings.getStringParameter(Version.Tags.PackageName, ""));
+			deviceInfo.putValue(Version.Tags.VersionCode, SystemSettings.getStringParameter(Version.Tags.VersionCode, ""));
+			deviceInfo.putValue(Version.Tags.VersionName, SystemSettings.getStringParameter(Version.Tags.VersionName, ""));
 		}
 
 		return deviceInfo;
+	}
+
+	@Override
+	public Context getApplicationContext () {
+		return this.context;
 	}
 }

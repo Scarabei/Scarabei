@@ -1,35 +1,22 @@
 
-package com.jfixby.scarabei.red.sys;
+package com.jfixby.scarabei.red.desktop.sys.settings;
 
 import com.jfixby.scarabei.api.assets.ID;
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.Map;
 import com.jfixby.scarabei.api.collections.Mapping;
 import com.jfixby.scarabei.api.debug.Debug;
-import com.jfixby.scarabei.api.err.Err;
 import com.jfixby.scarabei.api.log.L;
 import com.jfixby.scarabei.api.sys.settings.ExecutionMode;
 import com.jfixby.scarabei.api.sys.settings.SystemSettingsComponent;
 
-public class RedSystemSettings implements SystemSettingsComponent {
+public class DesktopSystemSettings implements SystemSettingsComponent {
 	private ExecutionMode execution_mode = ExecutionMode.EARLY_DEVELOPMENT;
 
 	final Map<String, Boolean> flags = Collections.newMap();
 	final Map<String, Long> longs = Collections.newMap();
 	final Map<String, String> strings = Collections.newMap();
 	final Map<String, ID> assets = Collections.newMap();
-
-	@Override
-	public void printSystemParameters () {
-		L.d("---[SystemSettings]-----------------------------------");
-		L.d("ExecutionMode", this.execution_mode);
-// this.flags.print(" Flags ");
-// this.longs.print(" Longs ");
-// this.strings.print(" Strings");
-// this.assets.print(" Assets ");
-		Err.throwNotImplementedYet();
-		L.d("---[SystemSettings-END]-----------------------------------");
-	}
 
 	@Override
 	public Mapping<String, String> listAllSettings () {
@@ -72,11 +59,10 @@ public class RedSystemSettings implements SystemSettingsComponent {
 	}
 
 	@Override
-	public String getStringParameter (final String parameter_name) {
+	public String getStringParameter (final String parameter_name, final String defaultValue) {
 		final String value = this.strings.get(parameter_name);
 		if (value == null) {
-			L.d("Parameter not found", parameter_name);
-			return null;
+			return defaultValue;
 		}
 		return value;
 	}
@@ -102,8 +88,8 @@ public class RedSystemSettings implements SystemSettingsComponent {
 	}
 
 	@Override
-	public boolean executionModeCovers (final ExecutionMode execution_mode) {
-		return this.execution_mode.covers(execution_mode);
+	public boolean executionModeIsAtLeast (final ExecutionMode execution_mode) {
+		return this.execution_mode.isAtLeast(execution_mode);
 	}
 
 	@Override
@@ -112,18 +98,26 @@ public class RedSystemSettings implements SystemSettingsComponent {
 	}
 
 	@Override
-	public void setLongParameter (final String parameterName, final long parameterValue) {
+	public void setIntParameter (final String parameterName, final long parameterValue) {
 		this.longs.put(parameterName, parameterValue);
 	}
 
 	@Override
-	public long getLongParameter (final String parameterName) {
+	public long getIntParameter (final String parameterName) {
 		final Long value = this.longs.get(parameterName);
 		if (value == null) {
 			L.d("Parameter not found", parameterName);
 			return 0;
 		}
 		return value;
+	}
+
+	@Override
+	public void clearAll () {
+		this.flags.clear();
+		this.longs.clear();
+		this.strings.clear();
+		this.assets.clear();
 	}
 
 }

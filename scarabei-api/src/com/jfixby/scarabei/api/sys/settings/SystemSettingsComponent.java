@@ -12,7 +12,7 @@ public interface SystemSettingsComponent {
 
 	boolean getFlag (String flag_name);
 
-	String getStringParameter (String parameter_name);
+	String getStringParameter (String parameter_name, final String defaultValue);
 
 	void setStringParameter (String parameter_name, String parameter_value);
 
@@ -20,16 +20,16 @@ public interface SystemSettingsComponent {
 
 	ID getSystemAssetID (String parameter_name);
 
-	void printSystemParameters ();
-
-	boolean executionModeCovers (ExecutionMode mode);
+	boolean executionModeIsAtLeast (ExecutionMode mode);
 
 	ExecutionMode getExecutionMode ();
 
-	void setLongParameter (String parameterName, long parameterValue);
+	void setIntParameter (String parameterName, long parameterValue);
 
-	long getLongParameter (String parameterName);
+	long getIntParameter (String parameterName);
 
 	Mapping<String, String> listAllSettings ();
+
+	void clearAll ();
 
 }

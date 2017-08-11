@@ -39,6 +39,7 @@ import com.jfixby.scarabei.red.desktop.filesystem.win.WinFileSystem;
 import com.jfixby.scarabei.red.desktop.math.DesktopFloatMath;
 import com.jfixby.scarabei.red.desktop.net.http.DesktopHttp;
 import com.jfixby.scarabei.red.desktop.sys.DesktopSystem;
+import com.jfixby.scarabei.red.desktop.sys.settings.DesktopSystemSettings;
 import com.jfixby.scarabei.red.desktop.taskman.DesktopTaskManager;
 import com.jfixby.scarabei.red.err.RedError;
 import com.jfixby.scarabei.red.filesystem.cache.RedFileCache;
@@ -56,7 +57,6 @@ import com.jfixby.scarabei.red.math.RedMathTools;
 import com.jfixby.scarabei.red.name.RedAssetsNamespace;
 import com.jfixby.scarabei.red.random.RedRandom;
 import com.jfixby.scarabei.red.string.RedStrings;
-import com.jfixby.scarabei.red.sys.RedSystemSettings;
 import com.jfixby.scarabei.red.ui.RedUIThread;
 import com.jfixby.scarabei.red.util.RedUtils;
 import com.jfixby.scarabei.red.util.md5.RSADataSecurityIncMD5;
@@ -74,7 +74,7 @@ public class ScarabeiDesktop {
 		FloatMath.installComponent(new DesktopFloatMath());
 
 		Sys.installComponent(new DesktopSystem());
-		SystemSettings.installComponent(new RedSystemSettings());
+		SystemSettings.installComponent(new DesktopSystemSettings());
 		TaskManager.installComponent(new DesktopTaskManager());
 
 		UIThread.installComponent(new RedUIThread());

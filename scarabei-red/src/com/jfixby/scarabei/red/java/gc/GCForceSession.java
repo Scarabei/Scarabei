@@ -5,8 +5,8 @@ import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.List;
 import com.jfixby.scarabei.api.java.gc.BaitInfo;
 import com.jfixby.scarabei.api.log.L;
-import com.jfixby.scarabei.api.util.Utils;
 import com.jfixby.scarabei.api.util.StateSwitcher;
+import com.jfixby.scarabei.api.util.Utils;
 
 public class GCForceSession {
 	long session_id;

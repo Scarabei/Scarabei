@@ -38,6 +38,7 @@ import com.jfixby.scarabei.red.android.math.AndroidFloatMath;
 import com.jfixby.scarabei.red.android.memory.AndroidMemoryManager;
 import com.jfixby.scarabei.red.android.net.http.AndroidHttp;
 import com.jfixby.scarabei.red.android.sys.AndroidSystem;
+import com.jfixby.scarabei.red.android.sys.settings.AndroidSettings;
 import com.jfixby.scarabei.red.android.taskman.AndroidTaskManager;
 import com.jfixby.scarabei.red.arrays.RedArrays;
 import com.jfixby.scarabei.red.color.RedColors;
@@ -56,7 +57,6 @@ import com.jfixby.scarabei.red.math.RedMathTools;
 import com.jfixby.scarabei.red.name.RedAssetsNamespace;
 import com.jfixby.scarabei.red.random.RedRandom;
 import com.jfixby.scarabei.red.string.RedStrings;
-import com.jfixby.scarabei.red.sys.RedSystemSettings;
 import com.jfixby.scarabei.red.util.RedUtils;
 import com.jfixby.scarabei.red.util.md5.RSADataSecurityIncMD5;
 
@@ -70,7 +70,7 @@ public class ScarabeiAndroid {
 		FloatMath.installComponent(new AndroidFloatMath());
 		TaskManager.installComponent(new AndroidTaskManager());
 		Sys.installComponent(new AndroidSystem());
-		SystemSettings.installComponent(new RedSystemSettings());
+		SystemSettings.installComponent(new AndroidSettings());
 		IntegerMath.installComponent(new RedIntegerMath());
 		Names.installComponent(new RedAssetsNamespace());
 		IO.installComponent(new RedIO());

@@ -45,4 +45,8 @@ public class Names {
 		return invoke().newID(list);
 	}
 
+	public static boolean isValidString (final String value) {
+		return invoke().isValidString(value);
+	}
+
 }

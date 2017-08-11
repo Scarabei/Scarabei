@@ -2,6 +2,7 @@
 package com.jfixby.scarabei.red.name;
 
 import com.jfixby.scarabei.api.assets.ID;
+import com.jfixby.scarabei.api.assets.Names;
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.List;
 import com.jfixby.scarabei.api.debug.Debug;
@@ -11,16 +12,9 @@ import com.jfixby.scarabei.api.util.path.RelativePath;
 public final class RedAssetID implements ID {
 
 	public RedAssetID (final String value) {
-		super();
-		Debug.checkNull("AssetID String", value);
-		Debug.checkEmpty("AssetID String", value);
-		Debug.checkTrue("Input value contains space: <" + value + "> at " + value.indexOf(' '), value.indexOf(' ') == -1);
-		// Debug.checkEmpty("value", value.replaceAll("\\\\.", ""));
+		Debug.checkTrue("Invalid string <" + value + ">", Names.isValidString(value));
 		this.value = Utils.newRelativePath(value.replaceAll("\\" + ID.SEPARATOR, RelativePath.SEPARATOR));
-		// L.d();
-		// L.d("string value", value);
-		// L.d(" value", this.value);
-		// L.d(" toString", this.toString());
+
 	}
 
 	public RedAssetID () {

@@ -2,8 +2,8 @@
 package com.jfixby.scarabei.api.geometry;
 
 import com.jfixby.scarabei.api.collections.Collection;
-import com.jfixby.scarabei.api.floatn.ReadOnlyFloat2;
 import com.jfixby.scarabei.api.floatn.Float2;
+import com.jfixby.scarabei.api.floatn.ReadOnlyFloat2;
 import com.jfixby.scarabei.api.math.Angle;
 
 public interface Rectangle extends GeometryFigure {

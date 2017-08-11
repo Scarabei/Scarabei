@@ -6,6 +6,8 @@ import com.jfixby.scarabei.api.display.DisplayMetrics;
 import com.jfixby.scarabei.api.file.File;
 import com.jfixby.scarabei.api.sys.SystemInfo;
 
+import android.content.Context;
+
 public class Android {
 
 	static private ComponentInstaller<AndroidComponent> componentInstaller = new ComponentInstaller<AndroidComponent>("Android");
@@ -68,6 +70,10 @@ public class Android {
 
 	public static SystemInfo getSystemInfo () {
 		return invoke().getSystemInfo();
+	}
+
+	public static Context getApplicationContext () {
+		return invoke().getApplicationContext();
 	}
 
 }

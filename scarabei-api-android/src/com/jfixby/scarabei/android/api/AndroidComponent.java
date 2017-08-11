@@ -5,6 +5,8 @@ import com.jfixby.scarabei.api.display.DisplayMetrics;
 import com.jfixby.scarabei.api.file.File;
 import com.jfixby.scarabei.api.sys.SystemInfo;
 
+import android.content.Context;
+
 public interface AndroidComponent {
 
 	long getMaxHeapSize ();
@@ -40,5 +42,7 @@ public interface AndroidComponent {
 	String getManufacturer ();
 
 	double densityIndependentPixels2Pixels (float dip);
+
+	Context getApplicationContext ();
 
 }

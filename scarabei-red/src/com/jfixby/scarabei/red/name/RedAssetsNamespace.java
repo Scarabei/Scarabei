@@ -34,4 +34,9 @@ public class RedAssetsNamespace implements AssetsNamespaceComponent {
 		return new RedAssetID(Utils.newRelativePath(list));
 	}
 
+	@Override
+	public boolean isValidString (final String value) {
+		return value != null && !"".equals(value) && value.indexOf(' ') == -1;
+	}
+
 }

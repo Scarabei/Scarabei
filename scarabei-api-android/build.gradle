@@ -2,4 +2,5 @@ sourceCompatibility = 1.6
 
 dependencies {
       compile project(":scarabei-api")
+      compile group: 'com.google.android', name: 'android', version: '4.1.1.4'
 }

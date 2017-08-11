@@ -8,7 +8,7 @@ import com.jfixby.scarabei.api.collections.Mapping;
 public class SystemSettings {
 
 	static private ComponentInstaller<SystemSettingsComponent> componentInstaller = new ComponentInstaller<SystemSettingsComponent>(
-		"TaskManager");
+		"SystemSettings");
 
 	public static final void installComponent (final SystemSettingsComponent component_to_install) {
 		componentInstaller.installComponent(component_to_install);
@@ -38,12 +38,8 @@ public class SystemSettings {
 		return invoke().getFlag(flag_name);
 	}
 
-	public static String getStringParameter (final String parameter_name) {
-		return invoke().getStringParameter(parameter_name);
-	}
-
-	public static void setLongParameter (final String parameterName, final long parameterValue) {
-		invoke().setLongParameter(parameterName, parameterValue);
+	public static String getStringParameter (final String parameter_name, final String defaultValue) {
+		return invoke().getStringParameter(parameter_name, defaultValue);
 	}
 
 	public static void setStringParameter (final String parameter_name, final String parameter_value) {
@@ -58,12 +54,8 @@ public class SystemSettings {
 		return invoke().getSystemAssetID(parameter_name);
 	}
 
-	public static void printSystemParameters () {
-		invoke().printSystemParameters();
-	}
-
 	public static boolean executionModeCovers (final ExecutionMode mode) {
-		return invoke().executionModeCovers(mode);
+		return invoke().executionModeIsAtLeast(mode);
 	}
 
 	public static ExecutionMode getExecutionMode () {
@@ -71,11 +63,19 @@ public class SystemSettings {
 	}
 
 	public static long getLongParameter (final String parameterName) {
-		return invoke().getLongParameter(parameterName);
+		return invoke().getIntParameter(parameterName);
 	}
 
 	public static Mapping<String, String> listAllSettings () {
 		return invoke().listAllSettings();
+	}
+
+	public static void clearAll () {
+		invoke().clearAll();
+	}
+
+	public static void setIntParameter (final String key, final long longValue) {
+		invoke().setIntParameter(key, longValue);
 	}
 
 }

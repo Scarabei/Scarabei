@@ -25,15 +25,14 @@ public class SimpleLogger extends AbstractLogger {
 	}
 
 	private void prinOut (final PrintStream stream, final String frame, final Object data) {
-		final String padded = this.pad(frame, this.pad);
-		stream.println(padded + "| " + data);
-	}
-
-	private String pad (final String frame, int pad) {
+		final String padded;
 		if (SystemSettings.getExecutionMode().isBelow(ExecutionMode.TESTING)) {
-			pad = 0;
+			this.pad = 0;
+			padded = "";
+		} else {
+			padded = this.indent(Math.max(0, this.pad - frame.length())) + frame + "| ";
 		}
-		return this.indent(Math.max(0, pad - frame.length())) + frame;
+		stream.println(padded + data);
 	}
 
 	@Override
