@@ -95,4 +95,8 @@ public class Utils {
 		return invoke().newSimpleProgress();
 	}
 
+	public static Class<?> classForName (final ID className) throws ClassNotFoundException {
+		return invoke().classForName(className);
+	}
+
 }

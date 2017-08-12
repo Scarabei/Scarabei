@@ -134,4 +134,11 @@ public class RedUtils implements UtilsComponent {
 		return Names.newID(type.getCanonicalName());
 	}
 
+	@Override
+	public Class<?> classForName (final ID className) throws ClassNotFoundException {
+		final ClassLoader classLoader = this.getClass().getClassLoader();
+		final Class<?> klass = Class.forName(className.toString(), true, classLoader);
+		return klass;
+	}
+
 }

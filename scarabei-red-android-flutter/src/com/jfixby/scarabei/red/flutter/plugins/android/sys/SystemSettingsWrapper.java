@@ -8,7 +8,7 @@ import com.jfixby.scarabei.api.log.L;
 import com.jfixby.scarabei.api.sys.settings.ExecutionMode;
 import com.jfixby.scarabei.api.sys.settings.SystemSettings;
 
-public static class SystemSettingsWrapper {
+public class SystemSettingsWrapper {
 
 	public static void setExecutionMode (final ExecutionMode execution_mode) {
 		SystemSettings.setExecutionMode(execution_mode);

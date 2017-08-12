@@ -3,10 +3,13 @@ package com.jfixby.scarabei.red.flutter.plugins.android.sys;
 
 import java.lang.reflect.Method;
 
+import com.jfixby.scarabei.api.assets.ID;
+import com.jfixby.scarabei.api.assets.Names;
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.flutter.plugins.FlutterPluginSpecs;
 import com.jfixby.scarabei.api.json.Json;
 import com.jfixby.scarabei.api.log.L;
+import com.jfixby.scarabei.api.util.Utils;
 
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
@@ -23,15 +26,22 @@ public class SharedPreferencesPlugin implements MethodCallHandler {
 	public void onMethodCall (final MethodCall call, final MethodChannel.Result result) {
 		final String jsonString = (String)call.argument("jsonString");
 		L.d("jsonString", jsonString);
-		final FlutterMethodCall flutterCall = Json.deserializeFromString(FlutterMethodCall.class, jsonString);
-		L.d("flutterCall.arguments", flutterCall.arguments);
-		final Class<SystemSettingsWrapper> klass = SystemSettingsWrapper.class;
-		final Class<?>[] argTypes = flutterCall.listArgumetTypes();
-		final Object[] argValues = flutterCall.listArgumetValues();
-		L.d("argTypes", Collections.newList(argTypes));
-		L.d("argValues", Collections.newList(argValues));
-		final String methodName = flutterCall.methodName;
 		try {
+			final FlutterMethodCall flutterCall = Json.deserializeFromString(FlutterMethodCall.class, jsonString);
+			final ID methodFullName = Names.newID(flutterCall.methodName);
+
+			final String methodName = methodFullName.getLastStep();
+			final ID className = methodFullName.parent();
+			final Class<?> klass = Utils.classForName(className);
+			L.d("flutterCall.class", klass);
+			L.d("flutterCall.method", methodName);
+			L.d("flutterCall.arguments", flutterCall.arguments);
+
+			final Class<?>[] argTypes = flutterCall.listArgumetTypes();
+			final Object[] argValues = flutterCall.listArgumetValues();
+			L.d("argTypes", Collections.newList(argTypes));
+			L.d("argValues", Collections.newList(argValues));
+
 			final Object invokeResult;
 			if (argTypes.length == 0) {
 				final Method method = klass.getMethod(methodName);

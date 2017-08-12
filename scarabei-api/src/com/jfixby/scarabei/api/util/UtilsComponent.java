@@ -44,4 +44,6 @@ public interface UtilsComponent {
 
 	SimpleProgress newSimpleProgress ();
 
+	Class<?> classForName (ID className) throws ClassNotFoundException;
+
 }
