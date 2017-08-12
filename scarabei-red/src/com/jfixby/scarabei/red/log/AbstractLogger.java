@@ -36,7 +36,7 @@ public abstract class AbstractLogger implements LoggerComponent {
 	}
 
 	private String getFrame () {
-		if (SystemSettings.getExecutionMode().isBelow(ExecutionMode.TESTING)) {
+		if (SystemSettings.component() != null && SystemSettings.getExecutionMode().isBelow(ExecutionMode.TESTING)) {
 			return "scarabei";
 		}
 		final StackTraceElement[] trace = Thread.currentThread().getStackTrace();

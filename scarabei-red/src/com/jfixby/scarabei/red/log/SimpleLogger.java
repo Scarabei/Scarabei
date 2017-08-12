@@ -26,7 +26,7 @@ public class SimpleLogger extends AbstractLogger {
 
 	private void prinOut (final PrintStream stream, final String frame, final Object data) {
 		final String padded;
-		if (SystemSettings.getExecutionMode().isBelow(ExecutionMode.TESTING)) {
+		if (SystemSettings.component() != null && SystemSettings.getExecutionMode().isBelow(ExecutionMode.TESTING)) {
 			this.pad = 0;
 			padded = "";
 		} else {
