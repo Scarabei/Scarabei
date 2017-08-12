@@ -4,9 +4,10 @@ package com.jfixby.scarabei.red.desktop.sys.settings;
 import com.jfixby.scarabei.api.assets.ID;
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.Map;
-import com.jfixby.scarabei.api.collections.Mapping;
 import com.jfixby.scarabei.api.debug.Debug;
+import com.jfixby.scarabei.api.err.Err;
 import com.jfixby.scarabei.api.log.L;
+import com.jfixby.scarabei.api.promise.Promise;
 import com.jfixby.scarabei.api.sys.settings.ExecutionMode;
 import com.jfixby.scarabei.api.sys.settings.SystemSettingsComponent;
 
@@ -19,8 +20,8 @@ public class DesktopSystemSettings implements SystemSettingsComponent {
 	final Map<String, ID> assets = Collections.newMap();
 
 	@Override
-	public Mapping<String, String> listAllSettings () {
-		final Map<String, String> params = Collections.newMap();
+	public Map<String, Object> listAllSettings () {
+		final Map<String, Object> params = Collections.newMap();
 		params.put("ExecutionMode", "" + this.execution_mode);
 		collect("flag", params, this.flags);
 		collect("long", params, this.longs);
@@ -29,12 +30,8 @@ public class DesktopSystemSettings implements SystemSettingsComponent {
 		return params;
 	}
 
-	static private void collect (final String string, final Map<String, String> params, final Map<String, ?> input) {
-		for (final String flagName : input.keys()) {
-			final String key = string + "." + flagName;
-			final String value = "" + input.get(flagName);
-			params.put(key, value);
-		}
+	static private void collect (final String string, final Map<String, Object> params, final Map<String, ?> input) {
+		params.putAll(input);
 	}
 
 	@Override
@@ -118,6 +115,12 @@ public class DesktopSystemSettings implements SystemSettingsComponent {
 		this.longs.clear();
 		this.strings.clear();
 		this.assets.clear();
+	}
+
+	@Override
+	public Promise<Boolean> saveToStorage () {
+		Err.throwNotImplementedYet();
+		return null;
 	}
 
 }

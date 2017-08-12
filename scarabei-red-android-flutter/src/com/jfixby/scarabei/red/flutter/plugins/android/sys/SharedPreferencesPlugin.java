@@ -2,6 +2,7 @@
 package com.jfixby.scarabei.red.flutter.plugins.android.sys;
 
 import com.jfixby.scarabei.api.flutter.plugins.FlutterPluginSpecs;
+import com.jfixby.scarabei.api.log.L;
 import com.jfixby.scarabei.api.sys.settings.SystemSettings;
 
 import io.flutter.plugin.common.MethodCall;
@@ -38,6 +39,17 @@ public class SharedPreferencesPlugin implements MethodCallHandler {
 			break;
 		case "clear":
 			SystemSettings.clearAll();
+			result.success(null);
+			break;
+		case "saveToStorege":
+			try {
+				final Boolean save = SystemSettings.saveToStorage().await();
+				result.success(save);
+			} catch (final Throwable e) {
+				e.printStackTrace();
+				result.error(e.toString(), L.stackTraceToString(e), e);
+// result.success(false);
+			}
 			break;
 		default:
 			result.notImplemented();

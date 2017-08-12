@@ -2,7 +2,8 @@
 package com.jfixby.scarabei.api.sys.settings;
 
 import com.jfixby.scarabei.api.assets.ID;
-import com.jfixby.scarabei.api.collections.Mapping;
+import com.jfixby.scarabei.api.collections.Map;
+import com.jfixby.scarabei.api.promise.Promise;
 
 public interface SystemSettingsComponent {
 
@@ -28,8 +29,10 @@ public interface SystemSettingsComponent {
 
 	long getIntParameter (String parameterName);
 
-	Mapping<String, String> listAllSettings ();
+	Map<String, Object> listAllSettings ();
 
 	void clearAll ();
+
+	public Promise<Boolean> saveToStorage ();
 
 }

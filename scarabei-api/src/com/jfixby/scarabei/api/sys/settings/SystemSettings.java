@@ -3,7 +3,8 @@ package com.jfixby.scarabei.api.sys.settings;
 
 import com.jfixby.scarabei.api.ComponentInstaller;
 import com.jfixby.scarabei.api.assets.ID;
-import com.jfixby.scarabei.api.collections.Mapping;
+import com.jfixby.scarabei.api.collections.Map;
+import com.jfixby.scarabei.api.promise.Promise;
 
 public class SystemSettings {
 
@@ -66,7 +67,7 @@ public class SystemSettings {
 		return invoke().getIntParameter(parameterName);
 	}
 
-	public static Mapping<String, String> listAllSettings () {
+	public static Map<String, Object> listAllSettings () {
 		return invoke().listAllSettings();
 	}
 
@@ -76,6 +77,10 @@ public class SystemSettings {
 
 	public static void setIntParameter (final String key, final long longValue) {
 		invoke().setIntParameter(key, longValue);
+	}
+
+	public static Promise<Boolean> saveToStorage () {
+		return invoke().saveToStorage();
 	}
 
 }
