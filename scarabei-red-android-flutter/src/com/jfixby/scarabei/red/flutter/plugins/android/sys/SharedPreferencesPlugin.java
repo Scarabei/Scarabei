@@ -33,12 +33,13 @@ public class SharedPreferencesPlugin implements MethodCallHandler {
 		L.d("argValues", Collections.newList(argValues));
 		final String methodName = flutterCall.methodName;
 		try {
+			final Object invokeResult;
 			if (argTypes.length == 0) {
 				final Method registerWith = klass.getMethod(methodName);
-				final Object invokeResult = registerWith.invoke(null);
+				invokeResult = registerWith.invoke(null);
 			} else {
 				final Method registerWith = klass.getMethod(methodName, argTypes);
-				final Object invokeResult = registerWith.invoke(null, argValues);
+				invokeResult = registerWith.invoke(null, argValues);
 			}
 			L.d("invokeResult", invokeResult);
 			result.success(invokeResult);
