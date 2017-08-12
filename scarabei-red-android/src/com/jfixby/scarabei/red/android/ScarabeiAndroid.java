@@ -63,16 +63,23 @@ import com.jfixby.scarabei.red.util.md5.RSADataSecurityIncMD5;
 public class ScarabeiAndroid {
 
 	public static final void deploy (final AndroidComponent android) {
+		Names.installComponent(new DNS());
 		L.installComponent(new AndroidLogger());
+		Err.installComponent(new RedError());
+		Debug.installComponent(new RedDebug());
+		Android.installComponent(android);
+		SystemSettings.installComponent(new AndroidSettings());
+
+		Sys.installComponent(new AndroidSystem());
+
 		Utils.installComponent(new RedUtils());
 		Strings.installComponent(new RedStrings());
 		Collections.installComponent(new AndroidCollections());
 		FloatMath.installComponent(new AndroidFloatMath());
 		TaskManager.installComponent(new AndroidTaskManager());
-		Sys.installComponent(new AndroidSystem());
-		SystemSettings.installComponent(new AndroidSettings());
+
 		IntegerMath.installComponent(new RedIntegerMath());
-		Names.installComponent(new DNS());
+
 		IO.installComponent(new RedIO());
 		Graphs.installComponent(new RedGraphs());
 		Json.installComponent(new GoogleJson());
@@ -80,10 +87,7 @@ public class ScarabeiAndroid {
 		Geometry.installComponent(new RedGeometry());
 		Colors.installComponent(new RedColors());
 		MathTools.installComponent(new RedMathTools());
-		Err.installComponent(new RedError());
-		Debug.installComponent(new RedDebug());
 
-		Android.installComponent(android);
 		MemoryManager.installComponent(new AndroidMemoryManager());
 		L.d("Max heap size: ", MemoryManager.getMaxHeapSize() + "Mb");
 		L.d("Recommended heap size: ", MemoryManager.getRecommendedHeapSize() + "Mb");
