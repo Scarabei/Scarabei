@@ -44,7 +44,8 @@ public class SharedPreferencesPlugin implements MethodCallHandler {
 			L.d("invokeResult", invokeResult);
 			result.success(invokeResult);
 		} catch (final Exception e) {
-			result.error(e.toString(), L.stackTraceToString(e), e);
+			L.e(e);
+			result.error(e.toString(), L.stackTraceToString(e), L.stackTraceToString(e));
 			return;
 		}
 
