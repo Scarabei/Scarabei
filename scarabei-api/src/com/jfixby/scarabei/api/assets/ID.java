@@ -19,4 +19,6 @@ public interface ID {
 
 	List<String> steps ();
 
+	public String toString (String customSeparator);
+
 }

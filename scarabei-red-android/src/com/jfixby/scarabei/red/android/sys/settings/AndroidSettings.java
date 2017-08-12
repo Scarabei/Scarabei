@@ -36,22 +36,23 @@ public class AndroidSettings implements SystemSettingsComponent {
 
 	@Override
 	public ExecutionMode getExecutionMode () {
-		return ExecutionMode.resolve(this.getStringParameter(ExecutionMode.TAG, ExecutionMode.PUBLIC_RELEASE.toString()));
+		return ExecutionMode
+			.resolve(this.getStringParameter(ExecutionMode.ExecutionModeTAG(), ExecutionMode.PUBLIC_RELEASE.toString()));
 	}
 
 	@Override
 	public void setExecutionMode (final ExecutionMode executionMode) {
 		Debug.checkNull("ExecutionMode", executionMode);
-		this.prefs.putString(ExecutionMode.TAG, executionMode.toString()).apply();
+		this.prefs.putString(ExecutionMode.ExecutionModeTAG().toString(), executionMode.toString()).apply();
 		this.prefs.commit();
 	}
 
 	@Override
-	public Map<String, Object> listAllSettings () {
-		final Map<String, Object> params = Collections.newMap();
+	public Map<ID, Object> listAllSettings () {
+		final Map<ID, Object> params = Collections.newMap();
 		final java.util.Map<String, ?> allPrefs = this.preferences.getAll();
 		for (final String key : allPrefs.keySet()) {
-			params.put(key, allPrefs.get(key));
+			params.put(Names.newID(key), allPrefs.get(key));
 		}
 		return params;
 	}
@@ -65,25 +66,25 @@ public class AndroidSettings implements SystemSettingsComponent {
 	}
 
 	@Override
-	public void setFlag (final String flag_name, final boolean flag_value) {
-		this.prefs.putBoolean(flag_name, flag_value).apply();
+	public void setFlag (final ID flag_name, final boolean flag_value) {
+		this.prefs.putBoolean(flag_name.toString(), flag_value).apply();
 		this.prefs.commit();
 	}
 
 	@Override
-	public boolean getFlag (final String flag_name) {
-		return this.preferences.getBoolean(flag_name, false);
+	public boolean getFlag (final ID flag_name) {
+		return this.preferences.getBoolean(flag_name.toString(), false);
 	}
 
 	@Override
-	public String getStringParameter (final String parameter_name, final String defaultValue) {
-		final String value = this.preferences.getString(parameter_name, defaultValue);
+	public String getStringParameter (final ID parameter_name, final String defaultValue) {
+		final String value = this.preferences.getString(parameter_name.toString(), defaultValue);
 		return value;
 	}
 
 	@Override
-	public ID getSystemAssetID (final String parameter_name) {
-		final String value = this.preferences.getString(parameter_name, null);
+	public ID getSystemAssetID (final ID parameter_name) {
+		final String value = this.preferences.getString(parameter_name.toString(), null);
 		if (value == null) {
 			L.e("Parameter not found", parameter_name);
 			return null;
@@ -96,30 +97,30 @@ public class AndroidSettings implements SystemSettingsComponent {
 	}
 
 	@Override
-	public long getIntParameter (final String parameterName) {
-		return this.preferences.getLong(parameterName, 0L);
+	public long getIntParameter (final ID parameterName) {
+		return this.preferences.getLong(parameterName.toString(), 0L);
 	}
 
 	@Override
-	public void setStringParameter (final String parameter_name, final String parameter_value) {
-		this.prefs.putString(parameter_name, parameter_value).apply();
+	public void setStringParameter (final ID parameter_name, final String parameter_value) {
+		this.prefs.putString(parameter_name.toString(), parameter_value).apply();
 		this.prefs.commit();
 	}
 
 	@Override
-	public void setSystemAssetID (final String parameter_name, final ID parameter_value) {
+	public void setSystemAssetID (final ID parameter_name, final ID parameter_value) {
 		if (parameter_value != null) {
-			this.prefs.putString(parameter_name, parameter_value.toString()).apply();
+			this.prefs.putString(parameter_name.toString(), parameter_value.toString()).apply();
 			this.prefs.commit();
 		} else {
-			this.prefs.putString(parameter_name, null).apply();
+			this.prefs.putString(parameter_name.toString(), null).apply();
 			this.prefs.commit();
 		}
 	}
 
 	@Override
-	public void setIntParameter (final String parameterName, final long parameterValue) {
-		this.prefs.putLong(parameterName, parameterValue).apply();
+	public void setIntParameter (final ID parameterName, final long parameterValue) {
+		this.prefs.putLong(parameterName.toString(), parameterValue).apply();
 		this.prefs.commit();
 	}
 

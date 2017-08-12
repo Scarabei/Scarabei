@@ -9,27 +9,27 @@ public interface SystemSettingsComponent {
 
 	void setExecutionMode (ExecutionMode execution_mode);
 
-	void setFlag (String flag_name, boolean flag_value);
+	void setFlag (ID flag_name, boolean flag_value);
 
-	boolean getFlag (String flag_name);
+	boolean getFlag (ID flag_name);
 
-	String getStringParameter (String parameter_name, final String defaultValue);
+	String getStringParameter (ID parameter_name, final String defaultValue);
 
-	void setStringParameter (String parameter_name, String parameter_value);
+	void setStringParameter (ID parameter_name, String parameter_value);
 
-	void setSystemAssetID (String parameter_name, ID parameter_value);
+	void setSystemAssetID (ID parameter_name, ID parameter_value);
 
-	ID getSystemAssetID (String parameter_name);
+	ID getSystemAssetID (ID parameter_name);
 
 	boolean executionModeIsAtLeast (ExecutionMode mode);
 
 	ExecutionMode getExecutionMode ();
 
-	void setIntParameter (String parameterName, long parameterValue);
+	void setIntParameter (ID parameterName, long parameterValue);
 
-	long getIntParameter (String parameterName);
+	long getIntParameter (ID parameterName);
 
-	Map<String, Object> listAllSettings ();
+	Map<ID, Object> listAllSettings ();
 
 	void clearAll ();
 

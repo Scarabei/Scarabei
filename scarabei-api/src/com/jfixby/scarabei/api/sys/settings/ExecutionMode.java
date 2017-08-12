@@ -1,6 +1,8 @@
 
 package com.jfixby.scarabei.api.sys.settings;
 
+import com.jfixby.scarabei.api.assets.ID;
+import com.jfixby.scarabei.api.assets.Names;
 import com.jfixby.scarabei.api.log.L;
 
 public enum ExecutionMode {
@@ -18,7 +20,9 @@ public enum ExecutionMode {
 
 	}
 
-	public static String TAG = "com.jfixby.scarabei.ExecutionMode";
+	public static ID ExecutionModeTAG () {
+		return Names.newID("com.jfixby.scarabei.ExecutionMode");
+	}
 
 	public final boolean isAtLeast (final ExecutionMode targetMode) {
 		return this.level >= targetMode.level;

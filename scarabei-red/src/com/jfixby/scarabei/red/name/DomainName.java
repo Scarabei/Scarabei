@@ -9,31 +9,26 @@ import com.jfixby.scarabei.api.debug.Debug;
 import com.jfixby.scarabei.api.util.Utils;
 import com.jfixby.scarabei.api.util.path.RelativePath;
 
-public final class RedAssetID implements ID {
+public final class DomainName implements ID {
 
-	public RedAssetID (final String value) {
+	public DomainName (final String value) {
 		Debug.checkTrue("Invalid string <" + value + ">", Names.isValidString(value));
 		this.value = Utils.newRelativePath(value.replaceAll("\\" + ID.SEPARATOR, RelativePath.SEPARATOR));
 
 	}
 
-	public RedAssetID () {
+	public DomainName () {
 		super();
 		this.value = Utils.newRelativePath();
 	}
 
-	public RedAssetID (final RelativePath value) {
+	public DomainName (final RelativePath value) {
 		super();
 		Debug.checkNull("value", value);
 		this.value = value;
 	}
 
 	RelativePath value;
-
-	@Override
-	public String toString () {
-		return (this.value.toString()).replaceAll(RelativePath.SEPARATOR, ID.SEPARATOR);
-	}
 
 	@Override
 	public int hashCode () {
@@ -54,7 +49,7 @@ public final class RedAssetID implements ID {
 		if (this.getClass() != obj.getClass()) {
 			return false;
 		}
-		final RedAssetID other = (RedAssetID)obj;
+		final DomainName other = (DomainName)obj;
 		if (this.value == null) {
 			if (other.value != null) {
 				return false;
@@ -67,12 +62,12 @@ public final class RedAssetID implements ID {
 
 	@Override
 	public ID child (final String string) {
-		return new RedAssetID(this.value.child(string));
+		return new DomainName(this.value.child(string));
 	}
 
 	@Override
 	public ID parent () {
-		return new RedAssetID(this.value.parent());
+		return new DomainName(this.value.parent());
 	}
 
 	@Override
@@ -86,7 +81,7 @@ public final class RedAssetID implements ID {
 		if (this.equals(other)) {
 			return true;
 		}
-		final RedAssetID red_other = (RedAssetID)other;
+		final DomainName red_other = (DomainName)other;
 		final boolean yes = red_other.value.beginsWith(this.value);
 		// if (yes) {
 		// L.d("+ " + this, other);
@@ -98,14 +93,25 @@ public final class RedAssetID implements ID {
 
 	@Override
 	public ID child (final ID subpackage) {
-		final RedAssetID red_subpackage = (RedAssetID)subpackage;
+		final DomainName red_subpackage = (DomainName)subpackage;
 		final RelativePath new_path = this.value.proceed(red_subpackage.value);
-		return new RedAssetID(new_path);
+		return new DomainName(new_path);
 	}
 
 	@Override
 	public List<String> steps () {
 		return Collections.newList(this.value.steps());
+	}
+
+	@Override
+	public String toString () {
+		return this.toString(ID.SEPARATOR);
+
+	}
+
+	@Override
+	public String toString (final String customSeparator) {
+		return (this.value.toString()).replaceAll(RelativePath.SEPARATOR, customSeparator);
 	}
 
 }

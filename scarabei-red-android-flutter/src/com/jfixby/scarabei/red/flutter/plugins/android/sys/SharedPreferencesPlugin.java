@@ -1,6 +1,8 @@
 
 package com.jfixby.scarabei.red.flutter.plugins.android.sys;
 
+import com.jfixby.scarabei.api.assets.ID;
+import com.jfixby.scarabei.api.assets.Names;
 import com.jfixby.scarabei.api.flutter.plugins.FlutterPluginSpecs;
 import com.jfixby.scarabei.api.log.L;
 import com.jfixby.scarabei.api.sys.settings.SystemSettings;
@@ -18,7 +20,8 @@ public class SharedPreferencesPlugin implements MethodCallHandler {
 
 	@Override
 	public void onMethodCall (final MethodCall call, final MethodChannel.Result result) {
-		final String key = (String)call.argument("key");
+		final String k = (String)call.argument("key");
+		final ID key = Names.newID(k);
 
 		switch (call.method) {
 		case "setBool":

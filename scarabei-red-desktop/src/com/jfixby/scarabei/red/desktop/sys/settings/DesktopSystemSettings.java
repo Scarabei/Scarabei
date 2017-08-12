@@ -14,15 +14,16 @@ import com.jfixby.scarabei.api.sys.settings.SystemSettingsComponent;
 public class DesktopSystemSettings implements SystemSettingsComponent {
 	private ExecutionMode execution_mode = ExecutionMode.EARLY_DEVELOPMENT;
 
-	final Map<String, Boolean> flags = Collections.newMap();
-	final Map<String, Long> longs = Collections.newMap();
-	final Map<String, String> strings = Collections.newMap();
-	final Map<String, ID> assets = Collections.newMap();
+	final Map<ID, Boolean> flags = Collections.newMap();
+	final Map<ID, Long> longs = Collections.newMap();
+	final Map<ID, String> strings = Collections.newMap();
+	final Map<ID, ID> assets = Collections.newMap();
 
 	@Override
-	public Map<String, Object> listAllSettings () {
-		final Map<String, Object> params = Collections.newMap();
-		params.put("ExecutionMode", "" + this.execution_mode);
+	public Map<ID, Object> listAllSettings () {
+		final Map<ID, Object> params = Collections.newMap();
+		Err.throwNotImplementedYet();
+// params.put("ExecutionMode", "" + this.execution_mode);
 		collect("flag", params, this.flags);
 		collect("long", params, this.longs);
 		collect("string", params, this.strings);
@@ -30,7 +31,7 @@ public class DesktopSystemSettings implements SystemSettingsComponent {
 		return params;
 	}
 
-	static private void collect (final String string, final Map<String, Object> params, final Map<String, ?> input) {
+	static private void collect (final String string, final Map<ID, Object> params, final Map<ID, ?> input) {
 		params.putAll(input);
 	}
 
@@ -41,12 +42,12 @@ public class DesktopSystemSettings implements SystemSettingsComponent {
 	}
 
 	@Override
-	public void setFlag (final String flag_name, final boolean flag_value) {
+	public void setFlag (final ID flag_name, final boolean flag_value) {
 		this.flags.put(flag_name, flag_value);
 	}
 
 	@Override
-	public boolean getFlag (final String flag_name) {
+	public boolean getFlag (final ID flag_name) {
 		final Boolean value = this.flags.get(flag_name);
 		if (value == null) {
 			L.d("Flag not found", flag_name);
@@ -56,7 +57,7 @@ public class DesktopSystemSettings implements SystemSettingsComponent {
 	}
 
 	@Override
-	public String getStringParameter (final String parameter_name, final String defaultValue) {
+	public String getStringParameter (final ID parameter_name, final String defaultValue) {
 		final String value = this.strings.get(parameter_name);
 		if (value == null) {
 			return defaultValue;
@@ -65,17 +66,17 @@ public class DesktopSystemSettings implements SystemSettingsComponent {
 	}
 
 	@Override
-	public void setStringParameter (final String parameter_name, final String parameter_value) {
+	public void setStringParameter (final ID parameter_name, final String parameter_value) {
 		this.strings.put(parameter_name, parameter_value);
 	}
 
 	@Override
-	public void setSystemAssetID (final String parameter_name, final ID parameter_value) {
+	public void setSystemAssetID (final ID parameter_name, final ID parameter_value) {
 		this.assets.put(parameter_name, parameter_value);
 	}
 
 	@Override
-	public ID getSystemAssetID (final String parameter_name) {
+	public ID getSystemAssetID (final ID parameter_name) {
 		final ID value = this.assets.get(parameter_name);
 		if (value == null) {
 			L.d("Parameter not found", parameter_name);
@@ -95,12 +96,12 @@ public class DesktopSystemSettings implements SystemSettingsComponent {
 	}
 
 	@Override
-	public void setIntParameter (final String parameterName, final long parameterValue) {
+	public void setIntParameter (final ID parameterName, final long parameterValue) {
 		this.longs.put(parameterName, parameterValue);
 	}
 
 	@Override
-	public long getIntParameter (final String parameterName) {
+	public long getIntParameter (final ID parameterName) {
 		final Long value = this.longs.get(parameterName);
 		if (value == null) {
 			L.d("Parameter not found", parameterName);

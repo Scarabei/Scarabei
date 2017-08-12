@@ -1,25 +1,28 @@
 
 package com.jfixby.scarabei.api.sys;
 
+import com.jfixby.scarabei.api.assets.ID;
+import com.jfixby.scarabei.api.assets.Names;
+
 public class SystemInfoTags {
 
 	public static class System {
-		public static final String OS_NAME = "os.name";
-		public static final String OS_VERSION = "os.version";
+		public static final ID OS_NAME = Names.newID("os.name");
+		public static final ID OS_VERSION = Names.newID("os.version");
 	}
 
 	public static class Java {
-		public static final String Version = "java.version";
+		public static final ID Version = Names.newID("java.version");
 	}
 
 	public static class Net {
-		public static final String client_ip = "net.client_ip";
+		public static final ID client_ip = Names.newID("net.client_ip");
 	}
 
 	public static class Desktop {
 		public static class Screen {
-			public static final String WIDTH = "desktop.screen.width";
-			public static final String HEIGHT = "desktop.screen.height";
+			public static final ID WIDTH = Names.newID("desktop.screen.width");
+			public static final ID HEIGHT = Names.newID("desktop.screen.height");
 		}
 
 	}

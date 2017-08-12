@@ -2,10 +2,12 @@
 package com.jfixby.scarabei.api.java.gc;
 
 import com.jfixby.scarabei.api.ComponentInstaller;
+import com.jfixby.scarabei.api.assets.ID;
+import com.jfixby.scarabei.api.assets.Names;
 
 public class GCFisher {
 
-	public static final String DefaultBaitSize = "GCFisher.DefaultBaitSize";
+	public static final ID DefaultBaitSize = Names.newID("GCFisher.DefaultBaitSize");
 
 	public static final long AVERAGE_ANDROID_GC_DELAY = 150;// ms
 	public static final long MB = 1024 * 1024;

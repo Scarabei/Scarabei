@@ -31,27 +31,27 @@ public class SystemSettings {
 		componentInstaller.invokeComponent().setExecutionMode(developer);
 	}
 
-	public static void setFlag (final String flag_name, final boolean flag_value) {
+	public static void setFlag (final ID flag_name, final boolean flag_value) {
 		invoke().setFlag(flag_name, flag_value);
 	}
 
-	public static boolean getFlag (final String flag_name) {
+	public static boolean getFlag (final ID flag_name) {
 		return invoke().getFlag(flag_name);
 	}
 
-	public static String getStringParameter (final String parameter_name, final String defaultValue) {
+	public static String getStringParameter (final ID parameter_name, final String defaultValue) {
 		return invoke().getStringParameter(parameter_name, defaultValue);
 	}
 
-	public static void setStringParameter (final String parameter_name, final String parameter_value) {
+	public static void setStringParameter (final ID parameter_name, final String parameter_value) {
 		invoke().setStringParameter(parameter_name, parameter_value);
 	}
 
-	public static void setSystemAssetID (final String parameter_name, final ID parameter_value) {
+	public static void setSystemAssetID (final ID parameter_name, final ID parameter_value) {
 		invoke().setSystemAssetID(parameter_name, parameter_value);
 	}
 
-	public static ID getSystemAssetID (final String parameter_name) {
+	public static ID getSystemAssetID (final ID parameter_name) {
 		return invoke().getSystemAssetID(parameter_name);
 	}
 
@@ -63,11 +63,11 @@ public class SystemSettings {
 		return invoke().getExecutionMode();
 	}
 
-	public static long getLongParameter (final String parameterName) {
+	public static long getLongParameter (final ID parameterName) {
 		return invoke().getIntParameter(parameterName);
 	}
 
-	public static Map<String, Object> listAllSettings () {
+	public static Map<ID, Object> listAllSettings () {
 		return invoke().listAllSettings();
 	}
 
@@ -75,7 +75,7 @@ public class SystemSettings {
 		invoke().clearAll();
 	}
 
-	public static void setIntParameter (final String key, final long longValue) {
+	public static void setIntParameter (final ID key, final long longValue) {
 		invoke().setIntParameter(key, longValue);
 	}
 

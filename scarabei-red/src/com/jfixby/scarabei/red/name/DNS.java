@@ -7,11 +7,11 @@ import com.jfixby.scarabei.api.assets.NamespaceRegistry;
 import com.jfixby.scarabei.api.collections.Collection;
 import com.jfixby.scarabei.api.util.Utils;
 
-public class RedAssetsNamespace implements AssetsNamespaceComponent {
+public class DNS implements AssetsNamespaceComponent {
 
 	@Override
 	public ID newID (final String asset_id_string) {
-		return new RedAssetID(asset_id_string);
+		return new DomainName(asset_id_string);
 	}
 
 	@Override
@@ -21,17 +21,17 @@ public class RedAssetsNamespace implements AssetsNamespaceComponent {
 
 	@Override
 	public <T> NamespaceRegistry<T> newRegistry () {
-		return new RedNamespaceRegistry<T>();
+		return new DNSRegistry<T>();
 	}
 
 	@Override
 	public ID ROOT () {
-		return new RedAssetID();
+		return new DomainName();
 	}
 
 	@Override
 	public ID newID (final Collection<String> list) {
-		return new RedAssetID(Utils.newRelativePath(list));
+		return new DomainName(Utils.newRelativePath(list));
 	}
 
 	@Override

@@ -47,7 +47,7 @@ import com.jfixby.scarabei.red.java.gc.RedGCFisher;
 import com.jfixby.scarabei.red.math.RedAngles;
 import com.jfixby.scarabei.red.math.RedIntegerMath;
 import com.jfixby.scarabei.red.math.RedMathTools;
-import com.jfixby.scarabei.red.name.RedAssetsNamespace;
+import com.jfixby.scarabei.red.name.DNS;
 import com.jfixby.scarabei.red.random.RedRandom;
 import com.jfixby.scarabei.red.util.RedUtils;
 import com.jfixby.scarabei.red.util.md5.RSADataSecurityIncMD5;
@@ -63,7 +63,7 @@ public class ScarabeiiOS {
 		Sys.installComponent(new iOSSystem());
 // SystemSettings.installComponent(new RedSystemSettings());
 		IntegerMath.installComponent(new RedIntegerMath());
-		Names.installComponent(new RedAssetsNamespace());
+		Names.installComponent(new DNS());
 		IO.installComponent(new RedIO());
 		Graphs.installComponent(new RedGraphs());
 

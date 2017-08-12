@@ -54,7 +54,7 @@ import com.jfixby.scarabei.red.log.SimpleLogger;
 import com.jfixby.scarabei.red.math.RedAngles;
 import com.jfixby.scarabei.red.math.RedIntegerMath;
 import com.jfixby.scarabei.red.math.RedMathTools;
-import com.jfixby.scarabei.red.name.RedAssetsNamespace;
+import com.jfixby.scarabei.red.name.DNS;
 import com.jfixby.scarabei.red.random.RedRandom;
 import com.jfixby.scarabei.red.string.RedStrings;
 import com.jfixby.scarabei.red.ui.RedUIThread;
@@ -80,7 +80,7 @@ public class ScarabeiDesktop {
 		UIThread.installComponent(new RedUIThread());
 
 		IntegerMath.installComponent(new RedIntegerMath());
-		Names.installComponent(new RedAssetsNamespace());
+		Names.installComponent(new DNS());
 		IO.installComponent(new RedIO());
 		Graphs.installComponent(new RedGraphs());
 

@@ -54,7 +54,7 @@ import com.jfixby.scarabei.red.json.GoogleJson;
 import com.jfixby.scarabei.red.math.RedAngles;
 import com.jfixby.scarabei.red.math.RedIntegerMath;
 import com.jfixby.scarabei.red.math.RedMathTools;
-import com.jfixby.scarabei.red.name.RedAssetsNamespace;
+import com.jfixby.scarabei.red.name.DNS;
 import com.jfixby.scarabei.red.random.RedRandom;
 import com.jfixby.scarabei.red.string.RedStrings;
 import com.jfixby.scarabei.red.util.RedUtils;
@@ -72,7 +72,7 @@ public class ScarabeiAndroid {
 		Sys.installComponent(new AndroidSystem());
 		SystemSettings.installComponent(new AndroidSettings());
 		IntegerMath.installComponent(new RedIntegerMath());
-		Names.installComponent(new RedAssetsNamespace());
+		Names.installComponent(new DNS());
 		IO.installComponent(new RedIO());
 		Graphs.installComponent(new RedGraphs());
 		Json.installComponent(new GoogleJson());

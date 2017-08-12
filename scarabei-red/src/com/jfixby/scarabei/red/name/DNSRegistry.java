@@ -14,7 +14,7 @@ import com.jfixby.scarabei.api.collections.Map;
 import com.jfixby.scarabei.api.collections.Mapping;
 import com.jfixby.scarabei.api.collections.Set;
 
-public class RedNamespaceRegistry<T> implements NamespaceRegistry<T> {
+public class DNSRegistry<T> implements NamespaceRegistry<T> {
 
 	final Map<ID, Set<T>> map = Collections.newMap();
 

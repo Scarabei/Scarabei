@@ -3,14 +3,16 @@ package com.jfixby.scarabei.api.ver;
 
 import java.io.Serializable;
 
+import com.jfixby.scarabei.api.assets.ID;
+import com.jfixby.scarabei.api.assets.Names;
 import com.jfixby.scarabei.api.debug.Debug;
 
 public class Version implements Serializable {
 
 	public static class Tags {
-		public static final String VersionName = "app.version.name";
-		public static final String VersionCode = "app.version.code";
-		public static final String PackageName = "app.version.package_name";
+		public static final ID VersionName = Names.newID("app.version.name");
+		public static final ID VersionCode = Names.newID("app.version.code");
+		public static final ID PackageName = Names.newID("app.version.package_name");
 	}
 
 	public static final String VERSION_FILE_NAME = "version.json";
