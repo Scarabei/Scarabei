@@ -1,9 +1,10 @@
 
 package com.jfixby.scarabei.ios.api;
 
+import com.jfixby.scarabei.api.assets.ID;
+import com.jfixby.scarabei.api.collections.Map;
 import com.jfixby.scarabei.api.display.DisplayMetrics;
 import com.jfixby.scarabei.api.file.File;
-import com.jfixby.scarabei.api.sys.SystemInfo;
 import com.jfixby.scarabei.ios.api.camera.iOSCameraSetup;
 
 public interface iOSComponent {
@@ -28,7 +29,7 @@ public interface iOSComponent {
 
 	iOSAppVersion getAppVersion ();
 
-	SystemInfo getSystemInfo ();
+	Map<ID, String> getSystemInfo ();
 
 	long getMaxHeapSize ();
 

@@ -1,6 +1,8 @@
 
 package com.jfixby.scarabei.api.sys;
 
+import com.jfixby.scarabei.api.assets.ID;
+import com.jfixby.scarabei.api.collections.Map;
 import com.jfixby.scarabei.api.time.TimeStream;
 
 public interface SystemComponent {
@@ -19,7 +21,7 @@ public interface SystemComponent {
 
 	boolean isMac ();
 
-	SystemInfo getSystemInfo ();
+	Map<ID, String> getSystemInfo ();
 
 	void yeld ();
 

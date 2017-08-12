@@ -2,13 +2,14 @@
 package com.jfixby.scarabei.ios.api;
 
 import com.jfixby.scarabei.api.ComponentInstaller;
+import com.jfixby.scarabei.api.assets.ID;
+import com.jfixby.scarabei.api.collections.Map;
 import com.jfixby.scarabei.api.display.DisplayMetrics;
-import com.jfixby.scarabei.api.sys.SystemInfo;
 import com.jfixby.scarabei.ios.api.camera.iOSCameraSetup;
 
 public class iOS {
 
-	static private ComponentInstaller<iOSComponent> componentInstaller = new ComponentInstaller<iOSComponent>("iOS");
+	static private ComponentInstaller<iOSComponent> componentInstaller = new ComponentInstaller<>("iOS");
 
 	public static final void installComponent (final iOSComponent component_to_install) {
 		componentInstaller.installComponent(component_to_install);
@@ -35,7 +36,7 @@ public class iOS {
 		return invoke().getAppVersion();
 	}
 
-	public static SystemInfo getSystemInfo () {
+	public static Map<ID, String> getSystemInfo () {
 		return invoke().getSystemInfo();
 	}
 

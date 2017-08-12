@@ -2,9 +2,10 @@
 package com.jfixby.scarabei.android.api;
 
 import com.jfixby.scarabei.api.ComponentInstaller;
+import com.jfixby.scarabei.api.assets.ID;
+import com.jfixby.scarabei.api.collections.Map;
 import com.jfixby.scarabei.api.display.DisplayMetrics;
 import com.jfixby.scarabei.api.file.File;
-import com.jfixby.scarabei.api.sys.SystemInfo;
 
 import android.content.Context;
 
@@ -68,7 +69,7 @@ public class Android {
 		return invoke().getAppVersion();
 	}
 
-	public static SystemInfo getSystemInfo () {
+	public static Map<ID, String> getSystemInfo () {
 		return invoke().getSystemInfo();
 	}
 

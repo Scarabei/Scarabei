@@ -4,15 +4,16 @@ package com.jfixby.scarabei.red.android;
 import com.jfixby.scarabei.android.api.AndroidAppVersion;
 import com.jfixby.scarabei.android.api.AndroidComponent;
 import com.jfixby.scarabei.android.api.AndroidSystemInfoTags;
+import com.jfixby.scarabei.api.assets.ID;
+import com.jfixby.scarabei.api.collections.Collections;
+import com.jfixby.scarabei.api.collections.Map;
 import com.jfixby.scarabei.api.display.DisplayMetrics;
 import com.jfixby.scarabei.api.err.Err;
 import com.jfixby.scarabei.api.file.File;
 import com.jfixby.scarabei.api.file.LocalFileSystem;
-import com.jfixby.scarabei.api.sys.SystemInfo;
 import com.jfixby.scarabei.api.sys.SystemInfoTags;
 import com.jfixby.scarabei.api.sys.settings.SystemSettings;
 import com.jfixby.scarabei.api.ver.Version;
-import com.jfixby.scarabei.red.sys.RedDeviceInfo;
 
 import android.app.ActivityManager;
 import android.app.Application;
@@ -158,65 +159,65 @@ public class RedAndroidComponent implements AndroidComponent {
 	}
 
 	@Override
-	public SystemInfo getSystemInfo () {
-		final RedDeviceInfo deviceInfo = new RedDeviceInfo();
+	public Map<ID, String> getSystemInfo () {
+		final Map<ID, String> deviceInfo = Collections.newMap();
 		{
 			final DisplayMetrics displayMetrics = this.getDisplayMetrics();
 			final double height = displayMetrics.getHeight();
 			final double width = displayMetrics.getWidth();
-			deviceInfo.putValue(AndroidSystemInfoTags.Display.WIDTH, width);
-			deviceInfo.putValue(AndroidSystemInfoTags.Display.HEIGHT, height);
+			deviceInfo.put(AndroidSystemInfoTags.Display.WIDTH, width + "");
+			deviceInfo.put(AndroidSystemInfoTags.Display.HEIGHT, height + "");
 		}
 		{
 			final String brand = this.getBrand();
-			deviceInfo.putValue(AndroidSystemInfoTags.Brand, brand);
+			deviceInfo.put(AndroidSystemInfoTags.Brand, brand);
 		}
 		{
 			final String value = this.getSerial();
-			deviceInfo.putValue(AndroidSystemInfoTags.Serial, value);
+			deviceInfo.put(AndroidSystemInfoTags.Serial, value);
 		}
 
 		{
 			final String value = this.getFingerPrint();
-			deviceInfo.putValue(AndroidSystemInfoTags.Fingerprint, value);
+			deviceInfo.put(AndroidSystemInfoTags.Fingerprint, value);
 		}
 
 		{
 			final String value = this.getManufacturer();
-			deviceInfo.putValue(AndroidSystemInfoTags.Manufacturer, value);
+			deviceInfo.put(AndroidSystemInfoTags.Manufacturer, value);
 		}
 
 		{
 			final String model = this.getModel();
-			deviceInfo.putValue(AndroidSystemInfoTags.Model, model);
+			deviceInfo.put(AndroidSystemInfoTags.Model, model);
 		}
 		{
 			final String release = this.getVersionRelease();
-			deviceInfo.putValue(AndroidSystemInfoTags.Release, release);
+			deviceInfo.put(AndroidSystemInfoTags.Release, release);
 		}
 
 		{
 			final AndroidAppVersion version = this.getAppVersion();
-			deviceInfo.putValue(AndroidSystemInfoTags.App.Version.Name, version.getName());
-			deviceInfo.putValue(AndroidSystemInfoTags.App.Version.Code, version.getCode());
-			deviceInfo.putValue(AndroidSystemInfoTags.App.Version.PackageName, version.getPackageName());
+			deviceInfo.put(AndroidSystemInfoTags.App.Version.Name, version.getName());
+			deviceInfo.put(AndroidSystemInfoTags.App.Version.Code, version.getCode() + "");
+			deviceInfo.put(AndroidSystemInfoTags.App.Version.PackageName, version.getPackageName() + "");
 		}
 
 		{
 			final String host = this.getHost();
-			deviceInfo.putValue(AndroidSystemInfoTags.Host, host);
+			deviceInfo.put(AndroidSystemInfoTags.Host, host);
 		}
 
 		{
-			deviceInfo.putValue(SystemInfoTags.System.OS_NAME, System.getProperty("os.name"));
-			deviceInfo.putValue(SystemInfoTags.System.OS_VERSION, System.getProperty("os.version"));
+			deviceInfo.put(SystemInfoTags.System.OS_NAME, System.getProperty("os.name"));
+			deviceInfo.put(SystemInfoTags.System.OS_VERSION, System.getProperty("os.version"));
 
 		}
 
 		{
-			deviceInfo.putValue(Version.Tags.PackageName, SystemSettings.getStringParameter(Version.Tags.PackageName, ""));
-			deviceInfo.putValue(Version.Tags.VersionCode, SystemSettings.getStringParameter(Version.Tags.VersionCode, ""));
-			deviceInfo.putValue(Version.Tags.VersionName, SystemSettings.getStringParameter(Version.Tags.VersionName, ""));
+			deviceInfo.put(Version.Tags.PackageName, SystemSettings.getStringParameter(Version.Tags.PackageName, ""));
+			deviceInfo.put(Version.Tags.VersionCode, SystemSettings.getStringParameter(Version.Tags.VersionCode, ""));
+			deviceInfo.put(Version.Tags.VersionName, SystemSettings.getStringParameter(Version.Tags.VersionName, ""));
 		}
 
 		return deviceInfo;
@@ -225,5 +226,13 @@ public class RedAndroidComponent implements AndroidComponent {
 	@Override
 	public Context getApplicationContext () {
 		return this.context;
+	}
+
+	public void prepareCamera () {
+		Err.throwNotImplementedYet();
+	}
+
+	public void activateCamera () {
+		Err.throwNotImplementedYet();
 	}
 }
