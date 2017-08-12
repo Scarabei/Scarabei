@@ -2,6 +2,7 @@
 package com.jfixby.scarabei.red.flutter.plugins.android.sys;
 
 import com.jfixby.scarabei.api.assets.ID;
+import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.Map;
 import com.jfixby.scarabei.api.log.L;
 import com.jfixby.scarabei.api.sys.settings.ExecutionMode;
@@ -53,8 +54,24 @@ public class SystemSettingsWrapper {
 		return SystemSettings.getIntParameter(parameter_name);
 	}
 
-	public Map<ID, Object> listAllSettings () {
-		return null;
+	public java.util.Map<String, Object> listAllSettings () {
+		final Map<ID, Object> list = SystemSettings.listAllSettings();
+		final Map<String, Object> map = Collections.newMap();
+		for (final ID key : list.keys()) {
+			map.put(key + "", this.value(list.get(key)));
+
+		}
+		return map.toJavaMap();
+	}
+
+	private Object value (final Object object) {
+		if (object instanceof ExecutionMode) {
+			return object + "";
+		}
+		if (object instanceof ID) {
+			return object + "";
+		}
+		return object;
 	}
 
 	public void clearAll () {

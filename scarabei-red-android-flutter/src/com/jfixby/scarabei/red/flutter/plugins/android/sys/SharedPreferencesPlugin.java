@@ -34,11 +34,13 @@ public class SharedPreferencesPlugin implements MethodCallHandler {
 		try {
 			final Object invokeResult;
 			if (argTypes.length == 0) {
-				final Method registerWith = klass.getMethod(methodName);
-				invokeResult = registerWith.invoke(null);
+				final Method method = klass.getMethod(methodName);
+				L.d("method", method);
+				invokeResult = method.invoke(null);
 			} else {
-				final Method registerWith = klass.getMethod(methodName, argTypes);
-				invokeResult = registerWith.invoke(null, argValues);
+				final Method method = klass.getMethod(methodName, argTypes);
+				L.d("method", method);
+				invokeResult = method.invoke(null, argValues);
 			}
 			L.d("invokeResult", invokeResult);
 			L.e("invokeResult", invokeResult);
