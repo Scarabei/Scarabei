@@ -63,6 +63,7 @@ import com.jfixby.scarabei.red.util.md5.RSADataSecurityIncMD5;
 public class ScarabeiAndroid {
 
 	public static final void deploy (final AndroidComponent android) {
+		Utils.installComponent(new RedUtils());
 		Names.installComponent(new DNS());
 		L.installComponent(new AndroidLogger());
 		Err.installComponent(new RedError());
@@ -72,7 +73,6 @@ public class ScarabeiAndroid {
 
 		Sys.installComponent(new AndroidSystem());
 
-		Utils.installComponent(new RedUtils());
 		Strings.installComponent(new RedStrings());
 		Collections.installComponent(new AndroidCollections());
 		FloatMath.installComponent(new AndroidFloatMath());
