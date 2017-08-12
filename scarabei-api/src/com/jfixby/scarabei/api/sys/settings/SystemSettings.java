@@ -63,7 +63,7 @@ public class SystemSettings {
 		return invoke().getExecutionMode();
 	}
 
-	public static long getLongParameter (final ID parameterName) {
+	public static long getIntParameter (final ID parameterName) {
 		return invoke().getIntParameter(parameterName);
 	}
 
@@ -81,6 +81,10 @@ public class SystemSettings {
 
 	public static Promise<Boolean> saveToStorage () {
 		return invoke().saveToStorage();
+	}
+
+	public static boolean executionModeIsAtLeast (final ExecutionMode mode) {
+		return invoke().executionModeIsAtLeast(mode);
 	}
 
 }

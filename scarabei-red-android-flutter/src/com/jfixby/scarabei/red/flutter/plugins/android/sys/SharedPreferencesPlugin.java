@@ -7,7 +7,6 @@ import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.flutter.plugins.FlutterPluginSpecs;
 import com.jfixby.scarabei.api.json.Json;
 import com.jfixby.scarabei.api.log.L;
-import com.jfixby.scarabei.api.sys.settings.SystemSettings;
 
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
@@ -26,7 +25,7 @@ public class SharedPreferencesPlugin implements MethodCallHandler {
 		L.d("jsonString", jsonString);
 		final FlutterMethodCall flutterCall = Json.deserializeFromString(FlutterMethodCall.class, jsonString);
 		L.d("flutterCall.arguments", flutterCall.arguments);
-		final Class<SystemSettings> klass = SystemSettings.class;
+		final Class<SystemSettingsWrapper> klass = SystemSettingsWrapper.class;
 		final Class<?>[] argTypes = flutterCall.listArgumetTypes();
 		final Object[] argValues = flutterCall.listArgumetValues();
 		L.d("argTypes", Collections.newList(argTypes));
@@ -42,6 +41,8 @@ public class SharedPreferencesPlugin implements MethodCallHandler {
 				invokeResult = registerWith.invoke(null, argValues);
 			}
 			L.d("invokeResult", invokeResult);
+			L.e("invokeResult", invokeResult);
+
 			result.success(invokeResult);
 		} catch (final Exception e) {
 			L.e(e);

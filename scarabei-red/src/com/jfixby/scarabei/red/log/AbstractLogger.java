@@ -86,7 +86,7 @@ public abstract class AbstractLogger implements LoggerComponent {
 		}
 		if (object instanceof java.util.Collection) {
 			final java.util.Collection array = (java.util.Collection)object;
-			final String canonocal_name = "Collection[]";
+			final String canonocal_name = tag + " > " + "Collection[]";
 			final int n = array.size();
 			if (n == 0) {
 				this.logLine(mode, frame, canonocal_name);
@@ -105,7 +105,7 @@ public abstract class AbstractLogger implements LoggerComponent {
 		}
 		if (object instanceof Mapping) {
 			final Mapping array = (Mapping)object;
-			final String canonocal_name = "Collection[]";
+			final String canonocal_name = tag + " > " + "Collection[]";
 			final int n = array.size();
 			if (n == 0) {
 				this.logLine(mode, frame, canonocal_name);
@@ -125,7 +125,7 @@ public abstract class AbstractLogger implements LoggerComponent {
 		}
 		if (object instanceof java.util.Map) {
 			final java.util.Map array = (java.util.Map)object;
-			final String canonocal_name = "Collection[]";
+			final String canonocal_name = tag + " > " + "Collection[]";
 			final int n = array.size();
 			if (n == 0) {
 				this.logLine(mode, frame, canonocal_name);
