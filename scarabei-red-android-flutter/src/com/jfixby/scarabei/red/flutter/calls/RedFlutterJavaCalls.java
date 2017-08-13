@@ -14,12 +14,12 @@ import com.jfixby.scarabei.api.flutter.plugins.FlutterPluginSpecs;
 import com.jfixby.scarabei.api.flutter.plugins.FlutterPlugins;
 import com.jfixby.scarabei.api.names.Names;
 
-public class RedFlutterCalls implements FlutterJavaCallsComponent {
+public class RedFlutterJavaCalls implements FlutterJavaCallsComponent {
 	final Encoders encoders = new Encoders();
 	final Decoders decoders = new Decoders();
 	final FlutterJavaCallListener flutterListener = new FlutterJavaCallListener();
 
-	public RedFlutterCalls () {
+	public RedFlutterJavaCalls () {
 		final FlutterPluginSpecs specs = FlutterPlugins.newPluginSpecs();
 		specs.methodCallHandler = this.flutterListener;
 		FlutterPlugins.registerPlugin(specs);
