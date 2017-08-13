@@ -4,8 +4,6 @@ package com.jfixby.scarabei.red.name;
 import java.util.Comparator;
 import java.util.Iterator;
 
-import com.jfixby.scarabei.api.assets.ID;
-import com.jfixby.scarabei.api.assets.NamespaceRegistry;
 import com.jfixby.scarabei.api.collections.Collection;
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.EditableCollection;
@@ -13,6 +11,8 @@ import com.jfixby.scarabei.api.collections.List;
 import com.jfixby.scarabei.api.collections.Map;
 import com.jfixby.scarabei.api.collections.Mapping;
 import com.jfixby.scarabei.api.collections.Set;
+import com.jfixby.scarabei.api.names.ID;
+import com.jfixby.scarabei.api.names.NamespaceRegistry;
 
 public class DNSRegistry<T> implements NamespaceRegistry<T> {
 

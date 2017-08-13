@@ -3,11 +3,10 @@ package com.jfixby.scarabei.red.flutter.calls;
 
 import java.util.ArrayList;
 
-import com.jfixby.scarabei.api.assets.ID;
 import com.jfixby.scarabei.api.collections.Mapping;
 import com.jfixby.scarabei.api.err.Err;
 import com.jfixby.scarabei.api.flutter.call.JavaToCrossLanguageEncoder;
-import com.jfixby.scarabei.api.promise.Promise;
+import com.jfixby.scarabei.api.names.ID;
 import com.jfixby.scarabei.api.sys.settings.ExecutionMode;
 
 public class ScarabeiToFlutteEncoder implements JavaToCrossLanguageEncoder {
@@ -39,9 +38,6 @@ public class ScarabeiToFlutteEncoder implements JavaToCrossLanguageEncoder {
 			return true;
 		}
 		if (javaObject instanceof java.util.Map) {
-			return true;
-		}
-		if (javaObject instanceof Promise) {
 			return true;
 		}
 		if (javaObject instanceof Mapping) {

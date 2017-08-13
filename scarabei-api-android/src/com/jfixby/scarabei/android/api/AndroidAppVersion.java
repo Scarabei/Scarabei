@@ -1,7 +1,7 @@
 
 package com.jfixby.scarabei.android.api;
 
-import com.jfixby.scarabei.api.assets.ID;
+import com.jfixby.scarabei.api.names.ID;
 
 public interface AndroidAppVersion {
 

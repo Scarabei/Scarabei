@@ -1,12 +1,12 @@
 
 package com.jfixby.scarabei.red.desktop.sys.settings;
 
-import com.jfixby.scarabei.api.assets.ID;
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.Map;
 import com.jfixby.scarabei.api.debug.Debug;
 import com.jfixby.scarabei.api.err.Err;
 import com.jfixby.scarabei.api.log.L;
+import com.jfixby.scarabei.api.names.ID;
 import com.jfixby.scarabei.api.sys.settings.ExecutionMode;
 import com.jfixby.scarabei.api.sys.settings.SystemSettingsComponent;
 

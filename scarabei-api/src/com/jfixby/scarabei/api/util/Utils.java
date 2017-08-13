@@ -2,10 +2,10 @@
 package com.jfixby.scarabei.api.util;
 
 import com.jfixby.scarabei.api.ComponentInstaller;
-import com.jfixby.scarabei.api.assets.ID;
 import com.jfixby.scarabei.api.collections.Collection;
 import com.jfixby.scarabei.api.collections.Set;
 import com.jfixby.scarabei.api.java.ByteArray;
+import com.jfixby.scarabei.api.names.ID;
 import com.jfixby.scarabei.api.taskman.SimpleProgress;
 import com.jfixby.scarabei.api.util.path.AbsolutePath;
 import com.jfixby.scarabei.api.util.path.MountPoint;

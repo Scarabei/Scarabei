@@ -3,7 +3,7 @@ package com.jfixby.scarabei.api.flutter.call;
 
 import com.jfixby.scarabei.api.collections.LambdaMap;
 
-public interface FlutterCallsComponent {
+public interface FlutterJavaCallsComponent {
 
 	Object decode (Object encodedObject, LambdaMap<Object, String> objectTypeNames);
 

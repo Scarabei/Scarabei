@@ -1,12 +1,12 @@
 
 package com.jfixby.scarabei.red.util;
 
-import com.jfixby.scarabei.api.assets.ID;
-import com.jfixby.scarabei.api.assets.Names;
 import com.jfixby.scarabei.api.collections.Collection;
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.Set;
 import com.jfixby.scarabei.api.java.ByteArray;
+import com.jfixby.scarabei.api.names.ID;
+import com.jfixby.scarabei.api.names.Names;
 import com.jfixby.scarabei.api.taskman.SimpleProgress;
 import com.jfixby.scarabei.api.util.BinaryCode;
 import com.jfixby.scarabei.api.util.EditableBinaryCode;

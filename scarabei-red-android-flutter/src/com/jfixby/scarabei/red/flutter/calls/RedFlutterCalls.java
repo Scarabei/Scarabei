@@ -1,20 +1,20 @@
 
 package com.jfixby.scarabei.red.flutter.calls;
 
-import com.jfixby.scarabei.api.assets.Names;
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.LambdaMap;
 import com.jfixby.scarabei.api.collections.Map;
 import com.jfixby.scarabei.api.flutter.call.CrossLanguageToJavaDecoder;
-import com.jfixby.scarabei.api.flutter.call.FlutterCallsComponent;
+import com.jfixby.scarabei.api.flutter.call.FlutterJavaCallsComponent;
 import com.jfixby.scarabei.api.flutter.call.FlutterMethodCall;
 import com.jfixby.scarabei.api.flutter.call.FlutterMethodCallArgument;
 import com.jfixby.scarabei.api.flutter.call.JavaMethodCall;
 import com.jfixby.scarabei.api.flutter.call.JavaToCrossLanguageEncoder;
 import com.jfixby.scarabei.api.flutter.plugins.FlutterPluginSpecs;
 import com.jfixby.scarabei.api.flutter.plugins.FlutterPlugins;
+import com.jfixby.scarabei.api.names.Names;
 
-public class RedFlutterCalls implements FlutterCallsComponent {
+public class RedFlutterCalls implements FlutterJavaCallsComponent {
 	final Encoders encoders = new Encoders();
 	final Decoders decoders = new Decoders();
 	final FlutterJavaCallListener flutterListener = new FlutterJavaCallListener();

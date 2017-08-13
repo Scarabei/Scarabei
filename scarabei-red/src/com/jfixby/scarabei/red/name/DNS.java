@@ -1,10 +1,10 @@
 
 package com.jfixby.scarabei.red.name;
 
-import com.jfixby.scarabei.api.assets.AssetsNamespaceComponent;
-import com.jfixby.scarabei.api.assets.ID;
-import com.jfixby.scarabei.api.assets.NamespaceRegistry;
 import com.jfixby.scarabei.api.collections.Collection;
+import com.jfixby.scarabei.api.names.AssetsNamespaceComponent;
+import com.jfixby.scarabei.api.names.ID;
+import com.jfixby.scarabei.api.names.NamespaceRegistry;
 import com.jfixby.scarabei.api.util.Utils;
 
 public class DNS implements AssetsNamespaceComponent {

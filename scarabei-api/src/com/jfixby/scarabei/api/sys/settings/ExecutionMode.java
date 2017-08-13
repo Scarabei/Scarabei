@@ -1,9 +1,9 @@
 
 package com.jfixby.scarabei.api.sys.settings;
 
-import com.jfixby.scarabei.api.assets.ID;
-import com.jfixby.scarabei.api.assets.Names;
 import com.jfixby.scarabei.api.log.L;
+import com.jfixby.scarabei.api.names.ID;
+import com.jfixby.scarabei.api.names.Names;
 
 public enum ExecutionMode {
 

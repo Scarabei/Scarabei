@@ -3,7 +3,6 @@ package com.jfixby.scarabei.red.desktop;
 
 import com.jfixby.scarabei.api.angles.Angles;
 import com.jfixby.scarabei.api.arrays.Arrays;
-import com.jfixby.scarabei.api.assets.Names;
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.color.Colors;
 import com.jfixby.scarabei.api.debug.Debug;
@@ -22,6 +21,7 @@ import com.jfixby.scarabei.api.math.FloatMath;
 import com.jfixby.scarabei.api.math.IntegerMath;
 import com.jfixby.scarabei.api.math.MathTools;
 import com.jfixby.scarabei.api.md5.MD5;
+import com.jfixby.scarabei.api.names.Names;
 import com.jfixby.scarabei.api.net.http.Http;
 import com.jfixby.scarabei.api.random.Random;
 import com.jfixby.scarabei.api.strings.Strings;

@@ -2,8 +2,8 @@
 package com.jfixby.scarabei.red.android;
 
 import com.jfixby.scarabei.android.api.AndroidAppVersion;
-import com.jfixby.scarabei.api.assets.ID;
-import com.jfixby.scarabei.api.assets.Names;
+import com.jfixby.scarabei.api.names.ID;
+import com.jfixby.scarabei.api.names.Names;
 
 public class RedAndroidAppVersion implements AndroidAppVersion {
 

@@ -1,5 +1,5 @@
 
-package com.jfixby.scarabei.api.assets;
+package com.jfixby.scarabei.api.names;
 
 import com.jfixby.scarabei.api.collections.Collection;
 

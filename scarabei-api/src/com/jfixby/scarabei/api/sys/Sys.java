@@ -2,8 +2,8 @@
 package com.jfixby.scarabei.api.sys;
 
 import com.jfixby.scarabei.api.ComponentInstaller;
-import com.jfixby.scarabei.api.assets.ID;
 import com.jfixby.scarabei.api.collections.Map;
+import com.jfixby.scarabei.api.names.ID;
 import com.jfixby.scarabei.api.time.TimeStream;
 
 public class Sys {

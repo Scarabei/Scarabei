@@ -3,9 +3,9 @@ package com.jfixby.scarabei.api.ver;
 
 import java.io.Serializable;
 
-import com.jfixby.scarabei.api.assets.ID;
-import com.jfixby.scarabei.api.assets.Names;
 import com.jfixby.scarabei.api.debug.Debug;
+import com.jfixby.scarabei.api.names.ID;
+import com.jfixby.scarabei.api.names.Names;
 
 public class Version implements Serializable {
 

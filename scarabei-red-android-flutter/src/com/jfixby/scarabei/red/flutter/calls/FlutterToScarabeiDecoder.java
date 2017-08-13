@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import com.jfixby.scarabei.api.assets.ID;
-import com.jfixby.scarabei.api.assets.Names;
 import com.jfixby.scarabei.api.collections.Collection;
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.LambdaMap;
@@ -16,6 +14,8 @@ import com.jfixby.scarabei.api.flutter.call.CrossLanguageClassNames;
 import com.jfixby.scarabei.api.flutter.call.CrossLanguageToJavaDecoder;
 import com.jfixby.scarabei.api.flutter.call.FlutterJavaCalls;
 import com.jfixby.scarabei.api.flutter.call.ScarabeiClassNames;
+import com.jfixby.scarabei.api.names.ID;
+import com.jfixby.scarabei.api.names.Names;
 import com.jfixby.scarabei.api.sys.settings.ExecutionMode;
 
 public class FlutterToScarabeiDecoder implements CrossLanguageToJavaDecoder {
@@ -30,12 +30,9 @@ public class FlutterToScarabeiDecoder implements CrossLanguageToJavaDecoder {
 	FlutterToScarabeiDecoder () {
 		this.classes.put(CrossLanguageClassNames.STRING, String.class);
 		this.classes.put(CrossLanguageClassNames.BOOL, Boolean.class);
-		this.classes.put(CrossLanguageClassNames.INTEGER, Integer.class);
-		this.classes.put(CrossLanguageClassNames.LONG, Long.class);
-		this.classes.put(CrossLanguageClassNames.BYTE, Byte.class);
+		this.classes.put(CrossLanguageClassNames.INTEGER, Long.class);
 		this.classes.put(CrossLanguageClassNames.LIST, List.class);
 		this.classes.put(CrossLanguageClassNames.MAP, Map.class);
-
 		this.classes.put(ScarabeiClassNames.ID, ID.class);
 		this.classes.put(ScarabeiClassNames.ExecutionMode, ExecutionMode.class);
 

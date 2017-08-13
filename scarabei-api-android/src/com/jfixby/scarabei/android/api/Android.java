@@ -2,10 +2,10 @@
 package com.jfixby.scarabei.android.api;
 
 import com.jfixby.scarabei.api.ComponentInstaller;
-import com.jfixby.scarabei.api.assets.ID;
 import com.jfixby.scarabei.api.collections.Map;
 import com.jfixby.scarabei.api.display.DisplayMetrics;
 import com.jfixby.scarabei.api.file.File;
+import com.jfixby.scarabei.api.names.ID;
 
 import android.content.Context;
 

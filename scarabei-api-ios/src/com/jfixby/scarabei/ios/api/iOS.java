@@ -2,9 +2,9 @@
 package com.jfixby.scarabei.ios.api;
 
 import com.jfixby.scarabei.api.ComponentInstaller;
-import com.jfixby.scarabei.api.assets.ID;
 import com.jfixby.scarabei.api.collections.Map;
 import com.jfixby.scarabei.api.display.DisplayMetrics;
+import com.jfixby.scarabei.api.names.ID;
 import com.jfixby.scarabei.ios.api.camera.iOSCameraSetup;
 
 public class iOS {
