@@ -8,11 +8,8 @@ import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.Map;
 import com.jfixby.scarabei.api.debug.Debug;
 import com.jfixby.scarabei.api.log.L;
-import com.jfixby.scarabei.api.promise.Future;
-import com.jfixby.scarabei.api.promise.Promise;
 import com.jfixby.scarabei.api.sys.settings.ExecutionMode;
 import com.jfixby.scarabei.api.sys.settings.SystemSettingsComponent;
-import com.jfixby.scarabei.api.taskman.TaskManager;
 
 import android.content.Context;
 
@@ -125,15 +122,8 @@ public class AndroidSettings implements SystemSettingsComponent {
 	}
 
 	@Override
-	public Promise<Boolean> saveToStorage () {
-		final Future<Void, Boolean> save = new Future<Void, Boolean>() {
-			@Override
-			public Boolean deliver (final Void input) throws Throwable {
-				final boolean result = AndroidSettings.this.prefs.commit();
-				return result;
-			}
-		};
-		return TaskManager.executeAsynchronously("SystemSettings.saveToStorage()", save);
+	public boolean saveToStorage () {
+		return this.prefs.commit();
 	}
 
 }

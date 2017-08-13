@@ -7,7 +7,6 @@ import com.jfixby.scarabei.api.collections.Map;
 import com.jfixby.scarabei.api.debug.Debug;
 import com.jfixby.scarabei.api.err.Err;
 import com.jfixby.scarabei.api.log.L;
-import com.jfixby.scarabei.api.promise.Promise;
 import com.jfixby.scarabei.api.sys.settings.ExecutionMode;
 import com.jfixby.scarabei.api.sys.settings.SystemSettingsComponent;
 
@@ -119,9 +118,9 @@ public class DesktopSystemSettings implements SystemSettingsComponent {
 	}
 
 	@Override
-	public Promise<Boolean> saveToStorage () {
+	public boolean saveToStorage () {
 		Err.throwNotImplementedYet();
-		return null;
+		return false;
 	}
 
 }

@@ -4,8 +4,8 @@ package com.jfixby.scarabei.red.flutter;
 import com.jfixby.scarabei.api.assets.ID;
 import com.jfixby.scarabei.api.assets.Names;
 import com.jfixby.scarabei.api.debug.Debug;
-import com.jfixby.scarabei.api.flutter.plugins.FlutterPlugin;
-import com.jfixby.scarabei.api.flutter.plugins.FlutterPluginSpecs;
+import com.jfixby.scarabei.api.flutter.FlutterPlugin;
+import com.jfixby.scarabei.api.flutter.FlutterPluginSpecs;
 
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 

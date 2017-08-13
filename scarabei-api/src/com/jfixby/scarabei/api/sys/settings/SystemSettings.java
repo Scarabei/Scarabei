@@ -4,7 +4,6 @@ package com.jfixby.scarabei.api.sys.settings;
 import com.jfixby.scarabei.api.ComponentInstaller;
 import com.jfixby.scarabei.api.assets.ID;
 import com.jfixby.scarabei.api.collections.Map;
-import com.jfixby.scarabei.api.promise.Promise;
 
 public class SystemSettings {
 
@@ -79,7 +78,7 @@ public class SystemSettings {
 		invoke().setIntParameter(key, longValue);
 	}
 
-	public static Promise<Boolean> saveToStorage () {
+	public static boolean saveToStorage () {
 		return invoke().saveToStorage();
 	}
 

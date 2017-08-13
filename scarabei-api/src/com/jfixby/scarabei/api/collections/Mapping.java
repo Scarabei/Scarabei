@@ -3,11 +3,9 @@ package com.jfixby.scarabei.api.collections;
 
 import java.util.Iterator;
 
-public interface Mapping<K, V> {
+public interface Mapping<K, V> extends LambdaMap<K, V> {
 
 	boolean containsKey (Object key);
-
-	V get (Object key);
 
 // void print (String tag);
 

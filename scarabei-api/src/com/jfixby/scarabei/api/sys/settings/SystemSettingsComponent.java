@@ -3,7 +3,6 @@ package com.jfixby.scarabei.api.sys.settings;
 
 import com.jfixby.scarabei.api.assets.ID;
 import com.jfixby.scarabei.api.collections.Map;
-import com.jfixby.scarabei.api.promise.Promise;
 
 public interface SystemSettingsComponent {
 
@@ -33,6 +32,6 @@ public interface SystemSettingsComponent {
 
 	void clearAll ();
 
-	public Promise<Boolean> saveToStorage ();
+	public boolean saveToStorage ();
 
 }
