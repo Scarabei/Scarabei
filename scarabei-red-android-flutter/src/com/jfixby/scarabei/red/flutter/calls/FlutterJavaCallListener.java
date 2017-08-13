@@ -1,12 +1,11 @@
 
-package com.jfixby.scarabei.red.flutter;
+package com.jfixby.scarabei.red.flutter.calls;
 
 import java.lang.reflect.Method;
 
 import com.jfixby.scarabei.api.assets.ID;
 import com.jfixby.scarabei.api.collections.Collections;
-import com.jfixby.scarabei.api.flutter.FlutterPluginSpecs;
-import com.jfixby.scarabei.api.flutter.FlutterPlugins;
+import com.jfixby.scarabei.api.flutter.call.FlutterJavaCalls;
 import com.jfixby.scarabei.api.flutter.call.FlutterMethodCall;
 import com.jfixby.scarabei.api.flutter.call.JavaMethodCall;
 import com.jfixby.scarabei.api.json.Json;
@@ -17,11 +16,7 @@ import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 
-public class FlutterJavaCallProxy implements MethodCallHandler {
-	public static FlutterPluginSpecs filloutRegistration (final FlutterPluginSpecs specs) {
-		specs.methodCallHandler = new FlutterJavaCallProxy();
-		return specs;
-	}
+public class FlutterJavaCallListener implements MethodCallHandler {
 
 	@Override
 	public void onMethodCall (final MethodCall call, final MethodChannel.Result result) {
@@ -30,7 +25,7 @@ public class FlutterJavaCallProxy implements MethodCallHandler {
 		try {
 			final FlutterMethodCall flutterCall = Json.deserializeFromString(FlutterMethodCall.class, jsonString);
 
-			final JavaMethodCall javaCall = FlutterPlugins.decodeMethodCall(flutterCall);
+			final JavaMethodCall javaCall = FlutterJavaCalls.decodeMethodCall(flutterCall);
 
 			final ID methodFullName = javaCall.methodName;
 
@@ -59,7 +54,7 @@ public class FlutterJavaCallProxy implements MethodCallHandler {
 			}
 			L.d("javaInvokeResult", javaInvokeResult);
 
-			final Object flutterInvokeResult = FlutterPlugins.encode(javaInvokeResult);
+			final Object flutterInvokeResult = FlutterJavaCalls.encode(javaInvokeResult);
 
 			result.success(flutterInvokeResult);
 		} catch (final Exception e) {

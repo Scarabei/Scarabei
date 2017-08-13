@@ -1,5 +1,5 @@
 
-package com.jfixby.scarabei.api.flutter;
+package com.jfixby.scarabei.api.flutter.plugins;
 
 import com.jfixby.scarabei.api.assets.ID;
 

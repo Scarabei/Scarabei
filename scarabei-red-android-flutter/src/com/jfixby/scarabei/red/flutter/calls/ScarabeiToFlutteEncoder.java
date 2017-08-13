@@ -1,12 +1,12 @@
 
-package com.jfixby.scarabei.red.flutter;
+package com.jfixby.scarabei.red.flutter.calls;
 
 import java.util.ArrayList;
 
 import com.jfixby.scarabei.api.assets.ID;
 import com.jfixby.scarabei.api.collections.Mapping;
 import com.jfixby.scarabei.api.err.Err;
-import com.jfixby.scarabei.api.flutter.JavaToCrossLanguageEncoder;
+import com.jfixby.scarabei.api.flutter.call.JavaToCrossLanguageEncoder;
 import com.jfixby.scarabei.api.promise.Promise;
 import com.jfixby.scarabei.api.sys.settings.ExecutionMode;
 

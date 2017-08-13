@@ -1,5 +1,5 @@
 
-package com.jfixby.scarabei.red.flutter.example;
+package com.jfixby.scarabei.red.flutter.plugins.example;
 
 import com.jfixby.scarabei.android.api.Android;
 import com.jfixby.scarabei.api.log.L;

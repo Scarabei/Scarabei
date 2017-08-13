@@ -1,5 +1,5 @@
 
-package com.jfixby.scarabei.api.flutter;
+package com.jfixby.scarabei.api.flutter.call;
 
 public interface JavaToCrossLanguageEncoder {
 

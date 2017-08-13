@@ -1,5 +1,5 @@
 
-package com.jfixby.scarabei.red.flutter;
+package com.jfixby.scarabei.red.flutter.calls;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,9 +12,9 @@ import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.LambdaMap;
 import com.jfixby.scarabei.api.collections.Map;
 import com.jfixby.scarabei.api.err.Err;
-import com.jfixby.scarabei.api.flutter.CrossLanguageToJavaDecoder;
-import com.jfixby.scarabei.api.flutter.FlutterPlugins;
 import com.jfixby.scarabei.api.flutter.call.CrossLanguageClassNames;
+import com.jfixby.scarabei.api.flutter.call.CrossLanguageToJavaDecoder;
+import com.jfixby.scarabei.api.flutter.call.FlutterJavaCalls;
 import com.jfixby.scarabei.api.flutter.call.ScarabeiClassNames;
 import com.jfixby.scarabei.api.sys.settings.ExecutionMode;
 
@@ -68,7 +68,7 @@ public class FlutterToScarabeiDecoder implements CrossLanguageToJavaDecoder {
 			final List<?> list = (List<?>)encodedObject;
 			final ArrayList<Object> result = new ArrayList<>();
 			for (final Object Ei : list) {
-				final Object Ri = FlutterPlugins.decode(Ei, objectTypeNames);
+				final Object Ri = FlutterJavaCalls.decode(Ei, objectTypeNames);
 				result.add(Ri);
 			}
 			return result;
@@ -79,8 +79,8 @@ public class FlutterToScarabeiDecoder implements CrossLanguageToJavaDecoder {
 			for (final Object Ki : map.keys()) {
 				final Object Vi = map.get(Ki);
 
-				final Object RKi = FlutterPlugins.decode(Ki, objectTypeNames);
-				final Object RVi = FlutterPlugins.decode(Vi, objectTypeNames);
+				final Object RKi = FlutterJavaCalls.decode(Ki, objectTypeNames);
+				final Object RVi = FlutterJavaCalls.decode(Vi, objectTypeNames);
 				result.put(RKi, RVi);
 			}
 			return result;
@@ -88,25 +88,5 @@ public class FlutterToScarabeiDecoder implements CrossLanguageToJavaDecoder {
 
 		return encodedObject;
 	}
-// public List<JavaMethodCallArgument> arguments;
-//
-// public Class<?>[] listArgumetTypes () {
-// final Class<?>[] result = new Class<?>[this.arguments.size()];
-// int i = 0;
-// for (final JavaMethodCallArgument arg : this.arguments) {
-// result[i] = arg.argumentClass;
-// i++;
-// }
-// return result;
-// }
-//
-// public Object[] listArgumetValues () {
-// final Object[] result = new Object[this.arguments.size()];
-// int i = 0;
-// for (final JavaMethodCallArgument arg : this.arguments) {
-// result[i] = arg.argumentValue;
-// i++;
-// }
-// return result;
-// }
+
 }

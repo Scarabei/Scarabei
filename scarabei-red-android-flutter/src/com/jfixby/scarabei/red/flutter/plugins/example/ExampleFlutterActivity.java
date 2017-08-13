@@ -1,12 +1,12 @@
 
-package com.jfixby.scarabei.red.flutter.example;
+package com.jfixby.scarabei.red.flutter.plugins.example;
 
-import com.jfixby.scarabei.api.flutter.FlutterPlugin;
-import com.jfixby.scarabei.api.flutter.FlutterPluginSpecs;
-import com.jfixby.scarabei.api.flutter.FlutterPlugins;
-import com.jfixby.scarabei.api.flutter.FlutterPluginsComponent;
+import com.jfixby.scarabei.api.flutter.plugins.FlutterPlugin;
+import com.jfixby.scarabei.api.flutter.plugins.FlutterPluginSpecs;
+import com.jfixby.scarabei.api.flutter.plugins.FlutterPlugins;
+import com.jfixby.scarabei.api.flutter.plugins.FlutterPluginsComponent;
 import com.jfixby.scarabei.red.android.ScarabeiAndroidDeployer;
-import com.jfixby.scarabei.red.flutter.RedFlutterPlugins;
+import com.jfixby.scarabei.red.flutter.plugins.RedFlutterPlugins;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;

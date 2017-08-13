@@ -1,15 +1,9 @@
 
-package com.jfixby.scarabei.api.flutter;
+package com.jfixby.scarabei.api.flutter.call;
 
 import com.jfixby.scarabei.api.collections.LambdaMap;
-import com.jfixby.scarabei.api.flutter.call.FlutterMethodCall;
-import com.jfixby.scarabei.api.flutter.call.JavaMethodCall;
 
-public interface FlutterPluginsComponent {
-
-	FlutterPluginSpecs newPluginSpecs ();
-
-	FlutterPlugin registerPlugin (FlutterPluginSpecs specs);
+public interface FlutterCallsComponent {
 
 	Object decode (Object encodedObject, LambdaMap<Object, String> objectTypeNames);
 

@@ -1,12 +1,12 @@
 
-package com.jfixby.scarabei.red.flutter;
+package com.jfixby.scarabei.red.flutter.calls;
 
 import com.jfixby.scarabei.api.collections.Collection;
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.LambdaMap;
 import com.jfixby.scarabei.api.collections.Map;
 import com.jfixby.scarabei.api.err.Err;
-import com.jfixby.scarabei.api.flutter.CrossLanguageToJavaDecoder;
+import com.jfixby.scarabei.api.flutter.call.CrossLanguageToJavaDecoder;
 import com.jfixby.scarabei.api.log.L;
 
 public class Decoders {

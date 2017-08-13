@@ -1,10 +1,10 @@
 
-package com.jfixby.scarabei.red.flutter;
+package com.jfixby.scarabei.red.flutter.calls;
 
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.List;
 import com.jfixby.scarabei.api.err.Err;
-import com.jfixby.scarabei.api.flutter.JavaToCrossLanguageEncoder;
+import com.jfixby.scarabei.api.flutter.call.JavaToCrossLanguageEncoder;
 
 public class Encoders {
 
