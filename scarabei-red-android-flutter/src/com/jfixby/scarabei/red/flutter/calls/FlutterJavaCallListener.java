@@ -3,6 +3,7 @@ package com.jfixby.scarabei.red.flutter.calls;
 
 import java.lang.reflect.Method;
 
+import com.jfixby.scarabei.api.codecs.Codecs;
 import com.jfixby.scarabei.api.codecs.JavaMethodCall;
 import com.jfixby.scarabei.api.codecs.calls.io.CrossLanguageMethodCall;
 import com.jfixby.scarabei.api.codecs.calls.io.CrossLanguageMethodCallResult;
@@ -41,8 +42,8 @@ public class FlutterJavaCallListener implements MethodCallHandler {
 		try {
 			final CrossLanguageMethodCall encodedFlutterCall = Json.deserializeFromString(CrossLanguageMethodCall.class, json);
 
-			final JavaMethodCall javaCall = new JavaMethodCall();
-			javaCall.methodName = Names.newID(encodedFlutterCall.methodName);
+			final JavaMethodCall javaCall = Codecs.decodeMethodCall(encodedFlutterCall);
+			javaCall.methodName = Names.newID((String)Codecs.decode(encodedFlutterCall.methodName));
 
 			final ID methodFullName = javaCall.methodName;
 
@@ -57,21 +58,33 @@ public class FlutterJavaCallListener implements MethodCallHandler {
 			final Object[] argValues = javaCall.argumentValues;
 			L.d("argTypes", Collections.newList(argTypes));
 			L.d("argValues", Collections.newList(argValues));
-
-			final Object javaInvokeResult;
+			Throwable E = null;
+			Object javaInvokeResult;
 			final Method method;
-			if (argTypes.length == 0) {
-				method = klass.getMethod(methodName);
-				L.d("method", method);
-				javaInvokeResult = method.invoke(null);
-			} else {
-				method = klass.getMethod(methodName, argTypes);
-				L.d("method", method);
-				javaInvokeResult = method.invoke(null, argValues);
+			final CrossLanguageMethodCallResult callResult = new CrossLanguageMethodCallResult();
+			try {
+				if (argTypes.length == 0) {
+					method = klass.getMethod(methodName);
+					L.d("method", method);
+					javaInvokeResult = method.invoke(null);
+				} else {
+					method = klass.getMethod(methodName, argTypes);
+					L.d("method", method);
+					javaInvokeResult = method.invoke(null, argValues);
+				}
+				callResult.success = true;
+			} catch (final Throwable e) {
+				callResult.success = false;
+				javaInvokeResult = null;
+				L.e(e);
+				E = e;
 			}
 			L.d("javaInvokeResult", javaInvokeResult);
-
-			final CrossLanguageMethodCallResult callResult = new CrossLanguageMethodCallResult();
+			if (callResult.success) {
+				callResult.result = Codecs.encode(javaInvokeResult);
+			} else {
+				callResult.errorMessage = L.stackTraceToString(E);
+			}
 
 			final JsonString jsonRsult = Json.serializeToString(callResult);
 

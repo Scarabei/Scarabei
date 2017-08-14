@@ -6,7 +6,7 @@ import com.jfixby.scarabei.api.collections.Collection;
 
 public interface CrossLanguageToJavaDecoder {
 
-	Object decode (final EncodedObject encodedObject);
+	<T> T decode (final EncodedObject encodedObject);
 
 	Collection<String> listSupportedTypeNames ();
 

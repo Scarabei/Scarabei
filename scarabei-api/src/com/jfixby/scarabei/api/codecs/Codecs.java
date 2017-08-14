@@ -29,7 +29,7 @@ public class Codecs {
 		return componentInstaller.getComponent();
 	}
 
-	public static Object decode (final EncodedObject encodedObject) {
+	public static <T> T decode (final EncodedObject encodedObject) {
 		return invoke().decode(encodedObject);
 	}
 

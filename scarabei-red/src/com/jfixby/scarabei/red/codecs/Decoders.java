@@ -13,12 +13,12 @@ public class Decoders {
 
 	final Map<String, CrossLanguageToJavaDecoder> decoders = Collections.newMap();
 
-	public Object decode (final EncodedObject encodedObject) {
+	public <T> T decode (final EncodedObject encodedObject) {
 		if (encodedObject == null) {
 			return null;
 		}
 
-		final String objectTypeName = objectTypeNames.get(encodedObject);
+		final String objectTypeName = encodedObject.type;
 
 		if (objectTypeName == null) {
 			Err.reportError("Missing object type for <" + encodedObject + ">");
@@ -31,7 +31,7 @@ public class Decoders {
 			return null;
 		}
 
-		final Object result = decoder.decode(encodedObject, objectTypeNames);
+		final T result = decoder.decode(encodedObject);
 		return result;
 	}
 

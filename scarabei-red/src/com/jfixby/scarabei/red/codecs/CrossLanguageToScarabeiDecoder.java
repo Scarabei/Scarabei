@@ -43,7 +43,7 @@ public class CrossLanguageToScarabeiDecoder implements CrossLanguageToJavaDecode
 			return null;
 		}
 
-		final String objectTypeName = objectTypeNames.get(encodedObject);
+		final String objectTypeName = encodedObject.type;
 
 		if (objectTypeName == null) {
 			Err.reportError("Missing object type for <" + encodedObject + ">");
@@ -61,19 +61,19 @@ public class CrossLanguageToScarabeiDecoder implements CrossLanguageToJavaDecode
 		}
 
 		if (objectType == List.class) {
-			final List<?> list = (List<?>)encodedObject;
+			final List<EncodedObject> list = (List<EncodedObject>)encodedObject.value;
 			final ArrayList<Object> result = new ArrayList<Object>();
-			for (final Map<String, Object> Ei : list) {
-				final Object Ri = Codecs.decode(Ei, objectTypeNames);
+			for (final EncodedObject Ei : list) {
+				final Object Ri = Codecs.decode(Ei);
 				result.add(Ri);
 			}
 			return result;
 		}
-		if (objectType == List.class) {
-			final Map<?, ?> map = encodedObject;
+		if (objectType == Map.class) {
+			final Map<EncodedObject, EncodedObject> map = (Map<EncodedObject, EncodedObject>)encodedObject.value;
 			final HashMap<Object, Object> result = new HashMap<Object, Object>();
-			for (final Object Ki : map.keys()) {
-				final Object Vi = map.get(Ki);
+			for (final EncodedObject Ki : map.keys()) {
+				final EncodedObject Vi = map.get(Ki);
 
 				final Object RKi = Codecs.decode(Ki);
 				final Object RVi = Codecs.decode(Vi);
@@ -82,7 +82,7 @@ public class CrossLanguageToScarabeiDecoder implements CrossLanguageToJavaDecode
 			return result;
 		}
 
-		return encodedObject;
+		return encodedObject.value;
 	}
 
 }

@@ -6,7 +6,7 @@ import com.jfixby.scarabei.api.codecs.io.EncodedObject;
 
 public interface CodecsComponent {
 
-	Object decode (EncodedObject object);
+	<T> T decode (EncodedObject object);
 
 	EncodedObject encode (Object javaObject);
 

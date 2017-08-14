@@ -3,8 +3,10 @@ package com.jfixby.scarabei.api.codecs.calls.io;
 
 import java.util.List;
 
+import com.jfixby.scarabei.api.codecs.io.EncodedObject;
+
 public class CrossLanguageMethodCall {
-	public String methodName;
-	public List<CrossLanguageMethodCallArgument> arguments;
+	public EncodedObject<String> methodName;
+	public EncodedObject<List<CrossLanguageMethodCallArgument>> arguments;
 
 }
