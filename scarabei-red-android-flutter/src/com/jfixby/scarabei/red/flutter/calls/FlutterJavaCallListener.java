@@ -20,7 +20,7 @@ public class FlutterJavaCallListener implements MethodCallHandler {
 
 	@Override
 	public void onMethodCall (final MethodCall call, final MethodChannel.Result result) {
-		final String jsonString = (String)call.argument("jsonString");
+		final String jsonString = (String)call.argument("invoke");
 		L.d("jsonString", jsonString);
 		try {
 			final FlutterMethodCall flutterCall = Json.deserializeFromString(FlutterMethodCall.class, jsonString);
