@@ -2,15 +2,18 @@
 package com.jfixby.scarabei.red.flutter.calls;
 
 import java.lang.reflect.Method;
-import java.util.Map;
 
+import com.jfixby.scarabei.api.codecs.JavaMethodCall;
+import com.jfixby.scarabei.api.codecs.calls.io.CrossLanguageMethodCall;
+import com.jfixby.scarabei.api.codecs.calls.io.CrossLanguageMethodCallResult;
 import com.jfixby.scarabei.api.collections.Collections;
-import com.jfixby.scarabei.api.flutter.call.FlutterJavaCalls;
-import com.jfixby.scarabei.api.flutter.call.FlutterMethodCall;
-import com.jfixby.scarabei.api.flutter.call.JavaMethodCall;
+import com.jfixby.scarabei.api.flutter.plugins.FlutterPluginSpecs;
+import com.jfixby.scarabei.api.flutter.plugins.FlutterPlugins;
 import com.jfixby.scarabei.api.json.Json;
+import com.jfixby.scarabei.api.json.JsonString;
 import com.jfixby.scarabei.api.log.L;
 import com.jfixby.scarabei.api.names.ID;
+import com.jfixby.scarabei.api.names.Names;
 import com.jfixby.scarabei.api.util.Utils;
 
 import io.flutter.plugin.common.MethodCall;
@@ -19,18 +22,27 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 
 public class FlutterJavaCallListener implements MethodCallHandler {
 
+	FlutterJavaCallListener () {
+		final FlutterJavaCallListener flutterListener = new FlutterJavaCallListener();
+		final FlutterPluginSpecs specs = FlutterPlugins.newPluginSpecs();
+		specs.methodCallHandler = this;
+		specs.channelName = Names.newID(this.getClass().getCanonicalName());
+		FlutterPlugins.registerPlugin(specs);
+
+	}
+
 	@Override
 	public void onMethodCall (final MethodCall call, final MethodChannel.Result result) {
-		final Object argument = call.argument("invoke");
+// final Object argument = call.argument("invoke");
+		final Object argument = call.argument("json");
 		L.d("argument", argument);
-		final Map<String, Object> map = (Map<String, Object>)argument;
-		L.d("map", map);
-		final String jsonString = (String)map.get("json");
-		L.d("jsonString", jsonString);
+		final String json = (String)argument;
+		L.d("json", json);
 		try {
-			final FlutterMethodCall flutterCall = Json.deserializeFromString(FlutterMethodCall.class, jsonString);
+			final CrossLanguageMethodCall encodedFlutterCall = Json.deserializeFromString(CrossLanguageMethodCall.class, json);
 
-			final JavaMethodCall javaCall = FlutterJavaCalls.decodeMethodCall(flutterCall);
+			final JavaMethodCall javaCall = new JavaMethodCall();
+			javaCall.methodName = Names.newID(encodedFlutterCall.methodName);
 
 			final ID methodFullName = javaCall.methodName;
 
@@ -39,7 +51,7 @@ public class FlutterJavaCallListener implements MethodCallHandler {
 			final Class<?> klass = Utils.classForName(className);
 			L.d("javaCall.class", klass);
 			L.d("javaCall.method", methodName);
-			L.d("javaCall.arguments", flutterCall.arguments);
+// L.d("javaCall.arguments", javaCall.arguments);
 
 			final Class<?>[] argTypes = javaCall.argumentTypes;
 			final Object[] argValues = javaCall.argumentValues;
@@ -59,9 +71,11 @@ public class FlutterJavaCallListener implements MethodCallHandler {
 			}
 			L.d("javaInvokeResult", javaInvokeResult);
 
-			final Object flutterInvokeResult = FlutterJavaCalls.encode(javaInvokeResult);
+			final CrossLanguageMethodCallResult callResult = new CrossLanguageMethodCallResult();
 
-			result.success(flutterInvokeResult);
+			final JsonString jsonRsult = Json.serializeToString(callResult);
+
+			result.success(jsonRsult.toString());
 		} catch (final Exception e) {
 			L.e(e);
 			result.error(e.toString(), L.stackTraceToString(e), L.stackTraceToString(e));

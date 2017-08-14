@@ -1,5 +1,5 @@
 
-package com.jfixby.scarabei.api.flutter.call;
+package com.jfixby.scarabei.api.codecs;
 
 public class CrossLanguageClassNames {
 

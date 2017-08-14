@@ -1,15 +1,16 @@
 
-package com.jfixby.scarabei.red.flutter.calls;
+package com.jfixby.scarabei.red.codecs;
 
 import java.util.ArrayList;
 
+import com.jfixby.scarabei.api.codecs.JavaToCrossLanguageEncoder;
+import com.jfixby.scarabei.api.codecs.io.EncodedObject;
 import com.jfixby.scarabei.api.collections.Mapping;
 import com.jfixby.scarabei.api.err.Err;
-import com.jfixby.scarabei.api.flutter.call.JavaToCrossLanguageEncoder;
 import com.jfixby.scarabei.api.names.ID;
 import com.jfixby.scarabei.api.sys.settings.ExecutionMode;
 
-public class ScarabeiToFlutteEncoder implements JavaToCrossLanguageEncoder {
+public class ScarabeiToCrossLanguageEncoder implements JavaToCrossLanguageEncoder {
 
 	@Override
 	public boolean canEncode (final Object javaObject) {
@@ -51,7 +52,7 @@ public class ScarabeiToFlutteEncoder implements JavaToCrossLanguageEncoder {
 	}
 
 	@Override
-	public Object encode (final Object javaObject) {
+	public EncodedObject encode (final Object javaObject) {
 		if (javaObject == null) {
 			return null;
 		}

@@ -3,6 +3,7 @@ package com.jfixby.scarabei.red.desktop;
 
 import com.jfixby.scarabei.api.angles.Angles;
 import com.jfixby.scarabei.api.arrays.Arrays;
+import com.jfixby.scarabei.api.codecs.Codecs;
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.color.Colors;
 import com.jfixby.scarabei.api.debug.Debug;
@@ -31,6 +32,7 @@ import com.jfixby.scarabei.api.taskman.TaskManager;
 import com.jfixby.scarabei.api.ui.UIThread;
 import com.jfixby.scarabei.api.util.Utils;
 import com.jfixby.scarabei.red.arrays.RedArrays;
+import com.jfixby.scarabei.red.codecs.RedCodecs;
 import com.jfixby.scarabei.red.color.RedColors;
 import com.jfixby.scarabei.red.debug.RedDebug;
 import com.jfixby.scarabei.red.desktop.collections.DesktopCollections;
@@ -92,11 +94,11 @@ public class ScarabeiDesktop {
 		GCFisher.installComponent(new RedGCFisher());
 		MD5.installComponent(new RSADataSecurityIncMD5());
 		Random.installComponent(new RedRandom());
+
 		Arrays.installComponent(new RedArrays());
 		Strings.installComponent(new RedStrings());
-// Serialize.installComponent(new com.jfixby.scarabei.red.serialize.RedSerialize());
+		Codecs.installComponent(new RedCodecs());
 // --
-
 		if (Sys.isWindows()) {
 			LocalFileSystem.installComponent(new WinFileSystem());
 		} else if (Sys.isUnix() || Sys.isMac()) {
