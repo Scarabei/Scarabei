@@ -22,6 +22,7 @@ public class RedFlutterJavaCalls implements FlutterJavaCallsComponent {
 	public RedFlutterJavaCalls () {
 		final FlutterPluginSpecs specs = FlutterPlugins.newPluginSpecs();
 		specs.methodCallHandler = this.flutterListener;
+		specs.channelName = Names.newID(this.getClass().getCanonicalName());
 		FlutterPlugins.registerPlugin(specs);
 
 		this.registerDecoder(new FlutterToScarabeiDecoder());
