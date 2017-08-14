@@ -21,7 +21,7 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 
 public class FlutterJavaCallListener implements MethodCallHandler {
 
-	FlutterJavaCallListener () {
+	public FlutterJavaCallListener () {
 // final FlutterPluginSpecs specs = FlutterPlugins.newPluginSpecs();
 // specs.methodCallHandler = this;
 // specs.channelName = Names.newID(this.getClass().getCanonicalName());
