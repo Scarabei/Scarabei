@@ -33,8 +33,16 @@ public class EncodedObject<T> {
 		return encodeObject(javaObject, CrossLanguageClassNames.INTEGER);
 	}
 
+	public static EncodedObject<Double> encodeDouble (final Double javaObject) {
+		return encodeObject(javaObject, CrossLanguageClassNames.DOUBLE);
+	}
+
 	public static EncodedObject<Boolean> encodeBoolean (final Boolean javaObject) {
 		return encodeObject(javaObject, CrossLanguageClassNames.BOOL);
+	}
+
+	public static EncodedObject encodeNull () {
+		return encodeObject(null, CrossLanguageClassNames.Null);
 	}
 
 }

@@ -2,7 +2,6 @@
 package com.jfixby.scarabei.red.codecs;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import com.jfixby.scarabei.api.codecs.Codecs;
 import com.jfixby.scarabei.api.codecs.CrossLanguageClassNames;
@@ -41,6 +40,12 @@ public class ScarabeiToCrossLanguageEncoder implements JavaToCrossLanguageEncode
 		if (javaObject instanceof Byte) {
 			return true;
 		}
+		if (javaObject instanceof Float) {
+			return true;
+		}
+		if (javaObject instanceof Double) {
+			return true;
+		}
 		if (javaObject instanceof java.util.Map) {
 			return true;
 		}
@@ -57,7 +62,7 @@ public class ScarabeiToCrossLanguageEncoder implements JavaToCrossLanguageEncode
 	@Override
 	public EncodedObject encode (final Object javaObject) {
 		if (javaObject == null) {
-			return null;
+			return EncodedObject.encodeNull();
 		}
 		if (javaObject instanceof ExecutionMode) {
 			return EncodedObject.encodeExecutionMode((ExecutionMode)javaObject);
@@ -75,26 +80,37 @@ public class ScarabeiToCrossLanguageEncoder implements JavaToCrossLanguageEncode
 			return EncodedObject.encodeLong((Long)javaObject);
 		}
 		if (javaObject instanceof Integer) {
-			return EncodedObject.encodeLong((Long)javaObject);
+			return EncodedObject.encodeLong(((Integer)javaObject) * 1L);
 		}
+
+		if (javaObject instanceof Float) {
+			return EncodedObject.encodeDouble(((Float)javaObject) * 1D);
+		}
+		if (javaObject instanceof Double) {
+			return EncodedObject.encodeDouble(((Double)javaObject));
+		}
+
 		if (javaObject instanceof Byte) {
-			return EncodedObject.encodeLong((Long)javaObject);
+			return EncodedObject.encodeLong(((Byte)javaObject) * 1L);
 		}
 		if (javaObject instanceof Mapping) {
 			return Codecs.encode(((Mapping)javaObject).toJavaMap());
 		}
 		if (javaObject instanceof java.util.Map) {
 			final java.util.Map map = (java.util.Map)javaObject;
-			final java.util.Map<EncodedObject, EncodedObject> result = new HashMap<EncodedObject, EncodedObject>();
+
+			final ArrayList<ArrayList<EncodedObject>> pairsList = new ArrayList<ArrayList<EncodedObject>>();
 			for (final Object k : map.keySet()) {
 				final Object v = map.get(k);
-				final EncodedObject eK = Codecs.encode(k);
-				final EncodedObject eV = Codecs.encode(v);
-				result.put(eK, eV);
+				final EncodedObject encodedKey = Codecs.encode(k);
+				final EncodedObject encodedVal = Codecs.encode(v);
+				final ArrayList<EncodedObject> ePair = new ArrayList<EncodedObject>();
+				ePair.add(encodedKey);
+				ePair.add(encodedVal);
+				pairsList.add(ePair);
 			}
-
 			final EncodedObject encodedMap = new EncodedObject();
-			encodedMap.value = result;
+			encodedMap.value = pairsList;
 			encodedMap.type = CrossLanguageClassNames.MAP;
 			return encodedMap;
 		}

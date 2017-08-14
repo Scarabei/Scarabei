@@ -2,7 +2,6 @@
 package com.jfixby.scarabei.red.codecs;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import com.jfixby.scarabei.api.codecs.Codecs;
@@ -31,7 +30,8 @@ public class CrossLanguageToScarabeiDecoder implements CrossLanguageToJavaDecode
 		this.classes.put(CrossLanguageClassNames.BOOL, Boolean.class);
 		this.classes.put(CrossLanguageClassNames.INTEGER, Long.class);
 		this.classes.put(CrossLanguageClassNames.LIST, List.class);
-		this.classes.put(CrossLanguageClassNames.MAP, Map.class);
+		this.classes.put(CrossLanguageClassNames.Null, Void.class);
+// this.classes.put(CrossLanguageClassNames.MAP, Map.class);
 		this.classes.put(ID.class.getCanonicalName(), ID.class);
 		this.classes.put(ExecutionMode.class.getCanonicalName(), ExecutionMode.class);
 
@@ -53,34 +53,49 @@ public class CrossLanguageToScarabeiDecoder implements CrossLanguageToJavaDecode
 		final Class<?> objectType = this.classes.get(objectTypeName);
 
 		if (objectType == ID.class) {
-			return Names.newID(encodedObject + "");
+			return Names.newID(encodedObject.value + "");
 		}
 
 		if (objectType == ExecutionMode.class) {
-			return ExecutionMode.resolve(encodedObject + "");
+			return ExecutionMode.resolve(encodedObject.value + "");
+		}
+
+		if (objectType == Void.class) {
+			return null;
+		}
+
+		if (objectType == Long.class) {
+			return Long.parseLong(encodedObject.value + "");
 		}
 
 		if (objectType == List.class) {
-			final List<EncodedObject> list = (List<EncodedObject>)encodedObject.value;
+			final List<java.util.Map<String, Object>> list = (List<java.util.Map<String, Object>>)encodedObject.value;
 			final ArrayList<Object> result = new ArrayList<Object>();
-			for (final EncodedObject Ei : list) {
-				final Object Ri = Codecs.decode(Ei);
-				result.add(Ri);
+			for (final java.util.Map<String, Object> Ei : list) {
+				final EncodedObject toDecode = new EncodedObject();
+				if (Ei != null) {
+					toDecode.type = (String)Ei.get("type");
+					toDecode.value = Ei.get("value");
+					final Object Ri = Codecs.decode(toDecode);
+					result.add(Ri);
+				} else {
+					result.add(null);
+				}
 			}
 			return result;
 		}
-		if (objectType == Map.class) {
-			final Map<EncodedObject, EncodedObject> map = (Map<EncodedObject, EncodedObject>)encodedObject.value;
-			final HashMap<Object, Object> result = new HashMap<Object, Object>();
-			for (final EncodedObject Ki : map.keys()) {
-				final EncodedObject Vi = map.get(Ki);
-
-				final Object RKi = Codecs.decode(Ki);
-				final Object RVi = Codecs.decode(Vi);
-				result.put(RKi, RVi);
-			}
-			return result;
-		}
+// if (objectType == Map.class) {
+// final Map<EncodedObject, EncodedObject> map = (Map<EncodedObject, EncodedObject>)encodedObject.value;
+// final HashMap<Object, Object> result = new HashMap<Object, Object>();
+// for (final EncodedObject Ki : map.keys()) {
+// final EncodedObject Vi = map.get(Ki);
+//
+// final Object RKi = Codecs.decode(Ki);
+// final Object RVi = Codecs.decode(Vi);
+// result.put(RKi, RVi);
+// }
+// return result;
+// }
 
 		return encodedObject.value;
 	}

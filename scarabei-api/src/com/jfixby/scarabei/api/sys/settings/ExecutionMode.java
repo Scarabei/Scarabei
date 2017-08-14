@@ -34,11 +34,11 @@ public enum ExecutionMode {
 
 	public static ExecutionMode resolve (final String exeString) {
 		for (final ExecutionMode ex : ExecutionMode.values()) {
-			if (ex.toString() == exeString) {
+			if (ex.toString().equals(exeString)) {
 				return ex;
 			}
 		}
-		L.e("Failed to resolve ExecutionMode", "[" + exeString + "]");
+		L.e("Failed to resolve ExecutionMode", "<" + exeString + ">");
 		final ExecutionMode defaultMode = ExecutionMode.PUBLIC_RELEASE;
 		L.e("           setting default mode", defaultMode);
 		return defaultMode;

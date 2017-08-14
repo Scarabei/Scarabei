@@ -50,11 +50,16 @@ public class RedCodecs implements CodecsComponent {
 			flutterCall.arguments = this.encode(new ArrayList());
 		}
 		result.argumentNames = new String[flutterCall.arguments.value.size()];
+		result.argumentValues = new Object[flutterCall.arguments.value.size()];
+		result.argumentTypes = new Class[flutterCall.arguments.value.size()];
 		int i = 0;
 
 		for (final CrossLanguageMethodCallArgument flutterArgument : flutterCall.arguments.value) {
 			result.argumentNames[i] = this.decode(flutterArgument.argumentName);
 			result.argumentValues[i] = this.decode(flutterArgument.argumentValue);
+			if (result.argumentValues[i] == null) {
+				throw new Error("Argument <" + result.argumentNames[i] + "> is null.");
+			}
 			result.argumentTypes[i] = result.argumentValues[i].getClass();
 			i++;
 		}

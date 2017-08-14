@@ -12,9 +12,6 @@ public class Encoders {
 	final List<JavaToCrossLanguageEncoder> encoders = Collections.newList();
 
 	public EncodedObject encode (final Object javaObject) {
-		if (javaObject == null) {
-			return null;
-		}
 		for (final JavaToCrossLanguageEncoder e : this.encoders) {
 			if (e.canEncode(javaObject)) {
 				return e.encode(javaObject);
