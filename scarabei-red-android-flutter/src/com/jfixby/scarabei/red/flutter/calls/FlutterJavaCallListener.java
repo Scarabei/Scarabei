@@ -2,6 +2,7 @@
 package com.jfixby.scarabei.red.flutter.calls;
 
 import java.lang.reflect.Method;
+import java.util.Map;
 
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.flutter.call.FlutterJavaCalls;
@@ -20,7 +21,11 @@ public class FlutterJavaCallListener implements MethodCallHandler {
 
 	@Override
 	public void onMethodCall (final MethodCall call, final MethodChannel.Result result) {
-		final String jsonString = (String)call.argument("invoke");
+		final Object argument = call.argument("invoke");
+		L.d("argument", argument);
+		final Map<String, Object> map = (Map<String, Object>)argument;
+		L.d("map", map);
+		final String jsonString = (String)map.get("json");
 		L.d("jsonString", jsonString);
 		try {
 			final FlutterMethodCall flutterCall = Json.deserializeFromString(FlutterMethodCall.class, jsonString);
