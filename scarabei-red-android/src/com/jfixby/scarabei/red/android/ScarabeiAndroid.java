@@ -5,6 +5,7 @@ import com.jfixby.scarabei.android.api.Android;
 import com.jfixby.scarabei.android.api.AndroidComponent;
 import com.jfixby.scarabei.api.angles.Angles;
 import com.jfixby.scarabei.api.arrays.Arrays;
+import com.jfixby.scarabei.api.codecs.Codecs;
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.color.Colors;
 import com.jfixby.scarabei.api.debug.Debug;
@@ -41,6 +42,7 @@ import com.jfixby.scarabei.red.android.sys.AndroidSystem;
 import com.jfixby.scarabei.red.android.sys.settings.AndroidSettings;
 import com.jfixby.scarabei.red.android.taskman.AndroidTaskManager;
 import com.jfixby.scarabei.red.arrays.RedArrays;
+import com.jfixby.scarabei.red.codecs.RedCodecs;
 import com.jfixby.scarabei.red.color.RedColors;
 import com.jfixby.scarabei.red.debug.RedDebug;
 import com.jfixby.scarabei.red.err.RedError;
@@ -92,7 +94,7 @@ public class ScarabeiAndroid {
 		MemoryManager.installComponent(new AndroidMemoryManager());
 		L.d("Max heap size: ", MemoryManager.getMaxHeapSize() + "Mb");
 		L.d("Recommended heap size: ", MemoryManager.getRecommendedHeapSize() + "Mb");
-
+		Codecs.installComponent(new RedCodecs());
 		GCFisher.installComponent(new RedGCFisher());
 
 		MD5.installComponent(new RSADataSecurityIncMD5());

@@ -8,8 +8,6 @@ import com.jfixby.scarabei.api.codecs.JavaMethodCall;
 import com.jfixby.scarabei.api.codecs.calls.io.CrossLanguageMethodCall;
 import com.jfixby.scarabei.api.codecs.calls.io.CrossLanguageMethodCallResult;
 import com.jfixby.scarabei.api.collections.Collections;
-import com.jfixby.scarabei.api.flutter.plugins.FlutterPluginSpecs;
-import com.jfixby.scarabei.api.flutter.plugins.FlutterPlugins;
 import com.jfixby.scarabei.api.json.Json;
 import com.jfixby.scarabei.api.json.JsonString;
 import com.jfixby.scarabei.api.log.L;
@@ -24,11 +22,10 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 public class FlutterJavaCallListener implements MethodCallHandler {
 
 	FlutterJavaCallListener () {
-		final FlutterJavaCallListener flutterListener = new FlutterJavaCallListener();
-		final FlutterPluginSpecs specs = FlutterPlugins.newPluginSpecs();
-		specs.methodCallHandler = this;
-		specs.channelName = Names.newID(this.getClass().getCanonicalName());
-		FlutterPlugins.registerPlugin(specs);
+// final FlutterPluginSpecs specs = FlutterPlugins.newPluginSpecs();
+// specs.methodCallHandler = this;
+// specs.channelName = Names.newID(this.getClass().getCanonicalName());
+// FlutterPlugins.registerPlugin(specs);
 
 	}
 
