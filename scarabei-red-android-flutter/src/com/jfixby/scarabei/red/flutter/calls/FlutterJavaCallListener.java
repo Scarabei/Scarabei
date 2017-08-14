@@ -12,7 +12,6 @@ import com.jfixby.scarabei.api.json.Json;
 import com.jfixby.scarabei.api.json.JsonString;
 import com.jfixby.scarabei.api.log.L;
 import com.jfixby.scarabei.api.names.ID;
-import com.jfixby.scarabei.api.names.Names;
 import com.jfixby.scarabei.api.util.Utils;
 
 import io.flutter.plugin.common.MethodCall;
@@ -40,7 +39,6 @@ public class FlutterJavaCallListener implements MethodCallHandler {
 			final CrossLanguageMethodCall encodedFlutterCall = Json.deserializeFromString(CrossLanguageMethodCall.class, json);
 
 			final JavaMethodCall javaCall = Codecs.decodeMethodCall(encodedFlutterCall);
-			javaCall.methodName = Names.newID((String)Codecs.decode(encodedFlutterCall.methodName));
 
 			final ID methodFullName = javaCall.methodName;
 
