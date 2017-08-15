@@ -146,7 +146,7 @@ public class RedAndroidComponent implements AndroidComponent {
 			final PackageInfo pInfo = this.app.getPackageManager().getPackageInfo(this.app.getPackageName(), 0);
 			version.package_name = this.app.getPackageName();
 			version.name = pInfo.versionName;
-			version.code = pInfo.versionCode;
+			version.code = pInfo.versionCode + "";
 
 		} catch (final NameNotFoundException e) {
 			e.printStackTrace();
@@ -195,7 +195,7 @@ public class RedAndroidComponent implements AndroidComponent {
 
 		{
 			final AndroidAppVersion version = this.getAppVersion();
-			deviceInfo.put(AndroidSystemInfoTags.App.Version.Name, version.getName());
+			deviceInfo.put(AndroidSystemInfoTags.App.Version.Name, version.getName() + "");
 			deviceInfo.put(AndroidSystemInfoTags.App.Version.Code, version.getCode() + "");
 			deviceInfo.put(AndroidSystemInfoTags.App.Version.PackageName, version.getPackageName() + "");
 		}

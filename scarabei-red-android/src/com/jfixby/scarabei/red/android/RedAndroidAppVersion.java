@@ -2,12 +2,10 @@
 package com.jfixby.scarabei.red.android;
 
 import com.jfixby.scarabei.android.api.AndroidAppVersion;
-import com.jfixby.scarabei.api.names.ID;
-import com.jfixby.scarabei.api.names.Names;
 
 public class RedAndroidAppVersion implements AndroidAppVersion {
 
-	public int code = 0;
+	public String code;
 	public String name;
 	public String package_name;
 
@@ -17,13 +15,13 @@ public class RedAndroidAppVersion implements AndroidAppVersion {
 	}
 
 	@Override
-	public int getCode () {
+	public String getCode () {
 		return this.code;
 	}
 
 	@Override
-	public ID getPackageName () {
-		return Names.newID(this.package_name);
+	public String getPackageName () {
+		return (this.package_name);
 	}
 
 }
