@@ -21,6 +21,7 @@ public class RedFlutterPlugins implements FlutterPluginsComponent {
 
 	public RedFlutterPlugins (final PluginRegistry registry) {
 		this.registry = registry;
+
 	}
 
 	void registerPlugin (final ID methodCallHandlerClassName, final ID channelName, MethodCallHandler instance) {
