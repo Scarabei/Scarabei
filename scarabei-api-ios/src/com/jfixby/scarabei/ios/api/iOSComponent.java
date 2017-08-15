@@ -1,13 +1,12 @@
 
 package com.jfixby.scarabei.ios.api;
 
-import com.jfixby.scarabei.api.collections.Map;
 import com.jfixby.scarabei.api.display.DisplayMetrics;
 import com.jfixby.scarabei.api.file.File;
-import com.jfixby.scarabei.api.names.ID;
+import com.jfixby.scarabei.api.mobile.MobileDeviceComponent;
 import com.jfixby.scarabei.ios.api.camera.iOSCameraSetup;
 
-public interface iOSComponent {
+public interface iOSComponent extends MobileDeviceComponent {
 
 	iOSCameraSetup getCameraSetup ();
 
@@ -26,14 +25,6 @@ public interface iOSComponent {
 	File getApplicationSupport ();
 
 	DisplayMetrics getDisplayMetrics ();
-
-	iOSAppVersion getAppVersion ();
-
-	Map<ID, Object> getSystemInfo ();
-
-	long getMaxHeapSize ();
-
-	long getRecommendedHeapSize ();
 
 	File getAssetsFolder ();
 

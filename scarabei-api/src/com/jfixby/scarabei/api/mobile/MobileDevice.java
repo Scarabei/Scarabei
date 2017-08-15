@@ -1,28 +1,25 @@
 
-package com.jfixby.scarabei.android.api;
+package com.jfixby.scarabei.api.mobile;
 
 import com.jfixby.scarabei.api.ComponentInstaller;
 import com.jfixby.scarabei.api.collections.Map;
-import com.jfixby.scarabei.api.display.DisplayMetrics;
 import com.jfixby.scarabei.api.file.File;
-import com.jfixby.scarabei.api.mobile.MobileAppVersion;
 import com.jfixby.scarabei.api.names.ID;
 
-import android.content.Context;
+public class MobileDevice {
 
-public class Android {
+	static private ComponentInstaller<MobileDeviceComponent> componentInstaller = new ComponentInstaller<MobileDeviceComponent>(
+		"MobileDevice");
 
-	static private ComponentInstaller<AndroidComponent> componentInstaller = new ComponentInstaller<AndroidComponent>("Android");
-
-	public static final void installComponent (final AndroidComponent component_to_install) {
+	public static final void installComponent (final MobileDeviceComponent component_to_install) {
 		componentInstaller.installComponent(component_to_install);
 	}
 
-	public static final AndroidComponent invoke () {
+	public static final MobileDeviceComponent invoke () {
 		return componentInstaller.invokeComponent();
 	}
 
-	public static final AndroidComponent component () {
+	public static final MobileDeviceComponent component () {
 		return componentInstaller.getComponent();
 	}
 
@@ -46,10 +43,6 @@ public class Android {
 		return invoke().getCacheFolder();
 	}
 
-	public static DisplayMetrics getDisplayMetrics () {
-		return invoke().getDisplayMetrics();
-	}
-
 	public static String getBrand () {
 		return invoke().getBrand();
 	}
@@ -66,16 +59,8 @@ public class Android {
 		return invoke().getVersionRelease();
 	}
 
-	public static MobileAppVersion getAppVersion () {
-		return invoke().getAppVersion();
-	}
-
 	public static Map<ID, Object> getSystemInfo () {
 		return invoke().getSystemInfo();
-	}
-
-	public static Context getApplicationContext () {
-		return invoke().getApplicationContext();
 	}
 
 }

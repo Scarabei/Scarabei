@@ -1,7 +1,6 @@
 
 package com.jfixby.scarabei.red.android;
 
-import com.jfixby.scarabei.android.api.AndroidAppVersion;
 import com.jfixby.scarabei.android.api.AndroidComponent;
 import com.jfixby.scarabei.android.api.AndroidSystemInfoTags;
 import com.jfixby.scarabei.api.collections.Collections;
@@ -10,7 +9,11 @@ import com.jfixby.scarabei.api.display.DisplayMetrics;
 import com.jfixby.scarabei.api.err.Err;
 import com.jfixby.scarabei.api.file.File;
 import com.jfixby.scarabei.api.file.LocalFileSystem;
+import com.jfixby.scarabei.api.mobile.MobileAppVersion;
+import com.jfixby.scarabei.api.mobile.MobileSystemInfoTags;
 import com.jfixby.scarabei.api.names.ID;
+import com.jfixby.scarabei.api.sys.SystemInfoTags;
+import com.jfixby.scarabei.api.ver.Version;
 
 import android.app.ActivityManager;
 import android.app.Application;
@@ -139,8 +142,8 @@ public class RedAndroidComponent implements AndroidComponent {
 	}
 
 	@Override
-	public AndroidAppVersion getAppVersion () {
-		final RedAndroidAppVersion version = new RedAndroidAppVersion();
+	public MobileAppVersion getAppVersion () {
+		final MobileAppVersion version = new MobileAppVersion();
 
 		try {
 			final PackageInfo pInfo = this.app.getPackageManager().getPackageInfo(this.app.getPackageName(), 0);
@@ -158,51 +161,81 @@ public class RedAndroidComponent implements AndroidComponent {
 	@Override
 	public Map<ID, Object> getSystemInfo () {
 		final Map<ID, Object> deviceInfo = Collections.newMap();
+
 		{
 			final DisplayMetrics displayMetrics = this.getDisplayMetrics();
 			final double height = displayMetrics.getHeight();
 			final double width = displayMetrics.getWidth();
 			deviceInfo.put(AndroidSystemInfoTags.Display.WIDTH, width + "");
+			deviceInfo.put(MobileSystemInfoTags.Display.WIDTH, width + "");
 			deviceInfo.put(AndroidSystemInfoTags.Display.HEIGHT, height + "");
+			deviceInfo.put(MobileSystemInfoTags.Display.HEIGHT, height + "");
 		}
 		{
 			final String brand = this.getBrand();
 			deviceInfo.put(AndroidSystemInfoTags.Brand, brand);
+			deviceInfo.put(MobileSystemInfoTags.Brand, brand);
 		}
 		{
 			final String value = this.getSerial();
 			deviceInfo.put(AndroidSystemInfoTags.Serial, value);
+			deviceInfo.put(MobileSystemInfoTags.Serial, value);
 		}
 
 		{
 			final String value = this.getFingerPrint();
 			deviceInfo.put(AndroidSystemInfoTags.Fingerprint, value);
+			deviceInfo.put(MobileSystemInfoTags.Fingerprint, value);
 		}
 
 		{
 			final String value = this.getManufacturer();
 			deviceInfo.put(AndroidSystemInfoTags.Manufacturer, value);
+			deviceInfo.put(MobileSystemInfoTags.Manufacturer, value);
 		}
 
 		{
 			final String model = this.getModel();
 			deviceInfo.put(AndroidSystemInfoTags.Model, model);
+			deviceInfo.put(MobileSystemInfoTags.Model, model);
 		}
 		{
 			final String release = this.getVersionRelease();
 			deviceInfo.put(AndroidSystemInfoTags.Release, release);
+			deviceInfo.put(MobileSystemInfoTags.Release, release);
+		}
+		{
+			final long heap_max = this.getMaxHeapSize();
+			final long heap_rec = this.getRecommendedHeapSize();
+			deviceInfo.put(SystemInfoTags.Java.MaxHeapSize, heap_max);
+			deviceInfo.put(SystemInfoTags.Java.RecommendedHeapSize, heap_rec);
+
 		}
 
 		{
-			final AndroidAppVersion version = this.getAppVersion();
-			deviceInfo.put(AndroidSystemInfoTags.App.Version.Name, version.getName() + "");
-			deviceInfo.put(AndroidSystemInfoTags.App.Version.Code, version.getCode() + "");
-			deviceInfo.put(AndroidSystemInfoTags.App.Version.PackageName, version.getPackageName() + "");
+			final MobileAppVersion version = this.getAppVersion();
+			deviceInfo.put(AndroidSystemInfoTags.App.Version.Name, version.name + "");
+			deviceInfo.put(MobileSystemInfoTags.App.Version.Name, version.name + "");
+			deviceInfo.put(Version.Tags.VersionName, version.name + "");
+
+			deviceInfo.put(AndroidSystemInfoTags.App.Version.Code, version.code + "");
+			deviceInfo.put(MobileSystemInfoTags.App.Version.Code, version.code + "");
+			deviceInfo.put(Version.Tags.VersionCode, version.code + "");
+
+			deviceInfo.put(AndroidSystemInfoTags.App.Version.PackageName, version.package_name + "");
+			deviceInfo.put(MobileSystemInfoTags.App.Version.PackageName, version.package_name + "");
+			deviceInfo.put(Version.Tags.PackageName, version.package_name + "");
 		}
 
 		{
 			final String host = this.getHost();
 			deviceInfo.put(AndroidSystemInfoTags.Host, host);
+			deviceInfo.put(MobileSystemInfoTags.Host, host);
+		}
+
+		{
+			deviceInfo.put(SystemInfoTags.System.OS_NAME, System.getProperty("os.name"));
+			deviceInfo.put(SystemInfoTags.System.OS_VERSION, System.getProperty("os.version"));
 		}
 
 		return deviceInfo;

@@ -13,6 +13,8 @@ public class SystemInfoTags {
 
 	public static class Java {
 		public static final ID Version = Names.newID("java.version");
+		public static final ID MaxHeapSize = Names.newID("java.heap.max");
+		public static final ID RecommendedHeapSize = Names.newID("java.heap.recommended");
 	}
 
 	public static class Net {
