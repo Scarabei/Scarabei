@@ -3,6 +3,8 @@ package com.jfixby.scarabei.api.flutter.plugins;
 
 import com.jfixby.scarabei.api.ComponentInstaller;
 
+import io.flutter.plugin.common.PluginRegistry;
+
 public class FlutterPlugins {
 
 	static private ComponentInstaller<FlutterPluginsComponent> componentInstaller = new ComponentInstaller<>("FlutterPlugins");
@@ -33,6 +35,10 @@ public class FlutterPlugins {
 
 	public static FlutterPlugin registerPlugin (final FlutterPluginSpecs specs) {
 		return invoke().registerPlugin(specs);
+	}
+
+	public static PluginRegistry getFlutterPluginRegistry () {
+		return invoke().getFlutterPluginRegistry();
 	}
 
 }

@@ -91,4 +91,9 @@ public class RedFlutterPlugins implements FlutterPluginsComponent {
 		return new RedFlutterPlugin(this, specs);
 	}
 
+	@Override
+	public PluginRegistry getFlutterPluginRegistry () {
+		return this.registry;
+	}
+
 }
