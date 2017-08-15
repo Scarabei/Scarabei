@@ -9,7 +9,7 @@ import com.jfixby.scarabei.red.sys.RedSystem;
 public class GwtSystem extends RedSystem {
 
 	@Override
-	public Map<ID, String> getSystemInfo () {
+	public Map<ID, Object> getSystemInfo () {
 		Err.throwNotImplementedYet();
 		return null;
 	}

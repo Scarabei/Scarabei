@@ -34,7 +34,7 @@ public interface AndroidComponent {
 
 	AndroidAppVersion getAppVersion ();
 
-	Map<ID, String> getSystemInfo ();
+	Map<ID, Object> getSystemInfo ();
 
 	String getSerial ();
 

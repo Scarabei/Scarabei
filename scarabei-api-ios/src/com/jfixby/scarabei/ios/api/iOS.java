@@ -36,7 +36,7 @@ public class iOS {
 		return invoke().getAppVersion();
 	}
 
-	public static Map<ID, String> getSystemInfo () {
+	public static Map<ID, Object> getSystemInfo () {
 		return invoke().getSystemInfo();
 	}
 

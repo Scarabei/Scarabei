@@ -29,7 +29,7 @@ public interface iOSComponent {
 
 	iOSAppVersion getAppVersion ();
 
-	Map<ID, String> getSystemInfo ();
+	Map<ID, Object> getSystemInfo ();
 
 	long getMaxHeapSize ();
 

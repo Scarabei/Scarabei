@@ -54,7 +54,7 @@ public class Sys {
 		return invoke().isMac();
 	}
 
-	public static Map<ID, String> getSystemInfo () {
+	public static Map<ID, Object> getSystemInfo () {
 		return invoke().getSystemInfo();
 	}
 

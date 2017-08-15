@@ -156,8 +156,8 @@ public class RedAndroidComponent implements AndroidComponent {
 	}
 
 	@Override
-	public Map<ID, String> getSystemInfo () {
-		final Map<ID, String> deviceInfo = Collections.newMap();
+	public Map<ID, Object> getSystemInfo () {
+		final Map<ID, Object> deviceInfo = Collections.newMap();
 		{
 			final DisplayMetrics displayMetrics = this.getDisplayMetrics();
 			final double height = displayMetrics.getHeight();

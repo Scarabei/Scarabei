@@ -15,8 +15,8 @@ import com.jfixby.scarabei.red.sys.RedSystem;
 public class DesktopSystem extends RedSystem {
 
 	@Override
-	public Map<ID, String> getSystemInfo () {
-		final Map<ID, String> deviceInfo = Collections.newMap();
+	public Map<ID, Object> getSystemInfo () {
+		final Map<ID, Object> deviceInfo = Collections.newMap();
 
 		{
 			final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();

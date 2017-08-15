@@ -21,7 +21,7 @@ public interface SystemComponent {
 
 	boolean isMac ();
 
-	Map<ID, String> getSystemInfo ();
+	Map<ID, Object> getSystemInfo ();
 
 	void yeld ();
 

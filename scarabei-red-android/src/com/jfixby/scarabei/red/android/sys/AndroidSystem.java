@@ -12,8 +12,8 @@ import com.jfixby.scarabei.red.sys.RedSystem;
 public class AndroidSystem extends RedSystem {
 
 	@Override
-	public Map<ID, String> getSystemInfo () {
-		final Map<ID, String> androidInfo = Android.getSystemInfo();
+	public Map<ID, Object> getSystemInfo () {
+		final Map<ID, Object> androidInfo = Android.getSystemInfo();
 		androidInfo.put(Version.Tags.VersionName, androidInfo.get(AndroidSystemInfoTags.App.Version.Name));
 		androidInfo.put(Version.Tags.VersionCode, androidInfo.get(AndroidSystemInfoTags.App.Version.Code));
 		androidInfo.put(Version.Tags.PackageName, androidInfo.get(AndroidSystemInfoTags.App.Version.PackageName));
