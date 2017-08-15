@@ -11,9 +11,6 @@ import com.jfixby.scarabei.api.err.Err;
 import com.jfixby.scarabei.api.file.File;
 import com.jfixby.scarabei.api.file.LocalFileSystem;
 import com.jfixby.scarabei.api.names.ID;
-import com.jfixby.scarabei.api.sys.SystemInfoTags;
-import com.jfixby.scarabei.api.sys.settings.SystemSettings;
-import com.jfixby.scarabei.api.ver.Version;
 
 import android.app.ActivityManager;
 import android.app.Application;
@@ -206,18 +203,6 @@ public class RedAndroidComponent implements AndroidComponent {
 		{
 			final String host = this.getHost();
 			deviceInfo.put(AndroidSystemInfoTags.Host, host);
-		}
-
-		{
-			deviceInfo.put(SystemInfoTags.System.OS_NAME, System.getProperty("os.name"));
-			deviceInfo.put(SystemInfoTags.System.OS_VERSION, System.getProperty("os.version"));
-
-		}
-
-		{
-			deviceInfo.put(Version.Tags.PackageName, SystemSettings.getStringParameter(Version.Tags.PackageName, ""));
-			deviceInfo.put(Version.Tags.VersionCode, SystemSettings.getStringParameter(Version.Tags.VersionCode, ""));
-			deviceInfo.put(Version.Tags.VersionName, SystemSettings.getStringParameter(Version.Tags.VersionName, ""));
 		}
 
 		return deviceInfo;
