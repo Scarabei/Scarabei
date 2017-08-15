@@ -2,7 +2,6 @@
 package com.jfixby.scarabei.api.codecs;
 
 import com.jfixby.scarabei.api.ComponentInstaller;
-import com.jfixby.scarabei.api.codecs.calls.io.CrossLanguageMethodCall;
 import com.jfixby.scarabei.api.codecs.io.EncodedObject;
 
 public class Codecs {
@@ -35,10 +34,6 @@ public class Codecs {
 
 	public static EncodedObject encode (final Object javaObject) {
 		return invoke().encode(javaObject);
-	}
-
-	public static JavaMethodCall decodeMethodCall (final CrossLanguageMethodCall flutterCall) {
-		return invoke().decodeMethodCall(flutterCall);
 	}
 
 }

@@ -7,6 +7,8 @@ import java.util.List;
 import com.jfixby.scarabei.api.codecs.Codecs;
 import com.jfixby.scarabei.api.codecs.CrossLanguageClassNames;
 import com.jfixby.scarabei.api.codecs.CrossLanguageToJavaDecoder;
+import com.jfixby.scarabei.api.codecs.calls.io.CrossLanguageMethodCall;
+import com.jfixby.scarabei.api.codecs.calls.io.CrossLanguageMethodCallArgument;
 import com.jfixby.scarabei.api.codecs.io.EncodedObject;
 import com.jfixby.scarabei.api.collections.Collection;
 import com.jfixby.scarabei.api.collections.Collections;
@@ -31,6 +33,8 @@ public class CrossLanguageToScarabeiDecoder implements CrossLanguageToJavaDecode
 		this.classes.put(CrossLanguageClassNames.INTEGER, Long.class);
 		this.classes.put(CrossLanguageClassNames.LIST, List.class);
 		this.classes.put(CrossLanguageClassNames.Null, Void.class);
+		this.classes.put(CrossLanguageClassNames.MethodCall, CrossLanguageMethodCall.class);
+		this.classes.put(CrossLanguageClassNames.MethodCallArgument, CrossLanguageMethodCallArgument.class);
 // this.classes.put(CrossLanguageClassNames.MAP, Map.class);
 		this.classes.put(ID.class.getCanonicalName(), ID.class);
 		this.classes.put(ExecutionMode.class.getCanonicalName(), ExecutionMode.class);
@@ -60,8 +64,51 @@ public class CrossLanguageToScarabeiDecoder implements CrossLanguageToJavaDecode
 			return ExecutionMode.resolve(encodedObject.value + "");
 		}
 
+		if (objectType == CrossLanguageMethodCall.class) {
+
+			final java.util.Map<String, Object> flutterCall = (java.util.Map<String, Object>)encodedObject.value;
+			final java.util.Map<String, Object> eName = (java.util.Map<String, Object>)flutterCall
+				.get(CrossLanguageMethodCall.METHOD_NAME);
+			final java.util.Map<String, Object> eArguments = (java.util.Map<String, Object>)flutterCall
+				.get(CrossLanguageMethodCall.METHOD_ARGUMENTS);
+
+			final EncodedObject EName = new EncodedObject();
+			EName.type = (String)eName.get("type");
+			EName.value = eName.get("value");
+
+			final EncodedObject EArguments = new EncodedObject();
+			EArguments.type = (String)eArguments.get("type");
+			EArguments.value = eArguments.get("value");
+
+			final CrossLanguageMethodCall call = new CrossLanguageMethodCall();
+			call.methodName = Codecs.decode(EName);
+			call.arguments = Codecs.decode(EArguments);
+
+			return call;
+
+		}
+
 		if (objectType == Void.class) {
 			return null;
+		}
+
+		if (objectType == CrossLanguageMethodCallArgument.class) {
+			final java.util.Map<String, java.util.Map<String, Object>> argument = (java.util.Map<String, java.util.Map<String, Object>>)(encodedObject.value);
+			final CrossLanguageMethodCallArgument result = new CrossLanguageMethodCallArgument();
+			final java.util.Map<String, Object> eName = argument.get(CrossLanguageMethodCallArgument.METHOD_ARGUMENT_NAME);
+			final EncodedObject EName = new EncodedObject();
+			EName.type = (String)eName.get("type");
+			EName.value = eName.get("value");
+
+			final java.util.Map<String, Object> eValue = argument.get(CrossLanguageMethodCallArgument.METHOD_ARGUMENT_VALUE);
+
+			final EncodedObject EValue = new EncodedObject();
+			EValue.type = (String)eValue.get("type");
+			EValue.value = eValue.get("value");
+
+			result.argumentName = Codecs.decode(EName);
+			result.argumentValue = Codecs.decode(EValue);
+			return result;
 		}
 
 		if (objectType == Long.class) {

@@ -2,10 +2,12 @@
 package com.jfixby.scarabei.red.codecs;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.jfixby.scarabei.api.codecs.Codecs;
 import com.jfixby.scarabei.api.codecs.CrossLanguageClassNames;
 import com.jfixby.scarabei.api.codecs.JavaToCrossLanguageEncoder;
+import com.jfixby.scarabei.api.codecs.calls.io.CrossLanguageMethodCallResult;
 import com.jfixby.scarabei.api.codecs.io.EncodedObject;
 import com.jfixby.scarabei.api.collections.Mapping;
 import com.jfixby.scarabei.api.err.Err;
@@ -56,6 +58,10 @@ public class ScarabeiToCrossLanguageEncoder implements JavaToCrossLanguageEncode
 			return true;
 		}
 
+		if (javaObject instanceof CrossLanguageMethodCallResult) {
+			return true;
+		}
+
 		return false;
 	}
 
@@ -96,6 +102,20 @@ public class ScarabeiToCrossLanguageEncoder implements JavaToCrossLanguageEncode
 		if (javaObject instanceof Mapping) {
 			return Codecs.encode(((Mapping)javaObject).toJavaMap());
 		}
+
+		if (javaObject instanceof CrossLanguageMethodCallResult) {
+			final CrossLanguageMethodCallResult res = (CrossLanguageMethodCallResult)javaObject;
+			final EncodedObject e = new EncodedObject();
+
+			e.type = CrossLanguageClassNames.MethodCallResult;
+			final java.util.Map map = new HashMap();
+			map.put("error", Codecs.encode(res.error));
+			map.put("success", Codecs.encode(res.success));
+			map.put("result", Codecs.encode(res.result));
+			e.value = map;
+			return e;
+		}
+
 		if (javaObject instanceof java.util.Map) {
 			final java.util.Map map = (java.util.Map)javaObject;
 

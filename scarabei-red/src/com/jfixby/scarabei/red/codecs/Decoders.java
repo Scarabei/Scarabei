@@ -21,7 +21,7 @@ public class Decoders {
 		final String objectTypeName = encodedObject.type;
 
 		if (objectTypeName == null) {
-			Err.reportError("Missing object type for <" + encodedObject + ">");
+			Err.reportError("Missing object type for <" + encodedObject + "> " + encodedObject.value);
 			return null;
 		}
 

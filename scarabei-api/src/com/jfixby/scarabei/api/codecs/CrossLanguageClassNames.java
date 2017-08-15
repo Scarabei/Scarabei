@@ -10,5 +10,8 @@ public class CrossLanguageClassNames {
 	public static final String DOUBLE = "double";
 	public static final String LIST = "List";
 	public static final String MAP = "Map";
+	public static final String MethodCall = "MethodCall";
+	public static final String MethodCallArgument = "MethodCallArgument";
+	public static final String MethodCallResult = "MethodCallResult";
 
 }
