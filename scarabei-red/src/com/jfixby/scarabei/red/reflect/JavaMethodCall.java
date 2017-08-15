@@ -41,7 +41,7 @@ public class JavaMethodCall {
 			if (javaCall.argumentValues[i] == null) {
 				throw new Error("Argument <" + javaCall.argumentNames[i] + "> is null.");
 			}
-			javaCall.argumentTypes[i] = javaCall.argumentValues[i].getClass();
+			javaCall.argumentTypes[i] = argument.argumentType;
 			i++;
 		}
 

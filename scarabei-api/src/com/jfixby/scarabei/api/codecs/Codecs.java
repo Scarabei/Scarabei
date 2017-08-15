@@ -36,4 +36,8 @@ public class Codecs {
 		return invoke().encode(javaObject);
 	}
 
+	public static Class<?> resolveType (final String type) {
+		return invoke().resolveType(type);
+	}
+
 }

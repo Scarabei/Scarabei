@@ -10,4 +10,6 @@ public interface CrossLanguageToJavaDecoder {
 
 	Collection<String> listSupportedTypeNames ();
 
+	Class<?> resolveType (String objectTypeName);
+
 }

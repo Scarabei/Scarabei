@@ -13,4 +13,6 @@ public interface CodecsComponent {
 
 	void registerEncoder (JavaToCrossLanguageEncoder encoder);
 
+	Class<?> resolveType (String type);
+
 }

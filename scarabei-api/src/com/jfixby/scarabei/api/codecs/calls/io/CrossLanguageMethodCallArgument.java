@@ -7,5 +7,6 @@ public class CrossLanguageMethodCallArgument {
 
 	public String argumentName;
 	public Object argumentValue;
+	public Class<?> argumentType;
 
 }

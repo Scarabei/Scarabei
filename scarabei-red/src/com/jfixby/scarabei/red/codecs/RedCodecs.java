@@ -37,4 +37,9 @@ public class RedCodecs implements CodecsComponent {
 		return this.decoders.decode(encodedObject);
 	}
 
+	@Override
+	public Class<?> resolveType (final String type) {
+		return this.decoders.resolveType(type);
+	}
+
 }

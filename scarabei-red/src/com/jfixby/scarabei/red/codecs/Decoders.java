@@ -13,6 +13,17 @@ public class Decoders {
 
 	final Map<String, CrossLanguageToJavaDecoder> decoders = Collections.newMap();
 
+	public Class<?> resolveType (final String objectTypeName) {
+
+		final CrossLanguageToJavaDecoder decoder = this.decoders.get(objectTypeName);
+		if (decoder == null) {
+			Err.reportError("Decoder not found <" + objectTypeName + "> ");
+			return null;
+		}
+
+		return decoder.resolveType(objectTypeName);
+	}
+
 	public <T> T decode (final EncodedObject encodedObject) {
 		if (encodedObject == null) {
 			return null;

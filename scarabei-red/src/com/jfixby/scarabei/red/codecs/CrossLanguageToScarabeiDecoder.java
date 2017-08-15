@@ -108,6 +108,7 @@ public class CrossLanguageToScarabeiDecoder implements CrossLanguageToJavaDecode
 
 			result.argumentName = Codecs.decode(EName);
 			result.argumentValue = Codecs.decode(EValue);
+			result.argumentType = Codecs.resolveType(EValue.type);
 			return result;
 		}
 
@@ -145,6 +146,11 @@ public class CrossLanguageToScarabeiDecoder implements CrossLanguageToJavaDecode
 // }
 
 		return encodedObject.value;
+	}
+
+	@Override
+	public Class<?> resolveType (final String objectTypeName) {
+		return this.classes.get(objectTypeName);
 	}
 
 }
