@@ -10,6 +10,8 @@ import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.List;
 import com.jfixby.scarabei.api.collections.Map;
 import com.jfixby.scarabei.api.collections.Mapping;
+import com.jfixby.scarabei.api.debug.Debug;
+import com.jfixby.scarabei.api.debug.StateSwitcher;
 import com.jfixby.scarabei.api.io.IO;
 import com.jfixby.scarabei.api.net.http.CONNECTION_STATE;
 import com.jfixby.scarabei.api.net.http.HttpConnection;
@@ -19,8 +21,6 @@ import com.jfixby.scarabei.api.net.http.HttpConnectionSpecs;
 import com.jfixby.scarabei.api.net.http.HttpURL;
 import com.jfixby.scarabei.api.net.http.METHOD;
 import com.jfixby.scarabei.api.strings.Strings;
-import com.jfixby.scarabei.api.util.StateSwitcher;
-import com.jfixby.scarabei.api.util.Utils;
 
 public class RedHttpConnection implements HttpConnection {
 
@@ -41,7 +41,7 @@ public class RedHttpConnection implements HttpConnection {
 	private boolean octetStream;
 	private long connectionTimeout;
 	private long readTimeout;
-	private final StateSwitcher<CONNECTION_STATE> state = Utils.newStateSwitcher(CONNECTION_STATE.NEW);
+	private final StateSwitcher<CONNECTION_STATE> state = Debug.newStateSwitcher(CONNECTION_STATE.NEW);
 	private boolean instanceFollowRedirects;
 
 	public RedHttpConnection (final HttpConnectionSpecs specs) {

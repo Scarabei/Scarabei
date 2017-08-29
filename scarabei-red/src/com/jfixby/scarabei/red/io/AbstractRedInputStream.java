@@ -5,6 +5,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import com.jfixby.scarabei.api.debug.Debug;
+import com.jfixby.scarabei.api.debug.StateSwitcher;
 import com.jfixby.scarabei.api.err.Err;
 import com.jfixby.scarabei.api.io.Data;
 import com.jfixby.scarabei.api.io.InputStream;
@@ -14,7 +15,6 @@ import com.jfixby.scarabei.api.java.ByteArray;
 import com.jfixby.scarabei.api.strings.Strings;
 import com.jfixby.scarabei.api.sys.settings.ExecutionMode;
 import com.jfixby.scarabei.api.sys.settings.SystemSettings;
-import com.jfixby.scarabei.api.util.StateSwitcher;
 import com.jfixby.scarabei.api.util.Utils;
 
 public class AbstractRedInputStream<T extends JavaInputStreamOperator> implements InputStream {
@@ -52,7 +52,7 @@ public class AbstractRedInputStream<T extends JavaInputStreamOperator> implement
 	public AbstractRedInputStream (final T operator) {
 		this.operator = operator;
 		// bis = new BufferedInputStream(is, 1024 * 1024 * 4);
-		this.state = Utils.newStateSwitcher(STREAM_STATE.CLOSED);
+		this.state = Debug.newStateSwitcher(STREAM_STATE.CLOSED);
 		this.state.setDebugName(this.toString());
 		if (SystemSettings.executionModeCovers(ExecutionMode.EARLY_DEVELOPMENT)) {
 			this.source = new Exception();

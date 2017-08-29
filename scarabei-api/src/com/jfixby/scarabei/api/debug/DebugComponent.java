@@ -25,4 +25,6 @@ public interface DebugComponent {
 
 	Collection<StackTraceElement> getStackTrace ();
 
+	<T> StateSwitcher<T> newStateSwitcher (T default_state);
+
 }

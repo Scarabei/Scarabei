@@ -4,6 +4,8 @@ package com.jfixby.scarabei.red.io;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import com.jfixby.scarabei.api.debug.Debug;
+import com.jfixby.scarabei.api.debug.StateSwitcher;
 import com.jfixby.scarabei.api.err.Err;
 import com.jfixby.scarabei.api.file.FileOutputStream;
 import com.jfixby.scarabei.api.io.Data;
@@ -13,7 +15,6 @@ import com.jfixby.scarabei.api.java.ByteArray;
 import com.jfixby.scarabei.api.log.L;
 import com.jfixby.scarabei.api.sys.settings.ExecutionMode;
 import com.jfixby.scarabei.api.sys.settings.SystemSettings;
-import com.jfixby.scarabei.api.util.StateSwitcher;
 import com.jfixby.scarabei.api.util.Utils;
 
 public class AbstractRedOutputStream<T extends JavaOutputStreamOperator> implements FileOutputStream {
@@ -24,7 +25,7 @@ public class AbstractRedOutputStream<T extends JavaOutputStreamOperator> impleme
 
 	public AbstractRedOutputStream (final T operator) {
 		this.operator = operator;
-		this.state = Utils.newStateSwitcher(STREAM_STATE.CLOSED);
+		this.state = Debug.newStateSwitcher(STREAM_STATE.CLOSED);
 		if (SystemSettings.executionModeCovers(ExecutionMode.EARLY_DEVELOPMENT)) {
 			this.source = new Exception();
 		}

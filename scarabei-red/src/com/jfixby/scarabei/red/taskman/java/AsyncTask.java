@@ -4,6 +4,8 @@ package com.jfixby.scarabei.red.taskman.java;
 import com.jfixby.scarabei.api.collections.Collection;
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.List;
+import com.jfixby.scarabei.api.debug.Debug;
+import com.jfixby.scarabei.api.debug.StateSwitcher;
 import com.jfixby.scarabei.api.err.Err;
 import com.jfixby.scarabei.api.log.L;
 import com.jfixby.scarabei.api.sys.Sys;
@@ -12,8 +14,6 @@ import com.jfixby.scarabei.api.sys.settings.SystemSettings;
 import com.jfixby.scarabei.api.taskman.Job;
 import com.jfixby.scarabei.api.taskman.TASK_STATE;
 import com.jfixby.scarabei.api.taskman.Task;
-import com.jfixby.scarabei.api.util.StateSwitcher;
-import com.jfixby.scarabei.api.util.Utils;
 
 public class AsyncTask implements Task, Runnable {
 
@@ -34,7 +34,7 @@ public class AsyncTask implements Task, Runnable {
 	public AsyncTask (final String name, final Collection<Job> jobs) {
 		this.name = name;
 		this.jobs.addAll(jobs);
-		this.switcher = Utils.newStateSwitcher(TASK_STATE.ACTIVE);
+		this.switcher = Debug.newStateSwitcher(TASK_STATE.ACTIVE);
 		this.t = new Thread(this.runner);
 		this.t.start();
 	}

@@ -24,8 +24,6 @@ public interface UtilsComponent {
 
 	<T extends MountPoint> AbsolutePath<T> newAbsolutePath (T mount_point);
 
-	<T> StateSwitcher<T> newStateSwitcher (T default_state);
-
 	<T> Set<T> intersectCollections (Collection<T> listA, Collection<T> listB);
 
 	boolean equalObjects (final Object a, final Object b);

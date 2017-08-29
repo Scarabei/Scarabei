@@ -1,10 +1,10 @@
 
-package com.jfixby.scarabei.red.util;
+package com.jfixby.scarabei.red.debug;
 
+import com.jfixby.scarabei.api.debug.StateSwitcher;
 import com.jfixby.scarabei.api.err.Err;
 import com.jfixby.scarabei.api.log.L;
 import com.jfixby.scarabei.api.util.EvaluationResult;
-import com.jfixby.scarabei.api.util.StateSwitcher;
 
 public class RedStateSwitcher<T> implements StateSwitcher<T> {
 	T state;

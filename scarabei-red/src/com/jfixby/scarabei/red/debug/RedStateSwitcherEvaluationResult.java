@@ -1,5 +1,5 @@
 
-package com.jfixby.scarabei.red.util;
+package com.jfixby.scarabei.red.debug;
 
 import com.jfixby.scarabei.api.util.EvaluationResult;
 

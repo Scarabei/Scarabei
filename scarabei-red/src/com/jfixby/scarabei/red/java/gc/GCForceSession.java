@@ -3,10 +3,10 @@ package com.jfixby.scarabei.red.java.gc;
 
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.List;
+import com.jfixby.scarabei.api.debug.Debug;
+import com.jfixby.scarabei.api.debug.StateSwitcher;
 import com.jfixby.scarabei.api.java.gc.BaitInfo;
 import com.jfixby.scarabei.api.log.L;
-import com.jfixby.scarabei.api.util.StateSwitcher;
-import com.jfixby.scarabei.api.util.Utils;
 
 public class GCForceSession {
 	long session_id;
@@ -26,7 +26,7 @@ public class GCForceSession {
 		return freeSessionID;
 	}
 
-	public StateSwitcher<GCForceSessionState> state = Utils.newStateSwitcher(GCForceSessionState.NEW);
+	public StateSwitcher<GCForceSessionState> state = Debug.newStateSwitcher(GCForceSessionState.NEW);
 	final List<RedBaitInfo> activeBaits = Collections.newList();
 
 	private long thrown;

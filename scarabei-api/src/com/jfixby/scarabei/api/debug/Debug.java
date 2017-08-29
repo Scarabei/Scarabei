@@ -64,4 +64,8 @@ public class Debug {
 		invoke().reportWarning(msg);
 	}
 
+	public static <T> StateSwitcher<T> newStateSwitcher (final T default_state) {
+		return invoke().newStateSwitcher(default_state);
+	}
+
 }

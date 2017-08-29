@@ -11,7 +11,6 @@ import com.jfixby.scarabei.api.taskman.SimpleProgress;
 import com.jfixby.scarabei.api.util.BinaryCode;
 import com.jfixby.scarabei.api.util.EditableBinaryCode;
 import com.jfixby.scarabei.api.util.ProgressIndicator;
-import com.jfixby.scarabei.api.util.StateSwitcher;
 import com.jfixby.scarabei.api.util.UtilsComponent;
 import com.jfixby.scarabei.api.util.path.AbsolutePath;
 import com.jfixby.scarabei.api.util.path.MountPoint;
@@ -47,11 +46,6 @@ public class RedUtils implements UtilsComponent {
 	@Override
 	public RelativePath newRelativePath (final Collection<String> steps_list) {
 		return new RedRelativePath(steps_list);
-	}
-
-	@Override
-	public <T> StateSwitcher<T> newStateSwitcher (final T default_state) {
-		return new RedStateSwitcher<T>(default_state);
 	}
 
 	@Override

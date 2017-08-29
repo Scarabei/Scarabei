@@ -55,10 +55,6 @@ public class Utils {
 		return invoke().newRelativePath();
 	}
 
-	public static <T> StateSwitcher<T> newStateSwitcher (final T default_state) {
-		return invoke().newStateSwitcher(default_state);
-	}
-
 	public static <T> Set<T> intersectCollection (final Collection<T> listA, final Collection<T> listB) {
 		return invoke().intersectCollections(listA, listB);
 	}

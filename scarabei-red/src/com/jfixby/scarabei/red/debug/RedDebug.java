@@ -7,6 +7,7 @@ import com.jfixby.scarabei.api.collections.List;
 import com.jfixby.scarabei.api.debug.DEBUG_TIMER_MODE;
 import com.jfixby.scarabei.api.debug.DebugComponent;
 import com.jfixby.scarabei.api.debug.DebugTimer;
+import com.jfixby.scarabei.api.debug.StateSwitcher;
 import com.jfixby.scarabei.api.err.Err;
 import com.jfixby.scarabei.api.log.L;
 import com.jfixby.scarabei.api.sys.Sys;
@@ -95,6 +96,11 @@ public class RedDebug implements DebugComponent {
 	@Override
 	public DebugTimer newTimer (final DEBUG_TIMER_MODE mode) {
 		return new RedDebugTimer(mode);
+	}
+
+	@Override
+	public <T> StateSwitcher<T> newStateSwitcher (final T default_state) {
+		return new RedStateSwitcher<T>(default_state);
 	}
 
 }

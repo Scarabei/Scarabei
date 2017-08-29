@@ -1,5 +1,7 @@
 
-package com.jfixby.scarabei.api.util;
+package com.jfixby.scarabei.api.debug;
+
+import com.jfixby.scarabei.api.util.EvaluationResult;
 
 public interface StateSwitcher<T> {
 
