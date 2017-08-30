@@ -57,7 +57,7 @@ public class Decoders {
 			}
 
 			this.decoders.put(name, flutterToScarabeiDecoder);
-			L.d("Registered CrossLanguageToJavaDecoder[" + name + "]", flutterToScarabeiDecoder);
+// L.d("Registered CrossLanguageToJavaDecoder[" + name + "]", flutterToScarabeiDecoder);
 		}
 	}
 
