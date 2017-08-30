@@ -17,7 +17,7 @@ public class JavaCallExecutor {
 			javaCallResult.error = e;
 			javaCallResult.result = null;
 		}
-		L.d("javaCallResult", javaCallResult);
+// L.d("javaCallResult", javaCallResult);
 		return javaCallResult;
 	}
 }

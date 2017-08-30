@@ -7,12 +7,11 @@ import com.jfixby.scarabei.api.codecs.calls.io.CrossLanguageMethodCallResult;
 import com.jfixby.scarabei.api.codecs.io.EncodedObject;
 import com.jfixby.scarabei.api.json.Json;
 import com.jfixby.scarabei.api.json.JsonString;
-import com.jfixby.scarabei.api.log.L;
 
 public class CrossLanguageCallAdaptor {
 	public static final JsonString processCrossLanguageMethodCall (final JsonString inputJson)
 		throws ReflectiveOperationException {
-		L.d("inputJson", inputJson);
+// L.d("inputJson", inputJson);
 
 		final EncodedObject encodedFlutterCall = Json.deserializeFromString(EncodedObject.class, inputJson);
 
@@ -31,7 +30,7 @@ public class CrossLanguageCallAdaptor {
 
 		final JsonString jsonRsult = Json.serializeToString(encodedCallResult);
 
-		L.d("jsonRsult", jsonRsult);
+// L.d("jsonRsult", jsonRsult);
 
 		return jsonRsult;
 
