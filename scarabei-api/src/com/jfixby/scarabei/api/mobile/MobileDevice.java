@@ -63,4 +63,8 @@ public class MobileDevice {
 		return invoke().getSystemInfo();
 	}
 
+	public static MobileAppVersion getAppVersion () {
+		return invoke().getAppVersion();
+	}
+
 }
