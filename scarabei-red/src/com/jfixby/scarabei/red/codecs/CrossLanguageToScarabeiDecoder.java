@@ -56,6 +56,11 @@ public class CrossLanguageToScarabeiDecoder implements CrossLanguageToJavaDecode
 
 		final Class<?> objectType = this.classes.get(objectTypeName);
 
+		if (objectType == null) {
+			Err.reportError("Missing object type for <" + objectTypeName + ">");
+			return null;
+		}
+
 		if (objectType == ID.class) {
 			return Names.newID(encodedObject.value + "");
 		}
@@ -113,7 +118,15 @@ public class CrossLanguageToScarabeiDecoder implements CrossLanguageToJavaDecode
 		}
 
 		if (objectType == Long.class) {
-			return Long.parseLong(encodedObject.value + "");
+			return (long)Long.parseLong(encodedObject.value + "");
+		}
+
+		if (objectType == String.class) {
+			return encodedObject.value + "";
+		}
+
+		if (objectType == Boolean.class) {
+			return (boolean)Boolean.parseBoolean(encodedObject.value + "");
 		}
 
 		if (objectType == List.class) {
@@ -132,18 +145,8 @@ public class CrossLanguageToScarabeiDecoder implements CrossLanguageToJavaDecode
 			}
 			return result;
 		}
-// if (objectType == Map.class) {
-// final Map<EncodedObject, EncodedObject> map = (Map<EncodedObject, EncodedObject>)encodedObject.value;
-// final HashMap<Object, Object> result = new HashMap<Object, Object>();
-// for (final EncodedObject Ki : map.keys()) {
-// final EncodedObject Vi = map.get(Ki);
-//
-// final Object RKi = Codecs.decode(Ki);
-// final Object RVi = Codecs.decode(Vi);
-// result.put(RKi, RVi);
-// }
-// return result;
-// }
+
+		Err.reportError("Missing object type for <" + encodedObject.type + "> = " + encodedObject.value);
 
 		return encodedObject.value;
 	}
