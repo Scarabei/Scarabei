@@ -7,7 +7,6 @@ import com.jfixby.scarabei.api.codecs.calls.io.CrossLanguageMethodCallResult;
 import com.jfixby.scarabei.api.codecs.io.EncodedObject;
 import com.jfixby.scarabei.api.json.Json;
 import com.jfixby.scarabei.api.json.JsonString;
-import com.jfixby.scarabei.api.log.L;
 
 public class CrossLanguageCallAdaptor {
 	public static final JsonString processCrossLanguageMethodCall (final JsonString inputJson) {
@@ -27,7 +26,7 @@ public class CrossLanguageCallAdaptor {
 			crossResult = new CrossLanguageMethodCallResult();
 			crossResult.methodName = crossCall.methodName;
 			crossResult.success = false;
-			crossResult.error = L.stackTraceToString(e);
+			crossResult.error = e;
 		}
 		final EncodedObject encodedCallResult = Codecs.encode(crossResult);
 

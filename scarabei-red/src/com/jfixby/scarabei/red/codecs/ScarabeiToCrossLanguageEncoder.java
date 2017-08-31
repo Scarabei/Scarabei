@@ -57,6 +57,9 @@ public class ScarabeiToCrossLanguageEncoder implements JavaToCrossLanguageEncode
 		if (javaObject instanceof Iterable) {
 			return true;
 		}
+		if (javaObject instanceof Throwable) {
+			return true;
+		}
 
 		if (javaObject instanceof CrossLanguageMethodCallResult) {
 			return true;
@@ -94,6 +97,10 @@ public class ScarabeiToCrossLanguageEncoder implements JavaToCrossLanguageEncode
 		}
 		if (javaObject instanceof Double) {
 			return EncodedObject.encodeDouble(((Double)javaObject));
+		}
+
+		if (javaObject instanceof Throwable) {
+			return EncodedObject.encodeException(((Throwable)javaObject));
 		}
 
 		if (javaObject instanceof Byte) {

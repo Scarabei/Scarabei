@@ -2,6 +2,7 @@
 package com.jfixby.scarabei.api.codecs.io;
 
 import com.jfixby.scarabei.api.codecs.CrossLanguageClassNames;
+import com.jfixby.scarabei.api.log.L;
 import com.jfixby.scarabei.api.names.ID;
 import com.jfixby.scarabei.api.sys.settings.ExecutionMode;
 
@@ -35,6 +36,10 @@ public class EncodedObject<T> {
 
 	public static EncodedObject<Double> encodeDouble (final Double javaObject) {
 		return encodeObject(javaObject, CrossLanguageClassNames.DOUBLE);
+	}
+
+	public static EncodedObject<String> encodeException (final Throwable javaObject) {
+		return encodeObject(L.stackTraceToString(javaObject), CrossLanguageClassNames.EXCEPTION);
 	}
 
 	public static EncodedObject<Boolean> encodeBoolean (final Boolean javaObject) {
