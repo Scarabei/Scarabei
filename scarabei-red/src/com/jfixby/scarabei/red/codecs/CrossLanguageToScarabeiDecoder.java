@@ -29,8 +29,8 @@ public class CrossLanguageToScarabeiDecoder implements CrossLanguageToJavaDecode
 
 	CrossLanguageToScarabeiDecoder () {
 		this.classes.put(CrossLanguageClassNames.STRING, String.class);
-		this.classes.put(CrossLanguageClassNames.BOOL, Boolean.class);
-		this.classes.put(CrossLanguageClassNames.INTEGER, Long.class);
+		this.classes.put(CrossLanguageClassNames.BOOL, boolean.class);
+		this.classes.put(CrossLanguageClassNames.INTEGER, long.class);
 		this.classes.put(CrossLanguageClassNames.LIST, List.class);
 		this.classes.put(CrossLanguageClassNames.Null, Void.class);
 		this.classes.put(CrossLanguageClassNames.MethodCall, CrossLanguageMethodCall.class);
@@ -117,7 +117,7 @@ public class CrossLanguageToScarabeiDecoder implements CrossLanguageToJavaDecode
 			return result;
 		}
 
-		if (objectType == Long.class) {
+		if (objectType == long.class) {
 			return (long)Long.parseLong(encodedObject.value + "");
 		}
 
@@ -125,7 +125,7 @@ public class CrossLanguageToScarabeiDecoder implements CrossLanguageToJavaDecode
 			return encodedObject.value + "";
 		}
 
-		if (objectType == Boolean.class) {
+		if (objectType == boolean.class) {
 			return (boolean)Boolean.parseBoolean(encodedObject.value + "");
 		}
 
