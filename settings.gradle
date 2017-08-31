@@ -18,6 +18,6 @@ include "scarabei-red-gwt"
 
 include "scarabei-gson"
 
-
+include "scarabei-db-mysql"
 
 include "scarabei-red-flutter"
