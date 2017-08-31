@@ -24,7 +24,7 @@ public class FlutterJavaCallListener implements MethodCallHandler {
 			final JsonString inputJson = Json.newJsonString(json);
 			final JsonString jsonRsult = CrossLanguageCallAdaptor.processCrossLanguageMethodCall(inputJson);
 			result.success(jsonRsult.toString());
-		} catch (final Exception e) {// report MethodCallHandler failure
+		} catch (final Exception e) {// report MethodCallHandler failure //should never happen!
 			L.e(e);
 			result.error(e.toString(), L.stackTraceToString(e), L.stackTraceToString(e));
 			return;

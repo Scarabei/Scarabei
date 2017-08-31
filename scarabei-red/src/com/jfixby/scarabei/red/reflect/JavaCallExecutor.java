@@ -14,6 +14,7 @@ public class JavaCallExecutor {
 			javaCallResult.error = null;
 		} catch (final Throwable e) {// report java call failure
 			L.e("JavaMethodCallResult error", e.toString());
+			e.printStackTrace();
 			javaCallResult.success = false;
 			javaCallResult.error = e;
 			javaCallResult.result = null;
