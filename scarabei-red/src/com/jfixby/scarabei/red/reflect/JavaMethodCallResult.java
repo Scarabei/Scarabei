@@ -3,12 +3,14 @@ package com.jfixby.scarabei.red.reflect;
 
 import com.jfixby.scarabei.api.codecs.calls.io.CrossLanguageMethodCallResult;
 import com.jfixby.scarabei.api.log.L;
+import com.jfixby.scarabei.api.names.ID;
 
 public class JavaMethodCallResult {
 
 	public Object result;
 	public boolean success;
 	public Throwable error;
+	public ID methodName;
 
 	@Override
 	public String toString () {
@@ -17,6 +19,7 @@ public class JavaMethodCallResult {
 
 	public CrossLanguageMethodCallResult toCrossLanguageCallResult () {
 		final CrossLanguageMethodCallResult result = new CrossLanguageMethodCallResult();
+		result.methodName = this.methodName;
 		if (this.error != null) {
 			result.error = L.stackTraceToString(this.error);
 		}

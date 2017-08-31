@@ -7,6 +7,7 @@ public class JavaCallExecutor {
 
 	public static final JavaMethodCallResult executeCall (final JavaMethodCall javaCall) {
 		final JavaMethodCallResult javaCallResult = new JavaMethodCallResult();
+		javaCallResult.methodName = javaCall.methodName;
 		try {
 			javaCallResult.result = javaCall.invoke();
 			javaCallResult.success = true;

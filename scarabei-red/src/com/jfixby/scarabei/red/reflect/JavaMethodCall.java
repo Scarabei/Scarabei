@@ -9,6 +9,7 @@ import com.jfixby.scarabei.api.names.ID;
 import com.jfixby.scarabei.api.util.Utils;
 
 public class JavaMethodCall {
+	public ID methodName;
 	public String[] argumentNames;
 	public Class<?>[] argumentTypes;
 	public Object[] argumentValues;
@@ -27,6 +28,8 @@ public class JavaMethodCall {
 	public static JavaMethodCall fromCrossLanguageMethodCall (final CrossLanguageMethodCall crossCall)
 		throws ReflectiveOperationException {
 		final JavaMethodCall javaCall = new JavaMethodCall();
+
+		javaCall.methodName = crossCall.methodName;
 
 		javaCall.argumentNames = new String[crossCall.arguments.size()];
 		javaCall.argumentValues = new Object[crossCall.arguments.size()];

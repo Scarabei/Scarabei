@@ -2,7 +2,7 @@
 package com.jfixby.scarabei.red.codecs;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import com.jfixby.scarabei.api.codecs.Codecs;
 import com.jfixby.scarabei.api.codecs.CrossLanguageClassNames;
@@ -108,10 +108,11 @@ public class ScarabeiToCrossLanguageEncoder implements JavaToCrossLanguageEncode
 			final EncodedObject e = new EncodedObject();
 
 			e.type = CrossLanguageClassNames.MethodCallResult;
-			final java.util.Map map = new HashMap();
-			map.put("error", Codecs.encode(res.error));
+			final java.util.Map map = new LinkedHashMap();
+			map.put("methodName", Codecs.encode(res.methodName));
 			map.put("success", Codecs.encode(res.success));
 			map.put("result", Codecs.encode(res.result));
+			map.put("error", Codecs.encode(res.error));
 			e.value = map;
 			return e;
 		}
