@@ -43,7 +43,8 @@ public final class LocalRedFile extends AbstractRedFile implements LocalFile {
 	}
 
 	private java.io.File toAndroidNativeFile () {
-		return null;
+		final RelativePath relative = this.getAbsoluteFilePath().getRelativePath();
+		return new java.io.File(relative.toString());
 	}
 
 	public LocalRedFile (final AbsolutePath<FileSystem> absolute_path, final LocalFileSystem fileSystem) {
