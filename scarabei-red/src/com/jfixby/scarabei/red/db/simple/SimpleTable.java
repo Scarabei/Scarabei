@@ -1,5 +1,5 @@
 
-package com.jfixby.scarabei.red.db.stupid;
+package com.jfixby.scarabei.red.db.simple;
 
 import java.io.IOException;
 
@@ -12,26 +12,28 @@ import com.jfixby.scarabei.api.db.TableSchema;
 import com.jfixby.scarabei.api.file.File;
 import com.jfixby.scarabei.api.json.Json;
 import com.jfixby.scarabei.api.json.JsonString;
+import com.jfixby.scarabei.red.db.simple.srlzd.SrlzdEntry;
+import com.jfixby.scarabei.red.db.simple.srlzd.SrlzdTable;
 
-public class StupidTable implements Table {
-	final StupidDB db;
+public class SimpleTable implements Table {
+	final SimpleDB db;
 	final String tableName;
-	private final StupidTableSchema schema;
+	private final SimpleTableSchema schema;
 
 	final List<Entry> entries = Collections.newList();
-	private final File storageFile;
+	private final File entriesFile;
 
-	StupidTable (final StupidDB stupidDB, final String tableName) throws IOException {
-		this.db = stupidDB;
+	SimpleTable (final SimpleDB simpleDB, final String tableName, final SimpleTableSchema schema) throws IOException {
+		this.db = simpleDB;
 		this.tableName = tableName;
 		final String fileName = this.db.getDBName().child(tableName).child("json").toString();
-		this.storageFile = this.db.storageFolder.child(fileName);
-		if (this.storageFile.exists()) {
+		this.entriesFile = this.db.storageFolder.child(fileName);
+		if (this.entriesFile.exists()) {
 			this.readStorage();
 		} else {
 			this.writeStorage();
 		}
-		this.schema = new StupidTableSchema(this);
+		this.schema = schema;
 	}
 
 	private void writeStorage () throws IOException {
@@ -40,7 +42,7 @@ public class StupidTable implements Table {
 			table.entries.add(this.srlzEntry(e));
 		}
 		final JsonString json = Json.serializeToString(table);
-		this.storageFile.writeString(json.toString());
+		this.entriesFile.writeString(json.toString());
 	}
 
 	private SrlzdEntry srlzEntry (final Entry e) {
@@ -56,7 +58,7 @@ public class StupidTable implements Table {
 
 	@Override
 	public Entry newEntry () {
-		return new StupidEntry(this);
+		return new SimpleEntry(this);
 	}
 
 	@Override
@@ -169,5 +171,10 @@ public class StupidTable implements Table {
 	@Override
 	public String getName () {
 		return this.tableName;
+	}
+
+	public void drop () throws IOException {
+		this.entries.clear();
+		this.entriesFile.delete();
 	}
 }

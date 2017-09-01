@@ -1,5 +1,5 @@
 
-package com.jfixby.scarabei.red.db.stupid;
+package com.jfixby.scarabei.red.db.simple.srlzd;
 
 import java.util.ArrayList;
 

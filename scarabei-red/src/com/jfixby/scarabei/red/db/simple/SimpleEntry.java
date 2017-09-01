@@ -1,5 +1,5 @@
 
-package com.jfixby.scarabei.red.db.stupid;
+package com.jfixby.scarabei.red.db.simple;
 
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.Map;
@@ -8,11 +8,11 @@ import com.jfixby.scarabei.api.db.Table;
 import com.jfixby.scarabei.api.debug.Debug;
 import com.jfixby.scarabei.api.log.L;
 
-public class StupidEntry implements Entry {
+public class SimpleEntry implements Entry {
 
-	private final StupidTable table;
+	private final SimpleTable table;
 
-	StupidEntry (final StupidTable table) {
+	SimpleEntry (final SimpleTable table) {
 		this.table = table;
 	}
 
@@ -25,9 +25,12 @@ public class StupidEntry implements Entry {
 
 	@Override
 	public void setValue (final String key, final Object value) {
-		final boolean noKey = this.getOwner().getSchema().indexOf(key) >= 0;
-		L.e(this.getOwner().getSchema());
-		Debug.checkTrue("Key<" + key + "> exists", noKey);
+		final boolean hasKey = this.getOwner().getSchema().indexOf(key) >= 0;
+		if (!hasKey) {
+			L.e("schema columns", this.getOwner().getSchema().getColumns());
+		}
+
+		Debug.checkTrue("Key<" + key + "> exists", hasKey);
 		this.set(key, value);
 	}
 
