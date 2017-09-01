@@ -14,6 +14,7 @@ import com.jfixby.scarabei.api.file.FileOutputStream;
 import com.jfixby.scarabei.api.file.FileSystem;
 import com.jfixby.scarabei.api.file.LocalFileSystemComponent;
 import com.jfixby.scarabei.api.log.L;
+import com.jfixby.scarabei.api.sys.Sys;
 import com.jfixby.scarabei.api.util.Utils;
 import com.jfixby.scarabei.api.util.path.AbsolutePath;
 import com.jfixby.scarabei.api.util.path.RelativePath;
@@ -40,10 +41,10 @@ public class LocalFileSystem extends AbstractFileSystem implements LocalFileSyst
 		Debug.checkNull("file", file);
 		file = file.getAbsoluteFile();
 		RelativePath relative = null;
-		try {
+		if (!Sys.isAndroid()) {
 			final Path javaPath = file.toPath();
 			relative = this.pathToRelative(javaPath);
-		} catch (final Throwable e) {// Fuck you Android!
+		} else {// Fuck you Android!
 			final String androidAbsolutePathString = file.getAbsolutePath();
 			relative = Utils.newRelativePath(androidAbsolutePathString);
 			L.e("Android file failed to return file.toPath(). Use abs path string instead: " + relative);
