@@ -12,9 +12,9 @@ import com.jfixby.scarabei.api.log.L;
 class MySQLConnection {
 
 	private SQLException e;
-	private final MySQL mySQL;
+	private final MySQLDataBase mySQL;
 
-	public MySQLConnection (final MySQL mySQL) {
+	public MySQLConnection (final MySQLDataBase mySQL) {
 		this.mySQL = mySQL;
 	}
 

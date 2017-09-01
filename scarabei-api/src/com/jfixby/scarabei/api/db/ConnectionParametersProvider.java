@@ -1,6 +1,8 @@
 
 package com.jfixby.scarabei.api.db;
 
+import com.jfixby.scarabei.api.names.ID;
+
 public interface ConnectionParametersProvider {
 
 	public String getHost ();
@@ -11,6 +13,6 @@ public interface ConnectionParametersProvider {
 
 	public String getPassword ();
 
-	public String getDBName ();
+	public ID getDBName ();
 
 }

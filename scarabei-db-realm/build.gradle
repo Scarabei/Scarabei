@@ -1,0 +1,10 @@
+apply plugin: 'com.android.application'
+apply plugin: 'realm-android'
+
+sourceCompatibility = 1.7
+
+dependencies {
+
+    compile project(":scarabei-api")
+
+}

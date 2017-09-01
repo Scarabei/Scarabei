@@ -1,68 +1,57 @@
 
-package com.jfixby.scarabei.db.mysql;
+package com.jfixby.scarabei.db.realm;
 
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import com.jfixby.scarabei.api.collections.Collection;
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.List;
+import com.jfixby.scarabei.api.collections.Sequence;
 import com.jfixby.scarabei.api.db.Entry;
 import com.jfixby.scarabei.api.db.Table;
 import com.jfixby.scarabei.api.db.TableSchema;
 import com.jfixby.scarabei.api.debug.Debug;
 import com.jfixby.scarabei.api.log.L;
-import com.jfixby.scarabei.api.names.ID;
 import com.jfixby.scarabei.api.strings.Strings;
 
-class MySQLTable implements Table {
+import io.realm.Realm;
+import io.realm.RealmResults;
 
-	final MySQLDataBase db;
+class RealmTable implements Table {
+
+	final RealmDataBase db;
 	final String sql_table_name;
-	private final MySQLTableSchema schema;
-	private final ID name;
+	private final RealmTableSchema schema;
 
-	public MySQLTable (final MySQLDataBase mySQL, final ID name) throws IOException {
+	public RealmTable (final RealmDataBase mySQL, final String name) throws IOException {
 		this.db = mySQL;
-		this.name = name;
-		this.sql_table_name = this.db.idToDBName(name);
-		this.schema = new MySQLTableSchema(this);
+		this.sql_table_name = name;
+		this.schema = new RealmTableSchema(this);
 
 	}
 
 	@Override
 	public List<Entry> listAll () throws IOException {
-		final MySQLConnection connection = this.db.obtainConnection();
-		connection.checkIsOpen();
+		final Realm connection = this.db.obtainConnection();
 
-		try {
-			final Connection mysql_connection = connection.getConnection();
+		CallsFo
 
-			final Statement statement = mysql_connection.createStatement();
-			final String request = "SELECT * FROM " + this.sql_table_name;
-			final ResultSet result = statement.executeQuery(request);
+		final RealmResults<RealmDBEntry> result = connection.where(RealmDBEntry.class).findAll();
+		final List<Entry> resultList = this.collectResult(result);
+		return resultList;
 
-			final List<Entry> resultList = this.collectResult(result);
-
-			return resultList;
-		} catch (final SQLException e) {
-			e.printStackTrace();
-			throw new IOException(e);
-		} finally {
-			this.db.releaseConnection(connection);
-		}
 	}
 
-	private List<Entry> collectResult (final ResultSet result) throws SQLException, IOException {
+	private List<Entry> collectResult (final RealmResults<RealmDBEntry> list) {
 		final List<Entry> entries = Collections.newList();
 		final TableSchema schema = this.getSchema();
 		final Collection<String> columns = schema.getColumns();
-		while (result.next()) {
-			final Entry entry = this.readEntry(result, columns);
+		for (final RealmDBEntry e : list) {
+			final Entry entry = this.readEntry(e, columns);
 			entries.add(entry);
 		}
 
@@ -70,31 +59,30 @@ class MySQLTable implements Table {
 
 	}
 
-	private Entry readEntry (final ResultSet result, final Collection<String> columns) throws SQLException {
-		final Entry entry = this.newEntry();
-
+	private Entry readEntry (final RealmDBEntry dbEntry, final Collection<String> columns) {
+		final RealmEntry entry = this.newEntry();
 		final int N = columns.size();
 		for (int i = 0; i < N; i++) {
 			final String key = columns.getElementAt(i);
-			final String value = result.getString(i + 1);
+			final String value = dbEntry.getString(i);
 			entry.set(this.schema, this.schema.indexOf(key), value);
 		}
 		return entry;
 	}
 
 	@Override
-	public Entry newEntry () {
-		return new MySQLEntry();
+	public RealmEntry newEntry () {
+		return new RealmEntry();
 	}
 
 	@Override
-	public MySQLTableSchema getSchema () throws IOException {
+	public TableSchema getSchema () {
 		return this.schema;
 	}
 
 	private String paramString (final Entry entry, final List<String> keys, final String bracketLeft, final String bracketRight)
 		throws IOException {
-		final MySQLTableSchema schema = this.getSchema();
+		final TableSchema schema = this.getSchema();
 		final Collection<String> colums = schema.getColumns();
 
 		for (int i = 0; i < colums.size(); i++) {
@@ -106,14 +94,20 @@ class MySQLTable implements Table {
 		}
 		final String schemaString = Strings.wrapSequence(keys, keys.size(), bracketLeft, bracketRight, ", ");
 
-		return schemaString + " VALUES " + Strings.wrapSequence( (i) -> "?", keys.size(), "(", ")", ", ");
+		return schemaString + " VALUES " + Strings.wrapSequence(new Sequence<String>() {
+			@Override
+			public String getElementAt (final long i) {
+				return "?";
+			}
+		}, keys.size(), "(", ")", ", ");
 	}
 
 	@Override
 	public void clear () throws IOException {
 		L.d("clear sql table", this.sql_table_name);
 		final String request = "TRUNCATE " + this.sql_table_name;
-		final MySQLConnection connection = this.db.obtainConnection();
+		final Realm connection = this.db.obtainConnection();
+		connection.delete(clazz);
 		connection.checkIsOpen();
 		try {
 			final Connection mysql_connection = connection.getConnection();
@@ -137,7 +131,7 @@ class MySQLTable implements Table {
 		final String table_name = this.sql_table_name;
 		final List<String> keys = Collections.newList();
 		final String stm = "REPLACE " + table_name + " " + this.paramString(entry0, keys, "(", ")");
-		final MySQLConnection connection = this.db.obtainConnection();
+		final RealmConnection connection = this.db.obtainConnection();
 		connection.checkIsOpen();
 		try {
 			final Connection mysql_connection = connection.getConnection();
@@ -169,7 +163,7 @@ class MySQLTable implements Table {
 		final String table_name = this.sql_table_name;
 		final List<String> keys = Collections.newList();
 		final String stm = "INSERT INTO " + table_name + " " + this.paramString(entry0, keys, "(", ")");
-		final MySQLConnection connection = this.db.obtainConnection();
+		final RealmConnection connection = this.db.obtainConnection();
 		connection.checkIsOpen();
 		try {
 			final Connection mysql_connection = connection.getConnection();
@@ -200,7 +194,7 @@ class MySQLTable implements Table {
 		final String table_name = this.sql_table_name;
 		final List<String> keys = Collections.newList();
 		final String stm = "INSERT INTO " + table_name + " " + this.paramString(entry, keys, "(", ")");
-		final MySQLConnection connection = this.db.obtainConnection();
+		final RealmConnection connection = this.db.obtainConnection();
 		connection.checkIsOpen();
 		try {
 			final Connection mysql_connection = connection.getConnection();
@@ -227,7 +221,7 @@ class MySQLTable implements Table {
 		final String key = this.schema.getColumns().getElementAt(keyIndex);
 		Debug.checkNull("value", value);
 
-		final MySQLConnection connection = this.db.obtainConnection();
+		final RealmConnection connection = this.db.obtainConnection();
 		connection.checkIsOpen();
 		try {
 			final Connection mysql_connection = connection.getConnection();
@@ -251,7 +245,7 @@ class MySQLTable implements Table {
 		final String key = this.schema.getColumns().getElementAt(keyIndex);
 		Debug.checkNull("value", value);
 
-		final MySQLConnection connection = this.db.obtainConnection();
+		final RealmConnection connection = this.db.obtainConnection();
 		connection.checkIsOpen();
 		try {
 			final Connection mysql_connection = connection.getConnection();
@@ -283,11 +277,15 @@ class MySQLTable implements Table {
 		if (keys.size() == 0) {
 			stm = "DELETE FROM " + table_name;
 		} else {
-			stm = "DELETE FROM " + table_name + " WHERE "
-				+ Strings.wrapSequence( (i) -> keys.getElementAt(i) + "=" + "?", keys.size(), "", "", " AND ");
+			stm = "DELETE FROM " + table_name + " WHERE " + Strings.wrapSequence(new Sequence<String>() {
+				@Override
+				public String getElementAt (final long i) {
+					return keys.getElementAt(i) + "=" + "?";
+				}
+			}, keys.size(), "", "", " AND ");
 		}
 
-		final MySQLConnection connection = this.db.obtainConnection();
+		final RealmConnection connection = this.db.obtainConnection();
 		connection.checkIsOpen();
 		try {
 			final Connection mysql_connection = connection.getConnection();
@@ -316,11 +314,6 @@ class MySQLTable implements Table {
 			this.deleteEntry(e);
 		}
 
-	}
-
-	@Override
-	public ID getName () {
-		return this.name;
 	}
 
 }

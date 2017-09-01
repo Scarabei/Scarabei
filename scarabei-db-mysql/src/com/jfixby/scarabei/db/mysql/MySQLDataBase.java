@@ -12,21 +12,22 @@ import com.jfixby.scarabei.api.db.DataBase;
 import com.jfixby.scarabei.api.debug.Debug;
 import com.jfixby.scarabei.api.log.L;
 import com.jfixby.scarabei.api.math.IntegerMath;
+import com.jfixby.scarabei.api.names.ID;
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
-class MySQL implements DataBase {
+class MySQLDataBase implements DataBase {
 	String serverName;
 	String login;
 	String password;
-	String dbName;
+	ID dbName;
 	private final boolean useSSL;
 	private MysqlDataSource dataSource;
-	final Map<String, MySQLTable> tables = Collections.newMap();
+	final Map<ID, MySQLTable> tables = Collections.newMap();
 	private int port;
 	private final ConnectionParametersProvider connectionParamatesProvider;
 	private final int maxReconnects;
 
-	MySQL (final MySQLConfig config) {
+	MySQLDataBase (final MySQLConfig config) {
 		this.useSSL = config.useSSL;
 		this.connectionParamatesProvider = config.connectionParamatesProvider;
 		this.maxReconnects = (int)IntegerMath.limit(1, config.maxReconnects, Integer.MAX_VALUE);
@@ -45,7 +46,7 @@ class MySQL implements DataBase {
 			this.dataSource.setPort(this.port);
 			this.dataSource.setServerName(this.serverName);
 			this.dataSource.setUseSSL(this.useSSL);
-			this.dataSource.setDatabaseName(this.dbName);
+			this.dataSource.setDatabaseName(idToDBName(this.dbName));
 			this.dataSource.setAutoReconnect(true);
 			try {
 				this.dataSource.setConnectTimeout(1000);
@@ -56,14 +57,18 @@ class MySQL implements DataBase {
 
 	}
 
-	public String getDBName () {
+	public static String idToDBName (final ID id) {
+		return id.toString("_");
+	}
+
+	@Override
+	public ID getDBName () {
 		return this.dbName;
 	}
 
 	@Override
-	public MySQLTable getTable (final String name) throws IOException {
+	public MySQLTable getTable (final ID name) throws IOException {
 		Debug.checkNull("name", name);
-		Debug.checkEmpty("name", name);
 		MySQLTable table = this.tables.get(name);
 		if (table == null) {
 			table = new MySQLTable(this, name);
@@ -111,7 +116,7 @@ class MySQL implements DataBase {
 		this.dataSource.setPort(this.port);
 		this.dataSource.setServerName(this.serverName);
 		this.dataSource.setUseSSL(this.useSSL);
-		this.dataSource.setDatabaseName(this.dbName);
+		this.dataSource.setDatabaseName(idToDBName(this.dbName));
 		this.dataSource.setAutoReconnect(true);
 		this.dataSource.setMaxReconnects(this.maxReconnects);
 		try {
