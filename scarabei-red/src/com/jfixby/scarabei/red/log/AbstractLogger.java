@@ -69,7 +69,7 @@ public abstract class AbstractLogger implements LoggerComponent {
 
 		if (object instanceof Collection) {
 			final Collection<?> array = (Collection<?>)object;
-			final String canonocal_name = "Collection[]";
+			final String canonocal_name = tag + " > " + "Collection[]";
 			final int n = array.size();
 			if (n == 0) {
 				this.logLine(mode, frame, canonocal_name);

@@ -2,6 +2,7 @@
 package com.jfixby.scarabei.red.db.simple;
 
 import java.io.IOException;
+import java.util.Set;
 
 import com.jfixby.scarabei.api.collections.Collection;
 import com.jfixby.scarabei.api.collections.Collections;
@@ -12,6 +13,7 @@ import com.jfixby.scarabei.api.db.TableSchema;
 import com.jfixby.scarabei.api.file.File;
 import com.jfixby.scarabei.api.json.Json;
 import com.jfixby.scarabei.api.json.JsonString;
+import com.jfixby.scarabei.api.log.L;
 import com.jfixby.scarabei.red.db.simple.srlzd.SrlzdEntry;
 import com.jfixby.scarabei.red.db.simple.srlzd.SrlzdTable;
 
@@ -26,6 +28,7 @@ public class SimpleTable implements Table {
 	SimpleTable (final SimpleDB simpleDB, final String tableName, final SimpleTableSchema schema) throws IOException {
 		this.db = simpleDB;
 		this.tableName = tableName;
+		this.schema = schema;
 		final String fileName = this.db.getDBName().child(tableName).child("json").toString();
 		this.entriesFile = this.db.storageFolder.child(fileName);
 		if (this.entriesFile.exists()) {
@@ -33,7 +36,7 @@ public class SimpleTable implements Table {
 		} else {
 			this.writeStorage();
 		}
-		this.schema = schema;
+
 	}
 
 	private void writeStorage () throws IOException {
@@ -42,6 +45,7 @@ public class SimpleTable implements Table {
 			table.entries.add(this.srlzEntry(e));
 		}
 		final JsonString json = Json.serializeToString(table);
+		L.d("writing", this.entriesFile);
 		this.entriesFile.writeString(json.toString());
 	}
 
@@ -53,11 +57,26 @@ public class SimpleTable implements Table {
 		return s;
 	}
 
-	private void readStorage () {
+	private void readStorage () throws IOException {
+		L.d("reading", this.entriesFile);
+		final String data = this.entriesFile.readToString();
+		final SrlzdTable srlz = Json.deserializeFromString(SrlzdTable.class, data);
+		for (final SrlzdEntry e : srlz.entries) {
+			final Entry entry = this.deSrlzEntry(e);
+			this.entries.add(entry);
+		}
+	}
+
+	private Entry deSrlzEntry (final SrlzdEntry e) throws IOException {
+		final SimpleEntry entry = this.newEntry();
+		for (final String k : e.values.keySet()) {
+			entry.set(k, e.values.get(k));
+		}
+		return entry;
 	}
 
 	@Override
-	public Entry newEntry () {
+	public SimpleEntry newEntry () {
 		return new SimpleEntry(this);
 	}
 
@@ -104,7 +123,8 @@ public class SimpleTable implements Table {
 	}
 
 	private Entry copyValues (final Entry from, final Entry to) {
-		final Collection<String> vars = this.schema.getColumns();
+		final SimpleEntry in = (SimpleEntry)from;
+		final Set<String> vars = in.values.keySet();
 		for (final String key : vars) {
 			final Object val = from.getValue(key);
 			to.setValue(key, val);
@@ -117,9 +137,8 @@ public class SimpleTable implements Table {
 	}
 
 	@Override
-	public Collection<Entry> findEntries (final TableSchema schema, final int keyIndex, final Object value) throws IOException {
+	public Collection<Entry> findEntries (final String key, final Object value) throws IOException {
 		final List<Entry> result = Collections.newList();
-		final String key = this.schema.getColumns().getElementAt(keyIndex);
 		for (final Entry e : this.entries) {
 			final Object val = e.getValue(key);
 			if (val.equals(value)) {
@@ -130,8 +149,8 @@ public class SimpleTable implements Table {
 	}
 
 	@Override
-	public boolean deleteEntry (final TableSchema schema, final int keyIndex, final Object value) throws IOException {
-		final Collection<Entry> toDelete = this.findEntries(schema, keyIndex, value);
+	public boolean deleteEntry (final String key, final Object value) throws IOException {
+		final Collection<Entry> toDelete = this.findEntries(key, value);
 		if (toDelete.size() == 0) {
 			return false;
 		}

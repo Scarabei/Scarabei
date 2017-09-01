@@ -226,8 +226,7 @@ class MySQLTable implements Table {
 	}
 
 	@Override
-	public boolean deleteEntry (final TableSchema schema, final int keyIndex, final Object value) throws IOException {
-		final String key = this.schema.getColumns().getElementAt(keyIndex);
+	public boolean deleteEntry (final String key, final Object value) throws IOException {
 		Debug.checkNull("value", value);
 
 		final MySQLConnection connection = this.db.obtainConnection();
@@ -250,8 +249,7 @@ class MySQLTable implements Table {
 	}
 
 	@Override
-	public Collection<Entry> findEntries (final TableSchema schema, final int keyIndex, final Object value) throws IOException {
-		final String key = this.schema.getColumns().getElementAt(keyIndex);
+	public Collection<Entry> findEntries (final String key, final Object value) throws IOException {
 		Debug.checkNull("value", value);
 
 		final MySQLConnection connection = this.db.obtainConnection();

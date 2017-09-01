@@ -59,6 +59,10 @@ public class SimpleDB implements DataBase {
 		final String tableName = specs.tableName;
 		Debug.checkNull("tableName", tableName);
 		Debug.checkEmpty("tableName", tableName);
+		if (this.tables.containsKey(tableName)) {
+			throw new IOException("Table already exists<" + tableName + ">");
+		}
+
 		final SimpleTableSchema tSchema = new SimpleTableSchema();
 		tSchema.addAll(specs.columns);
 		final SimpleTable table = new SimpleTable(this, tableName, tSchema);

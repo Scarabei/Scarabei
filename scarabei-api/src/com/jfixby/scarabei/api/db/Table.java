@@ -21,9 +21,9 @@ public interface Table {
 
 	void replaceEntries (List<Entry> batch) throws IOException;
 
-	Collection<Entry> findEntries (TableSchema schema, int indexOf, Object value) throws IOException;
+	Collection<Entry> findEntries (String key, Object value) throws IOException;
 
-	boolean deleteEntry (final TableSchema schema, final int keyIndex, final Object value) throws IOException;
+	boolean deleteEntry (String key, final Object value) throws IOException;
 
 	boolean deleteEntry (Entry entry) throws IOException;
 
