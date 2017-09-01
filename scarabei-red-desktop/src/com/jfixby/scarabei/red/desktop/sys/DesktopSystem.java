@@ -44,4 +44,9 @@ public class DesktopSystem extends RedSystem {
 		return deviceInfo;
 	}
 
+	@Override
+	public boolean isAndroid () {
+		return false;
+	}
+
 }

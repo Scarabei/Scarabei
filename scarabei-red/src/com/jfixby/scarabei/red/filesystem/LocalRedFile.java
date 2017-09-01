@@ -2,8 +2,6 @@
 package com.jfixby.scarabei.red.filesystem;
 
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.List;
@@ -12,6 +10,7 @@ import com.jfixby.scarabei.api.file.File;
 import com.jfixby.scarabei.api.file.FileSystem;
 import com.jfixby.scarabei.api.file.LocalFile;
 import com.jfixby.scarabei.api.log.L;
+import com.jfixby.scarabei.api.sys.Sys;
 import com.jfixby.scarabei.api.util.path.AbsolutePath;
 import com.jfixby.scarabei.api.util.path.RelativePath;
 
@@ -21,58 +20,30 @@ public final class LocalRedFile extends AbstractRedFile implements LocalFile {
 	private final LocalFileSystem fs;
 
 	final public String getAbsolutePathString (final File file) {
-
-// final Path path = new Path(file.toJavaFile());
-
-// final String mount_point_path_string = "";
-// String relative = toNativePathString(this.getAbsoluteFilePath().getRelativePath().getPathString());
-// if (relative.length() > 0) {
-// relative = UnixFileSystem.OS_SEPARATOR + relative;
-// }
-// final String result = mount_point_path_string + relative;
-// if (result.equals("")) {
-// return "/";
-// }
-// return result;
-//
-// Err.throwNotImplementedYet();
-		return null;
+		return this.toJavaFile().getAbsolutePath();
 	}
 
 	@Override
 	final public java.io.File toJavaFile () {
+		if (Sys.isAndroid()) {
+			return this.toAndroidNativeFile();
+		} else {
+			return this.toNormalJavaFile();
+		}
+	}
 
+	private java.io.File toNormalJavaFile () {
 		final RelativePath relative = this.getAbsoluteFilePath().getRelativePath();
-// L.d("relative", relative.toString());
-// final Collection<String> steps = relative.steps();
-// final String unixPath = JUtils.wrapSequence(steps, steps.size(), "", "", "/");
-// L.d("unixPath", unixPath);
-
-// final java.io.File root = path.toFile().getAbsoluteFile();
-// L.d("root", root);
-//
-// L.d("file", this);
-// L.d("path", path);
-//
-// path = path.resolve("");
-///
-		Path path = Paths.get("root").toAbsolutePath().getRoot().toAbsolutePath();
+		java.nio.file.Path path = java.nio.file.Paths.get("root").toAbsolutePath().getRoot().toAbsolutePath();
 		for (final String step : relative.steps()) {
 			path = path.resolve(step);
-// L.d("+" + step, path);
 		}
-// L.d("root",);
-// L.d("path", path.toFile().getAbsolutePath());
-// Sys.exit();
 		final java.io.File f = path.toFile().getAbsoluteFile();
-
-// L.d("path", path);
-// L.d("f", f);
-// L.d();
-//
-// Debug.printCallStack();
-// Sys.exit();
 		return f;
+	}
+
+	private java.io.File toAndroidNativeFile () {
+		return null;
 	}
 
 	public LocalRedFile (final AbsolutePath<FileSystem> absolute_path, final LocalFileSystem fileSystem) {
@@ -244,19 +215,6 @@ public final class LocalRedFile extends AbstractRedFile implements LocalFile {
 
 		}
 	}
-
-// final public String getAbsolutePathString () {
-// return this.fs.getAbsolutePathString(this);
-// }
-
-// final public String toAbsolutePathString () {
-// return this.getAbsolutePathString();
-// }
-
-// final public java.io.File getJavaFile () {
-// final java.io.File file = new java.io.File(this.getAbsolutePathString());
-// return file;
-// }
 
 	@Override
 	final public long getSize () {

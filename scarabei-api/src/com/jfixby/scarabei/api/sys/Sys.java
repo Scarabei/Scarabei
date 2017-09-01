@@ -74,4 +74,8 @@ public class Sys {
 		return invoke().isIOS();
 	}
 
+	public static boolean isAndroid () {
+		return invoke().isAndroid();
+	}
+
 }

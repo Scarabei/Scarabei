@@ -14,4 +14,9 @@ public class AndroidSystem extends RedSystem {
 
 		return androidInfo;
 	}
+
+	@Override
+	public boolean isAndroid () {
+		return true;
+	}
 }

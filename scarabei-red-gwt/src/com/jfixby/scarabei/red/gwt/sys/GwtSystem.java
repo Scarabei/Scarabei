@@ -14,4 +14,8 @@ public class GwtSystem extends RedSystem {
 		return null;
 	}
 
+	@Override
+	public boolean isAndroid () {
+		return false;
+	}
 }

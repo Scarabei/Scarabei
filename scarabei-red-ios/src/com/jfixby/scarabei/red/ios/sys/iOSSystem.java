@@ -12,4 +12,9 @@ public class iOSSystem extends RedSystem {
 	public Map<ID, Object> getSystemInfo () {
 		return iOS.getSystemInfo();
 	}
+
+	@Override
+	public boolean isAndroid () {
+		return false;
+	}
 }

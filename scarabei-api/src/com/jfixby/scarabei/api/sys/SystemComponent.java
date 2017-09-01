@@ -31,4 +31,6 @@ public interface SystemComponent {
 
 	boolean isIOS ();
 
+	boolean isAndroid ();
+
 }
