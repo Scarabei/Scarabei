@@ -149,12 +149,12 @@ public class CrossLanguageToScarabeiDecoder implements CrossLanguageToJavaDecode
 
 		if (objectType == Map.class) {
 			final LinkedHashMap result = new LinkedHashMap();
-			final List<List<EncodedObject>> pairs = (List<List<EncodedObject>>)encodedObject.value;
-			for (final List<EncodedObject> p : pairs) {
-				final EncodedObject eKey = p.get(0);
-				final EncodedObject eValue = p.get(1);
-				final Object key = Codecs.decode(eKey);
-				final Object value = Codecs.decode(eValue);
+			final List<List<java.util.Map>> pairs = (List<List<java.util.Map>>)encodedObject.value;
+			for (final List<java.util.Map> p : pairs) {
+				final java.util.Map eKey = p.get(0);
+				final java.util.Map eValue = p.get(1);
+				final Object key = (this.toDecode(eKey));
+				final Object value = (this.toDecode(eValue));
 				result.put(key, value);
 			}
 			return result;
@@ -163,6 +163,19 @@ public class CrossLanguageToScarabeiDecoder implements CrossLanguageToJavaDecode
 		Err.reportError("Missing object type for <" + encodedObject.type + "> = " + encodedObject.value);
 
 		return encodedObject.value;
+	}
+
+	private Object toDecode (final java.util.Map Ei) {
+
+		final EncodedObject toDecode = new EncodedObject();
+		if (Ei != null) {
+			toDecode.type = (String)Ei.get("type");
+			toDecode.value = Ei.get("value");
+			final Object Ri = Codecs.decode(toDecode);
+			return Ri;
+		} else {
+			return null;
+		}
 	}
 
 	@Override
