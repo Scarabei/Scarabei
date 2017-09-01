@@ -2,6 +2,7 @@
 package com.jfixby.scarabei.red.codecs;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import com.jfixby.scarabei.api.codecs.Codecs;
@@ -35,7 +36,7 @@ public class CrossLanguageToScarabeiDecoder implements CrossLanguageToJavaDecode
 		this.classes.put(CrossLanguageClassNames.Null, Void.class);
 		this.classes.put(CrossLanguageClassNames.MethodCall, CrossLanguageMethodCall.class);
 		this.classes.put(CrossLanguageClassNames.MethodCallArgument, CrossLanguageMethodCallArgument.class);
-// this.classes.put(CrossLanguageClassNames.MAP, Map.class);
+		this.classes.put(CrossLanguageClassNames.MAP, Map.class);
 		this.classes.put(ID.class.getCanonicalName(), ID.class);
 		this.classes.put(ExecutionMode.class.getCanonicalName(), ExecutionMode.class);
 
@@ -142,6 +143,19 @@ public class CrossLanguageToScarabeiDecoder implements CrossLanguageToJavaDecode
 				} else {
 					result.add(null);
 				}
+			}
+			return result;
+		}
+
+		if (objectType == Map.class) {
+			final LinkedHashMap result = new LinkedHashMap();
+			final List<List<EncodedObject>> pairs = (List<List<EncodedObject>>)encodedObject.value;
+			for (final List<EncodedObject> p : pairs) {
+				final EncodedObject eKey = p.get(0);
+				final EncodedObject eValue = p.get(1);
+				final Object key = Codecs.decode(eKey);
+				final Object value = Codecs.decode(eValue);
+				result.put(key, value);
 			}
 			return result;
 		}
