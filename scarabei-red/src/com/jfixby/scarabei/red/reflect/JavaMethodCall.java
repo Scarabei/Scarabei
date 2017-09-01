@@ -6,7 +6,7 @@ import java.lang.reflect.Method;
 import com.jfixby.scarabei.api.codecs.calls.io.CrossLanguageMethodCall;
 import com.jfixby.scarabei.api.codecs.calls.io.CrossLanguageMethodCallArgument;
 import com.jfixby.scarabei.api.names.ID;
-import com.jfixby.scarabei.api.util.Utils;
+import com.jfixby.scarabei.api.reflect.Reflections;
 
 public class JavaMethodCall {
 	public ID methodName;
@@ -51,7 +51,7 @@ public class JavaMethodCall {
 
 			final String methodName = methodFullName.getLastStep();
 			final ID className = methodFullName.parent();
-			final Class<?> klass = Utils.classForName(className);
+			final Class<?> klass = Reflections.resolveClass(className);
 // L.d("javaCall.class", klass);
 // L.d("javaCall.method", methodName);
 // L.d("javaCall.arguments", javaCall.arguments);

@@ -5,8 +5,6 @@ import com.jfixby.scarabei.api.collections.Collection;
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.Set;
 import com.jfixby.scarabei.api.java.ByteArray;
-import com.jfixby.scarabei.api.names.ID;
-import com.jfixby.scarabei.api.names.Names;
 import com.jfixby.scarabei.api.taskman.SimpleProgress;
 import com.jfixby.scarabei.api.util.BinaryCode;
 import com.jfixby.scarabei.api.util.EditableBinaryCode;
@@ -113,26 +111,6 @@ public class RedUtils implements UtilsComponent {
 	@Override
 	public ProgressIndicator newProgressIndicator () {
 		return new RedProgressIndicator();
-	}
-
-	private ID NULL_NAME;
-
-	@Override
-	public ID nameOf (final Class<?> type) {
-		if (type == null) {
-			if (this.NULL_NAME == null) {
-				this.NULL_NAME = Names.newID("null");
-			}
-			return this.NULL_NAME;
-		}
-		return Names.newID(type.getCanonicalName());
-	}
-
-	@Override
-	public Class<?> classForName (final ID className) throws ClassNotFoundException {
-		final ClassLoader classLoader = this.getClass().getClassLoader();
-		final Class<?> klass = Class.forName(className.toString(), true, classLoader);
-		return klass;
 	}
 
 }

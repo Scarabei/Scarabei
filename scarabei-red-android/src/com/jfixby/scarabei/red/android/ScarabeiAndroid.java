@@ -27,6 +27,7 @@ import com.jfixby.scarabei.api.memory.MemoryManager;
 import com.jfixby.scarabei.api.names.Names;
 import com.jfixby.scarabei.api.net.http.Http;
 import com.jfixby.scarabei.api.random.Random;
+import com.jfixby.scarabei.api.reflect.Reflections;
 import com.jfixby.scarabei.api.strings.Strings;
 import com.jfixby.scarabei.api.sys.Sys;
 import com.jfixby.scarabei.api.sys.settings.SystemSettings;
@@ -58,6 +59,7 @@ import com.jfixby.scarabei.red.math.RedIntegerMath;
 import com.jfixby.scarabei.red.math.RedMathTools;
 import com.jfixby.scarabei.red.name.DNS;
 import com.jfixby.scarabei.red.random.RedRandom;
+import com.jfixby.scarabei.red.reflect.RedReflections;
 import com.jfixby.scarabei.red.string.RedStrings;
 import com.jfixby.scarabei.red.util.RedUtils;
 import com.jfixby.scarabei.red.util.md5.RSADataSecurityIncMD5;
@@ -86,6 +88,9 @@ public class ScarabeiAndroid {
 		IO.installComponent(new RedIO());
 		Graphs.installComponent(new RedGraphs());
 		Json.installComponent(new GoogleJson());
+
+		Reflections.installComponent(new RedReflections());
+
 		Angles.installComponent(new RedAngles());
 		Geometry.installComponent(new RedGeometry());
 		Colors.installComponent(new RedColors());
