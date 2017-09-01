@@ -7,7 +7,7 @@ import com.jfixby.scarabei.api.names.ID;
 
 public interface DataBase {
 
-	Table getTable (ID tableName) throws IOException;
+	Table getTable (String tableName) throws IOException;
 
 	public ID getDBName ();
 

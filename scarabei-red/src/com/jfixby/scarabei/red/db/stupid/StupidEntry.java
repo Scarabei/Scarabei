@@ -5,7 +5,8 @@ import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.Map;
 import com.jfixby.scarabei.api.db.Entry;
 import com.jfixby.scarabei.api.db.Table;
-import com.jfixby.scarabei.api.db.TableSchema;
+import com.jfixby.scarabei.api.debug.Debug;
+import com.jfixby.scarabei.api.log.L;
 
 public class StupidEntry implements Entry {
 
@@ -18,13 +19,15 @@ public class StupidEntry implements Entry {
 	final Map<String, Object> values = Collections.newMap();
 
 	@Override
-	public String getValue (final String parameterName) {
-		return StupidTable.toString(this.values.get(parameterName));
+	public Object getValue (final String parameterName) {
+		return this.values.get(parameterName);
 	}
 
 	@Override
-	public void set (final TableSchema schema, final int keyIndex, final Object value) {
-		final String key = schema.getColumns().getElementAt(keyIndex);
+	public void setValue (final String key, final Object value) {
+		final boolean noKey = this.getOwner().getSchema().indexOf(key) >= 0;
+		L.e(this.getOwner().getSchema());
+		Debug.checkTrue("Key<" + key + "> exists", noKey);
 		this.set(key, value);
 	}
 

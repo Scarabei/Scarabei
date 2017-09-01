@@ -9,19 +9,49 @@ import com.jfixby.scarabei.api.collections.List;
 import com.jfixby.scarabei.api.db.Entry;
 import com.jfixby.scarabei.api.db.Table;
 import com.jfixby.scarabei.api.db.TableSchema;
-import com.jfixby.scarabei.api.names.ID;
+import com.jfixby.scarabei.api.file.File;
+import com.jfixby.scarabei.api.json.Json;
+import com.jfixby.scarabei.api.json.JsonString;
 
 public class StupidTable implements Table {
 	final StupidDB db;
-	final ID tableName;
+	final String tableName;
 	private final StupidTableSchema schema;
 
 	final List<Entry> entries = Collections.newList();
+	private final File storageFile;
 
-	StupidTable (final StupidDB stupidDB, final ID tableName) {
+	StupidTable (final StupidDB stupidDB, final String tableName) throws IOException {
 		this.db = stupidDB;
 		this.tableName = tableName;
+		final String fileName = this.db.getDBName().child(tableName).child("json").toString();
+		this.storageFile = this.db.storageFolder.child(fileName);
+		if (this.storageFile.exists()) {
+			this.readStorage();
+		} else {
+			this.writeStorage();
+		}
 		this.schema = new StupidTableSchema(this);
+	}
+
+	private void writeStorage () throws IOException {
+		final SrlzdTable table = new SrlzdTable();
+		for (final Entry e : this.entries) {
+			table.entries.add(this.srlzEntry(e));
+		}
+		final JsonString json = Json.serializeToString(table);
+		this.storageFile.writeString(json.toString());
+	}
+
+	private SrlzdEntry srlzEntry (final Entry e) {
+		final SrlzdEntry s = new SrlzdEntry();
+		for (final String key : this.schema.columns) {
+			s.values.put(key, e.getValue(key));
+		}
+		return s;
+	}
+
+	private void readStorage () {
 	}
 
 	@Override
@@ -30,7 +60,7 @@ public class StupidTable implements Table {
 	}
 
 	@Override
-	public TableSchema getSchema () throws IOException {
+	public TableSchema getSchema () {
 		return this.schema;
 	}
 
@@ -42,18 +72,21 @@ public class StupidTable implements Table {
 	@Override
 	public void addEntry (final Entry entry) throws IOException {
 		this.entries.add(this.copyValues(entry));
+		this.writeStorage();
 	}
 
 	@Override
 	public void addEntries (final Collection<Entry> batch) throws IOException {
 		for (final Entry entry : batch) {
-			this.addEntry(entry);
+			this.entries.add(this.copyValues(entry));
 		}
+		this.writeStorage();
 	}
 
 	@Override
 	public void clear () throws IOException {
 		this.entries.clear();
+		this.writeStorage();
 	}
 
 	@Override
@@ -65,13 +98,14 @@ public class StupidTable implements Table {
 				}
 			}
 		}
+		this.writeStorage();
 	}
 
 	private Entry copyValues (final Entry from, final Entry to) {
 		final Collection<String> vars = this.schema.getColumns();
 		for (final String key : vars) {
-			final String val = from.getValue(key);
-			to.set(this.schema, this.schema.indexOf(key), val);
+			final Object val = from.getValue(key);
+			to.setValue(key, val);
 		}
 		return to;
 	}
@@ -85,8 +119,8 @@ public class StupidTable implements Table {
 		final List<Entry> result = Collections.newList();
 		final String key = this.schema.getColumns().getElementAt(keyIndex);
 		for (final Entry e : this.entries) {
-			final String val = e.getValue(key);
-			if (val.equals(this.toString(value))) {
+			final Object val = e.getValue(key);
+			if (val.equals(value)) {
 				result.add(this.copyValues(e));
 			}
 		}
@@ -103,15 +137,12 @@ public class StupidTable implements Table {
 		return true;
 	}
 
-	public static String toString (final Object value) {
-		return value == null ? null : value.toString();
-	}
-
 	@Override
 	public boolean deleteEntry (final Entry entry) throws IOException {
 		for (final Entry e : this.entries) {
 			if (this.isTheSame(e, entry)) {
 				this.entries.remove(e);
+				this.writeStorage();
 				return true;
 			}
 		}
@@ -124,13 +155,19 @@ public class StupidTable implements Table {
 
 	@Override
 	public void deleteEntries (final Collection<Entry> paramEntries) throws IOException {
-		for (final Entry e : paramEntries) {
-			this.deleteEntry(e);
+		for (final Entry d : paramEntries) {
+			for (final Entry e : this.entries) {
+				if (this.isTheSame(e, d)) {
+					this.entries.remove(e);
+					break;
+				}
+			}
 		}
+		this.writeStorage();
 	}
 
 	@Override
-	public ID getName () {
+	public String getName () {
 		return this.tableName;
 	}
 }

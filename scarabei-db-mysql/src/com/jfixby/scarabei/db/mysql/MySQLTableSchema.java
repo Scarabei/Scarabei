@@ -25,8 +25,7 @@ class MySQLTableSchema implements TableSchema {
 		try {
 			final Connection mysql_connection = connection.getConnection();
 			final DatabaseMetaData meta = mysql_connection.getMetaData();
-			final ResultSet resultSet = meta.getColumns(this.mySQLTable.db.idToDBName(this.mySQLTable.db.getDBName()), null,
-				this.mySQLTable.sql_table_name, "%");
+			final ResultSet resultSet = meta.getColumns(this.mySQLTable.getName(), null, this.mySQLTable.sql_table_name, "%");
 			while (resultSet.next()) {
 				this.columns.add(resultSet.getString(4));
 // log.info("Column Name of table " + tableName + " = " + );

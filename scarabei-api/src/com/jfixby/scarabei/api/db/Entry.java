@@ -3,9 +3,9 @@ package com.jfixby.scarabei.api.db;
 
 public interface Entry {
 
-	String getValue (String parameterName);
+	Object getValue (String key);
 
-	void set (TableSchema schema, int indexOf, Object value);
+	void setValue (String key, Object value);
 
 	Table getOwner ();
 

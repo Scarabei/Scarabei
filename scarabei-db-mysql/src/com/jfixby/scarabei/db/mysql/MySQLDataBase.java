@@ -22,7 +22,7 @@ class MySQLDataBase implements DataBase {
 	ID dbName;
 	private final boolean useSSL;
 	private MysqlDataSource dataSource;
-	final Map<ID, MySQLTable> tables = Collections.newMap();
+	final Map<String, MySQLTable> tables = Collections.newMap();
 	private int port;
 	private final ConnectionParametersProvider connectionParamatesProvider;
 	private final int maxReconnects;
@@ -46,7 +46,7 @@ class MySQLDataBase implements DataBase {
 			this.dataSource.setPort(this.port);
 			this.dataSource.setServerName(this.serverName);
 			this.dataSource.setUseSSL(this.useSSL);
-			this.dataSource.setDatabaseName(idToDBName(this.dbName));
+			this.dataSource.setDatabaseName(this.idToDBName(this.dbName));
 			this.dataSource.setAutoReconnect(true);
 			try {
 				this.dataSource.setConnectTimeout(1000);
@@ -57,8 +57,8 @@ class MySQLDataBase implements DataBase {
 
 	}
 
-	public static String idToDBName (final ID id) {
-		return id.toString("_");
+	public static String idToDBName (final ID dbName) {
+		return dbName.toString("_");
 	}
 
 	@Override
@@ -67,7 +67,7 @@ class MySQLDataBase implements DataBase {
 	}
 
 	@Override
-	public MySQLTable getTable (final ID name) throws IOException {
+	public MySQLTable getTable (final String name) throws IOException {
 		Debug.checkNull("name", name);
 		MySQLTable table = this.tables.get(name);
 		if (table == null) {
@@ -116,7 +116,7 @@ class MySQLDataBase implements DataBase {
 		this.dataSource.setPort(this.port);
 		this.dataSource.setServerName(this.serverName);
 		this.dataSource.setUseSSL(this.useSSL);
-		this.dataSource.setDatabaseName(idToDBName(this.dbName));
+		this.dataSource.setDatabaseName(this.idToDBName(this.dbName));
 		this.dataSource.setAutoReconnect(true);
 		this.dataSource.setMaxReconnects(this.maxReconnects);
 		try {

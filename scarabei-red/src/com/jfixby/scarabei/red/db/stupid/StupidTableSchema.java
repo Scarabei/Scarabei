@@ -8,6 +8,11 @@ import com.jfixby.scarabei.api.db.TableSchema;
 
 public class StupidTableSchema implements TableSchema {
 
+	@Override
+	public String toString () {
+		return "TableSchema<" + this.stupidTable.getName() + "> columns=" + this.columns + "";
+	}
+
 	private final StupidTable stupidTable;
 
 	final List<String> columns = Collections.newList();

@@ -5,12 +5,11 @@ import java.io.IOException;
 
 import com.jfixby.scarabei.api.collections.Collection;
 import com.jfixby.scarabei.api.collections.List;
-import com.jfixby.scarabei.api.names.ID;
 
 public interface Table {
 	Entry newEntry ();
 
-	TableSchema getSchema () throws IOException;
+	TableSchema getSchema ();
 
 	Collection<Entry> listAll () throws IOException;
 
@@ -30,5 +29,5 @@ public interface Table {
 
 	void deleteEntries (Collection<Entry> paramEntries) throws IOException;
 
-	ID getName ();
+	String getName ();
 }

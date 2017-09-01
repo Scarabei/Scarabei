@@ -5,7 +5,7 @@ import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.Map;
 import com.jfixby.scarabei.api.db.Entry;
 import com.jfixby.scarabei.api.db.Table;
-import com.jfixby.scarabei.api.db.TableSchema;
+import com.jfixby.scarabei.api.debug.Debug;
 
 class MySQLEntry implements Entry {
 
@@ -27,8 +27,8 @@ class MySQLEntry implements Entry {
 	}
 
 	@Override
-	public void set (final TableSchema schema, final int keyIndex, final Object value) {
-		final String key = schema.getColumns().getElementAt(keyIndex);
+	public void setValue (final String key, final Object value) {
+		Debug.checkTrue("Key<" + key + "> exists", this.getOwner().getSchema().indexOf(key) >= 0);
 		this.set(key, value);
 	}
 

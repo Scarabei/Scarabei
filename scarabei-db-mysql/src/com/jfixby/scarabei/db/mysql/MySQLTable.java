@@ -16,7 +16,6 @@ import com.jfixby.scarabei.api.db.Table;
 import com.jfixby.scarabei.api.db.TableSchema;
 import com.jfixby.scarabei.api.debug.Debug;
 import com.jfixby.scarabei.api.log.L;
-import com.jfixby.scarabei.api.names.ID;
 import com.jfixby.scarabei.api.strings.Strings;
 
 class MySQLTable implements Table {
@@ -24,12 +23,10 @@ class MySQLTable implements Table {
 	final MySQLDataBase db;
 	final String sql_table_name;
 	private final MySQLTableSchema schema;
-	private final ID name;
 
-	public MySQLTable (final MySQLDataBase mySQL, final ID name) throws IOException {
+	public MySQLTable (final MySQLDataBase mySQL, final String name) throws IOException {
 		this.db = mySQL;
-		this.name = name;
-		this.sql_table_name = this.db.idToDBName(name);
+		this.sql_table_name = name;
 		this.schema = new MySQLTableSchema(this);
 
 	}
@@ -77,7 +74,7 @@ class MySQLTable implements Table {
 		for (int i = 0; i < N; i++) {
 			final String key = columns.getElementAt(i);
 			final String value = result.getString(i + 1);
-			entry.set(this.schema, this.schema.indexOf(key), value);
+			entry.setValue(key, value);
 		}
 		return entry;
 	}
@@ -88,7 +85,7 @@ class MySQLTable implements Table {
 	}
 
 	@Override
-	public MySQLTableSchema getSchema () throws IOException {
+	public MySQLTableSchema getSchema () {
 		return this.schema;
 	}
 
@@ -99,7 +96,7 @@ class MySQLTable implements Table {
 
 		for (int i = 0; i < colums.size(); i++) {
 			final String key = colums.getElementAt(i);
-			final String value = entry.getValue(key);
+			final Object value = entry.getValue(key);
 			if (value != null) {
 				keys.add(key);
 			}
@@ -146,8 +143,10 @@ class MySQLTable implements Table {
 				final Entry entry = batch.getElementAt(b);
 				for (int i = 0; i < keys.size(); i++) {
 					final String key = keys.getElementAt(i);
-					final String value = entry.getValue(key);
-					statement.setString(i + 1, value);
+					final Object value = entry.getValue(key);
+
+					statement.setString(i + 1, this.toString(value));
+
 				}
 				statement.addBatch();
 			}
@@ -158,6 +157,10 @@ class MySQLTable implements Table {
 		} finally {
 			this.db.releaseConnection(connection);
 		}
+	}
+
+	private String toString (final Object value) {
+		return value == null ? null : value.toString();
 	}
 
 	@Override
@@ -180,8 +183,8 @@ class MySQLTable implements Table {
 				for (int i = 0; i < keys.size(); i++) {
 					final String key = keys.getElementAt(i);
 // final String value = entry.getValue(key);
-					final String value = entry.getValue(key);
-					statement.setString(i + 1, value);
+					final Object value = entry.getValue(key);
+					statement.setString(i + 1, this.toString(value));
 				}
 				statement.addBatch();
 			}
@@ -209,8 +212,8 @@ class MySQLTable implements Table {
 
 			for (int i = 0; i < keys.size(); i++) {
 				final String key = keys.getElementAt(i);
-				final String value = entry.getValue(key);
-				statement.setString(i + 1, value);
+				final Object value = entry.getValue(key);
+				statement.setString(i + 1, this.toString(value));
 			}
 
 			statement.execute();
@@ -295,8 +298,8 @@ class MySQLTable implements Table {
 				.prepareStatement(stm);
 			int k = 1;
 			for (int i = 0; i < keys.size(); i++) {
-				final String valuei = entry.getValue(keys.getElementAt(i));
-				statement.setString(k, valuei);
+				final Object valuei = entry.getValue(keys.getElementAt(i));
+				statement.setString(k, this.toString(valuei));
 				k++;
 			}
 
@@ -319,8 +322,8 @@ class MySQLTable implements Table {
 	}
 
 	@Override
-	public ID getName () {
-		return this.name;
+	public String getName () {
+		return this.sql_table_name;
 	}
 
 }
