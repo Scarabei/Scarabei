@@ -73,7 +73,7 @@ class RealmTable implements Table {
 
 	@Override
 	public RealmEntry newEntry () {
-		return new RealmEntry();
+		return new RealmEntry(this);
 	}
 
 	@Override
@@ -130,7 +130,7 @@ class RealmTable implements Table {
 		return delete;
 	}
 
-	private String toString (final Object value) {
+	public static String toString (final Object value) {
 		if (value == null) {
 			return null;
 		}

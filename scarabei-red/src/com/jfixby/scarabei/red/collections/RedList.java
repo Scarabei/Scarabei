@@ -245,4 +245,9 @@ public abstract class RedList<T> implements List<T> {
 		return Collections.filter(this, filter);
 	}
 
+	@Override
+	public List<T> copy () {
+		return Collections.newList(this);
+	}
+
 }

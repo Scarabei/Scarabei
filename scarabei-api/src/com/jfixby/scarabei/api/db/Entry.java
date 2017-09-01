@@ -7,4 +7,6 @@ public interface Entry {
 
 	void set (TableSchema schema, int indexOf, Object value);
 
+	Table getOwner ();
+
 }

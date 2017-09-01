@@ -4,17 +4,23 @@ package com.jfixby.scarabei.db.realm;
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.Map;
 import com.jfixby.scarabei.api.db.Entry;
+import com.jfixby.scarabei.api.db.Table;
 import com.jfixby.scarabei.api.db.TableSchema;
+import com.jfixby.scarabei.api.err.Err;
 
 class RealmEntry implements Entry {
 
-	public RealmEntry () {
+	private final RealmTable table;
+
+	public RealmEntry (final RealmTable table) {
+		this.table = table;
 	}
 
-	final Map<String, String> values = Collections.newMap();
+	final Map<String, Object> values = Collections.newMap();
 
 	void set (final String key, final Object value) {
-		this.values.put(key, value + "");
+		Err.throwNotImplementedYet();
+		this.values.put(key, value + "");// NULL?
 	}
 
 	@Override
@@ -30,7 +36,12 @@ class RealmEntry implements Entry {
 
 	@Override
 	public String getValue (final String key) {
-		return this.values.get(key);
+		Err.throwNotImplementedYet();
+		return this.table.toString(this.values.get(key));// NULL?
 	}
 
+	@Override
+	public Table getOwner () {
+		return this.table;
+	}
 }

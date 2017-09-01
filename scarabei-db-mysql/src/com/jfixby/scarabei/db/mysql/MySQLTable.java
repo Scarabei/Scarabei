@@ -84,7 +84,7 @@ class MySQLTable implements Table {
 
 	@Override
 	public Entry newEntry () {
-		return new MySQLEntry();
+		return new MySQLEntry(this);
 	}
 
 	@Override

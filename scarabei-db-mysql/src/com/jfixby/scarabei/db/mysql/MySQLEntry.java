@@ -4,11 +4,15 @@ package com.jfixby.scarabei.db.mysql;
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.Map;
 import com.jfixby.scarabei.api.db.Entry;
+import com.jfixby.scarabei.api.db.Table;
 import com.jfixby.scarabei.api.db.TableSchema;
 
 class MySQLEntry implements Entry {
 
-	public MySQLEntry () {
+	private final MySQLTable table;
+
+	public MySQLEntry (final MySQLTable table) {
+		this.table = table;
 	}
 
 	final Map<String, String> values = Collections.newMap();
@@ -31,6 +35,11 @@ class MySQLEntry implements Entry {
 	@Override
 	public String getValue (final String key) {
 		return this.values.get(key);
+	}
+
+	@Override
+	public Table getOwner () {
+		return this.table;
 	}
 
 }

@@ -9,7 +9,6 @@ import com.jfixby.scarabei.api.collections.List;
 import com.jfixby.scarabei.api.db.Entry;
 import com.jfixby.scarabei.api.db.Table;
 import com.jfixby.scarabei.api.db.TableSchema;
-import com.jfixby.scarabei.api.err.Err;
 import com.jfixby.scarabei.api.names.ID;
 
 public class StupidTable implements Table {
@@ -27,7 +26,7 @@ public class StupidTable implements Table {
 
 	@Override
 	public Entry newEntry () {
-		return new StupidEntry();
+		return new StupidEntry(this);
 	}
 
 	@Override
@@ -42,7 +41,7 @@ public class StupidTable implements Table {
 
 	@Override
 	public void addEntry (final Entry entry) throws IOException {
-		this.entries.add(entry);
+		this.entries.add(this.copyValues(entry));
 	}
 
 	@Override
@@ -59,7 +58,26 @@ public class StupidTable implements Table {
 
 	@Override
 	public void replaceEntries (final List<Entry> batch) throws IOException {
-		Err.throwNotImplementedYet();
+		for (final Entry newe : batch) {
+			for (final Entry stored : this.entries) {
+				if (this.isTheSame(newe, stored)) {
+					this.copyValues(newe, stored);
+				}
+			}
+		}
+	}
+
+	private Entry copyValues (final Entry from, final Entry to) {
+		final Collection<String> vars = this.schema.getColumns();
+		for (final String key : vars) {
+			final String val = from.getValue(key);
+			to.set(this.schema, this.schema.indexOf(key), val);
+		}
+		return to;
+	}
+
+	private Entry copyValues (final Entry from) {
+		return this.copyValues(from, this.newEntry());
 	}
 
 	@Override
@@ -69,7 +87,7 @@ public class StupidTable implements Table {
 		for (final Entry e : this.entries) {
 			final String val = e.getValue(key);
 			if (val.equals(this.toString(value))) {
-				result.add(e);
+				result.add(this.copyValues(e));
 			}
 		}
 		return result;
@@ -85,7 +103,7 @@ public class StupidTable implements Table {
 		return true;
 	}
 
-	private String toString (final Object value) {
+	public static String toString (final Object value) {
 		return value == null ? null : value.toString();
 	}
 
