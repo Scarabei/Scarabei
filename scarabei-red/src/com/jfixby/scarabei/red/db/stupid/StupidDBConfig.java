@@ -1,9 +1,9 @@
 
-package com.jfixby.scarabei.db.realm;
+package com.jfixby.scarabei.red.db.stupid;
 
 import com.jfixby.scarabei.api.names.ID;
 
-class RealmConfig {
+public class StupidDBConfig {
 
 	public ID dbName;
 

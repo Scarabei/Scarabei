@@ -9,4 +9,6 @@ public interface List<T> extends EditableCollection<T> {
 
 	public void insertAllAt (Collection<? extends T> aj, int index);
 
+	public List<T> copy ();
+
 }

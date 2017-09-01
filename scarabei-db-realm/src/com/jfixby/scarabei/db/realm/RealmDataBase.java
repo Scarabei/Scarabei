@@ -14,15 +14,14 @@ import io.realm.RealmConfiguration;
 import io.realm.RealmSchema;
 
 class RealmDataBase implements DataBase {
-	final Map<String, RealmTable> tables = Collections.newMap();
+	final Map<ID, RealmTable> tables = Collections.newMap();
 	private final Realm realm;
-	private final String dbName;
+	private final ID dbName;
 	private final RealmSchema dbSchema;
 
 	RealmDataBase (final RealmConfig config) {
 		this.dbName = config.dbName;
 		Debug.checkNull("dbName", this.dbName);
-		Debug.checkEmpty("dbName", this.dbName);
 
 		final RealmConfiguration realmConfiguration = new RealmConfiguration.Builder().build();
 		Realm.deleteRealm(realmConfiguration);
@@ -32,14 +31,13 @@ class RealmDataBase implements DataBase {
 	}
 
 	@Override
-	public String getDBName () {
+	public ID getDBName () {
 		return this.dbName;
 	}
 
 	@Override
-	public RealmTable getTable (final String name) throws IOException {
+	public RealmTable getTable (final ID name) throws IOException {
 		Debug.checkNull("name", name);
-		Debug.checkEmpty("name", name);
 		RealmTable table = this.tables.get(name);
 		if (table == null) {
 			table = new RealmTable(this, name);
@@ -56,6 +54,10 @@ class RealmDataBase implements DataBase {
 		final ClassLoader classLoader = this.getClass().getClassLoader();
 		final Class<C> klass = (Class<C>)Class.forName(className.toString(), true, classLoader);
 		return klass;
+	}
+
+	public String toDBName (final ID name) {
+		return name.toString();
 	}
 
 }
