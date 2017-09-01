@@ -39,8 +39,15 @@ public class LocalFileSystem extends AbstractFileSystem implements LocalFileSyst
 	private AbsolutePath<FileSystem> resolve (java.io.File file) {
 		Debug.checkNull("file", file);
 		file = file.getAbsoluteFile();
-
-		final RelativePath relative = this.pathToRelative(file.toPath());
+		RelativePath relative = null;
+		try {
+			final Path javaPath = file.toPath();
+			relative = this.pathToRelative(javaPath);
+		} catch (final Throwable e) {// Fuck you Android!
+			final String androidAbsolutePathString = file.getAbsolutePath();
+			relative = Utils.newRelativePath(androidAbsolutePathString);
+			L.e("Android file failed to return file.toPath(). Use abs path string instead: " + relative);
+		}
 		final AbsolutePath<FileSystem> path = Utils.newAbsolutePath((FileSystem)this, relative);
 		return path;
 	}
