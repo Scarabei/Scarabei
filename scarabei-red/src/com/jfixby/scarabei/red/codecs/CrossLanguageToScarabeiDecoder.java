@@ -32,11 +32,11 @@ public class CrossLanguageToScarabeiDecoder implements CrossLanguageToJavaDecode
 		this.classes.put(CrossLanguageClassNames.STRING, String.class);
 		this.classes.put(CrossLanguageClassNames.BOOL, boolean.class);
 		this.classes.put(CrossLanguageClassNames.INTEGER, long.class);
-		this.classes.put(CrossLanguageClassNames.LIST, List.class);
+		this.classes.put(CrossLanguageClassNames.LIST, Iterable.class);
 		this.classes.put(CrossLanguageClassNames.Null, Void.class);
 		this.classes.put(CrossLanguageClassNames.MethodCall, CrossLanguageMethodCall.class);
 		this.classes.put(CrossLanguageClassNames.MethodCallArgument, CrossLanguageMethodCallArgument.class);
-		this.classes.put(CrossLanguageClassNames.MAP, Map.class);
+		this.classes.put(CrossLanguageClassNames.MAP, java.util.Map.class);
 		this.classes.put(ID.class.getCanonicalName(), ID.class);
 		this.classes.put(ExecutionMode.class.getCanonicalName(), ExecutionMode.class);
 
@@ -130,7 +130,7 @@ public class CrossLanguageToScarabeiDecoder implements CrossLanguageToJavaDecode
 			return (boolean)Boolean.parseBoolean(encodedObject.value + "");
 		}
 
-		if (objectType == List.class) {
+		if (objectType == Iterable.class) {
 			final List<java.util.Map<String, Object>> list = (List<java.util.Map<String, Object>>)encodedObject.value;
 			final ArrayList<Object> result = new ArrayList<Object>();
 			for (final java.util.Map<String, Object> Ei : list) {
@@ -147,7 +147,7 @@ public class CrossLanguageToScarabeiDecoder implements CrossLanguageToJavaDecode
 			return result;
 		}
 
-		if (objectType == Map.class) {
+		if (objectType == java.util.Map.class) {
 			final LinkedHashMap result = new LinkedHashMap();
 			final List<List<java.util.Map>> pairs = (List<List<java.util.Map>>)encodedObject.value;
 			for (final List<java.util.Map> p : pairs) {
