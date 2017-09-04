@@ -115,7 +115,7 @@ public class RedFlutterPlugins implements FlutterPluginsComponent {
 	@Override
 	public void activatePluginRegistry (final PluginRegistry reg) {
 		Debug.checkNull("PluginRegistry", reg);
-		this.state.switchState(FlutterPluginsState.DEACTIVATED);
+		this.state.expectState(FlutterPluginsState.DEACTIVATED);
 		this.registry = reg;
 		this.state.switchState(FlutterPluginsState.ACTIVATED);
 		this.bindAll();
