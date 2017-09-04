@@ -86,7 +86,7 @@ public class RedFlutterPlugins implements FlutterPluginsComponent {
 
 		}
 
-		L.d("FlutterPlugin registered[" + channelName + "]");
+		L.d("     bind FlutterPlugin", channelName);
 
 	}
 
@@ -147,6 +147,7 @@ public class RedFlutterPlugins implements FlutterPluginsComponent {
 
 	private void unBindPlugin (final ID methodCallHandlerClassName, final ID name, final MethodCallHandler methodCallHandler) {
 		this.state.expectState(FlutterPluginsState.ACTIVATED);
+		L.d("   unbind FlutterPlugin", name);
 	}
 
 }
