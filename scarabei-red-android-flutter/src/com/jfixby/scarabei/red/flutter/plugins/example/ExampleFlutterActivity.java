@@ -21,7 +21,7 @@ public class ExampleFlutterActivity extends FlutterActivity {
 
 		this.deployer.tryToDeploy(this);
 
-		final FlutterPluginsComponent flutterPlugins = new RedFlutterPlugins(this);
+		final FlutterPluginsComponent flutterPlugins = new RedFlutterPlugins();
 		FlutterPlugins.installComponent(flutterPlugins);
 
 		this.bindExamplePlugin();

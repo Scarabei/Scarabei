@@ -41,4 +41,12 @@ public class FlutterPlugins {
 		return invoke().getFlutterPluginRegistry();
 	}
 
+	public static void activatePluginRegistry (final PluginRegistry reg) {
+		invoke().activatePluginRegistry(reg);
+	}
+
+	public static PluginRegistry deActivatePluginRegistry () {
+		return invoke().deActivatePluginRegistry();
+	}
+
 }

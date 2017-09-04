@@ -3,6 +3,10 @@ package com.jfixby.scarabei.red.flutter.plugins;
 
 import java.lang.reflect.Method;
 
+import com.jfixby.scarabei.api.collections.Collections;
+import com.jfixby.scarabei.api.collections.List;
+import com.jfixby.scarabei.api.debug.Debug;
+import com.jfixby.scarabei.api.debug.StateSwitcher;
 import com.jfixby.scarabei.api.err.Err;
 import com.jfixby.scarabei.api.flutter.plugins.FlutterPlugin;
 import com.jfixby.scarabei.api.flutter.plugins.FlutterPluginSpecs;
@@ -17,14 +21,19 @@ import io.flutter.plugin.common.PluginRegistry.Registrar;
 
 public class RedFlutterPlugins implements FlutterPluginsComponent {
 
-	private final PluginRegistry registry;
+	private PluginRegistry registry;
+	final List<RedFlutterPlugin> registredPlugins = Collections.newList();
+	private final StateSwitcher<FlutterPluginsState> state;
 
-	public RedFlutterPlugins (final PluginRegistry registry) {
-		this.registry = registry;
+	public RedFlutterPlugins () {
+		this.state = Debug.newStateSwitcher(FlutterPluginsState.DEACTIVATED);
+		this.state.setDebugFlag(true);
+		this.state.setDebugName("FlutterPlugins");
 
 	}
 
-	void registerPlugin (final ID methodCallHandlerClassName, final ID channelName, MethodCallHandler instance) {
+	void bindPlugin (final ID methodCallHandlerClassName, final ID channelName, MethodCallHandler instance) {
+		this.state.expectState(FlutterPluginsState.ACTIVATED);
 		final ID className = methodCallHandlerClassName;
 		final Registrar registrar = this.registry.registrarFor(className.toString());
 
@@ -94,6 +103,48 @@ public class RedFlutterPlugins implements FlutterPluginsComponent {
 	@Override
 	public PluginRegistry getFlutterPluginRegistry () {
 		return this.registry;
+	}
+
+	public void registerPlugin (final RedFlutterPlugin redFlutterPlugin) {
+		this.registredPlugins.add(redFlutterPlugin);
+		this.bindPlugin(redFlutterPlugin.methodCallHandlerClassName, redFlutterPlugin.name, redFlutterPlugin.methodCallHandler);
+	}
+
+	@Override
+	public void activatePluginRegistry (final PluginRegistry reg) {
+		Debug.checkNull("PluginRegistry", reg);
+		this.state.switchState(FlutterPluginsState.DEACTIVATED);
+		this.registry = reg;
+		this.state.switchState(FlutterPluginsState.ACTIVATED);
+		this.bindAll();
+
+	}
+
+	private void bindAll () {
+		for (final RedFlutterPlugin plugin : this.registredPlugins) {
+			this.bindPlugin(plugin.methodCallHandlerClassName, plugin.name, plugin.methodCallHandler);
+		}
+	}
+
+	@Override
+	public PluginRegistry deActivatePluginRegistry () {
+		this.state.expectState(FlutterPluginsState.ACTIVATED);
+		this.unbindAll();
+		final PluginRegistry reg = this.registry;
+		this.registry = null;
+		this.state.switchState(FlutterPluginsState.DEACTIVATED);
+		return reg;
+	}
+
+	private void unbindAll () {
+		this.state.expectState(FlutterPluginsState.ACTIVATED);
+		for (final RedFlutterPlugin plugin : this.registredPlugins) {
+			this.unBindPlugin(plugin.methodCallHandlerClassName, plugin.name, plugin.methodCallHandler);
+		}
+	}
+
+	private void unBindPlugin (final ID methodCallHandlerClassName, final ID name, final MethodCallHandler methodCallHandler) {
+		this.state.expectState(FlutterPluginsState.ACTIVATED);
 	}
 
 }

@@ -11,4 +11,8 @@ public interface FlutterPluginsComponent {
 
 	PluginRegistry getFlutterPluginRegistry ();
 
+	public void activatePluginRegistry (PluginRegistry reg);
+
+	public PluginRegistry deActivatePluginRegistry ();
+
 }

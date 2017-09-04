@@ -12,35 +12,33 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 public class RedFlutterPlugin implements FlutterPlugin {
 
 // private final MethodCallHandler methodCallHandler;
-	private ID name;
-	private final RedFlutterPlugins master;
+	ID name;
+	final RedFlutterPlugins master;
+	final MethodCallHandler methodCallHandler;
+	ID methodCallHandlerClassName;
 
 	public RedFlutterPlugin (final RedFlutterPlugins redFlutterPlugins, final FlutterPluginSpecs specs) {
 		this.master = redFlutterPlugins;
-		final MethodCallHandler methodCallHandler = specs.methodCallHandler;
+		this.methodCallHandler = specs.methodCallHandler;
 
-		ID methodCallHandlerClassName = null;
-		if (methodCallHandler != null) {
-			methodCallHandlerClassName = Names.newID(methodCallHandler.getClass().getCanonicalName());
+		this.methodCallHandlerClassName = null;
+		if (this.methodCallHandler != null) {
+			this.methodCallHandlerClassName = Names.newID(this.methodCallHandler.getClass().getCanonicalName());
 		} else {
-			methodCallHandlerClassName = specs.methodCallHandlerClassName;
-			if (methodCallHandlerClassName == null) {
+			this.methodCallHandlerClassName = specs.methodCallHandlerClassName;
+			if (this.methodCallHandlerClassName == null) {
 				Debug.checkNull("methodCallHandlerClassName", specs.methodCallHandlerClass);
-				methodCallHandlerClassName = Names.newID(specs.methodCallHandlerClass.getCanonicalName());
+				this.methodCallHandlerClassName = Names.newID(specs.methodCallHandlerClass.getCanonicalName());
 			}
-			Debug.checkNull("methodCallHandlerClassName", methodCallHandlerClassName);
+			Debug.checkNull("methodCallHandlerClassName", this.methodCallHandlerClassName);
 		}
 
 		this.name = specs.channelName;
 		if (this.name == null) {
-			this.name = methodCallHandlerClassName;
+			this.name = this.methodCallHandlerClassName;
 		}
 
-		if (methodCallHandler != null) {
-			this.master.registerPlugin(methodCallHandlerClassName, this.name, methodCallHandler);
-		} else {
-			this.master.registerPlugin(methodCallHandlerClassName, this.name, null);
-		}
+		this.master.registerPlugin(this);
 
 	}
 

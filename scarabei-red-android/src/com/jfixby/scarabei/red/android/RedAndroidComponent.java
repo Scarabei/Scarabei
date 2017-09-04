@@ -1,6 +1,7 @@
 
 package com.jfixby.scarabei.red.android;
 
+import com.jfixby.scarabei.android.api.Android;
 import com.jfixby.scarabei.android.api.AndroidComponent;
 import com.jfixby.scarabei.android.api.AndroidSystemInfoTags;
 import com.jfixby.scarabei.api.collections.Collections;
@@ -26,17 +27,16 @@ import android.view.Display;
 import android.view.WindowManager;
 
 public class RedAndroidComponent implements AndroidComponent {
-	Context context;
 	private final Application app;
 
 	public RedAndroidComponent (final Application redTriplaneAndroidApplication) {
 		this.app = redTriplaneAndroidApplication;
-		this.context = redTriplaneAndroidApplication.getBaseContext();
 	}
 
 	@Override
 	public double densityIndependentPixels2Pixels (final float dip) {
-		return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dip, this.context.getResources().getDisplayMetrics());
+		return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dip,
+			Android.getApplicationContext().getResources().getDisplayMetrics());
 	}
 
 	@Override
@@ -56,8 +56,7 @@ public class RedAndroidComponent implements AndroidComponent {
 
 	@Override
 	public String getApplicationPrivateDirPathString () {
-// final String java_path = this.app.getApplication().getApplicationContext().getFilesDir().getAbsolutePath();
-		final String java_path = this.context.getFilesDir().getAbsolutePath();
+		final String java_path = Android.getApplicationContext().getFilesDir().getAbsolutePath();
 		return java_path;
 	}
 
@@ -92,7 +91,7 @@ public class RedAndroidComponent implements AndroidComponent {
 		final DisplayMetrics displayMetrics = new DisplayMetrics();
 		final android.util.DisplayMetrics dm = new android.util.DisplayMetrics();
 		try {
-			final WindowManager winman = (WindowManager)this.context.getSystemService(Context.WINDOW_SERVICE);
+			final WindowManager winman = (WindowManager)Android.getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
 			final Display display = winman.getDefaultDisplay();
 			display.getMetrics(dm);
 		} catch (final Exception e) {
@@ -243,7 +242,7 @@ public class RedAndroidComponent implements AndroidComponent {
 
 	@Override
 	public Context getApplicationContext () {
-		return this.context;
+		return this.app.getApplicationContext();
 	}
 
 	public void prepareCamera () {
