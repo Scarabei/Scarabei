@@ -54,7 +54,7 @@ public class JavaMethodCall {
 			final Class<?> klass = Reflections.resolveClass(className);
 // L.d("javaCall.class", klass);
 // L.d("javaCall.method", methodName);
-// L.d("javaCall.arguments", javaCall.arguments);
+// L.d("javaCall.arguments", javaCall.);
 
 			final Class<?>[] argTypes = javaCall.argumentTypes;
 			final Object[] argValues = javaCall.argumentValues;
