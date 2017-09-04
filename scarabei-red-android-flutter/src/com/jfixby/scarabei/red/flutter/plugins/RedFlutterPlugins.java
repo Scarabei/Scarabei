@@ -107,7 +107,9 @@ public class RedFlutterPlugins implements FlutterPluginsComponent {
 
 	public void registerPlugin (final RedFlutterPlugin redFlutterPlugin) {
 		this.registredPlugins.add(redFlutterPlugin);
-		this.bindPlugin(redFlutterPlugin.methodCallHandlerClassName, redFlutterPlugin.name, redFlutterPlugin.methodCallHandler);
+		if (this.state.currentState() == FlutterPluginsState.ACTIVATED) {
+			this.bindPlugin(redFlutterPlugin.methodCallHandlerClassName, redFlutterPlugin.name, redFlutterPlugin.methodCallHandler);
+		}
 	}
 
 	@Override
