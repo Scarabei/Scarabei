@@ -1,7 +1,7 @@
 
 package com.jfixby.scarabei.api.util.path;
 
-import com.jfixby.scarabei.api.collections.Collection;
+import com.jfixby.scarabei.api.collections.List;
 
 public interface RelativePath {
 
@@ -21,7 +21,7 @@ public interface RelativePath {
 
 	RelativePath child (String name);
 
-	public Collection<String> steps ();
+	public List<String> steps ();
 
 	String getLastStep ();
 

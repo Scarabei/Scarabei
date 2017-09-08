@@ -37,4 +37,11 @@ public class RedHttpCallProgress implements HttpCallProgress {
 		return object;
 	}
 
+	@Override
+	public String readResultAsString () throws UnsupportedEncodingException {
+		final String input_data = Strings.newString(this.data);
+
+		return input_data;
+	}
+
 }

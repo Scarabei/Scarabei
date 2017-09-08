@@ -89,8 +89,8 @@ class RedRelativePath implements RelativePath {
 	}
 
 	@Override
-	public Collection<String> steps () {
-		return this.path_steps;
+	public List<String> steps () {
+		return Collections.newList(this.path_steps);
 	}
 
 	@Override

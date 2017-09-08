@@ -10,4 +10,6 @@ public interface HttpCallProgress {
 
 	public Object readObject () throws IOException, ClassNotFoundException;
 
+	public String readResultAsString () throws UnsupportedEncodingException;
+
 }
