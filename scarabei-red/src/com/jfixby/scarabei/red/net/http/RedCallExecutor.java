@@ -26,8 +26,11 @@ public class RedCallExecutor implements HttpCallExecutor {
 
 		final HttpConnectionSpecs specs = Http.newConnectionSpecs();
 		specs.setURL(url);
-		specs.setUseAgent(true);
+		specs.setUseAgent(call.getUseAgent());
 		specs.addRequesrProperties(call.listRequestHeaders());
+		specs.setDoOutput(true);
+		specs.setDoInput(true);
+		specs.setInstanceFollowRedirects(true);
 		final HttpConnection connection = Http.newConnection(specs);
 // final connection.se
 		connection.open();
