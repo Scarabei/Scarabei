@@ -4,6 +4,7 @@ package com.jfixby.scarabei.red.log;
 import java.io.PrintStream;
 
 import com.jfixby.scarabei.api.log.MESSAGE_MARKER;
+import com.jfixby.scarabei.api.strings.Strings;
 import com.jfixby.scarabei.api.sys.settings.ExecutionMode;
 import com.jfixby.scarabei.api.sys.settings.SystemSettings;
 
@@ -64,9 +65,13 @@ public class SimpleLogger extends AbstractLogger {
 		final StringBuilder t = new StringBuilder();
 		t.append(canonical);
 
+		final int maxLen = ("" + n).length();
 		final String indent_str = this.indent(indent);
 		for (int i = 0; i < n; i++) {
 			t.append(indent_str);
+			final int iLen = ("" + i).length();
+			final String prefix = Strings.prefix(" ", maxLen - iLen);
+			t.append(prefix);
 			t.append("(" + i + ") ");
 			t.append(array[i]);
 			t.append("\n");

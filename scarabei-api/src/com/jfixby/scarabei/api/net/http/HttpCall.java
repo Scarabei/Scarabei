@@ -17,4 +17,8 @@ public interface HttpCall {
 
 	Mapping<String, String> listRequestHeaders ();
 
+	long getServerTimeout ();
+
+	public void setServerTimeout (long timeout);
+
 }

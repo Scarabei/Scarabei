@@ -30,6 +30,9 @@ public class RedCallExecutor implements HttpCallExecutor {
 		specs.addRequesrProperties(call.listRequestHeaders());
 		specs.setDoOutput(true);
 		specs.setDoInput(true);
+		final long timeout = call.getServerTimeout();
+		specs.setReadTimeout(timeout);
+		specs.setConnectTimeout(timeout);
 		specs.setInstanceFollowRedirects(true);
 		final HttpConnection connection = Http.newConnection(specs);
 // final connection.se

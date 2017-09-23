@@ -76,9 +76,11 @@ public abstract class AbstractLogger implements LoggerComponent {
 				return;
 			}
 			this.logLine(mode, frame, canonocal_name.substring(0, canonocal_name.length() - 1) + n + "]");
-			final int indent = (tag + "").length() + 3;
-			final String indent_str = this.indent(indent);
+			final int maxLen = ("" + n).length();
 			for (int i = 0; i < n; i++) {
+				final int iLen = ("" + i).length();
+				final int indent = (tag + "").length() + 3 + (maxLen - iLen);
+				final String indent_str = this.indent(indent);
 				this.logLine(mode, frame, indent_str + "(" + i + ") " + array.getElementAt(i) + "");
 			}
 			return;
@@ -93,10 +95,12 @@ public abstract class AbstractLogger implements LoggerComponent {
 				return;
 			}
 			this.logLine(mode, frame, canonocal_name.substring(0, canonocal_name.length() - 1) + n + "]");
-			final int indent = (tag + "").length() + 3;
-			final String indent_str = this.indent(indent);
 			int i = 0;
 			for (final Object e : array) {
+				final int maxLen = ("" + n).length();
+				final int iLen = ("" + i).length();
+				final int indent = (tag + "").length() + 3 + (maxLen - iLen);
+				final String indent_str = this.indent(indent);
 				this.logLine(mode, frame, indent_str + "(" + i + ") " + e + "");
 				i++;
 			}
@@ -112,11 +116,12 @@ public abstract class AbstractLogger implements LoggerComponent {
 				return;
 			}
 			this.logLine(mode, frame, canonocal_name.substring(0, canonocal_name.length() - 1) + n + "]");
-			final int indent = (tag + "").length() + 3;
-			final String indent_str = this.indent(indent);
 			int i = 0;
 			for (final Object e : array.keys()) {
-// this.logLine(normal, frame, indent_str + "(" + i + ") " + e + "");
+				final int maxLen = ("" + n).length();
+				final int iLen = ("" + i).length();
+				final int indent = (tag + "").length() + 3 + (maxLen - iLen);
+				final String indent_str = this.indent(indent);
 				this.logLine(mode, frame, indent_str + "(" + i + ") " + array.getKeyAt(i) + " :-> " + array.getValueAt(i) + "");
 				i++;
 			}
@@ -132,10 +137,12 @@ public abstract class AbstractLogger implements LoggerComponent {
 				return;
 			}
 			this.logLine(mode, frame, canonocal_name.substring(0, canonocal_name.length() - 1) + n + "]");
-			final int indent = (tag + "").length() + 3;
-			final String indent_str = this.indent(indent);
 			int i = 0;
 			for (final Object e : array.keySet()) {
+				final int maxLen = ("" + n).length();
+				final int iLen = ("" + i).length();
+				final int indent = (tag + "").length() + 3 + (maxLen - iLen);
+				final String indent_str = this.indent(indent);
 				this.logLine(mode, frame, indent_str + "(" + i + ") " + e + " :-> " + array.get(e) + "");
 				i++;
 			}

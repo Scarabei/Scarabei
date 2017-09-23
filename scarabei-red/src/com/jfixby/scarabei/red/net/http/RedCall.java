@@ -17,6 +17,7 @@ public class RedCall implements HttpCall {
 	private METHOD method;
 	private final boolean agent;
 	private final boolean ssl;
+	long timeout = 10000;
 
 	public METHOD getMethod () {
 		return this.method;
@@ -61,6 +62,16 @@ public class RedCall implements HttpCall {
 	@Override
 	public Mapping<String, String> listRequestHeaders () {
 		return this.map;
+	}
+
+	@Override
+	public long getServerTimeout () {
+		return this.timeout;
+	}
+
+	@Override
+	public void setServerTimeout (final long timeout) {
+		this.timeout = timeout;
 	}
 
 }

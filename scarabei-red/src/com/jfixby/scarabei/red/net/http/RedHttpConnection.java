@@ -119,7 +119,7 @@ public class RedHttpConnection implements HttpConnection {
 		if (this.use_agent) {
 			this.java_connection.addRequestProperty("User-Agent",
 				"Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36");
-			this.java_connection.addRequestProperty("Accept-Language", "ru-RU,ru;q=0.8");
+// this.java_connection.addRequestProperty("Accept-Language", "ru-RU,ru;q=0.8");
 
 		}
 
@@ -192,7 +192,9 @@ public class RedHttpConnection implements HttpConnection {
 			for (final String key : this.requestProperties.keys()) {
 				list.add(key + "=" + this.requestProperties.get(key));
 			}
-			urlString = urlString + Strings.wrapSequence(list, list.size(), "?", "", "&");
+			if (list.size() > 0) {
+				urlString = urlString + Strings.wrapSequence(list, list.size(), "?", "", "&");
+			}
 		}
 
 		return urlString;
