@@ -18,6 +18,9 @@ include "scarabei-red-gwt"
 
 include "scarabei-gson"
 
+include "scarabei-aws-api"
+include "scarabei-aws-core"
+
 include "scarabei-db-mysql"
 
 include "scarabei-red-flutter"

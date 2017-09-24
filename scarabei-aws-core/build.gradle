@@ -1,0 +1,8 @@
+sourceCompatibility = 1.6
+
+dependencies {
+
+    compile project(":scarabei-aws-api")
+
+}
+
