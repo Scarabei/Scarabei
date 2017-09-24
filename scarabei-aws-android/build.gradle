@@ -1,0 +1,14 @@
+
+sourceCompatibility = 1.6
+
+dependencies {
+    compile project(":scarabei-api")
+    compile project(":scarabei-red")
+    compile project(":scarabei-aws-api")
+    compile project(":scarabei-aws-red")
+    
+    compile 'com.amazonaws:aws-android-sdk-core:2.2.+'
+    
+	
+	
+}

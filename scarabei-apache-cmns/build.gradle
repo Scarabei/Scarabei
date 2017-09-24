@@ -1,0 +1,10 @@
+sourceCompatibility = 1.8
+
+dependencies {
+    compile project(":scarabei-api")
+    compile project(":scarabei-red")
+
+
+    compile group: 'commons-codec', name: 'commons-codec', version: '1.6'
+
+}
