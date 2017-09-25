@@ -43,7 +43,11 @@ class S3File extends AbstractRedFile implements File {
 		if (this.relative.isRoot()) {
 			return false;
 		}
-		return this.info().isFile();
+		final S3ObjectInfo info = this.info();
+		if (info == null) {
+			return false;
+		}
+		return info.isFile();
 	}
 
 	@Override
@@ -51,7 +55,11 @@ class S3File extends AbstractRedFile implements File {
 		if (this.relative.isRoot()) {
 			return true;
 		}
-		return this.info().isFolder();
+		final S3ObjectInfo info = this.info();
+		if (info == null) {
+			return false;
+		}
+		return info.isFolder();
 	}
 
 	@Override

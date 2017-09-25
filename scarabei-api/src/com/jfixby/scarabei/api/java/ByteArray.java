@@ -9,4 +9,6 @@ public interface ByteArray {
 
 	int getByte (int i);
 
+	void append (ByteArray bytes);
+
 }

@@ -1,8 +1,6 @@
 
 package com.jfixby.scarabei.red.log;
 
-import java.io.PrintStream;
-
 import com.jfixby.scarabei.api.log.MESSAGE_MARKER;
 import com.jfixby.scarabei.api.strings.Strings;
 import com.jfixby.scarabei.api.sys.settings.ExecutionMode;
@@ -10,22 +8,35 @@ import com.jfixby.scarabei.api.sys.settings.SystemSettings;
 
 public class SimpleLogger extends AbstractLogger {
 
+	private final OutputLogStreams streams;
+
+	public SimpleLogger () {
+		this(null);
+	}
+
+	public SimpleLogger (OutputLogStreams streams) {
+		if (streams == null) {
+			streams = new SystemOut();
+		}
+		this.streams = streams;
+	}
+
 	public int pad = 100;
 
 	@Override
 	public void logLine (final MESSAGE_MARKER marker, final String frame) {
-		PrintStream stream = System.out;
+		LogStream stream = this.streams.out();
 		if (marker == MESSAGE_MARKER.NORMAL) {
-			stream = System.out;
+			stream = this.streams.out();
 		}
 		if (marker == MESSAGE_MARKER.ERROR) {
-			stream = System.err;
+			stream = this.streams.err();
 		}
 
 		this.prinOut(stream, frame, "");
 	}
 
-	private void prinOut (final PrintStream stream, final String frame, final Object data) {
+	private void prinOut (final LogStream stream, final String frame, final Object data) {
 		final String padded;
 		if (SystemSettings.component() != null && SystemSettings.getExecutionMode().isBelow(ExecutionMode.TESTING)) {
 			this.pad = 0;
@@ -38,12 +49,12 @@ public class SimpleLogger extends AbstractLogger {
 
 	@Override
 	public void logLine (final MESSAGE_MARKER marker, final String frame, final String string) {
-		PrintStream stream = System.out;
+		LogStream stream = this.streams.out();
 		if (marker == MESSAGE_MARKER.NORMAL) {
-			stream = System.out;
+			stream = this.streams.out();
 		}
 		if (marker == MESSAGE_MARKER.ERROR) {
-			stream = System.err;
+			stream = this.streams.err();
 		}
 		this.prinOut(stream, frame, string);
 	}
@@ -79,32 +90,9 @@ public class SimpleLogger extends AbstractLogger {
 		return t.toString();
 	}
 
-// @Override
-// public void logAppend (final MESSAGE_MARKER marker, final String frame, final Object string) {
-// PrintStream stream = System.out;
-// if (marker == MESSAGE_MARKER.NORMAL) {
-// stream = System.out;
-// }
-// if (marker == MESSAGE_MARKER.ERROR) {
-// stream = System.err;
-// }
-// stream.print(string);
-// }
-
 	@Override
 	public String toString (final Object[] array) {
 		return this.arrayToString(0, array);
 	}
 
-// @Override
-// public void logAppend (final MESSAGE_MARKER marker, final String frame) {
-// PrintStream stream = System.out;
-// if (marker == MESSAGE_MARKER.NORMAL) {
-// stream = System.out;
-// }
-// if (marker == MESSAGE_MARKER.ERROR) {
-// stream = System.err;
-// }
-// stream.println();
-// }
 }

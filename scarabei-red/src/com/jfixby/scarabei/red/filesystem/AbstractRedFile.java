@@ -129,6 +129,9 @@ public abstract class AbstractRedFile implements File {
 
 	@Override
 	public ByteArray readBytes () throws IOException {
+		if (!this.exists()) {
+			throw new IOException("File not found: " + this);
+		}
 		final FileInputStream is = this.getFileSystem().newFileInputStream(this);
 		final ByteArray bytes;
 		is.open();

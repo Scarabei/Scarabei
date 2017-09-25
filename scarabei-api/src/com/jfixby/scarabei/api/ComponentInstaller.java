@@ -22,6 +22,15 @@ public class ComponentInstaller<T> {
 		}
 	}
 
+	public T replaceComponent (final T next) {
+		final T old = this.component;
+		this.component = next;
+		if (this.component == null) {
+			Err.reportError("Component " + this.name + " is not installed. Argument is null.");
+		}
+		return old;
+	}
+
 	public T invokeComponent () {
 		if (this.component == null) {
 			Err.reportError("Component " + this.name + " is not installed.");

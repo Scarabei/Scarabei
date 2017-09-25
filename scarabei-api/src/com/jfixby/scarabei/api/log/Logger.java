@@ -15,6 +15,10 @@ public class Logger {
 		componentInstaller.installComponent(component_to_install);
 	}
 
+	public static final LoggerComponent replaceComponent (final LoggerComponent component_to_install) {
+		return componentInstaller.replaceComponent(component_to_install);
+	}
+
 	public static LoggerComponent deInstallCurrentComponent () {
 		return componentInstaller.deInstallCurrentComponent();
 	}
