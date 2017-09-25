@@ -8,6 +8,5 @@ public class SimpleDBConfig {
 
 	public ID dbName;
 	public File storageFolder;
-	public boolean readFromStorage;
 
 }

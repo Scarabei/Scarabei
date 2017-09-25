@@ -22,21 +22,34 @@ public class SimpleDB implements DataBase {
 	final Map<String, SimpleTable> tables = Collections.newMap();
 	final File storageFolder;
 	private final File dbFile;
+	private boolean inited;
 
-	public SimpleDB (final SimpleDBConfig config) throws IOException {
+	public SimpleDB(final SimpleDBConfig config) {
 		this.dbName = config.dbName;
 		Debug.checkNull("dbName", this.dbName);
 		this.storageFolder = config.storageFolder;
 		Debug.checkNull("storageFolder", this.storageFolder);
 		this.dbFile = this.storageFolder.child(this.dbName.child("json").toString());
-		if (config.readFromStorage) {
-			this.readStorage();
-		} else {
-			this.writeStorage();
+
+	}
+
+	public boolean init(final boolean readFromStorage) {
+		this.inited = true;
+		try {
+			if (readFromStorage) {
+				this.readStorage();
+				return true;
+			} else {
+				this.writeStorage();
+				return true;
+			}
+		} catch (final IOException e) {
+			L.e(e.toString());
+			return false;
 		}
 	}
 
-	private void readStorage () throws IOException {
+	private void readStorage() throws IOException {
 		final String string = this.dbFile.readToString();
 		L.d("reading", this.dbFile);
 		final SrlzdDBSchema schema = Json.deserializeFromString(SrlzdDBSchema.class, string);
@@ -49,13 +62,13 @@ public class SimpleDB implements DataBase {
 		}
 	}
 
-	private SimpleTableSchema deserialize (final SrlzdTableSchema sztSchema) throws IOException {
+	private SimpleTableSchema deserialize(final SrlzdTableSchema sztSchema) throws IOException {
 		final SimpleTableSchema s = new SimpleTableSchema();
 		s.addAll(sztSchema.columns);
 		return s;
 	}
 
-	public SimpleTable newTable (final SimpleTableSpecs specs) throws IOException {
+	public SimpleTable newTable(final SimpleTableSpecs specs) throws IOException {
 		final String tableName = specs.tableName;
 		Debug.checkNull("tableName", tableName);
 		Debug.checkEmpty("tableName", tableName);
@@ -72,7 +85,7 @@ public class SimpleDB implements DataBase {
 		return table;
 	}
 
-	private void writeStorage () throws IOException {
+	private void writeStorage() throws IOException {
 		final SrlzdDBSchema schema = new SrlzdDBSchema();
 		for (final String key : this.tables.keys()) {
 			final SimpleTable val = this.tables.get(key);
@@ -86,7 +99,7 @@ public class SimpleDB implements DataBase {
 		this.dbFile.writeString(data);
 	}
 
-	private SrlzdTableSchema serialize (final TableSchema tableSchema) {
+	private SrlzdTableSchema serialize(final TableSchema tableSchema) {
 		final SrlzdTableSchema s = new SrlzdTableSchema();
 		for (final String k : tableSchema.getColumns()) {
 			s.columns.add(k);
@@ -95,7 +108,7 @@ public class SimpleDB implements DataBase {
 	}
 
 	@Override
-	public Table getTable (final String tableName) throws IOException {
+	public Table getTable(final String tableName) throws IOException {
 		Debug.checkNull("tableName", tableName);
 		this.storageFolder.makeFolder();
 
@@ -107,11 +120,11 @@ public class SimpleDB implements DataBase {
 	}
 
 	@Override
-	public ID getDBName () {
+	public ID getDBName() {
 		return this.dbName;
 	}
 
-	public void drop () throws IOException {
+	public void drop() throws IOException {
 		for (final SimpleTable t : this.tables.values()) {
 			t.drop();
 		}
@@ -119,7 +132,7 @@ public class SimpleDB implements DataBase {
 		this.writeStorage();
 	}
 
-	public SimpleTableSpecs newTableSpecs () {
+	public SimpleTableSpecs newTableSpecs() {
 		return new SimpleTableSpecs();
 	}
 
