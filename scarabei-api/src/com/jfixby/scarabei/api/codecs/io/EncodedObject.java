@@ -23,8 +23,8 @@ public class EncodedObject<T> {
 		return EncodedObject.encodeObject(string, CrossLanguageClassNames.STRING);
 	}
 
-	public static EncodedObject<LocalFile> encodeLocalFile(final LocalFile file) {
-		return EncodedObject.encodeObject(file, CrossLanguageClassNames.LOCAL_FILE);
+	public static EncodedObject<String> encodeLocalFile(final LocalFile file) {
+		return EncodedObject.encodeObject(file.toJavaFile().getAbsolutePath(), CrossLanguageClassNames.LOCAL_FILE);
 	}
 
 	public static EncodedObject<String> encodeID(final ID id) {
