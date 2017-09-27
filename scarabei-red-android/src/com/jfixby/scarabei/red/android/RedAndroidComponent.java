@@ -8,7 +8,7 @@ import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.Map;
 import com.jfixby.scarabei.api.display.DisplayMetrics;
 import com.jfixby.scarabei.api.err.Err;
-import com.jfixby.scarabei.api.file.File;
+import com.jfixby.scarabei.api.file.LocalFile;
 import com.jfixby.scarabei.api.file.LocalFileSystem;
 import com.jfixby.scarabei.api.mobile.MobileAppVersion;
 import com.jfixby.scarabei.api.mobile.MobileSystemInfoTags;
@@ -29,25 +29,25 @@ import android.view.WindowManager;
 public class RedAndroidComponent implements AndroidComponent {
 	private final Application app;
 
-	public RedAndroidComponent (final Application redTriplaneAndroidApplication) {
+	public RedAndroidComponent(final Application redTriplaneAndroidApplication) {
 		this.app = redTriplaneAndroidApplication;
 	}
 
 	@Override
-	public double densityIndependentPixels2Pixels (final float dip) {
+	public double densityIndependentPixels2Pixels(final float dip) {
 		return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dip,
-			Android.getApplicationContext().getResources().getDisplayMetrics());
+				Android.getApplicationContext().getResources().getDisplayMetrics());
 	}
 
 	@Override
-	public long getRecommendedHeapSize () {
-		final ActivityManager am = (ActivityManager)this.app.getSystemService(Context.ACTIVITY_SERVICE);
+	public long getRecommendedHeapSize() {
+		final ActivityManager am = (ActivityManager) this.app.getSystemService(Context.ACTIVITY_SERVICE);
 		final int memoryClass = am.getMemoryClass();
 		return memoryClass;
 	}
 
 	@Override
-	public long getMaxHeapSize () {
+	public long getMaxHeapSize() {
 		final Runtime rt = Runtime.getRuntime();
 		final long maxMemory = rt.maxMemory() / (1024 * 1024);
 		// Log.v("onCreate", "maxMemory:" + Long.toString(maxMemory));
@@ -55,43 +55,44 @@ public class RedAndroidComponent implements AndroidComponent {
 	}
 
 	@Override
-	public String getApplicationPrivateDirPathString () {
+	public String getApplicationPrivateDirPathString() {
 		final String java_path = Android.getApplicationContext().getFilesDir().getAbsolutePath();
 		return java_path;
 	}
 
-// @Override
-// public AndroidCameraSetup getCameraSetup () {
-// return this.cameraSetup;
-// }
-//
-// public void prepareCamera () {
-// this.cameraSetup.prepareCamera();
-// }
-//
-// public void activateCamera () {
-// this.cameraSetup.activateCamera();
-// }
+	// @Override
+	// public AndroidCameraSetup getCameraSetup () {
+	// return this.cameraSetup;
+	// }
+	//
+	// public void prepareCamera () {
+	// this.cameraSetup.prepareCamera();
+	// }
+	//
+	// public void activateCamera () {
+	// this.cameraSetup.activateCamera();
+	// }
 
 	@Override
-	public File getPrivateFolder () {
+	public LocalFile getPrivateFolder() {
 		final String path = this.getApplicationPrivateDirPathString();
-		final File privateFolder = LocalFileSystem.newFile(path);
+		final LocalFile privateFolder = LocalFileSystem.newFile(path);
 		return privateFolder;
 	}
 
 	@Override
-	public File getCacheFolder () {
+	public LocalFile getCacheFolder() {
 		final java.io.File cache = this.app.getCacheDir();
 		return LocalFileSystem.newFile(cache);
 	}
 
 	@Override
-	public DisplayMetrics getDisplayMetrics () {
+	public DisplayMetrics getDisplayMetrics() {
 		final DisplayMetrics displayMetrics = new DisplayMetrics();
 		final android.util.DisplayMetrics dm = new android.util.DisplayMetrics();
 		try {
-			final WindowManager winman = (WindowManager)Android.getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
+			final WindowManager winman = (WindowManager) Android.getApplicationContext()
+					.getSystemService(Context.WINDOW_SERVICE);
 			final Display display = winman.getDefaultDisplay();
 			display.getMetrics(dm);
 		} catch (final Exception e) {
@@ -106,42 +107,42 @@ public class RedAndroidComponent implements AndroidComponent {
 	}
 
 	@Override
-	public String getBrand () {
+	public String getBrand() {
 		return Build.BRAND;
 	}
 
 	@Override
-	public String getSerial () {
+	public String getSerial() {
 		return Build.SERIAL;
 	}
 
 	@Override
-	public String getModel () {
+	public String getModel() {
 		return Build.MODEL;
 	}
 
 	@Override
-	public String getFingerPrint () {
+	public String getFingerPrint() {
 		return Build.FINGERPRINT;
 	}
 
 	@Override
-	public String getManufacturer () {
+	public String getManufacturer() {
 		return Build.MANUFACTURER;
 	}
 
 	@Override
-	public String getHost () {
+	public String getHost() {
 		return Build.HOST;
 	}
 
 	@Override
-	public String getVersionRelease () {
+	public String getVersionRelease() {
 		return Build.VERSION.RELEASE;
 	}
 
 	@Override
-	public MobileAppVersion getAppVersion () {
+	public MobileAppVersion getAppVersion() {
 		final MobileAppVersion version = new MobileAppVersion();
 
 		try {
@@ -158,7 +159,7 @@ public class RedAndroidComponent implements AndroidComponent {
 	}
 
 	@Override
-	public Map<ID, Object> getSystemInfo () {
+	public Map<ID, Object> getSystemInfo() {
 		final Map<ID, Object> deviceInfo = Collections.newMap();
 
 		{
@@ -241,15 +242,15 @@ public class RedAndroidComponent implements AndroidComponent {
 	}
 
 	@Override
-	public Context getApplicationContext () {
+	public Context getApplicationContext() {
 		return this.app.getApplicationContext();
 	}
 
-	public void prepareCamera () {
+	public void prepareCamera() {
 		Err.throwNotImplementedYet();
 	}
 
-	public void activateCamera () {
+	public void activateCamera() {
 		Err.throwNotImplementedYet();
 	}
 }

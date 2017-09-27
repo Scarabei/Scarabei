@@ -2,37 +2,37 @@
 package com.jfixby.scarabei.api.mobile;
 
 import com.jfixby.scarabei.api.collections.Map;
-import com.jfixby.scarabei.api.file.File;
+import com.jfixby.scarabei.api.file.LocalFile;
 import com.jfixby.scarabei.api.names.ID;
 
 public interface MobileDeviceComponent {
 
-	long getMaxHeapSize ();
+	long getMaxHeapSize();
 
-	long getRecommendedHeapSize ();
+	long getRecommendedHeapSize();
 
-	String getApplicationPrivateDirPathString ();
+	String getApplicationPrivateDirPathString();
 
-	File getPrivateFolder ();
+	LocalFile getPrivateFolder();
 
-	File getCacheFolder ();
+	LocalFile getCacheFolder();
 
-	String getBrand ();
+	String getBrand();
 
-	String getModel ();
+	String getModel();
 
-	String getHost ();
+	String getHost();
 
-	String getVersionRelease ();
+	String getVersionRelease();
 
-	MobileAppVersion getAppVersion ();
+	MobileAppVersion getAppVersion();
 
-	Map<ID, Object> getSystemInfo ();
+	Map<ID, Object> getSystemInfo();
 
-	String getSerial ();
+	String getSerial();
 
-	String getFingerPrint ();
+	String getFingerPrint();
 
-	String getManufacturer ();
+	String getManufacturer();
 
 }

@@ -11,13 +11,14 @@ import com.jfixby.scarabei.api.codecs.calls.io.CrossLanguageMethodCallResult;
 import com.jfixby.scarabei.api.codecs.io.EncodedObject;
 import com.jfixby.scarabei.api.collections.Mapping;
 import com.jfixby.scarabei.api.err.Err;
+import com.jfixby.scarabei.api.file.LocalFile;
 import com.jfixby.scarabei.api.names.ID;
 import com.jfixby.scarabei.api.sys.settings.ExecutionMode;
 
 public class ScarabeiToCrossLanguageEncoder implements JavaToCrossLanguageEncoder {
 
 	@Override
-	public boolean canEncode (final Object javaObject) {
+	public boolean canEncode(final Object javaObject) {
 		if (javaObject == null) {
 			return true;
 		}
@@ -60,6 +61,9 @@ public class ScarabeiToCrossLanguageEncoder implements JavaToCrossLanguageEncode
 		if (javaObject instanceof Throwable) {
 			return true;
 		}
+		if (javaObject instanceof LocalFile) {
+			return true;
+		}
 
 		if (javaObject instanceof CrossLanguageMethodCallResult) {
 			return true;
@@ -69,49 +73,54 @@ public class ScarabeiToCrossLanguageEncoder implements JavaToCrossLanguageEncode
 	}
 
 	@Override
-	public EncodedObject encode (final Object javaObject) {
+	public EncodedObject encode(final Object javaObject) {
 		if (javaObject == null) {
 			return EncodedObject.encodeNull();
 		}
 		if (javaObject instanceof ExecutionMode) {
-			return EncodedObject.encodeExecutionMode((ExecutionMode)javaObject);
+			return EncodedObject.encodeExecutionMode((ExecutionMode) javaObject);
 		}
 		if (javaObject instanceof ID) {
-			return EncodedObject.encodeID((ID)javaObject);
+			return EncodedObject.encodeID((ID) javaObject);
 		}
 		if (javaObject instanceof String) {
-			return EncodedObject.encodeString((String)javaObject);
+			return EncodedObject.encodeString((String) javaObject);
 		}
+
+		if (javaObject instanceof LocalFile) {
+			return EncodedObject.encodeString((String) javaObject);
+		}
+
 		if (javaObject instanceof Boolean) {
-			return EncodedObject.encodeBoolean((Boolean)javaObject);
+			return EncodedObject.encodeBoolean((Boolean) javaObject);
 		}
 		if (javaObject instanceof Long) {
-			return EncodedObject.encodeLong((Long)javaObject);
+			return EncodedObject.encodeLong((Long) javaObject);
 		}
 		if (javaObject instanceof Integer) {
-			return EncodedObject.encodeLong(((Integer)javaObject) * 1L);
+			return EncodedObject.encodeLong(((Integer) javaObject) * 1L);
 		}
 
 		if (javaObject instanceof Float) {
-			return EncodedObject.encodeDouble(((Float)javaObject) * 1D);
+			return EncodedObject.encodeDouble(((Float) javaObject) * 1D);
 		}
 		if (javaObject instanceof Double) {
-			return EncodedObject.encodeDouble(((Double)javaObject));
+			return EncodedObject.encodeDouble(((Double) javaObject));
 		}
 
 		if (javaObject instanceof Throwable) {
-			return EncodedObject.encodeException(((Throwable)javaObject));
+			return EncodedObject.encodeException(((Throwable) javaObject));
 		}
 
 		if (javaObject instanceof Byte) {
-			return EncodedObject.encodeLong(((Byte)javaObject) * 1L);
+			return EncodedObject.encodeLong(((Byte) javaObject) * 1L);
 		}
 		if (javaObject instanceof Mapping) {
-			return Codecs.encode(((Mapping)javaObject).toJavaMap());
+			return Codecs.encode(((Mapping) javaObject).toJavaMap());
 		}
 
 		if (javaObject instanceof CrossLanguageMethodCallResult) {
-			final CrossLanguageMethodCallResult res = (CrossLanguageMethodCallResult)javaObject;
+			final CrossLanguageMethodCallResult res = (CrossLanguageMethodCallResult) javaObject;
 			final EncodedObject e = new EncodedObject();
 
 			e.type = CrossLanguageClassNames.MethodCallResult;
@@ -125,7 +134,7 @@ public class ScarabeiToCrossLanguageEncoder implements JavaToCrossLanguageEncode
 		}
 
 		if (javaObject instanceof java.util.Map) {
-			final java.util.Map map = (java.util.Map)javaObject;
+			final java.util.Map map = (java.util.Map) javaObject;
 
 			final ArrayList<ArrayList<EncodedObject>> pairsList = new ArrayList<ArrayList<EncodedObject>>();
 			for (final Object k : map.keySet()) {
@@ -143,7 +152,7 @@ public class ScarabeiToCrossLanguageEncoder implements JavaToCrossLanguageEncode
 			return encodedMap;
 		}
 		if (javaObject instanceof Iterable) {
-			final Iterable i = (Iterable)javaObject;
+			final Iterable i = (Iterable) javaObject;
 			final ArrayList<EncodedObject> result = new ArrayList<EncodedObject>();
 			for (final Object e : i) {
 				result.add(Codecs.encode(e));

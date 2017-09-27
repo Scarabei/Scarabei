@@ -12,6 +12,7 @@ import com.jfixby.scarabei.api.file.File;
 import com.jfixby.scarabei.api.file.FileInputStream;
 import com.jfixby.scarabei.api.file.FileOutputStream;
 import com.jfixby.scarabei.api.file.FileSystem;
+import com.jfixby.scarabei.api.file.LocalFile;
 import com.jfixby.scarabei.api.file.LocalFileSystemComponent;
 import com.jfixby.scarabei.api.log.L;
 import com.jfixby.scarabei.api.sys.Sys;
@@ -24,20 +25,20 @@ import com.jfixby.scarabei.red.io.JavaFileOutputStream;
 public class LocalFileSystem extends AbstractFileSystem implements LocalFileSystemComponent {
 
 	@Override
-	final public FileInputStream newFileInputStream (final File input_file) {
+	final public FileInputStream newFileInputStream(final File input_file) {
 		Debug.checkNull("File", input_file);
 		Debug.checkTrue("File belongs to this filesystem?", input_file.getFileSystem() == this);
 		return new JavaFileInputStream(input_file.toJavaFile());
 	}
 
 	@Override
-	final public FileOutputStream newFileOutputStream (final File output_file, final boolean append) {
+	final public FileOutputStream newFileOutputStream(final File output_file, final boolean append) {
 		Debug.checkNull("File", output_file);
 		Debug.checkTrue("File belongs to this filesystem?", output_file.getFileSystem() == this);
 		return new JavaFileOutputStream(output_file.toJavaFile(), append);
 	}
 
-	private AbsolutePath<FileSystem> resolve (java.io.File file) {
+	private AbsolutePath<FileSystem> resolve(java.io.File file) {
 		Debug.checkNull("file", file);
 		file = file.getAbsoluteFile();
 		RelativePath relative = null;
@@ -49,11 +50,11 @@ public class LocalFileSystem extends AbstractFileSystem implements LocalFileSyst
 			relative = Utils.newRelativePath(androidAbsolutePathString);
 			L.e("Android file failed to return file.toPath(). Use abs path string instead: " + relative);
 		}
-		final AbsolutePath<FileSystem> path = Utils.newAbsolutePath((FileSystem)this, relative);
+		final AbsolutePath<FileSystem> path = Utils.newAbsolutePath((FileSystem) this, relative);
 		return path;
 	}
 
-	private RelativePath pathToRelative (final Path path) {
+	private RelativePath pathToRelative(final Path path) {
 		final List<String> steps = Collections.newList();
 		for (final Path p : path) {
 			steps.add(p.toFile().getName());
@@ -63,7 +64,7 @@ public class LocalFileSystem extends AbstractFileSystem implements LocalFileSyst
 	}
 
 	@Override
-	public LocalRedFile newFile (final AbsolutePath<FileSystem> file_path) {
+	public LocalRedFile newFile(final AbsolutePath<FileSystem> file_path) {
 		if (file_path == null) {
 			Err.reportError("Filepath is null.");
 		}
@@ -76,24 +77,25 @@ public class LocalFileSystem extends AbstractFileSystem implements LocalFileSyst
 	}
 
 	@Override
-	final public File newFile (final String java_file_path) {
+	final public LocalFile newFile(final String java_file_path) {
 		Debug.checkNull("java_file_path", java_file_path);
 
 		final String splitRegex = Pattern.quote(System.getProperty("file.separator"));
-		final RelativePath splittedFileName = Utils.newRelativePath(Collections.newList(java_file_path.split(splitRegex)));
-// splittedFileName.steps().print("steps");
+		final RelativePath splittedFileName = Utils
+				.newRelativePath(Collections.newList(java_file_path.split(splitRegex)));
+		// splittedFileName.steps().print("steps");
 
 		final File file = this.ROOT().proceed(splittedFileName);
-		return file;
+		return (LocalFile) file;
 	}
 
 	@Override
-	final public File newFile (final java.io.File file) {
+	final public LocalFile newFile(final java.io.File file) {
 		return this.newFile(this.resolve(file));
 	}
 
 	@Override
-	final public File ApplicationHome () {
+	final public LocalFile ApplicationHome() {
 		return this.newFile(this.application_home_path_string);
 	}
 
