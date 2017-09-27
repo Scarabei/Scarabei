@@ -88,7 +88,7 @@ public class ScarabeiToCrossLanguageEncoder implements JavaToCrossLanguageEncode
 		}
 
 		if (javaObject instanceof LocalFile) {
-			return EncodedObject.encodeString((String) javaObject);
+			return EncodedObject.encodeLocalFile((LocalFile) javaObject);
 		}
 
 		if (javaObject instanceof Boolean) {
