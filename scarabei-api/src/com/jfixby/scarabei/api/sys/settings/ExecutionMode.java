@@ -15,24 +15,26 @@ public enum ExecutionMode {
 
 	final private int level;
 
-	ExecutionMode (final int level) {
+	ExecutionMode(final int level) {
 		this.level = level;
 
 	}
 
-	public static ID ExecutionModeTAG () {
-		return Names.newID("com.jfixby.scarabei.ExecutionMode");
+	public static ID ExecutionModeTAG() {
+		return Names.newID(ExecutionMode.GLOBAL_TYPE_NAME_STRING);
 	}
 
-	public final boolean isAtLeast (final ExecutionMode targetMode) {
+	static final String GLOBAL_TYPE_NAME_STRING = "com.jfixby.scarabei.api.sys.settings.ExecutionMode";
+
+	public final boolean isAtLeast(final ExecutionMode targetMode) {
 		return this.level >= targetMode.level;
 	}
 
-	public boolean isBelow (final ExecutionMode targetMode) {
+	public boolean isBelow(final ExecutionMode targetMode) {
 		return this.level < targetMode.level;
 	}
 
-	public static ExecutionMode resolve (final String exeString) {
+	public static ExecutionMode resolve(final String exeString) {
 		for (final ExecutionMode ex : ExecutionMode.values()) {
 			if (ex.toString().equals(exeString)) {
 				return ex;
