@@ -6,6 +6,7 @@ import com.jfixby.scarabei.android.api.AndroidComponent;
 import com.jfixby.scarabei.android.api.AndroidSystemInfoTags;
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.Map;
+import com.jfixby.scarabei.api.debug.Debug;
 import com.jfixby.scarabei.api.display.DisplayMetrics;
 import com.jfixby.scarabei.api.err.Err;
 import com.jfixby.scarabei.api.file.LocalFile;
@@ -30,6 +31,7 @@ public class RedAndroidComponent implements AndroidComponent {
 	private final Application app;
 
 	public RedAndroidComponent(final Application redTriplaneAndroidApplication) {
+		Debug.checkNull("AndroidApplication", redTriplaneAndroidApplication);
 		this.app = redTriplaneAndroidApplication;
 	}
 
