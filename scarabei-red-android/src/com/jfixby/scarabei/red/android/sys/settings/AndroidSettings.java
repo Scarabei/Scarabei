@@ -127,6 +127,8 @@ public class AndroidSettings implements SystemSettingsComponent {
 
 	@Override
 	public boolean saveToStorage() {
+		Map<ID, Object> all = this.listAllSettings();
+		L.d("writing SharedPreferences", all);
 		return this.prefs.commit();
 	}
 

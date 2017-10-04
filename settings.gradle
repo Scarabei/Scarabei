@@ -16,8 +16,6 @@ include "scarabei-red-ios"
 include "scarabei-api-gwt"
 include "scarabei-red-gwt"
 
-include "scarabei-gson"
-
 include "scarabei-aws-api"
 include "scarabei-aws-red"
 include "scarabei-aws-desktop"
