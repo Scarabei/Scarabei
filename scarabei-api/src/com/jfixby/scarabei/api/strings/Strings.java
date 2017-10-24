@@ -68,4 +68,8 @@ public class Strings {
 		return invoke().wrapSequence(seq, size, bracketLeft, bracketRight, separator);
 	}
 
+	public static String padLeft (final String value, final String pad, final int size) {
+		return invoke().padLeft(value, pad, size);
+	}
+
 }

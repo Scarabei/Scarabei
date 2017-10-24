@@ -28,4 +28,6 @@ public interface StringsComponent {
 
 	String wrapSequence (Sequence<String> seq, int size, String bracketLeft, String bracketRight, final String separator);
 
+	String padLeft (String value, String pad, int size);
+
 }

@@ -36,7 +36,7 @@ public class DNS implements AssetsNamespaceComponent {
 
 	@Override
 	public boolean isValidString (final String value) {
-		return value != null && !"".equals(value) && value.indexOf(' ') == -1;
+		return value != null && value.indexOf(' ') == -1;
 	}
 
 }

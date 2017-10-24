@@ -93,4 +93,9 @@ public class RedStrings implements StringsComponent {
 		return Collections.newList(input_string.split(splitter));
 	}
 
+	@Override
+	public String padLeft (final String value, final String pad, final int size) {
+		return this.prefix(pad, size - value.length()) + value;
+	}
+
 }
