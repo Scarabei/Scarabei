@@ -6,6 +6,7 @@ import com.jfixby.scarabei.api.err.Err;
 import com.jfixby.scarabei.api.promise.Future;
 import com.jfixby.scarabei.api.promise.Promise;
 import com.jfixby.scarabei.api.sys.Sys;
+import com.jfixby.scarabei.api.taskman.Job;
 import com.jfixby.scarabei.api.taskman.Task;
 import com.jfixby.scarabei.api.taskman.TaskManagerComponent;
 import com.jfixby.scarabei.api.ui.UIThread;
@@ -25,7 +26,7 @@ public class RedPromise<I, R> implements Promise<R> {
 		return "Promise[" + this.task.getName() + "]";
 	}
 
-	final RedPromiseJob<I, R> job = new RedPromiseJob<I, R>(this);
+	final Job job;
 	private final TaskManagerComponent executor;
 
 	@Override
@@ -59,8 +60,17 @@ public class RedPromise<I, R> implements Promise<R> {
 		this.parent = parent;
 		this.future = future;
 		this.executor = executor;
+		this.job = new RedPromiseJob<I, R>(this);
 		this.task = executor.newTask(debugName, this.job);
+	}
 
+	public RedPromise (final String debugName, final Job job, final TaskManagerComponent executor) {
+		Debug.checkNull("job", job);
+		this.parent = null;
+		this.future = null;
+		this.executor = executor;
+		this.job = job;
+		this.task = executor.newTask(debugName, this.job);
 	}
 
 	public void deliver (final I input) {

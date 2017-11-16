@@ -4,7 +4,9 @@ package com.jfixby.scarabei.red.taskman;
 import java.util.ArrayList;
 
 import com.jfixby.scarabei.api.collections.Collection;
+import com.jfixby.scarabei.api.promise.Promise;
 import com.jfixby.scarabei.api.taskman.Job;
+import com.jfixby.scarabei.red.promise.RedPromise;
 
 public class PassiveTaskManager extends RedTaskManager {
 
@@ -55,6 +57,11 @@ public class PassiveTaskManager extends RedTaskManager {
 		final PassiveTask task = new PassiveTask(debugName, jobs);
 		this.new_tasks.add(task);
 		return task;
+	}
+
+	@Override
+	public Promise<Void> executeAsynchronously (final String debugName, final Job job) {
+		return new RedPromise<Void, Void>(debugName, job, this);
 	}
 
 }

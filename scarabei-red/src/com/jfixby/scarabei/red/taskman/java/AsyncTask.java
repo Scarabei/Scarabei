@@ -37,6 +37,7 @@ public class AsyncTask implements Task, Runnable {
 		this.switcher = Debug.newStateSwitcher(TASK_STATE.ACTIVE);
 		this.t = new Thread(this.runner);
 		this.t.start();
+		Err.reportError("Component disabled due to the deadlocks");
 	}
 
 	private final Runnable runner = this;

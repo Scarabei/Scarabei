@@ -47,4 +47,8 @@ public class TaskManager {
 		return invoke().executeAsynchronously(debugName);
 	}
 
+	public static Promise<Void> executeAsynchronously (final String debugName, final Job j) {
+		return invoke().executeAsynchronously(debugName, j);
+	}
+
 }

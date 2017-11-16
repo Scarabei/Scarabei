@@ -15,4 +15,6 @@ public interface TaskManagerComponent {
 
 	Promise<Void> executeAsynchronously (String debugName);
 
+	Promise<Void> executeAsynchronously (String debugName, Job job);
+
 }

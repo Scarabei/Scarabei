@@ -29,7 +29,6 @@ import com.jfixby.scarabei.api.reflect.Reflections;
 import com.jfixby.scarabei.api.strings.Strings;
 import com.jfixby.scarabei.api.sys.Sys;
 import com.jfixby.scarabei.api.sys.settings.SystemSettings;
-import com.jfixby.scarabei.api.taskman.TaskManager;
 import com.jfixby.scarabei.api.time.Time;
 import com.jfixby.scarabei.api.ui.UIThread;
 import com.jfixby.scarabei.api.util.Utils;
@@ -44,7 +43,6 @@ import com.jfixby.scarabei.red.desktop.math.DesktopFloatMath;
 import com.jfixby.scarabei.red.desktop.net.http.DesktopHttp;
 import com.jfixby.scarabei.red.desktop.sys.DesktopSystem;
 import com.jfixby.scarabei.red.desktop.sys.settings.DesktopSystemSettings;
-import com.jfixby.scarabei.red.desktop.taskman.DesktopTaskManager;
 import com.jfixby.scarabei.red.err.RedError;
 import com.jfixby.scarabei.red.filesystem.cache.RedFileCache;
 import com.jfixby.scarabei.red.geometry.RedGeometry;
@@ -83,7 +81,7 @@ public class ScarabeiDesktop {
 
 		Sys.installComponent(new DesktopSystem());
 		SystemSettings.installComponent(new DesktopSystemSettings());
-		TaskManager.installComponent(new DesktopTaskManager());
+// TaskManager.installComponent(new DesktopTaskManager());
 
 		UIThread.installComponent(new RedUIThread());
 
