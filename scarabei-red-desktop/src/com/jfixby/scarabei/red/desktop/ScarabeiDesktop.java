@@ -30,6 +30,7 @@ import com.jfixby.scarabei.api.strings.Strings;
 import com.jfixby.scarabei.api.sys.Sys;
 import com.jfixby.scarabei.api.sys.settings.SystemSettings;
 import com.jfixby.scarabei.api.taskman.TaskManager;
+import com.jfixby.scarabei.api.time.Time;
 import com.jfixby.scarabei.api.ui.UIThread;
 import com.jfixby.scarabei.api.util.Utils;
 import com.jfixby.scarabei.red.arrays.RedArrays;
@@ -61,6 +62,7 @@ import com.jfixby.scarabei.red.name.DNS;
 import com.jfixby.scarabei.red.random.RedRandom;
 import com.jfixby.scarabei.red.reflect.RedReflections;
 import com.jfixby.scarabei.red.string.RedStrings;
+import com.jfixby.scarabei.red.time.RedTime;
 import com.jfixby.scarabei.red.ui.RedUIThread;
 import com.jfixby.scarabei.red.util.RedUtils;
 import com.jfixby.scarabei.red.util.md5.RSADataSecurityIncMD5;
@@ -68,6 +70,8 @@ import com.jfixby.scarabei.red.util.md5.RSADataSecurityIncMD5;
 public class ScarabeiDesktop {
 
 	public static final void deploy () {
+		Time.installComponent(new RedTime());
+
 		L.installComponent(new SimpleLogger());
 		Err.installComponent(new RedError());
 		Debug.installComponent(new RedDebug());
