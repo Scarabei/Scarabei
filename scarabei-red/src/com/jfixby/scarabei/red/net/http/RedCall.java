@@ -1,6 +1,8 @@
 
 package com.jfixby.scarabei.red.net.http;
 
+import javax.net.ssl.SSLSocketFactory;
+
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.Map;
 import com.jfixby.scarabei.api.collections.Mapping;
@@ -18,6 +20,7 @@ public class RedCall implements HttpCall {
 	private final boolean agent;
 	private final boolean ssl;
 	long timeout = 10000;
+	private final SSLSocketFactory sslFac;
 
 	public METHOD getMethod () {
 		return this.method;
@@ -31,6 +34,7 @@ public class RedCall implements HttpCall {
 		this.url = call_scecs.getURL();
 		this.method = Debug.checkNull("method", call_scecs.getMethod());
 		this.agent = call_scecs.getUseAgent();
+		this.sslFac = call_scecs.getSSLFactory();
 		this.ssl = call_scecs.getUseSSL();
 	}
 
@@ -72,6 +76,11 @@ public class RedCall implements HttpCall {
 	@Override
 	public void setServerTimeout (final long timeout) {
 		this.timeout = timeout;
+	}
+
+	@Override
+	public SSLSocketFactory getSSLFactory () {
+		return this.sslFac;
 	}
 
 }

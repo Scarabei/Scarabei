@@ -1,6 +1,8 @@
 
 package com.jfixby.scarabei.api.net.http;
 
+import javax.net.ssl.SSLSocketFactory;
+
 import com.jfixby.scarabei.api.collections.Mapping;
 
 public interface HttpCall {
@@ -20,5 +22,7 @@ public interface HttpCall {
 	long getServerTimeout ();
 
 	public void setServerTimeout (long timeout);
+
+	SSLSocketFactory getSSLFactory ();
 
 }

@@ -3,6 +3,8 @@ package com.jfixby.scarabei.red.net.http;
 
 import java.io.IOException;
 
+import javax.net.ssl.SSLSocketFactory;
+
 import com.jfixby.scarabei.api.err.Err;
 import com.jfixby.scarabei.api.net.http.Http;
 import com.jfixby.scarabei.api.net.http.HttpCall;
@@ -24,8 +26,11 @@ public class RedCallExecutor implements HttpCallExecutor {
 
 		final HttpURL url = call.getUrl();
 
+		final SSLSocketFactory sslFac = call.getSSLFactory();
+
 		final HttpConnectionSpecs specs = Http.newConnectionSpecs();
 		specs.setURL(url);
+		specs.setSSLFactory(sslFac);
 		specs.setUseAgent(call.getUseAgent());
 		specs.addRequesrProperties(call.listRequestHeaders());
 		specs.setDoOutput(true);

@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLSocketFactory;
+
 import com.jfixby.scarabei.api.collections.Collection;
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.List;
@@ -44,9 +47,11 @@ public class RedHttpConnection implements HttpConnection {
 	private long readTimeout;
 	private final StateSwitcher<CONNECTION_STATE> state = Debug.newStateSwitcher(CONNECTION_STATE.NEW);
 	private boolean instanceFollowRedirects;
+	private SSLSocketFactory sslFac;
 
 	public RedHttpConnection (final HttpConnectionSpecs specs) {
 		this.url = specs.getURL();
+		this.sslFac = specs.getSSLFactory();
 		this.use_agent = specs.getUseAgent();
 		this.requestProperties.putAll(specs.listRequestProperties());
 		this.doInput = specs.doInput();
@@ -109,7 +114,10 @@ public class RedHttpConnection implements HttpConnection {
 		L.d("calling", this.java_url);
 
 		this.java_connection = (HttpURLConnection)this.java_url.openConnection();
-
+		if (this.sslFac != null) {
+			final HttpsURLConnection java_connection_ssl = (HttpsURLConnection)this.java_connection;
+			java_connection_ssl.setSSLSocketFactory(this.sslFac);
+		}
 		this.java_connection.setRequestMethod(this.method.toJavaString());
 		this.java_connection.setUseCaches(this.useCaches);
 		this.java_connection.setDefaultUseCaches(this.defaultUseCaches);

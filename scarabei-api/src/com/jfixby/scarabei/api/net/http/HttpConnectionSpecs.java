@@ -1,6 +1,8 @@
 
 package com.jfixby.scarabei.api.net.http;
 
+import javax.net.ssl.SSLSocketFactory;
+
 import com.jfixby.scarabei.api.collections.Mapping;
 
 public interface HttpConnectionSpecs {
@@ -54,5 +56,9 @@ public interface HttpConnectionSpecs {
 	void setInstanceFollowRedirects (boolean instanceFollowRedirects);
 
 	boolean getInstanceFollowRedirects ();
+
+	void setSSLFactory (SSLSocketFactory sslFac);
+
+	SSLSocketFactory getSSLFactory ();
 
 }

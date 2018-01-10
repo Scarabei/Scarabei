@@ -1,6 +1,8 @@
 
 package com.jfixby.scarabei.red.net.http;
 
+import javax.net.ssl.SSLSocketFactory;
+
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.Map;
 import com.jfixby.scarabei.api.collections.Mapping;
@@ -22,6 +24,7 @@ public class RedHttpConnectionSpecs implements HttpConnectionSpecs {
 	private long connectionTimeout = 3000;
 	private long readTimeout = 3000;
 	private boolean instanceFollowRedirects;
+	private SSLSocketFactory sslFac;
 
 	@Override
 	public void setURL (final HttpURL url) {
@@ -146,6 +149,16 @@ public class RedHttpConnectionSpecs implements HttpConnectionSpecs {
 	@Override
 	public boolean getInstanceFollowRedirects () {
 		return this.instanceFollowRedirects;
+	}
+
+	@Override
+	public void setSSLFactory (final SSLSocketFactory sslFac) {
+		this.sslFac = sslFac;
+	}
+
+	@Override
+	public SSLSocketFactory getSSLFactory () {
+		return this.sslFac;
 	}
 
 }

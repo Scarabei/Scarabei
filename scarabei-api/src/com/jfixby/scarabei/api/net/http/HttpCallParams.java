@@ -1,6 +1,8 @@
 
 package com.jfixby.scarabei.api.net.http;
 
+import javax.net.ssl.SSLSocketFactory;
+
 public interface HttpCallParams {
 
 	void setURL (HttpURL http_url);
@@ -18,5 +20,9 @@ public interface HttpCallParams {
 	boolean getUseAgent ();
 
 	METHOD getMethod ();
+
+	void setSSLFactory (SSLSocketFactory sslFactory);
+
+	SSLSocketFactory getSSLFactory ();
 
 }
