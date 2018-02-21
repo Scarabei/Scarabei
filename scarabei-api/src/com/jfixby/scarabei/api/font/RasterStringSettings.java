@@ -5,7 +5,7 @@ import com.jfixby.scarabei.api.color.Color;
 import com.jfixby.scarabei.api.color.Colors;
 import com.jfixby.scarabei.api.names.ID;
 
-public class StringSpec {
+public class RasterStringSettings {
 
 	public float fontSize = 10;
 	public Color fontColor = Colors.BLACK();
@@ -41,7 +41,7 @@ public class StringSpec {
 		if (this.getClass() != obj.getClass()) {
 			return false;
 		}
-		final StringSpec other = (StringSpec)obj;
+		final RasterStringSettings other = (RasterStringSettings)obj;
 		if (this.borderColor == null) {
 			if (other.borderColor != null) {
 				return false;
