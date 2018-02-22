@@ -35,51 +35,52 @@ public class RasterStringSettings {
 		if (this == obj) {
 			return true;
 		}
-		if (obj == null) {
-			return false;
-		}
-		if (this.getClass() != obj.getClass()) {
-			return false;
-		}
-		final RasterStringSettings other = (RasterStringSettings)obj;
-		if (this.borderColor == null) {
-			if (other.borderColor != null) {
-				return false;
-			}
-		} else if (!this.borderColor.equals(other.borderColor)) {
-			return false;
-		}
-		if (Float.floatToIntBits(this.borderSize) != Float.floatToIntBits(other.borderSize)) {
-			return false;
-		}
-		if (this.fontColor == null) {
-			if (other.fontColor != null) {
-				return false;
-			}
-		} else if (!this.fontColor.equals(other.fontColor)) {
-			return false;
-		}
-		if (this.fontID == null) {
-			if (other.fontID != null) {
-				return false;
-			}
-		} else if (!this.fontID.equals(other.fontID)) {
-			return false;
-		}
-		if (Float.floatToIntBits(this.fontSize) != Float.floatToIntBits(other.fontSize)) {
-			return false;
-		}
-		if (Float.floatToIntBits(this.padding) != Float.floatToIntBits(other.padding)) {
-			return false;
-		}
-		if (this.string == null) {
-			if (other.string != null) {
-				return false;
-			}
-		} else if (!this.string.equals(other.string)) {
-			return false;
-		}
-		return true;
+		return false;
+		// if (obj == null) {
+// return false;
+// }
+// if (this.getClass() != obj.getClass()) {
+// return false;
+// }
+// final RasterStringSettings other = (RasterStringSettings)obj;
+// if (this.borderColor == null) {
+// if (other.borderColor != null) {
+// return false;
+// }
+// } else if (!this.borderColor.equals(other.borderColor)) {
+// return false;
+// }
+// if (Float.floatToIntBits(this.borderSize) != Float.floatToIntBits(other.borderSize)) {
+// return false;
+// }
+// if (this.fontColor == null) {
+// if (other.fontColor != null) {
+// return false;
+// }
+// } else if (!this.fontColor.equals(other.fontColor)) {
+// return false;
+// }
+// if (this.fontID == null) {
+// if (other.fontID != null) {
+// return false;
+// }
+// } else if (!this.fontID.equals(other.fontID)) {
+// return false;
+// }
+// if (Float.floatToIntBits(this.fontSize) != Float.floatToIntBits(other.fontSize)) {
+// return false;
+// }
+// if (Float.floatToIntBits(this.padding) != Float.floatToIntBits(other.padding)) {
+// return false;
+// }
+// if (this.string == null) {
+// if (other.string != null) {
+// return false;
+// }
+// } else if (!this.string.equals(other.string)) {
+// return false;
+// }
+// return true;
 	}
 
 }
