@@ -1,6 +1,7 @@
 
 package com.jfixby.scarabei.red.geometry;
 
+import com.jfixby.scarabei.api.geometry.Rectangle;
 import com.jfixby.scarabei.api.geometry.projections.ComposedProjection;
 import com.jfixby.scarabei.api.geometry.projections.IdentityProjection;
 import com.jfixby.scarabei.api.geometry.projections.OffsetProjection;
@@ -62,6 +63,12 @@ public class RedProjectionFactory implements ProjectionFactory {
 	public SkewProjection newSkew () {
 		final RedSkewProjection pj = new RedSkewProjection();
 		return pj;
+	}
+
+	@Override
+	public RotateAndOffsetProjection newOffsetAndRotate (final Rectangle rectangle) {
+		final RedRectangleProjection combo = new RedRectangleProjection(rectangle);
+		return combo;
 	}
 
 }

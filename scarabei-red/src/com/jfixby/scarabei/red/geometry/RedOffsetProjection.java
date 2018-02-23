@@ -5,48 +5,58 @@ import com.jfixby.scarabei.api.floatn.Float2;
 import com.jfixby.scarabei.api.floatn.ReadOnlyFloat2;
 import com.jfixby.scarabei.api.geometry.CanvasPosition;
 import com.jfixby.scarabei.api.geometry.Geometry;
+import com.jfixby.scarabei.api.geometry.Rectangle;
 import com.jfixby.scarabei.api.geometry.projections.OffsetProjection;
 
 public final class RedOffsetProjection implements OffsetProjection {
 
-	private double offsetX;
-	private double offsetY;
-	final Float2 offset = Geometry.newFloat2();
+// private double offsetX;
+// private double offsetY;
+// final Float2 offset = Geometry.newFloat2();
+	private final Rectangle rectangle;
+
+	public RedOffsetProjection (final Rectangle rectangle) {
+		this.rectangle = rectangle;
+	}
+
+	public RedOffsetProjection () {
+		this.rectangle = Geometry.newRectangle();
+	}
 
 	public ReadOnlyFloat2 getOffset () {
-		this.offset.setXY(this.offsetX, this.offsetY);
-		return this.offset;
+// this.rectangle.setPositionXY(x);
+		return this.rectangle.getPosition();
 	}
 
 	@Override
 	public void setOffsetX (final double x) {
-		this.offsetX = x;
+		this.rectangle.setPositionX(x);
 	}
 
 	@Override
 	public void setOffsetY (final double y) {
-		this.offsetY = y;
+		this.rectangle.setPositionY(y);
 	}
 
 	@Override
 	public double getOffsetX () {
-		return this.offsetX;
+		return this.rectangle.getPositionX();
 	}
 
 	@Override
 	public double getOffsetY () {
-		return this.offsetY;
+		return this.rectangle.getPositionY();
 	}
 
 	@Override
 	public void project (final Float2 point) {
-		point.setX(point.getX() + this.offsetX);
-		point.setY(point.getY() + this.offsetY);
+		point.setX(point.getX() + this.rectangle.getPositionX());
+		point.setY(point.getY() + this.rectangle.getPositionY());
 	}
 
 	public void setOffset (final CanvasPosition position) {
-		this.offsetX = position.getX();
-		this.offsetY = position.getY();
+		this.rectangle.setPositionX(position.getX());
+		this.rectangle.setPositionY(position.getY());
 	}
 
 	@Override
@@ -57,8 +67,8 @@ public final class RedOffsetProjection implements OffsetProjection {
 
 	@Override
 	public void unProject (final Float2 point) {
-		point.setX(point.getX() - this.offsetX);
-		point.setY(point.getY() - this.offsetY);
+		point.setX(point.getX() - this.rectangle.getPositionX());
+		point.setY(point.getY() - this.rectangle.getPositionY());
 	}
 
 }

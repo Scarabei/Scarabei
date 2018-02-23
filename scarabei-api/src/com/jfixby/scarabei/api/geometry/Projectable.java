@@ -3,7 +3,7 @@ package com.jfixby.scarabei.api.geometry;
 
 import com.jfixby.scarabei.api.math.Angle;
 
-public interface Projectable extends GeometryFigure {
+public interface Projectable extends GeometricShape {
 	double getWidth ();
 
 	double getHeight ();

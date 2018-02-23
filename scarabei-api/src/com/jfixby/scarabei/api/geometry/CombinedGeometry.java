@@ -1,9 +1,9 @@
 
 package com.jfixby.scarabei.api.geometry;
 
-public interface CombinedGeometry extends GeometryFigure {
+public interface CombinedGeometry extends GeometricShape {
 
-	void addFigure (GeometryFigure child);
+	void addFigure (GeometricShape child);
 
 	int size ();
 

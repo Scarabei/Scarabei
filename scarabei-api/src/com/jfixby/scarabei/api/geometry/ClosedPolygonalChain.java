@@ -5,7 +5,7 @@ import com.jfixby.scarabei.api.collections.Collection;
 import com.jfixby.scarabei.api.floatn.Float2;
 import com.jfixby.scarabei.api.floatn.ReadOnlyFloat2;
 
-public interface ClosedPolygonalChain extends GeometryFigure {
+public interface ClosedPolygonalChain extends GeometricShape {
 
 	int size ();
 

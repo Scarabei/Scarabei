@@ -3,7 +3,7 @@ package com.jfixby.scarabei.api.geometry;
 
 import com.jfixby.scarabei.api.math.Angle;
 
-public interface Circle extends GeometryFigure {
+public interface Circle extends GeometricShape {
 
 	public double getRadius ();
 
