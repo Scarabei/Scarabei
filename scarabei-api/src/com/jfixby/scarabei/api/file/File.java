@@ -41,7 +41,7 @@ public interface File {
 	 */
 	public boolean extensionIs (String postfix);
 
-	public String getExtension () throws IOException;
+	public String getExtension ();
 
 	boolean rename (String new_name) throws IOException;
 

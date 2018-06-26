@@ -217,10 +217,17 @@ public abstract class AbstractRedFile implements File {
 	}
 
 	@Override
-	public String getExtension () throws IOException {
-		if (this.isFolder()) {
-			return "";
+	public String getExtension () {
+
+		try {
+			if (this.isFolder()) {
+				return "";
+			}
+		} catch (final IOException e) {
+			e.printStackTrace();
+			return null;
 		}
+
 		final String name = this.getName().toLowerCase();
 		final int index = name.lastIndexOf('.');
 		if (index < 0) {
