@@ -23,4 +23,6 @@ public interface Map<K, V> extends Mapping<K, V> {
 
 	EditableCollection<K> cutToSize (int max_size);
 
+	void setDefaultValue (V defaultVal);
+
 }

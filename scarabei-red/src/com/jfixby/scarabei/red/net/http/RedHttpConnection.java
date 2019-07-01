@@ -117,6 +117,7 @@ public class RedHttpConnection implements HttpConnection {
 		if (this.sslFac != null) {
 			final HttpsURLConnection java_connection_ssl = (HttpsURLConnection)this.java_connection;
 			java_connection_ssl.setSSLSocketFactory(this.sslFac);
+
 		}
 		this.java_connection.setRequestMethod(this.method.toJavaString());
 		this.java_connection.setUseCaches(this.useCaches);

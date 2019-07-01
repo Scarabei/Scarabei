@@ -1,8 +1,10 @@
-sourceCompatibility = 1.6
+sourceCompatibility = 1.8
 
 dependencies {
 
     compile project(":scarabei-aws-api")
+    compile project(":scarabei-red")
+    compile group: 'com.amazonaws', name: 'aws-java-sdk', version: '1.11.103' 
 
 }
 

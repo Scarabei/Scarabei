@@ -11,6 +11,7 @@ import com.jfixby.scarabei.api.collections.List;
 import com.jfixby.scarabei.api.collections.Map;
 import com.jfixby.scarabei.api.collections.Mapping;
 import com.jfixby.scarabei.api.collections.Set;
+import com.jfixby.scarabei.api.err.Err;
 import com.jfixby.scarabei.api.names.ID;
 import com.jfixby.scarabei.api.names.NamespaceRegistry;
 
@@ -177,6 +178,11 @@ public class DNSRegistry<T> implements NamespaceRegistry<T> {
 	@Override
 	public EditableCollection<ID> cutToSize (final int max_size) {
 		return this.map.cutToSize(max_size);
+	}
+
+	@Override
+	public void setDefaultValue (final Collection<T> defaultVal) {
+		Err.throwNotImplementedYet();
 	}
 
 }

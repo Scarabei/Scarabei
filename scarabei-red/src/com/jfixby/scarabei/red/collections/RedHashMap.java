@@ -17,6 +17,7 @@ import com.jfixby.scarabei.api.err.Err;
 public class RedHashMap<K, V> implements Map<K, V> {
 	final LinkedHashMap<K, V> hash_map = new LinkedHashMap<K, V>();
 	final RedSet<K> keys_list = new RedSet<K>();
+	private V defaultVal;
 
 	@Override
 	public void put (final K key, final V value) {
@@ -32,7 +33,7 @@ public class RedHashMap<K, V> implements Map<K, V> {
 
 	@Override
 	public V get (final Object key) {
-		return this.hash_map.get(key);
+		return this.hash_map.getOrDefault(key, this.defaultVal);
 	}
 
 	@Override
@@ -190,5 +191,10 @@ public class RedHashMap<K, V> implements Map<K, V> {
 
 		return to_remove;
 
+	}
+
+	@Override
+	public void setDefaultValue (final V defaultVal) {
+		this.defaultVal = defaultVal;
 	}
 }
