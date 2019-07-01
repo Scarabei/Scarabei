@@ -7,4 +7,6 @@ public interface SNSClient {
 
 	SNSTopicSunscribeRequest subscribe (SNSTopicSunscribeRequestParams params);
 
+	SNSPublishResult publish (SNSPublishRequest pr);
+
 }

@@ -3,9 +3,12 @@ package com.jfixby.scarabei.aws.android.sns;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.services.sns.AmazonSNSClient;
+import com.jfixby.scarabei.api.err.Err;
 import com.jfixby.scarabei.aws.api.AWSCredentialsProvider;
 import com.jfixby.scarabei.aws.api.sns.SNSClient;
 import com.jfixby.scarabei.aws.api.sns.SNSClientSpecs;
+import com.jfixby.scarabei.aws.api.sns.SNSPublishRequest;
+import com.jfixby.scarabei.aws.api.sns.SNSPublishResult;
 import com.jfixby.scarabei.aws.api.sns.SNSTopicSunscribeRequest;
 import com.jfixby.scarabei.aws.api.sns.SNSTopicSunscribeRequestParams;
 
@@ -57,6 +60,12 @@ public class AndroidSNSClient implements SNSClient {
 
 	AmazonSNSClient getSNSClient () {
 		return this.awsSnsClient;
+	}
+
+	@Override
+	public SNSPublishResult publish (final SNSPublishRequest pr) {
+		Err.throwNotImplementedYet();
+		return null;
 	}
 
 }

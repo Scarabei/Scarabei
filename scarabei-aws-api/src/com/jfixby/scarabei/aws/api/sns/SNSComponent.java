@@ -7,4 +7,8 @@ public interface SNSComponent {
 
 	SNSClient newClient (SNSClientSpecs params);
 
+	SNSPublishRequestSpecs newPublishRequestSpecs ();
+
+	SNSPublishRequest newPublishRequest (SNSPublishRequestSpecs pspec);
+
 }

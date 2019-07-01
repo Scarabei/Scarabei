@@ -3,9 +3,12 @@ package com.jfixby.scarabei.aws.desktop.sns;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.services.sns.AmazonSNSClient;
+import com.amazonaws.services.sns.model.PublishResult;
 import com.jfixby.scarabei.aws.api.AWSCredentialsProvider;
 import com.jfixby.scarabei.aws.api.sns.SNSClient;
 import com.jfixby.scarabei.aws.api.sns.SNSClientSpecs;
+import com.jfixby.scarabei.aws.api.sns.SNSPublishRequest;
+import com.jfixby.scarabei.aws.api.sns.SNSPublishResult;
 import com.jfixby.scarabei.aws.api.sns.SNSTopicSunscribeRequest;
 import com.jfixby.scarabei.aws.api.sns.SNSTopicSunscribeRequestParams;
 
@@ -57,6 +60,13 @@ public class DesktopSNSClient implements SNSClient {
 
 	AmazonSNSClient getSNSClient () {
 		return this.awsSnsClient;
+	}
+
+	@Override
+	public SNSPublishResult publish (final SNSPublishRequest pr) {
+		final DesktopSnSPublishRerquest PR = (DesktopSnSPublishRerquest)pr;
+		final PublishResult publishResponse = this.awsSnsClient.publish(PR.publishRequest);
+		return new DesktopSNSPublishResult(publishResponse);
 	}
 
 }
