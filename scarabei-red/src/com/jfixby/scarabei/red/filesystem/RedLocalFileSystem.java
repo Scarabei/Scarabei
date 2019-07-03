@@ -22,7 +22,7 @@ import com.jfixby.scarabei.api.util.path.RelativePath;
 import com.jfixby.scarabei.red.io.JavaFileInputStream;
 import com.jfixby.scarabei.red.io.JavaFileOutputStream;
 
-public class LocalFileSystem extends AbstractFileSystem implements LocalFileSystemComponent {
+public class RedLocalFileSystem extends AbstractFileSystem implements LocalFileSystemComponent {
 
 	@Override
 	final public FileInputStream newFileInputStream(final File input_file) {
@@ -64,7 +64,7 @@ public class LocalFileSystem extends AbstractFileSystem implements LocalFileSyst
 	}
 
 	@Override
-	public LocalRedFile newFile(final AbsolutePath<FileSystem> file_path) {
+	public RedLocalFile newFile(final AbsolutePath<FileSystem> file_path) {
 		if (file_path == null) {
 			Err.reportError("Filepath is null.");
 		}
@@ -73,7 +73,7 @@ public class LocalFileSystem extends AbstractFileSystem implements LocalFileSyst
 			L.e("FileSystem", file_path.getMountPoint());
 			Err.reportError("Path does not belong to this filesystem: " + this);
 		}
-		return new LocalRedFile(file_path, this);
+		return new RedLocalFile(file_path, this);
 	}
 
 	@Override

@@ -7,6 +7,7 @@ import com.jfixby.scarabei.api.debug.Debug;
 import com.jfixby.scarabei.api.err.Err;
 import com.jfixby.scarabei.api.log.L;
 import com.jfixby.scarabei.api.names.ID;
+import com.jfixby.scarabei.api.names.Names;
 import com.jfixby.scarabei.api.sys.settings.ExecutionMode;
 import com.jfixby.scarabei.api.sys.settings.SystemSettingsComponent;
 
@@ -18,10 +19,19 @@ public class DesktopSystemSettings implements SystemSettingsComponent {
 	final Map<ID, String> strings = Collections.newMap();
 	final Map<ID, ID> assets = Collections.newMap();
 
+	public DesktopSystemSettings () {
+		final java.util.Map<String, String> list = System.getenv();
+		for (final String key : list.keySet()) {
+			final ID id = Names.newID(key);
+			this.strings.put(id, list.get(key));
+		}
+	}
+
 	@Override
 	public Map<ID, Object> listAllSettings () {
 		final Map<ID, Object> params = Collections.newMap();
-		Err.throwNotImplementedYet();
+// Err.throwNotImplementedYet();
+
 // params.put("ExecutionMode", "" + this.execution_mode);
 		collect("flag", params, this.flags);
 		collect("long", params, this.longs);

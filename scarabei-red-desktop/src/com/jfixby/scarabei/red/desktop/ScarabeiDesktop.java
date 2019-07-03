@@ -69,7 +69,7 @@ public class ScarabeiDesktop {
 
 	public static final void deploy () {
 		Time.installComponent(new RedTime());
-
+		Names.installComponent(new DNS());
 		L.installComponent(new SimpleLogger());
 		Err.installComponent(new RedError());
 		Debug.installComponent(new RedDebug());
@@ -86,7 +86,7 @@ public class ScarabeiDesktop {
 		UIThread.installComponent(new RedUIThread());
 
 		IntegerMath.installComponent(new RedIntegerMath());
-		Names.installComponent(new DNS());
+
 		IO.installComponent(new RedIO());
 		Graphs.installComponent(new RedGraphs());
 
