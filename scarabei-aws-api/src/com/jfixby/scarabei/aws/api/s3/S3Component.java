@@ -9,12 +9,6 @@ public interface S3Component {
 
 	S3FileSystem newFileSystem (S3FileSystemConfig specs);
 
-	ID AWS_ACCESS_KEY ();
-
-	ID AWS_SECRET_KEY ();
-
-	ID AWS_REGION_NAME ();
-
 	ID BUCKET_NAME ();
 
 }
