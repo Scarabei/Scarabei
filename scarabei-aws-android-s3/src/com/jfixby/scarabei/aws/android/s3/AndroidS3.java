@@ -21,22 +21,22 @@ public class AndroidS3 implements S3Component {
 
 	@Override
 	public ID AWS_ACCESS_KEY () {
-		return Names.newID("com.amazon.aws.AWS_ACCESS_KEY");
+		return Names.newID("com_amazon_aws_ACCESS_KEY");
 	}
 
 	@Override
 	public ID AWS_SECRET_KEY () {
-		return Names.newID("com.amazon.aws.AWS_SECRET_KEY");
+		return Names.newID("com_amazon_aws_SECRET_KEY");
 	}
 
 	@Override
 	public ID AWS_REGION_NAME () {
-		return Names.newID("com.amazon.aws.AWS_REGION_NAME");
+		return Names.newID("com_amazon_aws_REGION_NAME");
 	}
 
 	@Override
 	public ID BUCKET_NAME () {
-		return Names.newID("com.amazon.aws.s3.AWS_REGION_NAME");
+		return Names.newID("com_amazon_aws_s3_BUCKET_NAME");
 	}
 
 }
