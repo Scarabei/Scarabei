@@ -44,31 +44,31 @@ public class ImageProcessing {
 		return invoke().newColorMap(lambda_specs);
 	}
 
-	public static ColorMap newColorMap (final ColoredλImage lambda, final int width, final int height) {
+	public static ColorMap newColorMap (final ColoredLambdaImage lambda, final int width, final int height) {
 		return invoke().newColorMap(lambda, width, height);
 	}
 
-	public static ColoredλImageCache newImageCache (final int width, final int height) {
+	public static ColoredLambdaImageCache newImageCache (final int width, final int height) {
 		return invoke().newImageCache(width, height);
 	}
 
-	public static GrayλImage scale (final GrayλImage base, final float scaleX, final float scaleY) {
+	public static GrayLambdaImage scale (final GrayLambdaImage base, final float scaleX, final float scaleY) {
 		return invoke().scale(base, scaleX, scaleY);
 	}
 
-	public static ColoredλImage scale (final ColoredλImage base, final float scaleX, final float scaleY) {
+	public static ColoredLambdaImage scale (final ColoredLambdaImage base, final float scaleX, final float scaleY) {
 		return invoke().scale(base, scaleX, scaleY);
 	}
 
-	public static GrayλImage minus (final GrayλImage base, final GrayλImage diff) {
+	public static GrayLambdaImage minus (final GrayLambdaImage base, final GrayLambdaImage diff) {
 		return invoke().minus(base, diff);
 	}
 
-	public static GrayλImage multiply (final GrayλImage image, final float mult) {
+	public static GrayLambdaImage multiply (final GrayLambdaImage image, final float mult) {
 		return invoke().multiply(image, mult);
 	}
 
-	public static GrayMap newGrayMap (final GrayλImage lambda, final int width, final int height) {
+	public static GrayMap newGrayMap (final GrayLambdaImage lambda, final int width, final int height) {
 		return invoke().newGrayMap(lambda, width, height);
 	}
 
@@ -76,7 +76,7 @@ public class ImageProcessing {
 		return invoke().newGrayMapSpecs();
 	}
 
-	public static GrayλImage roundArguments (final GrayλImage image) {
+	public static GrayLambdaImage roundArguments (final GrayLambdaImage image) {
 		return invoke().roundArguments(image);
 	}
 
@@ -88,7 +88,7 @@ public class ImageProcessing {
 		return invoke().newArrayGrayMap(specs);
 	}
 
-	public static GrayλImage plus (final GrayλImage base, final GrayλImage add) {
+	public static GrayLambdaImage plus (final GrayLambdaImage base, final GrayLambdaImage add) {
 		return invoke().plus(base, add);
 	}
 
@@ -96,11 +96,11 @@ public class ImageProcessing {
 		return invoke().roundArgument(x);
 	}
 
-	public static GrayλImage ONE () {
+	public static GrayLambdaImage ONE () {
 		return invoke().ONE();
 	}
 
-	public static GrayλImage ZERO () {
+	public static GrayLambdaImage ZERO () {
 		return invoke().ZERO();
 	}
 
@@ -108,21 +108,21 @@ public class ImageProcessing {
 		return invoke().newIndexedColorMapSpecs();
 	}
 
-	public static GrayIndexedλImage index (final GrayλImage lambdaImage, final GraySet palette) {
+	public static GrayIndexedLambdaImage index (final GrayLambdaImage lambdaImage, final GraySet palette) {
 		return invoke().index(lambdaImage, palette);
 	}
 
-	public static ColoredλImage index (final ColoredλImage lambdaImage, final ColorProjector palette) {
+	public static ColoredLambdaImage index (final ColoredLambdaImage lambdaImage, final ColorProjector palette) {
 		return invoke().index(lambdaImage, palette);
 	}
 
-	public static ColorMap newColorMap (final int width, final int height, final GrayλImage alpha, final GrayλImage red,
-		final GrayλImage green, final GrayλImage blue) {
+	public static ColorMap newColorMap (final int width, final int height, final GrayLambdaImage alpha, final GrayLambdaImage red,
+		final GrayLambdaImage green, final GrayLambdaImage blue) {
 		return invoke().newColorMap(width, height, alpha, red, green, blue);
 	}
 
-	public static ColoredλImage merge (final GrayλImage alpha, final GrayλImage red, final GrayλImage green,
-		final GrayλImage blue) {
+	public static ColoredLambdaImage merge (final GrayLambdaImage alpha, final GrayLambdaImage red, final GrayLambdaImage green,
+		final GrayLambdaImage blue) {
 		return invoke().merge(alpha, red, green, blue);
 	}
 

@@ -7,10 +7,10 @@ import com.jfixby.scarabei.api.color.CustomColor;
 import com.jfixby.scarabei.api.debug.Debug;
 import com.jfixby.scarabei.api.image.ArrayColorMap;
 import com.jfixby.scarabei.api.image.ArrayColorMapSpecs;
-import com.jfixby.scarabei.api.image.ColoredλImage;
+import com.jfixby.scarabei.api.image.ColoredLambdaImage;
 import com.jfixby.scarabei.api.image.EditableGrayMap;
 import com.jfixby.scarabei.api.image.GrayMap;
-import com.jfixby.scarabei.api.image.GrayλImage;
+import com.jfixby.scarabei.api.image.GrayLambdaImage;
 import com.jfixby.scarabei.api.image.ImageProcessing;
 
 public class RedArrayColorMap implements ArrayColorMap {
@@ -24,7 +24,7 @@ public class RedArrayColorMap implements ArrayColorMap {
 		return ImageProcessing.component().roundArgument(x);
 	}
 
-	final private ColoredλImage COLORED = new ColoredλImage() {
+	final private ColoredLambdaImage COLORED = new ColoredLambdaImage() {
 		@Override
 		public Color valueAt (float x, float y) {
 			return master.valueAt(x, y);
@@ -32,7 +32,7 @@ public class RedArrayColorMap implements ArrayColorMap {
 	};
 
 	@Override
-	public ColoredλImage getLambdaImage () {
+	public ColoredLambdaImage getLambdaImage () {
 		return COLORED;
 	}
 
@@ -53,7 +53,7 @@ public class RedArrayColorMap implements ArrayColorMap {
 		}
 
 		@Override
-		public GrayλImage getLambdaImage () {
+		public GrayLambdaImage getLambdaImage () {
 			return master.alpha;
 		}
 
@@ -159,7 +159,7 @@ public class RedArrayColorMap implements ArrayColorMap {
 		}
 
 		@Override
-		public GrayλImage getLambdaImage () {
+		public GrayLambdaImage getLambdaImage () {
 			return master.red;
 		}
 
@@ -197,7 +197,7 @@ public class RedArrayColorMap implements ArrayColorMap {
 		}
 
 		@Override
-		public GrayλImage getLambdaImage () {
+		public GrayLambdaImage getLambdaImage () {
 			return master.green;
 		}
 
@@ -235,7 +235,7 @@ public class RedArrayColorMap implements ArrayColorMap {
 		}
 
 		@Override
-		public GrayλImage getLambdaImage () {
+		public GrayLambdaImage getLambdaImage () {
 			return master.green;
 		}
 

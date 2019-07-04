@@ -12,12 +12,12 @@ import com.jfixby.scarabei.api.image.ArrayGrayMap;
 import com.jfixby.scarabei.api.image.ArrayGrayMapSpecs;
 import com.jfixby.scarabei.api.image.ColorMap;
 import com.jfixby.scarabei.api.image.ColorMapSpecs;
-import com.jfixby.scarabei.api.image.ColoredλImage;
-import com.jfixby.scarabei.api.image.ColoredλImageCache;
-import com.jfixby.scarabei.api.image.GrayIndexedλImage;
+import com.jfixby.scarabei.api.image.ColoredLambdaImage;
+import com.jfixby.scarabei.api.image.ColoredLambdaImageCache;
+import com.jfixby.scarabei.api.image.GrayIndexedLambdaImage;
 import com.jfixby.scarabei.api.image.GrayMap;
 import com.jfixby.scarabei.api.image.GrayMapSpecs;
-import com.jfixby.scarabei.api.image.GrayλImage;
+import com.jfixby.scarabei.api.image.GrayLambdaImage;
 import com.jfixby.scarabei.api.image.ImageProcessing;
 import com.jfixby.scarabei.api.image.ImageProcessingComponent;
 import com.jfixby.scarabei.api.image.IndexedColorMapSpecs;
@@ -25,13 +25,13 @@ import com.jfixby.scarabei.api.image.PixelByPixelAction;
 
 public class RedImageProcessing implements ImageProcessingComponent {
 
-	private static final GrayλImage ONE = new GrayλImage() {
+	private static final GrayLambdaImage ONE = new GrayLambdaImage() {
 		@Override
 		public float valueAt (final float x, final float y) {
 			return 1;
 		}
 	};
-	private static final GrayλImage ZERO = new GrayλImage() {
+	private static final GrayLambdaImage ZERO = new GrayLambdaImage() {
 		@Override
 		public float valueAt (final float x, final float y) {
 			return 0;
@@ -54,18 +54,18 @@ public class RedImageProcessing implements ImageProcessingComponent {
 	}
 
 	@Override
-	public ColoredλImageCache newImageCache (final int width, final int height) {
-		return new RedColoredλImageCache(width, height);
+	public ColoredLambdaImageCache newImageCache (final int width, final int height) {
+		return new RedColoredLambdaImageCache(width, height);
 	}
 
 	@Override
-	public ColorMap newColorMap (final ColoredλImage lambda, final int width, final int height) {
+	public ColorMap newColorMap (final ColoredLambdaImage lambda, final int width, final int height) {
 		return new RedColorMap(lambda, width, height);
 	}
 
 	@Override
-	public GrayλImage scale (final GrayλImage base, final float scaleX, final float scaleY) {
-		return new GrayλImage() {
+	public GrayLambdaImage scale (final GrayLambdaImage base, final float scaleX, final float scaleY) {
+		return new GrayLambdaImage() {
 			@Override
 			public float valueAt (final float x, final float y) {
 				return base.valueAt(x / scaleX, y / scaleY);
@@ -74,8 +74,8 @@ public class RedImageProcessing implements ImageProcessingComponent {
 	}
 
 	@Override
-	public GrayλImage minus (final GrayλImage base, final GrayλImage diff) {
-		return new GrayλImage() {
+	public GrayLambdaImage minus (final GrayLambdaImage base, final GrayLambdaImage diff) {
+		return new GrayLambdaImage() {
 			@Override
 			public float valueAt (final float x, final float y) {
 				return base.valueAt(x, y) - diff.valueAt(x, y);
@@ -84,8 +84,8 @@ public class RedImageProcessing implements ImageProcessingComponent {
 	}
 
 	@Override
-	public GrayλImage multiply (final GrayλImage image, final float mult) {
-		return new GrayλImage() {
+	public GrayLambdaImage multiply (final GrayLambdaImage image, final float mult) {
+		return new GrayLambdaImage() {
 			@Override
 			public float valueAt (final float x, final float y) {
 				return image.valueAt(x, y) * mult;
@@ -94,7 +94,7 @@ public class RedImageProcessing implements ImageProcessingComponent {
 	}
 
 	@Override
-	public GrayMap newGrayMap (final GrayλImage lambda, final int width, final int height) {
+	public GrayMap newGrayMap (final GrayLambdaImage lambda, final int width, final int height) {
 		return new RedGrayMap(lambda, width, height);
 	}
 
@@ -104,8 +104,8 @@ public class RedImageProcessing implements ImageProcessingComponent {
 	}
 
 	@Override
-	public GrayλImage roundArguments (final GrayλImage image) {
-		return new GrayλImage() {
+	public GrayLambdaImage roundArguments (final GrayLambdaImage image) {
+		return new GrayLambdaImage() {
 			@Override
 			public float valueAt (final float x, final float y) {
 				// return image.valueAt(FloatMath.round(x), FloatMath.round(y));
@@ -136,8 +136,8 @@ public class RedImageProcessing implements ImageProcessingComponent {
 	}
 
 	@Override
-	public GrayλImage plus (final GrayλImage base, final GrayλImage add) {
-		return new GrayλImage() {
+	public GrayLambdaImage plus (final GrayLambdaImage base, final GrayLambdaImage add) {
+		return new GrayLambdaImage() {
 			@Override
 			public float valueAt (final float x, final float y) {
 				return base.valueAt(x, y) + add.valueAt(x, y);
@@ -146,18 +146,18 @@ public class RedImageProcessing implements ImageProcessingComponent {
 	}
 
 	@Override
-	public GrayλImage ONE () {
+	public GrayLambdaImage ONE () {
 		return ONE;
 	}
 
 	@Override
-	public GrayλImage ZERO () {
+	public GrayLambdaImage ZERO () {
 		return ZERO;
 	}
 
 	@Override
-	public ColoredλImage scale (final ColoredλImage base, final float scaleX, final float scaleY) {
-		return new ColoredλImage() {
+	public ColoredLambdaImage scale (final ColoredLambdaImage base, final float scaleX, final float scaleY) {
+		return new ColoredLambdaImage() {
 			@Override
 			public Color valueAt (final float x, final float y) {
 				return base.valueAt(x / scaleX, y / scaleY);
@@ -171,8 +171,8 @@ public class RedImageProcessing implements ImageProcessingComponent {
 	}
 
 	@Override
-	public GrayIndexedλImage index (final GrayλImage base, final GraySet palette) {
-		return new GrayIndexedλImage() {
+	public GrayIndexedLambdaImage index (final GrayLambdaImage base, final GraySet palette) {
+		return new GrayIndexedLambdaImage() {
 			@Override
 			public float valueAt (final float x, final float y) {
 				return palette.findClosest(base.valueAt(x, y));
@@ -186,8 +186,8 @@ public class RedImageProcessing implements ImageProcessingComponent {
 	}
 
 	@Override
-	public ColoredλImage index (final ColoredλImage lambdaImage, final ColorProjector palette) {
-		return new ColoredλImage() {
+	public ColoredLambdaImage index (final ColoredLambdaImage lambdaImage, final ColorProjector palette) {
+		return new ColoredLambdaImage() {
 			@Override
 			public Color valueAt (final float x, final float y) {
 				return palette.findClosest(lambdaImage.valueAt(x, y));
@@ -197,14 +197,14 @@ public class RedImageProcessing implements ImageProcessingComponent {
 	}
 
 	@Override
-	public ColorMap newColorMap (final int width, final int height, final GrayλImage alpha, final GrayλImage red,
-		final GrayλImage green, final GrayλImage blue) {
-		final ColoredλImage lambda = this.merge(alpha, red, green, blue);
+	public ColorMap newColorMap (final int width, final int height, final GrayLambdaImage alpha, final GrayLambdaImage red,
+		final GrayLambdaImage green, final GrayLambdaImage blue) {
+		final ColoredLambdaImage lambda = this.merge(alpha, red, green, blue);
 
 		return new RedColorMap(lambda, width, height);
 	}
 
-	final static private GrayλImage defaultAlpha (final GrayλImage alpha) {
+	final static private GrayLambdaImage defaultAlpha (final GrayLambdaImage alpha) {
 		if (alpha == null) {
 			return ImageProcessing.ONE();
 		}
@@ -212,14 +212,14 @@ public class RedImageProcessing implements ImageProcessingComponent {
 	}
 
 	@Override
-	public ColoredλImage merge (final GrayλImage c_alpha, final GrayλImage c_red, final GrayλImage c_green,
-		final GrayλImage c_blue) {
-		final GrayλImage green = Debug.checkNull(c_green);
-		final GrayλImage red = Debug.checkNull(c_red);
-		final GrayλImage blue = Debug.checkNull(c_blue);
-		final GrayλImage alpha = defaultAlpha(c_alpha);
+	public ColoredLambdaImage merge (final GrayLambdaImage c_alpha, final GrayLambdaImage c_red, final GrayLambdaImage c_green,
+		final GrayLambdaImage c_blue) {
+		final GrayLambdaImage green = Debug.checkNull(c_green);
+		final GrayLambdaImage red = Debug.checkNull(c_red);
+		final GrayLambdaImage blue = Debug.checkNull(c_blue);
+		final GrayLambdaImage alpha = defaultAlpha(c_alpha);
 
-		final ColoredλImage lambda = new ColoredλImage() {
+		final ColoredLambdaImage lambda = new ColoredLambdaImage() {
 			@Override
 			public Color valueAt (final float x, final float y) {
 				final float a = alpha.valueAt(x, y);
@@ -239,11 +239,11 @@ public class RedImageProcessing implements ImageProcessingComponent {
 				lambda_specs.getColorMapHeight());
 		}
 
-		final GrayλImage green = Debug.checkNull(lambda_specs.getGreen());
-		final GrayλImage red = Debug.checkNull(lambda_specs.getRed());
-		final GrayλImage blue = Debug.checkNull(lambda_specs.getBlue());
-		final GrayλImage alpha = defaultAlpha(lambda_specs.getAlpha());
-		final ColoredλImage lambda = this.merge(alpha, red, green, blue);
+		final GrayLambdaImage green = Debug.checkNull(lambda_specs.getGreen());
+		final GrayLambdaImage red = Debug.checkNull(lambda_specs.getRed());
+		final GrayLambdaImage blue = Debug.checkNull(lambda_specs.getBlue());
+		final GrayLambdaImage alpha = defaultAlpha(lambda_specs.getAlpha());
+		final ColoredLambdaImage lambda = this.merge(alpha, red, green, blue);
 		return new RedColorMap(lambda, lambda_specs.getColorMapWidth(), lambda_specs.getColorMapHeight());
 	}
 

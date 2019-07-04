@@ -3,15 +3,15 @@ package com.jfixby.scarabei.red.image;
 
 import com.jfixby.scarabei.api.debug.Debug;
 import com.jfixby.scarabei.api.image.GrayMap;
-import com.jfixby.scarabei.api.image.GrayλImage;
+import com.jfixby.scarabei.api.image.GrayLambdaImage;
 
 public class RedGrayMap implements GrayMap {
 
 	private int width;
 	private int height;
-	private GrayλImage lambda;
+	private GrayLambdaImage lambda;
 
-	public RedGrayMap (GrayλImage lambda, int width, int height) {
+	public RedGrayMap (GrayLambdaImage lambda, int width, int height) {
 		this.width = width;
 		this.height = height;
 		this.lambda = Debug.checkNull("lambda image", lambda);
@@ -33,7 +33,7 @@ public class RedGrayMap implements GrayMap {
 	}
 
 	@Override
-	public GrayλImage getLambdaImage () {
+	public GrayLambdaImage getLambdaImage () {
 		return lambda;
 	}
 

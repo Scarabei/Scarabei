@@ -2,18 +2,18 @@
 package com.jfixby.scarabei.red.image;
 
 import com.jfixby.scarabei.api.image.ColorMapSpecs;
-import com.jfixby.scarabei.api.image.ColoredλImage;
-import com.jfixby.scarabei.api.image.GrayλImage;
+import com.jfixby.scarabei.api.image.ColoredLambdaImage;
+import com.jfixby.scarabei.api.image.GrayLambdaImage;
 
 public class RedColorMapSpecs implements ColorMapSpecs {
 
 	private int w;
 	private int h;
-	private ColoredλImage base;
-	private GrayλImage red;
-	private GrayλImage green;
-	private GrayλImage blue;
-	private GrayλImage alpha;
+	private ColoredLambdaImage base;
+	private GrayLambdaImage red;
+	private GrayLambdaImage green;
+	private GrayLambdaImage blue;
+	private GrayLambdaImage alpha;
 
 	@Override
 	public void setColorMapWidth (int w) {
@@ -36,12 +36,12 @@ public class RedColorMapSpecs implements ColorMapSpecs {
 	}
 
 	@Override
-	public void setLambdaColoredImage (ColoredλImage base) {
+	public void setLambdaColoredImage (ColoredLambdaImage base) {
 		this.base = base;
 	}
 
 	@Override
-	public ColoredλImage getLambdaColoredImage () {
+	public ColoredLambdaImage getLambdaColoredImage () {
 		return base;
 	}
 
@@ -52,43 +52,43 @@ public class RedColorMapSpecs implements ColorMapSpecs {
 	}
 
 	@Override
-	public void setRed (GrayλImage red) {
+	public void setRed (GrayLambdaImage red) {
 		this.red = red;
 
 	}
 
 	@Override
-	public void setGreen (GrayλImage green) {
+	public void setGreen (GrayLambdaImage green) {
 		this.green = green;
 	}
 
 	@Override
-	public void setBlue (GrayλImage blue) {
+	public void setBlue (GrayLambdaImage blue) {
 		this.blue = blue;
 	}
 
 	@Override
-	public void setAlpha (GrayλImage alpha) {
+	public void setAlpha (GrayLambdaImage alpha) {
 		this.alpha = alpha;
 	}
 
 	@Override
-	public GrayλImage getGreen () {
+	public GrayLambdaImage getGreen () {
 		return green;
 	}
 
 	@Override
-	public GrayλImage getRed () {
+	public GrayLambdaImage getRed () {
 		return red;
 	}
 
 	@Override
-	public GrayλImage getBlue () {
+	public GrayLambdaImage getBlue () {
 		return blue;
 	}
 
 	@Override
-	public GrayλImage getAlpha () {
+	public GrayLambdaImage getAlpha () {
 		return alpha;
 	}
 

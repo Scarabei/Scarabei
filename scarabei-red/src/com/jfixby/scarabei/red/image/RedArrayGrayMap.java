@@ -4,10 +4,10 @@ package com.jfixby.scarabei.red.image;
 import com.jfixby.scarabei.api.image.ArrayGrayMap;
 import com.jfixby.scarabei.api.image.ArrayGrayMapSpecs;
 import com.jfixby.scarabei.api.image.GrayMap;
-import com.jfixby.scarabei.api.image.GrayλImage;
+import com.jfixby.scarabei.api.image.GrayLambdaImage;
 import com.jfixby.scarabei.api.image.ImageProcessing;
 
-public class RedArrayGrayMap implements ArrayGrayMap, GrayλImage {
+public class RedArrayGrayMap implements ArrayGrayMap, GrayLambdaImage {
 
 	final float[][] data;
 	private int W;
@@ -41,7 +41,7 @@ public class RedArrayGrayMap implements ArrayGrayMap, GrayλImage {
 	}
 
 	@Override
-	public GrayλImage getLambdaImage () {
+	public GrayLambdaImage getLambdaImage () {
 		return this;
 	}
 

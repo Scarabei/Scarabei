@@ -2,16 +2,16 @@
 package com.jfixby.scarabei.red.image;
 
 import com.jfixby.scarabei.api.color.Color;
-import com.jfixby.scarabei.api.image.ColoredλImageCache;
+import com.jfixby.scarabei.api.image.ColoredLambdaImageCache;
 import com.jfixby.scarabei.api.log.L;
 
-public class RedColoredλImageCache implements ColoredλImageCache {
+public class RedColoredLambdaImageCache implements ColoredLambdaImageCache {
 
 	final private int width;
 	final private int height;
 	final private Color[][] array;
 
-	public RedColoredλImageCache (int width, int height) {
+	public RedColoredLambdaImageCache (int width, int height) {
 		super();
 		this.width = width;
 		this.height = height;

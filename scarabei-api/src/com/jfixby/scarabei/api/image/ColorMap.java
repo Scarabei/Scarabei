@@ -1,13 +1,13 @@
 
 package com.jfixby.scarabei.api.image;
 
-public interface ColorMap extends ColoredλImage {
+public interface ColorMap extends ColoredLambdaImage {
 
 	int getWidth ();
 
 	int getHeight ();
 
-	ColoredλImage getLambdaImage ();
+	ColoredLambdaImage getLambdaImage ();
 
 	GrayMap getAlpha ();
 

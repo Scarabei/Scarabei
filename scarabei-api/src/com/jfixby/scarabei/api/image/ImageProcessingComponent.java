@@ -14,45 +14,45 @@ public interface ImageProcessingComponent {
 
 	ColorMap newColorMap (ColorMapSpecs lambda_specs);
 
-	ColoredλImageCache newImageCache (int width, int height);
+	ColoredLambdaImageCache newImageCache (int width, int height);
 
-	ColoredλImage scale (ColoredλImage base, float scaleX, float scaleY);
+	ColoredLambdaImage scale (ColoredLambdaImage base, float scaleX, float scaleY);
 
-	GrayλImage scale (GrayλImage base, float scaleX, float scaleY);
+	GrayLambdaImage scale (GrayLambdaImage base, float scaleX, float scaleY);
 
-	GrayλImage minus (GrayλImage base, GrayλImage diff);
+	GrayLambdaImage minus (GrayLambdaImage base, GrayLambdaImage diff);
 
-	GrayλImage multiply (GrayλImage image, float mult);
+	GrayLambdaImage multiply (GrayLambdaImage image, float mult);
 
-	GrayMap newGrayMap (GrayλImage lambda, int width, int height);
+	GrayMap newGrayMap (GrayLambdaImage lambda, int width, int height);
 
 	GrayMapSpecs newGrayMapSpecs ();
 
-	GrayλImage roundArguments (GrayλImage image);
+	GrayLambdaImage roundArguments (GrayLambdaImage image);
 
 	ArrayGrayMapSpecs newArrayGrayMapSpecs ();
 
 	ArrayGrayMap newArrayGrayMap (ArrayGrayMapSpecs specs);
 
-	GrayλImage plus (GrayλImage base, GrayλImage add);
+	GrayLambdaImage plus (GrayLambdaImage base, GrayLambdaImage add);
 
 	int roundArgument (float x);
 
-	GrayλImage ONE ();
+	GrayLambdaImage ONE ();
 
-	GrayλImage ZERO ();
+	GrayLambdaImage ZERO ();
 
-	ColorMap newColorMap (ColoredλImage lambda, int width, int height);
+	ColorMap newColorMap (ColoredLambdaImage lambda, int width, int height);
 
 	IndexedColorMapSpecs newIndexedColorMapSpecs ();
 
-	GrayIndexedλImage index (GrayλImage lambdaImage, GraySet palette);
+	GrayIndexedLambdaImage index (GrayLambdaImage lambdaImage, GraySet palette);
 
-	ColoredλImage index (ColoredλImage lambdaImage, ColorProjector palette);
+	ColoredLambdaImage index (ColoredLambdaImage lambdaImage, ColorProjector palette);
 
-	ColorMap newColorMap (int width, int height, GrayλImage alpha, GrayλImage red, GrayλImage green, GrayλImage blue);
+	ColorMap newColorMap (int width, int height, GrayLambdaImage alpha, GrayLambdaImage red, GrayLambdaImage green, GrayLambdaImage blue);
 
-	ColoredλImage merge (GrayλImage alpha, GrayλImage red, GrayλImage green, GrayλImage blue);
+	ColoredLambdaImage merge (GrayLambdaImage alpha, GrayLambdaImage red, GrayLambdaImage green, GrayLambdaImage blue);
 
 	ColorMap scaleTo (ColorMap lambdaImage, int width, int height);
 

@@ -3,7 +3,7 @@ package com.jfixby.scarabei.api.image;
 
 public interface ColorMapSpecs {
 
-	void setLambdaColoredImage (ColoredλImage base);
+	void setLambdaColoredImage (ColoredLambdaImage base);
 
 	void setColorMapWidth (int w);
 
@@ -17,22 +17,22 @@ public interface ColorMapSpecs {
 
 	public int getColorMapHeight ();
 
-	ColoredλImage getLambdaColoredImage ();
+	ColoredLambdaImage getLambdaColoredImage ();
 
-	void setRed (GrayλImage alpha);
+	void setRed (GrayLambdaImage alpha);
 
-	void setGreen (GrayλImage alpha);
+	void setGreen (GrayLambdaImage alpha);
 
-	void setBlue (GrayλImage alpha);
+	void setBlue (GrayLambdaImage alpha);
 
-	void setAlpha (GrayλImage alpha);
+	void setAlpha (GrayLambdaImage alpha);
 
-	GrayλImage getGreen ();
+	GrayLambdaImage getGreen ();
 
-	GrayλImage getRed ();
+	GrayLambdaImage getRed ();
 
-	GrayλImage getBlue ();
+	GrayLambdaImage getBlue ();
 
-	GrayλImage getAlpha ();
+	GrayLambdaImage getAlpha ();
 
 }

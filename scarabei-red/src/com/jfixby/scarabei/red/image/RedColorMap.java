@@ -3,13 +3,13 @@ package com.jfixby.scarabei.red.image;
 
 import com.jfixby.scarabei.api.color.Color;
 import com.jfixby.scarabei.api.image.ColorMap;
-import com.jfixby.scarabei.api.image.ColoredλImage;
+import com.jfixby.scarabei.api.image.ColoredLambdaImage;
 import com.jfixby.scarabei.api.image.GrayMap;
-import com.jfixby.scarabei.api.image.GrayλImage;
+import com.jfixby.scarabei.api.image.GrayLambdaImage;
 
 public class RedColorMap implements ColorMap {
 	RedColorMap master = this;
-	private ColoredλImage lambda;
+	private ColoredLambdaImage lambda;
 
 	private int width;
 	private int height;
@@ -27,7 +27,7 @@ public class RedColorMap implements ColorMap {
 		}
 
 		@Override
-		public GrayλImage getLambdaImage () {
+		public GrayLambdaImage getLambdaImage () {
 			return master.alpha;
 		}
 
@@ -50,7 +50,7 @@ public class RedColorMap implements ColorMap {
 		}
 
 		@Override
-		public GrayλImage getLambdaImage () {
+		public GrayLambdaImage getLambdaImage () {
 			return master.red;
 		}
 
@@ -74,7 +74,7 @@ public class RedColorMap implements ColorMap {
 		}
 
 		@Override
-		public GrayλImage getLambdaImage () {
+		public GrayLambdaImage getLambdaImage () {
 			return master.green;
 		}
 
@@ -98,7 +98,7 @@ public class RedColorMap implements ColorMap {
 		}
 
 		@Override
-		public GrayλImage getLambdaImage () {
+		public GrayLambdaImage getLambdaImage () {
 			return master.blue;
 		}
 
@@ -109,7 +109,7 @@ public class RedColorMap implements ColorMap {
 
 	};
 
-	public RedColorMap (ColoredλImage lambda, int width, int height) {
+	public RedColorMap (ColoredLambdaImage lambda, int width, int height) {
 		this.width = width;
 		this.height = height;
 		this.lambda = lambda;
@@ -131,7 +131,7 @@ public class RedColorMap implements ColorMap {
 	}
 
 	@Override
-	public ColoredλImage getLambdaImage () {
+	public ColoredLambdaImage getLambdaImage () {
 		return lambda;
 	}
 
