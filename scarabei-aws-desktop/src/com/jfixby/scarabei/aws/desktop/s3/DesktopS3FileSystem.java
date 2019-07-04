@@ -301,7 +301,7 @@ class DesktopS3FileSystem extends AbstractFileSystem implements FileSystem, S3Fi
 
 		final String s3Key = relative.toString();
 
-		L.d("writing data", s3Key + " ...");
+		L.d("writing " + bytes.size() + " bytes ", s3Key + " ...");
 
 		// create meta-data for your folder and set content-length to 0
 		final ObjectMetadata metadata = new ObjectMetadata();
