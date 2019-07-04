@@ -48,9 +48,9 @@ public class RedStreamPipe implements StreamPipe {
 		// }
 		progress_listener.end();
 
-		input_stream.close();
+//		input_stream.close();
 		output_stream.flush();
-		output_stream.close();
+//		output_stream.close();
 
 	}
 }
