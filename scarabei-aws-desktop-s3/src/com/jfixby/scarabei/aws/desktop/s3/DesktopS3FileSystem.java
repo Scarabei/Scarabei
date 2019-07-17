@@ -44,6 +44,7 @@ class DesktopS3FileSystem extends AbstractFileSystem implements FileSystem, S3Fi
 	private final String bucketName;
 	private final AmazonS3Client s3;
 	final private String toString;
+	private final ContentTypeResolver contentTypeResolver = new ContentTypeResolver();
 
 	public DesktopS3FileSystem (final S3FileSystemConfig specs) {
 		this.bucketName = Debug.checkNull("getBucketName", specs.bucketName);
@@ -297,7 +298,7 @@ class DesktopS3FileSystem extends AbstractFileSystem implements FileSystem, S3Fi
 
 	}
 
-	void writeData (final RelativePath relative, final ByteArray bytes) {
+	void writeData (final RelativePath relative, final ByteArray bytes, final String extention) {
 
 		final String s3Key = relative.toString();
 
@@ -306,6 +307,7 @@ class DesktopS3FileSystem extends AbstractFileSystem implements FileSystem, S3Fi
 		// create meta-data for your folder and set content-length to 0
 		final ObjectMetadata metadata = new ObjectMetadata();
 		metadata.setContentLength(bytes.size());
+		metadata.setContentType(this.tryToResolveContentType(extention));
 // create empty content
 		final ByteArrayInputStream emptyContent = new ByteArrayInputStream(bytes.toArray());
 		// create a PutObjectRequest passing the folder name suffixed by /
@@ -313,6 +315,10 @@ class DesktopS3FileSystem extends AbstractFileSystem implements FileSystem, S3Fi
 		// send request to S3 to create folder
 		final PutObjectResult result = this.s3.putObject(putObjectRequest);
 
+	}
+
+	private String tryToResolveContentType (final String extention) {
+		return this.contentTypeResolver.resolve(extention);
 	}
 
 	public byte[] readData (final String s3Key) throws IOException {
@@ -346,7 +352,7 @@ class DesktopS3FileSystem extends AbstractFileSystem implements FileSystem, S3Fi
 	}
 
 	void deleteS3Object (final String s3Key) {
-		L.d("delete S3Key", s3Key);
+// L.d("delete S3Key", s3Key);
 		this.s3.deleteObject(this.bucketName, s3Key);
 	}
 
@@ -424,7 +430,7 @@ class DesktopS3FileSystem extends AbstractFileSystem implements FileSystem, S3Fi
 						L.d("     to", target);
 						final File parent = target.parent();
 						parent.makeFolder();
-						this.writeData(targetRelative, file_to_copy.readBytes());
+						this.writeData(targetRelative, file_to_copy.readBytes(), file_to_copy.getExtension());
 					} else {
 // L.d(" skip", file_to_copy);
 						L.d("                  skip", target);

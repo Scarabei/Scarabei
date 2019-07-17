@@ -4,9 +4,11 @@ package com.jfixby.scarabei.api.file;
 import java.io.IOException;
 
 import com.jfixby.scarabei.api.collections.Collection;
+import com.jfixby.scarabei.api.collections.Map;
 import com.jfixby.scarabei.api.java.ByteArray;
 import com.jfixby.scarabei.api.util.path.AbsolutePath;
 import com.jfixby.scarabei.api.util.path.MountPoint;
+import com.jfixby.scarabei.api.util.path.RelativePath;
 
 public interface FileSystem extends MountPoint {
 
@@ -55,5 +57,9 @@ public interface FileSystem extends MountPoint {
 	FolderSupportingIndexBuilderParams newFolderSupportingIndexBuilderParams ();
 
 	boolean deleteSwitchIsInSafePosition ();
+
+	Map<RelativePath, File> buildRelativePathsList (File root) throws IOException;
+
+	void syncFolders (File local, File remote, FileConflistResolver overwriteOnHashMismatch) throws IOException;
 
 }

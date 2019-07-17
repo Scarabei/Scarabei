@@ -4,6 +4,8 @@ package com.jfixby.scarabei.red.filesystem;
 import java.io.IOException;
 
 import com.jfixby.scarabei.api.collections.Collection;
+import com.jfixby.scarabei.api.collections.Collections;
+import com.jfixby.scarabei.api.collections.Map;
 import com.jfixby.scarabei.api.debug.Debug;
 import com.jfixby.scarabei.api.err.Err;
 import com.jfixby.scarabei.api.file.File;
@@ -23,6 +25,7 @@ import com.jfixby.scarabei.api.md5.MD5String;
 import com.jfixby.scarabei.api.strings.Strings;
 import com.jfixby.scarabei.api.util.Utils;
 import com.jfixby.scarabei.api.util.path.AbsolutePath;
+import com.jfixby.scarabei.api.util.path.RelativePath;
 
 public abstract class AbstractFileSystem implements FileSystem {
 
@@ -111,6 +114,43 @@ public abstract class AbstractFileSystem implements FileSystem {
 			final File file_to_copy = (children.getElementAt(i));
 			this.copyFileToFolder(file_to_copy, ouput_folder, resolver);
 		}
+	}
+
+	@Override
+	public void syncFolders (final File from, final File to, final FileConflistResolver resolver) throws IOException {
+		final FileSystem fs = from.getFileSystem();
+		final Map<RelativePath, File> fromList = fs.buildRelativePathsList(from);
+		final Map<RelativePath, File> toList = fs.buildRelativePathsList(to);
+// L.d("from", fromList);
+// L.d("to", toList);
+		fs.copyFolderContentsToFolder(from, to, resolver);
+		for (final RelativePath candidate : toList.keys()) {
+			if (!fromList.containsKey(candidate)) {
+				final File fileToDelete = toList.get(candidate);
+				if (fileToDelete.exists()) {
+					// L.d("deleting", fileToDelete);
+					fileToDelete.delete();
+				}
+			}
+		}
+	}
+
+	@Override
+	public Map<RelativePath, File> buildRelativePathsList (final File root) throws IOException {
+		final Map<RelativePath, File> remoteList = Collections.newMap();
+		final FilesList allFiles = root.listAllChildren();
+		final AbsolutePath<FileSystem> rootPrefix = root.getAbsoluteFilePath();
+		for (final File targetFile : allFiles) {
+			final AbsolutePath<FileSystem> targetFilePath = targetFile.getAbsoluteFilePath();
+			if (!targetFilePath.beginsWith(rootPrefix)) {
+				Err.reportError("Incorrect prefix: <" + targetFilePath + "> expeced: <" + rootPrefix + ">");
+			}
+			final RelativePath relative = targetFilePath.getRelativePath();
+			final RelativePath rootRelative = rootPrefix.getRelativePath();
+			final RelativePath path = relative.splitAt(rootRelative.size());
+			remoteList.put(path, targetFile);
+		}
+		return remoteList;
 	}
 
 	@Override

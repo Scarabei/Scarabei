@@ -195,7 +195,7 @@ class S3File extends AbstractRedFile implements File {
 
 	@Override
 	public void writeBytes (final ByteArray bytes) throws IOException {
-		this.fs.writeData(this.relative, bytes);
+		this.fs.writeData(this.relative, bytes, this.getExtension());
 	}
 
 	@Override
