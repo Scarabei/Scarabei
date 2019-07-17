@@ -46,11 +46,11 @@ class DesktopS3FileSystem extends AbstractFileSystem implements FileSystem, S3Fi
 	final private String toString;
 
 	public DesktopS3FileSystem (final S3FileSystemConfig specs) {
-		this.bucketName = Debug.checkNull("getBucketName()", specs.getBucketName());
+		this.bucketName = Debug.checkNull("getBucketName", specs.bucketName);
 
-		final String access_key_id = specs.getAccessKeyID();
-		final String secret_key_id = specs.getSecretKeyID();
-		final String regionName = specs.getRegionName();
+		final String access_key_id = specs.awsCredentialsProvider.getAccessKeyID();
+		final String secret_key_id = specs.awsCredentialsProvider.getSecretKeyID();
+		final String regionName = specs.awsCredentialsProvider.getRegionName();
 		if (access_key_id != null && secret_key_id != null) {
 			final BasicAWSCredentials awsCreds = new BasicAWSCredentials(access_key_id, secret_key_id);
 			this.s3 = new AmazonS3Client(awsCreds);

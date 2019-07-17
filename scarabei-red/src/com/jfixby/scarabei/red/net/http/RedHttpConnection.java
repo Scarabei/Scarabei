@@ -16,7 +16,6 @@ import com.jfixby.scarabei.api.collections.Mapping;
 import com.jfixby.scarabei.api.debug.Debug;
 import com.jfixby.scarabei.api.debug.StateSwitcher;
 import com.jfixby.scarabei.api.io.IO;
-import com.jfixby.scarabei.api.log.L;
 import com.jfixby.scarabei.api.net.http.CONNECTION_STATE;
 import com.jfixby.scarabei.api.net.http.HttpConnection;
 import com.jfixby.scarabei.api.net.http.HttpConnectionInputStream;
@@ -111,7 +110,7 @@ public class RedHttpConnection implements HttpConnection {
 	void tryToOpenConnection () throws IOException {
 
 		this.java_url = new java.net.URL(this.getRequestUrlString());
-		L.d("calling", this.java_url);
+// L.d("calling", this.java_url);
 
 		this.java_connection = (HttpURLConnection)this.java_url.openConnection();
 		if (this.sslFac != null) {
