@@ -34,4 +34,6 @@ public interface SystemSettingsComponent {
 
 	public boolean saveToStorage ();
 
+	String getRequiredStringParameter (ID name);
+
 }

@@ -66,7 +66,27 @@ public abstract class AbstractLogger implements LoggerComponent {
 	}
 
 	private void log (final MESSAGE_MARKER mode, final String frame, final Object tag, final Object object) {
+		if (object instanceof Mapping) {
+			final Mapping array = (Mapping)object;
+			final String canonocal_name = tag + " > " + "Collection[]";
+			final int n = array.size();
+			if (n == 0) {
+				this.logLine(mode, frame, canonocal_name);
+				return;
+			}
+			this.logLine(mode, frame, canonocal_name.substring(0, canonocal_name.length() - 1) + n + "]");
+			int i = 0;
+			for (final Object e : array.keys()) {
+				final int maxLen = ("" + n).length();
+				final int iLen = ("" + i).length();
+				final int indent = (tag + "").length() + 3 + (maxLen - iLen);
+				final String indent_str = this.indent(indent);
+				this.logLine(mode, frame, indent_str + "(" + i + ") " + array.getKeyAt(i) + " :-> " + array.getValueAt(i) + "");
+				i++;
+			}
+			return;
 
+		}
 		if (object instanceof Collection) {
 			final Collection<?> array = (Collection<?>)object;
 			final String canonocal_name = tag + " > " + "Collection[]";
@@ -102,27 +122,6 @@ public abstract class AbstractLogger implements LoggerComponent {
 				final int indent = (tag + "").length() + 3 + (maxLen - iLen);
 				final String indent_str = this.indent(indent);
 				this.logLine(mode, frame, indent_str + "(" + i + ") " + e + "");
-				i++;
-			}
-			return;
-
-		}
-		if (object instanceof Mapping) {
-			final Mapping array = (Mapping)object;
-			final String canonocal_name = tag + " > " + "Collection[]";
-			final int n = array.size();
-			if (n == 0) {
-				this.logLine(mode, frame, canonocal_name);
-				return;
-			}
-			this.logLine(mode, frame, canonocal_name.substring(0, canonocal_name.length() - 1) + n + "]");
-			int i = 0;
-			for (final Object e : array.keys()) {
-				final int maxLen = ("" + n).length();
-				final int iLen = ("" + i).length();
-				final int indent = (tag + "").length() + 3 + (maxLen - iLen);
-				final String indent_str = this.indent(indent);
-				this.logLine(mode, frame, indent_str + "(" + i + ") " + array.getKeyAt(i) + " :-> " + array.getValueAt(i) + "");
 				i++;
 			}
 			return;

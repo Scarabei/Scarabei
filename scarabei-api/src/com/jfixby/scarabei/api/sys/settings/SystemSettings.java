@@ -86,4 +86,8 @@ public class SystemSettings {
 		return invoke().executionModeIsAtLeast(mode);
 	}
 
+	public static String getRequiredStringParameter (final ID name) {
+		return invoke().getRequiredStringParameter(name);
+	}
+
 }

@@ -130,7 +130,7 @@ public final class RedLocalFile extends AbstractRedFile implements LocalFile {
 			L.e("Delete switch is in safe position, file ignored", f);
 			return false;
 		} else {
-			L.d("delete", f);
+// L.d("delete", f);
 		}
 		return f.delete();
 

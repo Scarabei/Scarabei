@@ -17,6 +17,8 @@ import com.jfixby.scarabei.api.file.FileSystem;
 import com.jfixby.scarabei.api.file.FilesList;
 import com.jfixby.scarabei.api.io.IO;
 import com.jfixby.scarabei.api.java.ByteArray;
+import com.jfixby.scarabei.api.json.Json;
+import com.jfixby.scarabei.api.json.JsonString;
 import com.jfixby.scarabei.api.log.L;
 import com.jfixby.scarabei.api.strings.Strings;
 import com.jfixby.scarabei.api.util.Utils;
@@ -24,6 +26,20 @@ import com.jfixby.scarabei.api.util.path.AbsolutePath;
 import com.jfixby.scarabei.api.util.path.RelativePath;
 
 public abstract class AbstractRedFile implements File {
+
+	@Override
+	public void writeJson (final Object object) throws IOException {
+		final JsonString json = Json.serializeToString(object);
+		final String data = json.toString();
+		this.writeString(data);
+	}
+
+	@Override
+	public <T> T readJson (final Class<T> type) throws IOException {
+		final String data = this.readToString();
+		final T object = Json.deserializeFromString(type, data);
+		return object;
+	}
 
 	@Override
 	public void clearFolder () throws IOException {

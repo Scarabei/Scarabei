@@ -1,7 +1,7 @@
 
 package com.jfixby.scarabei.api.collections;
 
-public interface Histogramm<T> extends Collection<T> {
+public interface Histogramm<T> extends Collection<T>, Mapping<T, Long> {
 
 	void add (T value);
 
@@ -9,20 +9,18 @@ public interface Histogramm<T> extends Collection<T> {
 
 	long getMax ();
 
-	void print (String tag);
-
 	void sortValues ();
 
 	void addIf (T value, boolean condition);
 
 	long getNumberAt (long index);
 
-	int size ();
-
-	T getValueAt (long index);
-
 	void sortNumbers ();
 
 	void cutToSize (int index_max_size);
+
+	void addAll (Iterable<T> elements);
+
+	long reset (T item);
 
 }

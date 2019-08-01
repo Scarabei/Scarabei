@@ -133,4 +133,11 @@ public class DesktopSystemSettings implements SystemSettingsComponent {
 		return false;
 	}
 
+	@Override
+	public String getRequiredStringParameter (final ID name) {
+		final String value = this.getStringParameter(name, null);
+		Debug.checkNull(name.toString(), value);
+		return value;
+	}
+
 }

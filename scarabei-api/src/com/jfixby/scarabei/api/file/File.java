@@ -97,4 +97,8 @@ public interface File {
 
 	boolean tryToClearFolder ();
 
+	void writeJson (Object object) throws IOException;
+
+	<T> T readJson (final Class<T> type) throws IOException;
+
 }

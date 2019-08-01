@@ -7,8 +7,6 @@ public interface Mapping<K, V> extends LambdaMap<K, V> {
 
 	boolean containsKey (Object key);
 
-// void print (String tag);
-
 	int size ();
 
 	K getKeyAt (long i);

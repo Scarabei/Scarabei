@@ -2,8 +2,10 @@
 package com.jfixby.scarabei.red.net.http;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLSocketFactory;
@@ -15,6 +17,7 @@ import com.jfixby.scarabei.api.collections.Map;
 import com.jfixby.scarabei.api.collections.Mapping;
 import com.jfixby.scarabei.api.debug.Debug;
 import com.jfixby.scarabei.api.debug.StateSwitcher;
+import com.jfixby.scarabei.api.err.Err;
 import com.jfixby.scarabei.api.io.IO;
 import com.jfixby.scarabei.api.net.http.CONNECTION_STATE;
 import com.jfixby.scarabei.api.net.http.HttpConnection;
@@ -200,7 +203,12 @@ public class RedHttpConnection implements HttpConnection {
 		if (this.method == METHOD.GET) {
 			final List<String> list = Collections.newList();
 			for (final String key : this.requestProperties.keys()) {
-				list.add(key + "=" + this.requestProperties.get(key));
+				try {
+					list.add(key + "=" + URLEncoder.encode(this.requestProperties.get(key), "UTF-8"));
+				} catch (final UnsupportedEncodingException e) {
+					e.printStackTrace();
+					Err.reportError(e);
+				}
 			}
 			if (list.size() > 0) {
 				urlString = urlString + Strings.wrapSequence(list, list.size(), "?", "", "&");

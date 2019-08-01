@@ -5,13 +5,13 @@ import java.util.Comparator;
 import java.util.Iterator;
 
 import com.jfixby.scarabei.api.collections.Collection;
+import com.jfixby.scarabei.api.collections.CollectionConverter;
 import com.jfixby.scarabei.api.collections.CollectionFilter;
 import com.jfixby.scarabei.api.collections.CollectionScanner;
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.Histogramm;
 import com.jfixby.scarabei.api.collections.List;
 import com.jfixby.scarabei.api.collections.Map;
-import com.jfixby.scarabei.api.err.Err;
 import com.jfixby.scarabei.api.math.IntegerMath;
 
 public class RedHistogramm<T> implements Histogramm<T> {
@@ -67,12 +67,6 @@ public class RedHistogramm<T> implements Histogramm<T> {
 	}
 
 	@Override
-	public void print (final String tag) {
-// this.storage.print(tag);
-		Err.throwNotImplementedYet();
-	}
-
-	@Override
 	public void sortValues () {
 		this.storage.sortKeys();
 	}
@@ -95,7 +89,7 @@ public class RedHistogramm<T> implements Histogramm<T> {
 	}
 
 	@Override
-	public T getValueAt (final long index) {
+	public T getKeyAt (final long index) {
 		return this.storage.getKeyAt(index);
 	}
 
@@ -150,11 +144,6 @@ public class RedHistogramm<T> implements Histogramm<T> {
 		return this.storage.size() == 0;
 	}
 
-// @Override
-// public void print (final String tag, final int from_index, final int to_index) {
-// this.storage.keys().print(tag, from_index, to_index);
-// }
-
 	@Override
 	public boolean beginsWith (final Collection<T> steps) {
 		return this.storage.keys().beginsWith(steps);
@@ -178,6 +167,68 @@ public class RedHistogramm<T> implements Histogramm<T> {
 
 	public float presence (final long value) {
 		return value * 1f / this.max;
+	}
+
+	@Override
+	public void addAll (final Iterable<T> elements) {
+		for (final T t : elements) {
+			this.add(t);
+		}
+	}
+
+	@Override
+	public boolean containsKey (final Object key) {
+		return this.storage.containsKey(key);
+	}
+
+	@Override
+	public Long getValueAt (final long i) {
+		return this.storage.getValueAt(i).value;
+	}
+
+	@Override
+	public Iterator<T> keysIterator () {
+		return this.storage.keysIterator();
+	}
+
+	@Override
+	public Collection<Long> values () {
+		final List<Long> longs = Collections.newList();
+		Collections.convertCollection(this.storage.values(), longs, new CollectionConverter<RedHistogrammValue, Long>() {
+			@Override
+			public Long convert (final RedHistogrammValue e) {
+				return e.value;
+			}
+		});
+		return longs;
+	}
+
+	@Override
+	public Collection<T> keys () {
+		return this.storage.keys();
+	}
+
+	@Override
+	public java.util.Map<T, Long> toJavaMap () {
+		final java.util.LinkedHashMap<T, Long> result = new java.util.LinkedHashMap<T, Long>();
+		for (final T k : this.keys()) {
+			result.put(k, this.get(k));
+		}
+		return result;
+	}
+
+	@Override
+	public Long get (final Object key) {
+		return this.storage.get(key).value;
+	}
+
+	@Override
+	public long reset (final T item) {
+		final RedHistogrammValue e = this.storage.remove(item);
+		if (e != null) {
+			return e.value;
+		}
+		return 0;
 	}
 
 }
