@@ -14,6 +14,8 @@ public interface FileSystem extends MountPoint {
 
 	// FileSystemMountPoint FileSystemHome();
 
+	Boolean DELETE_SWITCH_SAFE_POSITION ();
+
 	File ROOT ();
 
 	File newFile (AbsolutePath<FileSystem> file_path);
@@ -57,6 +59,8 @@ public interface FileSystem extends MountPoint {
 	FolderSupportingIndexBuilderParams newFolderSupportingIndexBuilderParams ();
 
 	boolean deleteSwitchIsInSafePosition ();
+
+	void setDeleteSwitch (boolean position);
 
 	Map<RelativePath, File> buildRelativePathsList (File root) throws IOException;
 

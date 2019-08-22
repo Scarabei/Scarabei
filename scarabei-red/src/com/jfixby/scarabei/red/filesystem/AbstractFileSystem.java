@@ -39,14 +39,23 @@ public abstract class AbstractFileSystem implements FileSystem {
 		return this.ROOT;
 	}
 
-	boolean deleteSwitchIsInSafePosition = !true;
+	static boolean DELETE_SWITCH_SAFE_POSITION = true;
+	boolean deleteSwitchIsInSafePosition = !DELETE_SWITCH_SAFE_POSITION;
 
 	@Override
 	public boolean deleteSwitchIsInSafePosition () {
-		return this.deleteSwitchIsInSafePosition;
+		return this.deleteSwitchIsInSafePosition == this.DELETE_SWITCH_SAFE_POSITION();
 	}
 
-// abstract public String md5Hex (File file) throws IOException;
+	@Override
+	public Boolean DELETE_SWITCH_SAFE_POSITION () {
+		return DELETE_SWITCH_SAFE_POSITION;
+	}
+
+	@Override
+	public void setDeleteSwitch (final boolean position) {
+		this.deleteSwitchIsInSafePosition = position;
+	}
 
 	final public MD5String md5Hex (final File file) throws IOException {
 		final InputStream input_stream = this.newFileInputStream(file);

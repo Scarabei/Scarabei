@@ -9,80 +9,86 @@ import com.jfixby.scarabei.api.util.path.AbsolutePath;
 public class LocalFileSystem {
 
 	static private ComponentInstaller<LocalFileSystemComponent> componentInstaller = new ComponentInstaller<LocalFileSystemComponent>(
-			"LocalFileSystem");
+		"LocalFileSystem");
 
-	public static void deInstallCurrentComponent() {
-		LocalFileSystem.componentInstaller.deInstallCurrentComponent();
+	public static void deInstallCurrentComponent () {
+		componentInstaller.deInstallCurrentComponent();
 	}
 
-	public static void installComponent(final String className) {
-		LocalFileSystem.componentInstaller.installComponent(className);
+	public static void installComponent (final String className) {
+		componentInstaller.installComponent(className);
 	}
 
-	public static final void installComponent(final LocalFileSystemComponent component_to_install) {
-		LocalFileSystem.componentInstaller.installComponent(component_to_install);
+	public static final void installComponent (final LocalFileSystemComponent component_to_install) {
+		componentInstaller.installComponent(component_to_install);
 	}
 
-	public static final LocalFileSystemComponent invoke() {
-		return LocalFileSystem.componentInstaller.invokeComponent();
+	public static final LocalFileSystemComponent invoke () {
+		return componentInstaller.invokeComponent();
 	}
 
-	public static final LocalFileSystemComponent component() {
-		return LocalFileSystem.componentInstaller.getComponent();
+	public static final LocalFileSystemComponent component () {
+		return componentInstaller.getComponent();
 	}
 
-	public static File newFile(final AbsolutePath<FileSystem> file_path) {
-		return LocalFileSystem.invoke().newFile(file_path);
+	public static File newFile (final AbsolutePath<FileSystem> file_path) {
+		return invoke().newFile(file_path);
 	}
 
-	public static FileInputStream newFileInputStream(final File newFile) throws IOException {
-		return LocalFileSystem.invoke().newFileInputStream(newFile);
+	public static FileInputStream newFileInputStream (final File newFile) throws IOException {
+		return invoke().newFileInputStream(newFile);
 	}
 
-	public static void copyFolderContentsToFolder(final File input_folder, final File output_folder)
-			throws IOException {
-		LocalFileSystem.invoke().copyFolderContentsToFolder(input_folder, output_folder);
+	public static void copyFolderContentsToFolder (final File input_folder, final File output_folder) throws IOException {
+		invoke().copyFolderContentsToFolder(input_folder, output_folder);
 	}
 
-	public static File ApplicationHome() {
-		return LocalFileSystem.invoke().ApplicationHome();
+	public static File ApplicationHome () {
+		return invoke().ApplicationHome();
 	}
 
-	public static LocalFile newFile(final java.io.File java_folder) {
-		return LocalFileSystem.invoke().newFile(java_folder);
+	public static LocalFile newFile (final java.io.File java_folder) {
+		return invoke().newFile(java_folder);
 	}
 
-	public static LocalFile newFile(final String java_path) {
-		return LocalFileSystem.invoke().newFile(java_path);
+	public static LocalFile newFile (final String java_path) {
+		return invoke().newFile(java_path);
 	}
 
-	public static void copyFilesTo(final FilesList children_list, final File to_folder) throws IOException {
-		LocalFileSystem.invoke().copyFilesTo(children_list, to_folder);
+	public static void copyFilesTo (final FilesList children_list, final File to_folder) throws IOException {
+		invoke().copyFilesTo(children_list, to_folder);
 	}
 
-	public static String readFileToString(final AbsolutePath<FileSystem> file_path) throws IOException {
-		return LocalFileSystem.invoke().readFileToString(file_path);
+	public static String readFileToString (final AbsolutePath<FileSystem> file_path) throws IOException {
+		return invoke().readFileToString(file_path);
 	}
 
-	public static FileOutputStream newFileOutputStream(final File file) throws IOException {
-		return LocalFileSystem.invoke().newFileOutputStream(file);
+	public static FileOutputStream newFileOutputStream (final File file) throws IOException {
+		return invoke().newFileOutputStream(file);
 	}
 
-	public static void writeStringToFile(final String string_data, final AbsolutePath<FileSystem> file_path)
-			throws IOException {
-		LocalFileSystem.invoke().writeStringToFile(string_data, file_path);
+	public static void writeStringToFile (final String string_data, final AbsolutePath<FileSystem> file_path) throws IOException {
+		invoke().writeStringToFile(string_data, file_path);
 	}
 
-	public static void copyFileToFolder(final File file, final File to_folder) throws IOException {
-		LocalFileSystem.invoke().copyFileToFolder(file, to_folder);
+	public static void copyFileToFolder (final File file, final File to_folder) throws IOException {
+		invoke().copyFileToFolder(file, to_folder);
 	}
 
-	public static File ROOT() {
-		return LocalFileSystem.invoke().ROOT();
+	public static File ROOT () {
+		return invoke().ROOT();
 	}
 
-	public static void copyFileToFile(final File inputFile, final File outputFile) throws IOException {
-		LocalFileSystem.invoke().copyFileToFile(inputFile, outputFile);
+	public static void copyFileToFile (final File inputFile, final File outputFile) throws IOException {
+		invoke().copyFileToFile(inputFile, outputFile);
+	}
+
+	public static Boolean DELETE_SWITCH_SAFE_POSITION () {
+		return invoke().DELETE_SWITCH_SAFE_POSITION();
+	}
+
+	public static void setDeleteSwitch (final Boolean position) {
+		invoke().setDeleteSwitch(position);
 	}
 
 }

@@ -12,9 +12,6 @@ public class JavaFileInputStream extends AbstractRedInputStream<JavaFileInputStr
 	public JavaFileInputStream (final File file) {
 		super(new JavaFileInputStreamOperator(file));
 		this.file = file;
-// if (this.toString().contains("GenericFont.otf")) {
-// Err.reportError();
-// }
 	}
 
 	@Override
