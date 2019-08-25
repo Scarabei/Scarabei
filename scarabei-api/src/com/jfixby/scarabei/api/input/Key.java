@@ -5,4 +5,6 @@ public interface Key {
 
 	String getName ();
 
+	boolean is (Key other);
+
 }
