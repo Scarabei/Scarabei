@@ -22,6 +22,9 @@ public class DesktopSystemSettings implements SystemSettingsComponent {
 	public DesktopSystemSettings () {
 		final java.util.Map<String, String> list = System.getenv();
 		for (final String key : list.keySet()) {
+			if (!Names.isValidString(key)) {
+				continue;
+			}
 			final ID id = Names.newID(key);
 			this.strings.put(id, list.get(key));
 		}
