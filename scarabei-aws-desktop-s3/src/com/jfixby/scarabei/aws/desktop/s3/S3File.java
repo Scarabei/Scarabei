@@ -166,6 +166,10 @@ class S3File extends AbstractRedFile implements File {
 		final S3ObjectInfo info = this.fs.listAllS3Keys(this.relative);
 		final RedFilesList result = new RedFilesList();
 
+		if (info == null) {
+			return result;
+		}
+
 		Collections.scanCollection(info.allChildren, new CollectionScanner<S3ObjectInfo>() {
 			@Override
 			public void scanElement (final S3ObjectInfo e, final long i) {
