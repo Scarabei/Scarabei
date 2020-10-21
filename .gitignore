@@ -24,3 +24,5 @@ gradle-app.setting
 .project
 
 .settings/
+
+*.class
