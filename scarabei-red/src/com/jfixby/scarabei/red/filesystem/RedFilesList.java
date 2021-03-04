@@ -8,9 +8,16 @@ import com.jfixby.scarabei.api.collections.Collection;
 import com.jfixby.scarabei.api.collections.CollectionFilter;
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.List;
+import com.jfixby.scarabei.api.collections.Map;
+import com.jfixby.scarabei.api.debug.Debug;
 import com.jfixby.scarabei.api.file.File;
 import com.jfixby.scarabei.api.file.FileFilter;
+import com.jfixby.scarabei.api.file.FileSystem;
 import com.jfixby.scarabei.api.file.FilesList;
+import com.jfixby.scarabei.api.sys.settings.ExecutionMode;
+import com.jfixby.scarabei.api.sys.settings.SystemSettings;
+import com.jfixby.scarabei.api.util.path.AbsolutePath;
+import com.jfixby.scarabei.api.util.path.RelativePath;
 
 public class RedFilesList implements FilesList {
 	final List<File> internal_list = Collections.newList();
@@ -163,6 +170,26 @@ public class RedFilesList implements FilesList {
 	@Override
 	public int indexOf (final Object element) {
 		return this.internal_list.indexOf(element);
+	}
+
+	@Override
+	public Map<RelativePath, File> toMap (final File relativeTo) {
+		final Map<RelativePath, File> m = Collections.newMap();
+		final AbsolutePath<FileSystem> aroot = relativeTo.getAbsoluteFilePath();
+		final RelativePath root = aroot.getRelativePath();
+		for (final File f : this) {
+			final AbsolutePath<FileSystem> apath = f.getAbsoluteFilePath();
+			final RelativePath path = apath.getRelativePath();
+			if (SystemSettings.executionModeIsAtLeast(ExecutionMode.TESTING)) {
+				Debug.checkTrue("relativeTo.getFileSystem() == file.getFileSystem()",
+					relativeTo.getFileSystem() == f.getFileSystem());
+				Debug.checkTrue("path.beginsWith(root);", path.beginsWith(root));
+			}
+			final RelativePath relative = path.splitAt(root.size());
+			m.put(relative, f);
+		}
+
+		return m;
 	}
 
 }

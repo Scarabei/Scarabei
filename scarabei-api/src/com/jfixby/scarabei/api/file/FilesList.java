@@ -4,6 +4,8 @@ package com.jfixby.scarabei.api.file;
 import java.io.IOException;
 
 import com.jfixby.scarabei.api.collections.Collection;
+import com.jfixby.scarabei.api.collections.Map;
+import com.jfixby.scarabei.api.util.path.RelativePath;
 
 public interface FilesList extends Collection<File> {
 
@@ -14,4 +16,6 @@ public interface FilesList extends Collection<File> {
 	FilesList filterByExtension (String extension);
 
 	void deleteAll () throws IOException;
+
+	Map<RelativePath, File> toMap (File relativeTo);
 }
