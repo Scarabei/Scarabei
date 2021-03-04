@@ -10,6 +10,7 @@ import com.jfixby.scarabei.api.collections.Map;
 import com.jfixby.scarabei.api.debug.Debug;
 import com.jfixby.scarabei.api.err.Err;
 import com.jfixby.scarabei.api.file.File;
+import com.jfixby.scarabei.api.file.FileFilter;
 import com.jfixby.scarabei.api.file.FileHash;
 import com.jfixby.scarabei.api.file.FileSystem;
 import com.jfixby.scarabei.api.file.FilesList;
@@ -41,15 +42,15 @@ class RedHttpFile extends AbstractRedFile implements File {
 	}
 
 	@Override
-	public FilesList listAllChildren () throws IOException {
+	public FilesList listAllChildren (final FileFilter ft) throws IOException {
 		final List<RedHttpFile> filesQueue = Collections.newList();
 		filesQueue.add(this);
 		final RedFilesList result = new RedFilesList();
-		final FilesList children = this.listDirectChildren();
+		final FilesList children = this.listDirectChildren(ft);
 		for (final File f : children) {
 			result.add(f);
 			if (f.isFolder()) {
-				final FilesList sub_list = f.listAllChildren();
+				final FilesList sub_list = f.listAllChildren(ft);
 				result.addAll(sub_list);
 			}
 		}
@@ -90,7 +91,7 @@ class RedHttpFile extends AbstractRedFile implements File {
 	}
 
 	@Override
-	public FilesList listDirectChildren () throws IOException {
+	public FilesList listDirectChildren (final FileFilter f) throws IOException {
 		this.checkExists();
 		this.checkIsFolder();
 
@@ -106,7 +107,9 @@ class RedHttpFile extends AbstractRedFile implements File {
 				Debug.checkTrue("invalid name: key=" + key + " child_name=" + child_name, key.equals(child_name));
 				{
 					final File childFile = RedHttpFile.this.child(child_name);
-					listFiles.add(childFile);
+					if (f.fits(childFile)) {
+						listFiles.add(childFile);
+					}
 				}
 			}
 		});

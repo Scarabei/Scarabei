@@ -7,6 +7,7 @@ import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.List;
 import com.jfixby.scarabei.api.err.Err;
 import com.jfixby.scarabei.api.file.File;
+import com.jfixby.scarabei.api.file.FileFilter;
 import com.jfixby.scarabei.api.file.FileSystem;
 import com.jfixby.scarabei.api.file.FilesList;
 import com.jfixby.scarabei.api.file.packing.FileData;
@@ -57,7 +58,7 @@ public class PackedFile extends AbstractRedFile implements File {
 	}
 
 	@Override
-	public FilesList listDirectChildren () {
+	public RedFilesList listDirectChildren (final FileFilter f) {
 		final PackedFileSystemContent content = this.virtualFileSystem.getContent();
 
 		if (!content.exists(this.relativePath)) {
@@ -72,7 +73,10 @@ public class PackedFile extends AbstractRedFile implements File {
 
 				final AbsolutePath<FileSystem> absolute_file = this.absolute_path.child(file_i);
 				;
-				listFiles.add(absolute_file.getMountPoint().newFile(absolute_file));
+				final File file = absolute_file.getMountPoint().newFile(absolute_file);
+				if (f.fits(file)) {
+					listFiles.add(file);
+				}
 			}
 			// L.d("listFiles", listFiles);
 
@@ -180,4 +184,46 @@ public class PackedFile extends AbstractRedFile implements File {
 		return content.lastModified(this.absolute_path.getRelativePath());
 	}
 
+	@Override
+	public FilesList listAllChildren (final FileFilter f) throws IOException {
+		final List<PackedFile> filesQueue = Collections.newList();
+		if (f.fits(this)) {
+			filesQueue.add(this);
+		}
+		final RedFilesList result = new RedFilesList();
+		collectChildren(filesQueue, result, ALL_CHILDREN, f);
+
+		return result;
+	}
+
+	static private void collectChildren (final List<PackedFile> filesQueue, final RedFilesList result, final boolean directFlag,
+		final FileFilter f) throws IOException {
+		while (filesQueue.size() > 0) {
+			final PackedFile nextfile = filesQueue.removeElementAt(0);
+
+			if (nextfile.isFolder()) {
+				final FilesList files = nextfile.listDirectChildren(f);
+
+				for (int i = 0; i < files.size(); i++) {
+					final PackedFile child = (PackedFile)files.getElementAt(i);
+					result.add(child);
+					if (directFlag == ALL_CHILDREN) {
+						if (child.isFolder()) {
+// if (f.fits(child)) {
+							filesQueue.add(child);
+						}
+					} else {
+
+					}
+				}
+
+			} else {
+				Err.reportError("This is not a folder: " + nextfile.getAbsoluteFilePath());
+			}
+
+		}
+	}
+
+	static final boolean DIRECT_CHILDREN = true;
+	static final boolean ALL_CHILDREN = !DIRECT_CHILDREN;
 }

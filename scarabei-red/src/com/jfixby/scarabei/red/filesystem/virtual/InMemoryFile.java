@@ -3,9 +3,11 @@ package com.jfixby.scarabei.red.filesystem.virtual;
 
 import java.io.IOException;
 
+import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.List;
 import com.jfixby.scarabei.api.err.Err;
 import com.jfixby.scarabei.api.file.File;
+import com.jfixby.scarabei.api.file.FileFilter;
 import com.jfixby.scarabei.api.file.FileSystem;
 import com.jfixby.scarabei.api.file.FilesList;
 import com.jfixby.scarabei.api.util.path.AbsolutePath;
@@ -55,7 +57,7 @@ public class InMemoryFile extends AbstractRedFile implements File {
 	}
 
 	@Override
-	public FilesList listDirectChildren () {
+	public FilesList listDirectChildren (final FileFilter f) {
 		final InMemoryFileSystemContent content = this.virtualFileSystem.getContent();
 
 		if (!content.exists(this.relativePath)) {
@@ -69,8 +71,10 @@ public class InMemoryFile extends AbstractRedFile implements File {
 				final String file_i = files.getElementAt(i);
 
 				final AbsolutePath<FileSystem> absolute_file = this.absolute_path.child(file_i);
-				;
-				listFiles.add(absolute_file.getMountPoint().newFile(absolute_file));
+				final File file = absolute_file.getMountPoint().newFile(absolute_file);
+				if (f.fits(file)) {
+					listFiles.add(file);
+				}
 			}
 			// L.d("listFiles", listFiles);
 
@@ -173,4 +177,47 @@ public class InMemoryFile extends AbstractRedFile implements File {
 		return content.lastModified(this.absolute_path.getRelativePath());
 	}
 
+	@Override
+	public FilesList listAllChildren (final FileFilter f) throws IOException {
+		final List<InMemoryFile> filesQueue = Collections.newList();
+		if (f.fits(this)) {
+			filesQueue.add(this);
+		}
+		final RedFilesList result = new RedFilesList();
+		collectChildren(filesQueue, result, ALL_CHILDREN, f);
+
+		return result;
+	}
+
+	static private void collectChildren (final List<InMemoryFile> filesQueue, final RedFilesList result, final boolean directFlag,
+		final FileFilter f) throws IOException {
+		while (filesQueue.size() > 0) {
+			final InMemoryFile nextfile = filesQueue.removeElementAt(0);
+
+			if (nextfile.isFolder()) {
+				final FilesList files = nextfile.listDirectChildren(f);
+
+				for (int i = 0; i < files.size(); i++) {
+					final File child = files.getElementAt(i);
+					result.add(child);
+					if (directFlag == ALL_CHILDREN) {
+						if (child.isFolder()) {
+// if (f.fits(child)) {
+							filesQueue.add((InMemoryFile)child);
+// }
+						}
+					} else {
+
+					}
+				}
+
+			} else {
+				Err.reportError("This is not a folder: " + nextfile.getAbsoluteFilePath());
+			}
+
+		}
+	}
+
+	static final boolean DIRECT_CHILDREN = true;
+	static final boolean ALL_CHILDREN = !DIRECT_CHILDREN;
 }

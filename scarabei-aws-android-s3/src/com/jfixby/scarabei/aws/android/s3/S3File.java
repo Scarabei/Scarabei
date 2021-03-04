@@ -8,6 +8,7 @@ import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.List;
 import com.jfixby.scarabei.api.err.Err;
 import com.jfixby.scarabei.api.file.File;
+import com.jfixby.scarabei.api.file.FileFilter;
 import com.jfixby.scarabei.api.file.FileHash;
 import com.jfixby.scarabei.api.file.FileSystem;
 import com.jfixby.scarabei.api.file.FilesList;
@@ -91,7 +92,7 @@ class S3File extends AbstractRedFile implements File {
 	}
 
 	@Override
-	public FilesList listDirectChildren () {
+	public FilesList listDirectChildren (final FileFilter f) {
 // final FileHandle file = Gdx.files.internal(this.getGdxInternalPathString());
 
 		if (!this.exists()) {
@@ -99,20 +100,27 @@ class S3File extends AbstractRedFile implements File {
 		}
 		if (this.isFolder()) {
 			final RedFilesList listFiles = new RedFilesList();
-			final List<String> subfolders = this.info().listDirectSubfolders();
-			final List<String> files = this.info().listDirectChildFiles();
+			final S3ObjectInfo info = this.info();
+			final List<String> subfolders = info.listDirectSubfolders();
+			final List<String> files = info.listDirectChildFiles();
 
 			Collections.scanCollection(subfolders, new CollectionScanner<String>() {
 				@Override
 				public void scanElement (final String folderName, final long index) {
-					listFiles.add(S3File.this.fs.newFile(S3File.this.getAbsoluteFilePath().child(folderName)));
+					final S3File file = S3File.this.fs.newFile(S3File.this.getAbsoluteFilePath().child(folderName));
+					if (f.fits(file)) {
+						listFiles.add(file);
+					}
 				}
 			});
 
 			Collections.scanCollection(files, new CollectionScanner<String>() {
 				@Override
 				public void scanElement (final String fileName, final long index) {
-					listFiles.add(S3File.this.fs.newFile(S3File.this.getAbsoluteFilePath().child(fileName)));
+					final S3File file = S3File.this.fs.newFile(S3File.this.getAbsoluteFilePath().child(fileName));
+					if (f.fits(file)) {
+						listFiles.add(file);
+					}
 				}
 			});
 
@@ -154,15 +162,22 @@ class S3File extends AbstractRedFile implements File {
 	}
 
 	@Override
-	public RedFilesList listAllChildren () {
+	public RedFilesList listAllChildren (final FileFilter f) {
 		final S3ObjectInfo info = this.fs.listAllS3Keys(this.relative);
 		final RedFilesList result = new RedFilesList();
+
+		if (info == null) {
+			return result;
+		}
 
 		Collections.scanCollection(info.allChildren, new CollectionScanner<S3ObjectInfo>() {
 			@Override
 			public void scanElement (final S3ObjectInfo e, final long i) {
 				final AbsolutePath<FileSystem> p = Utils.newAbsolutePath((FileSystem)S3File.this.fs, e.path);
-				result.add(S3File.this.fs.newFile(p));
+				final S3File file = S3File.this.fs.newFile(p);
+				if (f.fits(file)) {
+					result.add(file);
+				}
 			}
 		});
 

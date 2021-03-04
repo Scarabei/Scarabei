@@ -7,6 +7,7 @@ import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.List;
 import com.jfixby.scarabei.api.err.Err;
 import com.jfixby.scarabei.api.file.File;
+import com.jfixby.scarabei.api.file.FileFilter;
 import com.jfixby.scarabei.api.file.FileSystem;
 import com.jfixby.scarabei.api.file.LocalFile;
 import com.jfixby.scarabei.api.log.L;
@@ -152,29 +153,33 @@ public final class RedLocalFile extends AbstractRedFile implements LocalFile {
 	static final boolean ALL_CHILDREN = !DIRECT_CHILDREN;
 
 	@Override
-	final public RedFilesList listDirectChildren () {
+	final public RedFilesList listDirectChildren (final FileFilter f) {
 		final List<RedLocalFile> filesQueue = Collections.newList();
-		filesQueue.add(this);
+		if (f.fits(this)) {
+			filesQueue.add(this);
+		}
 		final RedFilesList result = new RedFilesList();
-		collectChildren(filesQueue, result, DIRECT_CHILDREN);
+		collectChildren(filesQueue, result, DIRECT_CHILDREN, f);
 
 		return result;
 
 	}
 
 	@Override
-	final public RedFilesList listAllChildren () {
+	final public RedFilesList listAllChildren (final FileFilter f) {
 		final List<RedLocalFile> filesQueue = Collections.newList();
-		filesQueue.add(this);
+		if (f.fits(this)) {
+			filesQueue.add(this);
+		}
 		final RedFilesList result = new RedFilesList();
-		collectChildren(filesQueue, result, ALL_CHILDREN);
+		collectChildren(filesQueue, result, ALL_CHILDREN, f);
 
 		return result;
 
 	}
 
 	static private <T extends RedLocalFileSystem> void collectChildren (final List<RedLocalFile> filesQueue,
-		final RedFilesList result, final boolean directFlag) {
+		final RedFilesList result, final boolean directFlag, final FileFilter f) {
 		while (filesQueue.size() > 0) {
 			final RedLocalFile nextfile = filesQueue.removeElementAt(0);
 // L.d("absPathString", absPathString);
@@ -184,9 +189,6 @@ public final class RedLocalFile extends AbstractRedFile implements LocalFile {
 			}
 
 			if (file.isDirectory()) {
-// L.d("file", file.getAbsolutePath());
-// Sys.exit();
-
 				final String[] list = file.list();
 				if (list == null) {
 					L.e("list() is null", file);
@@ -199,11 +201,14 @@ public final class RedLocalFile extends AbstractRedFile implements LocalFile {
 					final AbsolutePath<FileSystem> absolute_file = nextfile.absolute_path.child(file_i);
 					final T fs = (T)absolute_file.getMountPoint();
 					final RedLocalFile child = fs.newFile(absolute_file);
-					result.add(child);
+					if (f.fits(child)) {
+						result.add(child);
+					}
 					if (directFlag == ALL_CHILDREN) {
-
 						if (child.isFolder()) {
-							filesQueue.add(child);
+							if (f.fits(child)) {
+								filesQueue.add(child);
+							}
 						}
 					} else {
 
