@@ -4,7 +4,6 @@ package com.jfixby.scarabei.red.filesystem;
 import java.io.IOException;
 import java.io.Serializable;
 
-import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.List;
 import com.jfixby.scarabei.api.debug.Debug;
 import com.jfixby.scarabei.api.err.Err;
@@ -261,14 +260,32 @@ public abstract class AbstractRedFile implements File {
 	}
 
 	@Override
-	final public FilesList listDirectChildren (final FileFilter filter) throws IOException {
-		return this.listDirectChildren().filter(filter);// ugly hack
+	final public FilesList listDirectChildren () throws IOException {
+		return this.listDirectChildren(FileFilter.ALL);
 	}
 
 	@Override
-	final public FilesList listAllChildren (final FileFilter filter) throws IOException {
-		return this.listAllChildren().filter(filter);// ugly hack
+	final public FilesList listAllChildren () throws IOException {
+		return this.listAllChildren(FileFilter.ALL);
 	}
+
+// @Override
+// final public FilesList listDirectChildren (final FileFilter filter) throws IOException {
+// return this.listDirectChildren().filter(filter);// ugly hack
+// }
+
+// @Override
+// final public FilesList listAllChildren (FileFilter filter) throws IOException {
+// if (filter == null) {
+// filter = FileFilter.ALL;
+// }
+//
+// final List<File> filesQueue = Collections.newList();
+// filesQueue.add(this);
+// final RedFilesList result = new RedFilesList();
+// collectChildren(filesQueue, result, false, filter);
+// return result;
+// }
 
 	@Override
 	public boolean tryToClearFolder () {
@@ -281,17 +298,6 @@ public abstract class AbstractRedFile implements File {
 		}
 	}
 
-	@Override
-	public FilesList listAllChildren () throws IOException {
-		final List<File> filesQueue = Collections.newList();
-		filesQueue.add(this);
-		final RedFilesList result = new RedFilesList();
-		collectChildren(filesQueue, result, false);
-
-		return result;
-
-	}
-
 	private static final boolean DIRECT_CHILDREN = true;
 	private static final boolean ALL_CHILDREN = !DIRECT_CHILDREN;
 
@@ -301,14 +307,12 @@ public abstract class AbstractRedFile implements File {
 			final File nextfile = filesQueue.removeElementAt(0);
 
 			if (nextfile.isFolder()) {
-
 				final FilesList files = nextfile.listDirectChildren();
 
 				for (int i = 0; i < files.size(); i++) {
 					final File child = files.getElementAt(i);
 					result.add(child);
 					if (directFlag == ALL_CHILDREN) {
-
 						if (child.isFolder()) {
 							filesQueue.add(child);
 						}
